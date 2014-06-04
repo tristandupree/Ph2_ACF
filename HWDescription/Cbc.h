@@ -50,7 +50,7 @@ namespace HWDescription{
 
 		// CBC Register values, all in hex representation
 		// think of a better (more lightweight datatype for hex representation of register values: 8 bit each, range from 0 to 255)
-		// Do we have to keep this attributes? the values of these register will be already charge in the memory thanks to the std::map
+		// Lorenzo: Do we have to keep this attributes? the values of these register will be already charge in the memory thanks to the std::map
 		UInt_t fFrontEndControl;                              	
 		UInt_t fTriggerLatency;                               	
 		UInt_t fHitDetectSLVS ;                               	
