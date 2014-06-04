@@ -1,7 +1,8 @@
 Git Repository for PH2DAQ HW Interface API & HW Description API
 
 
-APIs for developers.
+Supposed to contain:
+
 - A middleware API layer, implemented in C++, which will basically wrap 
 to abstracted functions the firmware calls and handshakes currently 
 hardcoded into DAQ systems software.
