@@ -21,7 +21,7 @@ namespace HWDescription{
 		Cbc( FEDescription pFeDesc, UInt_t pCbcId, /*most important parameters*/ );
 		Cbc( FEDescription pFeDesc, UInt_t pCbcId );
 
-		// C'tors whith take ShelveID, BeId, FeID, CbcId
+		// C'tors which take ShelveID, BeId, FeID, CbcId
 		Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFeId, UInt_t pCbcId, std::strin filename );
 		Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFeId, UInt_t pCbcId, /*most important parameters*/ );
 		Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFeId, UInt_t pCbcId );
