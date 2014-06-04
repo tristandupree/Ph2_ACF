@@ -19,7 +19,7 @@ namespace HWDescription{
 
 	// Functor to compare CbcRegItems
 	// Do we need this? If we keep the name it might be interesting to use a set instead of std::map and do a find?
-	
+	//Lorenzo, i think it's more interesting to keep std::map, it has already a method find 
 	struct RegItemComparer {
 
 	    bool operator() (const CbcRegItem &ri1, const CbcRegItem &ri2) const {
