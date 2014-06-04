@@ -6,7 +6,9 @@ namespace HWDescription{
 	// Struct for CbcRegisterItem that is identified by (Name), Page, Address, DefaultValue, Value
 	struct CbcRegItem{
 
-		// Keep the Name?
+		/* Keep the Name?  Lorenzo: I'm not sure it's necessary to keep the Name here because the variable structure will be 
+		already associated with the key of the CbcRegMap wich is already the Name */
+		
 		std::string fName;
 		UInt_t fPage;
 		UInt_t fAddress;
@@ -17,6 +19,9 @@ namespace HWDescription{
 
 	// Functor to compare CbcRegItems
 	// Do we need this? If we keep the name it might be interesting to use a set instead of std::map and do a find?
+	/*Lorenzo: I don't understand this fuction because i don't see how can we know the difference between the return 
+	of ri1.fAddress < ri2.fAddress and the return of ri1.fPage < ri2.fPage. Moreower std::map has also a method find */
+	
 	struct RegItemComparer {
 
 	    bool operator() (const CbcRegItem &ri1, const CbcRegItem &ri2) const {
