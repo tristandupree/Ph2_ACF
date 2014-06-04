@@ -1,8 +1,8 @@
 #ifndef FEDescription_h__
 #define FEDescription_h__
 
-// Base Class to describe all FE Components in the DAQ chain
-// very simple for the time beeing
+// Base Class to describe all parameters common to all FE Components in the DAQ chain
+// mainly connections & staus for the moment
 // G. Auzinger <georg.auzinger@cern.ch>, 04.06.2014
 
 namespace HWDescription{
@@ -10,6 +10,8 @@ namespace HWDescription{
 	class FEDescription {
 
 	public:
+		// MEMBERS
+
 		// Crate (uTCA) that the FE is connected to
 		UInt_t fShelveId;
 		// BIO Board Id that the FE is connected to
@@ -18,6 +20,8 @@ namespace HWDescription{
 		UInt_t fFeId;
 		// status (true=active, false=disabled)
 		bool fStatus;
+
+		// METHODS
 
 		// 3 C'tors with different parameter sets
 		virtual FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFeId, bool pStatus );
