@@ -46,7 +46,9 @@ namespace Ph2_HwDescription{
 		// The number of FEs connected to the Glib
 		UInt_t     fNFe;              
 		// The mapping of FMC slot to FE! Several FE's will be able to share an FMC slot in the future, that is why it is a multimap
-		FMCMap     fFMCMap;     
+		FMCMap     fFMCMap; 
+		// <node id="nb_FE"                mask="0x0000001F" tags="select" description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
+    	UInt_t     fFMCConfiguration;
 
 		// Map of Glib Register Names vs. Register Values, to be passed to the Glib Interface Class as whole
 
