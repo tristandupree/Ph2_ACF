@@ -6,7 +6,7 @@
 
 // Cbc2 Chip HW Description Class
 
-namespace HWDescription{
+namespace Ph2_HwDescription{
 
 	class CbcRegItem;
 
@@ -33,7 +33,7 @@ namespace HWDescription{
 		~Cbc();
 
 		UInt_t getTriggerLatency( return fTriggerLatency );
-		UInt_T setTriggerLatency();
+		UInt_t setTriggerLatency();
 
 		UInt_t getVcth( return fVcth );
 		UInt_t setVcth();
