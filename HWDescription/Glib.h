@@ -44,33 +44,31 @@ namespace Ph2_HwDescription{
 	protected:
 
 		// The number of FEs connected to the Glib
-		UInt_t     fNFe;              
+		UInt_t     fNFe;  
+		// Vector of FEModules, can eventually be combined with fFMCMap?
+		std::vector< Module > fModuleVector;            
 		// The mapping of FMC slot to FE! Several FE's will be able to share an FMC slot in the future, that is why it is a multimap
 		FMCMap     fFMCMap; 
-		// <node id="nb_FE"                mask="0x0000001F" tags="select" description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
-    	UInt_t     fFMCConfiguration;
-
-		// Map of Glib Register Names vs. Register Values, to be passed to the Glib Interface Class as whole
-
-		GlibRegMap fRegMap;
 
 		// Some important register Values, not sure if needed, but simpler than accessing by a long and complex register name:
 
+		// <node id="nb_FE"                mask="0x0000001F" tags="select" description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
+    	UInt_t     fFMCConfiguration;
 		// Internal or external triggers? Enum or #define
 		UInt_t     fTrgMode;
 		UInt_T     fTrgFreq;
-
 		// stub data latency for all < FEs, Latency > 
 		std::multimap< UInt_t, UInt_t > fStubLatency;
-
 		// bool to signalise if fake CBC data is created internally or not
 		bool       fInternalData;
-
 		// Data Size in Packets during Acquisition
 		UInt_t     fNPackets; 
-
 		// negative Logic or not depends on the FMC type used
 		bool       fNegativeLogicCbc;
+
+
+		// Map of Glib Register Names vs. Register Values, to be passed to the Glib Interface Class as whole
+		GlibRegMap fRegMap;
 
 		// The FW registers that we actually use (not all of them) should be described by the GlibRegMap; However, the parameters above describe the status of the board without having to know the exact register name string
 		// Compare address table file. Much of the informagtion in there is contained in the maps
