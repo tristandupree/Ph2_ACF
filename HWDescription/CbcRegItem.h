@@ -1,7 +1,7 @@
 #ifndef _CbcRegItem_h__
 #define _CbcRegItem_h__
 
-namespace HWDescription{
+namespace Ph2_HwDescription{
 
 	// Struct for CbcRegisterItem that is identified by (Name), Page, Address, DefaultValue, Value
 	struct CbcRegItem{

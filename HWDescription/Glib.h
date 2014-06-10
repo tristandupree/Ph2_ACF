@@ -2,7 +2,6 @@
 #define _Glib_h__
 
 #include "HWDescription/GlibDefinitions.h"
-#include "HWDescription/GlibRegItem.h"
 #include "HWDescription/Module.h"
 
 #include <multimap>
@@ -10,7 +9,7 @@
 
 namespace Ph2_HwDescription{
 
-	typedef std::map< std::string, GlibRegItem > GlibRegMap;
+	typedef std::map< std::string, UInt_t > GlibRegMap;
 	typedef std::multimap< UInt_t, FEDescription > FMCMap;
 
 	// No base class for the Glib intended yet, maybe this will change
@@ -40,14 +39,15 @@ namespace Ph2_HwDescription{
 		.
 		.
 		.
-		.
+		std::map< std::string, UInt_t > getGlibRegMap ( return fRegMap );
 
 	protected:
 
 		// The number of FEs connected to the Glib
 		UInt_t     fNFe;              
 		// The mapping of FMC slot to FE! Several FE's will be able to share an FMC slot in the future, that is why it is a multimap
-		FMCMap     fFMCMap;                   
+		FMCMap     fFMCMap;     
+
 		// Map of Glib Register Names vs. Register Values, to be passed to the Glib Interface Class as whole
 
 		GlibRegMap fRegMap;
