@@ -11,7 +11,7 @@ IncludePaths		= $(IncludeDirs:%=-I%)
 
 
 all: $(Objs) $(Objs:.o=.h) $(Objs:.o=.cc)
-	$(CC) -shared -o libHWDescription.so $(Objs)
+	$(CC) -shared -fPIC -o libHWDescription.so $(Objs)
 	mv libHWDescription.so ../lib/
 	
 %.o: %.cc %.h 
