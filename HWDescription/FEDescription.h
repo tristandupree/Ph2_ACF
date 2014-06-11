@@ -13,39 +13,51 @@ namespace HWDescription{
 		// MEMBERS
 
 		// Crate (uTCA) that the FE is connected to
-		UInt_t fShelveId;
+		int fShelveId;
 		// BIO Board Id that the FE is connected to
-		UInt_t fBeId;
+		int fBeId;
 		// Id of the FMC Slot on the BIO Board, all FEs need to know so the right FW registers can be written
-		UInt_t fFMCId;
+		int fFMCId;
 		// Id of the FE (module/hybrid, etc...)
-		UInt_t fFeId;
+		int fFeId;
 		// status (true=active, false=disabled)
 		bool fStatus;
 
 		// METHODS
 
 		// 3 C'tors with different parameter sets
-		virtual FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, bool pStatus );
-		virtual FEDescription( UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId );
-		virtual FEDescription( );
+		FEDescription( int pShelveId, int pBeId, int pFMCId, int pFeId, bool pStatus=true );
+		FEDescription( int pBeId, int pFMCId, int pFeId );
+		FEDescription( );
+		
+		//Copy C'tors
+		FEDescription(FEDescription& pFeDesc);
 
 		// Default D'tor
-		virtual ~FEDescription( );
+		~FEDescription( );
 
 		// Getter methods
-		virtual UInt_t getShelveId( return fShelveId );
-		virtual UInt_t getBeId( return fBeId );
-		virtual UInt_t getFMCId( return fFMCId );
-		virtual UInt_t getFeId( return fFeId );
-		virtual bool   getStatus( return fStatus );
+		 virtual int getShelveId()
+		{return fShelveId;};
+		 
+		 virtual int getBeId()
+		{ return fBeId ;};
+
+		 virtual int getFMCId()
+		{ return fFMCId;};
+
+		 virtual int getFeId()
+		{ return fFeId ;};
+
+		 virtual bool getStatus()
+		{ return fStatus ;};
 
 		// Setter methods
-		virtual UInt_t setShelveId( UInt_t pShelveId );
-		virtual UInt_t setBeId( UInt_t pBeId );
-		virtual UInt_t setFMCId( UInt_t pFMCId );
-		virtual UInt_t setFeId( UInt_t pFeId );
-		virtual bool   setStatus (bool pStatus );
+		 virtual int setShelveId( int pShelveId );
+		 virtual int setBeId( int pBeId );
+		 virtual int setFMCId(int pFMCId);
+		 virtual int setFeId( int pFeId );
+		 virtual bool setStatus (bool pStatus );
 	};
 
 }
