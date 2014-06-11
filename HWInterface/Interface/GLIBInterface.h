@@ -35,7 +35,7 @@ namespace Ph2_HwInterface
 			bool                            fStop;
 
             struct timeval fStartVeto;
-            std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
+            std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
 
             uhal::ValVector<uint32_t> fData;
 
@@ -44,15 +44,23 @@ namespace Ph2_HwInterface
             static unsigned int fPacketSize;
 
         public:
+            //Constructor, takes a GLIB object as parameter
             GLIBInterface(const char *pConfigFile, int pCbcNb/*, GLIB& pGLIB*/);
+            //Destructor
             ~GLIBInterface();
 
+            //Configure the Glib w or w/o a GLIB object as parameter
             void ConfigureGlib(/*GLIB& pGLIB*/);
+            //Start an acq
             void Start();
+            //Stop an acq
             void Stop( uint32_t pNthAcq );
+            //(Un)pause the acq
             void Pause();
             void Unpause();
+            //Read Data from acq
             void ReadDAQ( uint32_t pNthAcq, bool pBreakTrigger );
+            //Select the SRAM for DAQ
             void SRAMforDAQ( uint32_t pNthAcq );
     };
 }

@@ -25,6 +25,7 @@ namespace Ph2_HwInterface
     UInt_t GLIBInterface::NBe = 0;
     const unsigned int GLIBController::fPacketSize = EVENT_SIZE_32;
 
+    //Constructor, make the connection to the board and get settings from GLIB
     GLIBInterface::GLIBInterface( const char *pConfigFile, int pCbcNb/*, GLIB pGLIB*/ ):
 		fUhalConfigFileName( "/opt/testing/trackerDAQ-3.2/CBCDAQ/GlibSupervisor/xml/connections.xml" ),
 		fGLIBId ("board"),
@@ -56,7 +57,6 @@ namespace Ph2_HwInterface
     void GLIBInterface::ConfigureGLIB()
     {
         //Primary Configuration
-
 		WriteReg("user_wb_ttc_fmc_regs.pc_commands.SRAM1_end_readout",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.SRAM2_end_readout",0);
         WriteReg("ctrl_sram.sram1_user_logic",1);
@@ -88,7 +88,8 @@ namespace Ph2_HwInterface
         WriteReg("user_wb_ttc_fmc_regs.cbc_acquisition.CBC_TRIGGER_ONE_SHOT",0);
         WriteReg("break_trigger",1);
 
-		boost::this_thread::sleep( cPause * 3 );
+		boost::this_thread::sleep( cPause*3 );
+
 
         //Setting internal members
         fNFe = fGlibSetting.find( "FE_expected" )->second;
@@ -97,10 +98,12 @@ namespace Ph2_HwInterface
         unsigned int cExpectedCbc = fGlibSetting.find( "CBC_expected" )->second;
 		fNCbc = cExpectedCbc == 1 ? 1 : 2;
 
+
 		//Preparing CBC register setting and update list map
 		fCbcRegSetting.Reset( fNFe, fNCbc );
 		fCbcRegUpdateList.Reset( fNFe );
     }
+
 
     void GLIBInterface::Start()
     {
@@ -109,6 +112,7 @@ namespace Ph2_HwInterface
 		std::cout << "Time took for the trigger veto to trigger enable: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
+        //Starting the DAQ
         WriteReg("break_trigger",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.PC_config_ok",1);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",1);
@@ -118,12 +122,15 @@ namespace Ph2_HwInterface
     {
         uhal::ValWord<uint32_t> cVal;
 
+        //Select SRAM
         SRAMforDAQ( pNthAcq );
 
+        //Stop the DAQ
 		WriteReg("break_trigger",1);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.PC_config_ok",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",0);
 
+        //Wait for the selected SRAM to be full then empty it
 		do
         {
 			cVal = ReadReg(fStrFull);
