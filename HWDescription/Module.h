@@ -14,7 +14,7 @@ namespace Ph2_HwDescription{
 
 		// C'tors take FEDescription or hierachy of connection and the # of CBCs
 		Module( FEDescription pFeDesc, UInt_t pNCbc );
-		Module ( UInt_t pShelveId, UInt_t pBeId, UInt_t pFeId, UInt_t pNCbc );
+		Module ( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pNCbc );
 
 		// Default C'tor
 		Module();
@@ -22,11 +22,10 @@ namespace Ph2_HwDescription{
 		// D'tor
 		~Module();
 
-		UInt_t getNCbc( return fNCbc );
+		UInt_t getNCbc( return fCbcVector.size() );
 
 	protected:
 
-		UInt_t fNCbc;
 		// CbcComparator should be the CbcComparison Functor
 		// Maybe this wants to be a set because Cbc's on a FE are uniquely identified by their connection hierachy
 		// Set offers find!! ??

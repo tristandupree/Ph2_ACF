@@ -4,21 +4,24 @@
 
 namespace HWDescription{
 
-	FEDescription::FEDescription( UInt_t pShelveId , UInt_t pBeId , UInt_t pFeId, bool pStatus ) : 
+	FEDescription::FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, bool pStatus ) : 
 	fShelveId( pShelveId ),
 	fBeId( pBeId ),
+	fFMCId( pFMCId ),
 	fFeId( pFeId ),
 	fStatus( pStatus ){};
 
-	FEDescription::FEDescription( UInt_t pBeId , UInt_t pFeId ) : 
+	FEDescription::FEDescription( UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId ) : 
 	fShelveId( 0 ),
 	fBeId( pBeId ),
+	fFMCId( pFMCId ),
 	fFeId( pFeId ),
 	fStatus( true ){};
 
 	FEDescription::FEDescription( ) : 
 	fShelveId( 0 ),
 	fBeId( 0 ),
+	fFMCId( 0 ),
 	fFeId( 0 ),
 	fStatus( true) {};
 
@@ -36,6 +39,12 @@ namespace HWDescription{
 	UInt_t FEDescription::setBeId( UInt_t pBeId ){
 		fBeId = pBeId;
 		return fBeId;
+	}
+
+	// BIO Board FMC Connector Id
+	UInt_t FEDescription::setFMCId( UInt_t pFMCId ){
+		fFMCId = pFMCId;
+		return fFMCId;
 	}
 
 	// Fe Id

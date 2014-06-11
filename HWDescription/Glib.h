@@ -4,13 +4,15 @@
 #include "HWDescription/GlibDefinitions.h"
 #include "HWDescription/Module.h"
 
+#include <map>
 #include <multimap>
 
 
 namespace Ph2_HwDescription{
 
+	// <node id="nb_FE", description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
+	enum { SINGLE_FE, FE_TRG, DUAL_FE };
 	typedef std::map< std::string, UInt_t > GlibRegMap;
-	typedef std::multimap< UInt_t, FEDescription > FMCMap;
 
 	// No base class for the Glib intended yet, maybe this will change
 	class Glib{
@@ -18,24 +20,19 @@ namespace Ph2_HwDescription{
 	public:
 
 		// C'tors: the Glib only needs to know about it's shelf and which BE it is + the # of FEs connected
-
-		// Register Values that are always the same are to be found in GlibDefinitions.h
-
+		// C'tor for a standard Glib
 		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe );
-		// Parameters should be # of Packets, Trg Mode, ...?
-		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe /*, Parameters */);
-
+		// Parameters that define system for us
+		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, UInt_t pHwConfig, bool pExtTrg, bool pFakeData = false , UInt_t pNPackets = 100 );
 		// Default C'tor
 		Glib();
 
 		// D'tor
 		~Glib();
 
-
 		// Public Methods
-		UInt_t getNFe( return fNFe );
-		// Methods, Methods & more Methods
-		// To evolve with time!
+		UInt_t getNFe( return fModuleVector.size() );
+
 		.
 		.
 		.
@@ -43,29 +40,22 @@ namespace Ph2_HwDescription{
 
 	protected:
 
-		// The number of FEs connected to the Glib
-		UInt_t     fNFe;  
-		// Vector of FEModules, can eventually be combined with fFMCMap?
+		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
 		std::vector< Module > fModuleVector;            
-		// The mapping of FMC slot to FE! Several FE's will be able to share an FMC slot in the future, that is why it is a multimap
-		FMCMap     fFMCMap; 
 
 		// Some important register Values, not sure if needed, but simpler than accessing by a long and complex register name:
 
-		// <node id="nb_FE"                mask="0x0000001F" tags="select" description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
+		// FMC configuration, see enum at the top
     	UInt_t     fFMCConfiguration;
 		// Internal or external triggers? Enum or #define
-		UInt_t     fTrgMode;
-		UInt_T     fTrgFreq;
-		// stub data latency for all < FEs, Latency > 
-		std::multimap< UInt_t, UInt_t > fStubLatency;
+		bool       fExtTrg;
+		UInt_t     fTrgFreq;
 		// bool to signalise if fake CBC data is created internally or not
-		bool       fInternalData;
+		bool       fFakeData;
 		// Data Size in Packets during Acquisition
 		UInt_t     fNPackets; 
 		// negative Logic or not depends on the FMC type used
 		bool       fNegativeLogicCbc;
-
 
 		// Map of Glib Register Names vs. Register Values, to be passed to the Glib Interface Class as whole
 		GlibRegMap fRegMap;

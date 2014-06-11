@@ -16,6 +16,8 @@ namespace HWDescription{
 		UInt_t fShelveId;
 		// BIO Board Id that the FE is connected to
 		UInt_t fBeId;
+		// Id of the FMC Slot on the BIO Board, all FEs need to know so the right FW registers can be written
+		UInt_t fFMCId;
 		// Id of the FE (module/hybrid, etc...)
 		UInt_t fFeId;
 		// status (true=active, false=disabled)
@@ -24,8 +26,8 @@ namespace HWDescription{
 		// METHODS
 
 		// 3 C'tors with different parameter sets
-		virtual FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFeId, bool pStatus );
-		virtual FEDescription( UInt_t pBeId, UInt_t pFeId );
+		virtual FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, bool pStatus );
+		virtual FEDescription( UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId );
 		virtual FEDescription( );
 
 		// Default D'tor
@@ -34,12 +36,14 @@ namespace HWDescription{
 		// Getter methods
 		virtual UInt_t getShelveId( return fShelveId );
 		virtual UInt_t getBeId( return fBeId );
+		virtual UInt_t getFMCId( return fFMCId );
 		virtual UInt_t getFeId( return fFeId );
 		virtual bool   getStatus( return fStatus );
 
 		// Setter methods
 		virtual UInt_t setShelveId( UInt_t pShelveId );
 		virtual UInt_t setBeId( UInt_t pBeId );
+		virtual UInt_t setFMCId( UInt_t pFMCId );
 		virtual UInt_t setFeId( UInt_t pFeId );
 		virtual bool   setStatus (bool pStatus );
 	};
