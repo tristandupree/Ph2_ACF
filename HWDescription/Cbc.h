@@ -40,13 +40,16 @@ namespace HWDescription{
 
 
 		int getTriggerLatency();
-		void setTriggerLatency();
+		void setTriggerLatency(int pTriggerLatency);
 
 		int getVcth();
-		void setVcth();
+		void setVcth(int psetVcth);
 
 		void dumpRegValues( std::string filename );
 		void updateRegValues( std::string filename );
+
+		bool operator()(Cbc& cbcobj)
+		{return (fRegMap["VCth"].fValue<cbcobj.fRegMap["VCth"].fValue);};
 
 	protected:
 
