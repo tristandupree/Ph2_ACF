@@ -119,7 +119,7 @@ namespace HWDescription{
 		return fRegMap["TriggerLatency"].fValue;
 	}
 
-	void Cbc::setTriggerLatency()
+	void Cbc::setTriggerLatency(int pTriggerLatency)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
@@ -127,32 +127,30 @@ namespace HWDescription{
 		{std::cout<<"This Cbc object doesn't have TriggerLatency"<<std::endl;}
 		else
 		{
-			std::cout<<"What value for TriggerLatency?"<<std::endl;
-			std::cin>>fRegMap["TriggerLatency"].fValue;
+			fRegMap["TriggerLatency"].fValue=pTriggerLatency;
 		}
 	}
 
 	int Cbc::getVcth()
 	{
 		CbcRegMap::iterator i;
-		i=fRegMap.find("Vcth");
+		i=fRegMap.find("VCth");
 		if (i==fRegMap.end())
 		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;
 		return 0;}
 		else		
-		return fRegMap["Vcth"].fValue;
+		return fRegMap["VCth"].fValue;
 	}
 
-	void Cbc::setVcth()
+	void Cbc::setVcth(int psetVcth)
 	{
 		CbcRegMap::iterator i;
-		i=fRegMap.find("Vcth");
+		i=fRegMap.find("VCth");
 		if (i==fRegMap.end())
 		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;}
 		else
 		{
-			std::cout<<"What value for Vcth?"<<std::endl;
-			std::cin>>fRegMap["Vcth"].fValue;
+			fRegMap["VCth"].fValue=psetVcth;
 
 		}
 	}
