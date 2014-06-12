@@ -69,12 +69,15 @@ namespace Ph2_HwInterface
     return cValRead;
   }
 
-  uhal::ValVector<uint32_t> ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlockSize)
+  uhal::ValVector<uint32_t> RegManager::ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlockSize)
   {
-    uint32_t read;
+    //uint32_t read;
 
     uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode(pRegNode).readBlock(pBlockSize);
     fBoard->dispatch();
+
+    /*
+    Not working as for now (iterator issue)
 
     if (DEV_FLAG)
     {
@@ -86,7 +89,7 @@ namespace Ph2_HwInterface
             std::cout << " " << read << " " << std::endl;
         }
     }
-
+    */
     return cBlockRead;
 
   }

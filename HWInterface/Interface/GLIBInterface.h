@@ -15,14 +15,13 @@
 #include <map>
 #include <vector>
 #include <uhal/uhal.hpp>
+#include "RegManager.h"
 
 namespace Ph2_HwInterface
 {
-    class GLIBInterface: public RegManager
+    class GLIBInterface : public RegManager
     {
         private:
-			std::string                     fUhalConfigFileName;
-			std::string                     fGLIBId;
 			std::string                     fOutputDir;
             //map<string,(u)int>              fGlibSettings;
 
@@ -45,12 +44,12 @@ namespace Ph2_HwInterface
 
         public:
             //Constructor, takes a GLIB object as parameter
-            GLIBInterface(const char *pConfigFile, int pCbcNb/*, GLIB& pGLIB*/);
+            GLIBInterface(const char *puHalConfigFileName, const char *pBoardId/*, GLIB& pGLIB*/);
             //Destructor
             ~GLIBInterface();
 
             //Configure the Glib w or w/o a GLIB object as parameter
-            void ConfigureGlib(/*GLIB& pGLIB*/);
+            void ConfigureGLIB(/*GLIB& pGLIB*/);
             //Start an acq
             void Start();
             //Stop an acq

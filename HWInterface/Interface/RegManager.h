@@ -20,7 +20,7 @@ namespace Ph2_HwInterface
 {
   class RegManager
   {
-    private:
+    protected:
       uhal::HwInterface *fBoard;
 
 

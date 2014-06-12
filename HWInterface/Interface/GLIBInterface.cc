@@ -22,28 +22,19 @@
 namespace Ph2_HwInterface
 {
 
-    UInt_t GLIBInterface::NBe = 0;
-    const unsigned int GLIBController::fPacketSize = EVENT_SIZE_32;
+    unsigned int GLIBInterface::NBe = 0;
+    unsigned int GLIBInterface::fPacketSize = EVENT_SIZE_32;
 
     //Constructor, make the connection to the board and get settings from GLIB
-    GLIBInterface::GLIBInterface( const char *pConfigFile, int pCbcNb/*, GLIB pGLIB*/ ):
-		fUhalConfigFileName( "/opt/testing/trackerDAQ-3.2/CBCDAQ/GlibSupervisor/xml/connections.xml" ),
-		fGLIBId ("board"),
+    GLIBInterface::GLIBInterface(const char *puHalConfigFileName, const char *pBoardId/*, GLIB pGLIB*/ ):
+        RegManager(puHalConfigFileName,pBoardId),
 		fOutputDir("./"),
 		fBeId(0),
 		fNFe(1),
-		fNCbc(pCbcNb),
+		fNCbc(2),
 		fNegativeLogicCBC(true),
 		fStop(false)
     {
-        if(DEV_FLAG)
-            uhal::setLogLevelTo( uhal::Error() );
-        else
-            uhal::disableLogging();
-
-        uhal::ConnectionManager cm( fUhalConfigFileName );
-        fBoard = new uhal::HwInterface( cm.getDevice( "B" ) );
-
         //fGlibSettings = GLIB::GetGlibSettings(pGLIB);
 
         NBe++;
@@ -56,6 +47,8 @@ namespace Ph2_HwInterface
 
     void GLIBInterface::ConfigureGLIB()
     {
+        boost::posix_time::milliseconds cPause(200);
+
         //Primary Configuration
 		WriteReg("user_wb_ttc_fmc_regs.pc_commands.SRAM1_end_readout",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.SRAM2_end_readout",0);
@@ -64,11 +57,34 @@ namespace Ph2_HwInterface
 
 		boost::this_thread::sleep(cPause);
 
+        /*
         //GlibSetting : map<string,(u)int> created from GLIB class
 		for(GlibSetting::iterator cIt = fGlibSetting.begin(); cIt != fGlibSetting.end(); cIt++ )
         {
 			WriteReg( cIt->first , (uint32_t) cIt->second );
 		}
+        */
+
+        //Temporary hardcoding
+        WriteReg("CBC_expected",3);
+        WriteReg("COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID",1);
+        WriteReg("COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET",50);
+        WriteReg("COMMISSIONNING_MODE_DELAY_AFTER_L1A",400);
+        WriteReg("COMMISSIONNING_MODE_DELAY_AFTER_TEST_PULSE",201);
+        WriteReg("COMMISSIONNING_MODE_RQ",1);
+        WriteReg("FE_expected",1);
+        WriteReg("cbc_stubdata_latency_adjust_fe1",1);
+        WriteReg("cbc_stubdata_latency_adjust_fe2",1);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands.ACQ_MODE",1);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE",1);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER",100);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands.INT_TRIGGER_FREQ",4);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL",0);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.clock_shift",0);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC",1);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS",0);
+        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu",0);
+
 
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.SPURIOUS_FRAME",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",0);
@@ -92,16 +108,12 @@ namespace Ph2_HwInterface
 
 
         //Setting internal members
-        fNFe = fGlibSetting.find( "FE_expected" )->second;
+        //fNFe = fGlibSetting.find( "FE_expected" )->second;
 		fNFe = fNFe == 1 ? 1 : 2;
 
-        unsigned int cExpectedCbc = fGlibSetting.find( "CBC_expected" )->second;
-		fNCbc = cExpectedCbc == 1 ? 1 : 2;
+        //unsigned int cExpectedCbc = fGlibSetting.find( "CBC_expected" )->second;
+		fNCbc = /*cExpectedCbc == 1 ? 1 :*/ 2;
 
-
-		//Preparing CBC register setting and update list map
-		fCbcRegSetting.Reset( fNFe, fNCbc );
-		fCbcRegUpdateList.Reset( fNFe );
     }
 
 
@@ -130,6 +142,8 @@ namespace Ph2_HwInterface
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.PC_config_ok",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",0);
 
+        boost::posix_time::milliseconds cWait(100);
+
         //Wait for the selected SRAM to be full then empty it
 		do
         {
@@ -144,23 +158,23 @@ namespace Ph2_HwInterface
         fNTotalAcq++;
     }
 
-    void Pause()
+    void GLIBInterface::Pause()
     {
-        RegWrite("break_trigger",1);
+        WriteReg("break_trigger",1);
 #ifdef __CBCDAQ_DEV__
         std::cout << "Pause engaged" << std::endl;
 #endif
     }
 
-    void Unpause()
+    void GLIBInterface::Unpause()
     {
-        RegWrite("break_trigger",0);
+        WriteReg("break_trigger",0);
 #ifdef __CBCDAQ_DEV__
         std::cout << "Pause disengaged" << std::endl;
 #endif
     }
 
-    void ReadDAQ( unsigned int pNthAcq, bool pBreakTrigger )
+    void GLIBInterface::ReadDAQ( unsigned int pNthAcq, bool pBreakTrigger )
     {
 
 #ifdef __CBCDAQ_DEV__
@@ -198,7 +212,7 @@ namespace Ph2_HwInterface
 
 		//FIFO goes to write_data state
 		//Select SRAM
-		SRAMForDAQ( pNthAcq );
+		SRAMforDAQ( pNthAcq );
 
 #ifdef __CBCDAQ_DEV__
 		gettimeofday(&start, 0);
@@ -277,11 +291,11 @@ namespace Ph2_HwInterface
 #endif
 
         //One data for one event --> Enhanced later
-		fData = push_back(cData);
+		fData = cData;
 
     }
 
-    void SRAMforDAQ( uint32_t pNthAcq )
+    void GLIBInterface::SRAMforDAQ( uint32_t pNthAcq )
     {
         fStrSram  = (boost::format("sram%d") % (pNthAcq%2+1)).str();
 		fStrSramUserLogic =  (boost::format("ctrl_sram.sram%d_user_logic") % (pNthAcq%2+1)).str();

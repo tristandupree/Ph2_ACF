@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_HwInterface: Interface::HWInterface Class Reference</title>
+<title>Ph2_HwInterface: Ph2_HwInterface::RegManager Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,37 +82,56 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>Interface</b></li><li class="navelem"><a class="el" href="class_interface_1_1_h_w_interface.html">HWInterface</a></li>  </ul>
+<li class="navelem"><b>Ph2_HwInterface</b></li><li class="navelem"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html">RegManager</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
-<div class="title">Interface::HWInterface Class Reference</div>  </div>
+<div class="title">Ph2_HwInterface::RegManager Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="dynheader">
+Inheritance diagram for Ph2_HwInterface::RegManager:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_ph2___hw_interface_1_1_reg_manager.png" usemap="#Ph2_HwInterface::RegManager_map" alt=""/>
+  <map id="Ph2_HwInterface::RegManager_map" name="Ph2_HwInterface::RegManager_map">
+<area href="class_ph2___hw_interface_1_1_g_l_i_b_interface.html" alt="Ph2_HwInterface::GLIBInterface" shape="rect" coords="0,56,192,80"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a62c2107fa9f530148b5cfc6344819f05"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62c2107fa9f530148b5cfc6344819f05"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>HWInterface</b> (const char *puHalConfigFileName, const char *pBoardId)</td></tr>
-<tr class="separator:a62c2107fa9f530148b5cfc6344819f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16f82bd40bb7d6616eedf524b1f76631"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16f82bd40bb7d6616eedf524b1f76631"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>WriteReg</b> (const std::string &amp;pRegNode, const uint32_t &amp;pVal)</td></tr>
-<tr class="separator:a16f82bd40bb7d6616eedf524b1f76631"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5083f39fada564d34bbc53a2c7a5032c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5083f39fada564d34bbc53a2c7a5032c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ReadReg</b> (const std::string &amp;pRegNode)</td></tr>
-<tr class="separator:a5083f39fada564d34bbc53a2c7a5032c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2af587b23e2ab0e8be35feac45a61d34"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2af587b23e2ab0e8be35feac45a61d34"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>RegManager</b> (const char *puHalConfigFileName, const char *pBoardId)</td></tr>
+<tr class="separator:a2af587b23e2ab0e8be35feac45a61d34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31174516fef6706c88c3f59dd93e4fdf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31174516fef6706c88c3f59dd93e4fdf"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>WriteReg</b> (const std::string &amp;pRegNode, const uint32_t &amp;pVal)</td></tr>
+<tr class="separator:a31174516fef6706c88c3f59dd93e4fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a077e0a18592206365150680213345112"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a077e0a18592206365150680213345112"></a>
+virtual uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ReadReg</b> (const std::string &amp;pRegNode)</td></tr>
+<tr class="separator:a077e0a18592206365150680213345112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6481c211d27badc409ff0e7af20575e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6481c211d27badc409ff0e7af20575e4"></a>
+virtual uhal::ValVector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ReadBlockReg</b> (const std::string &amp;pRegNode, const uint32_t &amp;pBlocksize)</td></tr>
+<tr class="separator:a6481c211d27badc409ff0e7af20575e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a0d4908ec834a3a0b7d8139872fd0a4a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d4908ec834a3a0b7d8139872fd0a4a0"></a>
+uhal::HwInterface *&#160;</td><td class="memItemRight" valign="bottom"><b>fBoard</b></td></tr>
+<tr class="separator:a0d4908ec834a3a0b7d8139872fd0a4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_h_w_interface_8h_source.html">HWInterface.h</a></li>
-<li>HWInterface.cc</li>
+<li><a class="el" href="_reg_manager_8h_source.html">RegManager.h</a></li>
+<li>RegManager.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 12 2014 16:22:54 for Ph2_HwInterface by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 12 2014 16:24:15 for Ph2_HwInterface by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
