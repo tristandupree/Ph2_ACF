@@ -1,11 +1,13 @@
 #ifndef FEDescription_h__
 #define FEDescription_h__
 
+#include "RTypes.h"
+ 
 // Base Class to describe all parameters common to all FE Components in the DAQ chain
 // mainly connections & staus for the moment
 // G. Auzinger <georg.auzinger@cern.ch>, 04.06.2014
 
-namespace HWDescription{
+namespace Ph2_HwDescription{
 
 	class FEDescription {
 
@@ -13,21 +15,21 @@ namespace HWDescription{
 		// MEMBERS
 
 		// Crate (uTCA) that the FE is connected to
-		int fShelveId;
+		UInt_t fShelveId;
 		// BIO Board Id that the FE is connected to
-		int fBeId;
+		UInt_t fBeId;
 		// Id of the FMC Slot on the BIO Board, all FEs need to know so the right FW registers can be written
-		int fFMCId;
+		UInt_t fFMCId;
 		// Id of the FE (module/hybrid, etc...)
-		int fFeId;
+		UInt_t fFeId;
 		// status (true=active, false=disabled)
 		bool fStatus;
 
 		// METHODS
 
 		// 3 C'tors with different parameter sets
-		FEDescription( int pShelveId, int pBeId, int pFMCId, int pFeId, bool pStatus=true );
-		FEDescription( int pBeId, int pFMCId, int pFeId );
+		FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, bool pStatus=true );
+		FEDescription( UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId );
 		FEDescription( );
 		
 		//Copy C'tors
@@ -37,26 +39,26 @@ namespace HWDescription{
 		~FEDescription( );
 
 		// Getter methods
-		 virtual int getShelveId()
+		 virtual UInt_t getShelveId()
 		{return fShelveId;};
 		 
-		 virtual int getBeId()
+		 virtual UInt_t getBeId()
 		{ return fBeId ;};
 
-		 virtual int getFMCId()
+		 virtual UInt_t getFMCId()
 		{ return fFMCId;};
 
-		 virtual int getFeId()
+		 virtual UInt_t getFeId()
 		{ return fFeId ;};
 
 		 virtual bool getStatus()
 		{ return fStatus ;};
 
 		// Setter methods
-		 virtual int setShelveId( int pShelveId );
-		 virtual int setBeId( int pBeId );
-		 virtual int setFMCId(int pFMCId);
-		 virtual int setFeId( int pFeId );
+		 virtual UInt_t setShelveId( UInt_t pShelveId );
+		 virtual UInt_t setBeId( UInt_t pBeId );
+		 virtual UInt_t setFMCId(UInt_t pFMCId);
+		 virtual UInt_t setFeId( UInt_t pFeId );
 		 virtual bool setStatus (bool pStatus );
 	};
 

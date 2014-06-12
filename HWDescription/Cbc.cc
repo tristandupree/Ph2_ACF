@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-namespace HWDescription{
+namespace Ph2_HwDescription{
 
 
 	// Default C'tor
@@ -20,7 +20,7 @@ namespace HWDescription{
 
 	// C'tors with object FE Description 
 
-	Cbc::Cbc( FEDescription& pFeDesc, int pCbcId, std::string filename ):FEDescription(pFeDesc)
+	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId, std::string filename ):FEDescription(pFeDesc)
 	{
 
 		fCbcId=pCbcId;
@@ -28,7 +28,7 @@ namespace HWDescription{
 	}
 
 
-	Cbc::Cbc( FEDescription& pFeDesc, int pCbcId,int pTriggerLatency,int pVcth ):FEDescription(pFeDesc)
+	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId,UInt_t pTriggerLatency,UInt_t pVcth ):FEDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
 
@@ -40,7 +40,7 @@ namespace HWDescription{
 	}	
 
 
-	Cbc::Cbc( FEDescription& pFeDesc, int pCbcId ):FEDescription(pFeDesc)
+	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId ):FEDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
 		loadfRegMap("default_file.txt");
@@ -49,7 +49,7 @@ namespace HWDescription{
 	
 	// C'tors which take ShelveID, BeId, FMCId, FeID, CbcId
 
-	Cbc::Cbc( int pShelveId, int pBeId, int pFMCId, int pFeId, int pCbcId, std::string filename ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)  
+	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, std::string filename ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)  
 	{
 	
 		fCbcId=pCbcId;
@@ -59,7 +59,7 @@ namespace HWDescription{
 	}
 		
 
-	Cbc::Cbc( int pShelveId, int pBeId, int pFMCId, int pFeId, int pCbcId, int pTriggerLatency,int pVcth ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, UInt_t pTriggerLatency,UInt_t pVcth ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;	
 	
@@ -70,7 +70,7 @@ namespace HWDescription{
 	}
 
 
-	Cbc::Cbc( int pShelveId, int pBeId, int pFMCId, int pFeId, int pCbcId ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;
 		loadfRegMap("default_file.txt");
@@ -108,7 +108,7 @@ namespace HWDescription{
 			std::cerr<< "File error" <<std::endl;
 	}
 
-	int Cbc::getTriggerLatency()
+	UInt_t Cbc::getTriggerLatency()
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
@@ -119,7 +119,7 @@ namespace HWDescription{
 		return fRegMap["TriggerLatency"].fValue;
 	}
 
-	void Cbc::setTriggerLatency(int pTriggerLatency)
+	void Cbc::setTriggerLatency(UInt_t pTriggerLatency)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
@@ -131,7 +131,7 @@ namespace HWDescription{
 		}
 	}
 
-	int Cbc::getVcth()
+	UInt_t Cbc::getVcth()
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("VCth");
@@ -142,7 +142,7 @@ namespace HWDescription{
 		return fRegMap["VCth"].fValue;
 	}
 
-	void Cbc::setVcth(int psetVcth)
+	void Cbc::setVcth(UInt_t psetVcth)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("VCth");

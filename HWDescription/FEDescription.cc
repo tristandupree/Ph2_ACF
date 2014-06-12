@@ -4,14 +4,14 @@
 
 namespace HWDescription{
 
-	FEDescription::FEDescription( int pShelveId, int pBeId, int pFMCId, int pFeId, bool pStatus ) : 
+	FEDescription::FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, bool pStatus ) : 
 	fShelveId( pShelveId ),
 	fBeId( pBeId ),
 	fFMCId( pFMCId ),
 	fFeId( pFeId ),
 	fStatus( pStatus ){};
 
-	FEDescription::FEDescription( int pBeId, int pFMCId, int pFeId ) : 
+	FEDescription::FEDescription( UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId ) : 
 	fShelveId( 0 ),
 	fBeId( pBeId ),
 	fFMCId( pFMCId ),
@@ -39,25 +39,25 @@ namespace HWDescription{
 	// SetterMethods
 
 	// Shelve Id
-	int FEDescription::setShelveId( int pShelveId ){
+	UInt_t FEDescription::setShelveId( UInt_t pShelveId ){
 		fShelveId = pShelveId;
 		return fShelveId;
 	}
 
 	// BIO Board Id
-	int FEDescription::setBeId( int pBeId ){
+	UInt_t FEDescription::setBeId( UInt_t pBeId ){
 		fBeId = pBeId;
 		return fBeId;
 	}
 
 	// BIO Board FMC Connector Id
-	int FEDescription::setFMCId( int pFMCId ){
+	UInt_t FEDescription::setFMCId( UInt_t pFMCId ){
 		fFMCId = pFMCId;
 		return fFMCId;
 	}
 
 	// Fe Id
-	int FEDescription::setFeId( int pFeId ){
+	UInt_t FEDescription::setFeId( UInt_t pFeId ){
 		fFeId = pFeId;
 		return fFeId;
 	}

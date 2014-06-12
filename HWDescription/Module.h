@@ -20,16 +20,14 @@ namespace Ph2_HwDescription{
 		Module();
 
 		// D'tor
-		~Module();
+		~Module(){};
 
+		void   addCbc( Cbc pCbc );
 		UInt_t getNCbc( return fCbcVector.size() );
 
 	protected:
 
-		// CbcComparator should be the CbcComparison Functor
-		// Maybe this wants to be a set because Cbc's on a FE are uniquely identified by their connection hierachy
-		// Set offers find!! ??
-		std::vector < Cbc, CbcComparator > fCbcVector;
+		std::vector < Cbc, CbcComparer > fCbcVector;
 
 		// This is really all this class needs at the moment, connection and status are already included in the FEDescription parent class!
 
