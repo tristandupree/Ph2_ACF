@@ -48,6 +48,7 @@ namespace HWDescription{
 		void dumpRegValues( std::string filename );
 		void updateRegValues( std::string filename );
 
+		//functor
 		bool operator()(Cbc& cbcobj)
 		{return (fRegMap["VCth"].fValue<cbcobj.fRegMap["VCth"].fValue);};
 
