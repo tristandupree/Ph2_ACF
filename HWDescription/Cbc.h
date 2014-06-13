@@ -7,8 +7,6 @@
 #include <map>
 #include <string>
 
-#include "RTypes.h"
-
 // Cbc2 Chip HW Description Class
 
 namespace Ph2_HwDescription{
@@ -47,18 +45,19 @@ namespace Ph2_HwDescription{
 		UInt_t getVcth();
 		void setVcth(UInt_t psetVcth);
 
-		void dumpRegValues( std::string filename );
-		void updateRegValues( std::string filename );
+		UInt_t getReg(std::string pReg);
+		void setReg(std::string pReg, UInt_t psetValue);
 
-		//functor
-		bool operator()(Cbc& cbcobj)
-		{return (fRegMap["VCth"].fValue<cbcobj.fRegMap["VCth"].fValue);};
+		//Write RegValues in a file
+		void writeRegValues( std::string filename );
+
+		UInt_t fCbcId;
 
 	protected:
 
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
 		CbcRegMap fRegMap;
-		UInt_t fCbcId;
+		
 
 	private:
 
@@ -94,7 +93,14 @@ namespace Ph2_HwDescription{
 		UInt_t fChannelOffset[254];  */  
 
 	};
-}
 
+
+	struct CbcComparer{
+
+		bool operator() (const Cbc& cbc1,const Cbc& cbc2);
+			
+		};
+
+}
 
 #endif
