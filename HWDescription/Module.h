@@ -22,8 +22,10 @@ namespace Ph2_HwDescription{
 		// D'tor
 		~Module(){};
 
-		void   addCbc( Cbc pCbc );
 		UInt_t getNCbc( return fCbcVector.size() );
+		UInt_t addCbc( Cbc& pCbc );
+		bool   removeCbc( Uint_t pCbcId );
+		Cbc&   getCbc( UInt_t pCbcId );
 
 	protected:
 

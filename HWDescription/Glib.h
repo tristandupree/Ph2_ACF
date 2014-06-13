@@ -38,8 +38,8 @@ namespace Ph2_HwDescription{
 		UInt_t getReg( std::string pReg );
 		void   setReg( std::string pReg, UInt_t psetValue );
 		
-		void addModule( Module& pModule );
-		void removeModule( UInt_t pModuleId );
+		UInt_t addModule( Module& pModule );
+		bool removeModule( UInt_t pModuleId );
 		Module& getModule( UInt_t pModuleId );
 
 		std::map< std::string, UInt_t > getGlibRegMap ( return fRegMap );
