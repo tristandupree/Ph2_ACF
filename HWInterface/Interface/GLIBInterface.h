@@ -3,7 +3,7 @@
   FileName : 					GLIBInterface.h
   Content : 					 GLIBInterface class, init/config of the Glib
   Programmer : 				  Nicolas PIERRE
-  Version : 					 0.0
+  Version : 					 1.1
   Date of creation : 	        07/06/14
   Support : 					 mail to : nicolas.pierre@etu.unistra.net
 
