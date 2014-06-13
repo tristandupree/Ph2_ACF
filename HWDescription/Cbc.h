@@ -11,7 +11,7 @@
 
 namespace Ph2_HwDescription{
 
-	//class CbcRegItem;
+	std::string default_file = "default_file.txt";
 
 	typedef std::map < std::string, CbcRegItem > CbcRegMap; 
 
@@ -51,46 +51,17 @@ namespace Ph2_HwDescription{
 		//Write RegValues in a file
 		void writeRegValues( std::string filename );
 
-		UInt_t fCbcId;
-
+		UInt_t getCbcId( return fCbcId );
+		
 	protected:
+
+		UInt_t fCbcId;
 
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
 		CbcRegMap fRegMap;
 		
 
 	private:
-
-		// CBC Register values, all in hex representation
-		// think of a better (more lightweight datatype for hex representation of register values: 8 bit each, range from 0 to 255)
-		// Lorenzo: Do we have to keep this attributes? the values of these register will be already charge in the memory thanks to the std::map
-		/*UInt_t fFrontEndControl;                              	
-		UInt_t fTriggerLatency;                               	
-		UInt_t fHitDetectSLVS ;                               	
-		UInt_t fIpre1;                                       	
-		UInt_t fIpre2;                                        	
-		UInt_t fIpsf;                                         	
-		UInt_t fIpa;                                          	
-		UInt_t fIpaos;                                        	
-		UInt_t fVpafb;                                        	
-		UInt_t fIcomp;                                        	
-		UInt_t fVpc;                                          	
-		UInt_t fVplus;                                        	
-		UInt_t fVCth;                                         	
-		UInt_t fTestPulsePot;   
-		// Reg Name is SelTestPulseDel&ChanGroup                   	
-		UInt_t fSelTestPulseDelChanGroup;                    	
-		// Reg Name is MiscTestPulseCtrl&AnalogMux 
-		UInt_t fMiscTestPulseCtrlAnalogMux;                  	
-		UInt_t fTestPulseChargePumpCurrent;                   	
-		UInt_t fTestPulseChargeMirrCascodeVolt;               	
-		// Reg Name is CwdWindow&Coincid
-		UInt_t fCwdWindowCoincid;                            	
-		UInt_t fMiscStubLogic;
-		// Mask channels in Groups of 8
-		bool   fMaskChanGroup[33];
-		// Channel Offsets
-		UInt_t fChannelOffset[254];  */  
 
 	};
 

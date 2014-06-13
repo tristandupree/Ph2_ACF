@@ -10,8 +10,10 @@
 
 namespace Ph2_HwDescription{
 
+	std::string default_glib_file = "../settings/glib_settings.cfg"
+
 	// <node id="nb_FE", description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
-	enum { SINGLE_FE, FE_TRG, DUAL_FE };
+	enum nb_FE { SINGLE_FE, FE_TRG, DUAL_FE };
 	typedef std::map< std::string, UInt_t > GlibRegMap;
 
 	// No base class for the Glib intended yet, maybe this will change
@@ -21,24 +23,31 @@ namespace Ph2_HwDescription{
 
 		// C'tors: the Glib only needs to know about it's shelf and which BE it is + the # of FEs connected
 		// C'tor for a standard Glib
-		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe );
+		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, std::string filename = default_glib_file );
 		// Parameters that define system for us
-		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, UInt_t pHwConfig, bool pExtTrg, bool pFakeData = false , UInt_t pNPackets = 100 );
+		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, UInt_t pHwConfig, bool pExtTrg, bool pFakeData = false , UInt_t pNPackets = 100,  std::string filename = default_glib_file );
 		// Default C'tor
 		Glib();
 
 		// D'tor
-		~Glib();
+		~Glib(){};
 
 		// Public Methods
 		UInt_t getNFe( return fModuleVector.size() );
 
-		.
-		.
-		.
+		UInt_t getReg( std::string pReg );
+		void   setReg( std::string pReg, UInt_t psetValue );
+		
+		void addModule( Module& pModule );
+		void removeModule( UInt_t pModuleId );
+		Module& getModule( UInt_t pModuleId );
+
 		std::map< std::string, UInt_t > getGlibRegMap ( return fRegMap );
 
 	protected:
+		// Connection Members
+		UInt_t fShelveId;
+		UInt_t fBeId;
 
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
 		std::vector< Module > fModuleVector;            
@@ -57,11 +66,13 @@ namespace Ph2_HwDescription{
 		// negative Logic or not depends on the FMC type used
 		bool       fNegativeLogicCbc;
 
-		// Map of Glib Register Names vs. Register Values, to be passed to the Glib Interface Class as whole
+		// Map of Glib Register Names vs. Register Values
 		GlibRegMap fRegMap;
 
-		// The FW registers that we actually use (not all of them) should be described by the GlibRegMap; However, the parameters above describe the status of the board without having to know the exact register name string
-		// Compare address table file. Much of the informagtion in there is contained in the maps
+	private:
+
+		void loadConfigFile( std::string filename );
+
 	};
 }
 

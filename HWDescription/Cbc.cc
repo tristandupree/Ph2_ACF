@@ -7,10 +7,8 @@
 #include <string.h>
 #include <iomanip>
 
-#define default_file "default_file.txt"
 
 namespace Ph2_HwDescription{
-
 
 	// Default C'tor
 	Cbc::Cbc():FEDescription()
@@ -118,7 +116,7 @@ namespace Ph2_HwDescription{
 			file.close();
 		}
 		else
-			std::cerr<< "File error" <<std::endl;
+			std::cerr<< "The CBC Settins File " << filename << " could not be opened!" <<std::endl;
 	}
 
 	UInt_t Cbc::getTriggerLatency()
@@ -172,23 +170,23 @@ namespace Ph2_HwDescription{
 	UInt_t Cbc::getReg(std::string pReg)
 	{
 		CbcRegMap::iterator i;
-		i=fRegMap.find(pReg.c_str());
+		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
 		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
 		else
-		return fRegMap[pReg.c_str()].fValue;
+		return fRegMap[pReg].fValue;
 	}
 		
 
 	void Cbc::setReg(std::string pReg, UInt_t psetValue)
 	{
 		CbcRegMap::iterator i;
-		i=fRegMap.find(pReg.c_str());
+		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
 		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
 		else
 		{
-			fRegMap[pReg.c_str()].fValue=psetValue;
+			fRegMap[pReg].fValue=psetValue;
 
 		}
 	}
