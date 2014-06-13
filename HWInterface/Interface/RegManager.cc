@@ -53,13 +53,35 @@ namespace Ph2_HwInterface
     return false;
   }
 
-  bool RegManager::WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues);
+  bool RegManager::WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues)
   {
-      fBoard->getNode(pRegNode).writeBlock(pValues);
-      fBoard->dispatch();
+    fBoard->getNode(pRegNode).writeBlock(pValues);
+    fBoard->dispatch();
 
-      //Putting a verifying block here when the iterator will work
+    bool cWriteCorr = true;
 
+      //Verifying block
+      if (DEV_FLAG)
+      {
+          int cErrCount = 0;
+
+          uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode(pRegNode).readBlock(pValues.size());
+          fBoard->dispatch();
+
+          //Use size_t and not an iterator as op[] only works with size_t type
+          for(std::size_t i = 0; i != cBlockRead.size(); i++ )
+          {
+              if(cBlockRead[i]!=pValues[i])
+              {
+                  cWriteCorr = false;
+                  cErrCount++;
+              }
+          }
+
+          std::cout << "ERROR !!\n" << cErrCount << " values failed to write !" << std::endl;
+      }
+
+    return cWriteCorr;
   }
 
 
@@ -80,26 +102,24 @@ namespace Ph2_HwInterface
 
   uhal::ValVector<uint32_t> RegManager::ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlockSize)
   {
-    //uint32_t read;
+    uint32_t read;
 
     uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode(pRegNode).readBlock(pBlockSize);
     fBoard->dispatch();
 
-    /*
-    Not working as for now (iterator issue)
 
     if (DEV_FLAG)
     {
         std::cout << "\nValues in register block " << pRegNode << " : " << std::endl;
 
-        for(uhal::ValVector<uint32_t>::iterator cIt = cBlockRead.begin(); cIt != cBlockRead.end(); cIt++ )
+        //Use size_t and not an iterator as op[] only works with size_t type
+        for(std::size_t i = 0; i != cBlockRead.size(); i++ )
         {
-            read = (uint32_t) cBlockRead[cIt];
+            read = (uint32_t) cBlockRead[i];
             std::cout << " " << read << " " << std::endl;
         }
     }
-    */
-    return cBlockRead;
 
+    return cBlockRead;
   }
 }
