@@ -3,7 +3,11 @@
 #include <cstdio>
 #include <sstream>
 #include <iostream>
+#include <cstdlib>
+#include <string.h>
+#include <iomanip>
 
+#define default_file "default_file.txt"
 
 namespace Ph2_HwDescription{
 
@@ -12,7 +16,7 @@ namespace Ph2_HwDescription{
 	Cbc::Cbc():FEDescription()
 	{	
 		fCbcId=0;
-		loadfRegMap("default_file.txt");
+		loadfRegMap(default_file);
 		
 	 }
 	
@@ -32,7 +36,7 @@ namespace Ph2_HwDescription{
 	{
 		fCbcId=pCbcId;
 
-		loadfRegMap("default_file.txt");
+		loadfRegMap(default_file);
 
 		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
 		fRegMap["Vcth"].fValue=pVcth;
@@ -43,7 +47,7 @@ namespace Ph2_HwDescription{
 	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId ):FEDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
-		loadfRegMap("default_file.txt");
+		loadfRegMap(default_file);
 	}
 
 	
@@ -53,8 +57,6 @@ namespace Ph2_HwDescription{
 	{
 	
 		fCbcId=pCbcId;
-		
-		std::ifstream file(filename.c_str(),std::ios::in);
 		loadfRegMap(filename);
 	}
 		
@@ -63,7 +65,7 @@ namespace Ph2_HwDescription{
 	{
 		fCbcId=pCbcId;	
 	
-		loadfRegMap("default_file.txt");
+		loadfRegMap(default_file);
 
 		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
 		fRegMap["Vcth"].fValue=pVcth;
@@ -73,10 +75,12 @@ namespace Ph2_HwDescription{
 	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;
-		loadfRegMap("default_file.txt");
+		loadfRegMap(default_file);
 
 	}
 
+
+	// Copy C'tor
 
 	Cbc::Cbc(Cbc& cbcobj):FEDescription(cbcobj)
 	{
@@ -84,20 +88,29 @@ namespace Ph2_HwDescription{
 		fRegMap=cbcobj.fRegMap;
 	}
 
+	
+	//load fRegMap from file
 
 	void Cbc::loadfRegMap(std::string filename)
 	{
-		std::ifstream file("default_file.txt",std::ios::in);
+		std::ifstream file(filename.c_str(),std::ios::in);
 
 		if (file)
 		{
-			std::string line,fName;
+			std::string line,fName, fPage_str, fAddress_str, fDefValue_str, fValue_str;
 			CbcRegItem fRegItem;
 			
 			while (getline(file,line))
 			{
+				if( line.find_first_not_of( " \t" ) == std::string::npos ) continue;
+				if( line.at(0) == '#' || line.at(0) =='*' ) continue;
 				std::istringstream input(line);
-				input>> fName >> fRegItem.fPage >> fRegItem.fAddress >> fRegItem.fDefValue >> fRegItem.fValue;
+				input>> fName >> fPage_str >> fAddress_str >> fDefValue_str >> fValue_str;
+				
+				fRegItem.fPage=strtoul( fPage_str.c_str(), 0, 16 );
+				fRegItem.fAddress=strtoul( fAddress_str.c_str(), 0, 16 );
+				fRegItem.fDefValue=strtoul( fDefValue_str.c_str(), 0, 16 );
+				fRegItem.fValue=strtoul( fValue_str.c_str(), 0, 16 );
 
 				fRegMap[fName]=fRegItem;
 			}
@@ -155,27 +168,60 @@ namespace Ph2_HwDescription{
 		}
 	}
 
-	void Cbc::dumpRegValues( std::string filename )
+
+	UInt_t Cbc::getReg(std::string pReg)
 	{
+		CbcRegMap::iterator i;
+		i=fRegMap.find(pReg.c_str());
+		if (i==fRegMap.end())
+		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
+		else
+		return fRegMap[pReg.c_str()].fValue;
+	}
 		
-		if( remove( filename.c_str() ) != 0 )
-    		std::cerr<<"Error deleting file"<<std::endl;
- 		else
-    		std::cout<<"File successfully deleted"<<std::endl;
+
+	void Cbc::setReg(std::string pReg, UInt_t psetValue)
+	{
+		CbcRegMap::iterator i;
+		i=fRegMap.find(pReg.c_str());
+		if (i==fRegMap.end())
+		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
+		else
+		{
+			fRegMap[pReg.c_str()].fValue=psetValue;
+
+		}
 	}
 
-	void Cbc::updateRegValues( std::string filename )
+
+	//Write RegValues in a file
+
+	void Cbc::writeRegValues( std::string filename )
 	{
 		
 		std::ofstream file(filename.c_str(), std::ios::out | std::ios::trunc); 
  
         	if(file)
        		{
+			file<< "* RegName";
+			for (int j=0;j<48;j++) {file<<" ";}
+			file.seekp(-strlen("* RegName"),std::ios_base::cur);
+
+			file<< "Page\tAddr\tDefval\tValue" << std::endl;
+		file<<"*--------------------------------------------------------------------------------"<<std::endl;
+			
 			CbcRegMap::iterator i;
 			for (i=fRegMap.begin();i!=fRegMap.end();++i)
 			{
-				
-                	file<< i->first <<" "<< i->second.fPage <<" " << i->second.fAddress <<" " << i->second.fDefValue <<" " <<  i->second.fValue <<std::endl;
+			
+			file<< i->first;
+			for (int j=0;j<48;j++) {file<<" ";}
+			file.seekp(-i->first.size(),std::ios_base::cur);
+
+			std::string fpage_str;
+			
+	
+                	file<<"0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fPage <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fAddress <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fDefValue <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fValue <<std::endl;
                 	
        			}
 			file.close();
@@ -183,4 +229,16 @@ namespace Ph2_HwDescription{
 		else
                 std::cerr << "Error opening file" << std::endl;
 	}
+
+
+	bool CbcComparer::operator() (const Cbc& cbc1,const Cbc& cbc2)
+	{
+		if (cbc1.fShelveId != cbc2.fShelveId) return cbc1.fShelveId < cbc2.fShelveId;
+		else if(cbc1.fBeId != cbc2.fBeId) return cbc1.fBeId < cbc2.fBeId;
+		else if(cbc1.fFMCId != cbc2.fFMCId) return cbc1.fFMCId < cbc2.fFMCId;
+		else if(cbc1.fFeId != cbc2.fFeId) return cbc1.fFeId < cbc2.fFeId;
+		else return cbc1.fCbcId < cbc2.fCbcId ;
+	}
+
 }
+

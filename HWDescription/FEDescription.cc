@@ -2,7 +2,7 @@
 
 // Implementation of the base class FEDescription to describe the basic properties and connections of each FE component
 
-namespace HWDescription{
+namespace Ph2_HwDescription{
 
 	FEDescription::FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, bool pStatus ) : 
 	fShelveId( pShelveId ),

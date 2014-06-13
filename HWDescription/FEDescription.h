@@ -1,8 +1,6 @@
 #ifndef FEDescription_h__
 #define FEDescription_h__
 
-#include "RTypes.h"
- 
 // Base Class to describe all parameters common to all FE Components in the DAQ chain
 // mainly connections & staus for the moment
 // G. Auzinger <georg.auzinger@cern.ch>, 04.06.2014
