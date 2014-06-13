@@ -1,7 +1,7 @@
 /*
 
   FileName : 					CbcInterface.cpp
-  Content : 					 Cbc class, config of the Cbcs
+  Content : 					 CbcInterface class, config of the Cbcs
   Programmer : 				  Nicolas PIERRE
   Version : 					 0.0
   Date of creation : 	        07/06/14
@@ -14,15 +14,31 @@
 #include <boost/date_time.hpp>
 #include <boost/thread.hpp>
 #include <time.h>
-#include "CBCInterface.h"
+#include "CbcInterface.h"
+#include "Exception.h"
 
 #define I2C_CTRL_ENABLE 		0x000009F4
 #define I2C_CTRL_DISABLE		0
+#define I2C_STROBE			  1
+#define I2C_M16B				0
+#define I2C_MEM				 1
 
-#define DEV_FLAG         0
+#define I2C_SLAVE			   0x5B
+#define I2C_COMMAND			 "user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
+#define I2C_REPLY			   "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
+#define I2C_SETTINGS            "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
+
+#define MAX_NB_LOOP			 50
+
+#define DEV_FLAG                0
 
 namespace Ph2_HwInterface
 {
+	const std::string CBCInterface::fStrI2cCommand = I2C_COMMAND;
+	const std::string CBCInterface::fStrI2cReply = I2C_REPLY;
+	const uint32_t CBCInterface::fI2cSlave = I2C_SLAVE;
+    const std::string CBCInterface::fStrI2cSettings = I2C_SETTINGS;
+
     void CBCInterface::SelectSramForI2C( unsigned int pFe )
     {
         fStrSram = (pFe==0 ? "sram1" : "sram2");
@@ -30,7 +46,7 @@ namespace Ph2_HwInterface
 		fStrSramUserLogic = (pFe==0 ? "ctrl_sram.sram1_user_logic" : "ctrl_sram.sram2_user_logic");
     }
 
-    bool CBCInterface::I2cCmdAckWait( uint32_t pAckVal, unsigned int pNcount=1 )
+    bool CBCInterface::I2cCmdAckWait( uint32_t pAckVal, unsigned int pNcount )
     {
         unsigned int cWait(100);
 
@@ -119,7 +135,7 @@ namespace Ph2_HwInterface
 		}
     }
 
-    void EnableI2c( bool pEnable )
+    void CBCInterface::EnableI2c( bool pEnable )
     {
 		uint32_t cValue = I2C_CTRL_ENABLE;
 
@@ -132,7 +148,7 @@ namespace Ph2_HwInterface
             usleep(100000);
 	}
 
-    uint32_t SendI2c( uint16_t pAddr, uint16_t pData, bool pWrite )
+    uint32_t CBCInterface::SendI2c( uint16_t pAddr, uint16_t pData, bool pWrite )
     {
         uint32_t fmc_vtrx_comm = I2C_STROBE<<31 | I2C_M16B<<25 | I2C_MEM<<24 | (pWrite?1:0)<<23 | fI2cSlave<<16 | pAddr<<8 | pData;
 
