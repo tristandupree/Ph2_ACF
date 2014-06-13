@@ -15,6 +15,7 @@
 #include <boost/thread.hpp>
 #include <time.h>
 #include "GLIBInterface.h"
+#include "Utilities.h"
 
 #define EVENT_SIZE_32    32
 
