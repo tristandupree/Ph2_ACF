@@ -140,6 +140,7 @@ namespace Ph2_HwInterface
 
 		uhal::ValWord<uint32_t> reply = ReadReg(fStrI2cReply);
 
+        //Why 0xff ?
 		return reply & 0xff;
     }
 }
