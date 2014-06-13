@@ -12,6 +12,8 @@
 #include <uhal/uhal.hpp>
 #include <boost/format.hpp>
 #include <boost/date_time.hpp>
+#include <boost/thread.hpp>
+#include <time.h>
 #include "GLIBInterface.h"
 
 #define EVENT_SIZE_32    32
@@ -26,8 +28,9 @@ namespace Ph2_HwInterface
     unsigned int GLIBInterface::fPacketSize = EVENT_SIZE_32;
 
     //Constructor, make the connection to the board and get settings from GLIB
-    GLIBInterface::GLIBInterface(const char *puHalConfigFileName, const char *pBoardId/*, GLIB pGLIB*/ ):
+    GLIBInterface::GLIBInterface(const char *puHalConfigFileName, const char *pBoardId/*, Glib pGLIB*/ ):
         RegManager(puHalConfigFileName,pBoardId),
+        //fGlib(pGlib),
 		fOutputDir("./"),
 		fBeId(0),
 		fNFe(1),
@@ -35,7 +38,7 @@ namespace Ph2_HwInterface
 		fNegativeLogicCBC(true),
 		fStop(false)
     {
-        //fGlibSettings = GLIB::GetGlibSettings(pGLIB);
+        //fGlibSettings = Glib::GetGlibSettings(pGlib);
 
         NBe++;
     }
@@ -84,6 +87,7 @@ namespace Ph2_HwInterface
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC",1);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu",0);
+        //End of temporary hardcoding
 
 
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.SPURIOUS_FRAME",0);
@@ -302,4 +306,11 @@ namespace Ph2_HwInterface
 		fStrFull = (boost::format("user_wb_ttc_fmc_regs.flags.SRAM%d_full") % (pNthAcq%2+1)).str();
 		fStrReadout= (boost::format("user_wb_ttc_fmc_regs.pc_commands.SRAM%d_end_readout") % (pNthAcq%2+1)).str();
     }
+
+    /*
+    void GLIBInterface::UpdateReg( const std::string& pRegNode, const uint32_t& pVal )
+    {
+        Glib.SetReg( const std::string& pRegNode, const uint32_t& pVal );
+    }
+    */
 }

@@ -16,6 +16,7 @@
 #include <vector>
 #include <uhal/uhal.hpp>
 #include "RegManager.h"
+//#include "Glib.h"
 
 namespace Ph2_HwInterface
 {
@@ -24,6 +25,7 @@ namespace Ph2_HwInterface
         private:
 			std::string                     fOutputDir;
             //map<string,(u)int>              fGlibSettings;
+            //Glib                            fGlib;
 
 			unsigned int				    fBeId;
 			unsigned int                    fNFe;
@@ -61,6 +63,8 @@ namespace Ph2_HwInterface
             void ReadDAQ( uint32_t pNthAcq, bool pBreakTrigger );
             //Select the SRAM for DAQ
             void SRAMforDAQ( uint32_t pNthAcq );
+            //Update GLIB register
+            //void UpdateReg( const std::string& pRegNode, const uint32_t& pVal );
     };
 }
 
