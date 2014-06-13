@@ -1,4 +1,4 @@
-Objs                    = RegManager.o GLIBInterface.o Utilities.o
+Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o
 CC              = gcc
 CXX             = g++
 CCFlags         = -g -O1 -Wall -fPIC `root-config --cflags`
