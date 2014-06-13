@@ -29,6 +29,7 @@ namespace Ph2_HwInterface
       virtual ~RegManager();
 
       virtual bool WriteReg(const std::string& pRegNode, const uint32_t& pVal);
+      virtual bool WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues);
       virtual uhal::ValWord<uint32_t> ReadReg(const std::string& pRegNode);
       virtual uhal::ValVector<uint32_t> ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlocksize);
   };

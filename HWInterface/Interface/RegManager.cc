@@ -53,6 +53,15 @@ namespace Ph2_HwInterface
     return false;
   }
 
+  bool RegManager::WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues);
+  {
+      fBoard->getNode(pRegNode).writeBlock(pValues);
+      fBoard->dispatch();
+
+      //Putting a verifying block here when the iterator will work
+
+  }
+
 
   // Give the node of the reg you want to read
   uhal::ValWord<uint32_t> RegManager::ReadReg(const std::string& pRegNode)
