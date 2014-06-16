@@ -1,15 +1,16 @@
 #ifndef Module_h__
 #define Module_h__
 
-#include "HWDescription/FEDescription.h"
+#include "FEDescription.h"
 #include "Cbc.h"
+#include "Rtypes.h"
 
 // FE Hybrid HW Description Class
 
 namespace Ph2_HwDescription{
 
 	class Module : public FEDescription{
-	
+
 	public:
 
 		// C'tors take FEDescription or hierachy of connection and the # of CBCs
@@ -22,9 +23,9 @@ namespace Ph2_HwDescription{
 		// D'tor
 		~Module(){};
 
-		UInt_t getNCbc( return fCbcVector.size() );
+		UInt_t getNCbc() {return fCbcVector.size();};
 		UInt_t addCbc( Cbc& pCbc );
-		bool   removeCbc( Uint_t pCbcId );
+		bool   removeCbc( UInt_t pCbcId );
 		Cbc&   getCbc( UInt_t pCbcId );
 
 	protected:

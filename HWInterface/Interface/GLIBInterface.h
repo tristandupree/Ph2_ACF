@@ -15,8 +15,9 @@
 #include <map>
 #include <vector>
 #include <uhal/uhal.hpp>
+#include "Rtypes.h"
 #include "RegManager.h"
-//#include "Glib.h"
+#include "../HWDescription/Glib.h"
 
 namespace Ph2_HwInterface
 {
@@ -24,14 +25,14 @@ namespace Ph2_HwInterface
     {
         private:
 			std::string                     fOutputDir;
-            //map<string,(u)int>              fGlibSettings;
-            //Glib                            fGlib;
+            std::map<std::string,UInt_t>    fGlibSettings;
+            Glib                            fGlib;
 
-			unsigned int				    fBeId;
-			unsigned int                    fNFe;
-			unsigned int                    fNCbc;
-            unsigned int                    fNeventPerAcq;
-            unsigned int                    fNTotalAcq;
+			UInt_t      				    fBeId;
+			UInt_t                          fNFe;
+			UInt_t                          fNCbc;
+            UInt_t                          fNeventPerAcq;
+            UInt_t                          fNTotalAcq;
 			bool                            fNegativeLogicCBC;
 			bool                            fStop;
 
@@ -60,11 +61,11 @@ namespace Ph2_HwInterface
             void Pause();
             void Unpause();
             //Read Data from acq
-            void ReadDAQ( uint32_t pNthAcq, bool pBreakTrigger );
+            void ReadData( uint32_t pNthAcq, bool pBreakTrigger );
             //Select the SRAM for DAQ
-            void SRAMforDAQ( uint32_t pNthAcq );
+            void SelectSRAM( uint32_t pNthAcq );
             //Update GLIB register
-            //void UpdateReg( const std::string& pRegNode, const uint32_t& pVal );
+            void UpdateReg( const std::string& pRegNode, const uint32_t& pVal );
     };
 }
 

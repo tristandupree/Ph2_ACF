@@ -17,14 +17,16 @@ namespace Ph2_HwDescription{
 	#define I2C_COMMAND			"user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
 	#define I2C_REPLY			"user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
 
-	#define MAX_NB_LOOP			50	
+	#define MAX_NB_LOOP			50
 
+	/*
 	const unsigned int BeController::fPacketSize = Strasbourg::Event::EVENT_SIZE_32;//single event data size in 32 bits words
 	const std::string BeController::fStrI2cSettings = "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings";
 	const std::string BeController::fStrI2cCommand = I2C_COMMAND;
 	const std::string BeController::fStrI2cReply = I2C_REPLY;
 	const uint32_t BeController::fI2cSlave = I2C_SLAVE;
-	const unsigned int BeController::fI2cSramSize = 256; 
+	const unsigned int BeController::fI2cSramSize = 256;
+	*/
 }
 
 

@@ -13,16 +13,16 @@ namespace Ph2_HwDescription{
 
 	std::string default_file = "default_file.txt";
 
-	typedef std::map < std::string, CbcRegItem > CbcRegMap; 
+	typedef std::map < std::string, CbcRegItem > CbcRegMap;
 
 	class Cbc : public FEDescription{
 
 	public:
 
-		// C'tors with object FE Description 
+		// C'tors with object FE Description
 		Cbc( FEDescription& pFeDesc, UInt_t pCbcId, std::string filename );
 		Cbc( FEDescription& pFeDesc, UInt_t pCbcId,UInt_t pTriggerLatency,UInt_t pVcth );
-		Cbc( FEDescription& pFeDesc, UInt_t pCbcId ); 
+		Cbc( FEDescription& pFeDesc, UInt_t pCbcId );
 
 		// C'tors which take ShelveID, BeId, FeID, CbcId
 		Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, std::string filename );
@@ -35,8 +35,11 @@ namespace Ph2_HwDescription{
 		// Copy C'tor
 		Cbc(Cbc& cbcobj);
 
+		// D'Tor
+		~Cbc();
+
 		//load fRegMap from file
-		void loadfRegMap(std::string filename);		
+		void loadfRegMap(std::string filename);
 
 
 		UInt_t getTriggerLatency();
@@ -51,25 +54,25 @@ namespace Ph2_HwDescription{
 		//Write RegValues in a file
 		void writeRegValues( std::string filename );
 
-		UInt_t getCbcId( return fCbcId );
-		
-	protected:
+		UInt_t getCbcId() {return fCbcId;};
 
-		UInt_t fCbcId;
+	protected:
 
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
 		CbcRegMap fRegMap;
-		
 
-	private:
+	public:
+
+		UInt_t fCbcId;
 
 	};
+
 
 
 	struct CbcComparer{
 
 		bool operator() (const Cbc& cbc1,const Cbc& cbc2);
-			
+
 		};
 
 }

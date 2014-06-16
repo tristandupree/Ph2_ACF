@@ -1,12 +1,10 @@
 #ifndef _Glib_h__
 #define _Glib_h__
 
-#include "HWDescription/GlibDefinitions.h"
-#include "HWDescription/Module.h"
+#include "GlibDefinitions.h"
+#include "Module.h"
 
 #include <map>
-#include <multimap>
-
 
 namespace Ph2_HwDescription{
 
@@ -37,7 +35,7 @@ namespace Ph2_HwDescription{
 
 		UInt_t getReg( std::string pReg );
 		void   setReg( std::string pReg, UInt_t psetValue );
-		
+
 		UInt_t addModule( Module& pModule );
 		bool removeModule( UInt_t pModuleId );
 		Module& getModule( UInt_t pModuleId );
@@ -50,7 +48,7 @@ namespace Ph2_HwDescription{
 		UInt_t fBeId;
 
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
-		std::vector< Module > fModuleVector;            
+		std::vector< Module > fModuleVector;
 
 		// Some important register Values, not sure if needed, but simpler than accessing by a long and complex register name:
 
@@ -62,7 +60,7 @@ namespace Ph2_HwDescription{
 		// bool to signalise if fake CBC data is created internally or not
 		bool       fFakeData;
 		// Data Size in Packets during Acquisition
-		UInt_t     fNPackets; 
+		UInt_t     fNPackets;
 		// negative Logic or not depends on the FMC type used
 		bool       fNegativeLogicCbc;
 

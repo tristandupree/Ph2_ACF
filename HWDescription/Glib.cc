@@ -1,4 +1,4 @@
-#include "HWDescription/Glib.h"
+#include "Glib.h"
 
 namespace Ph2_HwDescription{
 
@@ -47,7 +47,7 @@ namespace Ph2_HwDescription{
 
 			while ( ! ( getline( cFile, cLine ).eof() ) ){
 
-				if( cLine.find_first_not_of( " \t" ) == std::string::npos ) continue; 
+				if( cLine.find_first_not_of( " \t" ) == std::string::npos ) continue;
 				if( cLine.at(0) == '#' || cLine.at(0) =='*' ) continue;
 
 				cFound = cLine.find( ":" );

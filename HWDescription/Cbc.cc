@@ -12,15 +12,15 @@ namespace Ph2_HwDescription{
 
 	// Default C'tor
 	Cbc::Cbc():FEDescription()
-	{	
+	{
 		fCbcId=0;
 		loadfRegMap(default_file);
-		
-	 }
-	
-			 
 
-	// C'tors with object FE Description 
+	 }
+
+
+
+	// C'tors with object FE Description
 
 	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId, std::string filename ):FEDescription(pFeDesc)
 	{
@@ -38,8 +38,8 @@ namespace Ph2_HwDescription{
 
 		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
 		fRegMap["Vcth"].fValue=pVcth;
-		
-	}	
+
+	}
 
 
 	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId ):FEDescription(pFeDesc)
@@ -48,21 +48,21 @@ namespace Ph2_HwDescription{
 		loadfRegMap(default_file);
 	}
 
-	
+
 	// C'tors which take ShelveID, BeId, FMCId, FeID, CbcId
 
-	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, std::string filename ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)  
+	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, std::string filename ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
-	
+
 		fCbcId=pCbcId;
 		loadfRegMap(filename);
 	}
-		
+
 
 	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, UInt_t pTriggerLatency,UInt_t pVcth ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
-		fCbcId=pCbcId;	
-	
+		fCbcId=pCbcId;
+
 		loadfRegMap(default_file);
 
 		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
@@ -86,7 +86,15 @@ namespace Ph2_HwDescription{
 		fRegMap=cbcobj.fRegMap;
 	}
 
-	
+
+	// D'Tor
+
+	Cbc::~Cbc()
+	{
+
+	}
+
+
 	//load fRegMap from file
 
 	void Cbc::loadfRegMap(std::string filename)
@@ -97,14 +105,14 @@ namespace Ph2_HwDescription{
 		{
 			std::string line,fName, fPage_str, fAddress_str, fDefValue_str, fValue_str;
 			CbcRegItem fRegItem;
-			
+
 			while (getline(file,line))
 			{
 				if( line.find_first_not_of( " \t" ) == std::string::npos ) continue;
 				if( line.at(0) == '#' || line.at(0) =='*' ) continue;
 				std::istringstream input(line);
 				input>> fName >> fPage_str >> fAddress_str >> fDefValue_str >> fValue_str;
-				
+
 				fRegItem.fPage=strtoul( fPage_str.c_str(), 0, 16 );
 				fRegItem.fAddress=strtoul( fAddress_str.c_str(), 0, 16 );
 				fRegItem.fDefValue=strtoul( fDefValue_str.c_str(), 0, 16 );
@@ -112,7 +120,7 @@ namespace Ph2_HwDescription{
 
 				fRegMap[fName]=fRegItem;
 			}
-			
+
 			file.close();
 		}
 		else
@@ -126,7 +134,7 @@ namespace Ph2_HwDescription{
 		if (i==fRegMap.end())
 		{std::cout<<"This Cbc object doesn't have TriggerLatency"<<std::endl;
 		return 0;}
-		else		
+		else
 		return fRegMap["TriggerLatency"].fValue;
 	}
 
@@ -149,7 +157,7 @@ namespace Ph2_HwDescription{
 		if (i==fRegMap.end())
 		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;
 		return 0;}
-		else		
+		else
 		return fRegMap["VCth"].fValue;
 	}
 
@@ -172,11 +180,14 @@ namespace Ph2_HwDescription{
 		CbcRegMap::iterator i;
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
+		{
+			std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;
+			return 0;
+		}
 		else
 		return fRegMap[pReg].fValue;
 	}
-		
+
 
 	void Cbc::setReg(std::string pReg, UInt_t psetValue)
 	{
@@ -196,9 +207,9 @@ namespace Ph2_HwDescription{
 
 	void Cbc::writeRegValues( std::string filename )
 	{
-		
-		std::ofstream file(filename.c_str(), std::ios::out | std::ios::trunc); 
- 
+
+		std::ofstream file(filename.c_str(), std::ios::out | std::ios::trunc);
+
         	if(file)
        		{
 			file<< "* RegName";
@@ -207,20 +218,20 @@ namespace Ph2_HwDescription{
 
 			file<< "Page\tAddr\tDefval\tValue" << std::endl;
 		file<<"*--------------------------------------------------------------------------------"<<std::endl;
-			
+
 			CbcRegMap::iterator i;
 			for (i=fRegMap.begin();i!=fRegMap.end();++i)
 			{
-			
+
 			file<< i->first;
 			for (int j=0;j<48;j++) {file<<" ";}
 			file.seekp(-i->first.size(),std::ios_base::cur);
 
 			std::string fpage_str;
-			
-	
+
+
                 	file<<"0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fPage <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fAddress <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fDefValue <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fValue <<std::endl;
-                	
+
        			}
 			file.close();
        		}
@@ -239,4 +250,3 @@ namespace Ph2_HwDescription{
 	}
 
 }
-

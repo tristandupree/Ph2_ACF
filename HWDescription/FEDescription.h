@@ -1,6 +1,8 @@
 #ifndef FEDescription_h__
 #define FEDescription_h__
 
+#include "Rtypes.h"
+
 // Base Class to describe all parameters common to all FE Components in the DAQ chain
 // mainly connections & staus for the moment
 // G. Auzinger <georg.auzinger@cern.ch>, 04.06.2014
@@ -29,17 +31,17 @@ namespace Ph2_HwDescription{
 		FEDescription( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, bool pStatus=true );
 		FEDescription( UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId );
 		FEDescription( );
-		
+
 		//Copy C'tors
 		FEDescription(FEDescription& pFeDesc);
 
 		// Default D'tor
-		~FEDescription( );
+		virtual ~FEDescription( );
 
 		// Getter methods
 		 virtual UInt_t getShelveId()
 		{return fShelveId;};
-		 
+
 		 virtual UInt_t getBeId()
 		{ return fBeId ;};
 
