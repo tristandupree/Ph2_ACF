@@ -29,17 +29,17 @@ namespace Ph2_HwInterface
     unsigned int GLIBInterface::fPacketSize = EVENT_SIZE_32;
 
     //Constructor, make the connection to the board and get settings from GLIB
-    GLIBInterface::GLIBInterface(const char *puHalConfigFileName, const char *pBoardId/*, Glib pGLIB*/ ):
-        RegManager(puHalConfigFileName,pBoardId),
-        //fGlib(pGlib),
+    GLIBInterface::GLIBInterface(const char *puHalConfigFileName, Ph2_HwDescription::Glib &pGlib ):
+        RegManager(puHalConfigFileName),
 		fOutputDir("./"),
+        fGlib(pGlib),
 		fBeId(0),
 		fNFe(1),
 		fNCbc(2),
 		fNegativeLogicCBC(true),
 		fStop(false)
     {
-        //fGlibSettings = Glib::GetGlibSettings(pGlib);
+        fGlibSettings = fGlib.getGlibRegMap();
 
         NBe++;
     }
@@ -61,14 +61,15 @@ namespace Ph2_HwInterface
 
 		boost::this_thread::sleep(cPause);
 
-        /*
-        //GlibSetting : map<string,(u)int> created from GLIB class
-		for(GlibSetting::iterator cIt = fGlibSetting.begin(); cIt != fGlibSetting.end(); cIt++ )
+
+        //GlibSetting : map<std::string,UInt_t> created from GLIB class
+		for(Ph2_HwDescription::GlibRegMap::iterator cIt = fGlibSettings.begin(); cIt != fGlibSettings.end(); cIt++ )
         {
 			WriteReg( cIt->first , (uint32_t) cIt->second );
 		}
-        */
 
+
+        /*
         //Temporary hardcoding
         WriteReg("CBC_expected",3);
         WriteReg("COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID",1);
@@ -89,7 +90,7 @@ namespace Ph2_HwInterface
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu",0);
         //End of temporary hardcoding
-
+        */
 
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.SPURIOUS_FRAME",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",0);
@@ -113,14 +114,20 @@ namespace Ph2_HwInterface
 
 
         //Setting internal members
-        //fNFe = fGlibSetting.find( "FE_expected" )->second;
+        fNFe = fGlibSettings.find( "FE_expected" )->second;
 		fNFe = fNFe == 1 ? 1 : 2;
 
-        //unsigned int cExpectedCbc = fGlibSetting.find( "CBC_expected" )->second;
-		fNCbc = /*cExpectedCbc == 1 ? 1 :*/ 2;
+        unsigned int cExpectedCbc = fGlibSettings.find( "CBC_expected" )->second;
+		fNCbc = cExpectedCbc == 1 ? 1 : 2;
 
     }
 
+    /*
+    void SetGLIBBoardId(GLIB& pGLIB)
+    {
+        setBoardId(pGLIB.getBEId);
+    }
+    */
 
     void GLIBInterface::Start()
     {
