@@ -11,8 +11,6 @@
 
 namespace Ph2_HwDescription{
 
-	std::string default_file = "default_file.txt";
-
 	typedef std::map < std::string, CbcRegItem > CbcRegMap;
 
 	class Cbc : public FEDescription{
@@ -33,7 +31,7 @@ namespace Ph2_HwDescription{
 		Cbc();
 
 		// Copy C'tor
-		Cbc(Cbc& cbcobj);
+		Cbc(const Cbc& cbcobj);
 
 		// D'Tor
 		~Cbc();

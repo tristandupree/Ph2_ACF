@@ -25,7 +25,7 @@ namespace Ph2_HwDescription{
 	fFeId( 0 ),
 	fStatus( true) {};
 
-	FEDescription::FEDescription(FEDescription& pFeDesc)
+	FEDescription::FEDescription(const FEDescription& pFeDesc)
 	{
 		fShelveId=pFeDesc.fShelveId;
 		fBeId=pFeDesc.fBeId;

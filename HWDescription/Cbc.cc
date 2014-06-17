@@ -10,6 +10,8 @@
 
 namespace Ph2_HwDescription{
 
+	#define default_file "default_file.txt"
+
 	// Default C'tor
 	Cbc::Cbc():FEDescription()
 	{
@@ -80,7 +82,7 @@ namespace Ph2_HwDescription{
 
 	// Copy C'tor
 
-	Cbc::Cbc(Cbc& cbcobj):FEDescription(cbcobj)
+	Cbc::Cbc(const Cbc& cbcobj):FEDescription(cbcobj)
 	{
 		fCbcId=cbcobj.fCbcId;
 		fRegMap=cbcobj.fRegMap;
@@ -213,7 +215,7 @@ namespace Ph2_HwDescription{
         	if(file)
        		{
 			file<< "* RegName";
-			for (int j=0;j<48;j++) {file<<" ";}
+			for (UInt_t j=0;j<48;j++) {file<<" ";}
 			file.seekp(-strlen("* RegName"),std::ios_base::cur);
 
 			file<< "Page\tAddr\tDefval\tValue" << std::endl;
@@ -224,7 +226,7 @@ namespace Ph2_HwDescription{
 			{
 
 			file<< i->first;
-			for (int j=0;j<48;j++) {file<<" ";}
+			for (UInt_t j=0;j<48;j++) {file<<" ";}
 			file.seekp(-i->first.size(),std::ios_base::cur);
 
 			std::string fpage_str;
