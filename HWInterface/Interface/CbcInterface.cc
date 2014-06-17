@@ -347,7 +347,7 @@ namespace Ph2_HwInterface
 		}
 
 	/*Not ready as for now
-	void CBCInterface::UpdateReg( UInt_t pFe, UInt_t psetValue )
+	void CBCInterface::UpdateReg( UInt_t pCBCId, UInt_t psetValue )
 	{
 		WriteCbcReg(std::string pFe, UInt_t psetValue);
 		Cbc.setReg(std::string pFe, UInt_t psetValue)
