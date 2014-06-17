@@ -6,12 +6,12 @@
 #include <iostream>
 #include <map>
 #include <string>
-#include "Rtypes.h"
 
 // Cbc2 Chip HW Description Class
 
 namespace Ph2_HwDescription{
 
+	#define default_file "default_file.txt"
 	typedef std::map < std::string, CbcRegItem > CbcRegMap;
 
 	class Cbc : public FEDescription{

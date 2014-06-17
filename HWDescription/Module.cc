@@ -25,6 +25,7 @@ namespace Ph2_HwDescription{
 			{
 				fCbcVector.erase(i);
 				j=true;
+				
 			}
 		}
 		if (j==true)

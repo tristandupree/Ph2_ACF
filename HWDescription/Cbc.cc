@@ -10,7 +10,6 @@
 
 namespace Ph2_HwDescription{
 
-	#define default_file "default_file.txt"
 
 	// Default C'tor
 	Cbc::Cbc():FEDescription()
