@@ -5,7 +5,7 @@
   Programmer : 				  Nicolas PIERRE
   Version : 					 0.0
   Date of creation : 	        07/06/14
-  Support : 					 mail to : nicolas.pierre@etu.unistra.net
+  Support : 					 mail to : nicolas.pierre@cern.ch
 
 */
 
@@ -26,6 +26,21 @@ namespace Ph2_HwInterface
             std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
             //Cbc fCbc;
 
+        private:
+            void SelectSramForI2C( unsigned int pFe );
+			bool I2cCmdAckWait( uint32_t pAckVal, unsigned int pNcount=1 );
+			void SendCbcI2cRequest( uint32_t pFe, uint32_t& pValue, bool pWrite);
+            void SendBlockCbcI2cRequest( uint32_t pFe, std::vector<uint32_t>& pVecReq, bool pWrite);
+			void ReadI2cValuesInSRAM( unsigned int pFe, uint32_t &pValue );
+            void ReadI2cBlockValuesInSRAM( unsigned int pFe, std::vector<uint32_t> &pVecReq );
+            void EnableI2c( bool pEnable );
+			uint32_t SendI2c( uint16_t pAddr, uint16_t pData, bool pWrite );
+
+            void WriteCbcReg( uint16_t pFe, uint32_t& pValue );
+            void ReadCbcReg( uint16_t pFe, uint32_t& pValue );
+            void WriteCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq );
+            void ReadCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq );
+
         public:
             static const std::string fStrI2cSettings;
 			static const std::string fStrI2cCommand;
@@ -36,13 +51,11 @@ namespace Ph2_HwInterface
             CBCInterface();
             ~CBCInterface();
 
-			void SelectSramForI2C( unsigned int pFe );
-			bool I2cCmdAckWait( uint32_t pAckVal, unsigned int pNcount=1 );
-			void SendBlockCbcI2cRequest( uint32_t pFe, std::vector<uint32_t>& pVecReq, bool pWrite);
-			void ReadI2cValuesInSRAM( unsigned int pFe, std::vector<uint32_t> &pVecReq );
+            //void ConfigureCbc();
+            //void ReadCbc();
+            //void UpdateCbcReg( std::string pReg, UInt_t psetValue );
+            //void WriteBroadcast();
 
-            void EnableI2c( bool pEnable );//not tested
-			uint32_t SendI2c( uint16_t pAddr, uint16_t pData, bool pWrite );//not tested
     };
 }
 

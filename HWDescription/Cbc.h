@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include "Rtypes.h"
 
 // Cbc2 Chip HW Description Class
 

@@ -5,7 +5,7 @@
   Programmer : 				  Nicolas PIERRE
   Version : 					 0.0
   Date of creation : 	        07/06/14
-  Support : 					 mail to : nicolas.pierre@etu.unistra.net
+  Support : 					 mail to : nicolas.pierre@cern.ch
 
 */
 
@@ -81,6 +81,34 @@ namespace Ph2_HwInterface
 		return true;
 	}
 
+	void CBCInterface::SendCbcI2cRequest( uint32_t pFe, uint32_t& pValue, bool pWrite)
+	{
+		SelectSramForI2C( pFe );
+
+		WriteReg(fStrSramUserLogic,1);
+
+		WriteReg(fStrSramUserLogic,0);
+
+		WriteReg(fStrSram,pValue);
+
+		WriteReg(fStrSramUserLogic,1);
+
+		//r/w request
+		WriteReg("cbc_i2c_cmd_rq",pWrite ? 3: 1);
+
+		if( I2cCmdAckWait( (uint32_t)1, 1 ) ==0 )
+		{
+			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CBCInterface", 1 ) );
+		}
+
+		WriteReg("cbc_i2c_cmd_rq",0);
+
+		if( I2cCmdAckWait( (uint32_t)0, 1 ) ==0 )
+		{
+			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CBCInterface", 0 ) );
+		}
+	}
+
     void CBCInterface::SendBlockCbcI2cRequest( uint32_t pFe, std::vector<uint32_t>& pVecReq, bool pWrite)
     {
         SelectSramForI2C( pFe );
@@ -114,7 +142,21 @@ namespace Ph2_HwInterface
 		}
 	}
 
-    void CBCInterface::ReadI2cValuesInSRAM( unsigned int pFe, std::vector<uint32_t> &pVecReq )
+	void CBCInterface::ReadI2cValuesInSRAM( unsigned int pFe, uint32_t &pValue )
+	{
+		SelectSramForI2C( pFe );
+
+		WriteReg(fStrSramUserLogic,0);
+
+		uhal::ValWord<uint32_t> cData = ReadReg(fStrSram);
+
+		WriteReg(fStrSramUserLogic,1);
+		WriteReg("cbc_i2c_cmd_rq",0);
+
+		pValue = (uint32_t) cData;
+	}
+
+    void CBCInterface::ReadI2cBlockValuesInSRAM( unsigned int pFe, std::vector<uint32_t> &pVecReq )
     {
         SelectSramForI2C( pFe );
 
@@ -159,4 +201,156 @@ namespace Ph2_HwInterface
         //Why 0xff ?
 		return reply & 0xff;
     }
+
+	void CBCInterface::WriteCbcReg( uint16_t pFe, uint32_t& pValue )
+	{
+	#ifdef __CBCDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+	#endif
+
+		try
+		{
+			SendCbcI2cRequest( pFe, pValue, true );
+		}
+
+		catch( Exception &except )
+		{
+			throw except;
+		}
+
+	#ifdef __CBCDAQ_DEV__
+		if(  DEV_FLAG ){
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for Cbc register write so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+	#endif
+	}
+
+		void CBCInterface::WriteCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq )
+		{
+	#ifdef __CBCDAQ_DEV__
+			static long min(0), sec(0);
+			struct timeval start0, end;
+			long seconds(0), useconds(0);
+
+			if(  DEV_FLAG ){
+				gettimeofday(&start0, 0);
+			}
+	#endif
+
+			try
+			{
+				SendBlockCbcI2cRequest( pFe, pVecReq, true );
+			}
+
+			catch( Exception &except )
+			{
+				throw except;
+			}
+
+	#ifdef __CBCDAQ_DEV__
+			if( DEV_FLAG ){
+				gettimeofday( &end, 0 );
+				seconds = end.tv_sec - start0.tv_sec;
+				useconds = end.tv_usec - start0.tv_usec;
+				min += ( seconds + useconds / 1000000 ) /60;
+				sec += ( seconds + useconds / 1000000 ) %60;
+				std::cout << "Time took for Cbc register write so far = " << min << " min " << sec << " sec." << std::endl;
+			}
+	#endif
+		}
+
+	void CBCInterface::ReadCbcReg( uint16_t pFe, uint32_t& pValue )
+	{
+
+#ifdef __CBCDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+#endif
+
+		try
+		{
+			SendCbcI2cRequest( pFe, pValue, false);
+		}
+
+		catch( Exception &e )
+		{
+			throw e;
+		}
+
+#ifdef __CBCDAQ_DEV__
+		if(  DEV_FLAG ){
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for Cbc register read so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+#endif
+
+		ReadI2cValuesInSRAM( pFe, pValue );
+
+	}
+
+		void CBCInterface::ReadCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq )
+		{
+
+	#ifdef __CBCDAQ_DEV__
+			static long min(0), sec(0);
+			struct timeval start0, end;
+			long seconds(0), useconds(0);
+
+			if(  DEV_FLAG ){
+				gettimeofday(&start0, 0);
+			}
+	#endif
+
+			try
+			{
+				SendBlockCbcI2cRequest( pFe, pVecReq, false);
+			}
+
+			catch( Exception &e )
+			{
+				throw e;
+			}
+
+	#ifdef __CBCDAQ_DEV__
+			if(  DEV_FLAG ){
+				gettimeofday( &end, 0 );
+				seconds = end.tv_sec - start0.tv_sec;
+				useconds = end.tv_usec - start0.tv_usec;
+				min += ( seconds + useconds / 1000000 ) /60;
+				sec += ( seconds + useconds / 1000000 ) %60;
+				std::cout << "Time took for Cbc register read so far = " << min << " min " << sec << " sec." << std::endl;
+			}
+	#endif
+
+			ReadI2cBlockValuesInSRAM( pFe, pVecReq );
+
+		}
+
+	/*Not ready as for now
+	void CBCInterface::UpdateReg( UInt_t pFe, UInt_t psetValue )
+	{
+		WriteCbcReg(std::string pFe, UInt_t psetValue);
+		Cbc.setReg(std::string pFe, UInt_t psetValue)
+	}
+	*/
 }

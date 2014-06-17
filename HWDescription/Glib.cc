@@ -1,4 +1,5 @@
 #include "Glib.h"
+#include <fstream>
 
 namespace Ph2_HwDescription{
 
@@ -16,24 +17,39 @@ namespace Ph2_HwDescription{
 
 	}
 
-	// Public Members:
-	UInt_t Glib::getReg( std:string pReg ){
-		GlibRegMap::iterator i;
-		i = fRegMap.find( pReg );
-		if( i = fRegMap.end() ) std::cout << "Register " << pReg << " not found in Glib Register Map!" << std::endl;
-		else return i->second;
+	Glib::~Glib()
+	{
+
 	}
 
-	UInt_t Glib::setReg( std::string pReg, UInt_t psetValue ){
+	// Public Members:
+	UInt_t Glib::getReg( std::string pReg )
+	{
 		GlibRegMap::iterator i;
 		i = fRegMap.find( pReg );
-		if( i = fRegMap.end() ) std::cout << "Register " << pReg << " not found in Glib Register Map!" << std::endl;
-		else fRegMap[pReg] = psetValue;
+
+		if( i == fRegMap.end() )
+		{
+			std::cout << "Register " << pReg << " not found in Glib Register Map!" << std::endl;
+			return 0;
+		}	
+		else
+			return i->second;
+	}
+
+	void Glib::setReg( std::string pReg, UInt_t psetValue ){
+		GlibRegMap::iterator i;
+		i = fRegMap.find( pReg );
+
+		if( i == fRegMap.end() )
+			std::cout << "Register " << pReg << " not found in Glib Register Map!" << std::endl;
+		else
+			fRegMap[pReg] = psetValue;
 	}
 
 	// Private Members:
 
-	Glib::loadConfigFile( std::string filename ){
+	void Glib::loadConfigFile( std::string filename ){
 
 		std::ifstream cFile( filename.c_str(),std::ios::in );
 		if( ! cFile ) std::cerr << "The Glib Settings File " << filename << " could not be opened!" << std::endl;

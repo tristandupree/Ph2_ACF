@@ -5,7 +5,7 @@
 	Programmer : 				  Nicolas PIERRE
 	Version : 					 1.2
 	Date of creation : 	        06/06/14
-	Support : 					 mail to : nicolas.pierre@etu.unistra.net
+	Support : 					 mail to : nicolas.pierre@cern.ch
 
 */
 #ifndef __REGMANAGER_H__

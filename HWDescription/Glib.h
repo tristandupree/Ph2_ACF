@@ -8,7 +8,7 @@
 
 namespace Ph2_HwDescription{
 
-	std::string default_glib_file = "../settings/glib_settings.cfg"
+	std::string default_glib_file = "../settings/glib_settings.cfg";
 
 	// <node id="nb_FE", description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
 	enum nb_FE { SINGLE_FE, FE_TRG, DUAL_FE };
@@ -28,10 +28,10 @@ namespace Ph2_HwDescription{
 		Glib();
 
 		// D'tor
-		~Glib(){};
+		~Glib();
 
 		// Public Methods
-		UInt_t getNFe( return fModuleVector.size() );
+		UInt_t getNFe() {return fModuleVector.size();};
 
 		UInt_t getReg( std::string pReg );
 		void   setReg( std::string pReg, UInt_t psetValue );
@@ -40,7 +40,7 @@ namespace Ph2_HwDescription{
 		bool removeModule( UInt_t pModuleId );
 		Module& getModule( UInt_t pModuleId );
 
-		std::map< std::string, UInt_t > getGlibRegMap ( return fRegMap );
+		std::map< std::string, UInt_t > getGlibRegMap()  {return fRegMap;};
 
 	protected:
 		// Connection Members

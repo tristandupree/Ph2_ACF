@@ -1,3 +1,14 @@
+/*
+
+  FileName : 					Exceptions.h
+  Content : 					 Handles with exceptions
+  Programmer : 				  Nicolas PIERRE
+  Version : 					 1.0
+  Date of creation : 	        10/06/14
+  Support : 					 mail to : nicolas.pierre@cern.ch
+
+*/
+
 #ifndef __EXCEPTION_H__
 #define __EXCEPTION_H__
 #include <exception>
