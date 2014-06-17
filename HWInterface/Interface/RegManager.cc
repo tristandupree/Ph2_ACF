@@ -16,11 +16,15 @@
 namespace Ph2_HwInterface
 {
 
-  RegManager::RegManager(const char *puHalConfigFileName, const char *pBoardId)
+  RegManager::RegManager(const char *puHalConfigFileName)
   {
-    uhal::ConnectionManager cm( puHalConfigFileName ); // Get connection
+    fUHalConfigFileName = puHalConfigFileName;
 
-    fBoard = new uhal::HwInterface( cm.getDevice( pBoardId ) ); // New HwInterface
+    uhal::ConnectionManager cm( fUHalConfigFileName ); // Get connection
+
+    fBoardId = "board";
+
+    fBoard = new uhal::HwInterface( cm.getDevice( fBoardId ) ); // New HwInterface
   }
 
 
@@ -121,5 +125,21 @@ namespace Ph2_HwInterface
     }
 
     return cBlockRead;
+  }
+
+  void RegManager::setuHalConfigFileName(const char *puHalConfigFileName)
+  {
+      fUHalConfigFileName = puHalConfigFileName;
+  }
+
+  void RegManager::setBoardId(const char *pBoardId)
+  {
+      uhal::ConnectionManager cm( fUHalConfigFileName );
+
+      delete fBoard;
+
+      fBoardId = pBoardId;
+
+      fBoard = new uhal::HwInterface( cm.getDevice( pBoardId ) );
   }
 }
