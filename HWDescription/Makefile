@@ -1,26 +1,18 @@
-Objs			= FEDescription.o Cbc.o
-CC              = gcc
-CXX             = g++
-CCFlags         = -g -O1 -Wall -fPIC `root-config --cflags`
-#DevFlags		    = -D__CBCDAQ_DEV__
-DevFlags		    = 
+mytest: mytest.o FEDescription.o Cbc.o Module.o
+	g++ -o mytest mytest.o FEDescription.o Cbc.o Module.o
 
-# IncludeDirs	=  /opt/cactus/include /opt/xdaq/include ../
+mytest.o: mytest.cc Module.h FEDescription.h Cbc.h
+	g++ -Wall -c mytest.cc
 
-IncludePaths		= $(IncludeDirs:%=-I%)
+Module.o: Module.cc Module.h
+	g++ -Wall -c Module.cc
 
+Cbc.o: Cbc.cc Cbc.h
+	g++ -Wall -c Cbc.cc
 
-all: $(Objs) $(Objs:.o=.h) $(Objs:.o=.cc)
-	$(CC) -shared -fPIC -o libHWDescription.so $(Objs)
-	mv libHWDescription.so ../lib/
-	
-%.o: %.cc %.h 
-	$(CXX) $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
-
-%.o: %.cxx %.h 
-	$(CXX) $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
+FEDescription.o: FEDescription.cc FEDescription.h
+	g++ -Wall -c FEDescription.cc
 
 
 clean:
 	rm -f *.o
-
