@@ -21,7 +21,7 @@ namespace Ph2_HwDescription{
 
 	}
 
-	Glib::Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, UInt_t pFMCConfiguration, bool pExtTrg, bool pFakeData , UInt_t pNPackets,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId ), fFMCConfiguration(pFMCConfiguration), fExtTrg(pExtTrg),fNPackets(pNPackets)
+	Glib::Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, UInt_t pFMCConfiguration, bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId ), fFMCConfiguration(pFMCConfiguration), fExtTrg(pExtTrg),fNPackets(pNPackets)
 	{
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );

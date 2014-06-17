@@ -24,7 +24,7 @@ namespace Ph2_HwDescription{
 		// C'tor for a standard Glib
 		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, std::string filename = default_glib_file );
 		// Parameters that define system for us
-		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, UInt_t pFMCConfiguration, bool pExtTrg, bool pFakeData = false , UInt_t pNPackets = 100,  std::string filename = "default_glib_file" );
+		Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, UInt_t pFMCConfiguration, bool pExtTrg, bool pFakeData = false , std::string filename = "default_glib_file" );
 		// Default C'tor
 		Glib();
 
@@ -33,6 +33,7 @@ namespace Ph2_HwDescription{
 
 		// Public Methods
 		UInt_t getNFe(){return fModuleVector.size();};
+		UInt_t getBeId(){return fBeId;};
 
 		UInt_t getReg( std::string pReg );
 		void setReg( std::string pReg, UInt_t psetValue );
@@ -61,9 +62,9 @@ namespace Ph2_HwDescription{
 		// bool to signalise if fake CBC data is created UInt_ternally or not
 		bool       fFakeData;
 		// Data Size in Packets during Acquisition
-		UInt_t     fNPackets; 
+		//UInt_t     fNPackets; 
 		// negative Logic or not depends on the FMC type used
-		bool       fNegativeLogicCbc;
+		//bool       fNegativeLogicCbc;
 
 		// Map of Glib Register Names vs. Register Values
 		GlibRegMap fRegMap;
