@@ -65,7 +65,7 @@ namespace Ph2_HwDescription{
 			{
 				fModuleVector.erase(i);
 				j=true;
-				i--;
+				i--;   //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator 
 			}
 		}
 		if (j==true)
