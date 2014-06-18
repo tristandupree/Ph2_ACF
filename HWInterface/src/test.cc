@@ -14,14 +14,16 @@
 #include <cstdlib>
 #include "Interface/RegManager.h"
 #include "Interface/GLIBInterface.h"
+#include "../../HWDescription/Description/Glib.h"
 
 int main()
 {
         int i;
+	Ph2_HwDescription::Glib cGlib;
 
 	std::cout << "\nHurray, it's working !\n" << std::endl;
 
-    Ph2_HwInterface::GLIBInterface MyGlibInterface("file:///opt/testing/trackerDAQ-3.2/CBCDAQ/GlibSupervisor/xml/connections.xml","board");
+    Ph2_HwInterface::GLIBInterface MyGlibInterface("file:///opt/testing/trackerDAQ-3.2/CBCDAQ/GlibSupervisor/xml/connections.xml",cGlib);
 
 	std::cout << "\nConfiguration...\n" << std::endl;
 
@@ -57,7 +59,7 @@ int main()
 
 	std::cout << "\nRead DAQ...\n" << std::endl;
 
-	MyGlibInterface.ReadDAQ(4,false);
+	MyGlibInterface.ReadData(4,false);
 
         std::cout << "\nDAQ read !\n" << std::endl;
 
