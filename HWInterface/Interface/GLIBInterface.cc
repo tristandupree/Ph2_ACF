@@ -122,7 +122,7 @@ namespace Ph2_HwInterface
 
     }
 
-    /*
+    /* Not working as for now, waiting for new format of board
     void SetGLIBBoardId(Glib& pGlib)
     {
         setBoardId(pGlib.getBEId);
@@ -318,8 +318,8 @@ namespace Ph2_HwInterface
 
     void GLIBInterface::UpdateReg( const std::string& pRegNode, const uint32_t& pVal )
     {
-        WriteReg( const std::string& pRegNode, const uint32_t& pVal );
-        Glib.setReg( const std::string& pRegNode, const uint32_t& pVal );
+        WriteReg( pRegNode,pVal );
+        fGlib.setReg( pRegNode,pVal );
     }
 
 }
