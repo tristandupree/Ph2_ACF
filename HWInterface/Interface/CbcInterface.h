@@ -24,7 +24,7 @@ namespace Ph2_HwInterface
     {
         private:
             std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
-            //Cbc fCbc;
+            Cbc fCbc;
 
         private:
             void SelectSramForI2C( unsigned int pFe );
@@ -48,12 +48,12 @@ namespace Ph2_HwInterface
 			static const uint32_t fI2cSlave;
 
         public:
-            CBCInterface();
+            CBCInterface(const char *puHalConfigFileName, Ph2_HwDescription::Cbc &pCbc );
             ~CBCInterface();
 
-            //void ConfigureCbc();
+            void ConfigureCbc();
             //void ReadCbc();
-            //void UpdateCbcReg( std::string pReg, UInt_t psetValue );
+            void UpdateCbcReg( std::string pReg, UInt_t psetValue );
             //void WriteBroadcast();
 
     };

@@ -53,7 +53,7 @@ namespace Ph2_HwInterface
             //Configure the Glib w or w/o a GLIB object as parameter
             void ConfigureGLIB();
             //Set the Glib Board Id
-            //void SetGLIBBoardId(Glib& pGLIB);
+            //void SetGLIBBoardId(Glib& pGlib);
             //Start an acq
             void Start();
             //Stop an acq
@@ -62,11 +62,11 @@ namespace Ph2_HwInterface
             void Pause();
             void Unpause();
             //Read Data from acq
-            void ReadDAQ( uint32_t pNthAcq, bool pBreakTrigger );
+            void ReadData( uint32_t pNthAcq, bool pBreakTrigger );
             //Select the SRAM for DAQ
-            void SRAMforDAQ( uint32_t pNthAcq );
+            void SelectSRAM( uint32_t pNthAcq );
             //Update GLIB register
-            //void UpdateReg( const std::string& pRegNode, const uint32_t& pVal );
+            void UpdateReg( const std::string& pRegNode, const uint32_t& pVal );
     };
 }
 

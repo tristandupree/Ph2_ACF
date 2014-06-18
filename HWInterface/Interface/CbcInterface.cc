@@ -39,7 +39,19 @@ namespace Ph2_HwInterface
 	const uint32_t CBCInterface::fI2cSlave = I2C_SLAVE;
     const std::string CBCInterface::fStrI2cSettings = I2C_SETTINGS;
 
-    void CBCInterface::SelectSramForI2C( unsigned int pFe )
+    CBCInterface::CBCInterface(const char *puHalConfigFileName, Ph2_HwDescription::Cbc &pCbc ):
+		RegManager(puHalConfigFileName),
+		fCbc(pCbc)
+	{
+
+	}
+
+	CBCInterface::~CBCInterface()
+	{
+
+	}
+
+	void CBCInterface::SelectSramForI2C( unsigned int pFe )
     {
         fStrSram = (pFe==0 ? "sram1" : "sram2");
 		fStrOtherSram = (pFe==0 ? "sram2" : "sram1");
@@ -346,11 +358,15 @@ namespace Ph2_HwInterface
 
 		}
 
-	/*Not ready as for now
-	void CBCInterface::UpdateReg( UInt_t pCBCId, UInt_t psetValue )
+	void CBCInterface::ConfigureCbc()
 	{
-		WriteCbcReg(std::string pFe, UInt_t psetValue);
-		Cbc.setReg(std::string pFe, UInt_t psetValue)
+		
 	}
-	*/
+
+	void CBCInterface::UpdateReg( UInt_t pCBCId, std::string pFe, UInt_t psetValue )
+	{
+		WriteCbcReg(UInt_t pCBCId, UInt_t psetValue);
+		Cbc.setReg(std::string pFe, UInt_t psetValue);
+	}
+
 }

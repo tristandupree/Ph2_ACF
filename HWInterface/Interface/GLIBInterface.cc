@@ -123,9 +123,9 @@ namespace Ph2_HwInterface
     }
 
     /*
-    void SetGLIBBoardId(GLIB& pGLIB)
+    void SetGLIBBoardId(Glib& pGlib)
     {
-        setBoardId(pGLIB.getBEId);
+        setBoardId(pGlib.getBEId);
     }
     */
 
@@ -147,7 +147,7 @@ namespace Ph2_HwInterface
         uhal::ValWord<uint32_t> cVal;
 
         //Select SRAM
-        SRAMforDAQ( pNthAcq );
+        SelectSRAM( pNthAcq );
 
         //Stop the DAQ
 		WriteReg("break_trigger",1);
@@ -186,7 +186,7 @@ namespace Ph2_HwInterface
 #endif
     }
 
-    void GLIBInterface::ReadDAQ( unsigned int pNthAcq, bool pBreakTrigger )
+    void GLIBInterface::ReadData( unsigned int pNthAcq, bool pBreakTrigger )
     {
 
 #ifdef __CBCDAQ_DEV__
@@ -224,7 +224,7 @@ namespace Ph2_HwInterface
 
 		//FIFO goes to write_data state
 		//Select SRAM
-		SRAMforDAQ( pNthAcq );
+		SelectSRAM( pNthAcq );
 
 #ifdef __CBCDAQ_DEV__
 		gettimeofday(&start, 0);
@@ -307,7 +307,7 @@ namespace Ph2_HwInterface
 
     }
 
-    void GLIBInterface::SRAMforDAQ( uint32_t pNthAcq )
+    void GLIBInterface::SelectSRAM( uint32_t pNthAcq )
     {
         fStrSram  = (boost::format("sram%d") % (pNthAcq%2+1)).str();
 		fStrSramUserLogic =  (boost::format("ctrl_sram.sram%d_user_logic") % (pNthAcq%2+1)).str();
@@ -315,11 +315,11 @@ namespace Ph2_HwInterface
 		fStrReadout= (boost::format("user_wb_ttc_fmc_regs.pc_commands.SRAM%d_end_readout") % (pNthAcq%2+1)).str();
     }
 
-    /*
+
     void GLIBInterface::UpdateReg( const std::string& pRegNode, const uint32_t& pVal )
     {
         WriteReg( const std::string& pRegNode, const uint32_t& pVal );
-        Glib.SetReg( const std::string& pRegNode, const uint32_t& pVal );
+        Glib.setReg( const std::string& pRegNode, const uint32_t& pVal );
     }
-    */
+
 }
