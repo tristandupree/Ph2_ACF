@@ -65,7 +65,7 @@ namespace Ph2_HwDescription{
 			{
 				fModuleVector.erase(i);
 				j=true;
-				i--;   //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, therefore a segmentation fault, we need to decrease the iterator 
+				i--;   //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator 
 			}
 		}
 		if (j==true)
