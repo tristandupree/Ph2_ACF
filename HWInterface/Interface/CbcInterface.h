@@ -29,15 +29,10 @@ namespace Ph2_HwInterface
         private:
             void SelectSramForI2C( unsigned int pFe );
 			bool I2cCmdAckWait( uint32_t pAckVal, unsigned int pNcount=1 );
-			void SendCbcI2cRequest( uint32_t pFe, uint32_t& pValue, bool pWrite);
             void SendBlockCbcI2cRequest( uint32_t pFe, std::vector<uint32_t>& pVecReq, bool pWrite);
-			void ReadI2cValuesInSRAM( unsigned int pFe, uint32_t &pValue );
             void ReadI2cBlockValuesInSRAM( unsigned int pFe, std::vector<uint32_t> &pVecReq );
             void EnableI2c( bool pEnable );
-			uint32_t SendI2c( uint16_t pAddr, uint16_t pData, bool pWrite );
 
-            void WriteCbcReg( uint16_t pFe, uint32_t& pValue );
-            void ReadCbcReg( uint16_t pFe, uint32_t& pValue );
             void WriteCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq );
             void ReadCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq );
 
