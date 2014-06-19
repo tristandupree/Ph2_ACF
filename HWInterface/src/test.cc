@@ -19,15 +19,15 @@
 int main()
 {
         int i;
-	Ph2_HwDescription::Glib cGlib;
+	Glib cGlib;
 
 	std::cout << "\nHurray, it's working !\n" << std::endl;
 
-    Ph2_HwInterface::GLIBInterface MyGlibInterface("file:///opt/testing/trackerDAQ-3.2/CBCDAQ/GlibSupervisor/xml/connections.xml",cGlib);
+    Ph2_HwInterface::GlibInterface MyGlibInterface("file:///opt/testing/trackerDAQ-3.2/CBCDAQ/GlibSupervisor/xml/connections.xml");
 
 	std::cout << "\nConfiguration...\n" << std::endl;
 
-	MyGlibInterface.ConfigureGLIB();
+	MyGlibInterface.ConfigureGlib(cGlib);
 
 	std::cout << "\nConfiguration Complete !\n" << std::endl;
 
@@ -35,7 +35,7 @@ int main()
 
 	std::cout << "\nStart...\n" << std::endl;
 
-	MyGlibInterface.Start();
+	MyGlibInterface.Start(cGlib);
 
 	std::cout << "\nStarted !\n" << std::endl;
 
@@ -43,7 +43,7 @@ int main()
 
 	std::cout << "\nPause...\n" << std::endl;
 
-	MyGlibInterface.Pause();
+	MyGlibInterface.Pause(cGlib);
 
         std::cout << "\nPaused !\n" << std::endl;
 
@@ -51,7 +51,7 @@ int main()
 
 	std::cout << "\nUnpause...\n" << std::endl;
 
-	MyGlibInterface.Unpause();
+	MyGlibInterface.Unpause(cGlib);
 
         std::cout << "\nUnpaused !\n" << std::endl;
 
@@ -59,7 +59,7 @@ int main()
 
 	std::cout << "\nRead DAQ...\n" << std::endl;
 
-	MyGlibInterface.ReadData(4,false);
+	MyGlibInterface.ReadData(cGlib,4,false);
 
         std::cout << "\nDAQ read !\n" << std::endl;
 
@@ -67,7 +67,7 @@ int main()
 
 	std::cout << "\nStop...\n" << std::endl;
 
-	MyGlibInterface.Stop(10);
+	MyGlibInterface.Stop(cGlib,10);
 
         std::cout << "\nStopped !\n" << std::endl;
 
