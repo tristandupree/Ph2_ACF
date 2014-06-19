@@ -1,11 +1,11 @@
 /*
 
-  FileName : 					GLIBInterface.cc
-  Content : 					 GLIBInterface class, init/config of the Glib
-  Programmer : 				  Nicolas PIERRE
-  Version : 					 1.1
-  Date of creation : 	        07/06/14
-  Support : 					 mail to : nicolas.pierre@cern.ch
+    FileName :                    GlibInterface.cc
+    Content :                     GlibInterface class, init/config of the Glib
+    Programmer :                  Nicolas PIERRE
+    Version :                     1.3
+    Date of creation :            07/06/14
+    Support :                     mail to : nicolas.pierre@cern.ch
 
 */
 
@@ -17,7 +17,8 @@
 #include "GLIBInterface.h"
 #include "Utilities.h"
 
-#define EVENT_SIZE_32    32
+#define EVENT_NUMBER     100
+#define PACKET_SIZE      32
 
 #define DEV_FLAG         0
 
@@ -25,32 +26,27 @@
 namespace Ph2_HwInterface
 {
 
-    unsigned int GLIBInterface::NBe = 0;
-    unsigned int GLIBInterface::fPacketSize = EVENT_SIZE_32;
-
-    //Constructor, make the connection to the board and get settings from GLIB
-    GLIBInterface::GLIBInterface(const char *puHalConfigFileName, Ph2_HwDescription::Glib &pGlib ):
-        RegManager(puHalConfigFileName),
-		fOutputDir("./"),
-        fGlib(pGlib),
-		fBeId(0),
-		fNFe(1),
-		fNCbc(2),
-		fNegativeLogicCBC(true),
-		fStop(false)
-    {
-        fGlibSettings = fGlib.getGlibRegMap();
-
-        NBe++;
-    }
-
-    GLIBInterface::~GLIBInterface()
+    //Constructor, makes the board map
+    GlibInterface::GlibInterface(const char *puHalConfigFileName):
+        RegManager(puHalConfigFileName)
+		//fNegativeLogicCBC(true),
+		//fStop(false)
     {
 
     }
 
-    void GLIBInterface::ConfigureGLIB()
+
+    GlibInterface::~GlibInterface()
     {
+
+    }
+
+
+    void GlibInterface::ConfigureGlib(Glib& pGlib)
+    {
+
+        ChooseBoard(pGlib.getBeId());
+
         boost::posix_time::milliseconds cPause(200);
 
         //Primary Configuration
@@ -62,35 +58,21 @@ namespace Ph2_HwInterface
 		boost::this_thread::sleep(cPause);
 
 
-        //GlibSetting : map<std::string,UInt_t> created from GLIB class
-		for(Ph2_HwDescription::GlibRegMap::iterator cIt = fGlibSettings.begin(); cIt != fGlibSettings.end(); cIt++ )
+        /*
+        GlibRegMap : map<std::string,uint8_t> created from Glib class
+
+        Mandatory to go through a created cGlibRegMap.
+        If you want to put directly pGlib.getGlibRegMap(), you'll end up with
+        a seg fault error, as it is not putting all the map in mem but only
+        begin() and end().
+        */
+        
+        Ph2_HwDescription::GlibRegMap cGlibRegMap = pGlib.getGlibRegMap();
+		for(Ph2_HwDescription::GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); cIt++ )
         {
 			WriteReg( cIt->first , (uint32_t) cIt->second );
 		}
 
-
-        /*
-        //Temporary hardcoding
-        WriteReg("CBC_expected",3);
-        WriteReg("COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID",1);
-        WriteReg("COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET",50);
-        WriteReg("COMMISSIONNING_MODE_DELAY_AFTER_L1A",400);
-        WriteReg("COMMISSIONNING_MODE_DELAY_AFTER_TEST_PULSE",201);
-        WriteReg("COMMISSIONNING_MODE_RQ",1);
-        WriteReg("FE_expected",1);
-        WriteReg("cbc_stubdata_latency_adjust_fe1",1);
-        WriteReg("cbc_stubdata_latency_adjust_fe2",1);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.ACQ_MODE",1);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE",1);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER",100);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.INT_TRIGGER_FREQ",4);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.clock_shift",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC",1);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu",0);
-        //End of temporary hardcoding
-        */
 
         WriteReg("user_wb_ttc_fmc_regs.pc_commands.SPURIOUS_FRAME",0);
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",0);
@@ -113,28 +95,27 @@ namespace Ph2_HwInterface
 		boost::this_thread::sleep( cPause*3 );
 
 
-        //Setting internal members
-        fNFe = fGlibSettings.find( "FE_expected" )->second;
+        //Setting internal members, not used now
+        /*
+        fNFe = pGlib.getGlibRegMap().find( "FE_expected" )->second;
 		fNFe = fNFe == 1 ? 1 : 2;
 
         unsigned int cExpectedCbc = fGlibSettings.find( "CBC_expected" )->second;
 		fNCbc = cExpectedCbc == 1 ? 1 : 2;
+        */
 
     }
 
-    /* Not working as for now, waiting for new format of board
-    void SetGLIBBoardId(Glib& pGlib)
-    {
-        setBoardId(pGlib.getBEId);
-    }
-    */
 
-    void GLIBInterface::Start()
+    void GlibInterface::Start(Glib& pGlib)
     {
+
 #ifdef __CBCDAQ_DEV__
 		long mtime = getTimeTook( fStartVeto, 1 );
 		std::cout << "Time took for the trigger veto to trigger enable: " << std::dec << mtime << " ms." << std::endl;
 #endif
+
+        ChooseBoard(pGlib.getBeId());
 
         //Starting the DAQ
         WriteReg("break_trigger",0);
@@ -142,9 +123,13 @@ namespace Ph2_HwInterface
         WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",1);
     }
 
-    void GLIBInterface::Stop( uint32_t pNthAcq )
+
+    void GlibInterface::Stop(Glib& pGlib, uint32_t pNthAcq )
     {
+
         uhal::ValWord<uint32_t> cVal;
+
+        ChooseBoard(pGlib.getBeId());
 
         //Select SRAM
         SelectSRAM( pNthAcq );
@@ -167,26 +152,36 @@ namespace Ph2_HwInterface
         } while (cVal==1);
 
         WriteReg(fStrReadout,0);
-        fNTotalAcq++;
+        //fNTotalAcq++;
     }
 
-    void GLIBInterface::Pause()
+
+    void GlibInterface::Pause(Glib& pGlib)
     {
+
+        ChooseBoard(pGlib.getBeId());
+
         WriteReg("break_trigger",1);
+
 #ifdef __CBCDAQ_DEV__
         std::cout << "Pause engaged" << std::endl;
 #endif
     }
 
-    void GLIBInterface::Unpause()
+
+    void GlibInterface::Unpause(Glib& pGlib)
     {
+        ChooseBoard(pGlib.getBeId());
+
         WriteReg("break_trigger",0);
+
 #ifdef __CBCDAQ_DEV__
         std::cout << "Pause disengaged" << std::endl;
 #endif
     }
 
-    void GLIBInterface::ReadData( unsigned int pNthAcq, bool pBreakTrigger )
+
+    void GlibInterface::ReadData(Glib& pGlib, unsigned int pNthAcq, bool pBreakTrigger )
     {
 
 #ifdef __CBCDAQ_DEV__
@@ -200,12 +195,14 @@ namespace Ph2_HwInterface
 		gettimeofday(&start, 0);
 #endif
 
+        ChooseBoard(pGlib.getBeId());
+
 		//Readout settings
 		boost::posix_time::milliseconds cWait(1);
 
 		uhal::ValWord<uint32_t> cVal;
-		uint32_t cNPackets= fNeventPerAcq+1;
-		uint32_t cBlockSize = cNPackets * fPacketSize;
+		uint32_t cNPackets= EVENT_NUMBER+1;
+		uint32_t cBlockSize = cNPackets * PACKET_SIZE;
 
 		//Wait for start acknowledge
 		do
@@ -307,7 +304,8 @@ namespace Ph2_HwInterface
 
     }
 
-    void GLIBInterface::SelectSRAM( uint32_t pNthAcq )
+
+    void GlibInterface::SelectSRAM(uint32_t pNthAcq)
     {
         fStrSram  = (boost::format("sram%d") % (pNthAcq%2+1)).str();
 		fStrSramUserLogic =  (boost::format("ctrl_sram.sram%d_user_logic") % (pNthAcq%2+1)).str();
@@ -316,10 +314,20 @@ namespace Ph2_HwInterface
     }
 
 
-    void GLIBInterface::UpdateReg( const std::string& pRegNode, const uint32_t& pVal )
+    void GlibInterface::UpdateGlibWrite(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal)
     {
+        ChooseBoard(pGlib.getBeId());
+
         WriteReg( pRegNode,pVal );
-        fGlib.setReg( pRegNode,pVal );
+        pGlib.setReg( pRegNode,pVal );
+    }
+
+
+    void GlibInterface::UpdateGlibRead(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal)
+    {
+        ChooseBoard(pGlib.getBeId());
+
+        pGlib.setReg(pRegNode,(uint32_t) ReadReg(pRegNode));
     }
 
 }

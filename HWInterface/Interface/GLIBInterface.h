@@ -1,11 +1,11 @@
 /*
 
-  FileName : 					GLIBInterface.h
-  Content : 					 GLIBInterface class, init/config of the Glib
-  Programmer : 				  Nicolas PIERRE
-  Version : 					 1.1
-  Date of creation : 	        07/06/14
-  Support : 					 mail to : nicolas.pierre@cern.ch
+    FileName :                    GlibInterface.h
+    Content :                     GlibInterface class, init/config of the Glib
+    Programmer :                  Nicolas PIERRE
+    Version :                     1.3
+    Date of creation :            07/06/14
+    Support :                     mail to : nicolas.pierre@cern.ch
 
 */
 #ifndef __GLIBINTERFACE_H__
@@ -18,55 +18,50 @@
 #include "RegManager.h"
 #include "../../HWDescription/Description/Glib.h"
 
+using namespace Ph2_HwDescription;
+
 namespace Ph2_HwInterface
 {
-    class GLIBInterface : public RegManager
+    class GlibInterface : public RegManager
     {
         private:
-			std::string                     fOutputDir;
-            std::map<std::string,UInt_t>    fGlibSettings;
-            Ph2_HwDescription::Glib         fGlib;
-
-			unsigned int				    fBeId;
-			unsigned int                    fNFe;
-			unsigned int                    fNCbc;
+			//Unused variables for the moment, useful for the future
+            /*
             unsigned int                    fNeventPerAcq;
             unsigned int                    fNTotalAcq;
 			bool                            fNegativeLogicCBC;
 			bool                            fStop;
+            */
 
             struct timeval fStartVeto;
             std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
 
             uhal::ValVector<uint32_t> fData;
 
-        public:
-            static unsigned int NBe;
-            static unsigned int fPacketSize;
-
-        public:
-            //Constructor, takes a GLIB object as parameter
-            GLIBInterface(const char *puHalConfigFileName, Ph2_HwDescription::Glib& pGLIB);
-            //Destructor
-            ~GLIBInterface();
-
-            //Configure the Glib w or w/o a GLIB object as parameter
-            void ConfigureGLIB();
-            //Set the Glib Board Id
-            //void SetGLIBBoardId(Glib& pGlib);
-            //Start an acq
-            void Start();
-            //Stop an acq
-            void Stop( uint32_t pNthAcq );
-            //(Un)pause the acq
-            void Pause();
-            void Unpause();
-            //Read Data from acq
-            void ReadData( uint32_t pNthAcq, bool pBreakTrigger );
+        private:
             //Select the SRAM for DAQ
-            void SelectSRAM( uint32_t pNthAcq );
-            //Update GLIB register
-            void UpdateReg( const std::string& pRegNode, const uint32_t& pVal );
+            void SelectSRAM(uint32_t pNthAcq);
+
+        public:
+            //Constructor, takes a Glib object as parameter
+            GlibInterface(const char *puHalConfigFileName);
+            //Destructor
+            ~GlibInterface();
+
+            //Configure the Glib w or w/o a Glib object as parameter
+            void ConfigureGlib(Glib& pGlib);
+            //Start an acq
+            void Start(Glib& pGlib);
+            //Stop an acq
+            void Stop(Glib& pGlib,uint32_t pNthAcq);
+            //(Un)pause the acq
+            void Pause(Glib& pGlib);
+            void Unpause(Glib& pGlib);
+            //Read Data from acq
+            void ReadData(Glib& pGlib,uint32_t pNthAcq,bool pBreakTrigger);
+            //Update Glib register
+            void UpdateGlibWrite(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
+            void UpdateGlibRead(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
     };
 }
 
