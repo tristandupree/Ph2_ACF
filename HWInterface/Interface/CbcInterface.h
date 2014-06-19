@@ -35,6 +35,9 @@ namespace Ph2_HwInterface
 
             void WriteCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq );
             void ReadCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq );
+	
+	public:
+	    std::vector<uint32_t> fVecReq;
 
         public:
             static const std::string fStrI2cSettings;
@@ -50,6 +53,10 @@ namespace Ph2_HwInterface
             //void ReadCbc();
             void UpdateCbcReg( std::string pReg, UInt_t psetValue );
             //void WriteBroadcast();
+
+
+	    void addReg(Ph2_HwDescription::CbcRegItem&, UInt_t pCbcId);
+	    void decodeReg(uint32_t vecReq, UInt_t& pCbcId, UInt_t& pPage, UInt_t& pAddress, UInt_t& pValue);
 
     };
 }
