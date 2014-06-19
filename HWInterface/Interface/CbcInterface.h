@@ -3,7 +3,7 @@
   FileName : 					CbcInterface.h
   Content : 					 CbcInterface class, config of the Cbcs
   Programmer : 				  Nicolas PIERRE
-  Version : 					 0.0
+  Version : 					 1.3
   Date of creation : 	        07/06/14
   Support : 					 mail to : nicolas.pierre@cern.ch
 
@@ -17,27 +17,36 @@
 #include <limits.h>
 #include <boost/cstdint.hpp>
 #include "RegManager.h"
+#include "../../HWDescription/Description/CbcRegItem.h"
+#include "../../HWDescription/Description/Cbc.h"
+
+using namespace Ph2_HwDescription;
 
 namespace Ph2_HwInterface
 {
-    class CBCInterface : public RegManager
+    class CbcInterface : public RegManager
     {
         private:
             std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
-            Cbc fCbc;
 
         private:
-            void SelectSramForI2C( unsigned int pFe );
-			bool I2cCmdAckWait( uint32_t pAckVal, unsigned int pNcount=1 );
-            void SendBlockCbcI2cRequest( uint32_t pFe, std::vector<uint32_t>& pVecReq, bool pWrite);
-            void ReadI2cBlockValuesInSRAM( unsigned int pFe, std::vector<uint32_t> &pVecReq );
-            void EnableI2c( bool pEnable );
+            //I2C functions to handle with the Cbc
+            void SelectSramForI2C( uint8_t pCbcId );
+    		bool I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount=1 );
+            void SendBlockCbcI2cRequest( uint32_t pCbcId, std::vector<uint32_t>& pVecReq, bool pWrite);
+            void ReadI2cBlockValuesInSRAM( unsigned int pCbcId, std::vector<uint32_t> &pVecReq );
+            void EnableI2c( Cbc& pCbc, bool pEnable );
 
-            void WriteCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq );
-            void ReadCbcBlockReg( uint16_t pFe, std::vector<uint32_t>& pVecReq );
-	
-	public:
-	    std::vector<uint32_t> fVecReq;
+            //r/w the Cbc registers
+            void WriteCbcBlockReg( Cbc& pCbc, std::vector<uint32_t>& pVecReq );
+            void ReadCbcBlockReg( Cbc& pCbc, std::vector<uint32_t>& pVecReq );
+
+            //Encode/Decode Cbc values
+            void EncodeReg(CbcRegItem&, uint8_t pCbcId);
+            void DecodeReg(uint32_t pWord, CbcRegItem& pRegItem, uint8_t& pCbcId);
+
+    	public:
+    	    std::vector<uint32_t> fVecReq;
 
         public:
             static const std::string fStrI2cSettings;
@@ -46,17 +55,15 @@ namespace Ph2_HwInterface
 			static const uint32_t fI2cSlave;
 
         public:
-            CBCInterface(const char *puHalConfigFileName, Ph2_HwDescription::Cbc &pCbc );
-            ~CBCInterface();
+            CbcInterface(const char *puHalConfigFileName);
+            ~CbcInterface();
 
             void ConfigureCbc();
+            //Not complete/tested functions
             //void ReadCbc();
-            void UpdateCbcReg( std::string pReg, UInt_t psetValue );
+            //void UpdateCbcReg( std::string pReg, UInt_t psetValue );
+            //void UpdateCbcRead(Glib& pCBC,const std::string& pRegNode,const uint32_t& pVal)
             //void WriteBroadcast();
-
-
-	    void addReg(Ph2_HwDescription::CbcRegItem&, UInt_t pCbcId);
-	    void decodeReg(uint32_t vecReq, UInt_t& pCbcId, UInt_t& pPage, UInt_t& pAddress, UInt_t& pValue);
 
     };
 }
