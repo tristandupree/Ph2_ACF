@@ -42,11 +42,8 @@ namespace Ph2_HwInterface
             void ReadCbcBlockReg( Cbc& pCbc, std::vector<uint32_t>& pVecReq );
 
             //Encode/Decode Cbc values
-            void EncodeReg(CbcRegItem&, uint8_t pCbcId);
-            void DecodeReg(uint32_t pWord, CbcRegItem& pRegItem, uint8_t& pCbcId);
-
-    	public:
-    	    std::vector<uint32_t> fVecReq;
+            void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t> pVecReq);
+            void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord);
 
         public:
             static const std::string fStrI2cSettings;
@@ -58,12 +55,20 @@ namespace Ph2_HwInterface
             CbcInterface(const char *puHalConfigFileName);
             ~CbcInterface();
 
-            void ConfigureCbc();
-            //Not complete/tested functions
-            //void ReadCbc();
-            //void UpdateCbcReg( std::string pReg, UInt_t psetValue );
-            //void UpdateCbcRead(Glib& pCBC,const std::string& pRegNode,const uint32_t& pVal)
-            //void WriteBroadcast();
+            //Configure the Cbc after the CbcConfigFile
+            void ConfigureCbc(Cbc& pCbc);
+            //Write the designated register in both Cbc and CbcConfigFile
+            void UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint32_t& pWord);
+            //Read the designated register in the Cbc and update the CbcConfigFile
+            void UpdateCbcRead(Cbc& pCbc,const std::string& pRegNode);
+
+            /*
+            //Not completed/tested functions
+            //Read same register in all Cbcs and then UpdateCbcRead
+            void ReadCbc();
+            //Write same register in all Cbcs and then UpdateCbcWrite
+            void WriteBroadcast();
+            */
 
     };
 }

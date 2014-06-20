@@ -247,13 +247,13 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t pCbcId)
+	void CbcInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t> pVecReq)
 	{
-		fVecReq.push_back(pCbcId<<24 | pRegItem.fPage<<16 | pRegItem.fAddress<<8 | pRegItem.fValue);
+		pVecReq.push_back(pCbcId<<24 | pRegItem.fPage<<16 | pRegItem.fAddress<<8 | pRegItem.fValue);
 	}
 
 
-	void CbcInterface::DecodeReg(uint32_t pWord, CbcRegItem& pRegItem, uint8_t& pCbcId)
+	void CbcInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
 	{
 		uint32_t cMask(0x00000000);
 		unsigned int i(0);
@@ -272,25 +272,189 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::ConfigureCbc()
+	void CbcInterface::ConfigureCbc(Cbc& pCbc)
 	{
+#ifdef __CbcDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+#endif
+
+		std::vector<uint32_t> cVecReq;
+		CbcRegMap cCbcRegMap = pCbc.getRegMap();
+
+		for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
+		{
+			EncodeReg(cIt->second,pCbc.fCbcId,cVecReq);
+		}
+
+		WriteCbcBlockReg(pCbc,cVecReq);
+
+#ifdef __CbcDAQ_DEV__
+		if(  DEV_FLAG ){
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for Cbc register configuration so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+#endif
 
 	}
 
 /*
-	void CbcInterface::UpdateCbcWrite( uint8_t pCbcId, std::string pCbcId, uint8_t psetValue )
+	void CbcInterface::ReadCbc(Module& pModule,const std::string& pRegNode)
 	{
-		ChooseBoard(pGlib.getBeId());
 
-		WriteCbcBlockReg(uint16_t pCbcId, std::vector<uint32_t>& pVecReq);
-		Cbc.setReg(std::string pCbcId, uint8_t psetValue);
+#ifdef __CbcDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+#endif
+
+		Cbc cCbc;
+
+		for(uint8_t i=0;i<pModule.getNCbc;i++)
+		{
+			cCbc = Module.getCbc(i);
+			UpdateCbcRead(cCbc,pRegNode);
+		}
+
+#ifdef __CbcDAQ_DEV__
+		if(  DEV_FLAG ){
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for reading all Cbcs so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+#endif
+
 	}
 
-	void CbcInterface::UpdateCbcRead(Glib& pCBC,const std::string& pRegNode,const uint32_t& pVal)
-	{
-		ChooseBoard(pGlib.getBeId());
 
-		pGlib.setReg(pRegNode,(uint32_t) ReadCbcBlockReg(pRegNode));
+	void WriteBroadcast(Module& pModule,const std::string& pRegNode)
+	{
+
+#ifdef __CbcDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+#endif
+
+		Cbc cCbc;
+
+		for(uint8_t i=0;i<pModule.getNCbc;i++)
+		{
+			cCbc = Module.getCbc(i);
+			UpdateCbcWrite(cCbc,pRegNode);
+		}
+
+#ifdef __CbcDAQ_DEV__
+		if(  DEV_FLAG ){
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for writing all Cbcs so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+#endif
+
 	}
 */
+
+	void CbcInterface::UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint32_t& pWord)
+	{
+#ifdef __CbcDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+#endif
+
+		uint8_t cCbcId;
+		CbcRegItem cRegItem;
+		std::vector<uint32_t> cVecReq;
+
+		cVecReq.push_back(pWord);
+
+		ChooseBoard(pCbc.getBeId());
+
+		WriteCbcBlockReg(pCbc,cVecReq);
+
+		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
+
+		pCbc.setReg(pRegNode,cRegItem.fValue);
+
+#ifdef __CbcDAQ_DEV__
+		if(  DEV_FLAG ){
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+#endif
+
+	}
+
+
+	void CbcInterface::UpdateCbcRead(Cbc& pCbc,const std::string& pRegNode)
+	{
+#ifdef __CbcDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+#endif
+
+		uint8_t cCbcId;
+		CbcRegItem cRegItem = (pCbc.getRegMap())[pRegNode];
+		std::vector<uint32_t> cVecReq;
+
+		ChooseBoard(pCbc.getBeId());
+
+		EncodeReg(cRegItem,pCbc.fCbcId,cVecReq);
+
+		ReadCbcBlockReg(pCbc,cVecReq);
+
+		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
+
+		pCbc.setReg(pRegNode,cRegItem.fValue);
+
+#ifdef __CbcDAQ_DEV__
+		if(  DEV_FLAG ){
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for Cbc register refresh so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+#endif
+
+	}
+
 }
