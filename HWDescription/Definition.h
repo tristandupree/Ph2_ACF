@@ -1,10 +1,10 @@
 /*
 
-  FileName : 					Definition.h
+  FileName : 				   Definition.h
   Content : 					 Definition File, listing the registers
-  Programmer : 				  Nicolas PIERRE
+  Programmer : 				 Nicolas PIERRE
   Version : 					 1.3
-  Date of creation : 	        07/06/14
+  Date of creation : 	 07/06/14
   Support : 					 mail to : nicolas.pierre@etu.unistra.net
 
 */
@@ -12,20 +12,20 @@
 //------------------------------------------------------------------------------
 //I2C Parameters
 
-#define I2C_CTRL_ENABLE 		0x000009F4
-#define I2C_CTRL_DISABLE		0
+#define I2C_CTRL_ENABLE   0x000009F4
+#define I2C_CTRL_DISABLE  0
 #define I2C_STROBE			  1
-#define I2C_M16B				0
-#define I2C_MEM				 1
-#define I2C_WRITE_ADDR		  0x09
-#define I2C_READ_ADDR		   0x06
+#define I2C_M16B				  0
+#define I2C_MEM				    1
+#define I2C_WRITE_ADDR	  0x09
+#define I2C_READ_ADDR		  0x06
 
-#define I2C_SLAVE			   0x5B
-#define I2C_COMMAND			 "user_wb_ttc_fmc_regs.Cbc_reg_i2c_command"
-#define I2C_REPLY			   "user_wb_ttc_fmc_regs.Cbc_reg_i2c_reply"
-#define I2C_SETTINGS            "user_wb_ttc_fmc_regs.Cbc_reg_i2c_settings"
+#define I2C_SLAVE			    0x5B
+#define I2C_COMMAND			  "user_wb_ttc_fmc_regs.Cbc_reg_i2c_command"
+#define I2C_REPLY			    "user_wb_ttc_fmc_regs.Cbc_reg_i2c_reply"
+#define I2C_SETTINGS      "user_wb_ttc_fmc_regs.Cbc_reg_i2c_settings"
 
-#define MAX_NB_LOOP			 50
+#define MAX_NB_LOOP			  50
 
 
 //------------------------------------------------------------------------------
