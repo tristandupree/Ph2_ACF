@@ -59,9 +59,11 @@ namespace Ph2_HwInterface
             void Unpause(Glib& pGlib);
             //Read Data from acq
             void ReadData(Glib& pGlib,uint32_t pNthAcq,bool pBreakTrigger);
-            //Update Glib register
+            //Write the designated register in both Glib and GlibConfigFile
             void UpdateGlibWrite(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
-            void UpdateGlibRead(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
+            //Read the designated register in the Glib and update the GlibConfigFile
+            void UpdateGlibRead(Glib& pGlib,const std::string& pRegNode);
+            
     };
 }
 

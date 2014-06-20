@@ -66,9 +66,9 @@ namespace Ph2_HwInterface
         a seg fault error, as it is not putting all the map in mem but only
         begin() and end().
         */
-        
-        Ph2_HwDescription::GlibRegMap cGlibRegMap = pGlib.getGlibRegMap();
-		for(Ph2_HwDescription::GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); cIt++ )
+
+        GlibRegMap cGlibRegMap = pGlib.getGlibRegMap();
+		for(GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); cIt++ )
         {
 			WriteReg( cIt->first , (uint32_t) cIt->second );
 		}
@@ -93,16 +93,6 @@ namespace Ph2_HwInterface
         WriteReg("break_trigger",1);
 
 		boost::this_thread::sleep( cPause*3 );
-
-
-        //Setting internal members, not used now
-        /*
-        fNFe = pGlib.getGlibRegMap().find( "FE_expected" )->second;
-		fNFe = fNFe == 1 ? 1 : 2;
-
-        unsigned int cExpectedCbc = fGlibSettings.find( "CBC_expected" )->second;
-		fNCbc = cExpectedCbc == 1 ? 1 : 2;
-        */
 
     }
 
@@ -323,7 +313,7 @@ namespace Ph2_HwInterface
     }
 
 
-    void GlibInterface::UpdateGlibRead(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal)
+    void GlibInterface::UpdateGlibRead(Glib& pGlib,const std::string& pRegNode)
     {
         ChooseBoard(pGlib.getBeId());
 
