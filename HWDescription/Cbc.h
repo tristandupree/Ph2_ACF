@@ -19,14 +19,14 @@ namespace Ph2_HwDescription{
 	public:
 
 		// C'tors with object FE Description
-		Cbc( FEDescription& pFeDesc, UInt_t pCbcId, std::string filename );
-		Cbc( FEDescription& pFeDesc, UInt_t pCbcId,UInt_t pTriggerLatency,UInt_t pVcth );
-		Cbc( FEDescription& pFeDesc, UInt_t pCbcId );
+		Cbc( FEDescription& pFeDesc, uint32_t pCbcId, std::string filename );
+		Cbc( FEDescription& pFeDesc, uint32_t pCbcId,uint32_t pTriggerLatency,uint32_t pVcth );
+		Cbc( FEDescription& pFeDesc, uint32_t pCbcId );
 
 		// C'tors which take ShelveID, BeId, FeID, CbcId
-		Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, std::string filename );
-		Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, UInt_t pTriggerLatency,UInt_t pVcth );
-		Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId );
+		Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId, std::string filename );
+		Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId, uint32_t pTriggerLatency,uint32_t pVcth );
+		Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId );
 
 		// Default C'tor
 		Cbc();
@@ -41,19 +41,19 @@ namespace Ph2_HwDescription{
 		void loadfRegMap(std::string filename);
 
 
-		UInt_t getTriggerLatency();
-		void setTriggerLatency(UInt_t pTriggerLatency);
+		uint32_t getTriggerLatency();
+		void setTriggerLatency(uint32_t pTriggerLatency);
 
-		UInt_t getVcth();
-		void setVcth(UInt_t psetVcth);
+		uint32_t getVcth();
+		void setVcth(uint32_t psetVcth);
 
-		UInt_t getReg(std::string pReg);
-		void setReg(std::string pReg, UInt_t psetValue);
+		uint32_t getReg(std::string pReg);
+		void setReg(std::string pReg, uint32_t psetValue);
 
 		//Write RegValues in a file
 		void writeRegValues( std::string filename );
 
-		UInt_t getCbcId() {return fCbcId;};
+		uint32_t getCbcId() {return fCbcId;};
 
 	protected:
 
@@ -62,7 +62,7 @@ namespace Ph2_HwDescription{
 
 	public:
 
-		UInt_t fCbcId;
+		uint32_t fCbcId;
 
 	};
 

@@ -14,14 +14,14 @@ namespace Ph2_HwDescription{
 
 	}
 
-	Glib::Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, std::string filename ):fShelveId( pShelveId ),fBeId( pBeId ){
+	Glib::Glib( uint32_t pShelveId, uint32_t pBeId, uint32_t pNFe, std::string filename ):fShelveId( pShelveId ),fBeId( pBeId ){
 
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
 
 	}
 
-	Glib::Glib( UInt_t pShelveId, UInt_t pBeId, UInt_t pNFe, UInt_t pFMCConfiguration, bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId ), fFMCConfiguration(pFMCConfiguration), fExtTrg(pExtTrg)
+	Glib::Glib( uint32_t pShelveId, uint32_t pBeId, uint32_t pNFe, uint32_t pFMCConfiguration, bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId ), fFMCConfiguration(pFMCConfiguration), fExtTrg(pExtTrg)
 	{
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
@@ -30,7 +30,7 @@ namespace Ph2_HwDescription{
 	// Public Members:
 
 
-	UInt_t Glib::getReg( std::string pReg )
+	uint32_t Glib::getReg( std::string pReg )
 	{
 		GlibRegMap::iterator i;
 		i = fRegMap.find( pReg );
@@ -42,7 +42,7 @@ namespace Ph2_HwDescription{
 		else return i->second;
 	}
 
-	void Glib::setReg( std::string pReg, UInt_t psetValue )
+	void Glib::setReg( std::string pReg, uint32_t psetValue )
 	{
 		GlibRegMap::iterator i;
 		i = fRegMap.find( pReg );
@@ -55,7 +55,7 @@ namespace Ph2_HwDescription{
 		fModuleVector.push_back(pModule);
 	}
 
-	bool Glib::removeModule( UInt_t pModuleId )
+	bool Glib::removeModule( uint32_t pModuleId )
 	{
 		std::vector < Module > :: iterator i;
 		bool j=false;
@@ -77,7 +77,7 @@ namespace Ph2_HwDescription{
 		}	
 	}
 
-	Module Glib::getModule( UInt_t pModuleId )
+	Module Glib::getModule( uint32_t pModuleId )
 	{
 		Module obj;
 		std::vector < Module > :: iterator i;

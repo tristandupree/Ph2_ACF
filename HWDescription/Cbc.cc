@@ -23,7 +23,7 @@ namespace Ph2_HwDescription{
 
 	// C'tors with object FE Description
 
-	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId, std::string filename ):FEDescription(pFeDesc)
+	Cbc::Cbc( FEDescription& pFeDesc, uint32_t pCbcId, std::string filename ):FEDescription(pFeDesc)
 	{
 
 		fCbcId=pCbcId;
@@ -31,7 +31,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId,UInt_t pTriggerLatency,UInt_t pVcth ):FEDescription(pFeDesc)
+	Cbc::Cbc( FEDescription& pFeDesc, uint32_t pCbcId,uint32_t pTriggerLatency,uint32_t pVcth ):FEDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
 
@@ -43,7 +43,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId ):FEDescription(pFeDesc)
+	Cbc::Cbc( FEDescription& pFeDesc, uint32_t pCbcId ):FEDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
 		loadfRegMap(default_file);
@@ -52,7 +52,7 @@ namespace Ph2_HwDescription{
 
 	// C'tors which take ShelveID, BeId, FMCId, FeID, CbcId
 
-	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, std::string filename ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId, std::string filename ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 
 		fCbcId=pCbcId;
@@ -60,7 +60,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, UInt_t pTriggerLatency,UInt_t pVcth ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId, uint32_t pTriggerLatency,uint32_t pVcth ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;
 
@@ -71,7 +71,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;
 		loadfRegMap(default_file);
@@ -128,7 +128,7 @@ namespace Ph2_HwDescription{
 			std::cerr<< "The CBC Settins File " << filename << " could not be opened!" <<std::endl;
 	}
 
-	UInt_t Cbc::getTriggerLatency()
+	uint32_t Cbc::getTriggerLatency()
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
@@ -139,7 +139,7 @@ namespace Ph2_HwDescription{
 		return fRegMap["TriggerLatency"].fValue;
 	}
 
-	void Cbc::setTriggerLatency(UInt_t pTriggerLatency)
+	void Cbc::setTriggerLatency(uint32_t pTriggerLatency)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
@@ -151,7 +151,7 @@ namespace Ph2_HwDescription{
 		}
 	}
 
-	UInt_t Cbc::getVcth()
+	uint32_t Cbc::getVcth()
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("VCth");
@@ -162,7 +162,7 @@ namespace Ph2_HwDescription{
 		return fRegMap["VCth"].fValue;
 	}
 
-	void Cbc::setVcth(UInt_t psetVcth)
+	void Cbc::setVcth(uint32_t psetVcth)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("VCth");
@@ -176,7 +176,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	UInt_t Cbc::getReg(std::string pReg)
+	uint32_t Cbc::getReg(std::string pReg)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find(pReg);
@@ -190,7 +190,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	void Cbc::setReg(std::string pReg, UInt_t psetValue)
+	void Cbc::setReg(std::string pReg, uint32_t psetValue)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find(pReg);
@@ -214,7 +214,7 @@ namespace Ph2_HwDescription{
         	if(file)
        		{
 			file<< "* RegName";
-			for (UInt_t j=0;j<48;j++) {file<<" ";}
+			for (int j=0;j<48;j++) {file<<" ";}
 			file.seekp(-strlen("* RegName"),std::ios_base::cur);
 
 			file<< "Page\tAddr\tDefval\tValue" << std::endl;
@@ -225,7 +225,7 @@ namespace Ph2_HwDescription{
 			{
 
 			file<< i->first;
-			for (UInt_t j=0;j<48;j++) {file<<" ";}
+			for (int j=0;j<48;j++) {file<<" ";}
 			file.seekp(-i->first.size(),std::ios_base::cur);
 
 			std::string fpage_str;

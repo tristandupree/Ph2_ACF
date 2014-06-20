@@ -8,14 +8,14 @@ namespace Ph2_HwDescription{
 	Module::Module( FEDescription& pFeDesc):FEDescription(pFeDesc){
 	}
 
-	Module::Module( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId ):FEDescription( pShelveId, pBeId, pFMCId,pFeId ){
+	Module::Module( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId ):FEDescription( pShelveId, pBeId, pFMCId,pFeId ){
 	}
 
 	void Module::addCbc( Cbc& pCbc ){
 		fCbcVector.insert( pCbc );
 	}
 
-	bool Module::removeCbc( UInt_t pCbcId )
+	bool Module::removeCbc( uint32_t pCbcId )
 	{
 		std::set < Cbc > :: iterator i;
 		bool j=false;
@@ -37,7 +37,7 @@ namespace Ph2_HwDescription{
 		}
 	}
 
-	Cbc   Module::getCbc( UInt_t pCbcId )
+	Cbc   Module::getCbc( uint32_t pCbcId )
 	{
 		Cbc obj;
 		std::set < Cbc > :: iterator i;

@@ -15,7 +15,7 @@ namespace Ph2_HwDescription{
 
 		// C'tors take FEDescription or hierachy of connection and the # of CBCs
 		Module( FEDescription& pFeDesc );
-		Module ( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId);
+		Module ( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId);
 
 		// Default C'tor
 		Module();
@@ -23,10 +23,10 @@ namespace Ph2_HwDescription{
 		// D'tor
 		~Module(){};
 
-		UInt_t getNCbc(){return fCbcVector.size();};
+		uint32_t getNCbc(){return fCbcVector.size();};
 		void addCbc( Cbc& pCbc );
-		bool   removeCbc( UInt_t pCbcId );
-		Cbc   getCbc( UInt_t pCbcId );
+		bool   removeCbc( uint32_t pCbcId );
+		Cbc   getCbc( uint32_t pCbcId );
 
 	protected:
 
