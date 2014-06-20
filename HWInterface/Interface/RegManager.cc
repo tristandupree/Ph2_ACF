@@ -140,21 +140,4 @@ namespace Ph2_HwInterface
       fBoard = fBoardMap[pBoardId];
     }
 
-    //Functions we don't use anymore
-    /*
-    void RegManager::setuHalConfigFileName(const char *puHalConfigFileName)
-    {
-        fUHalConfigFileName = puHalConfigFileName;
-    }
-
-    void RegManager::setBoardId(const char *pBoardId)
-    {
-        uhal::ConnectionManager cm( fUHalConfigFileName );
-
-        delete fBoard;
-
-        fBoardId = pBoardId;
-
-        fBoard = new uhal::HwInterface( cm.getDevice( pBoardId ) );
-    }*/
 }
