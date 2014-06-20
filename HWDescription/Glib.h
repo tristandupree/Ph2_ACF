@@ -25,7 +25,8 @@ namespace Ph2_HwDescription{
 		// C'tor for a standard Glib
 		Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename = default_glib_file );
 		// Parameters that define system for us
-		Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, uint8_t pFMCConfiguration, bool pExtTrg, bool pFakeData = false , std::string filename = "default_glib_file" );
+		//Modify with new param
+		//Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, uint8_t pFMCConfiguration, bool pExtTrg, bool pFakeData = false , std::string filename = "default_glib_file" );
 		// Default C'tor
 		Glib();
 
@@ -36,7 +37,7 @@ namespace Ph2_HwDescription{
 		uint8_t getNFe(){return fModuleVector.size();};
 		uint8_t getBeId(){return fBeId;};
 		uint8_t getShelveId(){return fShelveId;};
-		
+
 		uint8_t getReg( std::string pReg );
 		void setReg( std::string pReg, uint8_t psetValue );
 

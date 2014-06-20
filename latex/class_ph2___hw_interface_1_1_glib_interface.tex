@@ -1,0 +1,173 @@
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface}{\section{Ph2\-\_\-\-Hw\-Interface\-:\-:Glib\-Interface Class Reference}
+\label{class_ph2___hw_interface_1_1_glib_interface}\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+}
+
+
+{\ttfamily \#include $<$G\-L\-I\-B\-Interface.\-h$>$}
+
+Inheritance diagram for Ph2\-\_\-\-Hw\-Interface\-:\-:Glib\-Interface\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_ph2___hw_interface_1_1_glib_interface}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ph2___hw_interface_1_1_glib_interface_a4aebde48748debad7e261c654c2c6fd8}{Glib\-Interface} (const char $\ast$pu\-Hal\-Config\-File\-Name)
+\item 
+\hyperlink{class_ph2___hw_interface_1_1_glib_interface_a1182c81cb29bca33b23a2c9f662df2ed}{$\sim$\-Glib\-Interface} ()
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_aad68569190ea9b318b5be1abae4fd23f}{Configure\-Glib} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a0706eb396293fe5c8c717c5d0ab82165}{Start} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a3073d292371ab4e602900f4276a43b6c}{Stop} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib, uint32\-\_\-t p\-Nth\-Acq)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a1db7815b60c3e3637b23bfa27bab9692}{Pause} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a4d6568c22d8e3777ee909db37b3b01d6}{Unpause} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_ad3f91f03b0214987f4a9e8b63ff99dca}{Read\-Data} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib, uint32\-\_\-t p\-Nth\-Acq, bool p\-Break\-Trigger)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_afeda624fe12657712e9f10cd60603d8a}{Update\-Glib\-Write} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib, const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a1ab42500cf3f6369a8eb2404ef8cd85b}{Update\-Glib\-Read} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib, const std\-::string \&p\-Reg\-Node)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a014fc0ea74353469aa54e4eecaffb225}{Select\-S\-R\-A\-M} (uint32\-\_\-t p\-Nth\-Acq)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+struct timeval \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a056c3192477cbd07c67ff822bc7123de}{f\-Start\-Veto}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a9e24a95e6ba16076ef8fbea1c96243f4}{f\-Str\-Sram}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a27b44db1be7f8a3802ba1a5d675a9888}{f\-Str\-Sram\-User\-Logic}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a40299b584632b402f3c54fc9d98d87f2}{f\-Str\-Full}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a925d65d022d0dc6d453e0e611826c377}{f\-Str\-Readout}
+\item 
+uhal\-::\-Val\-Vector$<$ uint32\-\_\-t $>$ \hyperlink{class_ph2___hw_interface_1_1_glib_interface_af13550ecb2352acfb846de3591cf74d8}{f\-Data}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a4aebde48748debad7e261c654c2c6fd8}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Glib\-Interface@{Glib\-Interface}}
+\index{Glib\-Interface@{Glib\-Interface}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Glib\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Glib\-Interface (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{pu\-Hal\-Config\-File\-Name}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_a4aebde48748debad7e261c654c2c6fd8}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a1182c81cb29bca33b23a2c9f662df2ed}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!$\sim$\-Glib\-Interface@{$\sim$\-Glib\-Interface}}
+\index{$\sim$\-Glib\-Interface@{$\sim$\-Glib\-Interface}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{$\sim$\-Glib\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::$\sim$\-Glib\-Interface (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_a1182c81cb29bca33b23a2c9f662df2ed}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_aad68569190ea9b318b5be1abae4fd23f}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Configure\-Glib@{Configure\-Glib}}
+\index{Configure\-Glib@{Configure\-Glib}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Configure\-Glib}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Configure\-Glib (
+\begin{DoxyParamCaption}
+\item[{{\bf Glib} \&}]{p\-Glib}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_aad68569190ea9b318b5be1abae4fd23f}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a1db7815b60c3e3637b23bfa27bab9692}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Pause@{Pause}}
+\index{Pause@{Pause}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Pause}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Pause (
+\begin{DoxyParamCaption}
+\item[{{\bf Glib} \&}]{p\-Glib}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_a1db7815b60c3e3637b23bfa27bab9692}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_ad3f91f03b0214987f4a9e8b63ff99dca}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Read\-Data@{Read\-Data}}
+\index{Read\-Data@{Read\-Data}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Read\-Data}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Read\-Data (
+\begin{DoxyParamCaption}
+\item[{{\bf Glib} \&}]{p\-Glib, }
+\item[{uint32\-\_\-t}]{p\-Nth\-Acq, }
+\item[{bool}]{p\-Break\-Trigger}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_ad3f91f03b0214987f4a9e8b63ff99dca}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a014fc0ea74353469aa54e4eecaffb225}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Select\-S\-R\-A\-M@{Select\-S\-R\-A\-M}}
+\index{Select\-S\-R\-A\-M@{Select\-S\-R\-A\-M}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Select\-S\-R\-A\-M}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Select\-S\-R\-A\-M (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{p\-Nth\-Acq}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a014fc0ea74353469aa54e4eecaffb225}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a0706eb396293fe5c8c717c5d0ab82165}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Start@{Start}}
+\index{Start@{Start}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Start}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Start (
+\begin{DoxyParamCaption}
+\item[{{\bf Glib} \&}]{p\-Glib}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_a0706eb396293fe5c8c717c5d0ab82165}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a3073d292371ab4e602900f4276a43b6c}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Stop@{Stop}}
+\index{Stop@{Stop}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Stop}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Stop (
+\begin{DoxyParamCaption}
+\item[{{\bf Glib} \&}]{p\-Glib, }
+\item[{uint32\-\_\-t}]{p\-Nth\-Acq}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_a3073d292371ab4e602900f4276a43b6c}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a4d6568c22d8e3777ee909db37b3b01d6}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Unpause@{Unpause}}
+\index{Unpause@{Unpause}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Unpause}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Unpause (
+\begin{DoxyParamCaption}
+\item[{{\bf Glib} \&}]{p\-Glib}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_a4d6568c22d8e3777ee909db37b3b01d6}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a1ab42500cf3f6369a8eb2404ef8cd85b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Update\-Glib\-Read@{Update\-Glib\-Read}}
+\index{Update\-Glib\-Read@{Update\-Glib\-Read}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Update\-Glib\-Read}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Update\-Glib\-Read (
+\begin{DoxyParamCaption}
+\item[{{\bf Glib} \&}]{p\-Glib, }
+\item[{const std\-::string \&}]{p\-Reg\-Node}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_a1ab42500cf3f6369a8eb2404ef8cd85b}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_afeda624fe12657712e9f10cd60603d8a}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Update\-Glib\-Write@{Update\-Glib\-Write}}
+\index{Update\-Glib\-Write@{Update\-Glib\-Write}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{Update\-Glib\-Write}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Update\-Glib\-Write (
+\begin{DoxyParamCaption}
+\item[{{\bf Glib} \&}]{p\-Glib, }
+\item[{const std\-::string \&}]{p\-Reg\-Node, }
+\item[{const uint32\-\_\-t \&}]{p\-Val}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_afeda624fe12657712e9f10cd60603d8a}
+
+
+\subsection{Field Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_af13550ecb2352acfb846de3591cf74d8}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Data@{f\-Data}}
+\index{f\-Data@{f\-Data}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Data}]{\setlength{\rightskip}{0pt plus 5cm}uhal\-::\-Val\-Vector$<$uint32\-\_\-t$>$ Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Data\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_af13550ecb2352acfb846de3591cf74d8}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a056c3192477cbd07c67ff822bc7123de}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Start\-Veto@{f\-Start\-Veto}}
+\index{f\-Start\-Veto@{f\-Start\-Veto}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Start\-Veto}]{\setlength{\rightskip}{0pt plus 5cm}struct timeval Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Start\-Veto\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a056c3192477cbd07c67ff822bc7123de}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a40299b584632b402f3c54fc9d98d87f2}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Str\-Full@{f\-Str\-Full}}
+\index{f\-Str\-Full@{f\-Str\-Full}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Str\-Full}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Str\-Full\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a40299b584632b402f3c54fc9d98d87f2}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a925d65d022d0dc6d453e0e611826c377}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Str\-Readout@{f\-Str\-Readout}}
+\index{f\-Str\-Readout@{f\-Str\-Readout}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Str\-Readout}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Str\-Readout\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a925d65d022d0dc6d453e0e611826c377}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a9e24a95e6ba16076ef8fbea1c96243f4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Str\-Sram@{f\-Str\-Sram}}
+\index{f\-Str\-Sram@{f\-Str\-Sram}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Str\-Sram}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Str\-Sram\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a9e24a95e6ba16076ef8fbea1c96243f4}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a27b44db1be7f8a3802ba1a5d675a9888}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Str\-Sram\-User\-Logic@{f\-Str\-Sram\-User\-Logic}}
+\index{f\-Str\-Sram\-User\-Logic@{f\-Str\-Sram\-User\-Logic}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Str\-Sram\-User\-Logic}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Str\-Sram\-User\-Logic\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a27b44db1be7f8a3802ba1a5d675a9888}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+H\-W\-Interface/\-Interface/\hyperlink{_g_l_i_b_interface_8h}{G\-L\-I\-B\-Interface.\-h}\item 
+H\-W\-Interface/\-Interface/\hyperlink{_g_l_i_b_interface_8cc}{G\-L\-I\-B\-Interface.\-cc}\end{DoxyCompactItemize}

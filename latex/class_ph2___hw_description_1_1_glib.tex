@@ -8,62 +8,74 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_ph2___hw_description_1_1_glib_a93072e632c80fdf9de212b330d362b4f}{Glib} (U\-Int\-\_\-t p\-Shelve\-Id, U\-Int\-\_\-t p\-Be\-Id, U\-Int\-\_\-t p\-N\-Fe)
+\hyperlink{class_ph2___hw_description_1_1_glib_ac63dbf3825526283c7cefc5e217e1c38}{Glib} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-N\-Fe, std\-::string filename=\hyperlink{_glib_8h_a3b2796757992a47db4ed9462093d6fe3}{default\-\_\-glib\-\_\-file})
 \item 
-\hyperlink{class_ph2___hw_description_1_1_glib_ab953787a6210cef99c213e1f35cba5e8}{Glib} (U\-Int\-\_\-t p\-Shelve\-Id, U\-Int\-\_\-t p\-Be\-Id, U\-Int\-\_\-t p\-N\-Fe, U\-Int\-\_\-t p\-Hw\-Config, bool p\-Ext\-Trg, bool p\-Fake\-Data=false, U\-Int\-\_\-t p\-N\-Packets=100)
+\hyperlink{class_ph2___hw_description_1_1_glib_a634b1c7f7831ed251e02f56922d0b673}{Glib} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-N\-Fe, uint8\-\_\-t p\-F\-M\-C\-Configuration, bool p\-Ext\-Trg, bool p\-Fake\-Data=false, std\-::string filename=\char`\"{}default\-\_\-glib\-\_\-file\char`\"{})
 \item 
 \hyperlink{class_ph2___hw_description_1_1_glib_a2d9eece9012cdc452f43895852693329}{Glib} ()
 \item 
 \hyperlink{class_ph2___hw_description_1_1_glib_a2fa668cf8b827199d63be060616a70cd}{$\sim$\-Glib} ()
 \item 
-U\-Int\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_a88b177895e6e649d99301e29fb6b22df}{get\-N\-Fe} (return f\-Module\-Vector.\-size())
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_a2675c993dad690792592ba3e30036bab}{get\-N\-Fe} ()
 \item 
-std\-::map$<$ std\-::string, U\-Int\-\_\-t $>$ \hyperlink{class_ph2___hw_description_1_1_glib_a9fba81fb37efb0421c9bf565691f30b2}{get\-Glib\-Reg\-Map} (return \hyperlink{class_ph2___hw_description_1_1_glib_a1a0c6dba5a24c615e8609b03012a8970}{f\-Reg\-Map})
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_a27f5e85e68f25e56d1096306e3f70188}{get\-Be\-Id} ()
+\item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_ac3130c4a08d624c6d89fc66474efd6d8}{get\-Shelve\-Id} ()
+\item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_ade845c9d6a9fcaaac1766cf89592fb97}{get\-Reg} (std\-::string p\-Reg)
+\item 
+void \hyperlink{class_ph2___hw_description_1_1_glib_a017ab68372401fe244b912a5297b0c33}{set\-Reg} (std\-::string p\-Reg, uint8\-\_\-t pset\-Value)
+\item 
+void \hyperlink{class_ph2___hw_description_1_1_glib_a1bbf1eb3a5d4efca9801d2eaca6f33f7}{add\-Module} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} \&p\-Module)
+\item 
+bool \hyperlink{class_ph2___hw_description_1_1_glib_a64d98cba80674893dff1a91c69b0f34e}{remove\-Module} (uint8\-\_\-t p\-Module\-Id)
+\item 
+\hyperlink{class_ph2___hw_description_1_1_module}{Module} \hyperlink{class_ph2___hw_description_1_1_glib_ad5792871ed0cfed20c53bae432df3d93}{get\-Module} (uint8\-\_\-t p\-Module\-Id)
+\item 
+std\-::map$<$ std\-::string, uint8\-\_\-t $>$ \hyperlink{class_ph2___hw_description_1_1_glib_a971d4ea45771b8f93ca81bc794613262}{get\-Glib\-Reg\-Map} ()
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_abcaa5b1cb716d3aa814688dd5691a421}{f\-Shelve\-Id}
+\item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_ac89e9a9eee11e41f901e90c619e50bfc}{f\-Be\-Id}
+\item 
 std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_module}{Module} $>$ \hyperlink{class_ph2___hw_description_1_1_glib_a97b6535900b4fa8eef81c7e15a01cda4}{f\-Module\-Vector}
 \item 
-U\-Int\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_a0b4360874e6f917bc885ddb767773daa}{f\-F\-M\-C\-Configuration}
+\hyperlink{namespace_ph2___hw_description_afc0e75a92548c3406e89bf39ca4c9bfb}{Glib\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_glib_a1a0c6dba5a24c615e8609b03012a8970}{f\-Reg\-Map}
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
 \item 
-bool \hyperlink{class_ph2___hw_description_1_1_glib_a8d044e2313a6cd839e54cf1bc06b76ca}{f\-Ext\-Trg}
-\item 
-U\-Int\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_a5a6730e89d53faa23fefe8707e87cf00}{f\-Trg\-Freq}
-\item 
-bool \hyperlink{class_ph2___hw_description_1_1_glib_aad55f946f8358f642051404848e2fad3}{f\-Fake\-Data}
-\item 
-U\-Int\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_a231ebdea549efb51e05824f4713f2d70}{f\-N\-Packets}
-\item 
-bool \hyperlink{class_ph2___hw_description_1_1_glib_a6953c6b57c202b9078bc87ddc1a09581}{f\-Negative\-Logic\-Cbc}
-\item 
-\hyperlink{namespace_ph2___hw_description_a1fd478712d074fa51fc2185802bbfd90}{Glib\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_glib_a1a0c6dba5a24c615e8609b03012a8970}{f\-Reg\-Map}
+void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac44904179294bd42}{load\-Config\-File} (std\-::string filename)
 \end{DoxyCompactItemize}
 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_ph2___hw_description_1_1_glib_a93072e632c80fdf9de212b330d362b4f}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
+\hypertarget{class_ph2___hw_description_1_1_glib_ac63dbf3825526283c7cefc5e217e1c38}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
 \index{Glib@{Glib}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{Glib}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::\-Glib (
 \begin{DoxyParamCaption}
-\item[{U\-Int\-\_\-t}]{p\-Shelve\-Id, }
-\item[{U\-Int\-\_\-t}]{p\-Be\-Id, }
-\item[{U\-Int\-\_\-t}]{p\-N\-Fe}
+\item[{uint8\-\_\-t}]{p\-Shelve\-Id, }
+\item[{uint8\-\_\-t}]{p\-Be\-Id, }
+\item[{uint8\-\_\-t}]{p\-N\-Fe, }
+\item[{std\-::string}]{filename = {\ttfamily {\bf default\-\_\-glib\-\_\-file}}}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_glib_a93072e632c80fdf9de212b330d362b4f}
-\hypertarget{class_ph2___hw_description_1_1_glib_ab953787a6210cef99c213e1f35cba5e8}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
+)}}\label{class_ph2___hw_description_1_1_glib_ac63dbf3825526283c7cefc5e217e1c38}
+\hypertarget{class_ph2___hw_description_1_1_glib_a634b1c7f7831ed251e02f56922d0b673}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
 \index{Glib@{Glib}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{Glib}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::\-Glib (
 \begin{DoxyParamCaption}
-\item[{U\-Int\-\_\-t}]{p\-Shelve\-Id, }
-\item[{U\-Int\-\_\-t}]{p\-Be\-Id, }
-\item[{U\-Int\-\_\-t}]{p\-N\-Fe, }
-\item[{U\-Int\-\_\-t}]{p\-Hw\-Config, }
+\item[{uint8\-\_\-t}]{p\-Shelve\-Id, }
+\item[{uint8\-\_\-t}]{p\-Be\-Id, }
+\item[{uint8\-\_\-t}]{p\-N\-Fe, }
+\item[{uint8\-\_\-t}]{p\-F\-M\-C\-Configuration, }
 \item[{bool}]{p\-Ext\-Trg, }
 \item[{bool}]{p\-Fake\-Data = {\ttfamily false}, }
-\item[{U\-Int\-\_\-t}]{p\-N\-Packets = {\ttfamily 100}}
+\item[{std\-::string}]{filename = {\ttfamily \char`\"{}default\-\_\-glib\-\_\-file\char`\"{}}}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_glib_ab953787a6210cef99c213e1f35cba5e8}
+)}}\label{class_ph2___hw_description_1_1_glib_a634b1c7f7831ed251e02f56922d0b673}
 \hypertarget{class_ph2___hw_description_1_1_glib_a2d9eece9012cdc452f43895852693329}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
 \index{Glib@{Glib}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{Glib}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::\-Glib (
@@ -77,53 +89,99 @@ bool \hyperlink{class_ph2___hw_description_1_1_glib_a6953c6b57c202b9078bc87ddc1a
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_glib_a2fa668cf8b827199d63be060616a70cd}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_a2fa668cf8b827199d63be060616a70cd}
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_ph2___hw_description_1_1_glib_a9fba81fb37efb0421c9bf565691f30b2}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Glib\-Reg\-Map@{get\-Glib\-Reg\-Map}}
+\hypertarget{class_ph2___hw_description_1_1_glib_a1bbf1eb3a5d4efca9801d2eaca6f33f7}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!add\-Module@{add\-Module}}
+\index{add\-Module@{add\-Module}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{add\-Module}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::add\-Module (
+\begin{DoxyParamCaption}
+\item[{{\bf Module} \&}]{p\-Module}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_glib_a1bbf1eb3a5d4efca9801d2eaca6f33f7}
+\hypertarget{class_ph2___hw_description_1_1_glib_a27f5e85e68f25e56d1096306e3f70188}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Be\-Id@{get\-Be\-Id}}
+\index{get\-Be\-Id@{get\-Be\-Id}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{get\-Be\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Be\-Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_a27f5e85e68f25e56d1096306e3f70188}
+\hypertarget{class_ph2___hw_description_1_1_glib_a971d4ea45771b8f93ca81bc794613262}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Glib\-Reg\-Map@{get\-Glib\-Reg\-Map}}
 \index{get\-Glib\-Reg\-Map@{get\-Glib\-Reg\-Map}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{get\-Glib\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$ std\-::string, U\-Int\-\_\-t $>$ Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Glib\-Reg\-Map (
+\subsubsection[{get\-Glib\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$ std\-::string, uint8\-\_\-t $>$ Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Glib\-Reg\-Map (
 \begin{DoxyParamCaption}
-\item[{return}]{f\-Reg\-Map}
+{}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_glib_a9fba81fb37efb0421c9bf565691f30b2}
-\hypertarget{class_ph2___hw_description_1_1_glib_a88b177895e6e649d99301e29fb6b22df}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-N\-Fe@{get\-N\-Fe}}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_a971d4ea45771b8f93ca81bc794613262}
+\hypertarget{class_ph2___hw_description_1_1_glib_ad5792871ed0cfed20c53bae432df3d93}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Module@{get\-Module}}
+\index{get\-Module@{get\-Module}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{get\-Module}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Module} Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Module (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Module\-Id}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_glib_ad5792871ed0cfed20c53bae432df3d93}
+\hypertarget{class_ph2___hw_description_1_1_glib_a2675c993dad690792592ba3e30036bab}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-N\-Fe@{get\-N\-Fe}}
 \index{get\-N\-Fe@{get\-N\-Fe}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{get\-N\-Fe}]{\setlength{\rightskip}{0pt plus 5cm}U\-Int\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-N\-Fe (
+\subsubsection[{get\-N\-Fe}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-N\-Fe (
 \begin{DoxyParamCaption}
-\item[{return f\-Module\-Vector.}]{size()}
+{}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_glib_a88b177895e6e649d99301e29fb6b22df}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_a2675c993dad690792592ba3e30036bab}
+\hypertarget{class_ph2___hw_description_1_1_glib_ade845c9d6a9fcaaac1766cf89592fb97}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Reg@{get\-Reg}}
+\index{get\-Reg@{get\-Reg}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{get\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Reg (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{p\-Reg}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_glib_ade845c9d6a9fcaaac1766cf89592fb97}
+\hypertarget{class_ph2___hw_description_1_1_glib_ac3130c4a08d624c6d89fc66474efd6d8}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Shelve\-Id@{get\-Shelve\-Id}}
+\index{get\-Shelve\-Id@{get\-Shelve\-Id}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{get\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Shelve\-Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_ac3130c4a08d624c6d89fc66474efd6d8}
+\hypertarget{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac44904179294bd42}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!load\-Config\-File@{load\-Config\-File}}
+\index{load\-Config\-File@{load\-Config\-File}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{load\-Config\-File}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::load\-Config\-File (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{filename}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac44904179294bd42}
+\hypertarget{class_ph2___hw_description_1_1_glib_a64d98cba80674893dff1a91c69b0f34e}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!remove\-Module@{remove\-Module}}
+\index{remove\-Module@{remove\-Module}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{remove\-Module}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::remove\-Module (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Module\-Id}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_glib_a64d98cba80674893dff1a91c69b0f34e}
+\hypertarget{class_ph2___hw_description_1_1_glib_a017ab68372401fe244b912a5297b0c33}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!set\-Reg@{set\-Reg}}
+\index{set\-Reg@{set\-Reg}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{set\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::set\-Reg (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{p\-Reg, }
+\item[{uint8\-\_\-t}]{pset\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_glib_a017ab68372401fe244b912a5297b0c33}
 
 
 \subsection{Field Documentation}
-\hypertarget{class_ph2___hw_description_1_1_glib_a8d044e2313a6cd839e54cf1bc06b76ca}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-Ext\-Trg@{f\-Ext\-Trg}}
-\index{f\-Ext\-Trg@{f\-Ext\-Trg}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{f\-Ext\-Trg}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-Ext\-Trg\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_a8d044e2313a6cd839e54cf1bc06b76ca}
-\hypertarget{class_ph2___hw_description_1_1_glib_aad55f946f8358f642051404848e2fad3}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-Fake\-Data@{f\-Fake\-Data}}
-\index{f\-Fake\-Data@{f\-Fake\-Data}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{f\-Fake\-Data}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-Fake\-Data\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_aad55f946f8358f642051404848e2fad3}
-\hypertarget{class_ph2___hw_description_1_1_glib_a0b4360874e6f917bc885ddb767773daa}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-F\-M\-C\-Configuration@{f\-F\-M\-C\-Configuration}}
-\index{f\-F\-M\-C\-Configuration@{f\-F\-M\-C\-Configuration}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{f\-F\-M\-C\-Configuration}]{\setlength{\rightskip}{0pt plus 5cm}U\-Int\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-F\-M\-C\-Configuration\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_a0b4360874e6f917bc885ddb767773daa}
+\hypertarget{class_ph2___hw_description_1_1_glib_ac89e9a9eee11e41f901e90c619e50bfc}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-Be\-Id@{f\-Be\-Id}}
+\index{f\-Be\-Id@{f\-Be\-Id}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{f\-Be\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-Be\-Id\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_ac89e9a9eee11e41f901e90c619e50bfc}
 \hypertarget{class_ph2___hw_description_1_1_glib_a97b6535900b4fa8eef81c7e15a01cda4}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-Module\-Vector@{f\-Module\-Vector}}
 \index{f\-Module\-Vector@{f\-Module\-Vector}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{f\-Module\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf Module} $>$ Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-Module\-Vector\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_a97b6535900b4fa8eef81c7e15a01cda4}
-\hypertarget{class_ph2___hw_description_1_1_glib_a6953c6b57c202b9078bc87ddc1a09581}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-Negative\-Logic\-Cbc@{f\-Negative\-Logic\-Cbc}}
-\index{f\-Negative\-Logic\-Cbc@{f\-Negative\-Logic\-Cbc}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{f\-Negative\-Logic\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-Negative\-Logic\-Cbc\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_a6953c6b57c202b9078bc87ddc1a09581}
-\hypertarget{class_ph2___hw_description_1_1_glib_a231ebdea549efb51e05824f4713f2d70}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-N\-Packets@{f\-N\-Packets}}
-\index{f\-N\-Packets@{f\-N\-Packets}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{f\-N\-Packets}]{\setlength{\rightskip}{0pt plus 5cm}U\-Int\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-N\-Packets\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_a231ebdea549efb51e05824f4713f2d70}
 \hypertarget{class_ph2___hw_description_1_1_glib_a1a0c6dba5a24c615e8609b03012a8970}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-Reg\-Map@{f\-Reg\-Map}}
 \index{f\-Reg\-Map@{f\-Reg\-Map}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{f\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Glib\-Reg\-Map} Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-Reg\-Map\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_a1a0c6dba5a24c615e8609b03012a8970}
-\hypertarget{class_ph2___hw_description_1_1_glib_a5a6730e89d53faa23fefe8707e87cf00}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-Trg\-Freq@{f\-Trg\-Freq}}
-\index{f\-Trg\-Freq@{f\-Trg\-Freq}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{f\-Trg\-Freq}]{\setlength{\rightskip}{0pt plus 5cm}U\-Int\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-Trg\-Freq\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_a5a6730e89d53faa23fefe8707e87cf00}
+\hypertarget{class_ph2___hw_description_1_1_glib_abcaa5b1cb716d3aa814688dd5691a421}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!f\-Shelve\-Id@{f\-Shelve\-Id}}
+\index{f\-Shelve\-Id@{f\-Shelve\-Id}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
+\subsubsection[{f\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::f\-Shelve\-Id\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_glib_abcaa5b1cb716d3aa814688dd5691a421}
 
 
-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-H\-W\-Description/\hyperlink{_glib_8h}{Glib.\-h}\end{DoxyCompactItemize}
+H\-W\-Description/\hyperlink{_glib_8h}{Glib.\-h}\item 
+H\-W\-Description/\hyperlink{_glib_8cc}{Glib.\-cc}\end{DoxyCompactItemize}

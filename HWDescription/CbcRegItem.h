@@ -21,6 +21,9 @@ namespace Ph2_HwDescription{
 	// Functor to compare CbcRegItems
 	// Do we need this? If we keep the name it might be uint8_teresting to use a set instead of std::map and do a find?
 	//Lorenzo: i think it's more uint8_teresting to keep std::map, it has already a method find
+
+	//Put in comment by Nicolas 20/06, useless now
+	/*
 	struct RegItemComparer {
 
 	    bool operator() (const CbcRegItem &ri1, const CbcRegItem &ri2) const {
@@ -31,7 +34,7 @@ namespace Ph2_HwDescription{
 
 
 };
-
+*/
 }
 
 #endif

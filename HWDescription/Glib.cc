@@ -19,13 +19,13 @@ namespace Ph2_HwDescription{
 		loadConfigFile( filename );
 
 	}
-
+/*
 	Glib::Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, uint8_t pFMCConfiguration, bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId ), fFMCConfiguration(pFMCConfiguration), fExtTrg(pExtTrg)
 	{
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
 	}
-
+*/
 	// Public Members:
 
 

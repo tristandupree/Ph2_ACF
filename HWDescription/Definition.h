@@ -1,16 +1,16 @@
 /*
 
-  FileName : 					GLIBDescription.h
-  Content : 					 GLIBDescription File, listing the registers
+  FileName : 					Definition.h
+  Content : 					 Definition File, listing the registers
   Programmer : 				  Nicolas PIERRE
-  Version : 					 1.0
+  Version : 					 1.3
   Date of creation : 	        07/06/14
   Support : 					 mail to : nicolas.pierre@etu.unistra.net
 
 */
 
 //------------------------------------------------------------------------------
-/*//I2C Stuff, nevermind them
+//I2C Parameters
 
 #define I2C_CTRL_ENABLE 		0x000009F4
 #define I2C_CTRL_DISABLE		0
@@ -20,11 +20,13 @@
 #define I2C_WRITE_ADDR		  0x09
 #define I2C_READ_ADDR		   0x06
 
-#define I2C_SLAVE					 0x5B
-#define I2C_COMMAND				 "user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
-#define I2C_REPLY				 	"user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
+#define I2C_SLAVE			   0x5B
+#define I2C_COMMAND			 "user_wb_ttc_fmc_regs.Cbc_reg_i2c_command"
+#define I2C_REPLY			   "user_wb_ttc_fmc_regs.Cbc_reg_i2c_reply"
+#define I2C_SETTINGS            "user_wb_ttc_fmc_regs.Cbc_reg_i2c_settings"
 
-#define MAX_NB_LOOP				 50*/
+#define MAX_NB_LOOP			 50
+
 
 //------------------------------------------------------------------------------
 //GLIB Useful Registers
@@ -68,6 +70,9 @@
     //CBC stubdata latency adjustement
 #define CBC_STUB_LATENCY_FE1 "cbc_stubdata_latency_adjust_fe1"
 #define CBC_STUB_LATENCY_FE2 "cbc_stubdata_latency_adjust_fe2"
+
+    //CBC I2C command acknoledgement
+#define CBC_I2C_CMD_ACK      "Cbc_i2c_cmd_ack"
 
 //------------------------------------------------------------------------------
 //Delays
@@ -126,5 +131,11 @@
 
     //Polarity
 #define POLARITY        "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"
+
+    //Event number
+#define EVENT_NUMBER     100
+
+    //Packet size
+#define PACKET_SIZE      32
 
 //------------------------------------------------------------------------------

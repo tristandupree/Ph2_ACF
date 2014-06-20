@@ -72,7 +72,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -90,16 +90,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">Glib.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_glib_definitions_8h_source.html">HWDescription/GlibDefinitions.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="_module_8h_source.html">HWDescription/Module.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &quot;<a class="el" href="_module_8h_source.html">Module.h</a>&quot;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
 <code>#include &lt;map&gt;</code><br/>
-<code>#include &lt;multimap&gt;</code><br/>
+<code>#include &lt;boost/cstdint.hpp&gt;</code><br/>
 </div>
 <p><a href="_glib_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -113,24 +114,42 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespace_ph2___hw_description"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_ph2___hw_description.html">Ph2_HwDescription</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3b2796757992a47db4ed9462093d6fe3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_glib_8h.html#a3b2796757992a47db4ed9462093d6fe3">default_glib_file</a>&#160;&#160;&#160;&quot;glib_settings.cfg&quot;</td></tr>
+<tr class="separator:a3b2796757992a47db4ed9462093d6fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a1fd478712d074fa51fc2185802bbfd90"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, <br class="typebreak"/>
-UInt_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_ph2___hw_description.html#a1fd478712d074fa51fc2185802bbfd90">Ph2_HwDescription::GlibRegMap</a></td></tr>
-<tr class="separator:a1fd478712d074fa51fc2185802bbfd90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc0e75a92548c3406e89bf39ca4c9bfb"><td class="memItemLeft" align="right" valign="top">typedef std::map&lt; std::string, <br class="typebreak"/>
+uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_ph2___hw_description.html#afc0e75a92548c3406e89bf39ca4c9bfb">Ph2_HwDescription::GlibRegMap</a></td></tr>
+<tr class="separator:afc0e75a92548c3406e89bf39ca4c9bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ae27a2135d85c2171ebd17024e2ce2c64"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="namespace_ph2___hw_description.html#ae27a2135d85c2171ebd17024e2ce2c64aa30d72f6d58dc25b003fbf8bf56b3ace">Ph2_HwDescription::SINGLE_FE</a>, 
-<a class="el" href="namespace_ph2___hw_description.html#ae27a2135d85c2171ebd17024e2ce2c64a6e0b877d015d017f61b07618e057c452">Ph2_HwDescription::FE_TRG</a>, 
-<a class="el" href="namespace_ph2___hw_description.html#ae27a2135d85c2171ebd17024e2ce2c64ae3b57cb16641bb367bfc57a00315a4ca">Ph2_HwDescription::DUAL_FE</a>
+<tr class="memitem:a891c19542f306c932b747f42fe48fc2b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_ph2___hw_description.html#a891c19542f306c932b747f42fe48fc2b">Ph2_HwDescription::nb_FE</a> { <a class="el" href="namespace_ph2___hw_description.html#a891c19542f306c932b747f42fe48fc2baa30d72f6d58dc25b003fbf8bf56b3ace">Ph2_HwDescription::SINGLE_FE</a>, 
+<a class="el" href="namespace_ph2___hw_description.html#a891c19542f306c932b747f42fe48fc2ba6e0b877d015d017f61b07618e057c452">Ph2_HwDescription::FE_TRG</a>, 
+<a class="el" href="namespace_ph2___hw_description.html#a891c19542f306c932b747f42fe48fc2bae3b57cb16641bb367bfc57a00315a4ca">Ph2_HwDescription::DUAL_FE</a>
  }</td></tr>
-<tr class="separator:ae27a2135d85c2171ebd17024e2ce2c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a891c19542f306c932b747f42fe48fc2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a3b2796757992a47db4ed9462093d6fe3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define default_glib_file&#160;&#160;&#160;&quot;glib_settings.cfg&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 13 2014 15:09:14 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 20 2014 16:25:17 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
