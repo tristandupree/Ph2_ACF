@@ -55,6 +55,8 @@ namespace Ph2_HwDescription{
 
 		uint32_t getCbcId() {return fCbcId;};
 
+		CbcRegMap getRegMap() {return fRegMap;};
+
 	protected:
 
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
