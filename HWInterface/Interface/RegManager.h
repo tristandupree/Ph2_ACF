@@ -26,7 +26,7 @@ namespace Ph2_HwInterface
             std::map<uint8_t,uhal::HwInterface*> fBoardMap;
 
         public:
-            // Connection w uHal
+            /// Connection w uHal
             RegManager(const char *puHalConfigFileName);
             virtual ~RegManager();
 
@@ -34,7 +34,7 @@ namespace Ph2_HwInterface
             virtual bool WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues);
             virtual uhal::ValWord<uint32_t> ReadReg(const std::string& pRegNode);
             virtual uhal::ValVector<uint32_t> ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlocksize);
-            // Choose the board we want to talk with
+            /// Choose the board we want to talk with
             virtual void ChooseBoard(uint8_t pBoardId);
 
     };

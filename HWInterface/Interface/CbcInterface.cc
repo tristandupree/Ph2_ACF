@@ -16,19 +16,8 @@
 #include <time.h>
 #include "CbcInterface.h"
 #include "Exception.h"
-
-#define I2C_CTRL_ENABLE 		0x000009F4
-#define I2C_CTRL_DISABLE		0
-#define I2C_STROBE			  1
-#define I2C_M16B				0
-#define I2C_MEM				 1
-
-#define I2C_SLAVE			   0x5B
-#define I2C_COMMAND			 "user_wb_ttc_fmc_regs.Cbc_reg_i2c_command"
-#define I2C_REPLY			   "user_wb_ttc_fmc_regs.Cbc_reg_i2c_reply"
-#define I2C_SETTINGS            "user_wb_ttc_fmc_regs.Cbc_reg_i2c_settings"
-
-#define MAX_NB_LOOP			 50
+#include "../../HWDescription/Description/Definition.h"
+#include "../../HWDescription/Description/Module.h"
 
 #define DEV_FLAG                0
 
@@ -55,9 +44,9 @@ namespace Ph2_HwInterface
 
 	void CbcInterface::SelectSramForI2C( uint8_t pCbcId )
     {
-        fStrSram = (pCbcId==0 ? "sram1" : "sram2");
-		fStrOtherSram = (pCbcId==0 ? "sram2" : "sram1");
-		fStrSramUserLogic = (pCbcId==0 ? "ctrl_sram.sram1_user_logic" : "ctrl_sram.sram2_user_logic");
+        fStrSram = (pCbcId==0 ? SRAM1 : SRAM2);
+		fStrOtherSram = (pCbcId==0 ? SRAM2 : SRAM1);
+		fStrSramUserLogic = (pCbcId==0 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
     }
 
 
@@ -77,7 +66,7 @@ namespace Ph2_HwInterface
 
         do
         {
-			cVal=ReadReg("Cbc_i2c_cmd_ack");
+			cVal=ReadReg(CBC_I2C_CMD_ACK);
 
 			if (cVal!=pAckVal)
             {
@@ -112,8 +101,8 @@ namespace Ph2_HwInterface
 
 		WriteReg(fStrSramUserLogic,1);
 
-        //r/w request
-		WriteReg("Cbc_i2c_cmd_rq",pWrite ? 3: 1);
+        ///r/w request
+		WriteReg(CBC_I2C_CMD_ACK,pWrite ? 3: 1);
 
 		pVecReq.pop_back();
 
@@ -122,7 +111,7 @@ namespace Ph2_HwInterface
 			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 1 ) );
 		}
 
-		WriteReg("Cbc_i2c_cmd_rq",0);
+		WriteReg(CBC_I2C_CMD_ACK,0);
 
 		if( I2cCmdAckWait( (uint32_t)0, pVecReq.size() ) ==0 )
         {
@@ -140,7 +129,7 @@ namespace Ph2_HwInterface
 		uhal::ValVector<uint32_t> cData = ReadBlockReg(fStrSram,pVecReq.size());
 
 		WriteReg(fStrSramUserLogic,1);
-		WriteReg("Cbc_i2c_cmd_rq",0);
+		WriteReg(CBC_I2C_CMD_ACK,0);
 
 		std::vector<uint32_t>::iterator it = pVecReq.begin();
 		uhal::ValVector< uint32_t >::const_iterator itValue = cData.begin();

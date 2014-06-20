@@ -25,7 +25,7 @@ namespace Ph2_HwInterface
     class GlibInterface : public RegManager
     {
         private:
-			//Unused variables for the moment, useful for the future
+			///Unused variables for the moment, useful for the future
             /*
             unsigned int                    fNeventPerAcq;
             unsigned int                    fNTotalAcq;
@@ -39,31 +39,31 @@ namespace Ph2_HwInterface
             uhal::ValVector<uint32_t> fData;
 
         private:
-            //Select the SRAM for DAQ
+            ///Select the SRAM for DAQ
             void SelectSRAM(uint32_t pNthAcq);
 
         public:
-            //Constructor, takes a Glib object as parameter
+            ///Constructor, takes a Glib object as parameter
             GlibInterface(const char *puHalConfigFileName);
-            //Destructor
+            ///Destructor
             ~GlibInterface();
 
-            //Configure the Glib w or w/o a Glib object as parameter
+            ///Configure the Glib w or w/o a Glib object as parameter
             void ConfigureGlib(Glib& pGlib);
-            //Start an acq
+            ///Start an acq
             void Start(Glib& pGlib);
-            //Stop an acq
+            ///Stop an acq
             void Stop(Glib& pGlib,uint32_t pNthAcq);
-            //(Un)pause the acq
+            ///(Un)pause the acq
             void Pause(Glib& pGlib);
             void Unpause(Glib& pGlib);
-            //Read Data from acq
+            ///Read Data from acq
             void ReadData(Glib& pGlib,uint32_t pNthAcq,bool pBreakTrigger);
-            //Write the designated register in both Glib and GlibConfigFile
+            ///Write the designated register in both Glib and GlibConfigFile
             void UpdateGlibWrite(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
-            //Read the designated register in the Glib and update the GlibConfigFile
+            ///Read the designated register in the Glib and update the GlibConfigFile
             void UpdateGlibRead(Glib& pGlib,const std::string& pRegNode);
-            
+
     };
 }
 

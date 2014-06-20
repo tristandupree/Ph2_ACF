@@ -30,18 +30,18 @@ namespace Ph2_HwInterface
             std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
 
         private:
-            //I2C functions to handle with the Cbc
+            ///I2C functions to handle with the Cbc
             void SelectSramForI2C( uint8_t pCbcId );
     		bool I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount=1 );
             void SendBlockCbcI2cRequest( uint32_t pCbcId, std::vector<uint32_t>& pVecReq, bool pWrite);
             void ReadI2cBlockValuesInSRAM( unsigned int pCbcId, std::vector<uint32_t> &pVecReq );
             void EnableI2c( Cbc& pCbc, bool pEnable );
 
-            //r/w the Cbc registers
+            ///r/w the Cbc registers
             void WriteCbcBlockReg( Cbc& pCbc, std::vector<uint32_t>& pVecReq );
             void ReadCbcBlockReg( Cbc& pCbc, std::vector<uint32_t>& pVecReq );
 
-            //Encode/Decode Cbc values
+            ///Encode/Decode Cbc values
             void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t> pVecReq);
             void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord);
 
@@ -55,18 +55,18 @@ namespace Ph2_HwInterface
             CbcInterface(const char *puHalConfigFileName);
             ~CbcInterface();
 
-            //Configure the Cbc after the CbcConfigFile
+            ///Configure the Cbc after the CbcConfigFile
             void ConfigureCbc(Cbc& pCbc);
-            //Write the designated register in both Cbc and CbcConfigFile
+            ///Write the designated register in both Cbc and CbcConfigFile
             void UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint32_t& pWord);
-            //Read the designated register in the Cbc and update the CbcConfigFile
+            ///Read the designated register in the Cbc and update the CbcConfigFile
             void UpdateCbcRead(Cbc& pCbc,const std::string& pRegNode);
 
             /*
-            //Not completed/tested functions
-            //Read same register in all Cbcs and then UpdateCbcRead
+            ///Not completed/tested functions
+            ///Read same register in all Cbcs and then UpdateCbcRead
             void ReadCbc();
-            //Write same register in all Cbcs and then UpdateCbcWrite
+            ///Write same register in all Cbcs and then UpdateCbcWrite
             void WriteBroadcast();
             */
 

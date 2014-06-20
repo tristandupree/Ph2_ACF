@@ -16,9 +16,7 @@
 #include <time.h>
 #include "GLIBInterface.h"
 #include "Utilities.h"
-
-#define EVENT_NUMBER     100
-#define PACKET_SIZE      32
+#include "../../HWDescription/Description/Definition.h"
 
 #define DEV_FLAG         0
 
@@ -26,11 +24,11 @@
 namespace Ph2_HwInterface
 {
 
-    //Constructor, makes the board map
+    ///Constructor, makes the board map
     GlibInterface::GlibInterface(const char *puHalConfigFileName):
         RegManager(puHalConfigFileName)
-		//fNegativeLogicCBC(true),
-		//fStop(false)
+		///fNegativeLogicCBC(true),
+		///fStop(false)
     {
 
     }
@@ -49,11 +47,11 @@ namespace Ph2_HwInterface
 
         boost::posix_time::milliseconds cPause(200);
 
-        //Primary Configuration
-		WriteReg("user_wb_ttc_fmc_regs.pc_commands.SRAM1_end_readout",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.SRAM2_end_readout",0);
-        WriteReg("ctrl_sram.sram1_user_logic",1);
-        WriteReg("ctrl_sram.sram2_user_logic",1);
+        ///Primary Configuration
+		WriteReg(SRAM1_END_READOUT,0);
+        WriteReg(SRAM2_END_READOUT,0);
+        WriteReg(SRAM1_USR_LOGIC,1);
+        WriteReg(SRAM2_USR_LOGIC,1);
 
 		boost::this_thread::sleep(cPause);
 
@@ -74,23 +72,23 @@ namespace Ph2_HwInterface
 		}
 
 
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.SPURIOUS_FRAME",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",0);
-        WriteReg("user_wb_ttc_fmc_regs.cbc_acquisition.CBC_TRIGGER_ONE_SHOT",0);
-        WriteReg("break_trigger",1);
+        WriteReg(SPURIOUS_FRAME,0);
+        WriteReg(FORCE_BG0_START,0);
+        WriteReg(CBC_TRIGGER_1SHOT,0);
+        WriteReg(BREAK_TRIGGER,1);
 
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.PC_config_ok",0);
-		WriteReg("user_wb_ttc_fmc_regs.pc_commands.SRAM1_end_readout",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.SRAM2_end_readout",0);
-        WriteReg("ctrl_sram.sram1_user_logic",1);
-        WriteReg("ctrl_sram.sram2_user_logic",1);
+        WriteReg(PC_CONFIG_OK,0);
+		WriteReg(SRAM1_END_READOUT,0);
+        WriteReg(SRAM2_END_READOUT,0);
+        WriteReg(SRAM1_USR_LOGIC,1);
+        WriteReg(SRAM2_USR_LOGIC,1);
 
 		boost::this_thread::sleep(cPause);
 
-		WriteReg("user_wb_ttc_fmc_regs.pc_commands.SPURIOUS_FRAME",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",0);
-        WriteReg("user_wb_ttc_fmc_regs.cbc_acquisition.CBC_TRIGGER_ONE_SHOT",0);
-        WriteReg("break_trigger",1);
+		WriteReg(SPURIOUS_FRAME,0);
+        WriteReg(FORCE_BG0_START,0);
+        WriteReg(CBC_TRIGGER_1SHOT,0);
+        WriteReg(BREAK_TRIGGER,1);
 
 		boost::this_thread::sleep( cPause*3 );
 
@@ -107,10 +105,10 @@ namespace Ph2_HwInterface
 
         ChooseBoard(pGlib.getBeId());
 
-        //Starting the DAQ
-        WriteReg("break_trigger",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.PC_config_ok",1);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",1);
+        ///Starting the DAQ
+        WriteReg(BREAK_TRIGGER,0);
+        WriteReg(PC_CONFIG_OK,1);
+        WriteReg(FORCE_BG0_START,1);
     }
 
 
@@ -121,17 +119,17 @@ namespace Ph2_HwInterface
 
         ChooseBoard(pGlib.getBeId());
 
-        //Select SRAM
+        ///Select SRAM
         SelectSRAM( pNthAcq );
 
-        //Stop the DAQ
-		WriteReg("break_trigger",1);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands.PC_config_ok",0);
-        WriteReg("user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start",0);
+        ///Stop the DAQ
+		WriteReg(BREAK_TRIGGER,1);
+        WriteReg(PC_CONFIG_OK,0);
+        WriteReg(FORCE_BG0_START,0);
 
         boost::posix_time::milliseconds cWait(100);
 
-        //Wait for the selected SRAM to be full then empty it
+        ///Wait for the selected SRAM to be full then empty it
 		do
         {
 			cVal = ReadReg(fStrFull);
@@ -142,7 +140,7 @@ namespace Ph2_HwInterface
         } while (cVal==1);
 
         WriteReg(fStrReadout,0);
-        //fNTotalAcq++;
+        ///fNTotalAcq++;
     }
 
 
@@ -151,7 +149,7 @@ namespace Ph2_HwInterface
 
         ChooseBoard(pGlib.getBeId());
 
-        WriteReg("break_trigger",1);
+        WriteReg(BREAK_TRIGGER,1);
 
 #ifdef __CBCDAQ_DEV__
         std::cout << "Pause engaged" << std::endl;
@@ -163,7 +161,7 @@ namespace Ph2_HwInterface
     {
         ChooseBoard(pGlib.getBeId());
 
-        WriteReg("break_trigger",0);
+        WriteReg(BREAK_TRIGGER,0);
 
 #ifdef __CBCDAQ_DEV__
         std::cout << "Pause disengaged" << std::endl;
@@ -187,17 +185,17 @@ namespace Ph2_HwInterface
 
         ChooseBoard(pGlib.getBeId());
 
-		//Readout settings
+		///Readout settings
 		boost::posix_time::milliseconds cWait(1);
 
 		uhal::ValWord<uint32_t> cVal;
 		uint32_t cNPackets= EVENT_NUMBER+1;
 		uint32_t cBlockSize = cNPackets * PACKET_SIZE;
 
-		//Wait for start acknowledge
+		///Wait for start acknowledge
 		do
         {
-			cVal=ReadReg("user_wb_ttc_fmc_regs.status_flags.CMD_START_VALID");
+			cVal=ReadReg(CMD_START_VALID);
 
 			if ( cVal==0 )
 				boost::this_thread::sleep(cWait);
@@ -206,18 +204,18 @@ namespace Ph2_HwInterface
 
 #ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 1 );
-		std::cout << "BeController::ReadDataInSRAM()  Time took for the CMD_START_VALID flag to be set: " << std::dec << mtime << " ms." << std::endl;
+		std::cout << "GlibController::ReadData()  Time took for the CMD_START_VALID flag to be set: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
-		//FIFO goes to write_data state
-		//Select SRAM
+		///FIFO goes to write_data state
+		///Select SRAM
 		SelectSRAM( pNthAcq );
 
 #ifdef __CBCDAQ_DEV__
 		gettimeofday(&start, 0);
 #endif
 
-		//Wait for the SRAM full condition.
+		///Wait for the SRAM full condition.
 		cVal = ReadReg(fStrFull);
 
         do
@@ -233,25 +231,25 @@ namespace Ph2_HwInterface
 		std::cout << "Time took for the data to be ready : " << std::dec << mtime << " ms." << std::endl;
 #endif
 
-		//break trigger
+		///break trigger
 		if( pBreakTrigger )
         {
-			WriteReg("break_trigger",1);
+			WriteReg(BREAK_TRIGGER,1);
 		}
 
-        // JRF end
+        /// JRF end
 #ifdef __CBCDAQ_DEV__
 		gettimeofday( &fStartVeto, 0 );
 #endif
 
-		//Set read mode to SRAM
+		///Set read mode to SRAM
 		WriteReg(fStrSramUserLogic,0);
 
 #ifdef __CBCDAQ_DEV__
 	    gettimeofday( &cStartBlockRead, 0 );
 #endif
 
-		//Read SRAM
+		///Read SRAM
 		uhal::ValVector<uint32_t> cData = ReadBlockReg(fStrSram,cBlockSize);
 
 #ifdef __CBCDAQ_DEV__
@@ -266,7 +264,7 @@ namespace Ph2_HwInterface
 		gettimeofday(&start, 0);
 #endif
 
-		//Wait for the non SRAM full condition starts,
+		///Wait for the non SRAM full condition starts,
 		do
         {
 			cVal = ReadReg(fStrFull);
@@ -276,7 +274,7 @@ namespace Ph2_HwInterface
 
 		} while (cVal==1);
 
-		//Wait for the non SRAM full condition ends.
+		///Wait for the non SRAM full condition ends.
 #ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 0 );
 		std::cout << "Time took to the full flag to be 0 : " << std::dec << mtime << " us." << std::endl;
@@ -289,7 +287,7 @@ namespace Ph2_HwInterface
 		std::cout << "Time took for ReadDataInSRAM: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
-        //One data for one event --> Enhanced later
+        ///One data for one event --> Enhanced later
 		fData = cData;
 
     }
@@ -297,10 +295,10 @@ namespace Ph2_HwInterface
 
     void GlibInterface::SelectSRAM(uint32_t pNthAcq)
     {
-        fStrSram  = (boost::format("sram%d") % (pNthAcq%2+1)).str();
-		fStrSramUserLogic =  (boost::format("ctrl_sram.sram%d_user_logic") % (pNthAcq%2+1)).str();
-		fStrFull = (boost::format("user_wb_ttc_fmc_regs.flags.SRAM%d_full") % (pNthAcq%2+1)).str();
-		fStrReadout= (boost::format("user_wb_ttc_fmc_regs.pc_commands.SRAM%d_end_readout") % (pNthAcq%2+1)).str();
+        fStrSram  = ((pNthAcq%2+1)==1 ? SRAM1 : SRAM2);
+        fStrSramUserLogic =  ((pNthAcq%2+1)==1 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
+        fStrFull = ((pNthAcq%2+1)==1 ? SRAM1_FULL : SRAM2_FULL);
+        fStrReadout= ((pNthAcq%2+1)==1 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
     }
 
 
