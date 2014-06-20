@@ -4,14 +4,14 @@
 
 namespace Ph2_HwDescription{
 
-	FEDescription::FEDescription( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, bool pStatus ) : 
+	FEDescription::FEDescription( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, bool pStatus ) : 
 	fShelveId( pShelveId ),
 	fBeId( pBeId ),
 	fFMCId( pFMCId ),
 	fFeId( pFeId ),
 	fStatus( pStatus ){};
 
-	FEDescription::FEDescription( uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId ) : 
+	FEDescription::FEDescription( uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId ) : 
 	fShelveId( 0 ),
 	fBeId( pBeId ),
 	fFMCId( pFMCId ),
@@ -39,25 +39,25 @@ namespace Ph2_HwDescription{
 	// SetterMethods
 
 	// Shelve Id
-	uint32_t FEDescription::setShelveId( uint32_t pShelveId ){
+	uint8_t FEDescription::setShelveId( uint8_t pShelveId ){
 		fShelveId = pShelveId;
 		return fShelveId;
 	}
 
 	// BIO Board Id
-	uint32_t FEDescription::setBeId( uint32_t pBeId ){
+	uint8_t FEDescription::setBeId( uint8_t pBeId ){
 		fBeId = pBeId;
 		return fBeId;
 	}
 
 	// BIO Board FMC Connector Id
-	uint32_t FEDescription::setFMCId( uint32_t pFMCId ){
+	uint8_t FEDescription::setFMCId( uint8_t pFMCId ){
 		fFMCId = pFMCId;
 		return fFMCId;
 	}
 
 	// Fe Id
-	uint32_t FEDescription::setFeId( uint32_t pFeId ){
+	uint8_t FEDescription::setFeId( uint8_t pFeId ){
 		fFeId = pFeId;
 		return fFeId;
 	}

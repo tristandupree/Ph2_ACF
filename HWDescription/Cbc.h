@@ -19,14 +19,14 @@ namespace Ph2_HwDescription{
 	public:
 
 		// C'tors with object FE Description
-		Cbc( FEDescription& pFeDesc, uint32_t pCbcId, std::string filename );
-		Cbc( FEDescription& pFeDesc, uint32_t pCbcId,uint32_t pTriggerLatency,uint32_t pVcth );
-		Cbc( FEDescription& pFeDesc, uint32_t pCbcId );
+		Cbc( FEDescription& pFeDesc, uint8_t pCbcId, std::string filename );
+		Cbc( FEDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth );
+		Cbc( FEDescription& pFeDesc, uint8_t pCbcId );
 
 		// C'tors which take ShelveID, BeId, FeID, CbcId
-		Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId, std::string filename );
-		Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId, uint32_t pTriggerLatency,uint32_t pVcth );
-		Cbc( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId, uint32_t pCbcId );
+		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, std::string filename );
+		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, uint8_t pTriggerLatency,uint8_t pVcth );
+		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId );
 
 		// Default C'tor
 		Cbc();
@@ -41,19 +41,19 @@ namespace Ph2_HwDescription{
 		void loadfRegMap(std::string filename);
 
 
-		uint32_t getTriggerLatency();
-		void setTriggerLatency(uint32_t pTriggerLatency);
+		uint8_t getTriggerLatency();
+		void setTriggerLatency(uint8_t pTriggerLatency);
 
-		uint32_t getVcth();
-		void setVcth(uint32_t psetVcth);
+		uint8_t getVcth();
+		void setVcth(uint8_t psetVcth);
 
-		uint32_t getReg(std::string pReg);
-		void setReg(std::string pReg, uint32_t psetValue);
+		uint8_t getReg(std::string pReg);
+		void setReg(std::string pReg, uint8_t psetValue);
 
 		//Write RegValues in a file
 		void writeRegValues( std::string filename );
 
-		uint32_t getCbcId() {return fCbcId;};
+		uint8_t getCbcId() {return fCbcId;};
 
 		CbcRegMap getRegMap() {return fRegMap;};
 
@@ -64,7 +64,7 @@ namespace Ph2_HwDescription{
 
 	public:
 
-		uint32_t fCbcId;
+		uint8_t fCbcId;
 
 	};
 

@@ -8,16 +8,16 @@ namespace Ph2_HwDescription{
 	Module::Module( FEDescription& pFeDesc):FEDescription(pFeDesc){
 	}
 
-	Module::Module( uint32_t pShelveId, uint32_t pBeId, uint32_t pFMCId, uint32_t pFeId ):FEDescription( pShelveId, pBeId, pFMCId,pFeId ){
+	Module::Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId ):FEDescription( pShelveId, pBeId, pFMCId,pFeId ){
 	}
 
 	void Module::addCbc( Cbc& pCbc ){
-		fCbcVector.insert( pCbc );
+		fCbcVector.push_back( pCbc );
 	}
 
-	bool Module::removeCbc( uint32_t pCbcId )
+	bool Module::removeCbc( uint8_t pCbcId )
 	{
-		std::set < Cbc > :: iterator i;
+		std::vector < Cbc > :: iterator i;
 		bool j=false;
 		for (i=fCbcVector.begin();i!=fCbcVector.end();++i)
 		{
@@ -25,7 +25,7 @@ namespace Ph2_HwDescription{
 			{
 				fCbcVector.erase(i);
 				j=true;
-				
+				i--;   //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator
 			}
 		}
 		if (j==true)
@@ -37,10 +37,10 @@ namespace Ph2_HwDescription{
 		}
 	}
 
-	Cbc   Module::getCbc( uint32_t pCbcId )
+	Cbc&   Module::getCbc( uint8_t pCbcId )
 	{
 		Cbc obj;
-		std::set < Cbc > :: iterator i;
+		std::vector < Cbc > :: iterator i;
 		for (i=fCbcVector.begin();i!=fCbcVector.end();++i)
 		{
 			if (i->fCbcId==pCbcId)
