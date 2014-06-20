@@ -46,7 +46,7 @@ namespace Ph2_HwDescription{
 		GlibRegMap::iterator i;
 		i = fRegMap.find( pReg );
 		if( i == fRegMap.end() ) std::cout << "Register " << pReg << " not found in Glib Register Map!" << std::endl;
-		else fRegMap[pReg] = psetValue;
+		else i->second = psetValue;
 	}
 
 	void Glib::addModule( Module& pModule )

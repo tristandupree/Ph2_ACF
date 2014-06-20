@@ -135,7 +135,7 @@ namespace Ph2_HwDescription{
 		{std::cout<<"This Cbc object doesn't have TriggerLatency"<<std::endl;
 		return 0;}
 		else
-		return fRegMap["TriggerLatency"].fValue;
+		return i->second.fValue;
 	}
 
 	void Cbc::setTriggerLatency(uint8_t pTriggerLatency)
@@ -146,7 +146,7 @@ namespace Ph2_HwDescription{
 		{std::cout<<"This Cbc object doesn't have TriggerLatency"<<std::endl;}
 		else
 		{
-			fRegMap["TriggerLatency"].fValue=pTriggerLatency;
+			i->second.fValue=pTriggerLatency;
 		}
 	}
 
@@ -158,7 +158,7 @@ namespace Ph2_HwDescription{
 		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;
 		return 0;}
 		else
-		return fRegMap["VCth"].fValue;
+		return i->second.fValue;
 	}
 
 	void Cbc::setVcth(uint8_t psetVcth)
@@ -169,7 +169,7 @@ namespace Ph2_HwDescription{
 		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;}
 		else
 		{
-			fRegMap["VCth"].fValue=psetVcth;
+			i->second.fValue=psetVcth;
 
 		}
 	}
@@ -185,7 +185,7 @@ namespace Ph2_HwDescription{
 			return 0;
 		}
 		else
-		return fRegMap[pReg].fValue;
+		return i->second.fValue;
 	}
 
 
@@ -197,7 +197,7 @@ namespace Ph2_HwDescription{
 		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
 		else
 		{
-			fRegMap[pReg].fValue=psetValue;
+			i->second.fValue=psetValue;
 
 		}
 	}
