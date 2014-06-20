@@ -37,6 +37,7 @@ namespace Ph2_HwDescription{
 		}
 	}
 
+	//Triggers a warning on the referencing
 	Cbc&   Module::getCbc( uint8_t pCbcId )
 	{
 		Cbc obj;
@@ -48,7 +49,7 @@ namespace Ph2_HwDescription{
 					return *i;
 				}
 		}
-		return obj;	
+		return obj;
 
 	}
 

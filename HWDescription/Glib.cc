@@ -2,7 +2,6 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-#include <cstdlib>
 #include <fstream>
 
 namespace Ph2_HwDescription{
@@ -34,7 +33,7 @@ namespace Ph2_HwDescription{
 	{
 		GlibRegMap::iterator i;
 		i = fRegMap.find( pReg );
-		if( i == fRegMap.end() ) 
+		if( i == fRegMap.end() )
 		{
 			std::cout << "Register " << pReg << " not found in Glib Register Map!" << std::endl;
 			return 0;
@@ -65,7 +64,7 @@ namespace Ph2_HwDescription{
 			{
 				fModuleVector.erase(i);
 				j=true;
-				i--;   //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator 
+				i--;   //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator
 			}
 		}
 		if (j==true)
@@ -74,7 +73,7 @@ namespace Ph2_HwDescription{
 		{
 			std::cout<<"Error:This Glib doesn't have the module "<<pModuleId<<std::endl;
 			return false;
-		}	
+		}
 	}
 
 	Module Glib::getModule( uint8_t pModuleId )
@@ -110,7 +109,7 @@ namespace Ph2_HwDescription{
 			while ( ! ( getline( cFile, cLine ).eof() ) )
 			{
 
-				if( cLine.find_first_not_of( " \t" ) == std::string::npos ) continue; 
+				if( cLine.find_first_not_of( " \t" ) == std::string::npos ) continue;
 				if( cLine.at(0) == '#' || cLine.at(0) =='*' ) continue;
 				if( cLine.find( ":" ) == std::string::npos ) continue;
 

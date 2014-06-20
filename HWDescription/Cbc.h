@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <boost/cstdint.hpp>
 
 // Cbc2 Chip HW Description Class
 

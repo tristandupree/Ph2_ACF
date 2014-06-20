@@ -5,6 +5,7 @@
 #include "Module.h"
 #include <vector>
 #include <map>
+#include <boost/cstdint.hpp>
 
 
 namespace Ph2_HwDescription{
@@ -37,7 +38,7 @@ namespace Ph2_HwDescription{
 
 		uint8_t getReg( std::string pReg );
 		void setReg( std::string pReg, uint8_t psetValue );
-		
+
 		void addModule( Module& pModule );
 		bool removeModule( uint8_t pModuleId );
 		Module getModule( uint8_t pModuleId );
@@ -50,7 +51,7 @@ namespace Ph2_HwDescription{
 		uint8_t fBeId;
 
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
-		std::vector< Module > fModuleVector;            
+		std::vector< Module > fModuleVector;
 
 		// Some important register Values, not sure if needed, but simpler than accessing by a long and complex register name:
 
@@ -62,7 +63,7 @@ namespace Ph2_HwDescription{
 		// bool to signalise if fake CBC data is created uint8_ternally or not
 		bool       fFakeData;
 		// Data Size in Packets during Acquisition
-		//uint8_t     fNPackets; 
+		//uint8_t     fNPackets;
 		// negative Logic or not depends on the FMC type used
 		//bool       fNegativeLogicCbc;
 

@@ -1,7 +1,7 @@
 #ifndef FEDescription_h__
 #define FEDescription_h__
 
-#include <cstdint>
+#include <boost/cstdint.hpp>
 
 // Base Class to describe all parameters common to all FE Components in the DAQ chain
 // mainly connections & staus for the moment

@@ -1,7 +1,7 @@
 #ifndef _CbcRegItem_h__
 #define _CbcRegItem_h__
 
-#include <cstdint>
+#include <boost/cstdint.hpp>
 
 namespace Ph2_HwDescription{
 

@@ -4,13 +4,14 @@
 #include "FEDescription.h"
 #include "Cbc.h"
 #include <vector>
+#include <boost/cstdint.hpp>
 
 // FE Hybrid HW Description Class
 
 namespace Ph2_HwDescription{
 
 	class Module : public FEDescription{
-	
+
 	public:
 
 		// C'tors take FEDescription or hierachy of connection and the # of CBCs
