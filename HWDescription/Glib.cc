@@ -86,7 +86,7 @@ namespace Ph2_HwDescription{
 		}
 	}
 
-	Module Glib::getModule( uint8_t pModuleId )
+	Module& Glib::getModule( uint8_t pModuleId )
 	{
 		Module obj;
 		std::vector < Module > :: iterator i;
