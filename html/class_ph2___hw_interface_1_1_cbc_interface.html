@@ -121,10 +121,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1f0ab7d7cf7783a0fe275e8e1d7e5a49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5cf4eb5b7134835f00349cb19f35c56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#af5cf4eb5b7134835f00349cb19f35c56">ConfigureCbc</a> (<a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> &amp;pCbc)</td></tr>
 <tr class="separator:af5cf4eb5b7134835f00349cb19f35c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a498d71b5709e0524b8e9dc50b92d1424"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a498d71b5709e0524b8e9dc50b92d1424">UpdateCbcWrite</a> (<a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> &amp;pCbc, const std::string &amp;pRegNode, uint32_t &amp;pWord)</td></tr>
-<tr class="separator:a498d71b5709e0524b8e9dc50b92d1424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae046d10fdb494b5c8bcb831016c02738"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#ae046d10fdb494b5c8bcb831016c02738">UpdateCbcWrite</a> (<a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> &amp;pCbc, const std::string &amp;pRegNode, uint8_t pValue)</td></tr>
+<tr class="separator:ae046d10fdb494b5c8bcb831016c02738"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab08ea1de98fe120098a4f5c52e017393"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#ab08ea1de98fe120098a4f5c52e017393">UpdateCbcRead</a> (<a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> &amp;pCbc, const std::string &amp;pRegNode)</td></tr>
 <tr class="separator:ab08ea1de98fe120098a4f5c52e017393"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46314c37156baa31c484c1141218bb49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a46314c37156baa31c484c1141218bb49">ReadCbc</a> (<a class="el" href="class_ph2___hw_description_1_1_module.html">Module</a> &amp;pModule, const std::string &amp;pRegNode)</td></tr>
+<tr class="separator:a46314c37156baa31c484c1141218bb49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aa83fb17f550cd65d32a07960a158ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a2aa83fb17f550cd65d32a07960a158ab">WriteBroadcast</a> (<a class="el" href="class_ph2___hw_description_1_1_module.html">Module</a> &amp;pModule, const std::string &amp;pRegNode, uint32_t &amp;pWord)</td></tr>
+<tr class="separator:a2aa83fb17f550cd65d32a07960a158ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_ph2___hw_interface_1_1_reg_manager')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html">Ph2_HwInterface::RegManager</a></td></tr>
 <tr class="memitem:a938f6b582b1fffcb478f35fd9d81954f inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a938f6b582b1fffcb478f35fd9d81954f">RegManager</a> (const char *puHalConfigFileName)</td></tr>
 <tr class="memdesc:a938f6b582b1fffcb478f35fd9d81954f inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html" title="Permit connection to given boards and r/w given registers. ">RegManager</a> class.  <a href="#a938f6b582b1fffcb478f35fd9d81954f">More...</a><br/></td></tr>
@@ -409,6 +413,33 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 
 </div>
 </div>
+<a class="anchor" id="a46314c37156baa31c484c1141218bb49"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ph2_HwInterface::CbcInterface::ReadCbc </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_module.html">Module</a> &amp;&#160;</td>
+          <td class="paramname"><em>pModule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>pRegNode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read same register in all Cbcs and then UpdateCbcRead </p>
+
+</div>
+</div>
 <a class="anchor" id="a42ab8453dafd3f2d3c079536efde0569"></a>
 <div class="memitem">
 <div class="memproto">
@@ -572,7 +603,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 
 </div>
 </div>
-<a class="anchor" id="a498d71b5709e0524b8e9dc50b92d1424"></a>
+<a class="anchor" id="ae046d10fdb494b5c8bcb831016c02738"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -581,6 +612,39 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> &amp;&#160;</td>
           <td class="paramname"><em>pCbc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>pRegNode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pValue</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Write the designated register in both Cbc and Cbc Config File </p>
+
+</div>
+</div>
+<a class="anchor" id="a2aa83fb17f550cd65d32a07960a158ab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ph2_HwInterface::CbcInterface::WriteBroadcast </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_module.html">Module</a> &amp;&#160;</td>
+          <td class="paramname"><em>pModule</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -601,7 +665,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Write the designated register in both Cbc and Cbc Config File </p>
+<p>Write same register in all Cbcs and then UpdateCbcWrite </p>
 
 </div>
 </div>
@@ -828,7 +892,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 23 2014 10:25:43 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 23 2014 19:11:35 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

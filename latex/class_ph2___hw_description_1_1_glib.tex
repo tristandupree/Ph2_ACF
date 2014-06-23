@@ -10,7 +10,7 @@
 \item 
 \hyperlink{class_ph2___hw_description_1_1_glib_ac63dbf3825526283c7cefc5e217e1c38}{Glib} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-N\-Fe, std\-::string filename=\hyperlink{_glib_8h_a3b2796757992a47db4ed9462093d6fe3}{default\-\_\-glib\-\_\-file})
 \item 
-\hyperlink{class_ph2___hw_description_1_1_glib_a634b1c7f7831ed251e02f56922d0b673}{Glib} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-N\-Fe, uint8\-\_\-t p\-F\-M\-C\-Configuration, bool p\-Ext\-Trg, bool p\-Fake\-Data=false, std\-::string filename=\char`\"{}default\-\_\-glib\-\_\-file\char`\"{})
+\hyperlink{class_ph2___hw_description_1_1_glib_a05a22fe40ace0d74f5493cbded54bd99}{Glib} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-N\-Fe, bool p\-Ext\-Trg, bool p\-Fake\-Data=false, std\-::string filename=\char`\"{}default\-\_\-glib\-\_\-file\char`\"{})
 \item 
 \hyperlink{class_ph2___hw_description_1_1_glib_a2d9eece9012cdc452f43895852693329}{Glib} ()
 \item 
@@ -30,7 +30,7 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a1bbf1eb3a5d4efca9801d2eaca6
 \item 
 bool \hyperlink{class_ph2___hw_description_1_1_glib_a64d98cba80674893dff1a91c69b0f34e}{remove\-Module} (uint8\-\_\-t p\-Module\-Id)
 \item 
-\hyperlink{class_ph2___hw_description_1_1_module}{Module} \hyperlink{class_ph2___hw_description_1_1_glib_ad5792871ed0cfed20c53bae432df3d93}{get\-Module} (uint8\-\_\-t p\-Module\-Id)
+\hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$ \hyperlink{class_ph2___hw_description_1_1_glib_a41e024e9138acdcb856c0f5c8c43be43}{get\-Module} (uint8\-\_\-t p\-Module\-Id)
 \item 
 std\-::map$<$ std\-::string, uint8\-\_\-t $>$ \hyperlink{class_ph2___hw_description_1_1_glib_a971d4ea45771b8f93ca81bc794613262}{get\-Glib\-Reg\-Map} ()
 \end{DoxyCompactItemize}
@@ -63,19 +63,18 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 \item[{std\-::string}]{filename = {\ttfamily {\bf default\-\_\-glib\-\_\-file}}}
 \end{DoxyParamCaption}
 )}}\label{class_ph2___hw_description_1_1_glib_ac63dbf3825526283c7cefc5e217e1c38}
-\hypertarget{class_ph2___hw_description_1_1_glib_a634b1c7f7831ed251e02f56922d0b673}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
+\hypertarget{class_ph2___hw_description_1_1_glib_a05a22fe40ace0d74f5493cbded54bd99}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
 \index{Glib@{Glib}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{Glib}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::\-Glib (
 \begin{DoxyParamCaption}
 \item[{uint8\-\_\-t}]{p\-Shelve\-Id, }
 \item[{uint8\-\_\-t}]{p\-Be\-Id, }
 \item[{uint8\-\_\-t}]{p\-N\-Fe, }
-\item[{uint8\-\_\-t}]{p\-F\-M\-C\-Configuration, }
 \item[{bool}]{p\-Ext\-Trg, }
 \item[{bool}]{p\-Fake\-Data = {\ttfamily false}, }
 \item[{std\-::string}]{filename = {\ttfamily \char`\"{}default\-\_\-glib\-\_\-file\char`\"{}}}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_glib_a634b1c7f7831ed251e02f56922d0b673}
+)}}\label{class_ph2___hw_description_1_1_glib_a05a22fe40ace0d74f5493cbded54bd99}
 \hypertarget{class_ph2___hw_description_1_1_glib_a2d9eece9012cdc452f43895852693329}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
 \index{Glib@{Glib}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{Glib}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::\-Glib (
@@ -114,13 +113,13 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_a971d4ea45771b8f93ca81bc794613262}
-\hypertarget{class_ph2___hw_description_1_1_glib_ad5792871ed0cfed20c53bae432df3d93}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Module@{get\-Module}}
+\hypertarget{class_ph2___hw_description_1_1_glib_a41e024e9138acdcb856c0f5c8c43be43}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Module@{get\-Module}}
 \index{get\-Module@{get\-Module}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
-\subsubsection[{get\-Module}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Module} Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Module (
+\subsubsection[{get\-Module}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Module} $\ast$ Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Module (
 \begin{DoxyParamCaption}
 \item[{uint8\-\_\-t}]{p\-Module\-Id}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_glib_ad5792871ed0cfed20c53bae432df3d93}
+)}}\label{class_ph2___hw_description_1_1_glib_a41e024e9138acdcb856c0f5c8c43be43}
 \hypertarget{class_ph2___hw_description_1_1_glib_a2675c993dad690792592ba3e30036bab}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-N\-Fe@{get\-N\-Fe}}
 \index{get\-N\-Fe@{get\-N\-Fe}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{get\-N\-Fe}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-N\-Fe (
