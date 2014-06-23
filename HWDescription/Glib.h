@@ -43,7 +43,7 @@ namespace Ph2_HwDescription{
 
 		void addModule( Module& pModule );
 		bool removeModule( uint8_t pModuleId );
-		Module& getModule( uint8_t pModuleId );
+		Module* getModule( uint8_t pModuleId );
 
 		std::map< std::string, uint8_t > getGlibRegMap (){return fRegMap;};
 

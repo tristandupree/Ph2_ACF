@@ -27,7 +27,7 @@ namespace Ph2_HwDescription{
 		uint8_t getNCbc(){return fCbcVector.size();};
 		void addCbc( Cbc& pCbc );
 		bool   removeCbc( uint8_t pCbcId );
-		Cbc&   getCbc( uint8_t pCbcId );
+		Cbc*   getCbc( uint8_t pCbcId );
 
 		//moduleID
 		uint8_t fModuleId;

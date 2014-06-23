@@ -88,7 +88,7 @@ namespace Ph2_HwDescription{
 		}
 	}
 
-	Module& Glib::getModule( uint8_t pModuleId )
+	Module* Glib::getModule( uint8_t pModuleId )
 	{
 		Module obj;
 		std::vector < Module > :: iterator i;
@@ -96,10 +96,10 @@ namespace Ph2_HwDescription{
 		{
 			if (i->fModuleId==pModuleId)
 				{
-					return *i;
+					return &*i;
 				}
 		}
-		return obj;
+		return NULL;
 	}
 
 	// Private Members:
