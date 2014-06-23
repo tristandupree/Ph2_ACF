@@ -102,7 +102,7 @@ namespace Ph2_HwInterface
 		WriteReg(fStrSramUserLogic,1);
 
         //r/w request
-		WriteReg(CBC_I2C_CMD_ACK,pWrite ? 3: 1);
+		WriteReg(CBC_I2C_CMD_RQ,pWrite ? 3: 1);
 
 		pVecReq.pop_back();
 
@@ -111,7 +111,7 @@ namespace Ph2_HwInterface
 			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 1 ) );
 		}
 
-		WriteReg(CBC_I2C_CMD_ACK,0);
+		WriteReg(CBC_I2C_CMD_RQ,0);
 
 		if( I2cCmdAckWait( (uint32_t)0, pVecReq.size() ) ==0 )
         {
@@ -129,7 +129,7 @@ namespace Ph2_HwInterface
 		uhal::ValVector<uint32_t> cData = ReadBlockReg(fStrSram,pVecReq.size());
 
 		WriteReg(fStrSramUserLogic,1);
-		WriteReg(CBC_I2C_CMD_ACK,0);
+		WriteReg(CBC_I2C_CMD_RQ,0);
 
 		std::vector<uint32_t>::iterator it = pVecReq.begin();
 		uhal::ValVector< uint32_t >::const_iterator itValue = cData.begin();
@@ -172,6 +172,8 @@ namespace Ph2_HwInterface
 
 		ChooseBoard(pCbc.fBeId);
 
+		EnableI2c(pCbc,1);
+
 		try
 		{
 			SendBlockCbcI2cRequest( pCbc.fCbcId, pVecReq, true );
@@ -190,6 +192,9 @@ namespace Ph2_HwInterface
 			min += ( seconds + useconds / 1000000 ) /60;
 			sec += ( seconds + useconds / 1000000 ) %60;
 			std::cout << "Time took for Cbc register write so far = " << min << " min " << sec << " sec." << std::endl;
+
+		EnableI2c(pCbc,0);
+
 		}
 #endif
 	}
@@ -209,6 +214,8 @@ namespace Ph2_HwInterface
 #endif
 
 		ChooseBoard(pCbc.fBeId);
+
+		EnableI2c(pCbc,1);
 
 		try
 		{
@@ -232,6 +239,8 @@ namespace Ph2_HwInterface
 #endif
 
 		ReadI2cBlockValuesInSRAM( pCbc.fCbcId, pVecReq );
+
+		EnableI2c(pCbc,0);
 
 	}
 
@@ -312,9 +321,9 @@ namespace Ph2_HwInterface
 
 		Cbc cCbc;
 
-		for(uint8_t i=0;i<pModule.getNCbc;i++)
+		for(uint8_t i=0;i<pModule.getNCbc();i++)
 		{
-			cCbc = Module.getCbc(i);
+			cCbc = pModule.getCbc(i);
 			UpdateCbcRead(cCbc,pRegNode);
 		}
 
@@ -332,7 +341,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void WriteBroadcast(Module& pModule,const std::string& pRegNode)
+	void CbcInterface::WriteBroadcast(Module& pModule,const std::string& pRegNode, uint32_t& pWord)
 	{
 
 #ifdef __CbcDAQ_DEV__
@@ -347,10 +356,10 @@ namespace Ph2_HwInterface
 
 		Cbc cCbc;
 
-		for(uint8_t i=0;i<pModule.getNCbc;i++)
+		for(uint8_t i=0;i<pModule.getNCbc();i++)
 		{
-			cCbc = Module.getCbc(i);
-			UpdateCbcWrite(cCbc,pRegNode);
+			cCbc = pModule.getCbc(i);
+			UpdateCbcWrite(cCbc,pRegNode,pWord);
 		}
 
 #ifdef __CbcDAQ_DEV__

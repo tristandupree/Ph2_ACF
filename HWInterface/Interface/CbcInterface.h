@@ -19,6 +19,7 @@
 #include "RegManager.h"
 #include "../../HWDescription/Description/CbcRegItem.h"
 #include "../../HWDescription/Description/Cbc.h"
+#include "../../HWDescription/Description/Module.h"
 
 using namespace Ph2_HwDescription;
 
@@ -66,11 +67,8 @@ namespace Ph2_HwInterface
             void ConfigureCbc(Cbc& pCbc); /*!< Configure the Cbc with the Cbc Config File*/
             void UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint32_t& pWord); /*!< Write the designated register in both Cbc and Cbc Config File*/
             void UpdateCbcRead(Cbc& pCbc,const std::string& pRegNode); /*!< Read the designated register in the Cbc and update the Cbc Config File */
-
-
-            //Not completed/tested functions
-            void ReadCbc(); /*!< Read same register in all Cbcs and then UpdateCbcRead */
-            void WriteBroadcast(); /*!< Write same register in all Cbcs and then UpdateCbcWrite */
+            void ReadCbc(Module& pModule,const std::string& pRegNode); /*!< Read same register in all Cbcs and then UpdateCbcRead */
+            void WriteBroadcast(Module& pModule,const std::string& pRegNode,uint32_t& pWord); /*!< Write same register in all Cbcs and then UpdateCbcWrite */
 
     };
 }
