@@ -21,9 +21,9 @@
 #define I2C_READ_ADDR		  0x06
 
 #define I2C_SLAVE			    0x5B
-#define I2C_COMMAND			  "user_wb_ttc_fmc_regs.Cbc_reg_i2c_command"
-#define I2C_REPLY			    "user_wb_ttc_fmc_regs.Cbc_reg_i2c_reply"
-#define I2C_SETTINGS      "user_wb_ttc_fmc_regs.Cbc_reg_i2c_settings"
+#define I2C_COMMAND			  "user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
+#define I2C_REPLY			    "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
+#define I2C_SETTINGS             "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
 
 #define MAX_NB_LOOP			  50
 
@@ -72,7 +72,10 @@
 #define CBC_STUB_LATENCY_FE2 "cbc_stubdata_latency_adjust_fe2"
 
     //CBC I2C command acknoledgement
-#define CBC_I2C_CMD_ACK      "Cbc_i2c_cmd_ack"
+#define CBC_I2C_CMD_ACK      "cbc_i2c_cmd_ack"
+
+    //CBC I2C command request
+#define CBC_I2C_CMD_RQ       "cbc_i2c_cmd_rq"
 
 //------------------------------------------------------------------------------
 //Delays
