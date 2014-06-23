@@ -1,9 +1,9 @@
 /*
 
-    FileName :                    GlibInterface.h
-    Content :                     GlibInterface class, init/config of the Glib
-    Programmer :                  Nicolas PIERRE
-    Version :                     1.3
+    \file                         GlibInterface.h
+    \brief                        GlibInterface class, init/config of the Glib
+    \author                       Nicolas PIERRE
+    \version                      1.3
     Date of creation :            07/06/14
     Support :                     mail to : nicolas.pierre@cern.ch
 
@@ -20,12 +20,20 @@
 
 using namespace Ph2_HwDescription;
 
+/*!
+* \namespace Ph2_HwInterface
+* \brief Namespace regrouping all the interfaces to the hardware
+*/
 namespace Ph2_HwInterface
 {
+    /*!
+    * \class GlibInterface
+    * \brief Permit r/w given registers in the Glib you specify
+    */
     class GlibInterface : public RegManager
     {
         private:
-			///Unused variables for the moment, useful for the future
+			//Unused variables for the moment, useful for the future
             /*
             unsigned int                    fNeventPerAcq;
             unsigned int                    fNTotalAcq;
@@ -36,32 +44,71 @@ namespace Ph2_HwInterface
             struct timeval fStartVeto;
             std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
 
-            uhal::ValVector<uint32_t> fData;
+            uhal::ValVector<uint32_t> fData; /*!< Data read storage*/
 
         private:
-            ///Select the SRAM for DAQ
+            /*!
+            * \brief SRAM selection for DAQ
+            * \param pNthAcq : actual number of acquisitions
+            */
             void SelectSRAM(uint32_t pNthAcq);
 
         public:
-            ///Constructor, takes a Glib object as parameter
+            /*!
+            * \brief Constructor of the GlibInterface class
+            * \param puHalConfigFileName : path of the uHal Config File
+            */
             GlibInterface(const char *puHalConfigFileName);
-            ///Destructor
+            /*!
+            * \brief Destructor of the GlibInterface class
+            */
             ~GlibInterface();
 
-            ///Configure the Glib w or w/o a Glib object as parameter
+            /*!
+            * \brief Configure the Glib with its Config File
+            * \param pGlib
+            */
             void ConfigureGlib(Glib& pGlib);
-            ///Start an acq
+            /*!
+            * \brief Start a DAQ
+            * \param pGlib
+            */
             void Start(Glib& pGlib);
-            ///Stop an acq
+            /*!
+            * \brief Stop a DAQ
+            * \param pGlib
+            */
             void Stop(Glib& pGlib,uint32_t pNthAcq);
-            ///(Un)pause the acq
+            /*!
+            * \brief Pause a DAQ
+            * \param pGlib
+            * \param pNthAcq : actual number of acquisitions
+            */
             void Pause(Glib& pGlib);
+            /*!
+            * \brief Unpause a DAQ
+            * \param pGlib
+            */
             void Unpause(Glib& pGlib);
-            ///Read Data from acq
+            /*!
+            * \brief Read data from DAQ
+            * \param pGlib
+            * \param pNthAcq : actual number of acquisitions
+            * \param pBreakTrigger : if true, enable the break trigger
+            */
             void ReadData(Glib& pGlib,uint32_t pNthAcq,bool pBreakTrigger);
-            ///Write the designated register in both Glib and GlibConfigFile
+            /*!
+            * \brief Update both Glib register and Config File
+            * \param pGlib
+            * \param pRegNode : Node of the register to update
+            * \param pVal : Value to write
+            */
             void UpdateGlibWrite(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
-            ///Read the designated register in the Glib and update the GlibConfigFile
+            /*!
+            * \brief Update Config File with the value in the Glib register
+            * \param pGlib
+            * \param pRegNode : Node of the register to update
+            */
             void UpdateGlibRead(Glib& pGlib,const std::string& pRegNode);
 
     };

@@ -21,7 +21,7 @@ namespace Ph2_HwInterface
     {
         fUHalConfigFileName = puHalConfigFileName;
 
-        uhal::ConnectionManager cm( fUHalConfigFileName ); /// Get connection
+        uhal::ConnectionManager cm( fUHalConfigFileName ); // Get connection
 
         for(int i=0;i<1;i++)
         {
@@ -40,13 +40,12 @@ namespace Ph2_HwInterface
     }
 
 
-    /// Give the node of the reg and the value you want to write
     bool RegManager::WriteReg(const std::string& pRegNode, const uint32_t& pVal)
     {
         fBoard->getNode(pRegNode).write(pVal);
         fBoard->dispatch();
 
-        /// Verify if the writing is done correctly
+        // Verify if the writing is done correctly
         if (DEV_FLAG)
         {
             uhal::ValWord<uint32_t> reply = fBoard->getNode(pRegNode).read();
@@ -71,7 +70,7 @@ namespace Ph2_HwInterface
 
         bool cWriteCorr = true;
 
-          ///Verifying block
+          //Verifying block
           if (DEV_FLAG)
           {
               int cErrCount = 0;
@@ -79,7 +78,7 @@ namespace Ph2_HwInterface
               uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode(pRegNode).readBlock(pValues.size());
               fBoard->dispatch();
 
-              ///Use size_t and not an iterator as op[] only works with size_t type
+              //Use size_t and not an iterator as op[] only works with size_t type
               for(std::size_t i = 0; i != cBlockRead.size(); i++ )
               {
                   if(cBlockRead[i]!=pValues[i])
@@ -96,7 +95,6 @@ namespace Ph2_HwInterface
     }
 
 
-    /// Give the node of the reg you want to read
     uhal::ValWord<uint32_t> RegManager::ReadReg(const std::string& pRegNode)
     {
         uhal::ValWord<uint32_t> cValRead = fBoard->getNode(pRegNode).read();
@@ -124,7 +122,7 @@ namespace Ph2_HwInterface
         {
             std::cout << "\nValues in register block " << pRegNode << " : " << std::endl;
 
-            ///Use size_t and not an iterator as op[] only works with size_t type
+            //Use size_t and not an iterator as op[] only works with size_t type
             for(std::size_t i = 0; i != cBlockRead.size(); i++ )
             {
                 read = (uint32_t) cBlockRead[i];

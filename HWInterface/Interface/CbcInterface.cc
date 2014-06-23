@@ -101,7 +101,7 @@ namespace Ph2_HwInterface
 
 		WriteReg(fStrSramUserLogic,1);
 
-        ///r/w request
+        //r/w request
 		WriteReg(CBC_I2C_CMD_ACK,pWrite ? 3: 1);
 
 		pVecReq.pop_back();
@@ -296,7 +296,7 @@ namespace Ph2_HwInterface
 
 	}
 
-/*
+
 	void CbcInterface::ReadCbc(Module& pModule,const std::string& pRegNode)
 	{
 
@@ -365,7 +365,7 @@ namespace Ph2_HwInterface
 #endif
 
 	}
-*/
+
 
 	void CbcInterface::UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint32_t& pWord)
 	{

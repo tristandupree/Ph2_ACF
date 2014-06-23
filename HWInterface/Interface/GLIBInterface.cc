@@ -24,11 +24,11 @@
 namespace Ph2_HwInterface
 {
 
-    ///Constructor, makes the board map
+    //Constructor, makes the board map
     GlibInterface::GlibInterface(const char *puHalConfigFileName):
         RegManager(puHalConfigFileName)
-		///fNegativeLogicCBC(true),
-		///fStop(false)
+		//fNegativeLogicCBC(true),
+		//fStop(false)
     {
 
     }
@@ -47,7 +47,7 @@ namespace Ph2_HwInterface
 
         boost::posix_time::milliseconds cPause(200);
 
-        ///Primary Configuration
+        //Primary Configuration
 		WriteReg(SRAM1_END_READOUT,0);
         WriteReg(SRAM2_END_READOUT,0);
         WriteReg(SRAM1_USR_LOGIC,1);
@@ -105,7 +105,7 @@ namespace Ph2_HwInterface
 
         ChooseBoard(pGlib.getBeId());
 
-        ///Starting the DAQ
+        //Starting the DAQ
         WriteReg(BREAK_TRIGGER,0);
         WriteReg(PC_CONFIG_OK,1);
         WriteReg(FORCE_BG0_START,1);
@@ -119,17 +119,17 @@ namespace Ph2_HwInterface
 
         ChooseBoard(pGlib.getBeId());
 
-        ///Select SRAM
+        //Select SRAM
         SelectSRAM( pNthAcq );
 
-        ///Stop the DAQ
+        //Stop the DAQ
 		WriteReg(BREAK_TRIGGER,1);
         WriteReg(PC_CONFIG_OK,0);
         WriteReg(FORCE_BG0_START,0);
 
         boost::posix_time::milliseconds cWait(100);
 
-        ///Wait for the selected SRAM to be full then empty it
+        //Wait for the selected SRAM to be full then empty it
 		do
         {
 			cVal = ReadReg(fStrFull);
@@ -140,7 +140,7 @@ namespace Ph2_HwInterface
         } while (cVal==1);
 
         WriteReg(fStrReadout,0);
-        ///fNTotalAcq++;
+        //fNTotalAcq++;
     }
 
 
@@ -185,14 +185,14 @@ namespace Ph2_HwInterface
 
         ChooseBoard(pGlib.getBeId());
 
-		///Readout settings
+		//Readout settings
 		boost::posix_time::milliseconds cWait(1);
 
 		uhal::ValWord<uint32_t> cVal;
 		uint32_t cNPackets= EVENT_NUMBER+1;
 		uint32_t cBlockSize = cNPackets * PACKET_SIZE;
 
-		///Wait for start acknowledge
+		//Wait for start acknowledge
 		do
         {
 			cVal=ReadReg(CMD_START_VALID);
@@ -207,15 +207,15 @@ namespace Ph2_HwInterface
 		std::cout << "GlibController::ReadData()  Time took for the CMD_START_VALID flag to be set: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
-		///FIFO goes to write_data state
-		///Select SRAM
+		//FIFO goes to write_data state
+		//Select SRAM
 		SelectSRAM( pNthAcq );
 
 #ifdef __CBCDAQ_DEV__
 		gettimeofday(&start, 0);
 #endif
 
-		///Wait for the SRAM full condition.
+		//Wait for the SRAM full condition.
 		cVal = ReadReg(fStrFull);
 
         do
@@ -231,25 +231,25 @@ namespace Ph2_HwInterface
 		std::cout << "Time took for the data to be ready : " << std::dec << mtime << " ms." << std::endl;
 #endif
 
-		///break trigger
+		//break trigger
 		if( pBreakTrigger )
         {
 			WriteReg(BREAK_TRIGGER,1);
 		}
 
-        /// JRF end
+        // JRF end
 #ifdef __CBCDAQ_DEV__
 		gettimeofday( &fStartVeto, 0 );
 #endif
 
-		///Set read mode to SRAM
+		//Set read mode to SRAM
 		WriteReg(fStrSramUserLogic,0);
 
 #ifdef __CBCDAQ_DEV__
 	    gettimeofday( &cStartBlockRead, 0 );
 #endif
 
-		///Read SRAM
+		//Read SRAM
 		uhal::ValVector<uint32_t> cData = ReadBlockReg(fStrSram,cBlockSize);
 
 #ifdef __CBCDAQ_DEV__
@@ -264,7 +264,7 @@ namespace Ph2_HwInterface
 		gettimeofday(&start, 0);
 #endif
 
-		///Wait for the non SRAM full condition starts,
+		//Wait for the non SRAM full condition starts,
 		do
         {
 			cVal = ReadReg(fStrFull);
@@ -274,7 +274,7 @@ namespace Ph2_HwInterface
 
 		} while (cVal==1);
 
-		///Wait for the non SRAM full condition ends.
+		//Wait for the non SRAM full condition ends.
 #ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 0 );
 		std::cout << "Time took to the full flag to be 0 : " << std::dec << mtime << " us." << std::endl;
@@ -287,7 +287,7 @@ namespace Ph2_HwInterface
 		std::cout << "Time took for ReadDataInSRAM: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
-        ///One data for one event --> Enhanced later
+        //One data for one event --> Enhanced later
 		fData = cData;
 
     }
