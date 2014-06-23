@@ -49,6 +49,10 @@
 #define SRAM1_FULL        "user_wb_ttc_fmc_regs.flags.SRAM1_full"
 #define SRAM2_FULL        "user_wb_ttc_fmc_regs.flags.SRAM2_full"
 
+//GLIBS settings
+#define FAKE_DATA	  "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"
+#define EXT_TRG		  "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
+
 //------------------------------------------------------------------------------
 //CBC
 

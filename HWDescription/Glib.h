@@ -1,7 +1,7 @@
 #ifndef _Glib_h__
 #define _Glib_h__
 
-//#include "GlibDefinitions.h"
+#include "Definition.h"
 #include "Module.h"
 #include <vector>
 #include <map>
@@ -26,7 +26,7 @@ namespace Ph2_HwDescription{
 		Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename = default_glib_file );
 		// Parameters that define system for us
 		//Modify with new param
-		Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, uint8_t pFMCConfiguration, bool pExtTrg, bool pFakeData = false , std::string filename = "default_glib_file" );
+		Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe,/* uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData = false , std::string filename = "default_glib_file" );
 		// Default C'tor
 		Glib();
 

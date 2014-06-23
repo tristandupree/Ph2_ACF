@@ -10,9 +10,9 @@ namespace Ph2_HwDescription{
 	Glib::Glib():fShelveId( 0 ), fBeId( 0 ){
 
 		loadConfigFile( default_glib_file );
-		fRegMap["FMCConfiguration"]=0;
-		fRegMap["ExtTrg"]=0;
-		fRegMap["FakeData"]=0;
+		//fRegMap["FMCConfiguration"]=0;
+		fRegMap[EXT_TRG]=0;
+		fRegMap[FAKE_DATA]=0;
 		
 		//FMCConfiguration, ExtTrg and FakeData are not yet in the registers of the firmware
 
@@ -22,19 +22,19 @@ namespace Ph2_HwDescription{
 
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
-		fRegMap["FMCConfiguration"]=0;
-		fRegMap["ExtTrg"]=0;
-		fRegMap["FakeData"]=0;
+		//fRegMap["FMCConfiguration"]=0;
+		fRegMap[EXT_TRG]=0;
+		fRegMap[FAKE_DATA]=0;
 
 	}
 
-	Glib::Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, uint8_t pFMCConfiguration, bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId )
+	Glib::Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, /*uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId )
 	{
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
-		fRegMap["FMCConfiguration"]=pFMCConfiguration;
-		fRegMap["ExtTrg"]=pExtTrg;
-		fRegMap["FakeData"]=pFakeData;
+		//fRegMap["FMCConfiguration"]=pFMCConfiguration;
+		fRegMap[EXT_TRG]=pExtTrg;
+		fRegMap[FAKE_DATA]=pFakeData;
 		
 	}
 
