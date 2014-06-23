@@ -10,6 +10,9 @@ namespace Ph2_HwDescription{
 	Glib::Glib():fShelveId( 0 ), fBeId( 0 ){
 
 		loadConfigFile( default_glib_file );
+		fRegMap["FMCConfiguration"]=0;
+		fRegMap["ExtTrg"]=0;
+		fRegMap["FakeData"]=0;
 
 	}
 
@@ -17,6 +20,9 @@ namespace Ph2_HwDescription{
 
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
+		fRegMap["FMCConfiguration"]=0;
+		fRegMap["ExtTrg"]=0;
+		fRegMap["FakeData"]=0;
 
 	}
 
@@ -24,7 +30,7 @@ namespace Ph2_HwDescription{
 	{
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
-		fRegMap["FMCConfiguration"]=FMCConfiguration;
+		fRegMap["FMCConfiguration"]=pFMCConfiguration;
 		fRegMap["ExtTrg"]=pExtTrg;
 		fRegMap["FakeData"]=pFakeData;
 		
