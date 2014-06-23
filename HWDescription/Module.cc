@@ -3,12 +3,12 @@
 namespace Ph2_HwDescription{
 
 	// Default C'tor
-	Module::Module():FEDescription(){}
+	Module::Module():FEDescription(){fModuleId=0;}
 
-	Module::Module( FEDescription& pFeDesc):FEDescription(pFeDesc){
+	Module::Module( FEDescription& pFeDesc):FEDescription(pFeDesc){fModuleId=0;
 	}
 
-	Module::Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId ):FEDescription( pShelveId, pBeId, pFMCId,pFeId ){
+	Module::Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId ):FEDescription( pShelveId, pBeId, pFMCId,pFeId ){fModuleId=pModuleId;
 	}
 
 	void Module::addCbc( Cbc& pCbc ){

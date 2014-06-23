@@ -16,7 +16,7 @@ namespace Ph2_HwDescription{
 
 		// C'tors take FEDescription or hierachy of connection and the # of CBCs
 		Module( FEDescription& pFeDesc );
-		Module ( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId);
+		Module ( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId);
 
 		// Default C'tor
 		Module();
@@ -28,6 +28,9 @@ namespace Ph2_HwDescription{
 		void addCbc( Cbc& pCbc );
 		bool   removeCbc( uint8_t pCbcId );
 		Cbc&   getCbc( uint8_t pCbcId );
+
+		//moduleID
+		uint8_t fModuleId;
 
 	protected:
 

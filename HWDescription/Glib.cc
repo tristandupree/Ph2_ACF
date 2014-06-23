@@ -19,13 +19,17 @@ namespace Ph2_HwDescription{
 		loadConfigFile( filename );
 
 	}
-/*
-	Glib::Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, uint8_t pFMCConfiguration, bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId ), fFMCConfiguration(pFMCConfiguration), fExtTrg(pExtTrg)
+
+	Glib::Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, uint8_t pFMCConfiguration, bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId )
 	{
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
+		fRegMap["FMCConfiguration"]=FMCConfiguration;
+		fRegMap["ExtTrg"]=pExtTrg;
+		fRegMap["FakeData"]=pFakeData;
+		
 	}
-*/
+
 	// Public Members:
 
 
@@ -60,7 +64,7 @@ namespace Ph2_HwDescription{
 		bool j=false;
 		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
 		{
-			if (i->fFeId==pModuleId)
+			if (i->fModuleId==pModuleId)
 			{
 				fModuleVector.erase(i);
 				j=true;
@@ -82,7 +86,7 @@ namespace Ph2_HwDescription{
 		std::vector < Module > :: iterator i;
 		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
 		{
-			if (i->fFeId==pModuleId)
+			if (i->fModuleId==pModuleId)
 				{
 					return *i;
 				}
