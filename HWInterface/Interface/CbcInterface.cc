@@ -376,7 +376,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint32_t& pWord)
+	void CbcInterface::UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint8_t pValue)
 	{
 #ifdef __CbcDAQ_DEV__
 		static long min(0), sec(0);
@@ -388,17 +388,16 @@ namespace Ph2_HwInterface
 		}
 #endif
 
-		uint8_t cCbcId;
-		CbcRegItem cRegItem;
+		CbcRegItem cRegItem = (pCbc.getRegMap())[pRegNode];
 		std::vector<uint32_t> cVecReq;
 
-		cVecReq.push_back(pWord);
+		cRegItem.fValue = pValue;
 
 		ChooseBoard(pCbc.getBeId());
 
-		WriteCbcBlockReg(pCbc,cVecReq);
+		EncodeReg(cRegItem,pCbc.fCbcId,cVecReq);
 
-		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
+		WriteCbcBlockReg(pCbc,cVecReq);
 
 		pCbc.setReg(pRegNode,cRegItem.fValue);
 

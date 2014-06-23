@@ -65,7 +65,7 @@ namespace Ph2_HwInterface
             ~CbcInterface();
 
             void ConfigureCbc(Cbc& pCbc); /*!< Configure the Cbc with the Cbc Config File*/
-            void UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint32_t& pWord); /*!< Write the designated register in both Cbc and Cbc Config File*/
+            void UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint8_t pValue); /*!< Write the designated register in both Cbc and Cbc Config File*/
             void UpdateCbcRead(Cbc& pCbc,const std::string& pRegNode); /*!< Read the designated register in the Cbc and update the Cbc Config File */
             void ReadCbc(Module& pModule,const std::string& pRegNode); /*!< Read same register in all Cbcs and then UpdateCbcRead */
             void WriteBroadcast(Module& pModule,const std::string& pRegNode,uint32_t& pWord); /*!< Write same register in all Cbcs and then UpdateCbcWrite */
