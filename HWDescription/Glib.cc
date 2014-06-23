@@ -13,6 +13,8 @@ namespace Ph2_HwDescription{
 		fRegMap["FMCConfiguration"]=0;
 		fRegMap["ExtTrg"]=0;
 		fRegMap["FakeData"]=0;
+		
+		//FMCConfiguration, ExtTrg and FakeData are not yet in the registrer of the firmware
 
 	}
 
