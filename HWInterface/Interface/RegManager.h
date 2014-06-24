@@ -34,15 +34,16 @@ namespace Ph2_HwInterface
         protected:
             /*!
             * \brief Write a register
-            * \param
-            * pRegNode : Node of the register to write
-            * pVal : Value to write
+            * \param pRegNode : Node of the register to write
+            * \param pVal : Value to write
+            * \return boolean confirming the writing
             */
             virtual bool WriteReg(const std::string& pRegNode, const uint32_t& pVal);
             /*!
             * \brief Write a block of values in a register
             * \param pRegNode : Node of the register to write
             * \param pValues : Block of values to write
+            * \return boolean confirming the writing
             */
             virtual bool WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues);
             /*!

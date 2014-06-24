@@ -70,7 +70,7 @@ namespace Ph2_HwInterface
 
 			if (cVal!=pAckVal)
             {
-				std::cout << "Waiting for the I2c command acknowledge to be " << pAckVal << " for " << pNcount << " registers." << std::endl;
+				std::cout << "Waiting for the I2c command acknowledge to be " << pAckVal << " for " << uint32_t(pNcount) << " registers." << std::endl;
 				usleep( cWait );
 			}
 
