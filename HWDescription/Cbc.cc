@@ -230,7 +230,7 @@ namespace Ph2_HwDescription{
 			std::string fpage_str;
 
 
-                	file<<"0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fPage <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fAddress <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fDefValue <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fValue <<std::endl;
+                	file<<"0x" << std::setfill ('0') << std::setw (2) << std::hex<< uint32_t(i->second.fPage) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fAddress) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fDefValue) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fValue) <<std::endl;
 
        			}
 			file.close();
