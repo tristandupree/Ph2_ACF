@@ -158,6 +158,9 @@ Write a block of values in a register.
 {\em p\-Values} & \-: Block of values to write \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean confirming the writing 
+\end{DoxyReturn}
 \hypertarget{class_ph2___hw_interface_1_1_reg_manager_a31174516fef6706c88c3f59dd93e4fdf}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Write\-Reg@{Write\-Reg}}
 \index{Write\-Reg@{Write\-Reg}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
 \subsubsection[{Write\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Write\-Reg (
@@ -172,9 +175,14 @@ Write a register.
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Reg\-Node} & \-: Node of the register to write p\-Val \-: Value to write \\
+{\em p\-Reg\-Node} & \-: Node of the register to write \\
+\hline
+{\em p\-Val} & \-: Value to write \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean confirming the writing 
+\end{DoxyReturn}
 
 
 \subsection{Field Documentation}
