@@ -346,15 +346,9 @@ namespace Ph2_HwInterface
 
 		uint8_t cCbcId = 0xFF;
 		std::vector<uint32_t> cVecReq;
-		Cbc* cCbc = pModule->getCbc(0);
-		CbcRegItem cRegItem = (cCbc->getRegMap())[pRegNode];
+		Cbc* cCbc;
 		int cMissed = 0;
-
-		cRegItem.fValue = pValue;
-
-		EncodeReg(cRegItem,cCbcId,cVecReq);
-
-		WriteCbcBlockReg(cCbc,cVecReq);
+		int cFirst = 1;
 
 		for(uint8_t i=0;i<pModule->getNCbc();i++)
 		{
@@ -362,6 +356,20 @@ namespace Ph2_HwInterface
 			{
 				i--;
 				cMissed++;
+			}
+
+			else if(cFirst == 1)
+			{
+				cCbc = pModule->getCbc(i+cMissed);
+				CbcRegItem cRegItem = (cCbc->getRegMap())[pRegNode];
+				cRegItem.fValue = pValue;
+				cFirst = 0;
+
+				EncodeReg(cRegItem,cCbcId,cVecReq);
+
+				WriteCbcBlockReg(cCbc,cVecReq);
+
+				UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
 			}
 
 			else
