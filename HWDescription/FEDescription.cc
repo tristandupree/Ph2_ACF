@@ -1,3 +1,14 @@
+/*!
+*
+* \file FEDescription.cc
+* \brief FEDescription base class to describe all parameters common to all FE Components in the DAQ chain 
+* \author Lorenzo BIDEGAIN
+* \date 25/06/14
+*
+* Support : mail to : lorenzo.bidegain@cern.ch
+*
+*/
+
 #include "FEDescription.h"
 
 // Implementation of the base class FEDescription to describe the basic properties and connections of each FE component

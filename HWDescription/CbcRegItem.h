@@ -1,3 +1,14 @@
+/*!
+*
+* \file CbcRegItem.h
+* \brief CbcRegItem description, contents of the structure CbcRegItem with is the value of the CbcRegMap
+* \author Lorenzo BIDEGAIN
+* \date 25/06/14
+*
+* Support : mail to : lorenzo.bidegain@cern.ch
+*
+*/
+
 #ifndef _CbcRegItem_h__
 #define _CbcRegItem_h__
 
@@ -5,7 +16,10 @@
 
 namespace Ph2_HwDescription{
 
-	// Struct for CbcRegisterItem that is identified by (Name), Page, Address, DefaultValue, Value
+	/*!
+	* \struct Cbc
+	* \brief Struct for CbcRegisterItem that is identified by (Name), Page, Address, DefaultValue, Value
+	*/
 	struct CbcRegItem{
 
 		/* Keep the Name?  Lorenzo: I'm not sure it's necessary to keep the Name here because the variable structure will be

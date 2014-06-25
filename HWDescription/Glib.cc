@@ -1,3 +1,15 @@
+/*!
+*
+* \file Glib.cc
+* \brief Glib Description class, configs of the Glib
+* \author Lorenzo BIDEGAIN
+* \date 25/06/14
+*
+* Support : mail to : lorenzo.bidegain@cern.ch
+*
+*/
+
+
 #include "Glib.h"
 #include <iostream>
 #include <iomanip>
