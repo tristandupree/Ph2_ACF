@@ -1,12 +1,12 @@
 /*!
-
-\file FEDescription.h
-\brief FEDescription base class to describe all parameters common to all FE Components in the DAQ chain 
-\author Lorenzo BIDEGAIN
-\date 25/06/14
-
-Support : mail to : lorenzo.bidegain@cern.ch
-
+*
+* \file FEDescription.h
+* \brief FEDescription base class to describe all parameters common to all FE Components in the DAQ chain 
+* \author Lorenzo BIDEGAIN
+* \date 25/06/14
+*
+* Support : mail to : lorenzo.bidegain@cern.ch
+*
 */
 
 

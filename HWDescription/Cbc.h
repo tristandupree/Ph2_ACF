@@ -1,12 +1,12 @@
 /*!
-
-\file Cbc.h
-\brief Cbc Description class, config of the Cbcs
-\author Lorenzo BIDEGAIN
-\date 25/06/14
-
-Support : mail to : lorenzo.bidegain@cern.ch
-
+*
+* \file Cbc.h
+* \brief Cbc Description class, config of the Cbcs
+* \author Lorenzo BIDEGAIN
+* \date 25/06/14
+*
+* Support : mail to : lorenzo.bidegain@cern.ch
+*
 */
 
 
