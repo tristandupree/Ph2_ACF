@@ -124,7 +124,7 @@ namespace Ph2_HwDescription{
 			file.close();
 		}
 		else
-			std::cerr<< "The CBC Settins File " << filename << " could not be opened!" <<std::endl;
+			std::cerr<< "The CBC Settings File " << filename << " could not be opened!" <<std::endl;
 	}
 
 	uint8_t Cbc::getTriggerLatency()
@@ -132,7 +132,7 @@ namespace Ph2_HwDescription{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have TriggerLatency"<<std::endl;
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have TriggerLatency"<<std::endl;
 		return 0;}
 		else
 		return i->second.fValue;
@@ -143,7 +143,7 @@ namespace Ph2_HwDescription{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have TriggerLatency"<<std::endl;}
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have TriggerLatency"<<std::endl;}
 		else
 		{
 			i->second.fValue=pTriggerLatency;
@@ -155,7 +155,7 @@ namespace Ph2_HwDescription{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("VCth");
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have Vcth"<<std::endl;
 		return 0;}
 		else
 		return i->second.fValue;
@@ -166,7 +166,7 @@ namespace Ph2_HwDescription{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("VCth");
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;}
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have Vcth"<<std::endl;}
 		else
 		{
 			i->second.fValue=psetVcth;
@@ -181,7 +181,7 @@ namespace Ph2_HwDescription{
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
 		{
-			std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;
+			std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have "<<pReg.c_str()<<std::endl;
 			return 0;
 		}
 		else
@@ -194,7 +194,7 @@ namespace Ph2_HwDescription{
 		CbcRegMap::iterator i;
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have "<<pReg.c_str()<<std::endl;}
 		else
 		{
 			i->second.fValue=psetValue;

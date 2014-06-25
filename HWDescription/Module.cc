@@ -40,7 +40,6 @@ namespace Ph2_HwDescription{
 	//Triggers a warning on the referencing
 	Cbc*   Module::getCbc( uint8_t pCbcId )
 	{
-		Cbc obj;
 		std::vector < Cbc > :: iterator i;
 		for (i=fCbcVector.begin();i!=fCbcVector.end();++i)
 		{

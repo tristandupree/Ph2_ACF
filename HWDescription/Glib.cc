@@ -10,26 +10,19 @@ namespace Ph2_HwDescription{
 	Glib::Glib():fShelveId( 0 ), fBeId( 0 ){
 
 		loadConfigFile( default_glib_file );
-		//fRegMap["FMCConfiguration"]=0;
-		fRegMap[EXT_TRG]=0;
-		fRegMap[FAKE_DATA]=0;
 		
-		//FMCConfiguration, ExtTrg and FakeData are not yet in the registers of the firmware
-
 	}
 
 	Glib::Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename ):fShelveId( pShelveId ),fBeId( pBeId ){
 
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
-		//fRegMap["FMCConfiguration"]=0;
-		fRegMap[EXT_TRG]=0;
-		fRegMap[FAKE_DATA]=0;
 
 	}
 
 	Glib::Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, /*uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData ,  std::string filename):fShelveId( pShelveId ),fBeId( pBeId )
 	{
+		//FMCConfiguration are not yet in the registers of the firmware
 		fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
 		//fRegMap["FMCConfiguration"]=pFMCConfiguration;
@@ -83,14 +76,13 @@ namespace Ph2_HwDescription{
 		return true;
 		else
 		{
-			std::cout<<"Error:This Glib doesn't have the module "<<pModuleId<<std::endl;
+			std::cout<<"Error:The Glib doesn't have the module "<<pModuleId<<std::endl;
 			return false;
 		}
 	}
 
 	Module* Glib::getModule( uint8_t pModuleId )
 	{
-		Module obj;
 		std::vector < Module > :: iterator i;
 		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
 		{
