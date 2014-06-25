@@ -16,7 +16,7 @@
 #include <time.h>
 #include "GLIBInterface.h"
 #include "Utilities.h"
-#include "../../HWDescription/Description/Definition.h"
+#include "../HWDescription/Definition.h"
 
 #define DEV_FLAG         0
 
@@ -66,9 +66,9 @@ namespace Ph2_HwInterface
         */
 
         GlibRegMap cGlibRegMap = pGlib.getGlibRegMap();
-		for(GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); cIt++ )
+		for(GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
         {
-			WriteReg( cIt->first , (uint32_t) cIt->second );
+        	WriteReg( cIt->first , cIt->second );
 		}
 
 

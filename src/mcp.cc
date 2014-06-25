@@ -9,12 +9,12 @@
 
 */
 
-#include "../HWDescription/Description/Cbc.h"
-#include "../HWDescription/Description/Module.h"
-#include "../HWDescription/Description/Glib.h"
-#include "../HWInterface/Interface/CbcInterface.h"
-#include "../HWInterface/Interface/GLIBInterface.h"
-#include "../HWDescription/Description/Definition.h"
+#include "../HWDescription/Cbc.h"
+#include "../HWDescription/Module.h"
+#include "../HWDescription/Glib.h"
+#include "../HWInterface/CbcInterface.h"
+#include "../HWInterface/GLIBInterface.h"
+#include "../HWDescription/Definition.h"
 #include <boost/format.hpp>
 
 using namespace Ph2_HwDescription;
@@ -232,7 +232,15 @@ int main()
                         getline(std::cin,cRegNode);
                         std::cout << "--> Which Value ?" << std::endl;
                         std::cin >> cValue;
-                        cGlibInterface.UpdateGlibWrite(cGlib,cRegNode,cValue);
+                        if(uint32_t(cValue) > 255)
+                        {
+                            std::cout << "*** ERROR !!                                      ***" << std::endl;
+                            std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
+                        }
+                        else
+                        {
+                            cGlibInterface.UpdateGlibWrite(cGlib,cRegNode,cValue);
+                        }
                     break;
 
 
@@ -243,7 +251,15 @@ int main()
                         getline(std::cin,cRegNode);
                         std::cout << "--> Which Value ?" << std::endl;
                         std::cin >> cValue;
-                        cGlibInterface.UpdateGlibRead(cGlib,cRegNode);
+                        if(uint32_t(cValue) > 255)
+                        {
+                            std::cout << "*** ERROR !!                                      ***" << std::endl;
+                            std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
+                        }
+                        else
+                        {
+                            cGlibInterface.UpdateGlibRead(cGlib,cRegNode);
+                        }
                     break;
 
 
@@ -300,7 +316,15 @@ int main()
                                 getline(std::cin,cRegNode);
                                 std::cout << "--> Which Value ?" << std::endl;
                                 std::cin >> cValue;
-                                cCbcInterface.UpdateCbcWrite(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode,cValue);
+                                if(uint32_t(cValue) > 255)
+                                {
+                                    std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                    std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
+                                }
+                                else
+                                {
+                                    cCbcInterface.UpdateCbcWrite(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode,cValue);
+                                }
                             }
                         }
                     break;
@@ -354,7 +378,15 @@ int main()
                             getline(std::cin,cRegNode);
                             std::cout << "--> Which Value ?" << std::endl;
                             std::cin >> cValue;
-                            cCbcInterface.WriteBroadcast(cGlib.getModule(cModuleId),cRegNode,cValue);
+                            if(uint32_t(cValue) > 255)
+                            {
+                                std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
+                            }
+                            else
+                            {
+                                cCbcInterface.WriteBroadcast(cGlib.getModule(cModuleId),cRegNode,cValue);
+                            }
                         }
                     break;
 

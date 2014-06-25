@@ -17,9 +17,9 @@
 #include <limits.h>
 #include <boost/cstdint.hpp>
 #include "RegManager.h"
-#include "../../HWDescription/Description/CbcRegItem.h"
-#include "../../HWDescription/Description/Cbc.h"
-#include "../../HWDescription/Description/Module.h"
+#include "../HWDescription/CbcRegItem.h"
+#include "../HWDescription/Cbc.h"
+#include "../HWDescription/Module.h"
 
 using namespace Ph2_HwDescription;
 
@@ -70,7 +70,7 @@ namespace Ph2_HwInterface
             * \param pCbc : Cbc to work with
             * \param pEnable : 1/0 -> Enable/Disable
             */
-            void EnableI2c( Cbc& pCbc, bool pEnable );
+            void EnableI2c( Cbc* pCbc, bool pEnable );
 
             //r/w the Cbc registers
             /*!
@@ -78,13 +78,13 @@ namespace Ph2_HwInterface
             * \param pCbc : Cbc to work with
             * \param pVecReq : Block of words to write
             */
-            void WriteCbcBlockReg( Cbc& pCbc, std::vector<uint32_t>& pVecReq );
+            void WriteCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq );
             /*!
             * \brief Read register blocks of a Cbc
             * \param pCbc : Cbc to work with
             * \param pVecReq : Vector to stack the read words
             */
-            void ReadCbcBlockReg( Cbc& pCbc, std::vector<uint32_t>& pVecReq );
+            void ReadCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq );
 
             //Encode/Decode Cbc values
             /*!
@@ -103,12 +103,6 @@ namespace Ph2_HwInterface
             void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord); /*!< Decode a word from a read of a register of the Cbc*/
 
         public:
-            static const std::string fStrI2cSettings;
-			static const std::string fStrI2cCommand;
-			static const std::string fStrI2cReply;
-			static const uint32_t fI2cSlave;
-
-        public:
             /*!
             * \brief Constructor of the CbcInterface class
             * \param puHalConfigFileName : path of the uHal Config File
@@ -123,33 +117,33 @@ namespace Ph2_HwInterface
             * \brief Configure the Cbc with the Cbc Config File
             * \param pCbc
             */
-            void ConfigureCbc(Cbc& pCbc);
+            void ConfigureCbc(Cbc* pCbc);
             /*!
             * \brief Write the designated register in both Cbc and Cbc Config File
             * \param pCbc
             * \param pRegNode : Node of the register to write
             * \param pValue : Value to write
             */
-            void UpdateCbcWrite(Cbc& pCbc, const std::string& pRegNode, uint8_t pValue);
+            void UpdateCbcWrite(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue);
             /*!
             * \brief Read the designated register in the Cbc and update the Cbc Config File
             * \param pCbc
             * \param pRegNode : Node of the register to read
             */
-            void UpdateCbcRead(Cbc& pCbc,const std::string& pRegNode);
+            void UpdateCbcRead(Cbc* pCbc,const std::string& pRegNode);
             /*!
             * \brief Read same register in all Cbcs and then UpdateCbcRead
             * \param pModule : Module containing vector of Cbcs
             * \param pRegNode : Node of the register to read
             */
-            void ReadCbc(Module& pModule,const std::string& pRegNode); /*!< Read same register in all Cbcs and then UpdateCbcRead */
+            void ReadCbc(Module* pModule,const std::string& pRegNode);
             /*!
-            * \brief Write same register in all Cbcs and then UpdateCbcWrite
+            * \brief Write same register in all Cbcs and then UpdateCbcRead
             * \param pModule : Module containing vector of Cbcs
             * \param pRegNode : Node of the register to write
             * \param pWord : Word to write
             */
-            void WriteBroadcast(Module& pModule,const std::string& pRegNode,uint32_t& pWord); /*!< Write same register in all Cbcs and then UpdateCbcWrite */
+            void WriteBroadcast(Module* pModule,const std::string& pRegNode,uint8_t pValue);
 
     };
 }

@@ -16,7 +16,7 @@
 #include <vector>
 #include <uhal/uhal.hpp>
 #include "RegManager.h"
-#include "../../HWDescription/Description/Glib.h"
+#include "../HWDescription/Glib.h"
 
 using namespace Ph2_HwDescription;
 

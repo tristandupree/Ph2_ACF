@@ -12,7 +12,7 @@
 #include <boost/format.hpp>
 #include "RegManager.h"
 
-#define DEV_FLAG    0
+#define DEV_FLAG    1
 
 namespace Ph2_HwInterface
 {
@@ -54,7 +54,10 @@ namespace Ph2_HwInterface
             uint32_t comp = (uint32_t) reply ;
 
             if(comp==pVal)
+            {
+                std::cout << "Values written correctly !" << comp << "=" << pVal << std::endl;
                 return true;
+            }
 
             std::cout << "\nERROR !!\nValues are not consistent : \nExpected : " << pVal << "\nActual : " << comp << std::endl;
         }
@@ -88,7 +91,7 @@ namespace Ph2_HwInterface
                   }
               }
 
-              std::cout << "ERROR !!\n" << cErrCount << " values failed to write !" << std::endl;
+              std::cout << "Block Write finished !!\n" << cErrCount << " values failed to write !" << std::endl;
           }
 
         return cWriteCorr;
@@ -116,7 +119,6 @@ namespace Ph2_HwInterface
 
         uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode(pRegNode).readBlock(pBlockSize);
         fBoard->dispatch();
-
 
         if (DEV_FLAG)
         {

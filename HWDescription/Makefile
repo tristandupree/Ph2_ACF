@@ -1,18 +1,21 @@
-mytest: mytest.o FEDescription.o Cbc.o Module.o
-	g++ -std=c++0x -o mytest mytest.o FEDescription.o Cbc.o Module.o
+Objs                    = FEDescription.o Glib.o Cbc.o Module.o
+CC              = gcc
+CXX             = g++
+CCFlags         = -g -O1 -Wall -fPIC `root-config --cflags`
+DevFlags                   = -D__CBCDAQ_DEV__
+#DevFlags               =
 
-mytest.o: mytest.cc Module.h FEDescription.h Cbc.h
-	g++ -std=c++0x -Wall -c mytest.cc
+IncludeDirs     =  /opt/cactus/include /opt/xdaq/include ../
 
-Module.o: Module.cc Module.h
-	g++ -std=c++0x -Wall -c Module.cc
+IncludePaths            = $(IncludeDirs:%=-I%)
 
-Cbc.o: Cbc.cc Cbc.h
-	g++ -std=c++0x -Wall -c Cbc.cc
+%.o: %.cc %.h
+	$(CXX) $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
-FEDescription.o: FEDescription.cc FEDescription.h
-	g++ -std=c++0x -Wall -c FEDescription.cc
 
+all: $(Objs)
+	$(CC) -shared -o libPh2_Description.so $(Objs)
+	mv libPh2_Description.so ../lib
 
 clean:
 	rm -f *.o
