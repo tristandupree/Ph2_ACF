@@ -1,3 +1,15 @@
+/*!
+*
+* \file Module.cc
+* \brief Module Description class
+* \author Lorenzo BIDEGAIN
+* \date 25/06/14
+*
+* Support : mail to : lorenzo.bidegain@cern.ch
+*
+*/
+
+
 #include "Module.h"
 
 namespace Ph2_HwDescription{
