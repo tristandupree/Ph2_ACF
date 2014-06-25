@@ -89,9 +89,6 @@ int main()
                         std::cout << "*** Add Cbc ***" << std::endl;
                         std::cout << "--> Which ModuleId ?" << std::endl;
                         std::cin >> cModuleId;
-                        std::cout << "--> Which CbcId ?" << std::endl;
-                        std::cin >> cCbcId;
-                        cCbc.fCbcId=cCbcId;
                         if (cGlib.getModule(cModuleId) == NULL)
                         {
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
@@ -100,6 +97,9 @@ int main()
                         }
                         else
                         {
+                            std::cout << "--> Which CbcId ?" << std::endl;
+                            std::cin >> cCbcId;
+                            cCbc.fCbcId=cCbcId;
                             cGlib.getModule(cModuleId)->addCbc(cCbc);
                         }
                     break;
@@ -141,8 +141,6 @@ int main()
                         std::cout << "*** Configure Cbc ***" << std::endl;
                         std::cout << "--> Which ModuleId ?" << std::endl;
                         std::cin >> cModuleId;
-                        std::cout << "--> Which CbcId ?" << std::endl;
-                        std::cin >> cCbcId;
                         if(cGlib.getModule(cModuleId) == NULL)
                         {
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
@@ -182,8 +180,18 @@ int main()
                         {
                             for(uint8_t j=0;j<cGlib.getModule(cModuleId)->getNCbc();j++)
                             {
-                                cCbcInterface.ConfigureCbc(cGlib.getModule(cModuleId)->getCbc(j));
+                                if(cGlib.getModule(cModuleId)->getCbc(j+cMissedCbc) == NULL)
+                                {
+                                    j--;
+                                    cMissedCbc++;
+                                }
+
+                                else
+                                {
+                                    cCbcInterface.ConfigureCbc(cGlib.getModule(cModuleId)->getCbc(j+cMissedCbc));
+                                }
                             }
+                            cMissedCbc = 0;
                         }
                     break;
 
@@ -193,11 +201,31 @@ int main()
 
                         for(uint8_t k=0;k<cGlib.getNFe();k++)
                         {
-                            for(uint8_t j=0;j<cGlib.getModule(cModuleId)->getNCbc();j++)
+                            if(cGlib.getModule(k+cMissedModule) == NULL)
                             {
-                                cCbcInterface.ConfigureCbc(cGlib.getModule(cModuleId)->getCbc(j));
+                                k--;
+                                cMissedModule++;
+                            }
+
+                            else
+                            {
+                                for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
+                                {
+                                    if(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc) == NULL)
+                                    {
+                                        j--;
+                                        cMissedCbc++;
+                                    }
+
+                                    else
+                                    {
+                                        cCbcInterface.ConfigureCbc(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc));
+                                    }
+                                }
+                                cMissedCbc = 0;
                             }
                         }
+                        cMissedModule = 0;
                     break;
 
 
@@ -228,8 +256,7 @@ int main()
                     case 1:
                         std::cout << "*** Update both ways ***" << std::endl;
                         std::cout << "--> Which Register ?" << std::endl;
-                        std::cin.clear();
-                        getline(std::cin,cRegNode);
+                        std::cin >> cRegNode;
                         std::cout << "--> Which Value ?" << std::endl;
                         std::cin >> cValue;
                         if(uint32_t(cValue) > 255)
@@ -247,8 +274,7 @@ int main()
                     case 2:
                         std::cout << "*** Update one way ***" << std::endl;
                         std::cout << "--> Which Register ?" << std::endl;
-                        std::cin.clear();
-                        getline(std::cin,cRegNode);
+                        std::cin >> cRegNode;
                         std::cout << "--> Which Value ?" << std::endl;
                         std::cin >> cValue;
                         if(uint32_t(cValue) > 255)
@@ -312,8 +338,7 @@ int main()
                             else
                             {
                                 std::cout << "--> Which Register ?" << std::endl;
-                                std::cin.clear();
-                                getline(std::cin,cRegNode);
+                                std::cin >> cRegNode;
                                 std::cout << "--> Which Value ?" << std::endl;
                                 std::cin >> cValue;
                                 if(uint32_t(cValue) > 255)
@@ -353,8 +378,7 @@ int main()
                             else
                             {
                                 std::cout << "--> Which Register ?" << std::endl;
-                                std::cin.clear();
-                                getline(std::cin,cRegNode);
+                                std::cin >> cRegNode;
                                 cCbcInterface.UpdateCbcRead(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode);
                             }
                         }
@@ -374,8 +398,7 @@ int main()
                         else
                         {
                             std::cout << "--> Which Register ?" << std::endl;
-                            std::cin.clear();
-                            getline(std::cin,cRegNode);
+                            std::cin >> cRegNode;
                             std::cout << "--> Which Value ?" << std::endl;
                             std::cin >> cValue;
                             if(uint32_t(cValue) > 255)
@@ -404,8 +427,7 @@ int main()
                         else
                         {
                             std::cout << "--> Which Register ?" << std::endl;
-                            std::cin.clear();
-                            getline(std::cin,cRegNode);
+                            std::cin >> cRegNode;
                             cCbcInterface.ReadCbc(cGlib.getModule(cModuleId),cRegNode);
                         }
                     break;
@@ -495,7 +517,6 @@ int main()
         }
 
     }
-
     while(i!=0);
 
     for(uint8_t k=0;k<cGlib.getNFe();k++)
