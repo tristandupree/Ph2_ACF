@@ -29,7 +29,8 @@ int main()
     Cbc cCbc;
     uint32_t cModuleId, cCbcId;
     std::string cRegNode;
-    uint32_t cValue;
+    std::string cValue;
+    uint32_t cValueHex;
     uint32_t cNthAcq;
     bool cBreakTrigger;
     int cMissedModule = 0;
@@ -257,16 +258,17 @@ int main()
                         std::cout << "*** Update both ways ***" << std::endl;
                         std::cout << "--> Which Register ?" << std::endl;
                         std::cin >> cRegNode;
-                        std::cout << "--> Which Value ?" << std::endl;
+                        std::cout << "--> Which Value ? (0x__)" << std::endl;
                         std::cin >> cValue;
-                        if(uint32_t(cValue) > 255)
+                        cValueHex = strtoul( cValue.c_str(), 0, 16 );
+                        if(cValueHex > 255)
                         {
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
                         }
                         else
                         {
-                            cGlibInterface.UpdateGlibWrite(cGlib,cRegNode,cValue);
+                            cGlibInterface.UpdateGlibWrite(cGlib,cRegNode,cValueHex);
                         }
                     break;
 
@@ -275,17 +277,7 @@ int main()
                         std::cout << "*** Update one way ***" << std::endl;
                         std::cout << "--> Which Register ?" << std::endl;
                         std::cin >> cRegNode;
-                        std::cout << "--> Which Value ?" << std::endl;
-                        std::cin >> cValue;
-                        if(uint32_t(cValue) > 255)
-                        {
-                            std::cout << "*** ERROR !!                                      ***" << std::endl;
-                            std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
-                        }
-                        else
-                        {
-                            cGlibInterface.UpdateGlibRead(cGlib,cRegNode);
-                        }
+                        cGlibInterface.UpdateGlibRead(cGlib,cRegNode);
                     break;
 
 
@@ -339,16 +331,17 @@ int main()
                             {
                                 std::cout << "--> Which Register ?" << std::endl;
                                 std::cin >> cRegNode;
-                                std::cout << "--> Which Value ?" << std::endl;
+                                std::cout << "--> Which Value ? (0x__)" << std::endl;
                                 std::cin >> cValue;
-                                if(uint32_t(cValue) > 255)
+                                cValueHex = strtoul( cValue.c_str(), 0, 16 );
+                                if(cValueHex > 255)
                                 {
                                     std::cout << "*** ERROR !!                                      ***" << std::endl;
                                     std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
                                 }
                                 else
                                 {
-                                    cCbcInterface.UpdateCbcWrite(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode,cValue);
+                                    cCbcInterface.UpdateCbcWrite(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode,cValueHex);
                                 }
                             }
                         }
@@ -399,16 +392,17 @@ int main()
                         {
                             std::cout << "--> Which Register ?" << std::endl;
                             std::cin >> cRegNode;
-                            std::cout << "--> Which Value ?" << std::endl;
+                            std::cout << "--> Which Value ? (0x__)" << std::endl;
                             std::cin >> cValue;
-                            if(uint32_t(cValue) > 255)
+                            cValueHex = strtoul( cValue.c_str(), 0, 16 );
+                            if(cValueHex > 255)
                             {
                                 std::cout << "*** ERROR !!                                      ***" << std::endl;
                                 std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
                             }
                             else
                             {
-                                cCbcInterface.WriteBroadcast(cGlib.getModule(cModuleId),cRegNode,cValue);
+                                cCbcInterface.WriteBroadcast(cGlib.getModule(cModuleId),cRegNode,cValueHex);
                             }
                         }
                     break;
