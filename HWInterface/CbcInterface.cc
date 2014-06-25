@@ -237,7 +237,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t> pVecReq)
+	void CbcInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq)
 	{
 		pVecReq.push_back(pCbcId<<24 | pRegItem.fPage<<16 | pRegItem.fAddress<<8 | pRegItem.fValue);
 	}
@@ -363,6 +363,7 @@ namespace Ph2_HwInterface
 				cCbc = pModule->getCbc(i+cMissed);
 				CbcRegItem cRegItem = (cCbc->getRegMap())[pRegNode];
 				cRegItem.fValue = pValue;
+
 				cFirst = 0;
 
 				EncodeReg(cRegItem,cCbcId,cVecReq);

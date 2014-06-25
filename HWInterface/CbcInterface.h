@@ -93,7 +93,7 @@ namespace Ph2_HwInterface
             * \param pCbcId : Id of the Cbc to work with
             * \param pVecReq : Vector to stack the encoded words
             */
-            void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t> pVecReq); /*!< Encode a/several word(s) readable for a Cbc*/
+            void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq); /*!< Encode a/several word(s) readable for a Cbc*/
             /*!
             * \brief Decode a word from a read of a register of the Cbc
             * \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
