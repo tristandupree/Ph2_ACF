@@ -83,6 +83,7 @@ int main()
                         std::cin >> cModuleId;
                         cModule.fModuleId=cModuleId;
                         cGlib.addModule(cModule);
+                        std::cout << "*** Module Added ***" << std::endl;
                     break;
 
 
@@ -103,6 +104,7 @@ int main()
                             cCbc.fCbcId=cCbcId;
                             cGlib.getModule(cModuleId)->addCbc(cCbc);
                         }
+                        std::cout << "*** Cbc Added ***" << std::endl;
                     break;
 
 
@@ -124,7 +126,7 @@ int main()
 
                 std::cout << "1: Configure Glib" << std::endl;
                 std::cout << "2: Configure Cbc" << std::endl;
-                std::cout << "3: Configure all Cbc" << std::endl;
+                std::cout << "3: Configure all Cbc in one Module" << std::endl;
                 std::cout << "4: Configure all Cbc in all Module\n" << std::endl;
 
                 std::cin >> i;
@@ -244,10 +246,10 @@ int main()
                 std::cout << "\n\n\n\n"<< std::endl;
                 std::cout << "****************************************************" << std::endl;
                 std::cout << "***              Glib Manipulation               ***" << std::endl;
-                std::cout << "****************************************************\n\n" << std::endl;
+                std::cout << "****************************************************\n" << std::endl;
 
                 std::cout << "1: Update both ways" << std::endl;
-                std::cout << "2: Update one way\n\n" << std::endl;
+                std::cout << "2: Update one way\n" << std::endl;
 
                 std::cin >> i;
 
@@ -295,12 +297,14 @@ int main()
                 std::cout << "\n\n\n\n"<< std::endl;
                 std::cout << "****************************************************" << std::endl;
                 std::cout << "***               Cbc Manipulation               ***" << std::endl;
-                std::cout << "****************************************************\n\n" << std::endl;
+                std::cout << "****************************************************\n" << std::endl;
 
                 std::cout << "1: Update both ways" << std::endl;
                 std::cout << "2: Update one way" << std::endl;
                 std::cout << "3: Write all Cbc" << std::endl;
-                std::cout << "4: Read all Cbc\n\n" << std::endl;
+                std::cout << "4: Read all Cbc" << std::endl;
+                std::cout << "5: Hard Reset a Cbc" << std::endl;
+                std::cout << "6: Fast Reset Cbc\n" << std::endl;
 
                 std::cin >> i;
 
@@ -427,6 +431,64 @@ int main()
                     break;
 
 
+                    case 5:
+                        std::cout << "*** Cbc Hard Reset ***" << std::endl;
+                        std::cout << "--> Which ModuleId ?" << std::endl;
+                        std::cin >> cModuleId;
+                        if(cGlib.getModule(cModuleId) == NULL)
+                        {
+                            std::cout << "*** ERROR !!                                      ***" << std::endl;
+                            std::cout << "*** This module does not exist !                  ***" << std::endl;
+                            std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                        }
+                        else
+                        {
+                            std::cout << "--> Which CbcId ?" << std::endl;
+                            std::cin >> cCbcId;
+                            if(cGlib.getModule(cModuleId)->getCbc(cCbcId) == NULL)
+                            {
+                                std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                std::cout << "*** This Cbc does not exist !                     ***" << std::endl;
+                                std::cout << "*** This is not the Cbc you are looking for...    ***" << std::endl;
+                            }
+                            else
+                            {
+                                cCbcInterface.CbcHardReset(cGlib.getModule(cModuleId)->getCbc(cCbcId));
+                            }
+                        std::cout << "*** Cbc Hard Reset ***" << std::endl;
+                        }
+                    break;
+
+
+                    case 6:
+                        std::cout << "*** Cbc Fast Reset ***" << std::endl;
+                        std::cout << "--> Which ModuleId ?" << std::endl;
+                        std::cin >> cModuleId;
+                        if(cGlib.getModule(cModuleId) == NULL)
+                        {
+                            std::cout << "*** ERROR !!                                      ***" << std::endl;
+                            std::cout << "*** This module does not exist !                  ***" << std::endl;
+                            std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                        }
+                        else
+                        {
+                            std::cout << "--> Which CbcId ?" << std::endl;
+                            std::cin >> cCbcId;
+                            if(cGlib.getModule(cModuleId)->getCbc(cCbcId) == NULL)
+                            {
+                                std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                std::cout << "*** This Cbc does not exist !                     ***" << std::endl;
+                                std::cout << "*** This is not the Cbc you are looking for...    ***" << std::endl;
+                            }
+                            else
+                            {
+                                cCbcInterface.CbcFastReset(cGlib.getModule(cModuleId)->getCbc(cCbcId));
+                            }
+                        std::cout << "*** Cbc Fast Reset ***" << std::endl;
+                        }
+                    break;
+
+
                     default:
                         std::cout << "*** This is not the option you are looking for... ***" << std::endl;
                     break;
@@ -441,13 +503,13 @@ int main()
                 std::cout << "\n\n\n\n"<< std::endl;
                 std::cout << "****************************************************" << std::endl;
                 std::cout << "***               Acquisition-ish                ***" << std::endl;
-                std::cout << "****************************************************\n\n" << std::endl;
+                std::cout << "****************************************************\n" << std::endl;
 
                 std::cout << "1: Start" << std::endl;
                 std::cout << "2: Pause" << std::endl;
                 std::cout << "3: UnPause" << std::endl;
                 std::cout << "4: Stop" << std::endl;
-                std::cout << "5: Read Data\n\n" << std::endl;
+                std::cout << "5: Read Data\n" << std::endl;
 
                 std::cin >> i;
 
