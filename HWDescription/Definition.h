@@ -81,6 +81,10 @@
     //CBC I2C command request
 #define CBC_I2C_CMD_RQ       "cbc_i2c_cmd_rq"
 
+    //CBC reset
+#define CBC_HARD_RESET       "cbc_hard_reset"
+#define CBC_FAST_RESET       "cbc_fast_reset"
+
 //------------------------------------------------------------------------------
 //Delays
 
