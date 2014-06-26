@@ -66,7 +66,7 @@ namespace Ph2_HwInterface
     }
 
 
-    bool RegManager::WriteStackReg(std::vector<pair<const std::string,const uint32_t>& pVecReg)
+    bool RegManager::WriteStackReg(std::vector<pair<const std::string,const uint32_t>>& pVecReg)
     {
         for(std::vector<pair<const std::string,const uint32_t&>::iterator cIt = pVecReg.begin(); cIt = pVecReg.end(); cIt++)
         {
