@@ -1,8 +1,8 @@
 var searchData=
 [
   ['readblockreg',['ReadBlockReg',['../class_ph2___hw_interface_1_1_reg_manager.html#a6481c211d27badc409ff0e7af20575e4',1,'Ph2_HwInterface::RegManager']]],
-  ['readcbc',['ReadCbc',['../class_ph2___hw_interface_1_1_cbc_interface.html#a46314c37156baa31c484c1141218bb49',1,'Ph2_HwInterface::CbcInterface']]],
-  ['readcbcblockreg',['ReadCbcBlockReg',['../class_ph2___hw_interface_1_1_cbc_interface.html#a42ab8453dafd3f2d3c079536efde0569',1,'Ph2_HwInterface::CbcInterface']]],
+  ['readcbc',['ReadCbc',['../class_ph2___hw_interface_1_1_cbc_interface.html#a247b9d4df6f8f85d43d383124994d88a',1,'Ph2_HwInterface::CbcInterface']]],
+  ['readcbcblockreg',['ReadCbcBlockReg',['../class_ph2___hw_interface_1_1_cbc_interface.html#ac9ec0a962f0527a8298c1771240bf838',1,'Ph2_HwInterface::CbcInterface']]],
   ['readdata',['ReadData',['../class_ph2___hw_interface_1_1_glib_interface.html#ad3f91f03b0214987f4a9e8b63ff99dca',1,'Ph2_HwInterface::GlibInterface']]],
   ['readi2cblockvaluesinsram',['ReadI2cBlockValuesInSRAM',['../class_ph2___hw_interface_1_1_cbc_interface.html#a835236b210e7b642f471d862cb8c5f47',1,'Ph2_HwInterface::CbcInterface']]],
   ['readreg',['ReadReg',['../class_ph2___hw_interface_1_1_reg_manager.html#a077e0a18592206365150680213345112',1,'Ph2_HwInterface::RegManager']]],

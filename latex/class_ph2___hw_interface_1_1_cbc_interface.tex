@@ -23,27 +23,16 @@ Inheritance diagram for Ph2\-\_\-\-Hw\-Interface\-:\-:Cbc\-Interface\-:\begin{fi
 \begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_cbc_interface}{Cbc\-Interface} class. \end{DoxyCompactList}\item 
 \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a1f0ab7d7cf7783a0fe275e8e1d7e5a49}{$\sim$\-Cbc\-Interface} ()
 \begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_cbc_interface}{Cbc\-Interface} class. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_af5cf4eb5b7134835f00349cb19f35c56}{Configure\-Cbc} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} \&p\-Cbc)
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a0567c7a31f70f446202e60d037c869ea}{Configure\-Cbc} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $\ast$p\-Cbc)
 \begin{DoxyCompactList}\small\item\em Configure the Cbc with the Cbc Config File. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_ae046d10fdb494b5c8bcb831016c02738}{Update\-Cbc\-Write} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} \&p\-Cbc, const std\-::string \&p\-Reg\-Node, uint8\-\_\-t p\-Value)
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_aa4daecdb7c91b835dee7520b9e6664f9}{Update\-Cbc\-Write} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $\ast$p\-Cbc, const std\-::string \&p\-Reg\-Node, uint8\-\_\-t p\-Value)
 \begin{DoxyCompactList}\small\item\em Write the designated register in both Cbc and Cbc Config File. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_ab08ea1de98fe120098a4f5c52e017393}{Update\-Cbc\-Read} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} \&p\-Cbc, const std\-::string \&p\-Reg\-Node)
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a6f9082c399255d69036e97f2ede63754}{Update\-Cbc\-Read} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $\ast$p\-Cbc, const std\-::string \&p\-Reg\-Node)
 \begin{DoxyCompactList}\small\item\em Read the designated register in the Cbc and update the Cbc Config File. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a46314c37156baa31c484c1141218bb49}{Read\-Cbc} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} \&p\-Module, const std\-::string \&p\-Reg\-Node)
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a247b9d4df6f8f85d43d383124994d88a}{Read\-Cbc} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$p\-Module, const std\-::string \&p\-Reg\-Node)
 \begin{DoxyCompactList}\small\item\em Read same register in all Cbcs and then Update\-Cbc\-Read. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a2aa83fb17f550cd65d32a07960a158ab}{Write\-Broadcast} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} \&p\-Module, const std\-::string \&p\-Reg\-Node, uint32\-\_\-t \&p\-Word)
-\begin{DoxyCompactList}\small\item\em Write same register in all Cbcs and then Update\-Cbc\-Write. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-static const std\-::string \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_ab45dcb5563c94075ac0a3e17d17c1fd4}{f\-Str\-I2c\-Settings} = \hyperlink{_definition_8h_a15db09e24617ea5c5843213672ac8a03}{I2\-C\-\_\-\-S\-E\-T\-T\-I\-N\-G\-S}
-\item 
-static const std\-::string \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a350e32baca2a50220eeff24b9fa07054}{f\-Str\-I2c\-Command} = \hyperlink{_definition_8h_ae308275dafb538f2511ea285fea768d0}{I2\-C\-\_\-\-C\-O\-M\-M\-A\-N\-D}
-\item 
-static const std\-::string \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a6a0730099e121a7707615ba6969afe80}{f\-Str\-I2c\-Reply} = \hyperlink{_definition_8h_a46aaa2293185dfc3cd655f65bea7f614}{I2\-C\-\_\-\-R\-E\-P\-L\-Y}
-\item 
-static const uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_ad5257bb9fac0efe9cb8307a04f51ef77}{f\-I2c\-Slave} = \hyperlink{_definition_8h_ab15137f7c592d05573de99f078516157}{I2\-C\-\_\-\-S\-L\-A\-V\-E}
-\end{DoxyCompactItemize}
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_af4a7fb33df95b0052bf5046910676aec}{Write\-Broadcast} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$p\-Module, const std\-::string \&p\-Reg\-Node, uint8\-\_\-t p\-Value)
+\begin{DoxyCompactList}\small\item\em Write same register in all Cbcs and then Update\-Cbc\-Read. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -55,13 +44,13 @@ void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a3abc2efbdff0957b6863
 \begin{DoxyCompactList}\small\item\em Send request to r/w blocks via I2\-C. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a835236b210e7b642f471d862cb8c5f47}{Read\-I2c\-Block\-Values\-In\-S\-R\-A\-M} (unsigned int p\-Cbc\-Id, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
 \begin{DoxyCompactList}\small\item\em Read blocks from S\-R\-A\-M via I2\-C. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a33464f7a75cd7e392d1324e223145b92}{Enable\-I2c} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} \&p\-Cbc, bool p\-Enable)
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a03c443239c9ee90a9d547fbcfed89df4}{Enable\-I2c} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $\ast$p\-Cbc, bool p\-Enable)
 \begin{DoxyCompactList}\small\item\em Enable I2\-C communications. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a47d3c0291aae360b85195ee3c22846e4}{Write\-Cbc\-Block\-Reg} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} \&p\-Cbc, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a0829d7f94889de251860cae3f5f9d565}{Write\-Cbc\-Block\-Reg} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $\ast$p\-Cbc, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
 \begin{DoxyCompactList}\small\item\em Write register blocks of a Cbc. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a42ab8453dafd3f2d3c079536efde0569}{Read\-Cbc\-Block\-Reg} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} \&p\-Cbc, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_ac9ec0a962f0527a8298c1771240bf838}{Read\-Cbc\-Block\-Reg} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $\ast$p\-Cbc, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
 \begin{DoxyCompactList}\small\item\em Read register blocks of a Cbc. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_afa604881734cbe66e08b357cef693245}{Encode\-Reg} (\hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} \&p\-Reg\-Item, uint8\-\_\-t \&p\-Cbc\-Id, std\-::vector$<$ uint32\-\_\-t $>$ p\-Vec\-Req)
+void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_a2718fb251129aef788f6068c53dd1b44}{Encode\-Reg} (\hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} \&p\-Reg\-Item, uint8\-\_\-t \&p\-Cbc\-Id, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
 \begin{DoxyCompactList}\small\item\em Encode a/several word(s) readable for a Cbc. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_cbc_interface_acf2c23c04d1f48b3d1ad875d63e6b98e}{Decode\-Reg} (\hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} \&p\-Reg\-Item, uint8\-\_\-t \&p\-Cbc\-Id, uint32\-\_\-t p\-Word)
 \begin{DoxyCompactList}\small\item\em Decode a word from a read of a register of the Cbc. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -115,13 +104,13 @@ Destructor of the \hyperlink{class_ph2___hw_interface_1_1_cbc_interface}{Cbc\-In
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_af5cf4eb5b7134835f00349cb19f35c56}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Configure\-Cbc@{Configure\-Cbc}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a0567c7a31f70f446202e60d037c869ea}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Configure\-Cbc@{Configure\-Cbc}}
 \index{Configure\-Cbc@{Configure\-Cbc}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Configure\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Configure\-Cbc (
 \begin{DoxyParamCaption}
-\item[{{\bf Cbc} \&}]{p\-Cbc}
+\item[{{\bf Cbc} $\ast$}]{p\-Cbc}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_cbc_interface_af5cf4eb5b7134835f00349cb19f35c56}
+)}}\label{class_ph2___hw_interface_1_1_cbc_interface_a0567c7a31f70f446202e60d037c869ea}
 
 
 Configure the Cbc with the Cbc Config File. 
@@ -153,14 +142,14 @@ Decode a word from a read of a register of the Cbc.
 {\em p\-Word} & \-: variable to put the decoded word\-Decode a word from a read of a register of the Cbc \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a33464f7a75cd7e392d1324e223145b92}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Enable\-I2c@{Enable\-I2c}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a03c443239c9ee90a9d547fbcfed89df4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Enable\-I2c@{Enable\-I2c}}
 \index{Enable\-I2c@{Enable\-I2c}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Enable\-I2c}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Enable\-I2c (
 \begin{DoxyParamCaption}
-\item[{{\bf Cbc} \&}]{p\-Cbc, }
+\item[{{\bf Cbc} $\ast$}]{p\-Cbc, }
 \item[{bool}]{p\-Enable}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a33464f7a75cd7e392d1324e223145b92}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a03c443239c9ee90a9d547fbcfed89df4}
 
 
 Enable I2\-C communications. 
@@ -172,15 +161,15 @@ Enable I2\-C communications.
 {\em p\-Enable} & \-: 1/0 -\/$>$ Enable/\-Disable \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_afa604881734cbe66e08b357cef693245}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Encode\-Reg@{Encode\-Reg}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a2718fb251129aef788f6068c53dd1b44}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Encode\-Reg@{Encode\-Reg}}
 \index{Encode\-Reg@{Encode\-Reg}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Encode\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Encode\-Reg (
 \begin{DoxyParamCaption}
 \item[{{\bf Cbc\-Reg\-Item} \&}]{p\-Reg\-Item, }
 \item[{uint8\-\_\-t \&}]{p\-Cbc\-Id, }
-\item[{std\-::vector$<$ uint32\-\_\-t $>$}]{p\-Vec\-Req}
+\item[{std\-::vector$<$ uint32\-\_\-t $>$ \&}]{p\-Vec\-Req}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_afa604881734cbe66e08b357cef693245}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a2718fb251129aef788f6068c53dd1b44}
 
 
 Encode a/several word(s) readable for a Cbc. 
@@ -216,14 +205,14 @@ Wait for the I2\-C command acknowledgement.
 \begin{DoxyReturn}{Returns}
 boolean confirming the acknowledgement 
 \end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a46314c37156baa31c484c1141218bb49}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Read\-Cbc@{Read\-Cbc}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a247b9d4df6f8f85d43d383124994d88a}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Read\-Cbc@{Read\-Cbc}}
 \index{Read\-Cbc@{Read\-Cbc}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Read\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Read\-Cbc (
 \begin{DoxyParamCaption}
-\item[{{\bf Module} \&}]{p\-Module, }
+\item[{{\bf Module} $\ast$}]{p\-Module, }
 \item[{const std\-::string \&}]{p\-Reg\-Node}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_cbc_interface_a46314c37156baa31c484c1141218bb49}
+)}}\label{class_ph2___hw_interface_1_1_cbc_interface_a247b9d4df6f8f85d43d383124994d88a}
 
 
 Read same register in all Cbcs and then Update\-Cbc\-Read. 
@@ -232,17 +221,17 @@ Read same register in all Cbcs and then Update\-Cbc\-Read.
 \begin{DoxyParams}{Parameters}
 {\em p\-Module} & \-: Module containing vector of Cbcs \\
 \hline
-{\em p\-Reg\-Node} & \-: Node of the register to read\-Read same register in all Cbcs and then Update\-Cbc\-Read \\
+{\em p\-Reg\-Node} & \-: Node of the register to read \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a42ab8453dafd3f2d3c079536efde0569}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Read\-Cbc\-Block\-Reg@{Read\-Cbc\-Block\-Reg}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_ac9ec0a962f0527a8298c1771240bf838}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Read\-Cbc\-Block\-Reg@{Read\-Cbc\-Block\-Reg}}
 \index{Read\-Cbc\-Block\-Reg@{Read\-Cbc\-Block\-Reg}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Read\-Cbc\-Block\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Read\-Cbc\-Block\-Reg (
 \begin{DoxyParamCaption}
-\item[{{\bf Cbc} \&}]{p\-Cbc, }
+\item[{{\bf Cbc} $\ast$}]{p\-Cbc, }
 \item[{std\-::vector$<$ uint32\-\_\-t $>$ \&}]{p\-Vec\-Req}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a42ab8453dafd3f2d3c079536efde0569}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_ac9ec0a962f0527a8298c1771240bf838}
 
 
 Read register blocks of a Cbc. 
@@ -311,14 +300,14 @@ Send request to r/w blocks via I2\-C.
 {\em p\-Write} & \-: 1/0 -\/$>$ Write/\-Read \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_ab08ea1de98fe120098a4f5c52e017393}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Update\-Cbc\-Read@{Update\-Cbc\-Read}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a6f9082c399255d69036e97f2ede63754}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Update\-Cbc\-Read@{Update\-Cbc\-Read}}
 \index{Update\-Cbc\-Read@{Update\-Cbc\-Read}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Update\-Cbc\-Read}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Update\-Cbc\-Read (
 \begin{DoxyParamCaption}
-\item[{{\bf Cbc} \&}]{p\-Cbc, }
+\item[{{\bf Cbc} $\ast$}]{p\-Cbc, }
 \item[{const std\-::string \&}]{p\-Reg\-Node}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_cbc_interface_ab08ea1de98fe120098a4f5c52e017393}
+)}}\label{class_ph2___hw_interface_1_1_cbc_interface_a6f9082c399255d69036e97f2ede63754}
 
 
 Read the designated register in the Cbc and update the Cbc Config File. 
@@ -330,15 +319,15 @@ Read the designated register in the Cbc and update the Cbc Config File.
 {\em p\-Reg\-Node} & \-: Node of the register to read \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_ae046d10fdb494b5c8bcb831016c02738}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Update\-Cbc\-Write@{Update\-Cbc\-Write}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_aa4daecdb7c91b835dee7520b9e6664f9}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Update\-Cbc\-Write@{Update\-Cbc\-Write}}
 \index{Update\-Cbc\-Write@{Update\-Cbc\-Write}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Update\-Cbc\-Write}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Update\-Cbc\-Write (
 \begin{DoxyParamCaption}
-\item[{{\bf Cbc} \&}]{p\-Cbc, }
+\item[{{\bf Cbc} $\ast$}]{p\-Cbc, }
 \item[{const std\-::string \&}]{p\-Reg\-Node, }
 \item[{uint8\-\_\-t}]{p\-Value}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_cbc_interface_ae046d10fdb494b5c8bcb831016c02738}
+)}}\label{class_ph2___hw_interface_1_1_cbc_interface_aa4daecdb7c91b835dee7520b9e6664f9}
 
 
 Write the designated register in both Cbc and Cbc Config File. 
@@ -352,18 +341,18 @@ Write the designated register in both Cbc and Cbc Config File.
 {\em p\-Value} & \-: Value to write \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a2aa83fb17f550cd65d32a07960a158ab}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Write\-Broadcast@{Write\-Broadcast}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_af4a7fb33df95b0052bf5046910676aec}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Write\-Broadcast@{Write\-Broadcast}}
 \index{Write\-Broadcast@{Write\-Broadcast}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Write\-Broadcast}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Write\-Broadcast (
 \begin{DoxyParamCaption}
-\item[{{\bf Module} \&}]{p\-Module, }
+\item[{{\bf Module} $\ast$}]{p\-Module, }
 \item[{const std\-::string \&}]{p\-Reg\-Node, }
-\item[{uint32\-\_\-t \&}]{p\-Word}
+\item[{uint8\-\_\-t}]{p\-Value}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_cbc_interface_a2aa83fb17f550cd65d32a07960a158ab}
+)}}\label{class_ph2___hw_interface_1_1_cbc_interface_af4a7fb33df95b0052bf5046910676aec}
 
 
-Write same register in all Cbcs and then Update\-Cbc\-Write. 
+Write same register in all Cbcs and then Update\-Cbc\-Read. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -371,17 +360,17 @@ Write same register in all Cbcs and then Update\-Cbc\-Write.
 \hline
 {\em p\-Reg\-Node} & \-: Node of the register to write \\
 \hline
-{\em p\-Word} & \-: Word to write\-Write same register in all Cbcs and then Update\-Cbc\-Write \\
+{\em p\-Word} & \-: Word to write \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a47d3c0291aae360b85195ee3c22846e4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Write\-Cbc\-Block\-Reg@{Write\-Cbc\-Block\-Reg}}
+\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a0829d7f94889de251860cae3f5f9d565}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Write\-Cbc\-Block\-Reg@{Write\-Cbc\-Block\-Reg}}
 \index{Write\-Cbc\-Block\-Reg@{Write\-Cbc\-Block\-Reg}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{Write\-Cbc\-Block\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::\-Write\-Cbc\-Block\-Reg (
 \begin{DoxyParamCaption}
-\item[{{\bf Cbc} \&}]{p\-Cbc, }
+\item[{{\bf Cbc} $\ast$}]{p\-Cbc, }
 \item[{std\-::vector$<$ uint32\-\_\-t $>$ \&}]{p\-Vec\-Req}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a47d3c0291aae360b85195ee3c22846e4}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a0829d7f94889de251860cae3f5f9d565}
 
 
 Write register blocks of a Cbc. 
@@ -396,21 +385,9 @@ Write register blocks of a Cbc.
 
 
 \subsection{Field Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_ad5257bb9fac0efe9cb8307a04f51ef77}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!f\-I2c\-Slave@{f\-I2c\-Slave}}
-\index{f\-I2c\-Slave@{f\-I2c\-Slave}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
-\subsubsection[{f\-I2c\-Slave}]{\setlength{\rightskip}{0pt plus 5cm}const uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::f\-I2c\-Slave = {\bf I2\-C\-\_\-\-S\-L\-A\-V\-E}\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_ad5257bb9fac0efe9cb8307a04f51ef77}
 \hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a72fbeb3befe9e533fc21cc568e540df4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!f\-Str\-Full@{f\-Str\-Full}}
 \index{f\-Str\-Full@{f\-Str\-Full}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{f\-Str\-Full}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::f\-Str\-Full\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a72fbeb3befe9e533fc21cc568e540df4}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a350e32baca2a50220eeff24b9fa07054}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!f\-Str\-I2c\-Command@{f\-Str\-I2c\-Command}}
-\index{f\-Str\-I2c\-Command@{f\-Str\-I2c\-Command}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
-\subsubsection[{f\-Str\-I2c\-Command}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::f\-Str\-I2c\-Command = {\bf I2\-C\-\_\-\-C\-O\-M\-M\-A\-N\-D}\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a350e32baca2a50220eeff24b9fa07054}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a6a0730099e121a7707615ba6969afe80}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!f\-Str\-I2c\-Reply@{f\-Str\-I2c\-Reply}}
-\index{f\-Str\-I2c\-Reply@{f\-Str\-I2c\-Reply}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
-\subsubsection[{f\-Str\-I2c\-Reply}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::f\-Str\-I2c\-Reply = {\bf I2\-C\-\_\-\-R\-E\-P\-L\-Y}\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a6a0730099e121a7707615ba6969afe80}
-\hypertarget{class_ph2___hw_interface_1_1_cbc_interface_ab45dcb5563c94075ac0a3e17d17c1fd4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!f\-Str\-I2c\-Settings@{f\-Str\-I2c\-Settings}}
-\index{f\-Str\-I2c\-Settings@{f\-Str\-I2c\-Settings}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
-\subsubsection[{f\-Str\-I2c\-Settings}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::f\-Str\-I2c\-Settings = {\bf I2\-C\-\_\-\-S\-E\-T\-T\-I\-N\-G\-S}\hspace{0.3cm}{\ttfamily [static]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_ab45dcb5563c94075ac0a3e17d17c1fd4}
 \hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a3277ad84e5806e7992563dbb6122fdb9}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!f\-Str\-Other\-Sram@{f\-Str\-Other\-Sram}}
 \index{f\-Str\-Other\-Sram@{f\-Str\-Other\-Sram}!Ph2_HwInterface::CbcInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}}
 \subsubsection[{f\-Str\-Other\-Sram}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface\-::f\-Str\-Other\-Sram\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_cbc_interface_a3277ad84e5806e7992563dbb6122fdb9}
@@ -427,5 +404,5 @@ Write register blocks of a Cbc.
 
 The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-H\-W\-Interface/\-Interface/\hyperlink{_cbc_interface_8h}{Cbc\-Interface.\-h}\item 
-H\-W\-Interface/\-Interface/\hyperlink{_cbc_interface_8cc}{Cbc\-Interface.\-cc}\end{DoxyCompactItemize}
+H\-W\-Interface/\hyperlink{_cbc_interface_8h}{Cbc\-Interface.\-h}\item 
+H\-W\-Interface/\hyperlink{_cbc_interface_8cc}{Cbc\-Interface.\-cc}\end{DoxyCompactItemize}

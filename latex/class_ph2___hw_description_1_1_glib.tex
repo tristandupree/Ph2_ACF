@@ -3,6 +3,11 @@
 }
 
 
+Read/\-Write \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}'s registers on a file, contains a register map and contains a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}.  
+
+
+
+
 {\ttfamily \#include $<$Glib.\-h$>$}
 
 \subsection*{Public Member Functions}
@@ -17,21 +22,21 @@
 \hyperlink{class_ph2___hw_description_1_1_glib_a2fa668cf8b827199d63be060616a70cd}{$\sim$\-Glib} ()
 \item 
 uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_a2675c993dad690792592ba3e30036bab}{get\-N\-Fe} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Get the number of modules connected to the \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}. \end{DoxyCompactList}\item 
 uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_a27f5e85e68f25e56d1096306e3f70188}{get\-Be\-Id} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Get the Be Id of the \hyperlink{class_ph2___hw_description_1_1_module}{Module}. \end{DoxyCompactList}\item 
 uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_ac3130c4a08d624c6d89fc66474efd6d8}{get\-Shelve\-Id} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Get the Shelve Id of the \hyperlink{class_ph2___hw_description_1_1_module}{Module}. \end{DoxyCompactList}\item 
 uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_glib_ade845c9d6a9fcaaac1766cf89592fb97}{get\-Reg} (std\-::string p\-Reg)
-\item 
+\begin{DoxyCompactList}\small\item\em Get any register from the Map. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_description_1_1_glib_a017ab68372401fe244b912a5297b0c33}{set\-Reg} (std\-::string p\-Reg, uint8\-\_\-t pset\-Value)
-\item 
+\begin{DoxyCompactList}\small\item\em Set any register of the Map. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_description_1_1_glib_a1bbf1eb3a5d4efca9801d2eaca6f33f7}{add\-Module} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} \&p\-Module)
-\item 
+\begin{DoxyCompactList}\small\item\em Adding a module to the vector. \end{DoxyCompactList}\item 
 bool \hyperlink{class_ph2___hw_description_1_1_glib_a64d98cba80674893dff1a91c69b0f34e}{remove\-Module} (uint8\-\_\-t p\-Module\-Id)
-\item 
+\begin{DoxyCompactList}\small\item\em Remove a \hyperlink{class_ph2___hw_description_1_1_module}{Module} from the vector. \end{DoxyCompactList}\item 
 \hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$ \hyperlink{class_ph2___hw_description_1_1_glib_a41e024e9138acdcb856c0f5c8c43be43}{get\-Module} (uint8\-\_\-t p\-Module\-Id)
-\item 
+\begin{DoxyCompactList}\small\item\em Get a module from the vector. \end{DoxyCompactList}\item 
 std\-::map$<$ std\-::string, uint8\-\_\-t $>$ \hyperlink{class_ph2___hw_description_1_1_glib_a971d4ea45771b8f93ca81bc794613262}{get\-Glib\-Reg\-Map} ()
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
@@ -49,8 +54,11 @@ std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_module}{Module} $>$ \
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac44904179294bd42}{load\-Config\-File} (std\-::string filename)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Load Reg\-Map from a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Read/\-Write \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}'s registers on a file, contains a register map and contains a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}. 
 
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{class_ph2___hw_description_1_1_glib_ac63dbf3825526283c7cefc5e217e1c38}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!Glib@{Glib}}
@@ -99,6 +107,15 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 \item[{{\bf Module} \&}]{p\-Module}
 \end{DoxyParamCaption}
 )}}\label{class_ph2___hw_description_1_1_glib_a1bbf1eb3a5d4efca9801d2eaca6f33f7}
+
+
+Adding a module to the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Module} & \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_ph2___hw_description_1_1_glib_a27f5e85e68f25e56d1096306e3f70188}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Be\-Id@{get\-Be\-Id}}
 \index{get\-Be\-Id@{get\-Be\-Id}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{get\-Be\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Be\-Id (
@@ -106,6 +123,13 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_a27f5e85e68f25e56d1096306e3f70188}
+
+
+Get the Be Id of the \hyperlink{class_ph2___hw_description_1_1_module}{Module}. 
+
+\begin{DoxyReturn}{Returns}
+the Be Id 
+\end{DoxyReturn}
 \hypertarget{class_ph2___hw_description_1_1_glib_a971d4ea45771b8f93ca81bc794613262}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Glib\-Reg\-Map@{get\-Glib\-Reg\-Map}}
 \index{get\-Glib\-Reg\-Map@{get\-Glib\-Reg\-Map}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{get\-Glib\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$ std\-::string, uint8\-\_\-t $>$ Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Glib\-Reg\-Map (
@@ -120,6 +144,18 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 \item[{uint8\-\_\-t}]{p\-Module\-Id}
 \end{DoxyParamCaption}
 )}}\label{class_ph2___hw_description_1_1_glib_a41e024e9138acdcb856c0f5c8c43be43}
+
+
+Get a module from the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Module\-Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer of module, so we can manipulate directly the module contained in the vector 
+\end{DoxyReturn}
 \hypertarget{class_ph2___hw_description_1_1_glib_a2675c993dad690792592ba3e30036bab}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-N\-Fe@{get\-N\-Fe}}
 \index{get\-N\-Fe@{get\-N\-Fe}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{get\-N\-Fe}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-N\-Fe (
@@ -127,6 +163,13 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_a2675c993dad690792592ba3e30036bab}
+
+
+Get the number of modules connected to the \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}. 
+
+\begin{DoxyReturn}{Returns}
+The size of the vector 
+\end{DoxyReturn}
 \hypertarget{class_ph2___hw_description_1_1_glib_ade845c9d6a9fcaaac1766cf89592fb97}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Reg@{get\-Reg}}
 \index{get\-Reg@{get\-Reg}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{get\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Reg (
@@ -134,6 +177,18 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 \item[{std\-::string}]{p\-Reg}
 \end{DoxyParamCaption}
 )}}\label{class_ph2___hw_description_1_1_glib_ade845c9d6a9fcaaac1766cf89592fb97}
+
+
+Get any register from the Map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Reg} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of the register 
+\end{DoxyReturn}
 \hypertarget{class_ph2___hw_description_1_1_glib_ac3130c4a08d624c6d89fc66474efd6d8}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!get\-Shelve\-Id@{get\-Shelve\-Id}}
 \index{get\-Shelve\-Id@{get\-Shelve\-Id}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{get\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::get\-Shelve\-Id (
@@ -141,6 +196,13 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 {}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_glib_ac3130c4a08d624c6d89fc66474efd6d8}
+
+
+Get the Shelve Id of the \hyperlink{class_ph2___hw_description_1_1_module}{Module}. 
+
+\begin{DoxyReturn}{Returns}
+the Be Id 
+\end{DoxyReturn}
 \hypertarget{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac44904179294bd42}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!load\-Config\-File@{load\-Config\-File}}
 \index{load\-Config\-File@{load\-Config\-File}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{load\-Config\-File}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::load\-Config\-File (
@@ -148,6 +210,15 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 \item[{std\-::string}]{filename}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac44904179294bd42}
+
+
+Load Reg\-Map from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_ph2___hw_description_1_1_glib_a64d98cba80674893dff1a91c69b0f34e}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!remove\-Module@{remove\-Module}}
 \index{remove\-Module@{remove\-Module}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{remove\-Module}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::remove\-Module (
@@ -155,6 +226,18 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 \item[{uint8\-\_\-t}]{p\-Module\-Id}
 \end{DoxyParamCaption}
 )}}\label{class_ph2___hw_description_1_1_glib_a64d98cba80674893dff1a91c69b0f34e}
+
+
+Remove a \hyperlink{class_ph2___hw_description_1_1_module}{Module} from the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Module\-Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a bool which indicate if the removing was successful 
+\end{DoxyReturn}
 \hypertarget{class_ph2___hw_description_1_1_glib_a017ab68372401fe244b912a5297b0c33}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}!set\-Reg@{set\-Reg}}
 \index{set\-Reg@{set\-Reg}!Ph2_HwDescription::Glib@{Ph2\-\_\-\-Hw\-Description\-::\-Glib}}
 \subsubsection[{set\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Glib\-::set\-Reg (
@@ -163,6 +246,17 @@ void \hyperlink{class_ph2___hw_description_1_1_glib_a2eb8576c349ced2ac4490417929
 \item[{uint8\-\_\-t}]{pset\-Value}
 \end{DoxyParamCaption}
 )}}\label{class_ph2___hw_description_1_1_glib_a017ab68372401fe244b912a5297b0c33}
+
+
+Set any register of the Map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Reg} & \\
+\hline
+{\em pset\-Value} & \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Field Documentation}

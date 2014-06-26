@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: HWInterface/Interface/RegManager.h Source File</title>
+<title>Ph2_DAQ: HWInterface/RegManager.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,7 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_31b96ea087a533c93e375b3573ad868b.html">HWInterface</a></li><li class="navelem"><a class="el" href="dir_d3ba08d5cfc524819690815d64844dbd.html">Interface</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_31b96ea087a533c93e375b3573ad868b.html">HWInterface</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -128,17 +128,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a0d4908ec834a3a0b7d8139872fd0a4a0"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a0d4908ec834a3a0b7d8139872fd0a4a0">Ph2_HwInterface::RegManager::fBoard</a></div><div class="ttdeci">uhal::HwInterface * fBoard</div><div class="ttdef"><b>Definition:</b> RegManager.h:30</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a9c34ffe467a572796c05036533bb6d39"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a9c34ffe467a572796c05036533bb6d39">Ph2_HwInterface::RegManager::fBoardMap</a></div><div class="ttdeci">std::map&lt; uint8_t, uhal::HwInterface * &gt; fBoardMap</div><div class="ttdef"><b>Definition:</b> RegManager.h:32</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html">Ph2_HwInterface::RegManager</a></div><div class="ttdoc">Permit connection to given boards and r/w given registers. </div><div class="ttdef"><b>Definition:</b> RegManager.h:27</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a888f5cccb05daa28896cf622abfdcbd6"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a888f5cccb05daa28896cf622abfdcbd6">Ph2_HwInterface::RegManager::WriteBlockReg</a></div><div class="ttdeci">virtual bool WriteBlockReg(const std::string &amp;pRegNode, const std::vector&lt; uint32_t &gt; &amp;pValues)</div><div class="ttdoc">Write a block of values in a register. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:66</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a20c502bcad5115c6ae16d4d356b72f0c"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a20c502bcad5115c6ae16d4d356b72f0c">Ph2_HwInterface::RegManager::ChooseBoard</a></div><div class="ttdeci">virtual void ChooseBoard(uint8_t pBoardId)</div><div class="ttdoc">Choose the board we want to talk with. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:136</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a077e0a18592206365150680213345112"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a077e0a18592206365150680213345112">Ph2_HwInterface::RegManager::ReadReg</a></div><div class="ttdeci">virtual uhal::ValWord&lt; uint32_t &gt; ReadReg(const std::string &amp;pRegNode)</div><div class="ttdoc">Read a value in a register. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:98</div></div>
+<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a888f5cccb05daa28896cf622abfdcbd6"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a888f5cccb05daa28896cf622abfdcbd6">Ph2_HwInterface::RegManager::WriteBlockReg</a></div><div class="ttdeci">virtual bool WriteBlockReg(const std::string &amp;pRegNode, const std::vector&lt; uint32_t &gt; &amp;pValues)</div><div class="ttdoc">Write a block of values in a register. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:69</div></div>
+<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a20c502bcad5115c6ae16d4d356b72f0c"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a20c502bcad5115c6ae16d4d356b72f0c">Ph2_HwInterface::RegManager::ChooseBoard</a></div><div class="ttdeci">virtual void ChooseBoard(uint8_t pBoardId)</div><div class="ttdoc">Choose the board we want to talk with. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:138</div></div>
+<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a077e0a18592206365150680213345112"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a077e0a18592206365150680213345112">Ph2_HwInterface::RegManager::ReadReg</a></div><div class="ttdeci">virtual uhal::ValWord&lt; uint32_t &gt; ReadReg(const std::string &amp;pRegNode)</div><div class="ttdoc">Read a value in a register. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:101</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_aaaa29ca65c283acc645132c7bef0f24f"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#aaaa29ca65c283acc645132c7bef0f24f">Ph2_HwInterface::RegManager::fUHalConfigFileName</a></div><div class="ttdeci">const char * fUHalConfigFileName</div><div class="ttdef"><b>Definition:</b> RegManager.h:31</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a5d650c4e6467153f98f999abbbfc354c"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a5d650c4e6467153f98f999abbbfc354c">Ph2_HwInterface::RegManager::~RegManager</a></div><div class="ttdeci">virtual ~RegManager()</div><div class="ttdoc">Destructor of the RegManager class. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:34</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a31174516fef6706c88c3f59dd93e4fdf"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a31174516fef6706c88c3f59dd93e4fdf">Ph2_HwInterface::RegManager::WriteReg</a></div><div class="ttdeci">virtual bool WriteReg(const std::string &amp;pRegNode, const uint32_t &amp;pVal)</div><div class="ttdoc">Write a register. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:43</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a6481c211d27badc409ff0e7af20575e4"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a6481c211d27badc409ff0e7af20575e4">Ph2_HwInterface::RegManager::ReadBlockReg</a></div><div class="ttdeci">virtual uhal::ValVector&lt; uint32_t &gt; ReadBlockReg(const std::string &amp;pRegNode, const uint32_t &amp;pBlocksize)</div><div class="ttdoc">Read a block of values in a register. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:113</div></div>
+<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html_a6481c211d27badc409ff0e7af20575e4"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html#a6481c211d27badc409ff0e7af20575e4">Ph2_HwInterface::RegManager::ReadBlockReg</a></div><div class="ttdeci">virtual uhal::ValVector&lt; uint32_t &gt; ReadBlockReg(const std::string &amp;pRegNode, const uint32_t &amp;pBlocksize)</div><div class="ttdoc">Read a block of values in a register. </div><div class="ttdef"><b>Definition:</b> RegManager.cc:116</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 24 2014 11:43:18 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 26 2014 09:50:43 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
