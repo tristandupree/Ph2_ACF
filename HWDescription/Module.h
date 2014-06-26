@@ -12,7 +12,7 @@
 #ifndef Module_h__
 #define Module_h__
 
-#include "FEDescription.h"
+#include "FrontEndDescription.h"
 #include "Cbc.h"
 #include <vector>
 #include <boost/cstdint.hpp>
@@ -29,12 +29,12 @@ namespace Ph2_HwDescription{
 	* \class Module
 	* \brief contains a vector of Cbc which are connected to the Module
 	*/
-	class Module : public FEDescription{
+	class Module : public FrontEndDescription{
 
 	public:
 
-		// C'tors take FEDescription or hierachy of connection and the # of CBCs
-		Module( FEDescription& pFeDesc );
+		// C'tors take FrontEndDescription or hierachy of connection and the # of CBCs
+		Module( FrontEndDescription& pFeDesc );
 		Module ( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId);
 
 		// Default C'tor
@@ -73,7 +73,7 @@ namespace Ph2_HwDescription{
 
 		std::vector < Cbc > fCbcVector;
 
-		// This is really all this class needs at the moment, connection and status are already included in the FEDescription parent class!
+		// This is really all this class needs at the moment, connection and status are already included in the FrontEndDescription parent class!
 
 	};
 }

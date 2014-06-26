@@ -23,7 +23,7 @@ namespace Ph2_HwDescription{
 
 
 	// Default C'tor
-	Cbc::Cbc():FEDescription()
+	Cbc::Cbc():FrontEndDescription()
 	{
 		fCbcId=0;
 		loadfRegMap(default_file);
@@ -34,7 +34,7 @@ namespace Ph2_HwDescription{
 
 	// C'tors with object FE Description
 
-	Cbc::Cbc( FEDescription& pFeDesc, uint8_t pCbcId, std::string filename ):FEDescription(pFeDesc)
+	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, std::string filename ):FrontEndDescription(pFeDesc)
 	{
 
 		fCbcId=pCbcId;
@@ -42,7 +42,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( FEDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth ):FEDescription(pFeDesc)
+	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth ):FrontEndDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
 
@@ -54,7 +54,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( FEDescription& pFeDesc, uint8_t pCbcId ):FEDescription(pFeDesc)
+	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId ):FrontEndDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
 		loadfRegMap(default_file);
@@ -63,7 +63,7 @@ namespace Ph2_HwDescription{
 
 	// C'tors which take ShelveID, BeId, FMCId, FeID, CbcId
 
-	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, std::string filename ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, std::string filename ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 
 		fCbcId=pCbcId;
@@ -71,7 +71,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, uint8_t pTriggerLatency,uint8_t pVcth ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, uint8_t pTriggerLatency,uint8_t pVcth ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;
 
@@ -82,7 +82,7 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;
 		loadfRegMap(default_file);
@@ -92,7 +92,7 @@ namespace Ph2_HwDescription{
 
 	// Copy C'tor
 
-	Cbc::Cbc(const Cbc& cbcobj):FEDescription(cbcobj)
+	Cbc::Cbc(const Cbc& cbcobj):FrontEndDescription(cbcobj)
 	{
 		fCbcId=cbcobj.fCbcId;
 		fRegMap=cbcobj.fRegMap;

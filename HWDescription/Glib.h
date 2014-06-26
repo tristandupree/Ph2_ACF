@@ -30,7 +30,7 @@ namespace Ph2_HwDescription{
 	enum nb_FE { SINGLE_FE, FE_TRG, DUAL_FE };
 	typedef std::map< std::string, uint8_t > GlibRegMap;
 
-	// No base class for the Glib uint8_tended yet, maybe this will change
+	// No base class for the Glib intended yet, maybe this will change
 
 	/*!
 	* \class Glib

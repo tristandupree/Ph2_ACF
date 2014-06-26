@@ -13,7 +13,7 @@
 #ifndef Cbc_h__
 #define Cbc_h__
 
-#include "FEDescription.h"
+#include "FrontEndDescription.h"
 #include "CbcRegItem.h"
 #include <iostream>
 #include <map>
@@ -35,14 +35,14 @@ namespace Ph2_HwDescription{
 	* \class Cbc
 	* \brief Read/Write Cbc's registers on a file
 	*/
-	class Cbc : public FEDescription{
+	class Cbc : public FrontEndDescription{
 
 	public:
 
 		// C'tors with object FE Description
-		Cbc( FEDescription& pFeDesc, uint8_t pCbcId, std::string filename );
-		Cbc( FEDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth );
-		Cbc( FEDescription& pFeDesc, uint8_t pCbcId );
+		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, std::string filename );
+		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth );
+		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId );
 
 		// C'tors which take ShelveID, BeId, FeID, CbcId
 		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, std::string filename );

@@ -1,4 +1,4 @@
-Objs                    = FEDescription.o Glib.o Cbc.o Module.o
+Objs                    = FrontEndDescription.o Glib.o Cbc.o Module.o
 CC              = gcc
 CXX             = g++
 CCFlags         = -g -O1 -Wall -fPIC `root-config --cflags`
