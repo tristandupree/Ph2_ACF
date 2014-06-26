@@ -25,8 +25,8 @@ int main()
 	Glib cGlib_00;
 	cGlib_00.addModule(cModule_00);
 
-	GlibInterface cGlibInterface("file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml");
-	CbcInterface cCbcInterface("file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml");
+	GlibInterface cGlibInterface(UHAL_CONNECTION_FILE);
+	CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
 
 	cGlibInterface.ConfigureGlib(cGlib_00);
 

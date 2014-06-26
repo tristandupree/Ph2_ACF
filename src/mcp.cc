@@ -36,8 +36,8 @@ int main()
     int cMissedModule = 0;
     int cMissedCbc = 0;
 
-    GlibInterface cGlibInterface("file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml");
-    CbcInterface cCbcInterface("file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml");
+    GlibInterface cGlibInterface(UHAL_CONNECTION_FILE);
+    CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
 
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
@@ -49,7 +49,7 @@ int main()
     do
     {
 
-        std::cout << "\n\n\n\n\n\n\n\n\nWhat do you want to do ?\n" << std::endl;
+        std::cout << "\n\n\n\nWhat do you want to do ?\n" << std::endl;
         std::cout << "1: Add a Module or a Cbc" << std::endl;
         std::cout << "2: Configure" << std::endl;
         std::cout << "3: Glib Manipulation" << std::endl;
@@ -126,8 +126,8 @@ int main()
 
                 std::cout << "1: Configure Glib" << std::endl;
                 std::cout << "2: Configure Cbc" << std::endl;
-                std::cout << "3: Configure all Cbc in one Module" << std::endl;
-                std::cout << "4: Configure all Cbc in all Module\n" << std::endl;
+                std::cout << "3: Configure all Cbcs in one Module" << std::endl;
+                std::cout << "4: Configure all Cbcs in all Modules\n" << std::endl;
 
                 std::cin >> i;
 
@@ -137,6 +137,7 @@ int main()
                     case 1:
                         std::cout << "*** Configure Glib ***" << std::endl;
                         cGlibInterface.ConfigureGlib(cGlib);
+                        std::cout << "*** Glib Configured ***" << std::endl;
                     break;
 
 
@@ -164,12 +165,13 @@ int main()
                             {
                                 cCbcInterface.ConfigureCbc(cGlib.getModule(cModuleId)->getCbc(cCbcId));
                             }
+                            std::cout << "*** Cbc Configured ***" << std::endl;
                         }
                     break;
 
 
                     case 3:
-                        std::cout << "*** Configure all Cbc ***" << std::endl;
+                        std::cout << "*** Configure all Cbcs in one Module***" << std::endl;
                         std::cout << "--> Which ModuleId ?" << std::endl;
                         std::cin >> cModuleId;
 
@@ -195,12 +197,13 @@ int main()
                                 }
                             }
                             cMissedCbc = 0;
+                            std::cout << "*** All Cbcs in the Module Configured ***" << std::endl;
                         }
                     break;
 
 
                     case 4:
-                        std::cout << "*** Configure all Cbc in all Module ***" << std::endl;
+                        std::cout << "*** Configure all Cbcs in all Modules ***" << std::endl;
 
                         for(uint8_t k=0;k<cGlib.getNFe();k++)
                         {
@@ -229,6 +232,7 @@ int main()
                             }
                         }
                         cMissedModule = 0;
+                        std::cout << "*** All Cbcs in all Modules Configured ***" << std::endl;
                     break;
 
 
@@ -271,6 +275,7 @@ int main()
                         else
                         {
                             cGlibInterface.UpdateGlibWrite(cGlib,cRegNode,cValueHex);
+                            std::cout << "*** Updated ***" << std::endl;
                         }
                     break;
 
@@ -280,6 +285,7 @@ int main()
                         std::cout << "--> Which Register ?" << std::endl;
                         std::cin >> cRegNode;
                         cGlibInterface.UpdateGlibRead(cGlib,cRegNode);
+                        std::cout << "*** Updated ***" << std::endl;
                     break;
 
 
@@ -346,6 +352,7 @@ int main()
                                 else
                                 {
                                     cCbcInterface.UpdateCbcWrite(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode,cValueHex);
+                                    std::cout << "*** Updated ***" << std::endl;
                                 }
                             }
                         }
@@ -377,6 +384,7 @@ int main()
                                 std::cout << "--> Which Register ?" << std::endl;
                                 std::cin >> cRegNode;
                                 cCbcInterface.UpdateCbcRead(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode);
+                                std::cout << "*** Updated ***" << std::endl;
                             }
                         }
                     break;
@@ -407,6 +415,7 @@ int main()
                             else
                             {
                                 cCbcInterface.WriteBroadcast(cGlib.getModule(cModuleId),cRegNode,cValueHex);
+                                std::cout << "*** All Cbc Written ***" << std::endl;
                             }
                         }
                     break;
@@ -427,6 +436,7 @@ int main()
                             std::cout << "--> Which Register ?" << std::endl;
                             std::cin >> cRegNode;
                             cCbcInterface.ReadCbc(cGlib.getModule(cModuleId),cRegNode);
+                            std::cout << "*** All Cbc Read ***" << std::endl;
                         }
                     break;
 
@@ -519,18 +529,21 @@ int main()
                     case 1:
                         std::cout << "*** Start ***" << std::endl;
                         cGlibInterface.Start(cGlib);
+                        std::cout << "*** Started ***" << std::endl;
                     break;
 
 
                     case 2:
                         std::cout << "*** Pause ***" << std::endl;
                         cGlibInterface.Pause(cGlib);
+                        std::cout << "*** Paused ***" << std::endl;
                     break;
 
 
                     case 3:
                         std::cout << "*** UnPause ***" << std::endl;
                         cGlibInterface.Unpause(cGlib);
+                        std::cout << "*** UnPaused ***" << std::endl;
                     break;
 
 
@@ -539,6 +552,7 @@ int main()
                         std::cout << "--> Nth Acq ?" << std::endl;
                         std::cin >> cNthAcq;
                         cGlibInterface.Stop(cGlib,cNthAcq);
+                        std::cout << "*** Stopped ***" << std::endl;
                     break;
 
 
@@ -549,6 +563,7 @@ int main()
                         std::cout << "--> Break trigger ?" << std::endl;
                         std::cin >> cBreakTrigger;
                         cGlibInterface.ReadData(cGlib,cNthAcq,cBreakTrigger);
+                        std::cout << "*** Data Read ***" << std::endl;
                     break;
 
 
@@ -604,7 +619,7 @@ int main()
         }
     }
 
-    std::cout << "\n\n\n\nEnd of the program..." << std::endl;
+    std::cout << "\n\nEnd of the program...\n\n" << std::endl;
 
     return 0;
 }
