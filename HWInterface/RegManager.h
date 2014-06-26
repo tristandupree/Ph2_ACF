@@ -40,6 +40,12 @@ namespace Ph2_HwInterface
             */
             virtual bool WriteReg(const std::string& pRegNode, const uint32_t& pVal);
             /*!
+            * \brief Write a stack of registers
+            * \param pVecReg : vector containing the registers and the associated values to write
+            * \return boolean confirming the writing
+            */
+            virtual bool WriteStackReg(std::vector<pair<const std::string,const uint32_t>& pVecReg)
+            /*!
             * \brief Write a block of values in a register
             * \param pRegNode : Node of the register to write
             * \param pValues : Block of values to write

@@ -66,6 +66,45 @@ namespace Ph2_HwInterface
     }
 
 
+    bool RegManager::WriteStackReg(std::vector<pair<const std::string,const uint32_t>& pVecReg)
+    {
+        for(std::vector<pair<const std::string,const uint32_t&>::iterator cIt = pVecReg.begin(); cIt = pVecReg.end(); cIt++)
+        {
+            fBoard->getNode(cIt->first).write(cIt->second);
+        }
+        fBoard->dispatch();
+
+        if (DEV_FLAG)
+        {
+            int cNbErrors = 0;
+            uint32_t comp;
+
+            for(std::vector<pair<const std::string,const uint32_t&>::iterator cIt = pVecReg.begin(); cIt = pVecReg.end(); cIt++)
+            {
+                uhal::ValWord<uint32_t> reply = fBoard->getNode().read(cIt->first);
+                fBoard->dispatch();
+
+                comp = (uint32_t) reply ;
+
+                if(comp==(cIt->second))
+                {
+                    std::cout << "Values written correctly !" << comp << "=" << pVal << std::endl;
+                }
+            }
+
+            if(cNbErrors == 0)
+            {
+                std::cout << "All values written correctly !" << std::endl;
+                return true;
+            }
+
+            std::cout << "\nERROR !!\n" << cNbErrors << " have not been written correctly !" << std::endl;
+        }
+
+        return false;
+    }
+
+
     bool RegManager::WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues)
     {
         fBoard->getNode(pRegNode).writeBlock(pValues);
