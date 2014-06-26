@@ -20,7 +20,7 @@
 #include "../HWDescription/Module.h"
 #include "../HWDescription/Cbc.h"
 
-#define DEV_FLAG                0
+#define DEV_FLAG                1
 
 namespace Ph2_HwInterface
 {
@@ -38,21 +38,13 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::SelectSramForI2C( uint8_t pCbcId )
-    {
-        fStrSram = (pCbcId==0 ? SRAM1 : SRAM2);
-		fStrOtherSram = (pCbcId==0 ? SRAM2 : SRAM1);
-		fStrSramUserLogic = (pCbcId==0 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
-    }
-
-
     bool CbcInterface::I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount )
     {
         unsigned int cWait(100);
 
         if( pAckVal )
         {
-			cWait = pNcount * 600;
+			cWait = pNcount * 450;
 		}
 
 		usleep( cWait );
@@ -82,20 +74,18 @@ namespace Ph2_HwInterface
 	}
 
 
-    void CbcInterface::SendBlockCbcI2cRequest( uint32_t pCbcId, std::vector<uint32_t>& pVecReq, bool pWrite)
+    void CbcInterface::SendBlockCbcI2cRequest(std::vector<uint32_t>& pVecReq, bool pWrite)
     {
-		SelectSramForI2C( pCbcId );
 
-		WriteReg(fStrSramUserLogic,1);
+		WriteReg(SRAM1_USR_LOGIC,1);
 
 		pVecReq.push_back(0xFFFFFFFF);
 
-		WriteReg(fStrSramUserLogic,0);
+		WriteReg(SRAM1_USR_LOGIC,0);
 
-		WriteBlockReg(fStrSram,pVecReq);
-		//WriteReg(fStrOtherSram,0xFFFFFFFF);
+		WriteBlockReg(SRAM1,pVecReq);
 
-		WriteReg(fStrSramUserLogic,1);
+		WriteReg(SRAM1_USR_LOGIC,1);
 
         //r/w request
 		WriteReg(CBC_I2C_CMD_RQ,pWrite ? 3: 1);
@@ -116,15 +106,14 @@ namespace Ph2_HwInterface
 	}
 
 
-    void CbcInterface::ReadI2cBlockValuesInSRAM( unsigned int pCbcId, std::vector<uint32_t> &pVecReq )
+    void CbcInterface::ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq )
     {
-		SelectSramForI2C( pCbcId );
 
-		WriteReg(fStrSramUserLogic,0);
+		WriteReg(SRAM1_USR_LOGIC,0);
 
-		uhal::ValVector<uint32_t> cData = ReadBlockReg(fStrSram,pVecReq.size()+1);
+		uhal::ValVector<uint32_t> cData = ReadBlockReg(SRAM1,pVecReq.size()+1);
 
-		WriteReg(fStrSramUserLogic,1);
+		WriteReg(SRAM1_USR_LOGIC,1);
 		WriteReg(CBC_I2C_CMD_RQ,0);
 
 		std::vector<uint32_t>::iterator it = pVecReq.begin();
@@ -156,7 +145,7 @@ namespace Ph2_HwInterface
 
 	void CbcInterface::WriteCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq )
 	{
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
@@ -170,7 +159,7 @@ namespace Ph2_HwInterface
 
 		try
 		{
-			SendBlockCbcI2cRequest( pCbc->fCbcId, pVecReq, true );
+			SendBlockCbcI2cRequest( pVecReq, true );
 		}
 
 		catch( Exception &except )
@@ -178,7 +167,7 @@ namespace Ph2_HwInterface
 			throw except;
 		}
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if( DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
@@ -187,17 +176,17 @@ namespace Ph2_HwInterface
 			sec += ( seconds + useconds / 1000000 ) %60;
 			std::cout << "Time took for Cbc register write so far = " << min << " min " << sec << " sec." << std::endl;
 
-		EnableI2c(pCbc,0);
-
 		}
 #endif
+
+		EnableI2c(pCbc,0);
 	}
 
 
 	void CbcInterface::ReadCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq )
 	{
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
@@ -211,7 +200,7 @@ namespace Ph2_HwInterface
 
 		try
 		{
-			SendBlockCbcI2cRequest( pCbc->fCbcId, pVecReq, false);
+			SendBlockCbcI2cRequest(pVecReq, false);
 		}
 
 		catch( Exception &e )
@@ -219,7 +208,7 @@ namespace Ph2_HwInterface
 			throw e;
 		}
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
@@ -230,7 +219,7 @@ namespace Ph2_HwInterface
 		}
 #endif
 
-		ReadI2cBlockValuesInSRAM( pCbc->fCbcId, pVecReq );
+		ReadI2cBlockValuesInSRAM( pVecReq );
 
 		EnableI2c(pCbc,0);
 
@@ -264,7 +253,7 @@ namespace Ph2_HwInterface
 
 	void CbcInterface::ConfigureCbc(Cbc* pCbc)
 	{
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
@@ -284,7 +273,7 @@ namespace Ph2_HwInterface
 
 		WriteCbcBlockReg(pCbc,cVecReq);
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
@@ -301,7 +290,7 @@ namespace Ph2_HwInterface
 	void CbcInterface::ReadCbc(Module* pModule,const std::string& pRegNode)
 	{
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
@@ -316,7 +305,7 @@ namespace Ph2_HwInterface
 			UpdateCbcRead(pModule->getCbc(i),pRegNode);
 		}
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
@@ -333,7 +322,7 @@ namespace Ph2_HwInterface
 	void CbcInterface::WriteBroadcast(Module* pModule,const std::string& pRegNode, uint8_t pValue)
 	{
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
@@ -348,7 +337,6 @@ namespace Ph2_HwInterface
 		std::vector<uint32_t> cVecReq;
 		Cbc* cCbc;
 		int cMissed = 0;
-		int cFirst = 1;
 
 		for(uint8_t i=0;i<pModule->getNCbc();i++)
 		{
@@ -358,13 +346,11 @@ namespace Ph2_HwInterface
 				cMissed++;
 			}
 
-			else if(cFirst == 1)
+			else if(i == 0 && pModule->getCbc(i+cMissed) != NULL)
 			{
 				cCbc = pModule->getCbc(i+cMissed);
 				CbcRegItem cRegItem = (cCbc->getRegMap())[pRegNode];
 				cRegItem.fValue = pValue;
-
-				cFirst = 0;
 
 				EncodeReg(cRegItem,cCbcId,cVecReq);
 
@@ -379,7 +365,7 @@ namespace Ph2_HwInterface
 			}
 		}
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG )
 		{
 			gettimeofday( &end, 0 );
@@ -396,7 +382,7 @@ namespace Ph2_HwInterface
 
 	void CbcInterface::UpdateCbcWrite(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
 	{
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
@@ -419,7 +405,7 @@ namespace Ph2_HwInterface
 
 		pCbc->setReg(pRegNode,cRegItem.fValue);
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
@@ -435,7 +421,7 @@ namespace Ph2_HwInterface
 
 	void CbcInterface::UpdateCbcRead(Cbc* pCbc,const std::string& pRegNode)
 	{
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
@@ -453,13 +439,17 @@ namespace Ph2_HwInterface
 
 		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
+		std::cout << "\n" << uint32_t(cRegItem.fValue) << std::endl;
+
 		ReadCbcBlockReg(pCbc,cVecReq);
 
 		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
 
+		std::cout << "\n" << uint32_t(cRegItem.fValue) << std::endl;
+
 		pCbc->setReg(pRegNode,cRegItem.fValue);
 
-#ifdef __CbcDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
@@ -470,6 +460,30 @@ namespace Ph2_HwInterface
 		}
 #endif
 
+	}
+
+	void CbcInterface::CbcHardReset(Cbc* pCbc)
+	{
+		ChooseBoard(pCbc->getBeId());
+
+		WriteReg(CBC_HARD_RESET,1);
+
+		usleep(200000);
+
+		WriteReg(CBC_HARD_RESET,0);
+
+		usleep(200000);
+	}
+
+	void CbcInterface::CbcFastReset(Cbc* pCbc)
+	{
+		ChooseBoard(pCbc->getBeId());
+
+		WriteReg(CBC_FAST_RESET,1);
+
+		usleep(200000);
+
+		WriteReg(CBC_FAST_RESET,0);
 	}
 
 }

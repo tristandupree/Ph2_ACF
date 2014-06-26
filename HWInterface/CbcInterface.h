@@ -39,12 +39,6 @@ namespace Ph2_HwInterface
             std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
 
         private:
-            //I2C functions to handle with the Cbc
-            /*!
-            * \brief Select the SRAM for the I2C communication
-            * \param pCbcId : Id of the Cbc to work with
-            */
-            void SelectSramForI2C( uint8_t pCbcId );
             /*!
             * \brief Wait for the I2C command acknowledgement
             * \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false
@@ -58,13 +52,13 @@ namespace Ph2_HwInterface
             * \param pVecReq : Block of words to send
             * \param pWrite : 1/0 -> Write/Read
             */
-            void SendBlockCbcI2cRequest( uint32_t pCbcId, std::vector<uint32_t>& pVecReq, bool pWrite);
+            void SendBlockCbcI2cRequest(std::vector<uint32_t>& pVecReq, bool pWrite);
             /*!
             * \brief Read blocks from SRAM via I2C
             * \param pCbcId : Id of the Cbc to work with
             * \param pVecReq : Vector to stack the read words
             */
-            void ReadI2cBlockValuesInSRAM( unsigned int pCbcId, std::vector<uint32_t> &pVecReq );
+            void ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq );
             /*!
             * \brief Enable I2C communications
             * \param pCbc : Cbc to work with
@@ -144,6 +138,16 @@ namespace Ph2_HwInterface
             * \param pWord : Word to write
             */
             void WriteBroadcast(Module* pModule,const std::string& pRegNode,uint8_t pValue);
+            /*!
+            * \brief Hard reset of the Cbc
+            * \param pModule : pCbc
+            */
+            void CbcHardReset(Cbc* pCbc);
+            /*!
+            * \brief Fast Reset of the Cbc
+            * \param pModule : pCbc
+            */
+            void CbcFastReset(Cbc* pCbc);
 
     };
 }
