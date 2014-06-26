@@ -17,7 +17,7 @@
 namespace Ph2_HwDescription{
 
 	/*!
-	* \struct Cbc
+	* \struct CbcRegItem
 	* \brief Struct for CbcRegisterItem that is identified by (Name), Page, Address, DefaultValue, Value
 	*/
 	struct CbcRegItem{
