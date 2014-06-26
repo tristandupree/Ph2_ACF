@@ -10,6 +10,11 @@
 */
 
 //------------------------------------------------------------------------------
+//uHal Connection File
+
+#define UHAL_CONNECTION_FILE "file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml"
+
+//------------------------------------------------------------------------------
 //I2C Parameters
 
 #define I2C_CTRL_ENABLE   0x000009F4
