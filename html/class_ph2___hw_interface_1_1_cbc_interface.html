@@ -135,6 +135,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af4a7fb33df95b0052bf5046910676aec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#af4a7fb33df95b0052bf5046910676aec">WriteBroadcast</a> (<a class="el" href="class_ph2___hw_description_1_1_module.html">Module</a> *pModule, const std::string &amp;pRegNode, uint8_t pValue)</td></tr>
 <tr class="memdesc:af4a7fb33df95b0052bf5046910676aec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write same register in all Cbcs and then UpdateCbcRead.  <a href="#af4a7fb33df95b0052bf5046910676aec">More...</a><br/></td></tr>
 <tr class="separator:af4a7fb33df95b0052bf5046910676aec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e9a7f5c0a444cb8ca14f3a90cd9e759"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a0e9a7f5c0a444cb8ca14f3a90cd9e759">CbcHardReset</a> (<a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> *pCbc)</td></tr>
+<tr class="memdesc:a0e9a7f5c0a444cb8ca14f3a90cd9e759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hard reset of the Cbc.  <a href="#a0e9a7f5c0a444cb8ca14f3a90cd9e759">More...</a><br/></td></tr>
+<tr class="separator:a0e9a7f5c0a444cb8ca14f3a90cd9e759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2166f5bd24481d88bdd015d1db08051"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#ae2166f5bd24481d88bdd015d1db08051">CbcFastReset</a> (<a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> *pCbc)</td></tr>
+<tr class="memdesc:ae2166f5bd24481d88bdd015d1db08051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast Reset of the Cbc.  <a href="#ae2166f5bd24481d88bdd015d1db08051">More...</a><br/></td></tr>
+<tr class="separator:ae2166f5bd24481d88bdd015d1db08051"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_ph2___hw_interface_1_1_reg_manager')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html">Ph2_HwInterface::RegManager</a></td></tr>
 <tr class="memitem:a938f6b582b1fffcb478f35fd9d81954f inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a938f6b582b1fffcb478f35fd9d81954f">RegManager</a> (const char *puHalConfigFileName)</td></tr>
 <tr class="memdesc:a938f6b582b1fffcb478f35fd9d81954f inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html" title="Permit connection to given boards and r/w given registers. ">RegManager</a> class.  <a href="#a938f6b582b1fffcb478f35fd9d81954f">More...</a><br/></td></tr>
@@ -145,18 +151,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:afecc0475c57cec54253864c7407e765a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#afecc0475c57cec54253864c7407e765a">SelectSramForI2C</a> (uint8_t pCbcId)</td></tr>
-<tr class="memdesc:afecc0475c57cec54253864c7407e765a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select the SRAM for the I2C communication.  <a href="#afecc0475c57cec54253864c7407e765a">More...</a><br/></td></tr>
-<tr class="separator:afecc0475c57cec54253864c7407e765a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad171e07d3777cebcdd1f65cc03915e7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#ad171e07d3777cebcdd1f65cc03915e7b">I2cCmdAckWait</a> (uint32_t pAckVal, uint8_t pNcount=1)</td></tr>
 <tr class="memdesc:ad171e07d3777cebcdd1f65cc03915e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait for the I2C command acknowledgement.  <a href="#ad171e07d3777cebcdd1f65cc03915e7b">More...</a><br/></td></tr>
 <tr class="separator:ad171e07d3777cebcdd1f65cc03915e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3abc2efbdff0957b686341b3084b30a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a3abc2efbdff0957b686341b3084b30a2">SendBlockCbcI2cRequest</a> (uint32_t pCbcId, std::vector&lt; uint32_t &gt; &amp;pVecReq, bool pWrite)</td></tr>
-<tr class="memdesc:a3abc2efbdff0957b686341b3084b30a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send request to r/w blocks via I2C.  <a href="#a3abc2efbdff0957b686341b3084b30a2">More...</a><br/></td></tr>
-<tr class="separator:a3abc2efbdff0957b686341b3084b30a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a835236b210e7b642f471d862cb8c5f47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a835236b210e7b642f471d862cb8c5f47">ReadI2cBlockValuesInSRAM</a> (unsigned int pCbcId, std::vector&lt; uint32_t &gt; &amp;pVecReq)</td></tr>
-<tr class="memdesc:a835236b210e7b642f471d862cb8c5f47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read blocks from SRAM via I2C.  <a href="#a835236b210e7b642f471d862cb8c5f47">More...</a><br/></td></tr>
-<tr class="separator:a835236b210e7b642f471d862cb8c5f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89fb26e8441039ffa635ce189ab034be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a89fb26e8441039ffa635ce189ab034be">SendBlockCbcI2cRequest</a> (std::vector&lt; uint32_t &gt; &amp;pVecReq, bool pWrite)</td></tr>
+<tr class="memdesc:a89fb26e8441039ffa635ce189ab034be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send request to r/w blocks via I2C.  <a href="#a89fb26e8441039ffa635ce189ab034be">More...</a><br/></td></tr>
+<tr class="separator:a89fb26e8441039ffa635ce189ab034be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bffbf2ff373386ed92f8823ebe2cef3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a5bffbf2ff373386ed92f8823ebe2cef3">ReadI2cBlockValuesInSRAM</a> (std::vector&lt; uint32_t &gt; &amp;pVecReq)</td></tr>
+<tr class="memdesc:a5bffbf2ff373386ed92f8823ebe2cef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read blocks from SRAM via I2C.  <a href="#a5bffbf2ff373386ed92f8823ebe2cef3">More...</a><br/></td></tr>
+<tr class="separator:a5bffbf2ff373386ed92f8823ebe2cef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03c443239c9ee90a9d547fbcfed89df4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_cbc_interface.html#a03c443239c9ee90a9d547fbcfed89df4">EnableI2c</a> (<a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> *pCbc, bool pEnable)</td></tr>
 <tr class="memdesc:a03c443239c9ee90a9d547fbcfed89df4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable I2C communications.  <a href="#a03c443239c9ee90a9d547fbcfed89df4">More...</a><br/></td></tr>
 <tr class="separator:a03c443239c9ee90a9d547fbcfed89df4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -192,12 +195,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a31174516fef6706c88c3f59dd93e4fdf inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a31174516fef6706c88c3f59dd93e4fdf">WriteReg</a> (const std::string &amp;pRegNode, const uint32_t &amp;pVal)</td></tr>
 <tr class="memdesc:a31174516fef6706c88c3f59dd93e4fdf inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a register.  <a href="#a31174516fef6706c88c3f59dd93e4fdf">More...</a><br/></td></tr>
 <tr class="separator:a31174516fef6706c88c3f59dd93e4fdf inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a888f5cccb05daa28896cf622abfdcbd6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a888f5cccb05daa28896cf622abfdcbd6">WriteBlockReg</a> (const std::string &amp;pRegNode, const std::vector&lt; uint32_t &gt; &amp;pValues)</td></tr>
-<tr class="memdesc:a888f5cccb05daa28896cf622abfdcbd6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a block of values in a register.  <a href="#a888f5cccb05daa28896cf622abfdcbd6">More...</a><br/></td></tr>
-<tr class="separator:a888f5cccb05daa28896cf622abfdcbd6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a077e0a18592206365150680213345112 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a077e0a18592206365150680213345112">ReadReg</a> (const std::string &amp;pRegNode)</td></tr>
-<tr class="memdesc:a077e0a18592206365150680213345112 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a value in a register.  <a href="#a077e0a18592206365150680213345112">More...</a><br/></td></tr>
-<tr class="separator:a077e0a18592206365150680213345112 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual uhal::ValVector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a6481c211d27badc409ff0e7af20575e4">ReadBlockReg</a> (const std::string &amp;pRegNode, const uint32_t &amp;pBlocksize)</td></tr>
 <tr class="memdesc:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a block of values in a register.  <a href="#a6481c211d27badc409ff0e7af20575e4">More...</a><br/></td></tr>
 <tr class="separator:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,6 +209,14 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a9c34ffe467a572796c05036533bb6d39 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">std::map&lt; uint8_t, <br class="typebreak"/>
 uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a9c34ffe467a572796c05036533bb6d39">fBoardMap</a></td></tr>
 <tr class="separator:a9c34ffe467a572796c05036533bb6d39 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a077e0a18592206365150680213345112 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual bool virtual <br class="typebreak"/>
+WriteStackReg(std::vector<br class="typebreak"/>
+&lt; pair&lt; const std::string, <br class="typebreak"/>
+const uint32_t &gt; &amp;pVecReg) <br class="typebreak"/>
+virtual bool WriteBlockReg(const <br class="typebreak"/>
+std uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a077e0a18592206365150680213345112">ReadReg</a> (const std::string &amp;pRegNode)</td></tr>
+<tr class="memdesc:a077e0a18592206365150680213345112 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a stack of registers.  <a href="#a077e0a18592206365150680213345112">More...</a><br/></td></tr>
+<tr class="separator:a077e0a18592206365150680213345112 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Permit r/w given registers in the Cbc you specify. </p>
@@ -258,6 +263,54 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ae2166f5bd24481d88bdd015d1db08051"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ph2_HwInterface::CbcInterface::CbcFastReset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> *&#160;</td>
+          <td class="paramname"><em>pCbc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fast Reset of the Cbc. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pModule</td><td>: pCbc </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a0e9a7f5c0a444cb8ca14f3a90cd9e759"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ph2_HwInterface::CbcInterface::CbcHardReset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a> *&#160;</td>
+          <td class="paramname"><em>pCbc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hard reset of the Cbc. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pModule</td><td>: pCbc </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a0567c7a31f70f446202e60d037c869ea"></a>
 <div class="memitem">
 <div class="memproto">
@@ -547,7 +600,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 
 </div>
 </div>
-<a class="anchor" id="a835236b210e7b642f471d862cb8c5f47"></a>
+<a class="anchor" id="a5bffbf2ff373386ed92f8823ebe2cef3"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -557,19 +610,9 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
         <tr>
           <td class="memname">void Ph2_HwInterface::CbcInterface::ReadI2cBlockValuesInSRAM </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>pCbcId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">std::vector&lt; uint32_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>pVecReq</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>pVecReq</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -590,39 +633,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 
 </div>
 </div>
-<a class="anchor" id="afecc0475c57cec54253864c7407e765a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Ph2_HwInterface::CbcInterface::SelectSramForI2C </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>pCbcId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Select the SRAM for the I2C communication. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pCbcId</td><td>: Id of the Cbc to work with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a3abc2efbdff0957b686341b3084b30a2"></a>
+<a class="anchor" id="a89fb26e8441039ffa635ce189ab034be"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -632,12 +643,6 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
         <tr>
           <td class="memname">void Ph2_HwInterface::CbcInterface::SendBlockCbcI2cRequest </td>
           <td>(</td>
-          <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>pCbcId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">std::vector&lt; uint32_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>pVecReq</em>, </td>
         </tr>
@@ -942,7 +947,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 26 2014 09:58:11 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 26 2014 20:03:36 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

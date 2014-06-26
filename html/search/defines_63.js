@@ -2,6 +2,8 @@ var searchData=
 [
   ['cbc_5fdata_5fgene',['CBC_DATA_GENE',['../_definition_8h.html#aa8b47c8d93bc3a0a17f13d7aba88eebd',1,'CBC_DATA_GENE():&#160;Definition.h'],['../_glib_description_8h.html#aa8b47c8d93bc3a0a17f13d7aba88eebd',1,'CBC_DATA_GENE():&#160;GlibDescription.h']]],
   ['cbc_5fexpected',['CBC_EXPECTED',['../_definition_8h.html#a7da27b2738428e3dfeb39e351e551556',1,'CBC_EXPECTED():&#160;Definition.h'],['../_glib_description_8h.html#a7da27b2738428e3dfeb39e351e551556',1,'CBC_EXPECTED():&#160;GlibDescription.h']]],
+  ['cbc_5ffast_5freset',['CBC_FAST_RESET',['../_definition_8h.html#a46c24affadd18b38f8f180c29996c917',1,'Definition.h']]],
+  ['cbc_5fhard_5freset',['CBC_HARD_RESET',['../_definition_8h.html#a339750768b74eeb2a5e15d27002e5ed1',1,'Definition.h']]],
   ['cbc_5fi2c_5fcmd_5fack',['CBC_I2C_CMD_ACK',['../_definition_8h.html#a980fdc4242ab14da9fcd648b1e9a50a4',1,'Definition.h']]],
   ['cbc_5fi2c_5fcmd_5frq',['CBC_I2C_CMD_RQ',['../_definition_8h.html#aa92f4a416201bbe9742da9f72ba0bb46',1,'Definition.h']]],
   ['cbc_5fpacket_5fnb',['CBC_PACKET_NB',['../_definition_8h.html#a4c95b734f201124f65fdf525484f905c',1,'CBC_PACKET_NB():&#160;Definition.h'],['../_glib_description_8h.html#a4c95b734f201124f65fdf525484f905c',1,'CBC_PACKET_NB():&#160;GlibDescription.h']]],
