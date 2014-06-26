@@ -439,13 +439,9 @@ namespace Ph2_HwInterface
 
 		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
-		std::cout << "\n" << uint32_t(cRegItem.fValue) << std::endl;
-
 		ReadCbcBlockReg(pCbc,cVecReq);
 
 		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
-
-		std::cout << "\n" << uint32_t(cRegItem.fValue) << std::endl;
 
 		pCbc->setReg(pRegNode,cRegItem.fValue);
 
