@@ -48,14 +48,12 @@ namespace Ph2_HwInterface
     		bool I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount=1 );
             /*!
             * \brief Send request to r/w blocks via I2C
-            * \param pCbcId : Id of the Cbc to work with
             * \param pVecReq : Block of words to send
             * \param pWrite : 1/0 -> Write/Read
             */
             void SendBlockCbcI2cRequest(std::vector<uint32_t>& pVecReq, bool pWrite);
             /*!
             * \brief Read blocks from SRAM via I2C
-            * \param pCbcId : Id of the Cbc to work with
             * \param pVecReq : Vector to stack the read words
             */
             void ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq );
@@ -135,17 +133,17 @@ namespace Ph2_HwInterface
             * \brief Write same register in all Cbcs and then UpdateCbcRead
             * \param pModule : Module containing vector of Cbcs
             * \param pRegNode : Node of the register to write
-            * \param pWord : Word to write
+            * \param pValue : Value to write
             */
             void WriteBroadcast(Module* pModule,const std::string& pRegNode,uint8_t pValue);
             /*!
             * \brief Hard reset of the Cbc
-            * \param pModule : pCbc
+            * \param pCbc
             */
             void CbcHardReset(Cbc* pCbc);
             /*!
             * \brief Fast Reset of the Cbc
-            * \param pModule : pCbc
+            * \param pCbc
             */
             void CbcFastReset(Cbc* pCbc);
 

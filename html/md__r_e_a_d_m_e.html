@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: README</title>
+<title>Ph2_DAQ: Git Repository for PH2_DAQ Software</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -78,20 +78,53 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">README </div>  </div>
+<div class="title">Git Repository for PH2_DAQ Software </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Git Repository for PH2DAQ HW Interface API &amp; HW Description API</p>
-<p>Supposed to contain:</p>
+<div class="textblock"><p>Supposed to contain:</p>
 <ul>
 <li>A middleware API layer, implemented in C++, which will basically wrap to abstracted functions the firmware calls and handshakes currently hardcoded into DAQ systems software.</li>
 <li>A C++ object-based library describing the system components (CBCs, Hybrids, Boards) and their properties(values, status)</li>
-<li>The standard XDAQ-based system, which could really benefit in its future versions of the previous two proposed APIs. </li>
+<li>The standard XDAQ-based system, which could really benefit in its future versions of the previous two proposed APIs.</li>
 </ul>
+<h2>MCP Test Interface </h2>
+<p>Here are the step to make the program functional</p>
+<ol type="1">
+<li>Recover the GitHub repo with the latest tested version of the MCP.</li>
+<li>Change in <a class="el" href="_definition_8h.html">HWDescription/Definition.h</a> the path to the uHal connection file.<ul>
+<li>It's per default set to : <a href="file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml">file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml</a></li>
+<li>You have to change it to : <a href="file://$(BUILD)/settings/connections.xml">file://$(BUILD)/settings/connections.xml</a> (where  is the path to the root of the GitHub repo you recovered)</li>
+</ul>
+</li>
+<li>Do a make in the root the repo</li>
+<li>Launch testpgrm command if you want to test if everything is working good</li>
+<li>Launch mcp to play with the Test Interface</li>
+</ol>
+<h2>What can you do with the software ? </h2>
+<p>A Glib is created per default (maybe in the future you will be able to play with more than one Glib)</p>
+<p>You can then add Modules to the Glib and Cbcs to the Modules you created. When creating a Cbc, you can choose the config file you will load to its register map. If you want to add your personal config file, please make sure to add it in #define in the HWDescription/Description.h and then to add an option in the MCP code.</p>
+<p>After this creation round, you can do anything you want :</p>
+<ul>
+<li>Configure the Glib or the Cbcs</li>
+<li>Manipulate the registers in the Glib</li>
+<li>Manipulate the registers in the Cbcs</li>
+<li>Do the manipulation to Start/Stop an acquisition, but not actually acquiring something relevant</li>
+<li>Have a configuration recap of all the objects you created</li>
+</ul>
+<p>Concerning the manipulation of the Cbcs, you have the opportunity to modify all the Cbcs of a same Module at once with the Broadcast feature of the Cbc.</p>
+<p>When you write a register in the Glib or the Cbc, the writing is updated to the map contained in Glib/Cbc objects so that you're always fully aware of what is in the Glib/Cbc register.</p>
+<p>For writing value in register, we invite you to put in the following format : 0x__. You must thus type '0xFF' for exemple and not just 'FF' in the command line. That might change in the future..</p>
+<p>At the end of the program, the register maps are saved into output_X_X.txt files you can find in the settings directory. For example, output_1_2.txt contains the register map of the Cbc 2 of the Module 1.</p>
+<p>More features will be implemented later, so make sure to have the last release locally to benefit from them.</p>
+<p>Warning ! : be careful with options choice in the program menus, some mistypes can leed to unexpected hazards :-(.</p>
+<h2>Future Improvements </h2>
+<p>Implementation of generic BeBoard and BeBoardInterface Class which will help us dealing with multiple board type (Glib, FC7). Work on the Cbc class to make it recognize if the Cbc is from a Glib or a FC7. Implement the new Strasbourg firmware as soon as it comes out.</p>
+<h2>Support, Suggestions ? </h2>
+<p>For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 26 2014 20:03:35 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 27 2014 22:57:20 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

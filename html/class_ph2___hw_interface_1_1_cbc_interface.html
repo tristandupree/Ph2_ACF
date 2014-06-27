@@ -195,6 +195,15 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a31174516fef6706c88c3f59dd93e4fdf inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a31174516fef6706c88c3f59dd93e4fdf">WriteReg</a> (const std::string &amp;pRegNode, const uint32_t &amp;pVal)</td></tr>
 <tr class="memdesc:a31174516fef6706c88c3f59dd93e4fdf inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a register.  <a href="#a31174516fef6706c88c3f59dd93e4fdf">More...</a><br/></td></tr>
 <tr class="separator:a31174516fef6706c88c3f59dd93e4fdf inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac67c49c17b1c171ef9836ae463d8bc18 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#ac67c49c17b1c171ef9836ae463d8bc18">WriteStackReg</a> (std::vector&lt; std::pair&lt; std::string, uint32_t &gt; &gt; &amp;pVecReg)</td></tr>
+<tr class="memdesc:ac67c49c17b1c171ef9836ae463d8bc18 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a stack of registers.  <a href="#ac67c49c17b1c171ef9836ae463d8bc18">More...</a><br/></td></tr>
+<tr class="separator:ac67c49c17b1c171ef9836ae463d8bc18 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a888f5cccb05daa28896cf622abfdcbd6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a888f5cccb05daa28896cf622abfdcbd6">WriteBlockReg</a> (const std::string &amp;pRegNode, const std::vector&lt; uint32_t &gt; &amp;pValues)</td></tr>
+<tr class="memdesc:a888f5cccb05daa28896cf622abfdcbd6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a block of values in a register.  <a href="#a888f5cccb05daa28896cf622abfdcbd6">More...</a><br/></td></tr>
+<tr class="separator:a888f5cccb05daa28896cf622abfdcbd6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a077e0a18592206365150680213345112 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a077e0a18592206365150680213345112">ReadReg</a> (const std::string &amp;pRegNode)</td></tr>
+<tr class="memdesc:a077e0a18592206365150680213345112 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a value in a register.  <a href="#a077e0a18592206365150680213345112">More...</a><br/></td></tr>
+<tr class="separator:a077e0a18592206365150680213345112 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual uhal::ValVector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a6481c211d27badc409ff0e7af20575e4">ReadBlockReg</a> (const std::string &amp;pRegNode, const uint32_t &amp;pBlocksize)</td></tr>
 <tr class="memdesc:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a block of values in a register.  <a href="#a6481c211d27badc409ff0e7af20575e4">More...</a><br/></td></tr>
 <tr class="separator:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,14 +218,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a9c34ffe467a572796c05036533bb6d39 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">std::map&lt; uint8_t, <br class="typebreak"/>
 uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a9c34ffe467a572796c05036533bb6d39">fBoardMap</a></td></tr>
 <tr class="separator:a9c34ffe467a572796c05036533bb6d39 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a077e0a18592206365150680213345112 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual bool virtual <br class="typebreak"/>
-WriteStackReg(std::vector<br class="typebreak"/>
-&lt; pair&lt; const std::string, <br class="typebreak"/>
-const uint32_t &gt; &amp;pVecReg) <br class="typebreak"/>
-virtual bool WriteBlockReg(const <br class="typebreak"/>
-std uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a077e0a18592206365150680213345112">ReadReg</a> (const std::string &amp;pRegNode)</td></tr>
-<tr class="memdesc:a077e0a18592206365150680213345112 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a stack of registers.  <a href="#a077e0a18592206365150680213345112">More...</a><br/></td></tr>
-<tr class="separator:a077e0a18592206365150680213345112 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Permit r/w given registers in the Cbc you specify. </p>
@@ -280,7 +281,7 @@ std uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="b
 <p>Fast Reset of the Cbc. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pModule</td><td>: pCbc </td></tr>
+    <tr><td class="paramname">pCbc</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -304,7 +305,7 @@ std uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="b
 <p>Hard reset of the Cbc. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pModule</td><td>: pCbc </td></tr>
+    <tr><td class="paramname">pCbc</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -625,7 +626,6 @@ std uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="b
 <p>Read blocks from SRAM via I2C. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pCbcId</td><td>: Id of the Cbc to work with </td></tr>
     <tr><td class="paramname">pVecReq</td><td>: Vector to stack the read words </td></tr>
   </table>
   </dd>
@@ -668,7 +668,6 @@ std uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="b
 <p>Send request to r/w blocks via I2C. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pCbcId</td><td>: Id of the Cbc to work with </td></tr>
     <tr><td class="paramname">pVecReq</td><td>: Block of words to send </td></tr>
     <tr><td class="paramname">pWrite</td><td>: 1/0 -&gt; Write/Read </td></tr>
   </table>
@@ -789,7 +788,7 @@ std uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="b
   <table class="params">
     <tr><td class="paramname">pModule</td><td>: Module containing vector of Cbcs </td></tr>
     <tr><td class="paramname">pRegNode</td><td>: Node of the register to write </td></tr>
-    <tr><td class="paramname">pWord</td><td>: Word to write </td></tr>
+    <tr><td class="paramname">pValue</td><td>: Value to write </td></tr>
   </table>
   </dd>
 </dl>
@@ -947,7 +946,7 @@ std uhal::ValWord&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="b
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 26 2014 20:03:36 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 27 2014 22:57:20 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

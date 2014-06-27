@@ -119,7 +119,7 @@ Fast Reset of the Cbc.
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Module} & \-: p\-Cbc \\
+{\em p\-Cbc} & \\
 \hline
 \end{DoxyParams}
 \hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a0e9a7f5c0a444cb8ca14f3a90cd9e759}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Cbc\-Hard\-Reset@{Cbc\-Hard\-Reset}}
@@ -135,7 +135,7 @@ Hard reset of the Cbc.
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Module} & \-: p\-Cbc \\
+{\em p\-Cbc} & \\
 \hline
 \end{DoxyParams}
 \hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a0567c7a31f70f446202e60d037c869ea}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Configure\-Cbc@{Configure\-Cbc}}
@@ -290,8 +290,6 @@ Read blocks from S\-R\-A\-M via I2\-C.
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Cbc\-Id} & \-: Id of the Cbc to work with \\
-\hline
 {\em p\-Vec\-Req} & \-: Vector to stack the read words \\
 \hline
 \end{DoxyParams}
@@ -309,8 +307,6 @@ Send request to r/w blocks via I2\-C.
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Cbc\-Id} & \-: Id of the Cbc to work with \\
-\hline
 {\em p\-Vec\-Req} & \-: Block of words to send \\
 \hline
 {\em p\-Write} & \-: 1/0 -\/$>$ Write/\-Read \\
@@ -376,7 +372,7 @@ Write same register in all Cbcs and then Update\-Cbc\-Read.
 \hline
 {\em p\-Reg\-Node} & \-: Node of the register to write \\
 \hline
-{\em p\-Word} & \-: Word to write \\
+{\em p\-Value} & \-: Value to write \\
 \hline
 \end{DoxyParams}
 \hypertarget{class_ph2___hw_interface_1_1_cbc_interface_a0829d7f94889de251860cae3f5f9d565}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Cbc\-Interface}!Write\-Cbc\-Block\-Reg@{Write\-Cbc\-Block\-Reg}}

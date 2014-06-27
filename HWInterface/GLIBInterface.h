@@ -77,12 +77,12 @@ namespace Ph2_HwInterface
             /*!
             * \brief Stop a DAQ
             * \param pGlib
+            * \param pNthAcq : actual number of acquisitions
             */
             void Stop(Glib& pGlib,uint32_t pNthAcq);
             /*!
             * \brief Pause a DAQ
             * \param pGlib
-            * \param pNthAcq : actual number of acquisitions
             */
             void Pause(Glib& pGlib);
             /*!
