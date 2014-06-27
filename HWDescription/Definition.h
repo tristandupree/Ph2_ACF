@@ -18,16 +18,16 @@
 //-----------------------------------------------------------------------------
 //Glib Config Files
 
-#define DEFAULT_GLIB_FILE  "../settings/glib_settings.cfg"
+#define DEFAULT_GLIB_FILE  "settings/glib_settings.cfg"
 
 
 //------------------------------------------------------------------------------
 //Cbc Config Files
 
-#define DEFAULT_FILE   "../settings/FE0CBC0.txt"
-#define FE0CBC0HOLE    "../settings/FE0CBC0Hole.txt"
-#define FE0CBC1        "../settings/FE0CBC1.txt"
-#define FE0CBC1HOLE    "../settings/FE0CBC1Hole.txt"
+#define DEFAULT_FILE   "settings/default_file.txt"
+#define FE0CBC0HOLE    "settings/FE0CBC0Hole.txt"
+#define FE0CBC1        "settings/FE0CBC1.txt"
+#define FE0CBC1HOLE    "settings/FE0CBC1Hole.txt"
 
 
 //------------------------------------------------------------------------------
