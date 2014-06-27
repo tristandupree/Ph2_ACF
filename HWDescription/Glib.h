@@ -17,6 +17,7 @@
 #include <vector>
 #include <map>
 #include <boost/cstdint.hpp>
+#include "Definition.h"
 
 /*!
 * \namespace Ph2_HwDescription
@@ -40,7 +41,7 @@ namespace Ph2_HwDescription{
 
 		// C'tors: the Glib only needs to know about it's shelf and which BE it is + the # of FEs connected
 		// C'tor for a standard Glib
-		Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename = default_glib_file );
+		Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename = DEFAULT_GLIB_FILE );
 		// Parameters that define system for us
 		//Modify with new param
 		Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe,/* uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData = false , std::string filename = "default_glib_file" );
@@ -58,12 +59,12 @@ namespace Ph2_HwDescription{
 		*/
 		uint8_t getNFe(){return fModuleVector.size();};
 		/*!
-		* \brief Get the Be Id of the Module
+		* \brief Get the Be Id of the Glib
 		* \return the Be Id
 		*/
 		uint8_t getBeId(){return fBeId;};
 		/*!
-		* \brief Get the Shelve Id of the Module
+		* \brief Get the Shelve Id of the Glib
 		* \return the Be Id
 		*/
 		uint8_t getShelveId(){return fShelveId;};
