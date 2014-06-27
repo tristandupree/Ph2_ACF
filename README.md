@@ -44,12 +44,17 @@ What can you do with the software ?
 A Glib is created per default (maybe in the future you will be able to play with more than one Glib)
 
 You can then add Modules to the Glib and Cbcs to the Modules you created.
+When creating a Cbc, you can choose the config file you will load to its
+register map.
+If you want to add your personal config file, please make sure to add it in #define
+in the HWDescription/Description.h and then to add an option in the MCP code.
 
 After this creation round, you can do anything you want :
 - Configure the Glib or the Cbcs
 - Manipulate the registers in the Glib
 - Manipulate the registers in the Cbcs
 - Do the manipulation to Start/Stop an acquisition, but not actually acquiring something relevant
+- Have a configuration recap of all the objects you created
 
 Concerning the manipulation of the Cbcs, you have the opportunity to modify all the
 Cbcs of a same Module at once with the Broadcast feature of the Cbc.
@@ -63,11 +68,11 @@ you can find in the settings directory. For example, output_1_2.txt contains the
 register map of the Cbc 2 of the Module 1.
 
 More features will be implemented later, so make sure to have the last release
-locally to benefit them.
+locally to benefit from them.
 
 
 
 Support, Suggestions ?
 ----------------------
 
-For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger
+For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger.

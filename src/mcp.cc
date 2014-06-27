@@ -2,10 +2,10 @@
 
   FileName : 					TestInterface.cpp
   Content : 					 TestInterface program, test the software
-  Programmer : 				  Nicolas PIERRE
+  Programmer : 				  Nicolas PIERRE, Lorenzo Bidegain
   Version : 					 1.a
   Date of creation : 	        24/06/14
-  Support : 					 mail to : nicolas.pierre@cern.ch
+  Support : 					 mail to : nicolas.pierre@cern.ch, lorenzo.bidegain@cern.ch
 
 */
 
@@ -15,6 +15,7 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/GLIBInterface.h"
 #include "../HWDescription/Definition.h"
+#include "../HWInterface/Utilities.h"
 #include <boost/format.hpp>
 
 using namespace Ph2_HwDescription;
@@ -28,6 +29,7 @@ int main()
     Module cModule;
     Cbc cCbc;
     uint32_t cModuleId, cCbcId;
+    std::string cFilePath;
     std::string cRegNode;
     std::string cValue;
     uint32_t cValueHex;
@@ -55,6 +57,7 @@ int main()
         std::cout << "3: Glib Manipulation" << std::endl;
         std::cout << "4: Cbc Manipulation" << std::endl;
         std::cout << "5: Acquisition-ish" << std::endl;
+        std::cout << "6: Configuration Recap" << std::endl;
         std::cout << "0: Quit\n" << std::endl;
 
         std::cin >> i;
@@ -89,22 +92,110 @@ int main()
 
                     case 2:
                         std::cout << "*** Add Cbc ***" << std::endl;
-                        std::cout << "--> Which ModuleId ?" << std::endl;
-                        std::cin >> cModuleId;
-                        if (cGlib.getModule(cModuleId) == NULL)
+                        std::cout << "1: Add Default Cbc" << std::endl;
+                        std::cout << "2: Add Personalised Cbc\n" << std::endl;
+
+                        std::cin >> i;
+
+                        switch(i)
                         {
-                            std::cout << "*** ERROR !!                                      ***" << std::endl;
-                            std::cout << "*** This module does not exist !                  ***" << std::endl;
-                            std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+
+                            case 1:
+                                std::cout << "*** Add Default Cbc ***" << std::endl;
+                                std::cout << "--> Which ModuleId ?" << std::endl;
+                                std::cin >> cModuleId;
+                                if (cGlib.getModule(cModuleId) == NULL)
+                                {
+                                    std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                    std::cout << "*** This module does not exist !                  ***" << std::endl;
+                                    std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                                }
+                                else
+                                {
+                                    std::cout << "--> Which CbcId ?" << std::endl;
+                                    std::cin >> cCbcId;
+                                    cCbc.fCbcId=cCbcId;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                }
+                                std::cout << "*** Cbc Added ***" << std::endl;
+                            break;
+
+
+                            case 2:
+                                std::cout << "*** Add Personalised Cbc ***" << std::endl;
+                                std::cout << "--> Which ModuleId ?" << std::endl;
+                                std::cin >> cModuleId;
+                                if (cGlib.getModule(cModuleId) == NULL)
+                                {
+                                    std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                    std::cout << "*** This module does not exist !                  ***" << std::endl;
+                                    std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                                }
+                                else
+                                {
+                                    std::cout << "--> Which CbcId ?" << std::endl;
+                                    std::cin >> cCbcId;
+
+                                    std::cout << "*** Choose your Config File ***" << std::endl;
+                                    std::cout << "1: FE0CBC0HOLE" << std::endl;
+                                    std::cout << "2: FE0CBC1" << std::endl;
+                                    std::cout << "3: FE0CBC1HOLE" << std::endl;
+                                    std::cout << "4: Your own Config File" << std::endl;
+                                    std::cin >> i;
+
+                                    switch(i)
+                                    {
+
+                                        case 1:
+                                            {
+                                                Cbc cCbcPers(0,0,0,0,cCbcId,FE0CBC0HOLE);
+                                                cGlib.getModule(cModuleId)->addCbc(cCbcPers);
+                                            }
+                                        break;
+
+
+                                        case 2:
+                                            {
+                                                Cbc cCbcPers(0,0,0,0,cCbcId,FE0CBC0HOLE);
+                                                cGlib.getModule(cModuleId)->addCbc(cCbcPers);
+                                            }
+                                        break;
+
+
+                                        case 3:
+                                            {
+                                                Cbc cCbcPers(0,0,0,0,cCbcId,FE0CBC0HOLE);
+                                                cGlib.getModule(cModuleId)->addCbc(cCbcPers);
+                                            }
+                                        break;
+
+
+                                        case 4:
+                                            {
+                                                std::cout << "--> Enter your File Path " << std::endl;
+                                                std::cout << "(Absolute path please) " << std::endl;
+                                                std::cin >> cFilePath;
+                                                Cbc cCbcPers(0,0,0,0,cCbcId,cFilePath);
+                                                cGlib.getModule(cModuleId)->addCbc(cCbcPers);
+                                            }
+                                        break;
+
+
+                                        default:
+                                            std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                                        break;
+
+                                    }
+
+                                }
+                                std::cout << "*** Cbc Added ***" << std::endl;
+                            break;
+
+                            default:
+                                std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                            break;
+
                         }
-                        else
-                        {
-                            std::cout << "--> Which CbcId ?" << std::endl;
-                            std::cin >> cCbcId;
-                            cCbc.fCbcId=cCbcId;
-                            cGlib.getModule(cModuleId)->addCbc(cCbc);
-                        }
-                        std::cout << "*** Cbc Added ***" << std::endl;
                     break;
 
 
@@ -573,6 +664,95 @@ int main()
 
                 }
 
+            break;
+
+
+            case 6:
+                {
+
+                    std::cout << "\n\n\n\n"<< std::endl;
+                    std::cout << "****************************************************" << std::endl;
+                    std::cout << "***              Configuration Recap'            ***" << std::endl;
+                    std::cout << "****************************************************\n" << std::endl;
+
+                    std::cout << "****************************************************" << std::endl;
+                    std::cout << "***               Glib Configuration             ***" << std::endl;
+                    std::cout << "****************************************************\n" << std::endl;
+
+                    std::cout << " ---------------------- " << std::endl;
+                    std::cout << "| Number of Module : "<< uint32_t(cGlib.getNFe()) << " |" << std::endl;
+                    std::cout << "| Be Id : " << uint32_t(cGlib.getBeId()) << "            |" << std::endl;
+                    std::cout << "| Shelve Id : " << uint32_t(cGlib.getShelveId()) << "        |" << std::endl;
+                    std::cout << " ---------------------- \n\n" << std::endl;
+
+                    std::cout << " *** Glib Register Map *** " << std::endl;
+                    std::cout << " -------------------------------------------------------------- " << std::endl;
+
+                    GlibRegMap cGlibRegMap = cGlib.getGlibRegMap();
+                    for(GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
+                    {
+                        std::cout << "| " << cIt->first << " : " << uint32_t(cIt->second) << std::endl;
+                    }
+
+                    std::cout << " -------------------------------------------------------------- \n\n" << std::endl;
+
+                    myflush( std::cin );
+                    mypause();
+
+                    std::cout << "****************************************************" << std::endl;
+                    std::cout << "***      Module and Cbc Configuration            ***" << std::endl;
+                    std::cout << "****************************************************" << std::endl;
+
+                    for(uint8_t k=0;k<cGlib.getNFe();k++)
+                    {
+
+                        if(cGlib.getModule(k+cMissedModule) == NULL)
+                        {
+                            k--;
+                            cMissedModule++;
+                        }
+
+                        else
+                        {
+
+                            std::cout << " \n\n*** Module *** " << std::endl;
+                            std::cout << " ------------------- " << std::endl;
+                            std::cout << "| Module Id : "<< uint32_t(cGlib.getModule(k+cMissedModule)->fModuleId) << "     |" << std::endl;
+                            std::cout << "| Number of Cbc : " << uint32_t(cGlib.getModule(k+cMissedModule)->getNCbc()) << " |" << std::endl;
+                            std::cout << " ------------------- \n" << std::endl;
+
+                            for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
+                            {
+                                if(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc) == NULL)
+                                {
+                                    j--;
+                                    cMissedCbc++;
+                                }
+
+                                else
+                                {
+                                    cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->writeRegValues((boost::format("/afs/cern.ch/user/n/npierre/public/settings/output_%d_%d.txt") %(uint32_t(k+cMissedModule)) %(uint32_t(j+cMissedCbc))).str());
+
+                                    std::cout << "     *** Cbc contained *** " << std::endl;
+                                    std::cout << "     ----------------------- " << std::endl;
+                                    std::cout << "    | Cbc Id : "<< uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getCbcId()) << "            |" << std::endl;
+                                    std::cout << "    | VCth : " << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getVcth()) << "            |" << std::endl;
+                                    std::cout << "    | Trigger Latency : " << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getTriggerLatency()) << " |" << std::endl;
+                                    std::cout << "     ----------------------- " << std::endl;
+                                }
+                            }
+
+                            cMissedCbc = 0;
+
+                            myflush( std::cin );
+                            mypause();
+                        }
+
+                    }
+
+                    cMissedModule = 0;
+
+                }
             break;
 
 
