@@ -1,5 +1,5 @@
-Git Repository for PH2DAQ HW Interface API & HW Description API
-===============================================================
+Git Repository for PH2_DAQ Software
+===================================
 
 
 Supposed to contain:
