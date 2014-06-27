@@ -17,15 +17,17 @@ future versions of the previous two proposed APIs.
 
 
 MCP Test Interface
-==================
+------------------
 
 Here are the step to make the program functional
 
 1. Recover the GitHub repo with the latest tested version of the MCP.
 
 2. Change in HWDescription/Definition.h the path to the uHal connection file.
-   It's per default set to : file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml
-   You have to change it to : file://$(BUILD)/settings/connections.xml
+   It's per default set to :
+   - file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml
+   You have to change it to :
+   - file://$(BUILD)/settings/connections.xml
    (where $(BUILD) is the path to the root of the GitHub repo you recovered)
 
 3. Do a make in the root the repo
@@ -37,7 +39,7 @@ Here are the step to make the program functional
 
 
 What can you do with the software ?
-===================================
+-----------------------------------
 
 A Glib is created per default (maybe in the future you will be able to play with more than one Glib)
 
@@ -66,6 +68,6 @@ locally to benefit them.
 
 
 Support, Suggestions ?
-======================
+----------------------
 
 For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger
