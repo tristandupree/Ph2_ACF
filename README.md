@@ -24,11 +24,11 @@ Here are the step to make the program functional
 1. Recover the GitHub repo with the latest tested version of the MCP.
 
 2. Change in HWDescription/Definition.h the path to the uHal connection file.
-   It's per default set to :
-   - file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml
-   You have to change it to :
-   - file://$(BUILD)/settings/connections.xml
-   (where $(BUILD) is the path to the root of the GitHub repo you recovered)
+   - It's per default set to :
+   file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml
+   - You have to change it to :
+   file://$(BUILD)/settings/connections.xml (where $(BUILD) is the path to the
+   root of the GitHub repo you recovered)
 
 3. Do a make in the root the repo
 
