@@ -1,11 +1,11 @@
 /*
 
-  FileName : 					CbcInterface.cpp
-  Content : 					 CbcInterface class, config of the Cbcs
-  Programmer : 				  Nicolas PIERRE
-  Version : 					 1.3
-  Date of creation : 	        07/06/14
-  Support : 					 mail to : nicolas.pierre@cern.ch
+  FileName :                     CbcInterface.cpp
+  Content :                      CbcInterface class, config of the Cbcs
+  Programmer :                   Nicolas PIERRE
+  Version :                      0.3
+  Date of creation :             07/06/14
+  Support :                      mail to : nicolas.pierre@cern.ch
 
 */
 

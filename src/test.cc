@@ -1,3 +1,14 @@
+/*
+
+FileName :                     test.cpp
+Content :                      Little test program to see if everything is working fine
+Programmer :                   Nicolas PIERRE, Lorenzo Bidegain
+Version :                      0.3
+Date of creation :             24/06/14
+Support :                      mail to : nico.pierre@cern.ch, lorenzo.bidegain@cern.ch
+
+*/
+
 #include "../HWDescription/Cbc.h"
 #include "../HWDescription/Module.h"
 #include "../HWDescription/Glib.h"
@@ -11,10 +22,10 @@ using namespace Ph2_HwInterface;
 int main()
 {
 	//Two Cbc
-	Cbc cCbc_00; 
+	Cbc cCbc_00;
 	Cbc cCbc_01;
 	cCbc_01.fCbcId=1;
-	
+
 	//One Module
 	Module cModule_00;
 	cModule_00.fModuleId=3;
@@ -52,7 +63,7 @@ int main()
         cGlib_00.getModule(3)->getCbc(0)->writeRegValues("/afs/cern.ch/user/n/npierre/public/settings/output_00.txt");
 	cGlib_00.getModule(3)->getCbc(1)->writeRegValues("/afs/cern.ch/user/n/npierre/public/settings/output_01.txt");
 
-	std::cout << "\nHurray, it works !!" << std::endl;	
+	std::cout << "\nHurray, it works !!" << std::endl;
 
 	return 0;
 }

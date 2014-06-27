@@ -1,11 +1,11 @@
 /*
 
-  FileName : 				   Definition.h
-  Content : 					 Definition File, listing the registers
-  Programmer : 				 Nicolas PIERRE
-  Version : 					 1.3
-  Date of creation : 	 07/06/14
-  Support : 					 mail to : nicolas.pierre@etu.unistra.net
+  FileName :                     Definition.h
+  Content :                      Definition File, listing the registers
+  Programmer :                   Nicolas PIERRE
+  Version :                      0.3
+  Date of creation :             07/06/14
+  Support :                      mail to : nico.pierre@icloud.com
 
 */
 

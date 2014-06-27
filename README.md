@@ -63,6 +63,10 @@ When you write a register in the Glib or the Cbc, the writing is updated to the
 map contained in Glib/Cbc objects so that you're always fully aware of what is
 in the Glib/Cbc register.
 
+For writing value in register, we invite you to put in the following format : 0x__.
+You must thus type '0xFF' for exemple and not just 'FF' in the command line. That
+might change in the future..
+
 At the end of the program, the register maps are saved into output_X_X.txt files
 you can find in the settings directory. For example, output_1_2.txt contains the
 register map of the Cbc 2 of the Module 1.
@@ -70,6 +74,17 @@ register map of the Cbc 2 of the Module 1.
 More features will be implemented later, so make sure to have the last release
 locally to benefit from them.
 
+Warning ! : be careful with options choice in the program menus, some mistypes can leed
+to unexpected hazards :-(.
+
+
+Future Improvements
+-------------------
+
+Implementation of generic BeBoard and BeBoardInterface Class which will help us
+dealing with multiple board type (Glib, FC7).
+Work on the Cbc class to make it recognize if the Cbc is from a Glib or a FC7.
+Implement the new Strasbourg firmware as soon as it comes out.
 
 
 Support, Suggestions ?

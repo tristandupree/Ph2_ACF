@@ -1,11 +1,11 @@
 /*
 
-  \file 					     CbcInterface.h
-  \brief 					    CbcInterface class, config of the Cbcs
-  \author 				       Nicolas PIERRE
-  \version : 					1.3
-  Date of creation : 	        07/06/14
-  Support : 					 mail to : nicolas.pierre@cern.ch
+  \file                        CbcInterface.h
+  \brief                       CbcInterface class, config of the Cbcs
+  \author                      Nicolas PIERRE
+  \version :                   0.3
+  Date of creation :           07/06/14
+  Support :                    mail to : nicolas.pierre@cern.ch
 
 */
 

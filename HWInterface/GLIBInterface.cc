@@ -3,7 +3,7 @@
     FileName :                    GlibInterface.cc
     Content :                     GlibInterface class, init/config of the Glib
     Programmer :                  Nicolas PIERRE
-    Version :                     1.3
+    Version :                     0.3
     Date of creation :            07/06/14
     Support :                     mail to : nicolas.pierre@cern.ch
 

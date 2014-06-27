@@ -1,11 +1,11 @@
 /*
 
-  FileName : 					Utilities.cc
-  Content : 					 Some objects that might come in handy
-  Programmer : 				  Nicolas PIERRE
-  Version : 					 1.0
-  Date of creation : 	        10/06/14
-  Support : 					 mail to : nicolas.pierre@cern.ch
+  FileName :                     Utilities.cc
+  Content :                      Some objects that might come in handy
+  Programmer :                   Nicolas PIERRE
+  Version :                      0.3
+  Date of creation :             10/06/14
+  Support :                      mail to : nicolas.pierre@cern.ch
 
 */
 #include "Utilities.h"

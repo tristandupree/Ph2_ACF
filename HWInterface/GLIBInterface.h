@@ -3,7 +3,7 @@
     \file                         GlibInterface.h
     \brief                        GlibInterface class, init/config of the Glib
     \author                       Nicolas PIERRE
-    \version                      1.3
+    \version                      0.3
     Date of creation :            07/06/14
     Support :                     mail to : nicolas.pierre@cern.ch
 

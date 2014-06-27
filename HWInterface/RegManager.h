@@ -1,10 +1,12 @@
 /*!
+
     \file                         RegManager.h
     \brief                        RegManager class, permit connection & r/w registers
     \author                       Nicolas PIERRE
-    \version                      1.3
+    \version                      0.3
     Date of creation :            06/06/14
     Support :                     mail to : nicolas.pierre@cern.ch
+
 */
 #ifndef __REGMANAGER_H__
 #define __REGMANAGER_H__
