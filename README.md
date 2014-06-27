@@ -81,10 +81,10 @@ to unexpected hazards :-(.
 Future Improvements
 -------------------
 
-Implementation of generic BeBoard and BeBoardInterface Class which will help us
+- Implementation of generic BeBoard and BeBoardInterface Class which will help us
 dealing with multiple board type (Glib, FC7).
-Work on the Cbc class to make it recognize if the Cbc is from a Glib or a FC7.
-Implement the new Strasbourg firmware as soon as it comes out.
+- Work on the Cbc class to make it recognize if the Cbc is from a Glib or a FC7.
+- Implement the new Strasbourg firmware as soon as it comes out.
 
 
 Support, Suggestions ?
