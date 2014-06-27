@@ -66,9 +66,9 @@ namespace Ph2_HwInterface
     }
 
 
-    bool RegManager::WriteStackReg(std::vector<pair<const std::string,const uint32_t>>& pVecReg)
+    bool RegManager::WriteStackReg(std::vector< std::pair<std::string,uint32_t> >& pVecReg)
     {
-        for(std::vector<pair<const std::string,const uint32_t&>::iterator cIt = pVecReg.begin(); cIt = pVecReg.end(); cIt++)
+        for(std::vector< std::pair<std::string,uint32_t> >::iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++)
         {
             fBoard->getNode(cIt->first).write(cIt->second);
         }
@@ -79,16 +79,16 @@ namespace Ph2_HwInterface
             int cNbErrors = 0;
             uint32_t comp;
 
-            for(std::vector<pair<const std::string,const uint32_t&>::iterator cIt = pVecReg.begin(); cIt = pVecReg.end(); cIt++)
+            for(std::vector< std::pair<std::string,uint32_t> >::iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++)
             {
-                uhal::ValWord<uint32_t> reply = fBoard->getNode().read(cIt->first);
+                uhal::ValWord<uint32_t> reply = fBoard->getNode(cIt->first).read();
                 fBoard->dispatch();
 
                 comp = (uint32_t) reply ;
 
                 if(comp==(cIt->second))
                 {
-                    std::cout << "Values written correctly !" << comp << "=" << pVal << std::endl;
+                    std::cout << "Values written correctly !" << comp << "=" << cIt->second << std::endl;
                 }
             }
 

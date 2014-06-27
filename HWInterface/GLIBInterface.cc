@@ -43,15 +43,32 @@ namespace Ph2_HwInterface
     void GlibInterface::ConfigureGlib(Glib& pGlib)
     {
 
+        std::vector< std::pair<std::string,uint32_t> > cVecReg;
+        std::pair<std::string,uint32_t> cPairReg;
+
         ChooseBoard(pGlib.getBeId());
 
         boost::posix_time::milliseconds cPause(200);
 
         //Primary Configuration
-		WriteReg(SRAM1_END_READOUT,0);
+        cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
+		cVecReg.push_back(cPairReg);
+        cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+
+        WriteStackReg(cVecReg);
+
+        cVecReg.clear();
+        /*
+        WriteReg(SRAM1_END_READOUT,0);
         WriteReg(SRAM2_END_READOUT,0);
         WriteReg(SRAM1_USR_LOGIC,1);
         WriteReg(SRAM2_USR_LOGIC,1);
+        */
 
 		boost::this_thread::sleep(cPause);
 
@@ -68,27 +85,79 @@ namespace Ph2_HwInterface
         GlibRegMap cGlibRegMap = pGlib.getGlibRegMap();
 		for(GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
         {
-        	WriteReg( cIt->first , cIt->second );
+        	cPairReg.first = cIt->first; cPairReg.second = cIt->second;
+            cVecReg.push_back(cPairReg);
+            //WriteReg( cIt->first , cIt->second );
 		}
 
+        WriteStackReg(cVecReg);
 
+        cVecReg.clear();
+
+        cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = CBC_TRIGGER_1SHOT; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+
+        WriteStackReg(cVecReg);
+
+        cVecReg.clear();
+
+        /*
         WriteReg(SPURIOUS_FRAME,0);
         WriteReg(FORCE_BG0_START,0);
         WriteReg(CBC_TRIGGER_1SHOT,0);
         WriteReg(BREAK_TRIGGER,1);
+        */
 
+        cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+
+        WriteStackReg(cVecReg);
+
+        cVecReg.clear();
+
+        /*
         WriteReg(PC_CONFIG_OK,0);
 		WriteReg(SRAM1_END_READOUT,0);
         WriteReg(SRAM2_END_READOUT,0);
         WriteReg(SRAM1_USR_LOGIC,1);
         WriteReg(SRAM2_USR_LOGIC,1);
+        */
 
 		boost::this_thread::sleep(cPause);
 
+        cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = CBC_TRIGGER_1SHOT; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+
+        WriteStackReg(cVecReg);
+
+        cVecReg.clear();
+
+        /*
 		WriteReg(SPURIOUS_FRAME,0);
         WriteReg(FORCE_BG0_START,0);
         WriteReg(CBC_TRIGGER_1SHOT,0);
         WriteReg(BREAK_TRIGGER,1);
+        */
 
 		boost::this_thread::sleep( cPause*3 );
 
@@ -103,17 +172,37 @@ namespace Ph2_HwInterface
 		std::cout << "Time took for the trigger veto to trigger enable: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
+        std::vector< std::pair<std::string,uint32_t> > cVecReg;
+        std::pair<std::string,uint32_t> cPairReg;
+
         ChooseBoard(pGlib.getBeId());
 
         //Starting the DAQ
+
+        cPairReg.first = BREAK_TRIGGER; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = FORCE_BG0_START; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+
+        WriteStackReg(cVecReg);
+
+        cVecReg.clear();
+
+        /*
         WriteReg(BREAK_TRIGGER,0);
         WriteReg(PC_CONFIG_OK,1);
         WriteReg(FORCE_BG0_START,1);
+        */
     }
 
 
     void GlibInterface::Stop(Glib& pGlib, uint32_t pNthAcq )
     {
+
+        std::vector< std::pair<std::string,uint32_t> > cVecReg;
+        std::pair<std::string,uint32_t> cPairReg;
 
         uhal::ValWord<uint32_t> cVal;
 
@@ -123,9 +212,23 @@ namespace Ph2_HwInterface
         SelectSRAM( pNthAcq );
 
         //Stop the DAQ
-		WriteReg(BREAK_TRIGGER,1);
+
+        cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
+        cVecReg.push_back(cPairReg);
+
+        WriteStackReg(cVecReg);
+
+        cVecReg.clear();
+
+        /*
+        WriteReg(BREAK_TRIGGER,1);
         WriteReg(PC_CONFIG_OK,0);
         WriteReg(FORCE_BG0_START,0);
+        */
 
         boost::posix_time::milliseconds cWait(100);
 
