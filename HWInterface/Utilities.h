@@ -12,10 +12,15 @@
 #define __UTILITIES_H__
 
 #include <sys/time.h>
+#include <ios>
+#include <istream>
+#include <limits>
 
 namespace Ph2_HwInterface
 {
     long getTimeTook( struct timeval &pStart, bool pMili );
+    void myflush ( std::istream& in );
+    void mypause ();
 }
 
 #endif
