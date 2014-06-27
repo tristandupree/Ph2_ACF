@@ -15,14 +15,15 @@
 #include <iomanip>
 #include <sstream>
 #include <fstream>
+#include "Description.h"
 
 namespace Ph2_HwDescription{
 
 	// Constructors
 	Glib::Glib():fShelveId( 0 ), fBeId( 0 ){
 
-		loadConfigFile( default_glib_file );
-		
+		loadConfigFile( DEFAULT_GLIB_FILE );
+
 	}
 
 	Glib::Glib( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename ):fShelveId( pShelveId ),fBeId( pBeId ){
@@ -40,7 +41,7 @@ namespace Ph2_HwDescription{
 		//fRegMap["FMCConfiguration"]=pFMCConfiguration;
 		fRegMap[EXT_TRG]=pExtTrg;
 		fRegMap[FAKE_DATA]=pFakeData;
-		
+
 	}
 
 	// Public Members:

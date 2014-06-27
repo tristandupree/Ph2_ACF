@@ -14,6 +14,22 @@
 
 #define UHAL_CONNECTION_FILE "file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml"
 
+
+//-----------------------------------------------------------------------------
+//Glib Config Files
+
+#define DEFAULT_GLIB_FILE  "../settings/glib_settings.cfg"
+
+
+//------------------------------------------------------------------------------
+//Cbc Config Files
+
+#define DEFAULT_FILE   "../settings/FE0CBC0.txt"
+#define FE0CBC0HOLE    "../settings/FE0CBC0Hole.txt"
+#define FE0CBC1        "../settings/FE0CBC1.txt"
+#define FE0CBC1HOLE    "../settings/FE0CBC1Hole.txt"
+
+
 //------------------------------------------------------------------------------
 //I2C Parameters
 

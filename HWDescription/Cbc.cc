@@ -17,6 +17,7 @@
 #include <iostream>
 #include <string.h>
 #include <iomanip>
+#include "Description.h"
 
 
 namespace Ph2_HwDescription{
@@ -26,7 +27,7 @@ namespace Ph2_HwDescription{
 	Cbc::Cbc():FrontEndDescription()
 	{
 		fCbcId=0;
-		loadfRegMap(default_file);
+		loadfRegMap(DEFAULT_FILE);
 
 	 }
 
@@ -46,7 +47,7 @@ namespace Ph2_HwDescription{
 	{
 		fCbcId=pCbcId;
 
-		loadfRegMap(default_file);
+		loadfRegMap(DEFAULT_FILE);
 
 		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
 		fRegMap["Vcth"].fValue=pVcth;
@@ -57,7 +58,7 @@ namespace Ph2_HwDescription{
 	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId ):FrontEndDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
-		loadfRegMap(default_file);
+		loadfRegMap(DEFAULT_FILE);
 	}
 
 
@@ -75,7 +76,7 @@ namespace Ph2_HwDescription{
 	{
 		fCbcId=pCbcId;
 
-		loadfRegMap(default_file);
+		loadfRegMap(DEFAULT_FILE);
 
 		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
 		fRegMap["Vcth"].fValue=pVcth;
@@ -85,7 +86,7 @@ namespace Ph2_HwDescription{
 	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;
-		loadfRegMap(default_file);
+		loadfRegMap(DEFAULT_FILE);
 
 	}
 

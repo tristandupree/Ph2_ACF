@@ -28,7 +28,6 @@
 */
 namespace Ph2_HwDescription{
 
-	#define default_file "default_file.txt"
 	typedef std::map < std::string, CbcRegItem > CbcRegMap;
 
 	/*!

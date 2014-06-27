@@ -24,8 +24,6 @@
 */
 namespace Ph2_HwDescription{
 
-	#define default_glib_file  "glib_settings.cfg"
-
 	// <node id="nb_FE", description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
 	enum nb_FE { SINGLE_FE, FE_TRG, DUAL_FE };
 	typedef std::map< std::string, uint8_t > GlibRegMap;
@@ -34,7 +32,7 @@ namespace Ph2_HwDescription{
 
 	/*!
 	* \class Glib
-	* \brief Read/Write Glib's registers on a file, contains a register map and contains a vector of Module which are connected to the Glib 
+	* \brief Read/Write Glib's registers on a file, contains a register map and contains a vector of Module which are connected to the Glib
 	*/
 	class Glib{
 
