@@ -1,4 +1,5 @@
 Git Repository for PH2DAQ HW Interface API & HW Description API
+===============================================================
 
 
 Supposed to contain:
@@ -14,7 +15,7 @@ Hybrids, Boards) and their properties(values, status)
 future versions of the previous two proposed APIs.
 
 
-==================
+
 MCP Test Interface
 ==================
 
@@ -32,6 +33,7 @@ Here are the step to make the program functional
 4. Launch testpgrm command if you want to test if everything is working good
 
 5. Launch mcp to play with the Test Interface
+
 
 
 What can you do with the software ?
@@ -60,5 +62,10 @@ register map of the Cbc 2 of the Module 1.
 
 More features will be implemented later, so make sure to have the last release
 locally to benefit them.
+
+
+
+Support, Suggestions ?
+======================
 
 For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger
