@@ -15,7 +15,6 @@
 #include <iomanip>
 #include <sstream>
 #include <fstream>
-#include "Description.h"
 
 namespace Ph2_HwDescription{
 
