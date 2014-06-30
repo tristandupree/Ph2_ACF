@@ -1,23 +1,35 @@
 \hypertarget{namespace_ph2___hw_interface}{\section{Ph2\-\_\-\-Hw\-Interface Namespace Reference}
 \label{namespace_ph2___hw_interface}\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}}
 }
+
+
+Namespace regrouping all the interfaces to the hardware.  
+
+
 \subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{class_ph2___hw_interface_1_1_c_b_c_interface}{C\-B\-C\-Interface}
-\item 
+class \hyperlink{class_ph2___hw_interface_1_1_cbc_interface}{Cbc\-Interface}
+\begin{DoxyCompactList}\small\item\em Permit r/w given registers in the Cbc you specify. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_exception}{Exception}
 \item 
-class \hyperlink{class_ph2___hw_interface_1_1_g_l_i_b_interface}{G\-L\-I\-B\-Interface}
-\item 
+class \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\-Interface}
+\begin{DoxyCompactList}\small\item\em Permit r/w given registers in the Glib you specify. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Permit connection to given boards and r/w given registers. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 long \hyperlink{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}{get\-Time\-Took} (struct timeval \&p\-Start, bool p\-Mili)
+\item 
+void \hyperlink{namespace_ph2___hw_interface_a2fe2ee1ddb69c79c23bf9b0b2fa58f67}{myflush} (std\-::istream \&in)
+\item 
+void \hyperlink{namespace_ph2___hw_interface_a20399ed909de2641f1e7e086a4ec3667}{mypause} ()
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Namespace regrouping all the interfaces to the hardware. 
 
 \subsection{Function Documentation}
 \hypertarget{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!get\-Time\-Took@{get\-Time\-Took}}
@@ -28,3 +40,17 @@ long \hyperlink{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}{
 \item[{bool}]{p\-Mili}
 \end{DoxyParamCaption}
 )}}\label{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}
+\hypertarget{namespace_ph2___hw_interface_a2fe2ee1ddb69c79c23bf9b0b2fa58f67}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!myflush@{myflush}}
+\index{myflush@{myflush}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{myflush}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::myflush (
+\begin{DoxyParamCaption}
+\item[{std\-::istream \&}]{in}
+\end{DoxyParamCaption}
+)}}\label{namespace_ph2___hw_interface_a2fe2ee1ddb69c79c23bf9b0b2fa58f67}
+\hypertarget{namespace_ph2___hw_interface_a20399ed909de2641f1e7e086a4ec3667}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!mypause@{mypause}}
+\index{mypause@{mypause}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{mypause}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::mypause (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{namespace_ph2___hw_interface_a20399ed909de2641f1e7e086a4ec3667}

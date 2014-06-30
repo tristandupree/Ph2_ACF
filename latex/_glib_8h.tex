@@ -1,31 +1,47 @@
 \hypertarget{_glib_8h}{\section{H\-W\-Description/\-Glib.h File Reference}
 \label{_glib_8h}\index{H\-W\-Description/\-Glib.\-h@{H\-W\-Description/\-Glib.\-h}}
 }
-{\ttfamily \#include \char`\"{}H\-W\-Description/\-Glib\-Definitions.\-h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}H\-W\-Description/\-Module.\-h\char`\"{}}\\*
+
+
+Glib Description class, configs of the Glib.  
+
+
+{\ttfamily \#include \char`\"{}Definition.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Module.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
 {\ttfamily \#include $<$map$>$}\\*
-{\ttfamily \#include $<$multimap$>$}\\*
+{\ttfamily \#include $<$boost/cstdint.\-hpp$>$}\\*
 \subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{class_ph2___hw_description_1_1_glib}{Ph2\-\_\-\-Hw\-Description\-::\-Glib}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}'s registers on a file, contains a register map and contains a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{namespace_ph2___hw_description}{Ph2\-\_\-\-Hw\-Description}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Namespace regrouping all the hardware description. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 typedef std\-::map$<$ std\-::string, \\*
-U\-Int\-\_\-t $>$ \hyperlink{namespace_ph2___hw_description_a1fd478712d074fa51fc2185802bbfd90}{Ph2\-\_\-\-Hw\-Description\-::\-Glib\-Reg\-Map}
+uint8\-\_\-t $>$ \hyperlink{namespace_ph2___hw_description_afc0e75a92548c3406e89bf39ca4c9bfb}{Ph2\-\_\-\-Hw\-Description\-::\-Glib\-Reg\-Map}
 \end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \{ \hyperlink{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64aa30d72f6d58dc25b003fbf8bf56b3ace}{Ph2\-\_\-\-Hw\-Description\-::\-S\-I\-N\-G\-L\-E\-\_\-\-F\-E}, 
-\hyperlink{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64a6e0b877d015d017f61b07618e057c452}{Ph2\-\_\-\-Hw\-Description\-::\-F\-E\-\_\-\-T\-R\-G}, 
-\hyperlink{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64ae3b57cb16641bb367bfc57a00315a4ca}{Ph2\-\_\-\-Hw\-Description\-::\-D\-U\-A\-L\-\_\-\-F\-E}
+enum \hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2b}{Ph2\-\_\-\-Hw\-Description\-::nb\-\_\-\-F\-E} \{ \hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2baa30d72f6d58dc25b003fbf8bf56b3ace}{Ph2\-\_\-\-Hw\-Description\-::\-S\-I\-N\-G\-L\-E\-\_\-\-F\-E}, 
+\hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2ba6e0b877d015d017f61b07618e057c452}{Ph2\-\_\-\-Hw\-Description\-::\-F\-E\-\_\-\-T\-R\-G}, 
+\hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2bae3b57cb16641bb367bfc57a00315a4ca}{Ph2\-\_\-\-Hw\-Description\-::\-D\-U\-A\-L\-\_\-\-F\-E}
  \}
 \end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Glib Description class, configs of the Glib. \begin{DoxyAuthor}{Author}
+Lorenzo B\-I\-D\-E\-G\-A\-I\-N 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+25/06/14
+\end{DoxyDate}
+Support \-: mail to \-: \href{mailto:lorenzo.bidegain@cern.ch}{\tt lorenzo.\-bidegain@cern.\-ch} 

@@ -1,10 +1,65 @@
-Git Repository for P\-H2\-D\-A\-Q H\-W Interface A\-P\-I \& H\-W Description A\-P\-I
-
 Supposed to contain\-:
 
 
 \begin{DoxyItemize}
 \item A middleware A\-P\-I layer, implemented in C++, which will basically wrap to abstracted functions the firmware calls and handshakes currently hardcoded into D\-A\-Q systems software.
 \item A C++ object-\/based library describing the system components (C\-B\-Cs, Hybrids, Boards) and their properties(values, status)
-\item The standard X\-D\-A\-Q-\/based system, which could really benefit in its future versions of the previous two proposed A\-P\-Is. 
+\item The standard X\-D\-A\-Q-\/based system, which could really benefit in its future versions of the previous two proposed A\-P\-Is.
 \end{DoxyItemize}
+
+\subsection*{M\-C\-P Test Interface }
+
+Here are the step to make the program functional
+
+
+\begin{DoxyEnumerate}
+\item Recover the Git\-Hub repo with the latest tested version of the M\-C\-P.
+\item Change in \hyperlink{_definition_8h}{H\-W\-Description/\-Definition.\-h} the path to the u\-Hal connection file.
+\begin{DoxyItemize}
+\item It's per default set to \-: \href{file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml}{\tt file\-:///afs/cern.\-ch/user/n/npierre/public/settings/connections.\-xml}
+\item You have to change it to \-: \href{file://$(BUILD)/settings/connections.xml}{\tt file\-://\$(\-B\-U\-I\-L\-D)/settings/connections.\-xml} (where  is the path to the root of the Git\-Hub repo you recovered)
+\end{DoxyItemize}
+\item Do a make in the root the repo
+\item Launch testpgrm command if you want to test if everything is working good
+\item Launch mcp to play with the Test Interface
+\end{DoxyEnumerate}
+
+\subsection*{What can you do with the software ? }
+
+A Glib is created per default (maybe in the future you will be able to play with more than one Glib)
+
+You can then add Modules to the Glib and Cbcs to the Modules you created. When creating a Cbc, you can choose the config file you will load to its register map. If you want to add your personal config file, please make sure to add it in \#define in the H\-W\-Description/\-Description.\-h and then to add an option in the M\-C\-P code.
+
+After this creation round, you can do anything you want \-:
+\begin{DoxyItemize}
+\item Configure the Glib or the Cbcs
+\item Manipulate the registers in the Glib
+\item Manipulate the registers in the Cbcs
+\item Do the manipulation to Start/\-Stop an acquisition, but not actually acquiring something relevant
+\item Have a configuration recap of all the objects you created
+\end{DoxyItemize}
+
+Concerning the manipulation of the Cbcs, you have the opportunity to modify all the Cbcs of a same Module at once with the Broadcast feature of the Cbc.
+
+When you write a register in the Glib or the Cbc, the writing is updated to the map contained in Glib/\-Cbc objects so that you're always fully aware of what is in the Glib/\-Cbc register.
+
+For writing value in register, we invite you to put in the following format \-: 0x\-\_\-\-\_\-. You must thus type '0x\-F\-F' for exemple and not just 'F\-F' in the command line. That might change in the future..
+
+At the end of the program, the register maps are saved into output\-\_\-\-X\-\_\-\-X.\-txt files you can find in the settings directory. For example, output\-\_\-1\-\_\-2.\-txt contains the register map of the Cbc 2 of the Module 1.
+
+More features will be implemented later, so make sure to have the last release locally to benefit from them.
+
+Warning ! \-: be careful with options choice in the program menus, some mistypes can leed to unexpected hazards \-:-\/(.
+
+\subsection*{Future Improvements }
+
+
+\begin{DoxyItemize}
+\item Implementation of generic Be\-Board and Be\-Board\-Interface Class which will help us dealing with multiple board type (Glib, F\-C7).
+\item Work on the Cbc class to make it recognize if the Cbc is from a Glib or a F\-C7.
+\item Implement the new Strasbourg firmware as soon as it comes out.
+\end{DoxyItemize}
+
+\subsection*{Support, Suggestions ? }
+
+For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger. 

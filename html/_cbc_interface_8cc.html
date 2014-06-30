@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: HWInterface/Interface/CbcInterface.cc File Reference</title>
+<title>Ph2_DAQ: HWInterface/CbcInterface.cc File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,9 +21,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="CMSlogoDoxyfile.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Ph2_DAQ
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">0.3</span>
    </div>
    <div id="projectbrief">Software for DAQ of Ph2 CMSTrackerUpdate</div>
   </td>
@@ -72,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -83,7 +84,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_31b96ea087a533c93e375b3573ad868b.html">HWInterface</a></li><li class="navelem"><a class="el" href="dir_d3ba08d5cfc524819690815d64844dbd.html">Interface</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_31b96ea087a533c93e375b3573ad868b.html">HWInterface</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -101,35 +102,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;time.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="_cbc_interface_8h_source.html">CbcInterface.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="_exception_8h_source.html">Exception.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_definition_8h_source.html">../HWDescription/Definition.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_module_8h_source.html">../HWDescription/Module.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="_cbc_8h_source.html">../HWDescription/Cbc.h</a>&quot;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespace_ph2___hw_interface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_ph2___hw_interface.html">Ph2_HwInterface</a></td></tr>
+<tr class="memdesc:namespace_ph2___hw_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace regrouping all the interfaces to the hardware. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a7538d40fca6562ecc1768f6d07cef2fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#a7538d40fca6562ecc1768f6d07cef2fa">I2C_CTRL_ENABLE</a>&#160;&#160;&#160;0x000009F4</td></tr>
-<tr class="separator:a7538d40fca6562ecc1768f6d07cef2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1dd2d69bec1712857cc2a103c85c26d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#ab1dd2d69bec1712857cc2a103c85c26d">I2C_CTRL_DISABLE</a>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:ab1dd2d69bec1712857cc2a103c85c26d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d3f448d28b023f560e3df976bb3ff9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#a8d3f448d28b023f560e3df976bb3ff9c">I2C_STROBE</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a8d3f448d28b023f560e3df976bb3ff9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae239b4919cbd8d8dced934150986de3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#aae239b4919cbd8d8dced934150986de3">I2C_M16B</a>&#160;&#160;&#160;0</td></tr>
-<tr class="separator:aae239b4919cbd8d8dced934150986de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac030aa7b3fbd8b2432a9c66fc49fc4ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#ac030aa7b3fbd8b2432a9c66fc49fc4ae">I2C_MEM</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:ac030aa7b3fbd8b2432a9c66fc49fc4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab15137f7c592d05573de99f078516157"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#ab15137f7c592d05573de99f078516157">I2C_SLAVE</a>&#160;&#160;&#160;0x5B</td></tr>
-<tr class="separator:ab15137f7c592d05573de99f078516157"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae308275dafb538f2511ea285fea768d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#ae308275dafb538f2511ea285fea768d0">I2C_COMMAND</a>&#160;&#160;&#160;&quot;user_wb_ttc_fmc_regs.cbc_reg_i2c_command&quot;</td></tr>
-<tr class="separator:ae308275dafb538f2511ea285fea768d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46aaa2293185dfc3cd655f65bea7f614"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#a46aaa2293185dfc3cd655f65bea7f614">I2C_REPLY</a>&#160;&#160;&#160;&quot;user_wb_ttc_fmc_regs.cbc_reg_i2c_reply&quot;</td></tr>
-<tr class="separator:a46aaa2293185dfc3cd655f65bea7f614"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15db09e24617ea5c5843213672ac8a03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#a15db09e24617ea5c5843213672ac8a03">I2C_SETTINGS</a>&#160;&#160;&#160;&quot;user_wb_ttc_fmc_regs.cbc_reg_i2c_settings&quot;</td></tr>
-<tr class="separator:a15db09e24617ea5c5843213672ac8a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30957298974d3b5c605a9e6e3cf33ff9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#a30957298974d3b5c605a9e6e3cf33ff9">MAX_NB_LOOP</a>&#160;&#160;&#160;50</td></tr>
-<tr class="separator:a30957298974d3b5c605a9e6e3cf33ff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58e0334fd019cc0616b8f7474ba61137"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#a58e0334fd019cc0616b8f7474ba61137">DEV_FLAG</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a58e0334fd019cc0616b8f7474ba61137"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_cbc_interface_8cc.html#a58e0334fd019cc0616b8f7474ba61137">DEV_FLAG</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:a58e0334fd019cc0616b8f7474ba61137"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
@@ -138,127 +123,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEV_FLAG&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ae308275dafb538f2511ea285fea768d0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_COMMAND&#160;&#160;&#160;&quot;user_wb_ttc_fmc_regs.cbc_reg_i2c_command&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab1dd2d69bec1712857cc2a103c85c26d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_CTRL_DISABLE&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a7538d40fca6562ecc1768f6d07cef2fa"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_CTRL_ENABLE&#160;&#160;&#160;0x000009F4</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aae239b4919cbd8d8dced934150986de3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_M16B&#160;&#160;&#160;0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ac030aa7b3fbd8b2432a9c66fc49fc4ae"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_MEM&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a46aaa2293185dfc3cd655f65bea7f614"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_REPLY&#160;&#160;&#160;&quot;user_wb_ttc_fmc_regs.cbc_reg_i2c_reply&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a15db09e24617ea5c5843213672ac8a03"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_SETTINGS&#160;&#160;&#160;&quot;user_wb_ttc_fmc_regs.cbc_reg_i2c_settings&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab15137f7c592d05573de99f078516157"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_SLAVE&#160;&#160;&#160;0x5B</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a8d3f448d28b023f560e3df976bb3ff9c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define I2C_STROBE&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a30957298974d3b5c605a9e6e3cf33ff9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MAX_NB_LOOP&#160;&#160;&#160;50</td>
+          <td class="memname">#define DEV_FLAG&#160;&#160;&#160;1</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -268,7 +133,7 @@ Macros</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 13 2014 15:09:14 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 27 2014 23:08:52 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

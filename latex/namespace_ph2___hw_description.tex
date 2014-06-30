@@ -1,23 +1,26 @@
 \hypertarget{namespace_ph2___hw_description}{\section{Ph2\-\_\-\-Hw\-Description Namespace Reference}
 \label{namespace_ph2___hw_description}\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}}
 }
+
+
+Namespace regrouping all the hardware description.  
+
+
 \subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}
-\item 
+\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on a file. \end{DoxyCompactList}\item 
 struct \hyperlink{struct_ph2___hw_description_1_1_cbc_comparer}{Cbc\-Comparer}
-\item 
+\begin{DoxyCompactList}\small\item\em Compare two \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} by their I\-D. \end{DoxyCompactList}\item 
 struct \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item}
-\item 
-struct \hyperlink{struct_ph2___hw_description_1_1_reg_item_comparer}{Reg\-Item\-Comparer}
-\item 
-class \hyperlink{class_ph2___hw_description_1_1_f_e_description}{F\-E\-Description}
-\item 
+\begin{DoxyCompactList}\small\item\em Struct for Cbc\-Register\-Item that is identified by Page, Address, Default\-Value, Value. \end{DoxyCompactList}\item 
+class \hyperlink{class_ph2___hw_description_1_1_front_end_description}{Front\-End\-Description}
+\begin{DoxyCompactList}\small\item\em Describe all parameters common to all F\-E Components in the D\-A\-Q chain. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}
-\item 
+\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}'s registers on a file, contains a register map and contains a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_glib}{Glib}. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_description_1_1_module}{Module}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em contains a vector of \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} which are connected to the \hyperlink{class_ph2___hw_description_1_1_module}{Module} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
@@ -25,37 +28,42 @@ typedef std\-::map$<$ std\-::string, \\*
 \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} $>$ \hyperlink{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{Cbc\-Reg\-Map}
 \item 
 typedef std\-::map$<$ std\-::string, \\*
-U\-Int\-\_\-t $>$ \hyperlink{namespace_ph2___hw_description_a1fd478712d074fa51fc2185802bbfd90}{Glib\-Reg\-Map}
+uint8\-\_\-t $>$ \hyperlink{namespace_ph2___hw_description_afc0e75a92548c3406e89bf39ca4c9bfb}{Glib\-Reg\-Map}
 \end{DoxyCompactItemize}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \{ \hyperlink{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64aa30d72f6d58dc25b003fbf8bf56b3ace}{S\-I\-N\-G\-L\-E\-\_\-\-F\-E}, 
-\hyperlink{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64a6e0b877d015d017f61b07618e057c452}{F\-E\-\_\-\-T\-R\-G}, 
-\hyperlink{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64ae3b57cb16641bb367bfc57a00315a4ca}{D\-U\-A\-L\-\_\-\-F\-E}
+enum \hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2b}{nb\-\_\-\-F\-E} \{ \hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2baa30d72f6d58dc25b003fbf8bf56b3ace}{S\-I\-N\-G\-L\-E\-\_\-\-F\-E}, 
+\hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2ba6e0b877d015d017f61b07618e057c452}{F\-E\-\_\-\-T\-R\-G}, 
+\hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2bae3b57cb16641bb367bfc57a00315a4ca}{D\-U\-A\-L\-\_\-\-F\-E}
  \}
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Namespace regrouping all the hardware description. 
 
 \subsection{Typedef Documentation}
 \hypertarget{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!Cbc\-Reg\-Map@{Cbc\-Reg\-Map}}
 \index{Cbc\-Reg\-Map@{Cbc\-Reg\-Map}!Ph2_HwDescription@{Ph2\-\_\-\-Hw\-Description}}
 \subsubsection[{Cbc\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$ std\-::string, {\bf Cbc\-Reg\-Item} $>$ {\bf Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-Reg\-Map}}}\label{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}
-\hypertarget{namespace_ph2___hw_description_a1fd478712d074fa51fc2185802bbfd90}{\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!Glib\-Reg\-Map@{Glib\-Reg\-Map}}
+\hypertarget{namespace_ph2___hw_description_afc0e75a92548c3406e89bf39ca4c9bfb}{\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!Glib\-Reg\-Map@{Glib\-Reg\-Map}}
 \index{Glib\-Reg\-Map@{Glib\-Reg\-Map}!Ph2_HwDescription@{Ph2\-\_\-\-Hw\-Description}}
-\subsubsection[{Glib\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$ std\-::string, U\-Int\-\_\-t $>$ {\bf Ph2\-\_\-\-Hw\-Description\-::\-Glib\-Reg\-Map}}}\label{namespace_ph2___hw_description_a1fd478712d074fa51fc2185802bbfd90}
+\subsubsection[{Glib\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$ std\-::string, uint8\-\_\-t $>$ {\bf Ph2\-\_\-\-Hw\-Description\-::\-Glib\-Reg\-Map}}}\label{namespace_ph2___hw_description_afc0e75a92548c3406e89bf39ca4c9bfb}
 
 
 \subsection{Enumeration Type Documentation}
-\hypertarget{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64}
+\hypertarget{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2b}{\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!nb\-\_\-\-F\-E@{nb\-\_\-\-F\-E}}
+\index{nb\-\_\-\-F\-E@{nb\-\_\-\-F\-E}!Ph2_HwDescription@{Ph2\-\_\-\-Hw\-Description}}
+\subsubsection[{nb\-\_\-\-F\-E}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Ph2\-\_\-\-Hw\-Description\-::nb\-\_\-\-F\-E}}}\label{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2b}
 \begin{Desc}
 \item[Enumerator]\par
 \begin{description}
 \index{S\-I\-N\-G\-L\-E\-\_\-\-F\-E@{S\-I\-N\-G\-L\-E\-\_\-\-F\-E}!Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}}\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!S\-I\-N\-G\-L\-E\-\_\-\-F\-E@{S\-I\-N\-G\-L\-E\-\_\-\-F\-E}}\item[{\em 
-\hypertarget{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64aa30d72f6d58dc25b003fbf8bf56b3ace}{S\-I\-N\-G\-L\-E\-\_\-\-F\-E}\label{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64aa30d72f6d58dc25b003fbf8bf56b3ace}
+\hypertarget{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2baa30d72f6d58dc25b003fbf8bf56b3ace}{S\-I\-N\-G\-L\-E\-\_\-\-F\-E}\label{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2baa30d72f6d58dc25b003fbf8bf56b3ace}
 }]\index{F\-E\-\_\-\-T\-R\-G@{F\-E\-\_\-\-T\-R\-G}!Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}}\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!F\-E\-\_\-\-T\-R\-G@{F\-E\-\_\-\-T\-R\-G}}\item[{\em 
-\hypertarget{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64a6e0b877d015d017f61b07618e057c452}{F\-E\-\_\-\-T\-R\-G}\label{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64a6e0b877d015d017f61b07618e057c452}
+\hypertarget{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2ba6e0b877d015d017f61b07618e057c452}{F\-E\-\_\-\-T\-R\-G}\label{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2ba6e0b877d015d017f61b07618e057c452}
 }]\index{D\-U\-A\-L\-\_\-\-F\-E@{D\-U\-A\-L\-\_\-\-F\-E}!Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}}\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!D\-U\-A\-L\-\_\-\-F\-E@{D\-U\-A\-L\-\_\-\-F\-E}}\item[{\em 
-\hypertarget{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64ae3b57cb16641bb367bfc57a00315a4ca}{D\-U\-A\-L\-\_\-\-F\-E}\label{namespace_ph2___hw_description_ae27a2135d85c2171ebd17024e2ce2c64ae3b57cb16641bb367bfc57a00315a4ca}
+\hypertarget{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2bae3b57cb16641bb367bfc57a00315a4ca}{D\-U\-A\-L\-\_\-\-F\-E}\label{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2bae3b57cb16641bb367bfc57a00315a4ca}
 }]\end{description}
 \end{Desc}

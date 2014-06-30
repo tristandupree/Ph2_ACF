@@ -74,7 +74,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -97,6 +97,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>Describe all parameters common to all FE Components in the DAQ chain.  
+ <a href="class_ph2___hw_description_1_1_f_e_description.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_f_e_description_8h_source.html">FEDescription.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Ph2_HwDescription::FEDescription:</div>
@@ -104,84 +107,96 @@ Inheritance diagram for Ph2_HwDescription::FEDescription:</div>
  <div class="center">
   <img src="class_ph2___hw_description_1_1_f_e_description.png" usemap="#Ph2_HwDescription::FEDescription_map" alt=""/>
   <map id="Ph2_HwDescription::FEDescription_map" name="Ph2_HwDescription::FEDescription_map">
-<area href="class_ph2___hw_description_1_1_cbc.html" alt="Ph2_HwDescription::Cbc" shape="rect" coords="0,56,209,80"/>
-<area href="class_ph2___hw_description_1_1_module.html" alt="Ph2_HwDescription::Module" shape="rect" coords="219,56,428,80"/>
+<area href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file. " alt="Ph2_HwDescription::Cbc" shape="rect" coords="0,56,209,80"/>
+<area href="class_ph2___hw_description_1_1_module.html" title="contains a vector of Cbc which are connected to the Module " alt="Ph2_HwDescription::Module" shape="rect" coords="219,56,428,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8d57b56f9f6f532d16079f0d63dcc8ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a8d57b56f9f6f532d16079f0d63dcc8ac">FEDescription</a> (UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, bool pStatus=true)</td></tr>
-<tr class="separator:a8d57b56f9f6f532d16079f0d63dcc8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2619a856a6be6afdbbdee8a2ffecabd8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a2619a856a6be6afdbbdee8a2ffecabd8">FEDescription</a> (UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId)</td></tr>
-<tr class="separator:a2619a856a6be6afdbbdee8a2ffecabd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23be149c77c625424510e88adf3e95d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a23be149c77c625424510e88adf3e95d4">FEDescription</a> (uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, bool pStatus=true)</td></tr>
+<tr class="separator:a23be149c77c625424510e88adf3e95d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbcf750f0bf74a954eb50db7255e5c26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#acbcf750f0bf74a954eb50db7255e5c26">FEDescription</a> (uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId)</td></tr>
+<tr class="separator:acbcf750f0bf74a954eb50db7255e5c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc5f53987051c0d9746c97e1d993b143"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#abc5f53987051c0d9746c97e1d993b143">FEDescription</a> ()</td></tr>
 <tr class="separator:abc5f53987051c0d9746c97e1d993b143"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c6acc6560237db018675503bd1dc17c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a2c6acc6560237db018675503bd1dc17c">FEDescription</a> (<a class="el" href="class_ph2___hw_description_1_1_f_e_description.html">FEDescription</a> &amp;pFeDesc)</td></tr>
-<tr class="separator:a2c6acc6560237db018675503bd1dc17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f055cd3fade537864dd7c3b34fede39"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a6f055cd3fade537864dd7c3b34fede39">~FEDescription</a> ()</td></tr>
+<tr class="memitem:a1169ae7f8f71a37ff35b7c31f6452611"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a1169ae7f8f71a37ff35b7c31f6452611">FEDescription</a> (const <a class="el" href="class_ph2___hw_description_1_1_f_e_description.html">FEDescription</a> &amp;pFeDesc)</td></tr>
+<tr class="separator:a1169ae7f8f71a37ff35b7c31f6452611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f055cd3fade537864dd7c3b34fede39"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a6f055cd3fade537864dd7c3b34fede39">~FEDescription</a> ()</td></tr>
 <tr class="separator:a6f055cd3fade537864dd7c3b34fede39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88b8c4fbcd4e0457598fc62a9ee9e738"><td class="memItemLeft" align="right" valign="top">virtual UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a88b8c4fbcd4e0457598fc62a9ee9e738">getShelveId</a> ()</td></tr>
-<tr class="separator:a88b8c4fbcd4e0457598fc62a9ee9e738"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a490d84e3207965c1519291ed807f2de3"><td class="memItemLeft" align="right" valign="top">virtual UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a490d84e3207965c1519291ed807f2de3">getBeId</a> ()</td></tr>
-<tr class="separator:a490d84e3207965c1519291ed807f2de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe75c47d779452eea1f0754fbffae6bf"><td class="memItemLeft" align="right" valign="top">virtual UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#afe75c47d779452eea1f0754fbffae6bf">getFMCId</a> ()</td></tr>
-<tr class="separator:afe75c47d779452eea1f0754fbffae6bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a504aa020c9bcfcc314e6018a003622ca"><td class="memItemLeft" align="right" valign="top">virtual UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a504aa020c9bcfcc314e6018a003622ca">getFeId</a> ()</td></tr>
-<tr class="separator:a504aa020c9bcfcc314e6018a003622ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e532c3b78e6a4a1b5f0022005898e25"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a4e532c3b78e6a4a1b5f0022005898e25">getShelveId</a> ()</td></tr>
+<tr class="memdesc:a4e532c3b78e6a4a1b5f0022005898e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Shelve ID.  <a href="#a4e532c3b78e6a4a1b5f0022005898e25">More...</a><br/></td></tr>
+<tr class="separator:a4e532c3b78e6a4a1b5f0022005898e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9077e5848363bf04b1c5860726879e79"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a9077e5848363bf04b1c5860726879e79">getBeId</a> ()</td></tr>
+<tr class="memdesc:a9077e5848363bf04b1c5860726879e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Be ID.  <a href="#a9077e5848363bf04b1c5860726879e79">More...</a><br/></td></tr>
+<tr class="separator:a9077e5848363bf04b1c5860726879e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bf79b7197bf731c85e9041f94ad4351"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a3bf79b7197bf731c85e9041f94ad4351">getFMCId</a> ()</td></tr>
+<tr class="memdesc:a3bf79b7197bf731c85e9041f94ad4351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the FMC ID.  <a href="#a3bf79b7197bf731c85e9041f94ad4351">More...</a><br/></td></tr>
+<tr class="separator:a3bf79b7197bf731c85e9041f94ad4351"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab282dc785d2db2e8837b082d85fb9bb3"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#ab282dc785d2db2e8837b082d85fb9bb3">getFeId</a> ()</td></tr>
+<tr class="memdesc:ab282dc785d2db2e8837b082d85fb9bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the FE ID.  <a href="#ab282dc785d2db2e8837b082d85fb9bb3">More...</a><br/></td></tr>
+<tr class="separator:ab282dc785d2db2e8837b082d85fb9bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a617ae77418832f97179026559685ea2d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a617ae77418832f97179026559685ea2d">getStatus</a> ()</td></tr>
+<tr class="memdesc:a617ae77418832f97179026559685ea2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Status.  <a href="#a617ae77418832f97179026559685ea2d">More...</a><br/></td></tr>
 <tr class="separator:a617ae77418832f97179026559685ea2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af658e76199a04e214cf5644d81f149bf"><td class="memItemLeft" align="right" valign="top">virtual UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#af658e76199a04e214cf5644d81f149bf">setShelveId</a> (UInt_t pShelveId)</td></tr>
-<tr class="separator:af658e76199a04e214cf5644d81f149bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a781b5dcfc6706e84bf531be4cc3a30bc"><td class="memItemLeft" align="right" valign="top">virtual UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a781b5dcfc6706e84bf531be4cc3a30bc">setBeId</a> (UInt_t pBeId)</td></tr>
-<tr class="separator:a781b5dcfc6706e84bf531be4cc3a30bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa29c45a1e7d56712b0fc4904224df8a8"><td class="memItemLeft" align="right" valign="top">virtual UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#aa29c45a1e7d56712b0fc4904224df8a8">setFMCId</a> (UInt_t pFMCId)</td></tr>
-<tr class="separator:aa29c45a1e7d56712b0fc4904224df8a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45287f64583ac4291808a5e3567f3ba4"><td class="memItemLeft" align="right" valign="top">virtual UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a45287f64583ac4291808a5e3567f3ba4">setFeId</a> (UInt_t pFeId)</td></tr>
-<tr class="separator:a45287f64583ac4291808a5e3567f3ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab207edf946f371bef6860fb6ce4deb65"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#ab207edf946f371bef6860fb6ce4deb65">setShelveId</a> (uint8_t pShelveId)</td></tr>
+<tr class="memdesc:ab207edf946f371bef6860fb6ce4deb65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Shelve ID.  <a href="#ab207edf946f371bef6860fb6ce4deb65">More...</a><br/></td></tr>
+<tr class="separator:ab207edf946f371bef6860fb6ce4deb65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13f1c20eb678b8e23d2590a8ff23d349"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a13f1c20eb678b8e23d2590a8ff23d349">setBeId</a> (uint8_t pBeId)</td></tr>
+<tr class="memdesc:a13f1c20eb678b8e23d2590a8ff23d349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Be ID.  <a href="#a13f1c20eb678b8e23d2590a8ff23d349">More...</a><br/></td></tr>
+<tr class="separator:a13f1c20eb678b8e23d2590a8ff23d349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0c396a0475a508e8aca069bb5b3c577"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#af0c396a0475a508e8aca069bb5b3c577">setFMCId</a> (uint8_t pFMCId)</td></tr>
+<tr class="memdesc:af0c396a0475a508e8aca069bb5b3c577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FMC ID.  <a href="#af0c396a0475a508e8aca069bb5b3c577">More...</a><br/></td></tr>
+<tr class="separator:af0c396a0475a508e8aca069bb5b3c577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a681786aea17ed86c40a3274783d5f6b5"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a681786aea17ed86c40a3274783d5f6b5">setFeId</a> (uint8_t pFeId)</td></tr>
+<tr class="memdesc:a681786aea17ed86c40a3274783d5f6b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FE ID.  <a href="#a681786aea17ed86c40a3274783d5f6b5">More...</a><br/></td></tr>
+<tr class="separator:a681786aea17ed86c40a3274783d5f6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6e842d9be9aba79eccf5691ca6f7695"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#aa6e842d9be9aba79eccf5691ca6f7695">setStatus</a> (bool pStatus)</td></tr>
+<tr class="memdesc:aa6e842d9be9aba79eccf5691ca6f7695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the status.  <a href="#aa6e842d9be9aba79eccf5691ca6f7695">More...</a><br/></td></tr>
 <tr class="separator:aa6e842d9be9aba79eccf5691ca6f7695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ace67d09b567d236e2e8e305fb453cf2e"><td class="memItemLeft" align="right" valign="top">UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#ace67d09b567d236e2e8e305fb453cf2e">fShelveId</a></td></tr>
-<tr class="separator:ace67d09b567d236e2e8e305fb453cf2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab56202060ff11ad4b888aecf7ff527ad"><td class="memItemLeft" align="right" valign="top">UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#ab56202060ff11ad4b888aecf7ff527ad">fBeId</a></td></tr>
-<tr class="separator:ab56202060ff11ad4b888aecf7ff527ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abed9ffdee6000bf4e07ee51192b169a5"><td class="memItemLeft" align="right" valign="top">UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#abed9ffdee6000bf4e07ee51192b169a5">fFMCId</a></td></tr>
-<tr class="separator:abed9ffdee6000bf4e07ee51192b169a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae48889f83e0f49a68f69cc051e2299ca"><td class="memItemLeft" align="right" valign="top">UInt_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#ae48889f83e0f49a68f69cc051e2299ca">fFeId</a></td></tr>
-<tr class="separator:ae48889f83e0f49a68f69cc051e2299ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a20ee1f2114b9a6da4483f5e0f8c625"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a8a20ee1f2114b9a6da4483f5e0f8c625">fShelveId</a></td></tr>
+<tr class="separator:a8a20ee1f2114b9a6da4483f5e0f8c625"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab279589109fe8a83ecd7cd6c631394b3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#ab279589109fe8a83ecd7cd6c631394b3">fBeId</a></td></tr>
+<tr class="separator:ab279589109fe8a83ecd7cd6c631394b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7740e5ec6ae04ee47ac3081ff57e1946"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a7740e5ec6ae04ee47ac3081ff57e1946">fFMCId</a></td></tr>
+<tr class="separator:a7740e5ec6ae04ee47ac3081ff57e1946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1a3a8323484b1bfc1a4ab3d7a59a31"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a3a1a3a8323484b1bfc1a4ab3d7a59a31">fFeId</a></td></tr>
+<tr class="separator:a3a1a3a8323484b1bfc1a4ab3d7a59a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a646f651eb15f15a519006eca502e3418"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html#a646f651eb15f15a519006eca502e3418">fStatus</a></td></tr>
 <tr class="separator:a646f651eb15f15a519006eca502e3418"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a8d57b56f9f6f532d16079f0d63dcc8ac"></a>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Describe all parameters common to all FE Components in the DAQ chain. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a23be149c77c625424510e88adf3e95d4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">Ph2_HwDescription::FEDescription::FEDescription </td>
           <td>(</td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pShelveId</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pBeId</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pFMCId</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pFeId</em>, </td>
         </tr>
         <tr>
@@ -200,26 +215,26 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2619a856a6be6afdbbdee8a2ffecabd8"></a>
+<a class="anchor" id="acbcf750f0bf74a954eb50db7255e5c26"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">Ph2_HwDescription::FEDescription::FEDescription </td>
           <td>(</td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pBeId</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pFMCId</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pFeId</em>&#160;</td>
         </tr>
         <tr>
@@ -247,14 +262,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2c6acc6560237db018675503bd1dc17c"></a>
+<a class="anchor" id="a1169ae7f8f71a37ff35b7c31f6452611"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">Ph2_HwDescription::FEDescription::FEDescription </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_f_e_description.html">FEDescription</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_ph2___hw_description_1_1_f_e_description.html">FEDescription</a> &amp;&#160;</td>
           <td class="paramname"><em>pFeDesc</em></td><td>)</td>
           <td></td>
         </tr>
@@ -266,6 +281,9 @@ Data Fields</h2></td></tr>
 <a class="anchor" id="a6f055cd3fade537864dd7c3b34fede39"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Ph2_HwDescription::FEDescription::~FEDescription </td>
@@ -274,12 +292,17 @@ Data Fields</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a490d84e3207965c1519291ed807f2de3"></a>
+<a class="anchor" id="a9077e5848363bf04b1c5860726879e79"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -287,7 +310,7 @@ Data Fields</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual UInt_t Ph2_HwDescription::FEDescription::getBeId </td>
+          <td class="memname">virtual uint8_t Ph2_HwDescription::FEDescription::getBeId </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -300,9 +323,12 @@ Data Fields</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Get the Be ID. </p>
+<dl class="section return"><dt>Returns</dt><dd>The Be ID </dd></dl>
+
 </div>
 </div>
-<a class="anchor" id="a504aa020c9bcfcc314e6018a003622ca"></a>
+<a class="anchor" id="ab282dc785d2db2e8837b082d85fb9bb3"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -310,7 +336,7 @@ Data Fields</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual UInt_t Ph2_HwDescription::FEDescription::getFeId </td>
+          <td class="memname">virtual uint8_t Ph2_HwDescription::FEDescription::getFeId </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -323,9 +349,12 @@ Data Fields</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Get the FE ID. </p>
+<dl class="section return"><dt>Returns</dt><dd>The FE ID </dd></dl>
+
 </div>
 </div>
-<a class="anchor" id="afe75c47d779452eea1f0754fbffae6bf"></a>
+<a class="anchor" id="a3bf79b7197bf731c85e9041f94ad4351"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -333,7 +362,7 @@ Data Fields</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual UInt_t Ph2_HwDescription::FEDescription::getFMCId </td>
+          <td class="memname">virtual uint8_t Ph2_HwDescription::FEDescription::getFMCId </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -346,9 +375,12 @@ Data Fields</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Get the FMC ID. </p>
+<dl class="section return"><dt>Returns</dt><dd>The FMC ID </dd></dl>
+
 </div>
 </div>
-<a class="anchor" id="a88b8c4fbcd4e0457598fc62a9ee9e738"></a>
+<a class="anchor" id="a4e532c3b78e6a4a1b5f0022005898e25"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -356,7 +388,7 @@ Data Fields</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual UInt_t Ph2_HwDescription::FEDescription::getShelveId </td>
+          <td class="memname">virtual uint8_t Ph2_HwDescription::FEDescription::getShelveId </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -368,6 +400,9 @@ Data Fields</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Get the Shelve ID. </p>
+<dl class="section return"><dt>Returns</dt><dd>The Shelve ID </dd></dl>
 
 </div>
 </div>
@@ -392,9 +427,12 @@ Data Fields</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Get the Status. </p>
+<dl class="section return"><dt>Returns</dt><dd>The Status </dd></dl>
+
 </div>
 </div>
-<a class="anchor" id="a781b5dcfc6706e84bf531be4cc3a30bc"></a>
+<a class="anchor" id="a13f1c20eb678b8e23d2590a8ff23d349"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -402,9 +440,9 @@ Data Fields</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">UInt_t Ph2_HwDescription::FEDescription::setBeId </td>
+          <td class="memname">uint8_t Ph2_HwDescription::FEDescription::setBeId </td>
           <td>(</td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pBeId</em></td><td>)</td>
           <td></td>
         </tr>
@@ -416,9 +454,18 @@ Data Fields</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set the Be ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pBeId</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the Be ID </dd></dl>
+
 </div>
 </div>
-<a class="anchor" id="a45287f64583ac4291808a5e3567f3ba4"></a>
+<a class="anchor" id="a681786aea17ed86c40a3274783d5f6b5"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -426,9 +473,9 @@ Data Fields</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">UInt_t Ph2_HwDescription::FEDescription::setFeId </td>
+          <td class="memname">uint8_t Ph2_HwDescription::FEDescription::setFeId </td>
           <td>(</td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pFeId</em></td><td>)</td>
           <td></td>
         </tr>
@@ -440,9 +487,18 @@ Data Fields</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set the FE ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pFeId</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the Fe ID </dd></dl>
+
 </div>
 </div>
-<a class="anchor" id="aa29c45a1e7d56712b0fc4904224df8a8"></a>
+<a class="anchor" id="af0c396a0475a508e8aca069bb5b3c577"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -450,9 +506,9 @@ Data Fields</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">UInt_t Ph2_HwDescription::FEDescription::setFMCId </td>
+          <td class="memname">uint8_t Ph2_HwDescription::FEDescription::setFMCId </td>
           <td>(</td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pFMCId</em></td><td>)</td>
           <td></td>
         </tr>
@@ -464,9 +520,18 @@ Data Fields</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set the FMC ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pFMCId</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the FMC ID </dd></dl>
+
 </div>
 </div>
-<a class="anchor" id="af658e76199a04e214cf5644d81f149bf"></a>
+<a class="anchor" id="ab207edf946f371bef6860fb6ce4deb65"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -474,9 +539,9 @@ Data Fields</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">UInt_t Ph2_HwDescription::FEDescription::setShelveId </td>
+          <td class="memname">uint8_t Ph2_HwDescription::FEDescription::setShelveId </td>
           <td>(</td>
-          <td class="paramtype">UInt_t&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pShelveId</em></td><td>)</td>
           <td></td>
         </tr>
@@ -487,6 +552,15 @@ Data Fields</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Set the Shelve ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pShelveId</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the Shelve ID </dd></dl>
 
 </div>
 </div>
@@ -512,51 +586,60 @@ Data Fields</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Set the status. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pStatus</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the Status </dd></dl>
+
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="ab56202060ff11ad4b888aecf7ff527ad"></a>
+<a class="anchor" id="ab279589109fe8a83ecd7cd6c631394b3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UInt_t Ph2_HwDescription::FEDescription::fBeId</td>
+          <td class="memname">uint8_t Ph2_HwDescription::FEDescription::fBeId</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="ae48889f83e0f49a68f69cc051e2299ca"></a>
+<a class="anchor" id="a3a1a3a8323484b1bfc1a4ab3d7a59a31"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UInt_t Ph2_HwDescription::FEDescription::fFeId</td>
+          <td class="memname">uint8_t Ph2_HwDescription::FEDescription::fFeId</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="abed9ffdee6000bf4e07ee51192b169a5"></a>
+<a class="anchor" id="a7740e5ec6ae04ee47ac3081ff57e1946"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UInt_t Ph2_HwDescription::FEDescription::fFMCId</td>
+          <td class="memname">uint8_t Ph2_HwDescription::FEDescription::fFMCId</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="ace67d09b567d236e2e8e305fb453cf2e"></a>
+<a class="anchor" id="a8a20ee1f2114b9a6da4483f5e0f8c625"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UInt_t Ph2_HwDescription::FEDescription::fShelveId</td>
+          <td class="memname">uint8_t Ph2_HwDescription::FEDescription::fShelveId</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -582,7 +665,7 @@ Data Fields</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 13 2014 15:09:14 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 26 2014 09:58:11 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

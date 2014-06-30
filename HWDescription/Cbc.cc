@@ -1,28 +1,41 @@
+/*!
+*
+* \file Cbc.cc
+* \brief Cbc Description class, config of the Cbcs
+* \author Lorenzo BIDEGAIN
+* \date 25/06/14
+*
+* Support : mail to : lorenzo.bidegain@cern.ch
+*
+*/
+
+
 #include "Cbc.h"
 #include <fstream>
 #include <cstdio>
 #include <sstream>
 #include <iostream>
-#include <cstdlib>
 #include <string.h>
 #include <iomanip>
+#include "Definition.h"
 
 
 namespace Ph2_HwDescription{
 
+
 	// Default C'tor
-	Cbc::Cbc():FEDescription()
-	{	
+	Cbc::Cbc():FrontEndDescription()
+	{
 		fCbcId=0;
-		loadfRegMap(default_file);
-		
+		loadfRegMap(DEFAULT_FILE);
+
 	 }
-	
-			 
 
-	// C'tors with object FE Description 
 
-	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId, std::string filename ):FEDescription(pFeDesc)
+
+	// C'tors with object FE Description
+
+	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, std::string filename ):FrontEndDescription(pFeDesc)
 	{
 
 		fCbcId=pCbcId;
@@ -30,63 +43,71 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId,UInt_t pTriggerLatency,UInt_t pVcth ):FEDescription(pFeDesc)
+	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth ):FrontEndDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
 
-		loadfRegMap(default_file);
+		loadfRegMap(DEFAULT_FILE);
 
 		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
 		fRegMap["Vcth"].fValue=pVcth;
-		
-	}	
 
-
-	Cbc::Cbc( FEDescription& pFeDesc, UInt_t pCbcId ):FEDescription(pFeDesc)
-	{
-		fCbcId=pCbcId;
-		loadfRegMap(default_file);
 	}
 
-	
+
+	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId ):FrontEndDescription(pFeDesc)
+	{
+		fCbcId=pCbcId;
+		loadfRegMap(DEFAULT_FILE);
+	}
+
+
 	// C'tors which take ShelveID, BeId, FMCId, FeID, CbcId
 
-	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, std::string filename ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)  
+	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, std::string filename ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
-	
+
 		fCbcId=pCbcId;
 		loadfRegMap(filename);
 	}
-		
 
-	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId, UInt_t pTriggerLatency,UInt_t pVcth ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+
+	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, uint8_t pTriggerLatency,uint8_t pVcth ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
-		fCbcId=pCbcId;	
-	
-		loadfRegMap(default_file);
+		fCbcId=pCbcId;
+
+		loadfRegMap(DEFAULT_FILE);
 
 		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
 		fRegMap["Vcth"].fValue=pVcth;
 	}
 
 
-	Cbc::Cbc( UInt_t pShelveId, UInt_t pBeId, UInt_t pFMCId, UInt_t pFeId, UInt_t pCbcId ):FEDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 		fCbcId=pCbcId;
-		loadfRegMap(default_file);
+		loadfRegMap(DEFAULT_FILE);
 
 	}
 
 
 	// Copy C'tor
 
-	Cbc::Cbc(Cbc& cbcobj):FEDescription(cbcobj)
+	Cbc::Cbc(const Cbc& cbcobj):FrontEndDescription(cbcobj)
 	{
 		fCbcId=cbcobj.fCbcId;
 		fRegMap=cbcobj.fRegMap;
 	}
 
-	
+
+	// D'Tor
+
+	Cbc::~Cbc()
+	{
+
+	}
+
+
 	//load fRegMap from file
 
 	void Cbc::loadfRegMap(std::string filename)
@@ -97,14 +118,14 @@ namespace Ph2_HwDescription{
 		{
 			std::string line,fName, fPage_str, fAddress_str, fDefValue_str, fValue_str;
 			CbcRegItem fRegItem;
-			
+
 			while (getline(file,line))
 			{
 				if( line.find_first_not_of( " \t" ) == std::string::npos ) continue;
 				if( line.at(0) == '#' || line.at(0) =='*' ) continue;
 				std::istringstream input(line);
 				input>> fName >> fPage_str >> fAddress_str >> fDefValue_str >> fValue_str;
-				
+
 				fRegItem.fPage=strtoul( fPage_str.c_str(), 0, 16 );
 				fRegItem.fAddress=strtoul( fAddress_str.c_str(), 0, 16 );
 				fRegItem.fDefValue=strtoul( fDefValue_str.c_str(), 0, 16 );
@@ -112,81 +133,84 @@ namespace Ph2_HwDescription{
 
 				fRegMap[fName]=fRegItem;
 			}
-			
+
 			file.close();
 		}
 		else
-			std::cerr<< "The CBC Settins File " << filename << " could not be opened!" <<std::endl;
+			std::cerr<< "The CBC Settings File " << filename << " could not be opened!" <<std::endl;
 	}
 
-	UInt_t Cbc::getTriggerLatency()
+	uint8_t Cbc::getTriggerLatency()
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have TriggerLatency"<<std::endl;
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have TriggerLatency"<<std::endl;
 		return 0;}
-		else		
-		return fRegMap["TriggerLatency"].fValue;
+		else
+		return i->second.fValue;
 	}
 
-	void Cbc::setTriggerLatency(UInt_t pTriggerLatency)
+	void Cbc::setTriggerLatency(uint8_t pTriggerLatency)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("TriggerLatency");
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have TriggerLatency"<<std::endl;}
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have TriggerLatency"<<std::endl;}
 		else
 		{
-			fRegMap["TriggerLatency"].fValue=pTriggerLatency;
+			i->second.fValue=pTriggerLatency;
 		}
 	}
 
-	UInt_t Cbc::getVcth()
+	uint8_t Cbc::getVcth()
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("VCth");
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have Vcth"<<std::endl;
 		return 0;}
-		else		
-		return fRegMap["VCth"].fValue;
+		else
+		return i->second.fValue;
 	}
 
-	void Cbc::setVcth(UInt_t psetVcth)
+	void Cbc::setVcth(uint8_t psetVcth)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find("VCth");
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have Vcth"<<std::endl;}
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have Vcth"<<std::endl;}
 		else
 		{
-			fRegMap["VCth"].fValue=psetVcth;
+			i->second.fValue=psetVcth;
 
 		}
 	}
 
 
-	UInt_t Cbc::getReg(std::string pReg)
+	uint8_t Cbc::getReg(std::string pReg)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
+		{
+			std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have "<<pReg.c_str()<<std::endl;
+			return 0;
+		}
 		else
-		return fRegMap[pReg].fValue;
+		return i->second.fValue;
 	}
-		
 
-	void Cbc::setReg(std::string pReg, UInt_t psetValue)
+
+	void Cbc::setReg(std::string pReg, uint8_t psetValue)
 	{
 		CbcRegMap::iterator i;
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
-		{std::cout<<"This Cbc object doesn't have "<<pReg.c_str()<<std::endl;}
+		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have "<<pReg.c_str()<<std::endl;}
 		else
 		{
-			fRegMap[pReg].fValue=psetValue;
+			i->second.fValue=psetValue;
 
 		}
 	}
@@ -196,9 +220,9 @@ namespace Ph2_HwDescription{
 
 	void Cbc::writeRegValues( std::string filename )
 	{
-		
-		std::ofstream file(filename.c_str(), std::ios::out | std::ios::trunc); 
- 
+
+		std::ofstream file(filename.c_str(), std::ios::out | std::ios::trunc);
+
         	if(file)
        		{
 			file<< "* RegName";
@@ -207,20 +231,20 @@ namespace Ph2_HwDescription{
 
 			file<< "Page\tAddr\tDefval\tValue" << std::endl;
 		file<<"*--------------------------------------------------------------------------------"<<std::endl;
-			
+
 			CbcRegMap::iterator i;
 			for (i=fRegMap.begin();i!=fRegMap.end();++i)
 			{
-			
+
 			file<< i->first;
 			for (int j=0;j<48;j++) {file<<" ";}
 			file.seekp(-i->first.size(),std::ios_base::cur);
 
 			std::string fpage_str;
-			
-	
-                	file<<"0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fPage <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fAddress <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fDefValue <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< i->second.fValue <<std::endl;
-                	
+
+
+                	file<<"0x" << std::setfill ('0') << std::setw (2) << std::hex<< uint32_t(i->second.fPage) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fAddress) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fDefValue) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fValue) <<std::endl;
+
        			}
 			file.close();
        		}
@@ -239,4 +263,3 @@ namespace Ph2_HwDescription{
 	}
 
 }
-

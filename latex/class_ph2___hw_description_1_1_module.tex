@@ -3,6 +3,11 @@
 }
 
 
+contains a vector of \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} which are connected to the \hyperlink{class_ph2___hw_description_1_1_module}{Module}  
+
+
+
+
 {\ttfamily \#include $<$Module.\-h$>$}
 
 Inheritance diagram for Ph2\-\_\-\-Hw\-Description\-:\-:Module\-:\begin{figure}[H]
@@ -14,46 +19,56 @@ Inheritance diagram for Ph2\-\_\-\-Hw\-Description\-:\-:Module\-:\begin{figure}[
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_ph2___hw_description_1_1_module_a10d038fa907fc27d6abc64f3113f5f41}{Module} (\hyperlink{class_ph2___hw_description_1_1_f_e_description}{F\-E\-Description} p\-Fe\-Desc, U\-Int\-\_\-t p\-N\-Cbc)
+\hyperlink{class_ph2___hw_description_1_1_module_adab1cde05b3a83e7199f5b55166074ed}{Module} (\hyperlink{class_ph2___hw_description_1_1_front_end_description}{Front\-End\-Description} \&p\-Fe\-Desc)
 \item 
-\hyperlink{class_ph2___hw_description_1_1_module_af3ee523f9a74d621e62c537f771d9282}{Module} (U\-Int\-\_\-t p\-Shelve\-Id, U\-Int\-\_\-t p\-Be\-Id, U\-Int\-\_\-t p\-F\-M\-C\-Id, U\-Int\-\_\-t p\-Fe\-Id, U\-Int\-\_\-t p\-N\-Cbc)
+\hyperlink{class_ph2___hw_description_1_1_module_acb5e5f17c946438f985c209563060f26}{Module} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-F\-M\-C\-Id, uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Module\-Id)
 \item 
 \hyperlink{class_ph2___hw_description_1_1_module_aaec7dd439bdf7a1db3f2136569a00125}{Module} ()
 \item 
 \hyperlink{class_ph2___hw_description_1_1_module_a8142f34ea2308ed78e8d0dbb042bc5f3}{$\sim$\-Module} ()
 \item 
-void \hyperlink{class_ph2___hw_description_1_1_module_ab164db2f0397dba150fa17a7639dccd0}{add\-Cbc} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} p\-Cbc)
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_module_a8703442b1055c0c38b4157fc155ac084}{get\-N\-Cbc} ()
+\begin{DoxyCompactList}\small\item\em Get the number of \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} connected to the \hyperlink{class_ph2___hw_description_1_1_module}{Module}. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_description_1_1_module_ac2743d5056bc3053bf472e5fd94bbf14}{add\-Cbc} (\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} \&p\-Cbc)
+\begin{DoxyCompactList}\small\item\em Adding a \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} to the vector. \end{DoxyCompactList}\item 
+bool \hyperlink{class_ph2___hw_description_1_1_module_a0aa7c940311bd13a32fd4e0f251c2d27}{remove\-Cbc} (uint8\-\_\-t p\-Cbc\-Id)
+\begin{DoxyCompactList}\small\item\em Remove a \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} from the vector. \end{DoxyCompactList}\item 
+\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $\ast$ \hyperlink{class_ph2___hw_description_1_1_module_a05ccbee9ca3eb8022e359b5e9dabe783}{get\-Cbc} (uint8\-\_\-t p\-Cbc\-Id)
+\begin{DoxyCompactList}\small\item\em Get a \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} from the vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
 \item 
-U\-Int\-\_\-t \hyperlink{class_ph2___hw_description_1_1_module_afe1f549d4f03578c9f7aa901b4065d47}{get\-N\-Cbc} (return f\-Cbc\-Vector.\-size())
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_module_a8bf42ae708d304acbc5509edf7f7cee0}{f\-Module\-Id}
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}, \hyperlink{struct_ph2___hw_description_1_1_cbc_comparer}{Cbc\-Comparer} $>$ \hyperlink{class_ph2___hw_description_1_1_module_af8f6bac3971c46d29a75a426f8ec71ca}{f\-Cbc\-Vector}
+std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $>$ \hyperlink{class_ph2___hw_description_1_1_module_ab5cfd93bf927592f609d31f66cd4161b}{f\-Cbc\-Vector}
 \end{DoxyCompactItemize}
-\subsection*{Additional Inherited Members}
 
+
+\subsection{Detailed Description}
+contains a vector of \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} which are connected to the \hyperlink{class_ph2___hw_description_1_1_module}{Module} 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_ph2___hw_description_1_1_module_a10d038fa907fc27d6abc64f3113f5f41}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!Module@{Module}}
+\hypertarget{class_ph2___hw_description_1_1_module_adab1cde05b3a83e7199f5b55166074ed}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!Module@{Module}}
 \index{Module@{Module}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
 \subsubsection[{Module}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Module\-::\-Module (
 \begin{DoxyParamCaption}
-\item[{{\bf F\-E\-Description}}]{p\-Fe\-Desc, }
-\item[{U\-Int\-\_\-t}]{p\-N\-Cbc}
+\item[{{\bf Front\-End\-Description} \&}]{p\-Fe\-Desc}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_module_a10d038fa907fc27d6abc64f3113f5f41}
-\hypertarget{class_ph2___hw_description_1_1_module_af3ee523f9a74d621e62c537f771d9282}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!Module@{Module}}
+)}}\label{class_ph2___hw_description_1_1_module_adab1cde05b3a83e7199f5b55166074ed}
+\hypertarget{class_ph2___hw_description_1_1_module_acb5e5f17c946438f985c209563060f26}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!Module@{Module}}
 \index{Module@{Module}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
 \subsubsection[{Module}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Module\-::\-Module (
 \begin{DoxyParamCaption}
-\item[{U\-Int\-\_\-t}]{p\-Shelve\-Id, }
-\item[{U\-Int\-\_\-t}]{p\-Be\-Id, }
-\item[{U\-Int\-\_\-t}]{p\-F\-M\-C\-Id, }
-\item[{U\-Int\-\_\-t}]{p\-Fe\-Id, }
-\item[{U\-Int\-\_\-t}]{p\-N\-Cbc}
+\item[{uint8\-\_\-t}]{p\-Shelve\-Id, }
+\item[{uint8\-\_\-t}]{p\-Be\-Id, }
+\item[{uint8\-\_\-t}]{p\-F\-M\-C\-Id, }
+\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
+\item[{uint8\-\_\-t}]{p\-Module\-Id}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_module_af3ee523f9a74d621e62c537f771d9282}
+)}}\label{class_ph2___hw_description_1_1_module_acb5e5f17c946438f985c209563060f26}
 \hypertarget{class_ph2___hw_description_1_1_module_aaec7dd439bdf7a1db3f2136569a00125}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!Module@{Module}}
 \index{Module@{Module}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
 \subsubsection[{Module}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Module\-::\-Module (
@@ -71,26 +86,83 @@ std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}, \hyperlink
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_ph2___hw_description_1_1_module_ab164db2f0397dba150fa17a7639dccd0}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!add\-Cbc@{add\-Cbc}}
+\hypertarget{class_ph2___hw_description_1_1_module_ac2743d5056bc3053bf472e5fd94bbf14}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!add\-Cbc@{add\-Cbc}}
 \index{add\-Cbc@{add\-Cbc}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
-\subsubsection[{add\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Module\-::add\-Cbc (
+\subsubsection[{add\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Module\-::add\-Cbc (
 \begin{DoxyParamCaption}
-\item[{{\bf Cbc}}]{p\-Cbc}
+\item[{{\bf Cbc} \&}]{p\-Cbc}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_module_ab164db2f0397dba150fa17a7639dccd0}
-\hypertarget{class_ph2___hw_description_1_1_module_afe1f549d4f03578c9f7aa901b4065d47}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!get\-N\-Cbc@{get\-N\-Cbc}}
+)}}\label{class_ph2___hw_description_1_1_module_ac2743d5056bc3053bf472e5fd94bbf14}
+
+
+Adding a \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} to the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Cbc} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_description_1_1_module_a05ccbee9ca3eb8022e359b5e9dabe783}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!get\-Cbc@{get\-Cbc}}
+\index{get\-Cbc@{get\-Cbc}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
+\subsubsection[{get\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Cbc} $\ast$ Ph2\-\_\-\-Hw\-Description\-::\-Module\-::get\-Cbc (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_module_a05ccbee9ca3eb8022e359b5e9dabe783}
+
+
+Get a \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} from the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Cbc\-Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer of \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}, so we can manipulate directly the \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} contained in the vector 
+\end{DoxyReturn}
+\hypertarget{class_ph2___hw_description_1_1_module_a8703442b1055c0c38b4157fc155ac084}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!get\-N\-Cbc@{get\-N\-Cbc}}
 \index{get\-N\-Cbc@{get\-N\-Cbc}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
-\subsubsection[{get\-N\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}U\-Int\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Module\-::get\-N\-Cbc (
+\subsubsection[{get\-N\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Module\-::get\-N\-Cbc (
 \begin{DoxyParamCaption}
-\item[{return f\-Cbc\-Vector.}]{size()}
+{}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_module_afe1f549d4f03578c9f7aa901b4065d47}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_module_a8703442b1055c0c38b4157fc155ac084}
+
+
+Get the number of \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} connected to the \hyperlink{class_ph2___hw_description_1_1_module}{Module}. 
+
+\begin{DoxyReturn}{Returns}
+The size of the vector 
+\end{DoxyReturn}
+\hypertarget{class_ph2___hw_description_1_1_module_a0aa7c940311bd13a32fd4e0f251c2d27}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!remove\-Cbc@{remove\-Cbc}}
+\index{remove\-Cbc@{remove\-Cbc}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
+\subsubsection[{remove\-Cbc}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Description\-::\-Module\-::remove\-Cbc (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_module_a0aa7c940311bd13a32fd4e0f251c2d27}
+
+
+Remove a \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} from the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Cbc\-Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a bool which indicate if the removing was successful 
+\end{DoxyReturn}
 
 
 \subsection{Field Documentation}
-\hypertarget{class_ph2___hw_description_1_1_module_af8f6bac3971c46d29a75a426f8ec71ca}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!f\-Cbc\-Vector@{f\-Cbc\-Vector}}
+\hypertarget{class_ph2___hw_description_1_1_module_ab5cfd93bf927592f609d31f66cd4161b}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!f\-Cbc\-Vector@{f\-Cbc\-Vector}}
 \index{f\-Cbc\-Vector@{f\-Cbc\-Vector}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
-\subsubsection[{f\-Cbc\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf Cbc}, {\bf Cbc\-Comparer} $>$ Ph2\-\_\-\-Hw\-Description\-::\-Module\-::f\-Cbc\-Vector\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_module_af8f6bac3971c46d29a75a426f8ec71ca}
+\subsubsection[{f\-Cbc\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf Cbc} $>$ Ph2\-\_\-\-Hw\-Description\-::\-Module\-::f\-Cbc\-Vector\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_module_ab5cfd93bf927592f609d31f66cd4161b}
+\hypertarget{class_ph2___hw_description_1_1_module_a8bf42ae708d304acbc5509edf7f7cee0}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}!f\-Module\-Id@{f\-Module\-Id}}
+\index{f\-Module\-Id@{f\-Module\-Id}!Ph2_HwDescription::Module@{Ph2\-\_\-\-Hw\-Description\-::\-Module}}
+\subsubsection[{f\-Module\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Module\-::f\-Module\-Id}}\label{class_ph2___hw_description_1_1_module_a8bf42ae708d304acbc5509edf7f7cee0}
 
 
 The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
