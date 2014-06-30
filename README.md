@@ -11,9 +11,6 @@ hardcoded into DAQ systems software.
 - A C++ object-based library describing the system components (CBCs,
 Hybrids, Boards) and their properties(values, status)
 
-- The standard XDAQ-based system, which could really benefit in its
-future versions of the previous two proposed APIs.
-
 
 
 MCP Test Interface
