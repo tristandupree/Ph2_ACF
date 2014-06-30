@@ -73,9 +73,9 @@ int main()
                 std::cout << "****************************************************\n" << std::endl;
 
                 std::cout << "1: Add Module" << std::endl;
-                std::cout << "2: Add Cbc\n" << std::endl;
+                std::cout << "2: Add Cbc" << std::endl;
                 std::cout << "3: Remove Module" << std::endl;
-                std::cout << "4: Remove Cbc" << std::endl;
+                std::cout << "4: Remove Cbc\n" << std::endl;
 
                 std::cin >> i;
 
@@ -290,6 +290,7 @@ int main()
                                     std::cout << "*** ERROR in Cbc removal !! ***" << std::endl;
                             }
                             std::cout << "*** Cbc Configured ***" << std::endl;
+                        }
                     break;
 
 
@@ -789,9 +790,9 @@ int main()
                             std::cout << "****************************************************\n" << std::endl;
 
                             std::cout << " ---------------------- " << std::endl;
-                            std::cout << "| Number of Module : "<< uint32_t(cGlib.getNFe()) << " |" << std::endl;
-                            std::cout << "| Be Id : " << uint32_t(cGlib.getBeId()) << "            |" << std::endl;
-                            std::cout << "| Shelve Id : " << uint32_t(cGlib.getShelveId()) << "        |" << std::endl;
+                            std::cout << "| Number of Module : "<< uint32_t(cGlib.getNFe()) << std::endl;
+                            std::cout << "| Be Id : " << uint32_t(cGlib.getBeId()) << std::endl;
+                            std::cout << "| Shelve Id : " << uint32_t(cGlib.getShelveId()) << std::endl;
                             std::cout << " ---------------------- \n\n" << std::endl;
 
                             std::cout << " *** Glib Register Map *** " << std::endl;
@@ -825,10 +826,10 @@ int main()
                                 {
 
                                     std::cout << " \n\n*** Module *** " << std::endl;
-                                    std::cout << " ------------------- " << std::endl;
-                                    std::cout << "| Module Id : "<< uint32_t(cGlib.getModule(k+cMissedModule)->fModuleId) << "     |" << std::endl;
-                                    std::cout << "| Number of Cbc : " << uint32_t(cGlib.getModule(k+cMissedModule)->getNCbc()) << " |" << std::endl;
-                                    std::cout << " ------------------- \n" << std::endl;
+                                    std::cout << " --------------------- " << std::endl;
+                                    std::cout << "| Module Id : "<< uint32_t(cGlib.getModule(k+cMissedModule)->fModuleId) << std::endl;
+                                    std::cout << "| Number of Cbc : " << uint32_t(cGlib.getModule(k+cMissedModule)->getNCbc()) << std::endl;
+                                    std::cout << " --------------------- \n" << std::endl;
 
                                     for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
                                     {
@@ -842,17 +843,17 @@ int main()
                                         {
 
                                             std::cout << "     *** Cbc contained *** " << std::endl;
-                                            std::cout << "     ----------------------- " << std::endl;
-                                            std::cout << "    | Cbc Id : " << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getCbcId()) << "            |" << std::endl;
-                                            std::cout << "     ----------------------- " << std::endl;
+                                            std::cout << "     ------------------------- " << std::endl;
+                                            std::cout << "    | Cbc Id : " << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getCbcId()) << std::endl;
+                                            std::cout << "     ------------------------- " << std::endl;
 
                                             CbcRegMap cCbcRegMap = cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getRegMap();
 
                                             for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
                                             {
-                                                std::cout << "    | " << cIt->first << " : " << cIt->second << " |" << std::endl;
+                                                std::cout << "    | " << cIt->first << " : 0x" << std::hex << uint32_t((cIt->second).fValue) << std::endl;
                                             }
-                                            std::cout << "     ----------------------- " << std::endl;
+                                            std::cout << "     ------------------------- " << std::endl;
 
                                             mypause();
                                         }
@@ -860,8 +861,6 @@ int main()
                                 }
 
                                 cMissedCbc = 0;
-
-                                mypause();
                             }
 
                             cMissedModule = 0;
@@ -905,10 +904,10 @@ int main()
                                 {
 
                                     std::cout << " \n\n*** Module *** " << std::endl;
-                                    std::cout << " ------------------- " << std::endl;
-                                    std::cout << "| Module Id : "<< uint32_t(cGlib.getModule(k+cMissedModule)->fModuleId) << "     |" << std::endl;
-                                    std::cout << "| Number of Cbc : " << uint32_t(cGlib.getModule(k+cMissedModule)->getNCbc()) << " |" << std::endl;
-                                    std::cout << " ------------------- \n" << std::endl;
+                                    std::cout << " --------------------- " << std::endl;
+                                    std::cout << "| Module Id : "<< uint32_t(cGlib.getModule(k+cMissedModule)->fModuleId) << std::endl;
+                                    std::cout << "| Number of Cbc : " << uint32_t(cGlib.getModule(k+cMissedModule)->getNCbc()) << std::endl;
+                                    std::cout << " --------------------- \n" << std::endl;
 
                                     for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
                                     {
@@ -922,18 +921,19 @@ int main()
                                         {
 
                                             std::cout << "     *** Cbc contained *** " << std::endl;
-                                            std::cout << "     ----------------------- " << std::endl;
-                                            std::cout << "    | Cbc Id : " << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getCbcId()) << "            |" << std::endl;
-                                            std::cout << "    | VCth : " << std::hex << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getVcth()) << "            |" << std::endl;
-                                            std::cout << "    | Trigger Latency : " << std::hex << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getTriggerLatency()) << " |" << std::endl;
-                                            std::cout << "     ----------------------- " << std::endl;
+                                            std::cout << "     ------------------------- " << std::endl;
+                                            std::cout << "    | Cbc Id : " << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getCbcId()) << std::endl;
+                                            std::cout << "    | VCth : 0x" << std::hex << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getVcth()) << std::endl;
+                                            std::cout << "    | Trigger Latency : 0x" << std::hex << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getTriggerLatency()) << std::endl;
+                                            std::cout << "     ------------------------- " << std::endl;
                                         }
                                     }
+
+                                    mypause();
                                 }
 
                                 cMissedCbc = 0;
 
-                                mypause();
                             }
 
                             cMissedModule = 0;
@@ -947,6 +947,7 @@ int main()
                 }
 
             }
+
             break;
 
 
