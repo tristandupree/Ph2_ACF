@@ -131,7 +131,7 @@ int main()
                                     }
                                     else
                                     {
-                                        std::cout << "ERROR : This module already exists !" << std::endl;
+                                        std::cout << "ERROR : This cbc already exists !" << std::endl;
                                     }
                                 }
                             break;
@@ -192,7 +192,7 @@ int main()
 
                                             case 2:
                                                 {
-                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC0HOLE);
+                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1);
                                                     cGlib.getModule(cModuleId)->addCbc(cCbcPers);
                                                     std::cout << "*** Cbc Added ***" << std::endl;
                                                 }
@@ -201,7 +201,7 @@ int main()
 
                                             case 3:
                                                 {
-                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC0HOLE);
+                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1HOLE);
                                                     cGlib.getModule(cModuleId)->addCbc(cCbcPers);
                                                     std::cout << "*** Cbc Added ***" << std::endl;
                                                 }
@@ -228,7 +228,7 @@ int main()
                                     }
                                     else
                                     {
-                                        std::cout << "ERROR : This module already exists !" << std::endl;
+                                        std::cout << "ERROR : This cbc already exists !" << std::endl;
                                     }
 
                                 }
