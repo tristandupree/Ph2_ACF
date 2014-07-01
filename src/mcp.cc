@@ -95,6 +95,8 @@ int main()
                         else
                         {
                             std::cout << "ERROR : This module already exists !" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                     break;
 
@@ -118,6 +120,8 @@ int main()
                                     std::cout << "*** ERROR !!                                      ***" << std::endl;
                                     std::cout << "*** This module does not exist !                  ***" << std::endl;
                                     std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                                    myflush( std::cin );
+                                    mypause();
                                 }
                                 else
                                 {
@@ -131,7 +135,9 @@ int main()
                                     }
                                     else
                                     {
-                                        std::cout << "ERROR : This module already exists !" << std::endl;
+                                        std::cout << "ERROR : This cbc already exists !" << std::endl;
+                                        myflush( std::cin );
+                                        mypause();
                                     }
                                 }
                             break;
@@ -146,6 +152,8 @@ int main()
                                     std::cout << "*** ERROR !!                                      ***" << std::endl;
                                     std::cout << "*** This module does not exist !                  ***" << std::endl;
                                     std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                                    myflush( std::cin );
+                                    mypause();
                                 }
                                 else
                                 {
@@ -192,7 +200,7 @@ int main()
 
                                             case 2:
                                                 {
-                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC0HOLE);
+                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1);
                                                     cGlib.getModule(cModuleId)->addCbc(cCbcPers);
                                                     std::cout << "*** Cbc Added ***" << std::endl;
                                                 }
@@ -201,7 +209,7 @@ int main()
 
                                             case 3:
                                                 {
-                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC0HOLE);
+                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1HOLE);
                                                     cGlib.getModule(cModuleId)->addCbc(cCbcPers);
                                                     std::cout << "*** Cbc Added ***" << std::endl;
                                                 }
@@ -222,13 +230,15 @@ int main()
 
                                             default:
                                                 std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                                                myflush( std::cin );
+                                                mypause();
                                             break;
 
                                         }
                                     }
                                     else
                                     {
-                                        std::cout << "ERROR : This module already exists !" << std::endl;
+                                        std::cout << "ERROR : This cbc already exists !" << std::endl;
                                     }
 
                                 }
@@ -271,6 +281,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -281,6 +293,8 @@ int main()
                                 std::cout << "*** ERROR !!                                      ***" << std::endl;
                                 std::cout << "*** This Cbc does not exist !                     ***" << std::endl;
                                 std::cout << "*** This is not the Cbc you are looking for...    ***" << std::endl;
+                                myflush( std::cin );
+                                mypause();
                             }
                             else
                             {
@@ -296,6 +310,8 @@ int main()
 
                     default:
                         std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                        myflush( std::cin );
+                        mypause();
                     break;
 
                 }
@@ -336,6 +352,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -346,6 +364,8 @@ int main()
                                 std::cout << "*** ERROR !!                                      ***" << std::endl;
                                 std::cout << "*** This Cbc does not exist !                     ***" << std::endl;
                                 std::cout << "*** This is not the Cbc you are looking for...    ***" << std::endl;
+                                myflush( std::cin );
+                                mypause();
                             }
                             else
                             {
@@ -366,6 +386,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -424,6 +446,8 @@ int main()
 
                     default:
                         std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                        myflush( std::cin );
+                        mypause();
                     break;
 
                 }
@@ -457,6 +481,8 @@ int main()
                         {
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -477,6 +503,8 @@ int main()
 
                     default:
                         std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                        myflush( std::cin );
+                        mypause();
                     break;
 
                 }
@@ -512,6 +540,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -522,6 +552,8 @@ int main()
                                 std::cout << "*** ERROR !!                                      ***" << std::endl;
                                 std::cout << "*** This Cbc does not exist !                     ***" << std::endl;
                                 std::cout << "*** This is not the Cbc you are looking for...    ***" << std::endl;
+                                myflush( std::cin );
+                                mypause();
                             }
                             else
                             {
@@ -534,6 +566,8 @@ int main()
                                 {
                                     std::cout << "*** ERROR !!                                      ***" << std::endl;
                                     std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
+                                    myflush( std::cin );
+                                    mypause();
                                 }
                                 else
                                 {
@@ -554,6 +588,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -564,6 +600,8 @@ int main()
                                 std::cout << "*** ERROR !!                                      ***" << std::endl;
                                 std::cout << "*** This Cbc does not exist !                     ***" << std::endl;
                                 std::cout << "*** This is not the Cbc you are looking for...    ***" << std::endl;
+                                myflush( std::cin );
+                                mypause();
                             }
                             else
                             {
@@ -585,6 +623,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -597,6 +637,8 @@ int main()
                             {
                                 std::cout << "*** ERROR !!                                      ***" << std::endl;
                                 std::cout << "*** This value exceed the maximum value (OxFF) !  ***" << std::endl;
+                                myflush( std::cin );
+                                mypause();
                             }
                             else
                             {
@@ -616,6 +658,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -636,6 +680,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -646,6 +692,8 @@ int main()
                                 std::cout << "*** ERROR !!                                      ***" << std::endl;
                                 std::cout << "*** This Cbc does not exist !                     ***" << std::endl;
                                 std::cout << "*** This is not the Cbc you are looking for...    ***" << std::endl;
+                                myflush( std::cin );
+                                mypause();
                             }
                             else
                             {
@@ -665,6 +713,8 @@ int main()
                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         }
                         else
                         {
@@ -675,6 +725,8 @@ int main()
                                 std::cout << "*** ERROR !!                                      ***" << std::endl;
                                 std::cout << "*** This Cbc does not exist !                     ***" << std::endl;
                                 std::cout << "*** This is not the Cbc you are looking for...    ***" << std::endl;
+                                myflush( std::cin );
+                                mypause();
                             }
                             else
                             {
@@ -687,6 +739,8 @@ int main()
 
                     default:
                         std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                        myflush( std::cin );
+                        mypause();
                     break;
 
                 }
@@ -755,6 +809,8 @@ int main()
 
                     default :
                         std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                        myflush( std::cin );
+                        mypause();
                     break;
 
                 }
@@ -942,6 +998,8 @@ int main()
 
                         default:
                             std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                            myflush( std::cin );
+                            mypause();
                         break;
 
                 }
@@ -958,6 +1016,8 @@ int main()
 
             default:
                 std::cout << "*** This is not the option you are looking for... ***" << std::endl;
+                myflush( std::cin );
+                mypause();
             break;
 
         }
