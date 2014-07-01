@@ -27,7 +27,7 @@ Here are the step to make the program functional
    file://$(BUILD)/settings/connections.xml (where $(BUILD) is the path to the
    root of the GitHub repo you recovered)
 
-3. Do a make in the root the repo
+3. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
 
 4. Launch testpgrm command if you want to test if everything is working good
 
