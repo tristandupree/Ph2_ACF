@@ -174,6 +174,29 @@ namespace Ph2_HwInterface
         return cBlockRead;
     }
 
+
+    void RegManager::StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend)
+    {
+
+    for(std::vector< std::pair<std::string,uint32_t> >::iterator cIt=fStackReg.begin(); cIt != fStackReg.end(); cIt++)
+        {
+            if(cIt->first == pRegNode)
+            {
+                fStackReg.erase(cIt);
+            }
+        }
+
+        std::pair<std::string,uint32_t> cPair(pRegNode,pVal);
+        fStackReg.push_back(cPair);
+
+        if(pSend || fStackReg.size() == 10)
+        {
+            WriteStackReg(fStackReg);
+            fStackReg.clear();
+        }
+    }
+
+
     void RegManager::ChooseBoard(uint8_t pBoardId)
     {
       fBoard = fBoardMap[pBoardId];

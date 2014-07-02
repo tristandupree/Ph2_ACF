@@ -33,6 +33,7 @@ namespace Ph2_HwInterface
             uhal::HwInterface *fBoard; /*!< Board in use*/
             const char *fUHalConfigFileName; /*!< path of the uHal Config File*/
             std::map<uint8_t,uhal::HwInterface*> fBoardMap; /*!< Board Map with all known boards*/
+            std::vector<std::pair<std::string,uint32_t> > fStackReg; /*!< Stack of registers*/
 
         protected:
             /*!
@@ -68,6 +69,11 @@ namespace Ph2_HwInterface
             * \return ValVector block values of the register
             */
             virtual uhal::ValVector<uint32_t> ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlocksize);
+            /*!
+            * \brief Stack the commands, deliver when full or timeout
+            * \param
+            */
+            virtual void StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend=false);
             /*!
             * \brief Choose the board we want to talk with
             * \param pBoardId : Id of the Board to connect to
