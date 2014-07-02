@@ -30,7 +30,7 @@ namespace Ph2_HwInterface
     * \class GlibInterface
     * \brief Permit r/w given registers in the Glib you specify
     */
-    class GlibInterface : public RegManager
+    class GlibInterface : public BeBoardInterface
     {
         private:
 			//Unused variables for the moment, useful for the future
