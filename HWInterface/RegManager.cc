@@ -11,13 +11,17 @@
 #include <uhal/uhal.hpp>
 #include <boost/format.hpp>
 #include "RegManager.h"
+#include "Utilities.h"
+#include "../HWDescription/Definition.h"
 
 #define DEV_FLAG    1
 
 namespace Ph2_HwInterface
 {
 
-    RegManager::RegManager(const char *puHalConfigFileName)
+    RegManager::RegManager(const char *puHalConfigFileName):
+        fThread([=]{StackWriteTimeOut();}),
+        fDeactiveThread(false)
     {
         fUHalConfigFileName = puHalConfigFileName;
 
@@ -28,11 +32,15 @@ namespace Ph2_HwInterface
             fBoardMap.insert(std::pair<uint8_t,uhal::HwInterface*>(i,new uhal::HwInterface(cm.getDevice( boost::str( boost::format("board%1%") % i )))));
         }
 
+        fThread.detach();
+
     }
 
 
     RegManager::~RegManager()
     {
+        fDeactiveThread = true;
+
         for(std::map<uint8_t,uhal::HwInterface*>::iterator cIt = fBoardMap.begin(); cIt != fBoardMap.end(); cIt++)
         {
             delete cIt->second;
@@ -42,14 +50,18 @@ namespace Ph2_HwInterface
 
     bool RegManager::WriteReg(const std::string& pRegNode, const uint32_t& pVal)
     {
+        fBoardMutex.lock();
         fBoard->getNode(pRegNode).write(pVal);
         fBoard->dispatch();
+        fBoardMutex.unlock();
 
         // Verify if the writing is done correctly
         if (DEV_FLAG)
         {
+            fBoardMutex.lock();
             uhal::ValWord<uint32_t> reply = fBoard->getNode(pRegNode).read();
             fBoard->dispatch();
+            fBoardMutex.unlock();
 
             uint32_t comp = (uint32_t) reply ;
 
@@ -68,11 +80,14 @@ namespace Ph2_HwInterface
 
     bool RegManager::WriteStackReg(std::vector< std::pair<std::string,uint32_t> >& pVecReg)
     {
+
+        fBoardMutex.lock();
         for(std::vector< std::pair<std::string,uint32_t> >::iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++)
         {
             fBoard->getNode(cIt->first).write(cIt->second);
         }
         fBoard->dispatch();
+        fBoardMutex.unlock();
 
         if (DEV_FLAG)
         {
@@ -81,8 +96,10 @@ namespace Ph2_HwInterface
 
             for(std::vector< std::pair<std::string,uint32_t> >::iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++)
             {
+                fBoardMutex.lock();
                 uhal::ValWord<uint32_t> reply = fBoard->getNode(cIt->first).read();
                 fBoard->dispatch();
+                fBoardMutex.unlock();
 
                 comp = (uint32_t) reply ;
 
@@ -107,28 +124,32 @@ namespace Ph2_HwInterface
 
     bool RegManager::WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues)
     {
+        fBoardMutex.lock();
         fBoard->getNode(pRegNode).writeBlock(pValues);
         fBoard->dispatch();
+        fBoardMutex.unlock();
 
         bool cWriteCorr = true;
 
           //Verifying block
           if (DEV_FLAG)
           {
-              int cErrCount = 0;
+                int cErrCount = 0;
 
-              uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode(pRegNode).readBlock(pValues.size());
-              fBoard->dispatch();
+                fBoardMutex.lock();
+                uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode(pRegNode).readBlock(pValues.size());
+                fBoard->dispatch();
+                fBoardMutex.unlock();
 
-              //Use size_t and not an iterator as op[] only works with size_t type
-              for(std::size_t i = 0; i != cBlockRead.size(); i++ )
-              {
+                //Use size_t and not an iterator as op[] only works with size_t type
+                for(std::size_t i = 0; i != cBlockRead.size(); i++ )
+                {
                   if(cBlockRead[i]!=pValues[i])
                   {
                       cWriteCorr = false;
                       cErrCount++;
                   }
-              }
+                }
 
               std::cout << "Block Write finished !!\n" << cErrCount << " values failed to write !" << std::endl;
           }
@@ -139,8 +160,10 @@ namespace Ph2_HwInterface
 
     uhal::ValWord<uint32_t> RegManager::ReadReg(const std::string& pRegNode)
     {
+        fBoardMutex.lock();
         uhal::ValWord<uint32_t> cValRead = fBoard->getNode(pRegNode).read();
         fBoard->dispatch();
+        fBoardMutex.unlock();
 
         if (DEV_FLAG)
         {
@@ -156,8 +179,10 @@ namespace Ph2_HwInterface
     {
         uint32_t read;
 
+        fBoardMutex.lock();
         uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode(pRegNode).readBlock(pBlockSize);
         fBoard->dispatch();
+        fBoardMutex.unlock();
 
         if (DEV_FLAG)
         {
@@ -189,7 +214,7 @@ namespace Ph2_HwInterface
         std::pair<std::string,uint32_t> cPair(pRegNode,pVal);
         fStackReg.push_back(cPair);
 
-        if(pSend || fStackReg.size() == 10)
+        if(pSend || fStackReg.size() == 100)
         {
             WriteStackReg(fStackReg);
             fStackReg.clear();
@@ -197,9 +222,26 @@ namespace Ph2_HwInterface
     }
 
 
+    void RegManager::StackWriteTimeOut()
+    {
+        while(!fDeactiveThread)
+        {
+            std::this_thread::sleep_for(std::chrono::seconds(TIME_OUT));
+            std::cout << "Ping ! \nThread ID : " << std::this_thread::get_id() << "\n" << std::endl;
+            if(fStackReg.size() != 0)
+            {
+                WriteStackReg(fStackReg);
+                fStackReg.clear();
+            }
+        }
+    }
+
+
     void RegManager::ChooseBoard(uint8_t pBoardId)
     {
+      fBoardMutex.lock();
       fBoard = fBoardMap[pBoardId];
+      fBoardMutex.unlock();
     }
 
 }
