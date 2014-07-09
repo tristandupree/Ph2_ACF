@@ -58,6 +58,7 @@ int main()
         std::cout << "4: Cbc Manipulation" << std::endl;
         std::cout << "5: Acquisition-ish" << std::endl;
         std::cout << "6: Configuration Recap" << std::endl;
+        std::cout << "7: Multi-Threading Test" << std::endl;
         std::cout << "0: Quit\n" << std::endl;
 
         std::cin >> i;
@@ -1006,6 +1007,30 @@ int main()
 
             }
 
+            break;
+
+
+            case 7:
+                std::cout << "*** Writing stack... ***" << std::endl;
+                cGlibInterface.StackReg(EXT_TRG,0);
+                cGlibInterface.StackReg(FAKE_DATA,0);
+                cGlibInterface.StackReg(CBC_STUB_LATENCY_FE1,0);
+                cGlibInterface.StackReg(CBC_STUB_LATENCY_FE2,0);
+                cGlibInterface.StackReg(CBC_TRIGGER_1SHOT,0);
+                cGlibInterface.StackReg(CBC_STUB_LATENCY_FE2,1);
+                std::cout << "*** Stack written !!! ***" << std::endl;
+            break;
+
+
+            case 8:
+                std::cout << "*** Writing stack... ***" << std::endl;
+                cGlibInterface.StackReg(BREAK_TRIGGER,0);
+                cGlibInterface.StackReg(POLARITY,0);
+                cGlibInterface.StackReg(NEG_LOGIC_CBC,0);
+                cGlibInterface.StackReg(NEG_LOGIC_STTS,0);
+                cGlibInterface.StackReg(CBC_TRIGGER_1SHOT,0);
+                cGlibInterface.StackReg(CBC_STUB_LATENCY_FE2,1);
+                std::cout << "*** Stack written !!! ***" << std::endl;
             break;
 
 
