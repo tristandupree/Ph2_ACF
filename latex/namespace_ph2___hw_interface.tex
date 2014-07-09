@@ -9,6 +9,8 @@ Namespace regrouping all the interfaces to the hardware.
 \subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
+class \hyperlink{class_ph2___hw_interface_1_1_be_board_interface}{Be\-Board\-Interface}
+\item 
 class \hyperlink{class_ph2___hw_interface_1_1_cbc_interface}{Cbc\-Interface}
 \begin{DoxyCompactList}\small\item\em Permit r/w given registers in the Cbc you specify. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_exception}{Exception}
@@ -20,18 +22,45 @@ class \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+uhal\-::\-Connection\-Manager \hyperlink{namespace_ph2___hw_interface_aeee4c168d3cfbc0f58774cfea91e0363}{cm} (f\-U\-Hal\-Config\-File\-Name)
+\item 
+\hyperlink{namespace_ph2___hw_interface_a913071592e2cafb4f781028cebbfff8b}{for} (int i=0;i$<$ 1;i++)
+\item 
+f\-Thread \hyperlink{namespace_ph2___hw_interface_a4a4be1daf233dc838bd9618cf48dd5a8}{detach} ()
+\item 
 long \hyperlink{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}{get\-Time\-Took} (struct timeval \&p\-Start, bool p\-Mili)
-\item 
+\begin{DoxyCompactList}\small\item\em Get time took since the start. \end{DoxyCompactList}\item 
 void \hyperlink{namespace_ph2___hw_interface_a2fe2ee1ddb69c79c23bf9b0b2fa58f67}{myflush} (std\-::istream \&in)
-\item 
+\begin{DoxyCompactList}\small\item\em Flush the content of the input stream. \end{DoxyCompactList}\item 
 void \hyperlink{namespace_ph2___hw_interface_a20399ed909de2641f1e7e086a4ec3667}{mypause} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Wait for Enter key press. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Namespace regrouping all the interfaces to the hardware. 
 
 \subsection{Function Documentation}
+\hypertarget{namespace_ph2___hw_interface_aeee4c168d3cfbc0f58774cfea91e0363}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!cm@{cm}}
+\index{cm@{cm}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{cm}]{\setlength{\rightskip}{0pt plus 5cm}uhal\-::\-Connection\-Manager Ph2\-\_\-\-Hw\-Interface\-::cm (
+\begin{DoxyParamCaption}
+\item[{f\-U\-Hal\-Config\-File\-Name}]{}
+\end{DoxyParamCaption}
+)}}\label{namespace_ph2___hw_interface_aeee4c168d3cfbc0f58774cfea91e0363}
+\hypertarget{namespace_ph2___hw_interface_a4a4be1daf233dc838bd9618cf48dd5a8}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!detach@{detach}}
+\index{detach@{detach}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{detach}]{\setlength{\rightskip}{0pt plus 5cm}f\-Thread Ph2\-\_\-\-Hw\-Interface\-::detach (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{namespace_ph2___hw_interface_a4a4be1daf233dc838bd9618cf48dd5a8}
+\hypertarget{namespace_ph2___hw_interface_a913071592e2cafb4f781028cebbfff8b}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!for@{for}}
+\index{for@{for}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{for}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::for (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{namespace_ph2___hw_interface_a913071592e2cafb4f781028cebbfff8b}
 \hypertarget{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!get\-Time\-Took@{get\-Time\-Took}}
 \index{get\-Time\-Took@{get\-Time\-Took}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
 \subsubsection[{get\-Time\-Took}]{\setlength{\rightskip}{0pt plus 5cm}long Ph2\-\_\-\-Hw\-Interface\-::get\-Time\-Took (
@@ -40,6 +69,20 @@ Namespace regrouping all the interfaces to the hardware.
 \item[{bool}]{p\-Mili}
 \end{DoxyParamCaption}
 )}}\label{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}
+
+
+Get time took since the start. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Start} & \-: Variable taking the start \\
+\hline
+{\em p\-Mili} & \-: Result in milliseconds/microseconds -\/$>$ 1/0 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The time took 
+\end{DoxyReturn}
 \hypertarget{namespace_ph2___hw_interface_a2fe2ee1ddb69c79c23bf9b0b2fa58f67}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!myflush@{myflush}}
 \index{myflush@{myflush}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
 \subsubsection[{myflush}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::myflush (
@@ -47,6 +90,15 @@ Namespace regrouping all the interfaces to the hardware.
 \item[{std\-::istream \&}]{in}
 \end{DoxyParamCaption}
 )}}\label{namespace_ph2___hw_interface_a2fe2ee1ddb69c79c23bf9b0b2fa58f67}
+
+
+Flush the content of the input stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & \-: input stream \\
+\hline
+\end{DoxyParams}
 \hypertarget{namespace_ph2___hw_interface_a20399ed909de2641f1e7e086a4ec3667}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!mypause@{mypause}}
 \index{mypause@{mypause}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
 \subsubsection[{mypause}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::mypause (
@@ -54,3 +106,7 @@ Namespace regrouping all the interfaces to the hardware.
 {}
 \end{DoxyParamCaption}
 )}}\label{namespace_ph2___hw_interface_a20399ed909de2641f1e7e086a4ec3667}
+
+
+Wait for Enter key press. 
+

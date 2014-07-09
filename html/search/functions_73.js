@@ -10,6 +10,8 @@ var searchData=
   ['setstatus',['setStatus',['../class_ph2___hw_description_1_1_front_end_description.html#a52c109ef30172eef0e74bf6a2370ca71',1,'Ph2_HwDescription::FrontEndDescription']]],
   ['settriggerlatency',['setTriggerLatency',['../class_ph2___hw_description_1_1_cbc.html#af2ca8a515be91e594345f59765eedc86',1,'Ph2_HwDescription::Cbc']]],
   ['setvcth',['setVcth',['../class_ph2___hw_description_1_1_cbc.html#a055db371622ef5e565d7abd490d1b5bd',1,'Ph2_HwDescription::Cbc']]],
-  ['start',['Start',['../class_ph2___hw_interface_1_1_glib_interface.html#a0706eb396293fe5c8c717c5d0ab82165',1,'Ph2_HwInterface::GlibInterface']]],
-  ['stop',['Stop',['../class_ph2___hw_interface_1_1_glib_interface.html#a3073d292371ab4e602900f4276a43b6c',1,'Ph2_HwInterface::GlibInterface']]]
+  ['stackreg',['StackReg',['../class_ph2___hw_interface_1_1_reg_manager.html#a409c95948e25ea5fb7f897926e9de1e6',1,'Ph2_HwInterface::RegManager']]],
+  ['stackwritetimeout',['StackWriteTimeOut',['../class_ph2___hw_interface_1_1_reg_manager.html#ab4e24cf318772c09a6c7e24b88b1dedb',1,'Ph2_HwInterface::RegManager']]],
+  ['start',['Start',['../class_ph2___hw_interface_1_1_be_board_interface.html#af0e7befff69ce3743b15ed1a99b13805',1,'Ph2_HwInterface::BeBoardInterface::Start()'],['../class_ph2___hw_interface_1_1_glib_interface.html#a0706eb396293fe5c8c717c5d0ab82165',1,'Ph2_HwInterface::GlibInterface::Start()']]],
+  ['stop',['Stop',['../class_ph2___hw_interface_1_1_be_board_interface.html#a4a5023dc6400ea99f87b672135fb4ef9',1,'Ph2_HwInterface::BeBoardInterface::Stop()'],['../class_ph2___hw_interface_1_1_glib_interface.html#a3073d292371ab4e602900f4276a43b6c',1,'Ph2_HwInterface::GlibInterface::Stop()']]]
 ];

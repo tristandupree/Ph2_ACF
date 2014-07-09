@@ -18,8 +18,8 @@ var searchData=
   ['cbccomparer',['CbcComparer',['../struct_ph2___hw_description_1_1_cbc_comparer.html',1,'Ph2_HwDescription']]],
   ['cbcfastreset',['CbcFastReset',['../class_ph2___hw_interface_1_1_cbc_interface.html#ae2166f5bd24481d88bdd015d1db08051',1,'Ph2_HwInterface::CbcInterface']]],
   ['cbchardreset',['CbcHardReset',['../class_ph2___hw_interface_1_1_cbc_interface.html#a0e9a7f5c0a444cb8ca14f3a90cd9e759',1,'Ph2_HwInterface::CbcInterface']]],
-  ['cbcinterface',['CbcInterface',['../class_ph2___hw_interface_1_1_cbc_interface.html#a3ddefe5549da06a7d26fee1502a792b4',1,'Ph2_HwInterface::CbcInterface']]],
   ['cbcinterface',['CbcInterface',['../class_ph2___hw_interface_1_1_cbc_interface.html',1,'Ph2_HwInterface']]],
+  ['cbcinterface',['CbcInterface',['../class_ph2___hw_interface_1_1_cbc_interface.html#a3ddefe5549da06a7d26fee1502a792b4',1,'Ph2_HwInterface::CbcInterface']]],
   ['cbcinterface_2ecc',['CbcInterface.cc',['../_cbc_interface_8cc.html',1,'']]],
   ['cbcinterface_2eh',['CbcInterface.h',['../_cbc_interface_8h.html',1,'']]],
   ['cbcregitem',['CbcRegItem',['../struct_ph2___hw_description_1_1_cbc_reg_item.html',1,'Ph2_HwDescription']]],
@@ -27,7 +27,9 @@ var searchData=
   ['cbcregmap',['CbcRegMap',['../namespace_ph2___hw_description.html#a9a23b373068f169aa67ca1d22c9a6001',1,'Ph2_HwDescription']]],
   ['chooseboard',['ChooseBoard',['../class_ph2___hw_interface_1_1_reg_manager.html#a20c502bcad5115c6ae16d4d356b72f0c',1,'Ph2_HwInterface::RegManager']]],
   ['clock_5fshift',['CLOCK_SHIFT',['../_definition_8h.html#ab4cc301c3b8aa0dce7713b7d025c2789',1,'Definition.h']]],
+  ['cm',['cm',['../namespace_ph2___hw_interface.html#aeee4c168d3cfbc0f58774cfea91e0363',1,'Ph2_HwInterface']]],
   ['cmd_5fstart_5fvalid',['CMD_START_VALID',['../_definition_8h.html#aee17fc2a301953d9c76d8e9f71afcc70',1,'Definition.h']]],
+  ['configureboard',['ConfigureBoard',['../class_ph2___hw_interface_1_1_be_board_interface.html#a8bb4c51e30c7a969833f1fe83d005b00',1,'Ph2_HwInterface::BeBoardInterface']]],
   ['configurecbc',['ConfigureCbc',['../class_ph2___hw_interface_1_1_cbc_interface.html#a0567c7a31f70f446202e60d037c869ea',1,'Ph2_HwInterface::CbcInterface']]],
   ['configureglib',['ConfigureGlib',['../class_ph2___hw_interface_1_1_glib_interface.html#aad68569190ea9b318b5be1abae4fd23f',1,'Ph2_HwInterface::GlibInterface']]]
 ];
