@@ -1,7 +1,7 @@
 Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o
 CC              = gcc
 CXX             = g++
-CCFlags         = -g -O1 -Wall -fPIC `root-config --cflags`
+CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags` -Wcpp
 DevFlags                   = -D__CBCDAQ_DEV__
 #DevFlags		=
 
@@ -10,11 +10,11 @@ IncludeDirs     =  /opt/cactus/include /opt/xdaq/include ../
 IncludePaths            = $(IncludeDirs:%=-I%)
 
 %.o: %.cc %.h
-	$(CXX) $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
+	$(CXX) -std=c++11  $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
 
 all: $(Objs) ../HWDescription/Definition.h
-	$(CC) -shared -o libPh2_Interface.so $(Objs)
+	$(CC) -std=c++11 -shared -o libPh2_Interface.so $(Objs) -pthread
 	mv libPh2_Interface.so ../lib
 
 clean:
