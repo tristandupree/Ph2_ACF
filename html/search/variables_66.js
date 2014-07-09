@@ -4,9 +4,11 @@ var searchData=
   ['fbeid',['fBeId',['../class_ph2___hw_description_1_1_front_end_description.html#a9ad4c11d4b00f0e1325843cfceac2e7c',1,'Ph2_HwDescription::FrontEndDescription::fBeId()'],['../class_ph2___hw_description_1_1_glib.html#ac89e9a9eee11e41f901e90c619e50bfc',1,'Ph2_HwDescription::Glib::fBeId()']]],
   ['fboard',['fBoard',['../class_ph2___hw_interface_1_1_reg_manager.html#a0d4908ec834a3a0b7d8139872fd0a4a0',1,'Ph2_HwInterface::RegManager']]],
   ['fboardmap',['fBoardMap',['../class_ph2___hw_interface_1_1_reg_manager.html#a9c34ffe467a572796c05036533bb6d39',1,'Ph2_HwInterface::RegManager']]],
+  ['fboardmutex',['fBoardMutex',['../class_ph2___hw_interface_1_1_reg_manager.html#ab5fdbe722820897d3a1344f300cc4a92',1,'Ph2_HwInterface::RegManager']]],
   ['fcbcid',['fCbcId',['../class_ph2___hw_description_1_1_cbc.html#a99b392306d4cdb7ffa7f956fc553011c',1,'Ph2_HwDescription::Cbc']]],
   ['fcbcvector',['fCbcVector',['../class_ph2___hw_description_1_1_module.html#ab5cfd93bf927592f609d31f66cd4161b',1,'Ph2_HwDescription::Module']]],
   ['fdata',['fData',['../class_ph2___hw_interface_1_1_glib_interface.html#af13550ecb2352acfb846de3591cf74d8',1,'Ph2_HwInterface::GlibInterface']]],
+  ['fdeactivethread',['fDeactiveThread',['../class_ph2___hw_interface_1_1_reg_manager.html#ae337041a55b10db74bbd8e171424807a',1,'Ph2_HwInterface::RegManager']]],
   ['fdefvalue',['fDefValue',['../struct_ph2___hw_description_1_1_cbc_reg_item.html#a7c958bb4e0cd79891f3d3a191ef2f749',1,'Ph2_HwDescription::CbcRegItem']]],
   ['ffeid',['fFeId',['../class_ph2___hw_description_1_1_front_end_description.html#a11b388f8d0f3259e5355779b36e75d9f',1,'Ph2_HwDescription::FrontEndDescription']]],
   ['ffmcid',['fFMCId',['../class_ph2___hw_description_1_1_front_end_description.html#a4f17ee7ee9d0d395c9f7da5ab3c8f424',1,'Ph2_HwDescription::FrontEndDescription']]],
@@ -15,6 +17,7 @@ var searchData=
   ['fpage',['fPage',['../struct_ph2___hw_description_1_1_cbc_reg_item.html#a082fb29397d4a4e2ccbf4563c1385e6e',1,'Ph2_HwDescription::CbcRegItem']]],
   ['fregmap',['fRegMap',['../class_ph2___hw_description_1_1_cbc.html#ab4dbf1af172e821d95f77acb7e4fb962',1,'Ph2_HwDescription::Cbc::fRegMap()'],['../class_ph2___hw_description_1_1_glib.html#a1a0c6dba5a24c615e8609b03012a8970',1,'Ph2_HwDescription::Glib::fRegMap()']]],
   ['fshelveid',['fShelveId',['../class_ph2___hw_description_1_1_front_end_description.html#a7ce5e0acdcb5647bb94f09ec480e8155',1,'Ph2_HwDescription::FrontEndDescription::fShelveId()'],['../class_ph2___hw_description_1_1_glib.html#abcaa5b1cb716d3aa814688dd5691a421',1,'Ph2_HwDescription::Glib::fShelveId()']]],
+  ['fstackreg',['fStackReg',['../class_ph2___hw_interface_1_1_reg_manager.html#a42f9437febcc01def682f69714e609ee',1,'Ph2_HwInterface::RegManager']]],
   ['fstartveto',['fStartVeto',['../class_ph2___hw_interface_1_1_glib_interface.html#a056c3192477cbd07c67ff822bc7123de',1,'Ph2_HwInterface::GlibInterface']]],
   ['fstatus',['fStatus',['../class_ph2___hw_description_1_1_front_end_description.html#a719dce1ef5c6656fd71ae91f6f404053',1,'Ph2_HwDescription::FrontEndDescription']]],
   ['fstrerror',['fStrError',['../class_ph2___hw_interface_1_1_exception.html#aa060af06e0614e117e2902f41e57e179',1,'Ph2_HwInterface::Exception']]],
@@ -23,6 +26,7 @@ var searchData=
   ['fstrreadout',['fStrReadout',['../class_ph2___hw_interface_1_1_cbc_interface.html#ade4f2642613500ee5f1963c22509c48b',1,'Ph2_HwInterface::CbcInterface::fStrReadout()'],['../class_ph2___hw_interface_1_1_glib_interface.html#a925d65d022d0dc6d453e0e611826c377',1,'Ph2_HwInterface::GlibInterface::fStrReadout()']]],
   ['fstrsram',['fStrSram',['../class_ph2___hw_interface_1_1_cbc_interface.html#aaddc36b6ef3360c0a99da44c53a3242f',1,'Ph2_HwInterface::CbcInterface::fStrSram()'],['../class_ph2___hw_interface_1_1_glib_interface.html#a9e24a95e6ba16076ef8fbea1c96243f4',1,'Ph2_HwInterface::GlibInterface::fStrSram()']]],
   ['fstrsramuserlogic',['fStrSramUserLogic',['../class_ph2___hw_interface_1_1_cbc_interface.html#a61c9447688cc556e33d7051c26459755',1,'Ph2_HwInterface::CbcInterface::fStrSramUserLogic()'],['../class_ph2___hw_interface_1_1_glib_interface.html#a27b44db1be7f8a3802ba1a5d675a9888',1,'Ph2_HwInterface::GlibInterface::fStrSramUserLogic()']]],
+  ['fthread',['fThread',['../class_ph2___hw_interface_1_1_reg_manager.html#a3aa2f1c4769f122a2e902f2d70865b30',1,'Ph2_HwInterface::RegManager']]],
   ['fuhalconfigfilename',['fUHalConfigFileName',['../class_ph2___hw_interface_1_1_reg_manager.html#aaaa29ca65c283acc645132c7bef0f24f',1,'Ph2_HwInterface::RegManager']]],
   ['fvalue',['fValue',['../struct_ph2___hw_description_1_1_cbc_reg_item.html#a1fa052a53215cbee674174febcc52b6a',1,'Ph2_HwDescription::CbcRegItem']]]
 ];

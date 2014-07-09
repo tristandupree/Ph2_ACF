@@ -44,7 +44,7 @@ namespace Ph2_HwInterface
 
         if( pAckVal )
         {
-			cWait = pNcount * 450;
+			cWait = pNcount * 500;
 		}
 
 		usleep( cWait );
@@ -87,29 +87,32 @@ namespace Ph2_HwInterface
 
 		WriteReg(SRAM1_USR_LOGIC,1);
 
+        WriteReg(CBC_HARD_RESET,0);
+
         //r/w request
 		WriteReg(CBC_I2C_CMD_RQ,pWrite ? 3: 1);
 
 		pVecReq.pop_back();
 
-		if( I2cCmdAckWait( (uint32_t)1, pVecReq.size() ) ==0 )
+        if( I2cCmdAckWait( (uint32_t)1, pVecReq.size() ) ==0 )
         {
-			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 1 ) );
-		}
+            throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 1 ) );
+        }
 
-		WriteReg(CBC_I2C_CMD_RQ,0);
+        WriteReg(CBC_I2C_CMD_RQ,0);
 
-		if( I2cCmdAckWait( (uint32_t)0, pVecReq.size() ) ==0 )
+        if( I2cCmdAckWait( (uint32_t)0, pVecReq.size() ) ==0 )
         {
-			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 0 ) );
-		}
+            throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 0 ) );
+        }
+
 	}
 
 
     void CbcInterface::ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq )
     {
 
-		WriteReg(SRAM1_USR_LOGIC,0);
+        WriteReg(SRAM1_USR_LOGIC,0);
 
 		uhal::ValVector<uint32_t> cData = ReadBlockReg(SRAM1,pVecReq.size()+1);
 

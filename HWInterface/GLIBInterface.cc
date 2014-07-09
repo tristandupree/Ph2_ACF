@@ -43,6 +43,9 @@ namespace Ph2_HwInterface
     void GlibInterface::ConfigureGlib(Glib& pGlib)
     {
 
+        //We may here switch in the future with the StackReg method of the RegManager
+        //when the timeout thing will be implemented in a transparent and pretty way
+
         std::vector< std::pair<std::string,uint32_t> > cVecReg;
         std::pair<std::string,uint32_t> cPairReg;
 

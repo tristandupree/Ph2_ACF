@@ -15,6 +15,9 @@
 #include <map>
 #include <vector>
 #include <utility>
+#include <thread>
+#include <mutex>
+#include <chrono>
 #include <uhal/uhal.hpp>
 
 /*!
@@ -33,6 +36,10 @@ namespace Ph2_HwInterface
             uhal::HwInterface *fBoard; /*!< Board in use*/
             const char *fUHalConfigFileName; /*!< path of the uHal Config File*/
             std::map<uint8_t,uhal::HwInterface*> fBoardMap; /*!< Board Map with all known boards*/
+            std::vector< std::pair<std::string,uint32_t> > fStackReg; /*!< Stack of registers*/
+            std::thread fThread; /*!< Thread for timeout stack writing*/
+            bool fDeactiveThread; /*!< Bool to terminate the thread in the destructor*/
+            std::mutex fBoardMutex; /*!< Mutex to avoid conflict btw threads on shared resources*/
 
         protected:
             /*!
@@ -69,6 +76,16 @@ namespace Ph2_HwInterface
             */
             virtual uhal::ValVector<uint32_t> ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlocksize);
             /*!
+            * \brief Stack the commands, deliver when full or timeout
+            * \param
+            */
+            //virtual void StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend=false);
+            /*!
+            * \brief Time Out for sending the register/value stack in the writting.
+            * \brief It has only to be set in a detached thread from the one you're working on
+            */
+            virtual void StackWriteTimeOut();
+            /*!
             * \brief Choose the board we want to talk with
             * \param pBoardId : Id of the Board to connect to
             */
@@ -85,6 +102,8 @@ namespace Ph2_HwInterface
             * \brief Destructor of the RegManager class
             */
             virtual ~RegManager();
+
+            virtual void StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend=false);
 
     };
 }

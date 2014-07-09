@@ -34,7 +34,6 @@ Here are the step to make the program functional
 5. Launch mcp to play with the Test Interface
 
 
-
 What can you do with the software ?
 -----------------------------------
 
@@ -73,6 +72,11 @@ locally to benefit from them.
 
 Warning ! : be careful with options choice in the program menus, some mistypes can leed
 to unexpected hazards :-(.
+
+Last Updates
+------------
+
+- 09/07/14 : Added threading for stack writing registers
 
 
 Future Improvements

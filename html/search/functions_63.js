@@ -5,6 +5,8 @@ var searchData=
   ['cbchardreset',['CbcHardReset',['../class_ph2___hw_interface_1_1_cbc_interface.html#a0e9a7f5c0a444cb8ca14f3a90cd9e759',1,'Ph2_HwInterface::CbcInterface']]],
   ['cbcinterface',['CbcInterface',['../class_ph2___hw_interface_1_1_cbc_interface.html#a3ddefe5549da06a7d26fee1502a792b4',1,'Ph2_HwInterface::CbcInterface']]],
   ['chooseboard',['ChooseBoard',['../class_ph2___hw_interface_1_1_reg_manager.html#a20c502bcad5115c6ae16d4d356b72f0c',1,'Ph2_HwInterface::RegManager']]],
+  ['cm',['cm',['../namespace_ph2___hw_interface.html#aeee4c168d3cfbc0f58774cfea91e0363',1,'Ph2_HwInterface']]],
+  ['configureboard',['ConfigureBoard',['../class_ph2___hw_interface_1_1_be_board_interface.html#a8bb4c51e30c7a969833f1fe83d005b00',1,'Ph2_HwInterface::BeBoardInterface']]],
   ['configurecbc',['ConfigureCbc',['../class_ph2___hw_interface_1_1_cbc_interface.html#a0567c7a31f70f446202e60d037c869ea',1,'Ph2_HwInterface::CbcInterface']]],
   ['configureglib',['ConfigureGlib',['../class_ph2___hw_interface_1_1_glib_interface.html#aad68569190ea9b318b5be1abae4fd23f',1,'Ph2_HwInterface::GlibInterface']]]
 ];

@@ -170,4 +170,7 @@
     //Packet size
 #define PACKET_SIZE      32
 
+    //Time out for stack writing
+#define TIME_OUT         5
+
 //------------------------------------------------------------------------------
