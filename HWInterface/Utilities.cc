@@ -9,11 +9,15 @@
 
 */
 #include "Utilities.h"
+#include "../HWDescription/Definition.h"
 #include <iostream>
 
 
 namespace Ph2_HwInterface
 {
+
+    //Get time took
+
     long getTimeTook( struct timeval &pStart, bool pMili )
     {
         struct timeval end;
@@ -34,17 +38,95 @@ namespace Ph2_HwInterface
         }
     }
 
+    //--------------------------------------------------------------------------
+    //Press enter function
 
-void myflush ( std::istream& in )
-{
-    in.ignore ( std::numeric_limits<std::streamsize>::max(), '\n' );
-    in.clear();
-}
+    void myflush ( std::istream& in )
+    {
+        in.ignore ( std::numeric_limits<std::streamsize>::max(), '\n' );
+        in.clear();
+    }
 
-void mypause()
-{
-    std::cout<<"Press [Enter] to continue ...";
-    std::cin.get();
-}
+    void mypause()
+    {
+        std::cout<<"Press [Enter] to continue ...";
+        std::cin.get();
+    }
+
+    //--------------------------------------------------------------------------
+    //Data Class
+
+    Data::Data( Data &pD )
+    {
+		fBuf = 0;
+		Initialise();
+		fBufSize = pD.fBufSize;
+	}
+
+
+    void Data::Set( void *pData )
+    {
+
+        Reset();
+
+		uhal::ValVector<uint32_t> *cUhalData = (uhal::ValVector<uint32_t>*)pData;
+
+        for( unsigned int i=0; i<cUhalData->size(); i++ )
+        {
+
+			char cSwapped[4];
+			uint32_t cVal = cUhalData->at(i);
+
+			swapByteOrder( (const char *) &cVal, cSwapped, 4 );
+
+			for( int j=0; j < 4; j++ ){
+				fBuf[i*4+j] = cSwapped[j];
+			}
+		}
+	}
+
+
+    void Data::Initialise()
+    {
+
+		fNevents = EVENT_NUMBER;
+		fBufSize = ( fNevents + 1 ) * PACKET_SIZE * 4;
+		if( fBuf )
+            free( fBuf );
+		fBuf = (char *) malloc( fBufSize );
+
+#ifdef __CBCDAQ_DEV__
+		std::cout << "Data::Initialise done." << std::endl;
+#endif
+
+	}
+
+
+    void Data::Reset()
+    {
+        for( uint32_t i=0; i<fBufSize; i++ )
+            fBuf[i]=0;
+    }
+
+
+    void Data::CopyBuffer( Data &pData )
+    {
+		memcpy(fBuf,pData.fBuf,pData.fBufSize);
+	}
+
+
+    void Data::swapByteOrder( const char *org, char *swapped, unsigned int nbyte )
+    {
+		for( unsigned int i=0; i<nbyte; i++ )
+        {
+			swapped[i] = org[nbyte-1-i];
+		}
+	}
+
+    const char * Data::GetBuffer( uint32_t &pBufSize ) const
+    {
+        pBufSize = fBufSize;
+        return fBuf;
+    }
 
 }
