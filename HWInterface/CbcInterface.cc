@@ -212,7 +212,8 @@ namespace Ph2_HwInterface
 		}
 
 #ifdef __CBCDAQ_DEV__
-		if(  DEV_FLAG ){
+		if(DEV_FLAG)
+        {
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
 			useconds = end.tv_usec - start0.tv_usec;

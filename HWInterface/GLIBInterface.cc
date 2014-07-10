@@ -15,7 +15,6 @@
 #include <boost/thread.hpp>
 #include <time.h>
 #include "GLIBInterface.h"
-#include "Utilities.h"
 #include "../HWDescription/Definition.h"
 
 #define DEV_FLAG         0
@@ -26,11 +25,13 @@ namespace Ph2_HwInterface
 
     //Constructor, makes the board map
     GlibInterface::GlibInterface(const char *puHalConfigFileName):
-        RegManager(puHalConfigFileName)
+        RegManager(puHalConfigFileName),
+        fNTotalAcq(0),
+        fDataFile(0)
 		//fNegativeLogicCBC(true),
 		//fStop(false)
     {
-
+        fData.Initialise();
     }
 
 
@@ -215,7 +216,6 @@ namespace Ph2_HwInterface
         SelectSRAM( pNthAcq );
 
         //Stop the DAQ
-
         cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
         cVecReg.push_back(cPairReg);
         cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
@@ -224,14 +224,7 @@ namespace Ph2_HwInterface
         cVecReg.push_back(cPairReg);
 
         WriteStackReg(cVecReg);
-
         cVecReg.clear();
-
-        /*
-        WriteReg(BREAK_TRIGGER,1);
-        WriteReg(PC_CONFIG_OK,0);
-        WriteReg(FORCE_BG0_START,0);
-        */
 
         boost::posix_time::milliseconds cWait(100);
 
@@ -246,7 +239,7 @@ namespace Ph2_HwInterface
         } while (cVal==1);
 
         WriteReg(fStrReadout,0);
-        //fNTotalAcq++;
+        fNTotalAcq++;
     }
 
 
@@ -394,7 +387,7 @@ namespace Ph2_HwInterface
 #endif
 
         //One data for one event --> Enhanced later
-		fData = cData;
+		fData.Set(&cData);
 
     }
 
@@ -405,6 +398,22 @@ namespace Ph2_HwInterface
         fStrSramUserLogic =  ((pNthAcq%2+1)==1 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
         fStrFull = ((pNthAcq%2+1)==1 ? SRAM1_FULL : SRAM2_FULL);
         fStrReadout= ((pNthAcq%2+1)==1 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
+    }
+
+
+
+    void GlibInterface::Run(Glib& pGlib)
+    {
+		std::ofstream cfile( "output/TestData.dat", std::ios::out | std::ios::trunc );
+
+        Start(pGlib);
+        ReadData(pGlib, fNTotalAcq, true );
+        Stop(pGlib, fNTotalAcq );
+
+		uint32_t cBufSize = 0;
+		const char *cDataBuffer = fData.GetBuffer( cBufSize );
+		for(int i=0; i<cBufSize; i++)
+            cfile << uint32_t(cDataBuffer[i]) << " ";
     }
 
 
@@ -423,5 +432,7 @@ namespace Ph2_HwInterface
 
         pGlib.setReg(pRegNode,(uint32_t) ReadReg(pRegNode));
     }
+
+
 
 }
