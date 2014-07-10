@@ -798,13 +798,9 @@ int main()
 
 
                     case 5:
-                        std::cout << "*** Read Data ***" << std::endl;
-                        std::cout << "--> Nth Acq ?" << std::endl;
-                        std::cin >> cNthAcq;
-                        std::cout << "--> Break trigger ?" << std::endl;
-                        std::cin >> cBreakTrigger;
-                        cGlibInterface.ReadData(cGlib,cNthAcq,cBreakTrigger);
-                        std::cout << "*** Data Read ***" << std::endl;
+                        std::cout << "*** Run Acquisition ***" << std::endl;
+                        cGlibInterface.Run(cGlib);
+                        std::cout << "*** Acquisition Run ***" << std::endl;
                     break;
 
 
@@ -1071,7 +1067,7 @@ int main()
 
                 else
                 {
-                    cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->writeRegValues((boost::format("settings/output_%d_%d.txt") %(uint32_t(k+cMissedModule)) %(uint32_t(j+cMissedCbc))).str());
+                    cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->writeRegValues((boost::format("output/output_%d_%d.txt") %(uint32_t(k+cMissedModule)) %(uint32_t(j+cMissedCbc))).str());
                 }
             }
 
