@@ -16,7 +16,9 @@
 #include <vector>
 #include <uhal/uhal.hpp>
 #include "RegManager.h"
+#include "Utilities.h"
 #include "../HWDescription/Glib.h"
+
 
 using namespace Ph2_HwDescription;
 
@@ -34,17 +36,18 @@ namespace Ph2_HwInterface
     {
         private:
 			//Unused variables for the moment, useful for the future
-            /*
-            unsigned int                    fNeventPerAcq;
+
             unsigned int                    fNTotalAcq;
-			bool                            fNegativeLogicCBC;
+			/*
+            bool                            fNegativeLogicCBC;
 			bool                            fStop;
             */
 
             struct timeval fStartVeto;
             std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
 
-            uhal::ValVector<uint32_t> fData; /*!< Data read storage*/
+            Data fData; /*!< Data read storage*/
+            std::ofstream *fDataFile; /*!< File storing data*/
 
         private:
             /*!
@@ -96,7 +99,12 @@ namespace Ph2_HwInterface
             * \param pNthAcq : actual number of acquisitions
             * \param pBreakTrigger : if true, enable the break trigger
             */
-            void ReadData(Glib& pGlib,uint32_t pNthAcq,bool pBreakTrigger);
+            void ReadData(Glib& pGlib, uint32_t pNthAcq, bool pBreakTrigger);
+            /*!
+            * \brief Run a DAQ
+            * \param pGlib
+            */
+            void Run(Glib& pGlib);
             /*!
             * \brief Update both Glib register and Config File
             * \param pGlib
