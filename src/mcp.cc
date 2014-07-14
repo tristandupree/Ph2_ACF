@@ -41,6 +41,8 @@ int main()
     GlibInterface cGlibInterface(UHAL_CONNECTION_FILE);
     CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
 
+    cGlibInterface.ConfigureGlib(cGlib);
+
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "***          MCP Test Program for Ph2 Base Software          ***" << std::endl;
@@ -464,7 +466,8 @@ int main()
                 std::cout << "****************************************************\n" << std::endl;
 
                 std::cout << "1: Update both ways" << std::endl;
-                std::cout << "2: Update one way\n" << std::endl;
+                std::cout << "2: Update one way" << std::endl;
+                std::cout << "3: Get infos\n" << std::endl;
 
                 std::cin >> i;
 
@@ -499,6 +502,13 @@ int main()
                         std::cin >> cRegNode;
                         cGlibInterface.UpdateGlibRead(cGlib,cRegNode);
                         std::cout << "*** Updated ***" << std::endl;
+                    break;
+
+
+                    case 3:
+                        std::cout << "*** Get Infos ***" << std::endl;
+                        cGlibInterface.getBoardInfo(cGlib);
+                        std::cout << "*** Infos Get ***" << std::endl;
                     break;
 
 
