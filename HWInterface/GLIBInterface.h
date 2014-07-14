@@ -68,6 +68,11 @@ namespace Ph2_HwInterface
             ~GlibInterface();
 
             /*!
+            * \brief Get the board infos
+            * \param pGlib
+            */
+            void getBoardInfo(Glib& pGlib);
+            /*!
             * \brief Configure the Glib with its Config File
             * \param pGlib
             */

@@ -41,6 +41,47 @@ namespace Ph2_HwInterface
     }
 
 
+    void GlibInterface::getBoardInfo(Glib& pGlib)
+    {
+        std::cout << "FMC1 present : " << uint32_t(ReadReg(FMC1_PRESENT)) << std::endl;
+        std::cout << "FMC2 present : " << uint32_t(ReadReg(FMC2_PRESENT)) << std::endl;
+        std::cout << "FW version : " << uint32_t(ReadReg(FW_VERSION_MAJOR)) << "." << uint32_t(ReadReg(FW_VERSION_MINOR)) << std::endl;
+
+        uhal::ValWord<uint32_t> cBoardType = ReadReg(BOARD_TYPE);
+
+        uint32_t cMask(0x00000000);
+        unsigned int i(0);
+        char cChar;
+
+        std::cout << "BoardType : ";
+
+        for( i=24; i < 32; i++ ) cMask |= ( (uint32_t) 1 << i );
+        cChar = ( ( cBoardType & cMask ) >> 24 );
+
+        std::cout << cChar;
+
+        for( cMask=0, i=16; i < 24; i++ ) cMask |= (uint32_t) 1 << i;
+        cChar = (( cBoardType & cMask ) >> 16);
+
+        std::cout << cChar;
+
+        for( cMask=0, i=8; i < 16; i++ ) cMask |= (uint32_t) 1 << i;
+        cChar = (( cBoardType & cMask ) >> 8);
+
+        std::cout << cChar;
+
+        for( cMask=0, i=0; i < 8; i++ ) cMask |= (uint32_t) 1 << i;
+        cChar = (cBoardType & cMask);
+
+        std::cout << cChar << std::endl;
+
+        std::cout << "FMC User Board ID : " << uint32_t(ReadReg(FMC_USER_BOARD_ID)) << std::endl;
+        std::cout << "FMC User System ID : " << uint32_t(ReadReg(FMC_USER_SYS_ID)) << std::endl;
+        std::cout << "FMC User Version : " << uint32_t(ReadReg(FMC_USER_VERSION)) << std::endl;
+
+    }
+
+
     void GlibInterface::ConfigureGlib(Glib& pGlib)
     {
 
