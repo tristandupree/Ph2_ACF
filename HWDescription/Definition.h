@@ -48,6 +48,19 @@
 
 #define MAX_NB_LOOP			  50
 
+//------------------------------------------------------------------------------
+//Board infos
+
+#define BOARD_TYPE          "board_id"
+#define FW_VERSION_MAJOR    "firm_id.firmware_major"
+#define FW_VERSION_MINOR    "firm_id.firmware_minor"
+#define FMC1_PRESENT        "status.fmc1_present"
+#define FMC2_PRESENT        "status.fmc2_present"
+
+    //FMC infos
+#define FMC_USER_BOARD_ID "user_wb_ttc_fmc_regs.user_board_id"
+#define FMC_USER_SYS_ID   "user_wb_ttc_fmc_regs.user_sys_id"
+#define FMC_USER_VERSION  "user_wb_ttc_fmc_regs.user_version"
 
 //------------------------------------------------------------------------------
 //GLIB Useful Registers
@@ -70,7 +83,9 @@
 #define SRAM1_FULL        "user_wb_ttc_fmc_regs.flags.SRAM1_full"
 #define SRAM2_FULL        "user_wb_ttc_fmc_regs.flags.SRAM2_full"
 
-//GLIBS settings
+//GLIB
+
+    //GLIBS settings
 #define FAKE_DATA	  "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"
 #define EXT_TRG		  "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
 
