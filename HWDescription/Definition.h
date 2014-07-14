@@ -35,18 +35,18 @@
 
 #define I2C_CTRL_ENABLE   0x000009F4
 #define I2C_CTRL_DISABLE  0
-#define I2C_STROBE			  1
-#define I2C_M16B				  0
-#define I2C_MEM				    1
-#define I2C_WRITE_ADDR	  0x09
-#define I2C_READ_ADDR		  0x06
+#define I2C_STROBE        1
+#define I2C_M16B          0
+#define I2C_MEM           1
+#define I2C_WRITE_ADDR    0x09
+#define I2C_READ_ADDR     0x06
 
-#define I2C_SLAVE			    0x5B
-#define I2C_COMMAND			  "user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
-#define I2C_REPLY			    "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
-#define I2C_SETTINGS             "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
+#define I2C_SLAVE         0x5B
+#define I2C_COMMAND       "user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
+#define I2C_REPLY         "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
+#define I2C_SETTINGS      "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
 
-#define MAX_NB_LOOP			  50
+#define MAX_NB_LOOP       50
 
 //------------------------------------------------------------------------------
 //Board infos
@@ -54,6 +54,7 @@
 #define BOARD_TYPE          "board_id"
 #define FW_VERSION_MAJOR    "firm_id.firmware_major"
 #define FW_VERSION_MINOR    "firm_id.firmware_minor"
+#define FW_VERSION_BUILD    "firm_id.firmware_build"
 #define FMC1_PRESENT        "status.fmc1_present"
 #define FMC2_PRESENT        "status.fmc2_present"
 
