@@ -350,6 +350,10 @@ namespace Ph2_HwInterface
 				cMissed++;
 			}
 
+            /*
+                It makes the broadcast only the first time it finds an
+                existing Cbc and then update all the other Cbcs.
+            */
 			else if(i == 0 && pModule->getCbc(i+cMissed) != NULL)
 			{
 				cCbc = pModule->getCbc(i+cMissed);
