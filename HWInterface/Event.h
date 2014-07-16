@@ -40,7 +40,7 @@ namespace Ph2_HwInterface
 			int SetEvent( char *pEvent );
 
             //user interface
-			char* GetCbcEvent( uint32_t pFE );
+			char* GetCbcEvent( uint8_t pFeId, uint8_t pCbcId );
 			uint32_t GetBunch() const { return fBunch; }
 			uint32_t GetOrbit() const { return fOrbit; }
 			uint32_t GetLumi() const { return fLumi; }
@@ -50,29 +50,31 @@ namespace Ph2_HwInterface
 			std::string HexString() const;
 
 			//user interface
-			//functions to get Error bit
-			bool Error( uint32_t i )const;
-			//functions to get all Error bits
-			uint32_t Error()const;
-			//functions to get pipeline address
-			uint32_t PipelineAddress()const;
-			//function to get a CBC pixel bit data
-			bool DataBit(uint32_t i)const;
-			//function to get bit string of CBC data
-			std::string DataBitString()const;
-			//function to get bit string in hexadecimal format for CBC data
-			std::string DataHexString()const;
-			//function to get GLIB flag string
-			std::string GlibFlagString()const;
-			//function to get bit string for CBC STAB data
-			std::string StubBitString()const;
-			//function to get char at the global data string at position 8*i
-			char Char( uint32_t pBytePosition ){ return fBuf[pBytePosition]; }
 			//function to get the bit at the global data string position
 			bool Bit( uint32_t pPosition )const;
-
+			//functions to get Error bit
+			bool Error(uint8_t pFeId, uint8_t pCbcId, uint32_t i ) const;
+			//functions to get all Error bits
+			uint32_t Error(uint8_t pFeId, uint8_t pCbcId);
+			//functions to get pipeline address
+			uint32_t PipelineAddress(uint8_t pFeId, uint8_t pCbcId)const;
+			//function to get a CBC pixel bit data
+			bool DataBit(uint8_t pFeId, uint8_t pCbcId, uint32_t i)const;
 			//function to get bit string from the data offset and width
-			std::string BitString( uint32_t pOffset, uint32_t pWidth )const;
+			std::string BitString(uint8_t pFeId, uint8_t pCbcId, uint32_t pOffset, uint32_t pWidth )const;
+			//function to get bit string of CBC data
+			std::string DataBitString(uint8_t pFeId, uint8_t pCbcId)const;
+			//function to get bit string in hexadecimal format for CBC data
+			std::string DataHexString(uint8_t pFeId, uint8_t pCbcId)const;
+			//function to get GLIB flag string
+			std::string GlibFlagString(uint8_t pFeId, uint8_t pCbcId)const;
+			//function to get bit string for CBC STAB data
+			std::string StubBitString(uint8_t pFeId, uint8_t pCbcId)const;
+			//function to get char at the global data string at position 8*i
+			char Char(uint8_t pFeId, uint8_t pCbcId, uint32_t pBytePosition ){ return GetCbcEvent(pFeId, pCbcId)[pBytePosition]; }
+			
+
+			
 			uint32_t Id()const{ return fCbcId; }
 
 
