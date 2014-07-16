@@ -16,8 +16,8 @@
 #include <vector>
 #include <uhal/uhal.hpp>
 #include "RegManager.h"
+#include "Event.h"
 #include "Utilities.h"
-#include "Analyser.h"
 #include "../HWDescription/Glib.h"
 
 
@@ -57,8 +57,7 @@ namespace Ph2_HwInterface
             void SelectSRAM(uint32_t pNthAcq);
 
         public:
-            Data fData; /*!< Data read storage*/
-            Analyser *fAnalyser;
+            Data *fData; /*!< Data read storage*/
 
         public:
             /*!

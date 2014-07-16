@@ -863,8 +863,8 @@ int main()
                             std::cout << " *** Glib Register Map *** " << std::endl;
                             std::cout << " -------------------------------------------------------------- " << std::endl;
 
-                            GlibRegMap cGlibRegMap = cGlib.getGlibRegMap();
-                            for(GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
+                            BeBoardRegMap cGlibRegMap = cGlib.getBeBoardRegMap();
+                            for(BeBoardRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
                             {
                                 std::cout << "| " << cIt->first << " : " << uint32_t(cIt->second) << std::endl;
                             }

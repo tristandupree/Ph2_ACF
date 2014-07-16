@@ -1,5 +1,6 @@
 #include "Event.h"
 
+using namespace Ph2_HwDescription;
 
 void swap_byte_order( const void *org, void *swapped, unsigned int nbyte )
 {
@@ -32,13 +33,15 @@ namespace Ph2_HwInterface
 		uint8_t cNFe = pBoard.getNFe();
 		for(int i=0; i<cNFe; i++)
 		{
-			fEventMap[i] = 0;
 			uint8_t cNCbc = pBoard.getModule(i)->getNCbc();
+			FeEventMap cFeEventMap;
 
 			for(int j=0; j<cNCbc; j++)
 			{
-				fEventMap[i][j] = 0;
+				cFeEventMap[j] = 0;
 			}
+
+			fEventMap[i] = cFeEventMap;
 		}
 	}
 
@@ -76,7 +79,7 @@ namespace Ph2_HwInterface
 			for(FeEventMap::iterator cJt = cIt->second.begin(); cJt != cIt->second.end(); cJt++ )
 			{
 				uint8_t CbcId = uint8_t(cJt->first);
-				cJt->second = &pEvent[OFFSET_FE_EVENT + FeId * FE_NCHAR + CbcId * CBC_NCHAR] );
+				cJt->second = &pEvent[OFFSET_FE_EVENT + FeId * FE_NCHAR + CbcId * CBC_NCHAR];
 			}
 		}
 
@@ -84,9 +87,9 @@ namespace Ph2_HwInterface
 	}
 
 
-	char* Event::GetCbcEvent( uint8_t pFeId, uint8_t pCbcId )
+	char* Event::GetCbcEvent( uint8_t& pFeId, uint8_t& pCbcId ) const
     {
-		EventMap::iterator cIt = fEventMap.find(pFeId);
+		EventMap::const_iterator cIt = fEventMap.find(pFeId);
 
     	if( cIt == fEventMap.end() )
         {
@@ -94,7 +97,7 @@ namespace Ph2_HwInterface
 			return 0;
 		}
 
-		FeEventMap::iterator cJt = cIt->second.find(pCbcId);
+		FeEventMap::const_iterator cJt = cIt->second.find(pCbcId);
 
 		if( cJt == cIt->second.end() )
 		{
@@ -128,7 +131,7 @@ namespace Ph2_HwInterface
     {
 		uint32_t cByteP=pPosition/8;
 		uint32_t cBitP =pPosition%8;
-		
+
 		return GetCbcEvent(pFeId, pCbcId)[cByteP] & (1<<(7-cBitP));
 	}
 
@@ -193,7 +196,7 @@ namespace Ph2_HwInterface
 		return BitString(pFeId, pCbcId, OFFSET_CBCDATA, WIDTH_CBCDATA );
 	}
 
-	
+
 	std::string Event::DataHexString(uint8_t pFeId, uint8_t pCbcId) const
     {
 		std::stringbuf tmp;
@@ -248,13 +251,13 @@ namespace Ph2_HwInterface
         return tmp.str();
 	}
 
-	
+
 	std::string Event::GlibFlagString(uint8_t pFeId, uint8_t pCbcId) const
     {
 		return BitString(pFeId, pCbcId, OFFSET_GLIBFLAG, WIDTH_GLIBFLAG );
 	}
 
-	
+
 	std::string Event::StubBitString(uint8_t pFeId, uint8_t pCbcId) const
     {
 		return BitString(pFeId, pCbcId, OFFSET_CBCSTABDATA, WIDTH_CBCSTABDATA );

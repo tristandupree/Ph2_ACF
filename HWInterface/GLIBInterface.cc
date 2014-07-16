@@ -31,15 +31,13 @@ namespace Ph2_HwInterface
 		//fNegativeLogicCBC(true),
 		fStop(false)
     {
-        fData.Initialise();
-        fAnalyser = new Analyser(0,0,2,0,"output/");
-        fAnalyser->Initialise();
+        fData = new Data();
     }
 
 
     GlibInterface::~GlibInterface()
     {
-
+        delete fData;
     }
 
 
@@ -123,8 +121,8 @@ namespace Ph2_HwInterface
         begin() and end().
         */
 
-        GlibRegMap cGlibRegMap = pGlib.getGlibRegMap();
-		for(GlibRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
+        BeBoardRegMap cGlibRegMap = pGlib.getBeBoardRegMap();
+		for(BeBoardRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
         {
         	cPairReg.first = cIt->first; cPairReg.second = cIt->second;
             cVecReg.push_back(cPairReg);
@@ -398,7 +396,7 @@ namespace Ph2_HwInterface
 #endif
 
         //One data for one event --> Enhanced later
-		fData.Set(&cData);
+		fData->Set(&cData);
 
     }
 
@@ -415,16 +413,19 @@ namespace Ph2_HwInterface
 
     void GlibInterface::Run(Glib& pGlib)
     {
+        fStop = false;
 
         std::ofstream cfile( "output/TestData.dat", std::ios::out | std::ios::trunc );
 
         uint32_t cNthAcq = 0;
-        uint32_t cNevents = EVENT_NUMBER;
-        uint32_t cN(0);
+        uint32_t cNevents = 150;
+        uint32_t cN = 0;
         usleep( 100 );
 
-        //while(!fStop)
-        //{
+        fData->Initialise( 200 );
+
+        while(!fStop)
+        {
 
             Start(pGlib);
             ReadData(pGlib, cNthAcq, true );
@@ -432,33 +433,35 @@ namespace Ph2_HwInterface
 
             bool cFillDataStream( false );
 
-            const Event *cEvent = fData.GetNextEvent();
+            const Event *cEvent = fData->GetNextEvent();
+
+            std::cout << "tut" << std::endl;
+            std::cout << cEvent << std::endl;
+            std::cout << "tut" << std::endl;
 
             while( cEvent )
             {
-
+                std::cout << cN << std::endl;
+                std::cout << "pouet" << std::endl;
                 if( cNevents != 0 && cN >= cNevents )
                 {
                     fStop = true;
                     break;
                 }
 
-                fAnalyser->Analyse( cEvent, cFillDataStream );
-                cEvent = fData.GetNextEvent();
+                cEvent = fData->GetNextEvent();
 
                 cFillDataStream = false;
                 cN++;
                 std::cout << cN << std::endl;
             }
 
-            fAnalyser->DrawHists();
-
             uint32_t cBufSize = 0;
-            const char *cDataBuffer = fData.GetBuffer( cBufSize );
+            const char *cDataBuffer = fData->GetBuffer( cBufSize );
             for(int i=0; i<cBufSize; i++)
                 cfile << cDataBuffer[i] << " ";
 
-        //}
+        }
     }
 
 

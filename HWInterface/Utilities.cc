@@ -69,9 +69,12 @@ namespace Ph2_HwInterface
 
     Data::Data( Data &pD )
     {
-		fBuf = 0;
-		Initialise();
+        fBuf = 0;
+        Initialise( pD.fNevents);
+		fEvent = pD.fEvent;
 		fBufSize = pD.fBufSize;
+		fNevents = pD.fNevents;
+		fCurrentEvent = pD.fCurrentEvent;
 	}
 
 
@@ -97,14 +100,16 @@ namespace Ph2_HwInterface
 	}
 
 
-    void Data::Initialise()
+    void Data::Initialise( uint32_t pNevents )
     {
 
-		fNevents = EVENT_NUMBER;
+		fNevents = pNevents;
 		fBufSize = ( fNevents + 1 ) * PACKET_SIZE * 4;
 		if( fBuf )
             free( fBuf );
 		fBuf = (char *) malloc( fBufSize );
+
+        fEvent.Clear();
 
 #ifdef __CBCDAQ_DEV__
 		std::cout << "Data::Initialise done." << std::endl;
@@ -115,6 +120,8 @@ namespace Ph2_HwInterface
 
     void Data::Reset()
     {
+        fCurrentEvent = 0;
+                
         for( uint32_t i=0; i<fBufSize; i++ )
             fBuf[i]=0;
     }
@@ -141,7 +148,11 @@ namespace Ph2_HwInterface
     }
 
     const Event *Data::GetNextEvent(){
-		if( fCurrentEvent >= fNevents ) return 0;
+		std::cout << "fehu" << std::endl;
+        std::cout << fCurrentEvent << std::endl;
+        std::cout << fNevents << std::endl;
+        std::cout << "fehu" << std::endl;
+        if( fCurrentEvent >= fNevents ) return 0;
 		fEvent.SetEvent( &fBuf[ fCurrentEvent * EVENT_SIZE_32 * 4 ] );
 		fCurrentEvent++;
 		return &fEvent;

@@ -1,9 +1,15 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
-#include "FeEvent.h"
-#include "CbcEvent.h"
+#include <string>
+#include <sstream>
+#include <cstring>
+#include <TROOT.h>
+#include <iomanip>
 #include "../HWDescription/Definition.h"
+#include "../HWDescription/BeBoard.h"
+
+using namespace Ph2_HwDescription;
 
 namespace Ph2_HwInterface
 {
@@ -28,9 +34,6 @@ namespace Ph2_HwInterface
             uint32_t fEventCountCBC;
             uint32_t fTDC;
 
-        private:
-            FeEvent *findFeEvent( uint32_t pFE );
-
         public:
             Event() {}
 			Event(Event &pEvent);
@@ -40,7 +43,7 @@ namespace Ph2_HwInterface
 			int SetEvent( char *pEvent );
 
             //user interface
-			char* GetCbcEvent( uint8_t pFeId, uint8_t pCbcId );
+			char* GetCbcEvent( uint8_t& pFeId, uint8_t& pCbcId ) const;
 			uint32_t GetBunch() const { return fBunch; }
 			uint32_t GetOrbit() const { return fOrbit; }
 			uint32_t GetLumi() const { return fLumi; }
@@ -51,11 +54,11 @@ namespace Ph2_HwInterface
 
 			//user interface
 			//function to get the bit at the global data string position
-			bool Bit( uint32_t pPosition )const;
+			bool Bit(uint8_t pFeId, uint8_t pCbcId, uint32_t pPosition ) const;
 			//functions to get Error bit
 			bool Error(uint8_t pFeId, uint8_t pCbcId, uint32_t i ) const;
 			//functions to get all Error bits
-			uint32_t Error(uint8_t pFeId, uint8_t pCbcId);
+			uint32_t Error(uint8_t pFeId, uint8_t pCbcId) const;
 			//functions to get pipeline address
 			uint32_t PipelineAddress(uint8_t pFeId, uint8_t pCbcId)const;
 			//function to get a CBC pixel bit data
@@ -72,11 +75,6 @@ namespace Ph2_HwInterface
 			std::string StubBitString(uint8_t pFeId, uint8_t pCbcId)const;
 			//function to get char at the global data string at position 8*i
 			char Char(uint8_t pFeId, uint8_t pCbcId, uint32_t pBytePosition ){ return GetCbcEvent(pFeId, pCbcId)[pBytePosition]; }
-			
-
-			
-			uint32_t Id()const{ return fCbcId; }
-
 
 	};
 }

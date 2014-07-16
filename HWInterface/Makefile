@@ -1,4 +1,4 @@
-Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o CbcEvent.o FeEvent.o Event.o Analyser.o
+Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o Event.o
 CC              = gcc
 CXX             = g++
 CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags` -Wcpp

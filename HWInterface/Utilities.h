@@ -58,11 +58,11 @@ namespace Ph2_HwInterface
             void swapByteOrder( const char *org, char *swapped, unsigned int nbyte );
 
         public:
-            Data():fBuf(0) {}
+            Data():fBuf(0),fCurrentEvent(0) {}
             Data(Data &pData);
             ~Data() {if(fBuf) free(fBuf);}
 
-            void Initialise();
+            void Initialise( uint32_t pNevents );
             void Set( void *pData );
             void Reset();
             void CopyBuffer( Data &pData );
