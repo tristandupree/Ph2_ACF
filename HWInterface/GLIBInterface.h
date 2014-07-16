@@ -5,7 +5,7 @@
     \author                       Nicolas PIERRE
     \version                      0.3
     Date of creation :            07/06/14
-    Support :                     mail to : nicolas.pierre@cern.ch
+    Support :                     mail to : nicolas.pierre@icloud.com
 
 */
 #ifndef __GLIBINTERFACE_H__
@@ -17,6 +17,7 @@
 #include <uhal/uhal.hpp>
 #include "RegManager.h"
 #include "Utilities.h"
+#include "Analyser.h"
 #include "../HWDescription/Glib.h"
 
 
@@ -38,15 +39,14 @@ namespace Ph2_HwInterface
 			//Unused variables for the moment, useful for the future
 
             unsigned int                    fNTotalAcq;
+            bool                            fStop;
 			/*
             bool                            fNegativeLogicCBC;
-			bool                            fStop;
             */
 
             struct timeval fStartVeto;
             std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
 
-            Data fData; /*!< Data read storage*/
             std::ofstream *fDataFile; /*!< File storing data*/
 
         private:
@@ -55,6 +55,10 @@ namespace Ph2_HwInterface
             * \param pNthAcq : actual number of acquisitions
             */
             void SelectSRAM(uint32_t pNthAcq);
+
+        public:
+            Data fData; /*!< Data read storage*/
+            Analyser *fAnalyser;
 
         public:
             /*!

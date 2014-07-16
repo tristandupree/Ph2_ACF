@@ -16,6 +16,7 @@
 #include <ios>
 #include <istream>
 #include <limits>
+#include "Event.h"
 
 /*!
 * \namespace Ph2_HwInterface
@@ -39,6 +40,7 @@ namespace Ph2_HwInterface
     * \brief Wait for Enter key press
     */
     void mypause ();
+
     /*!
     * \class Data
     * \brief Dummy data format in order to test
@@ -49,20 +51,23 @@ namespace Ph2_HwInterface
             char *fBuf;
             uint32_t fBufSize;
             uint32_t fNevents;
+            Event fEvent;
+            uint32_t fCurrentEvent;
 
         private:
             void swapByteOrder( const char *org, char *swapped, unsigned int nbyte );
 
         public:
             Data():fBuf(0) {}
-			Data(Data &pData);
-			~Data() {if(fBuf) free(fBuf);}
+            Data(Data &pData);
+            ~Data() {if(fBuf) free(fBuf);}
 
             void Initialise();
             void Set( void *pData );
             void Reset();
             void CopyBuffer( Data &pData );
             const char * GetBuffer( uint32_t &pBufSize ) const;
+            const Event * GetNextEvent();
 
     };
 

@@ -147,6 +147,47 @@
 #define TRIGGER_SELECT   "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
 
 //------------------------------------------------------------------------------
+//Events
+
+    //Event number
+#define EVENT_NUMBER     100
+
+    //Event Size
+#define EVENT_SIZE_32    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1
+
+    //Event
+#define OFFSET_BUNCH               8
+#define WIDTH_BUNCH                24
+#define OFFSET_ORBIT               1*32+8
+#define WIDTH_ORBIT                24
+#define OFFSET_LUMI                2*32+8
+#define WIDTH_LUMI                 24
+#define OFFSET_EVENT_COUNT         3*32+8
+#define WIDTH_EVENT_COUNT          24
+#define OFFSET_EVENT_COUNT_CBC     4*32+8
+#define WIDTH_EVENT_COUNT_CBC      3*8
+#define OFFSET_FE_EVENT            5*4
+#define WIDTH_FE_EVENT             9*4*2            //CBC_NCHAR*2
+#define OFFSET_TDC                 5*32+9*4*2       //5*32+WIDTH_FE_EVENT
+#define WIDTH_TDC                  32
+#define FE_NCHAR                   9*4*2            //CBC_NCHAR*2
+
+
+    //Cbc Event
+#define NSENSOR                   254
+#define OFFSET_ERROR              0
+#define WIDTH_ERROR               2
+#define OFFSET_PIPELINE_ADDRESS   2       //OFFSET_ERROR + WIDTH_ERROR
+#define WIDTH_PIPELINE_ADDRESS    8
+#define OFFSET_CBCDATA            2+8     //OFFSET_PIPELINE_ADDRESS + WIDTH_PIPELINE_ADDRESS
+#define WIDTH_CBCDATA             254     //NSENSOR
+#define OFFSET_GLIBFLAG           10+254  //OFFSET_CBCDATA + WIDTH_CBCDATA
+#define WIDTH_GLIBFLAG            12
+#define OFFSET_CBCSTABDATA        264+12  //OFFSET_GLIBFLAG + WIDTH_GLIBFLAG
+#define WIDTH_CBCSTABDATA         12
+#define CBC_NCHAR                 9*4
+
+//------------------------------------------------------------------------------
 //Others
 
     //PC Config OK
@@ -179,9 +220,6 @@
 
     //Polarity
 #define POLARITY        "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"
-
-    //Event number
-#define EVENT_NUMBER     100
 
     //Packet size
 #define PACKET_SIZE      32

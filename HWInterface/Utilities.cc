@@ -12,7 +12,6 @@
 #include "../HWDescription/Definition.h"
 #include <iostream>
 
-
 namespace Ph2_HwInterface
 {
 
@@ -52,6 +51,18 @@ namespace Ph2_HwInterface
         std::cout<<"Press [Enter] to continue ...";
         std::cin.get();
     }
+
+
+    //--------------------------------------------------------------------------
+    // Swapping
+
+    void swap_byte_order( const void *org, void *swapped, unsigned int nbyte )
+    {
+        for( unsigned int i=0; i<nbyte; i++ ){
+            ((char *)swapped)[i] = ((char *)org)[nbyte-1-i];
+        }
+    }
+
 
     //--------------------------------------------------------------------------
     //Data Class
@@ -128,5 +139,12 @@ namespace Ph2_HwInterface
         pBufSize = fBufSize;
         return fBuf;
     }
+
+    const Event *Data::GetNextEvent(){
+		if( fCurrentEvent >= fNevents ) return 0;
+		fEvent.SetEvent( &fBuf[ fCurrentEvent * EVENT_SIZE_32 * 4 ] );
+		fCurrentEvent++;
+		return &fEvent;
+	}
 
 }

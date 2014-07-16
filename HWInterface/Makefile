@@ -1,4 +1,4 @@
-Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o
+Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o CbcEvent.o FeEvent.o Event.o Analyser.o
 CC              = gcc
 CXX             = g++
 CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags` -Wcpp
@@ -11,7 +11,6 @@ IncludePaths            = $(IncludeDirs:%=-I%)
 
 %.o: %.cc %.h
 	$(CXX) -std=c++11  $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
-
 
 all: $(Objs) ../HWDescription/Definition.h
 	$(CC) -std=c++11 -shared -o libPh2_Interface.so $(Objs) -pthread

@@ -5,7 +5,7 @@
     Programmer :                  Nicolas PIERRE
     Version :                     0.3
     Date of creation :            07/06/14
-    Support :                     mail to : nicolas.pierre@cern.ch
+    Support :                     mail to : nicolas.pierre@icloud.com
 
 */
 
@@ -27,11 +27,13 @@ namespace Ph2_HwInterface
     GlibInterface::GlibInterface(const char *puHalConfigFileName):
         RegManager(puHalConfigFileName),
         fNTotalAcq(0),
-        fDataFile(0)
+        fDataFile(0),
 		//fNegativeLogicCBC(true),
-		//fStop(false)
+		fStop(false)
     {
         fData.Initialise();
+        fAnalyser = new Analyser(0,0,2,0,"output/");
+        fAnalyser->Initialise();
     }
 
 
@@ -108,12 +110,6 @@ namespace Ph2_HwInterface
         WriteStackReg(cVecReg);
 
         cVecReg.clear();
-        /*
-        WriteReg(SRAM1_END_READOUT,0);
-        WriteReg(SRAM2_END_READOUT,0);
-        WriteReg(SRAM1_USR_LOGIC,1);
-        WriteReg(SRAM2_USR_LOGIC,1);
-        */
 
 		boost::this_thread::sleep(cPause);
 
@@ -132,7 +128,6 @@ namespace Ph2_HwInterface
         {
         	cPairReg.first = cIt->first; cPairReg.second = cIt->second;
             cVecReg.push_back(cPairReg);
-            //WriteReg( cIt->first , cIt->second );
 		}
 
         WriteStackReg(cVecReg);
@@ -152,12 +147,6 @@ namespace Ph2_HwInterface
 
         cVecReg.clear();
 
-        /*
-        WriteReg(SPURIOUS_FRAME,0);
-        WriteReg(FORCE_BG0_START,0);
-        WriteReg(CBC_TRIGGER_1SHOT,0);
-        WriteReg(BREAK_TRIGGER,1);
-        */
 
         cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
         cVecReg.push_back(cPairReg);
@@ -174,15 +163,8 @@ namespace Ph2_HwInterface
 
         cVecReg.clear();
 
-        /*
-        WriteReg(PC_CONFIG_OK,0);
-		WriteReg(SRAM1_END_READOUT,0);
-        WriteReg(SRAM2_END_READOUT,0);
-        WriteReg(SRAM1_USR_LOGIC,1);
-        WriteReg(SRAM2_USR_LOGIC,1);
-        */
-
 		boost::this_thread::sleep(cPause);
+
 
         cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 0;
         cVecReg.push_back(cPairReg);
@@ -196,13 +178,6 @@ namespace Ph2_HwInterface
         WriteStackReg(cVecReg);
 
         cVecReg.clear();
-
-        /*
-		WriteReg(SPURIOUS_FRAME,0);
-        WriteReg(FORCE_BG0_START,0);
-        WriteReg(CBC_TRIGGER_1SHOT,0);
-        WriteReg(BREAK_TRIGGER,1);
-        */
 
 		boost::this_thread::sleep( cPause*3 );
 
@@ -235,11 +210,6 @@ namespace Ph2_HwInterface
 
         cVecReg.clear();
 
-        /*
-        WriteReg(BREAK_TRIGGER,0);
-        WriteReg(PC_CONFIG_OK,1);
-        WriteReg(FORCE_BG0_START,1);
-        */
     }
 
 
@@ -445,16 +415,50 @@ namespace Ph2_HwInterface
 
     void GlibInterface::Run(Glib& pGlib)
     {
-		std::ofstream cfile( "output/TestData.dat", std::ios::out | std::ios::trunc );
 
-        Start(pGlib);
-        ReadData(pGlib, fNTotalAcq, true );
-        Stop(pGlib, fNTotalAcq );
+        std::ofstream cfile( "output/TestData.dat", std::ios::out | std::ios::trunc );
 
-		uint32_t cBufSize = 0;
-		const char *cDataBuffer = fData.GetBuffer( cBufSize );
-		for(int i=0; i<cBufSize; i++)
-            cfile << uint32_t(cDataBuffer[i]) << " ";
+        uint32_t cNthAcq = 0;
+        uint32_t cNevents = EVENT_NUMBER;
+        uint32_t cN(0);
+        usleep( 100 );
+
+        //while(!fStop)
+        //{
+
+            Start(pGlib);
+            ReadData(pGlib, cNthAcq, true );
+            Stop(pGlib, cNthAcq );
+
+            bool cFillDataStream( false );
+
+            const Event *cEvent = fData.GetNextEvent();
+
+            while( cEvent )
+            {
+
+                if( cNevents != 0 && cN >= cNevents )
+                {
+                    fStop = true;
+                    break;
+                }
+
+                fAnalyser->Analyse( cEvent, cFillDataStream );
+                cEvent = fData.GetNextEvent();
+
+                cFillDataStream = false;
+                cN++;
+                std::cout << cN << std::endl;
+            }
+
+            fAnalyser->DrawHists();
+
+            uint32_t cBufSize = 0;
+            const char *cDataBuffer = fData.GetBuffer( cBufSize );
+            for(int i=0; i<cBufSize; i++)
+                cfile << cDataBuffer[i] << " ";
+
+        //}
     }
 
 

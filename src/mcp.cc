@@ -809,7 +809,9 @@ int main()
 
                     case 5:
                         std::cout << "*** Run Acquisition ***" << std::endl;
+
                         cGlibInterface.Run(cGlib);
+
                         std::cout << "*** Acquisition Run ***" << std::endl;
                     break;
 
