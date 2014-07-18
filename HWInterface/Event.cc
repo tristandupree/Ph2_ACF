@@ -1,3 +1,14 @@
+/*
+
+	FileName :                     Event.cc
+	Content :                      Event handling from DAQ
+	Programmer :                   Nicolas PIERRE
+	Version :                      0.4
+	Date of creation :             10/07/14
+	Support :                      mail to : nicolas.pierre@icloud.com
+
+*/
+
 #include "Event.h"
 
 using namespace Ph2_HwDescription;
@@ -22,7 +33,8 @@ namespace Ph2_HwInterface
 		fLumi(pEvent.fLumi),
 		fEventCount(pEvent.fEventCount),
 		fEventCountCBC(pEvent.fEventCountCBC),
-		fTDC(pEvent.fTDC)
+		fTDC(pEvent.fTDC),
+		fEventMap(pEvent.fEventMap)
 	{
 
 	}
@@ -30,19 +42,21 @@ namespace Ph2_HwInterface
 
 	void Event::AddBoard( BeBoard& pBoard )
     {
-		uint8_t cNFe = pBoard.getNFe();
-		for(int i=0; i<cNFe; i++)
+		uint32_t cNFe = uint32_t(pBoard.getNFe());
+
+		for(uint32_t i=0; i<cNFe; i++)
 		{
-			uint8_t cNCbc = pBoard.getModule(i)->getNCbc();
+			uint32_t cNCbc = uint32_t(pBoard.getModule(i)->getNCbc());
 			FeEventMap cFeEventMap;
 
-			for(int j=0; j<cNCbc; j++)
+			for(uint32_t j=0; j<cNCbc; j++)
 			{
 				cFeEventMap[j] = 0;
 			}
 
 			fEventMap[i] = cFeEventMap;
 		}
+
 	}
 
 
@@ -94,7 +108,7 @@ namespace Ph2_HwInterface
     	if( cIt == fEventMap.end() )
         {
 			std::cout << "Event: FE " << pFeId << " is not found." << std::endl;
-			return 0;
+			return NULL;
 		}
 
 		FeEventMap::const_iterator cJt = cIt->second.find(pCbcId);
@@ -102,7 +116,7 @@ namespace Ph2_HwInterface
 		if( cJt == cIt->second.end() )
 		{
 			std::cout << "Event: CBC " << pCbcId << " is not found." << std::endl;
-			return 0;
+			return NULL;
 		}
 
         return cJt->second;
@@ -191,9 +205,28 @@ namespace Ph2_HwInterface
 	}
 
 
+	std::vector<bool> Event::BitVector(uint8_t pFeId, uint8_t pCbcId, uint32_t pOffset, uint32_t pWidth ) const
+	{
+		std::vector<bool> tmp;
+
+		for( uint32_t i=0; i<pWidth; i++ )
+		{
+			tmp.push_back(Bit(pFeId, pCbcId, i+pOffset ));
+		}
+
+		return tmp;
+	}
+
+
 	std::string Event::DataBitString(uint8_t pFeId, uint8_t pCbcId) const
     {
 		return BitString(pFeId, pCbcId, OFFSET_CBCDATA, WIDTH_CBCDATA );
+	}
+
+
+	std::vector<bool> Event::DataBitVector(uint8_t pFeId, uint8_t pCbcId) const
+	{
+		return BitVector(pFeId, pCbcId, OFFSET_CBCDATA, WIDTH_CBCDATA );
 	}
 
 
