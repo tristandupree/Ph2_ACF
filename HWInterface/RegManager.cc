@@ -227,7 +227,7 @@ namespace Ph2_HwInterface
         while(!fDeactiveThread)
         {
             std::this_thread::sleep_for(std::chrono::seconds(TIME_OUT));
-            std::cout << "Ping ! \nThread ID : " << std::this_thread::get_id() << "\n" << std::endl;
+            //std::cout << "Ping ! \nThread ID : " << std::this_thread::get_id() << "\n" << std::endl;
             if(fStackReg.size() != 0)
             {
                 WriteStackReg(fStackReg);
