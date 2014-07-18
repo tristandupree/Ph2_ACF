@@ -1,22 +1,21 @@
 /*
 
-  FileName :                     Utilities.h
-  Content :                      Some objects that might come in handy
-  Programmer :                   Nicolas PIERRE
-  Version :                      0.3
-  Date of creation :             10/06/14
-  Support :                      mail to : nicolas.pierre@cern.ch
+    FileName :                     Utilities.h
+    Content :                      Some objects that might come in handy
+    Programmer :                   Nicolas PIERRE
+    Version :                      0.4
+    Date of creation :             10/06/14
+    Support :                      mail to : nicolas.pierre@icloud.com
 
 */
+
 #ifndef __UTILITIES_H__
 #define __UTILITIES_H__
 
-#include <uhal/uhal.hpp>
 #include <sys/time.h>
 #include <ios>
 #include <istream>
 #include <limits>
-#include "Event.h"
 
 /*!
 * \namespace Ph2_HwInterface
@@ -40,36 +39,6 @@ namespace Ph2_HwInterface
     * \brief Wait for Enter key press
     */
     void mypause ();
-
-    /*!
-    * \class Data
-    * \brief Dummy data format in order to test
-    */
-    class Data
-    {
-        private:
-            char *fBuf;
-            uint32_t fBufSize;
-            uint32_t fNevents;
-            Event fEvent;
-            uint32_t fCurrentEvent;
-
-        private:
-            void swapByteOrder( const char *org, char *swapped, unsigned int nbyte );
-
-        public:
-            Data():fBuf(0),fCurrentEvent(0) {}
-            Data(Data &pData);
-            ~Data() {if(fBuf) free(fBuf);}
-
-            void Initialise( uint32_t pNevents );
-            void Set( void *pData );
-            void Reset();
-            void CopyBuffer( Data &pData );
-            const char * GetBuffer( uint32_t &pBufSize ) const;
-            const Event * GetNextEvent();
-
-    };
 
 }
 
