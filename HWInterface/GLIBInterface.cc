@@ -14,7 +14,11 @@
 #include <boost/date_time.hpp>
 #include <boost/thread.hpp>
 #include <time.h>
+#include <TH1F.h>
+#include <TCanvas.h>
+#include <TStyle.h>
 #include "GLIBInterface.h"
+#include "Utilities.h"
 #include "../HWDescription/Definition.h"
 
 #define DEV_FLAG         0
@@ -79,6 +83,27 @@ namespace Ph2_HwInterface
         std::cout << "FMC User System ID : " << uint32_t(ReadReg(FMC_USER_SYS_ID)) << std::endl;
         std::cout << "FMC User Version : " << uint32_t(ReadReg(FMC_USER_VERSION)) << std::endl;
 
+    }
+
+
+    void GlibInterface::getBoardInfo(Glib& pGlib)
+    {
+        if(uint32_t(ReadReg(HYBRID_TYPE)) == 8)
+        {
+            fCbcStubLat  = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_STUB_LATENCY_FE1 : CBC_STUB_LATENCY_FE2);
+            fCbcI2CCmdAck =  (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_I2C_CMD_ACK_FE1 : CBC_I2C_CMD_ACK_FE2);
+            fCbcI2CCmdRq = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_I2C_CMD_RQ_FE1 : CBC_I2C_CMD_RQ_FE2);
+            fCbcHardReset = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_HARD_RESET_FE1 : CBC_HARD_RESET_FE2);
+            fCbcFastReset = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_FAST_RESET_FE1 : CBC_FAST_RESET_FE2);
+        }
+        else
+        {
+            fCbcStubLat  = CBC_STUB_LATENCY;
+            fCbcI2CCmdAck =  CBC_I2C_CMD_ACK;
+            fCbcI2CCmdRq = CBC_I2C_CMD_RQ;
+            fCbcHardReset = CBC_HARD_RESET;
+            fCbcFastReset = CBC_FAST_RESET;
+        }
     }
 
 
@@ -418,11 +443,16 @@ namespace Ph2_HwInterface
         std::ofstream cfile( "output/TestData.dat", std::ios::out | std::ios::trunc );
 
         uint32_t cNthAcq = 0;
-        uint32_t cNevents = 150;
+        uint32_t cNevents = 10;
         uint32_t cN = 0;
+
+        TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 600, 400);
+        TH1F *cHist = NULL;
+        gStyle->SetOptStat(kFALSE);
+
         usleep( 100 );
 
-        fData->Initialise( 200 );
+        fData->Initialise( EVENT_NUMBER, pGlib );
 
         while(!fStop)
         {
@@ -435,33 +465,73 @@ namespace Ph2_HwInterface
 
             const Event *cEvent = fData->GetNextEvent();
 
-            std::cout << "tut" << std::endl;
-            std::cout << cEvent << std::endl;
-            std::cout << "tut" << std::endl;
-
             while( cEvent )
             {
-                std::cout << cN << std::endl;
-                std::cout << "pouet" << std::endl;
-                if( cNevents != 0 && cN >= cNevents )
+
+                if( cNevents != 0 && cN == cNevents )
                 {
                     fStop = true;
                     break;
                 }
 
+                cCanvas->Divide(uint32_t(pGlib.getNFe()),1);
+
+                for(uint8_t i=0; i<pGlib.getNFe(); i++)
+                {
+                    cfile << "Event N°" << cN+1 << std::endl;
+                    cfile << "FE " << uint32_t(i) << " :" << std::endl;
+
+                    if(cHist != NULL)
+                        delete cHist;
+
+                    cHist = new TH1F("Histo_Hits", "Hit Counter", uint32_t(pGlib.getModule(i)->getNCbc()), 0., uint32_t(pGlib.getModule(i)->getNCbc()));
+
+                    cCanvas->cd(uint32_t(i));
+
+                    for(uint8_t j=0; j<pGlib.getModule(i)->getNCbc(); j++)
+                    {
+                        uint32_t cNHits = 0;
+
+                        std::vector<bool> cDataBitVector = cEvent->DataBitVector(i,j);
+
+                        cfile << "CBC " << uint32_t(j) << " : " << cEvent->DataBitString(i,j) << std::endl;
+
+                        for(uint32_t i=0; i<cDataBitVector.size(); i++)
+                        {
+                            if(cDataBitVector[i])
+                            {
+                                cNHits++;
+                            }
+                        }
+
+                        cHist->Fill(uint32_t(j),cNHits);
+                    }
+
+                    cHist->Draw();
+                    cCanvas->Update();
+
+                    cfile << "\n";
+                }
+
+                cCanvas->Print(((boost::format("output/Histogram_Event_%d.pdf") %(cN)).str()).c_str());
+
                 cEvent = fData->GetNextEvent();
 
                 cFillDataStream = false;
                 cN++;
-                std::cout << cN << std::endl;
             }
 
-            uint32_t cBufSize = 0;
-            const char *cDataBuffer = fData->GetBuffer( cBufSize );
-            for(int i=0; i<cBufSize; i++)
-                cfile << cDataBuffer[i] << " ";
+            if( cN == cNevents )
+            {
+                fStop = true;
+                break;
+            }
 
         }
+
+        delete cHist;
+
+        cfile.close();
     }
 
 

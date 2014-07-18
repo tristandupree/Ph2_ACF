@@ -14,9 +14,11 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <boost/format.hpp>
 #include <uhal/uhal.hpp>
 #include "RegManager.h"
 #include "Event.h"
+#include "Data.h"
 #include "Utilities.h"
 #include "../HWDescription/Glib.h"
 
@@ -75,6 +77,11 @@ namespace Ph2_HwInterface
             * \param pGlib
             */
             void getBoardInfo(Glib& pGlib);
+            /*!
+            * \brief Detect the right FE Id to write the right registers
+            * \param pGlib
+            */
+            void SelectFEId(Glib& pGlib);
             /*!
             * \brief Configure the Glib with its Config File
             * \param pGlib
