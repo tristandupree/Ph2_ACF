@@ -1,11 +1,11 @@
 /*
 
-  FileName :                     Definition.h
-  Content :                      Definition File, listing the registers
-  Programmer :                   Nicolas PIERRE
-  Version :                      0.3
-  Date of creation :             07/06/14
-  Support :                      mail to : nico.pierre@icloud.com
+    \file                          Definition.h
+    \brief                         Definition File, listing the registers
+    \author                        Nicolas PIERRE
+    \version                       0.3
+    Date of creation :             07/06/14
+    Support :                      mail to : nico.pierre@icloud.com
 
 */
 
@@ -90,6 +90,9 @@
 #define FAKE_DATA	  "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"
 #define EXT_TRG		  "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
 
+    //Hybrid type
+#define HYBRID_TYPE   "user_wb_ttc_fmc_regs.new.hybrid_type"
+
 //------------------------------------------------------------------------------
 //CBC
 
@@ -109,18 +112,29 @@
 #define CBC_TRIGGER_1SHOT    "user_wb_ttc_fmc_regs.cbc_acquisition.CBC_TRIGGER_ONE_SHOT"
 
     //CBC stubdata latency adjustement
+#define CBC_STUB_LATENCY     "cbc_stubdata_latency_adjust"
 #define CBC_STUB_LATENCY_FE1 "cbc_stubdata_latency_adjust_fe1"
 #define CBC_STUB_LATENCY_FE2 "cbc_stubdata_latency_adjust_fe2"
 
     //CBC I2C command acknoledgement
 #define CBC_I2C_CMD_ACK      "cbc_i2c_cmd_ack"
+#define CBC_I2C_CMD_ACK_FE1  "cbc_i2c_cmd_ack_fe1"
+#define CBC_I2C_CMD_ACK_FE2  "cbc_i2c_cmd_ack_fe2"
 
     //CBC I2C command request
 #define CBC_I2C_CMD_RQ       "cbc_i2c_cmd_rq"
+#define CBC_I2C_CMD_RQ_FE1   "cbc_i2c_cmd_rq_fe1"
+#define CBC_I2C_CMD_RQ_FE2   "cbc_i2c_cmd_rq_fe2"
 
-    //CBC reset
+    //CBC Hard Reset
 #define CBC_HARD_RESET       "cbc_hard_reset"
+#define CBC_HARD_RESET_FE1   "cbc_hard_reset_fe1"
+#define CBC_HARD_RESET_FE2   "cbc_hard_reset_fe2"
+
+    //CBC Fast Reset
 #define CBC_FAST_RESET       "cbc_fast_reset"
+#define CBC_FAST_RESET_FE1   "cbc_fast_reset_fe1"
+#define CBC_FAST_RESET_FE2   "cbc_fast_reset_fe2"
 
 //------------------------------------------------------------------------------
 //Delays
@@ -150,7 +164,7 @@
 //Events
 
     //Event number
-#define EVENT_NUMBER     150
+#define EVENT_NUMBER     100
 
     //Event Size
 #define EVENT_SIZE_32    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1
