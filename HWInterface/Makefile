@@ -1,7 +1,7 @@
-Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o Event.o
+Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o Event.o Data.o
 CC              = gcc
 CXX             = g++
-CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags` -Wcpp
+CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags --evelibs` -Wcpp
 DevFlags                   = -D__CBCDAQ_DEV__
 #DevFlags		=
 
