@@ -1,3 +1,47 @@
 \hypertarget{_be_board_8h}{\section{H\-W\-Description/\-Be\-Board.h File Reference}
 \label{_be_board_8h}\index{H\-W\-Description/\-Be\-Board.\-h@{H\-W\-Description/\-Be\-Board.\-h}}
 }
+
+
+Be\-Board Description class, configs of the Be\-Board.  
+
+
+{\ttfamily \#include \char`\"{}Definition.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Module.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$boost/cstdint.\-hpp$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_ph2___hw_description_1_1_be_board}{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}
+\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}'s registers on a file, contains a register map and contains a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespace_ph2___hw_description}{Ph2\-\_\-\-Hw\-Description}
+\begin{DoxyCompactList}\small\item\em Namespace regrouping all the hardware description. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\-::map$<$ std\-::string, \\*
+uint8\-\_\-t $>$ \hyperlink{namespace_ph2___hw_description_a9b77ad2bbc2b144cdd4f1574b31eaa20}{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-Reg\-Map}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2b}{Ph2\-\_\-\-Hw\-Description\-::nb\-\_\-\-F\-E} \{ \hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2baa30d72f6d58dc25b003fbf8bf56b3ace}{Ph2\-\_\-\-Hw\-Description\-::\-S\-I\-N\-G\-L\-E\-\_\-\-F\-E}, 
+\hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2ba6e0b877d015d017f61b07618e057c452}{Ph2\-\_\-\-Hw\-Description\-::\-F\-E\-\_\-\-T\-R\-G}, 
+\hyperlink{namespace_ph2___hw_description_a891c19542f306c932b747f42fe48fc2bae3b57cb16641bb367bfc57a00315a4ca}{Ph2\-\_\-\-Hw\-Description\-::\-D\-U\-A\-L\-\_\-\-F\-E}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Be\-Board Description class, configs of the Be\-Board. \begin{DoxyAuthor}{Author}
+Lorenzo B\-I\-D\-E\-G\-A\-I\-N 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+14/07/14
+\end{DoxyDate}
+Support \-: mail to \-: \href{mailto:lorenzo.bidegain@cern.ch}{\tt lorenzo.\-bidegain@cern.\-ch} 

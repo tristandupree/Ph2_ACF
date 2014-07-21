@@ -12,5 +12,6 @@ var searchData=
   ['i2c_5fstrobe',['I2C_STROBE',['../_definition_8h.html#a8d3f448d28b023f560e3df976bb3ff9c',1,'Definition.h']]],
   ['i2c_5fwrite_5faddr',['I2C_WRITE_ADDR',['../_definition_8h.html#a7978167075eb8954c1090fc7ce9647c6',1,'Definition.h']]],
   ['i2ccmdackwait',['I2cCmdAckWait',['../class_ph2___hw_interface_1_1_cbc_interface.html#ad171e07d3777cebcdd1f65cc03915e7b',1,'Ph2_HwInterface::CbcInterface']]],
+  ['initialise',['Initialise',['../class_ph2___hw_interface_1_1_data.html#ab3a85993abf1f3981ab917b5f87c4000',1,'Ph2_HwInterface::Data::Initialise(uint32_t pNevents)'],['../class_ph2___hw_interface_1_1_data.html#a4d6bcb42ecdaa4b5763a3b8279f22599',1,'Ph2_HwInterface::Data::Initialise(uint32_t pNevents, BeBoard &amp;pBoard)']]],
   ['int_5ftrigger_5ffreq',['INT_TRIGGER_FREQ',['../_definition_8h.html#a11ea004b3c38d4dae3309a13db5b6f78',1,'Definition.h']]]
 ];
