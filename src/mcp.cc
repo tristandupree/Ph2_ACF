@@ -43,6 +43,7 @@ int main()
 
     cGlibInterface.ConfigureGlib(cGlib);
 
+    std::cout << "\n\n\n\n" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "***          MCP Test Program for Ph2 Base Software          ***" << std::endl;
@@ -53,6 +54,10 @@ int main()
     do
     {
 
+        std::cout << "\n\n\n\n" << std::endl;
+        std::cout << "****************************************************" << std::endl;
+        std::cout << "***                  Main Menu                   ***" << std::endl;
+        std::cout << "****************************************************\n" << std::endl;
         std::cout << "\n\n\n\nWhat do you want to do ?\n" << std::endl;
         std::cout << "1: Add/Remove a Module or a Cbc" << std::endl;
         std::cout << "2: Configure" << std::endl;
@@ -107,7 +112,9 @@ int main()
                     case 2:
                         std::cout << "*** Add Cbc ***" << std::endl;
                         std::cout << "1: Add Default Cbc" << std::endl;
-                        std::cout << "2: Add Personalised Cbc\n" << std::endl;
+                        std::cout << "2: Add Personalised Cbc" << std::endl;
+                        std::cout << "3: Add a 2Cbc Structure" << std::endl;
+                        std::cout << "4: Add a 8Cbc Hybrid Structure\n" << std::endl;
 
                         std::cin >> i;
 
@@ -246,6 +253,61 @@ int main()
 
                                 }
                             break;
+
+
+                            case 3:
+                                std::cout << "*** Add a 2Cbc Structure ***" << std::endl;
+                                std::cout << "--> Which ModuleId ?" << std::endl;
+                                std::cin >> cModuleId;
+                                if (cGlib.getModule(cModuleId) == NULL)
+                                {
+                                    std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                    std::cout << "*** This module does not exist !                  ***" << std::endl;
+                                    std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                                    myflush( std::cin );
+                                    mypause();
+                                }
+                                else
+                                {
+                                    for(uint8_t i=0; i<2; i++)
+                                    {
+                                        if(cGlib.getModule(cModuleId)->getCbc(i) == NULL)
+                                        {
+                                            cCbc.fCbcId=i;
+                                            cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                        }
+                                    }
+                                    std::cout << "*** 2Cbc Structure Added ***" << std::endl;
+                                }
+                            break;
+
+
+                            case 4:
+                                std::cout << "*** Add a 8Cbc Hybrid Structure ***" << std::endl;
+                                std::cout << "--> Which ModuleId ?" << std::endl;
+                                std::cin >> cModuleId;
+                                if (cGlib.getModule(cModuleId) == NULL)
+                                {
+                                    std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                    std::cout << "*** This module does not exist !                  ***" << std::endl;
+                                    std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                                    myflush( std::cin );
+                                    mypause();
+                                }
+                                else
+                                {
+                                    for(uint8_t i=0; i<8; i++)
+                                    {
+                                        if(cGlib.getModule(cModuleId)->getCbc(i) == NULL)
+                                        {
+                                            cCbc.fCbcId=i;
+                                            cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                        }
+                                    }
+                                    std::cout << "*** 8Cbc Hybrid Structure Added ***" << std::endl;
+                                }
+                            break;
+
 
                             default:
                                 std::cout << "*** This is not the option you are looking for... ***" << std::endl;
@@ -984,7 +1046,6 @@ int main()
 
                                         else
                                         {
-
                                             std::cout << "     *** Cbc contained *** " << std::endl;
                                             std::cout << "     ------------------------- " << std::endl;
                                             std::cout << "    | Cbc Id : " << uint32_t(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->getCbcId()) << std::endl;
