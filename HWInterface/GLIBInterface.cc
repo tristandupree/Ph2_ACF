@@ -86,7 +86,7 @@ namespace Ph2_HwInterface
     }
 
 
-    void GlibInterface::getBoardInfo(Glib& pGlib)
+    void GlibInterface::SelectFEId(Glib& pGlib)
     {
         if(uint32_t(ReadReg(HYBRID_TYPE)) == 8)
         {
@@ -447,7 +447,9 @@ namespace Ph2_HwInterface
         uint32_t cN = 0;
 
         TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 600, 400);
+        TCanvas *cCanvasMean = new TCanvas("Data Acq Mean", "Different hits counters", 600, 400);
         TH1F *cHist = NULL;
+        TH1F *cHistMean = new TH1F("Histo_Hits Mean", "Hit Counter", uint32_t(pGlib.getModule(0)->getNCbc()), 0., uint32_t(pGlib.getModule(0)->getNCbc()));
         gStyle->SetOptStat(kFALSE);
 
         usleep( 100 );
@@ -505,6 +507,7 @@ namespace Ph2_HwInterface
                         }
 
                         cHist->Fill(uint32_t(j),cNHits);
+                        cHistMean->Fill(uint32_t(j),cNHits/cNevents);
                     }
 
                     cHist->Draw();
@@ -528,6 +531,10 @@ namespace Ph2_HwInterface
             }
 
         }
+
+        cHistMean->Draw();
+        cCanvasMean->Update();
+        cCanvas->Print("output/Histogram_Mean.pdf");
 
         delete cHist;
 
