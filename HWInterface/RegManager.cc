@@ -14,7 +14,7 @@
 #include "Utilities.h"
 #include "../HWDescription/Definition.h"
 
-#define DEV_FLAG    1
+#define DEV_FLAG    0
 
 namespace Ph2_HwInterface
 {
@@ -23,6 +23,10 @@ namespace Ph2_HwInterface
         fThread([=]{StackWriteTimeOut();}),
         fDeactiveThread(false)
     {
+        // Loging settings
+        uhal::disableLogging();
+        //uhal::setLogLevelTo(uhal::Error()); //Raise the log level
+
         fUHalConfigFileName = puHalConfigFileName;
 
         uhal::ConnectionManager cm( fUHalConfigFileName ); // Get connection
