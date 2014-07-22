@@ -1,8 +1,8 @@
 CC              = gcc
 CXX             = g++
 CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags --evelibs`
-DevFlags                    = -D__CBCDAQ_DEV__
-#DevFlags                   =
+#DevFlags                    = -D__CBCDAQ_DEV__
+DevFlags                   =
 
 IncludeDirs     =  /opt/cactus/include /opt/xdaq/include ../
 
