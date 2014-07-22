@@ -48,6 +48,7 @@ namespace Ph2_HwInterface
 
             struct timeval fStartVeto;
             std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
+            std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
 
             std::ofstream *fDataFile; /*!< File storing data*/
 
@@ -78,7 +79,7 @@ namespace Ph2_HwInterface
             */
             void getBoardInfo(Glib& pGlib);
             /*!
-            * \brief Detect the right FE Id to write the right registers
+            * \brief Detect the right FE Id to write the right registers (not tested)
             * \param pGlib
             */
             void SelectFEId(Glib& pGlib);
