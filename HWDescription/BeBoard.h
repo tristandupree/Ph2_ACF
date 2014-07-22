@@ -27,7 +27,7 @@ namespace Ph2_HwDescription{
 
 	// <node id="nb_FE", description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
 	enum nb_FE { SINGLE_FE, FE_TRG, DUAL_FE };
-	typedef std::map< std::string, uint8_t > BeBoardRegMap;
+	typedef std::map< std::string, uint16_t > BeBoardRegMap;
 
 	/*!
 	* \class BeBoard
@@ -67,13 +67,13 @@ namespace Ph2_HwDescription{
 		* \param pReg
 		* \return The value of the register
 		*/
-		virtual uint8_t getReg( std::string pReg );
+		virtual uint16_t getReg( std::string pReg );
 		/*!
 		* \brief Set any register of the Map
 		* \param pReg
 		* \param psetValue
 		*/
-		virtual void setReg( std::string pReg, uint8_t psetValue );
+		virtual void setReg( std::string pReg, uint16_t psetValue );
 
 		/*!
 		* \brief Adding a module to the vector
@@ -93,7 +93,7 @@ namespace Ph2_HwDescription{
 		*/
 		virtual Module* getModule( uint8_t pModuleId );
 
-		virtual std::map< std::string, uint8_t > getBeBoardRegMap (){return fRegMap;};
+		virtual std::map< std::string, uint16_t > getBeBoardRegMap (){return fRegMap;};
 
 	protected:
 		// Connection Members

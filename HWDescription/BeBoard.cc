@@ -30,7 +30,7 @@ namespace Ph2_HwDescription{
 	// Public Members:
 
 
-	uint8_t BeBoard::getReg( std::string pReg )
+	uint16_t BeBoard::getReg( std::string pReg )
 	{
 		BeBoardRegMap::iterator i;
 		i = fRegMap.find( pReg );
@@ -42,7 +42,7 @@ namespace Ph2_HwDescription{
 		else return i->second;
 	}
 
-	void BeBoard::setReg( std::string pReg, uint8_t psetValue )
+	void BeBoard::setReg( std::string pReg, uint16_t psetValue )
 	{
 		BeBoardRegMap::iterator i;
 		i = fRegMap.find( pReg );
