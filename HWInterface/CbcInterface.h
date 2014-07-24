@@ -39,6 +39,7 @@ namespace Ph2_HwInterface
             std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
 
         private:
+            void SelectSRAM(uint32_t pCbcId);
             /*!
             * \brief Wait for the I2C command acknowledgement
             * \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false

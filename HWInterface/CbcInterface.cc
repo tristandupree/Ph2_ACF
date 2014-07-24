@@ -38,6 +38,16 @@ namespace Ph2_HwInterface
 	}
 
 
+    void CbcInterface::SelectSRAM(uint32_t pCbcId)
+    {
+        fStrSram  = (pCbcId==0 ? SRAM1 : SRAM2);
+        fStrOtherSram = (pCbcId==0 ? SRAM2 : SRAM1);
+        fStrSramUserLogic =  (pCbcId==0 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
+        fStrFull = (pCbcId==0 ? SRAM1_FULL : SRAM2_FULL);
+        fStrReadout= (pCbcId==0 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
+    }
+
+
     bool CbcInterface::I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount )
     {
         unsigned int cWait(100);
@@ -77,15 +87,16 @@ namespace Ph2_HwInterface
     void CbcInterface::SendBlockCbcI2cRequest(std::vector<uint32_t>& pVecReq, bool pWrite)
     {
 
-		WriteReg(SRAM1_USR_LOGIC,1);
+        WriteReg(fStrSramUserLogic,1);
 
 		pVecReq.push_back(0xFFFFFFFF);
 
-		WriteReg(SRAM1_USR_LOGIC,0);
+		WriteReg(fStrSramUserLogic,0);
 
-		WriteBlockReg(SRAM1,pVecReq);
+		WriteBlockReg(fStrSram,pVecReq);
+        WriteReg(fStrOtherSram,0xFFFFFFFF);
 
-		WriteReg(SRAM1_USR_LOGIC,1);
+		WriteReg(fStrSramUserLogic,1);
 
         WriteReg(CBC_HARD_RESET,0);
 
@@ -112,11 +123,11 @@ namespace Ph2_HwInterface
     void CbcInterface::ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq )
     {
 
-        WriteReg(SRAM1_USR_LOGIC,0);
+        WriteReg(fStrSramUserLogic,0);
 
-		uhal::ValVector<uint32_t> cData = ReadBlockReg(SRAM1,pVecReq.size()+1);
+		uhal::ValVector<uint32_t> cData = ReadBlockReg(fStrSram,pVecReq.size());
 
-		WriteReg(SRAM1_USR_LOGIC,1);
+		WriteReg(fStrSramUserLogic,1);
 		WriteReg(CBC_I2C_CMD_RQ,0);
 
 		std::vector<uint32_t>::iterator it = pVecReq.begin();
@@ -159,6 +170,7 @@ namespace Ph2_HwInterface
 #endif
 
 		EnableI2c(pCbc,1);
+        SelectSRAM(uint32_t(pCbc->getCbcId()));
 
 		try
 		{
@@ -200,6 +212,7 @@ namespace Ph2_HwInterface
 #endif
 
 		EnableI2c(pCbc,1);
+        SelectSRAM(uint32_t(pCbc->getCbcId()));
 
 		try
 		{
@@ -268,6 +281,7 @@ namespace Ph2_HwInterface
 #endif
 
 		std::vector<uint32_t> cVecReq;
+        pCbc->loadfRegMap(DEFAULT_FILE);
 		CbcRegMap cCbcRegMap = pCbc->getRegMap();
 
 		for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
@@ -443,6 +457,8 @@ namespace Ph2_HwInterface
 		CbcRegItem cRegItem = (pCbc->getRegMap())[pRegNode];
 		std::vector<uint32_t> cVecReq;
 
+        std::cout << uint32_t(cRegItem.fValue) << std::endl;
+
 		ChooseBoard(pCbc->getBeId());
 
 		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
@@ -450,6 +466,9 @@ namespace Ph2_HwInterface
 		ReadCbcBlockReg(pCbc,cVecReq);
 
 		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
+        std::cout << uint32_t(cCbcId) << std::endl;
+        std::cout << uint32_t(cRegItem.fValue) << std::endl;
+
 
 		pCbc->setReg(pRegNode,cRegItem.fValue);
 
