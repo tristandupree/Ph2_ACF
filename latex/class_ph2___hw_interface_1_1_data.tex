@@ -1,0 +1,175 @@
+\hypertarget{class_ph2___hw_interface_1_1_data}{\section{Ph2\-\_\-\-Hw\-Interface\-:\-:Data Class Reference}
+\label{class_ph2___hw_interface_1_1_data}\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+}
+
+
+Dummy data format in order to test.  
+
+
+
+
+{\ttfamily \#include $<$Data.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ph2___hw_interface_1_1_data_a72e6b3c8af444dd82569d3a47f89812c}{Data} ()
+\item 
+\hyperlink{class_ph2___hw_interface_1_1_data_aa98dbf6219ca78afda306b2fa41dbcc5}{Data} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board)
+\item 
+\hyperlink{class_ph2___hw_interface_1_1_data_aefcb0c450523abe1c4397189f64a3aff}{Data} (\hyperlink{class_ph2___hw_interface_1_1_data}{Data} \&p\-Data)
+\item 
+\hyperlink{class_ph2___hw_interface_1_1_data_a889228098e5c0b4eb5d06ad7850cdd7e}{$\sim$\-Data} ()
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_data_ab3a85993abf1f3981ab917b5f87c4000}{Initialise} (uint32\-\_\-t p\-Nevents)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_data_a4d6bcb42ecdaa4b5763a3b8279f22599}{Initialise} (uint32\-\_\-t p\-Nevents, \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_data_aec509baa349ed8a038797b63df76b3d9}{Set} (void $\ast$p\-Data)
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_data_ab33619d62d7662d11cf6c2bddebcc835}{Reset} ()
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_data_a751235bbc2393f58f9fd83b8837ad2b4}{Copy\-Buffer} (\hyperlink{class_ph2___hw_interface_1_1_data}{Data} \&p\-Data)
+\item 
+const char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_data_a6093f26d20db6ca6a2a248b6bc8ddb25}{Get\-Buffer} (uint32\-\_\-t \&p\-Buf\-Size) const 
+\item 
+const \hyperlink{class_ph2___hw_interface_1_1_event}{Event} $\ast$ \hyperlink{class_ph2___hw_interface_1_1_data_a18d1e30edd97079893bbd2332809cba8}{Get\-Next\-Event} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_data_a91b7bafc8b47251b022aab16e19fa722}{swap\-Byte\-Order} (const char $\ast$org, char $\ast$swapped, unsigned int nbyte)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_data_acf647e64b2febe8555e7b044e5cfc98d}{f\-Buf}
+\item 
+uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_data_aaf97e7ef5081a4a6a412c25382b3bafe}{f\-Buf\-Size}
+\item 
+uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_data_ac27abb30ceb327ce0fc4245caaf0b3d5}{f\-Nevents}
+\item 
+\hyperlink{class_ph2___hw_interface_1_1_event}{Event} \hyperlink{class_ph2___hw_interface_1_1_data_a1b13d9197eeb9fd673a42a35b55e8dd8}{f\-Event}
+\item 
+uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_data_a4566e332acab8fe25be41f05c2862222}{f\-Current\-Event}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Dummy data format in order to test. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_data_a72e6b3c8af444dd82569d3a47f89812c}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Data@{Data}}
+\index{Data@{Data}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Data}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_data_a72e6b3c8af444dd82569d3a47f89812c}
+\hypertarget{class_ph2___hw_interface_1_1_data_aa98dbf6219ca78afda306b2fa41dbcc5}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Data@{Data}}
+\index{Data@{Data}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Data}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Data (
+\begin{DoxyParamCaption}
+\item[{{\bf Be\-Board} \&}]{p\-Board}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_data_aa98dbf6219ca78afda306b2fa41dbcc5}
+\hypertarget{class_ph2___hw_interface_1_1_data_aefcb0c450523abe1c4397189f64a3aff}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Data@{Data}}
+\index{Data@{Data}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Data}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Data (
+\begin{DoxyParamCaption}
+\item[{{\bf Data} \&}]{p\-Data}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_data_aefcb0c450523abe1c4397189f64a3aff}
+\hypertarget{class_ph2___hw_interface_1_1_data_a889228098e5c0b4eb5d06ad7850cdd7e}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!$\sim$\-Data@{$\sim$\-Data}}
+\index{$\sim$\-Data@{$\sim$\-Data}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{$\sim$\-Data}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::$\sim$\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_data_a889228098e5c0b4eb5d06ad7850cdd7e}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_data_a751235bbc2393f58f9fd83b8837ad2b4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Copy\-Buffer@{Copy\-Buffer}}
+\index{Copy\-Buffer@{Copy\-Buffer}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Copy\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Copy\-Buffer (
+\begin{DoxyParamCaption}
+\item[{{\bf Data} \&}]{p\-Data}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_data_a751235bbc2393f58f9fd83b8837ad2b4}
+\hypertarget{class_ph2___hw_interface_1_1_data_a6093f26d20db6ca6a2a248b6bc8ddb25}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Get\-Buffer@{Get\-Buffer}}
+\index{Get\-Buffer@{Get\-Buffer}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Get\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Get\-Buffer (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t \&}]{p\-Buf\-Size}
+\end{DoxyParamCaption}
+) const}}\label{class_ph2___hw_interface_1_1_data_a6093f26d20db6ca6a2a248b6bc8ddb25}
+\hypertarget{class_ph2___hw_interface_1_1_data_a18d1e30edd97079893bbd2332809cba8}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Get\-Next\-Event@{Get\-Next\-Event}}
+\index{Get\-Next\-Event@{Get\-Next\-Event}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Get\-Next\-Event}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Event} $\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Get\-Next\-Event (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_data_a18d1e30edd97079893bbd2332809cba8}
+\hypertarget{class_ph2___hw_interface_1_1_data_ab3a85993abf1f3981ab917b5f87c4000}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Initialise}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Initialise (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{p\-Nevents}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_data_ab3a85993abf1f3981ab917b5f87c4000}
+\hypertarget{class_ph2___hw_interface_1_1_data_a4d6bcb42ecdaa4b5763a3b8279f22599}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Initialise}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Initialise (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t}]{p\-Nevents, }
+\item[{{\bf Be\-Board} \&}]{p\-Board}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_data_a4d6bcb42ecdaa4b5763a3b8279f22599}
+\hypertarget{class_ph2___hw_interface_1_1_data_ab33619d62d7662d11cf6c2bddebcc835}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Reset@{Reset}}
+\index{Reset@{Reset}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Reset}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_data_ab33619d62d7662d11cf6c2bddebcc835}
+\hypertarget{class_ph2___hw_interface_1_1_data_aec509baa349ed8a038797b63df76b3d9}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!Set@{Set}}
+\index{Set@{Set}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{Set}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::\-Set (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{p\-Data}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_data_aec509baa349ed8a038797b63df76b3d9}
+\hypertarget{class_ph2___hw_interface_1_1_data_a91b7bafc8b47251b022aab16e19fa722}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!swap\-Byte\-Order@{swap\-Byte\-Order}}
+\index{swap\-Byte\-Order@{swap\-Byte\-Order}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{swap\-Byte\-Order}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::swap\-Byte\-Order (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{org, }
+\item[{char $\ast$}]{swapped, }
+\item[{unsigned int}]{nbyte}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_data_a91b7bafc8b47251b022aab16e19fa722}
+
+
+\subsection{Field Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_data_acf647e64b2febe8555e7b044e5cfc98d}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!f\-Buf@{f\-Buf}}
+\index{f\-Buf@{f\-Buf}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{f\-Buf}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::f\-Buf\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_data_acf647e64b2febe8555e7b044e5cfc98d}
+\hypertarget{class_ph2___hw_interface_1_1_data_aaf97e7ef5081a4a6a412c25382b3bafe}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!f\-Buf\-Size@{f\-Buf\-Size}}
+\index{f\-Buf\-Size@{f\-Buf\-Size}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{f\-Buf\-Size}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::f\-Buf\-Size\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_data_aaf97e7ef5081a4a6a412c25382b3bafe}
+\hypertarget{class_ph2___hw_interface_1_1_data_a4566e332acab8fe25be41f05c2862222}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!f\-Current\-Event@{f\-Current\-Event}}
+\index{f\-Current\-Event@{f\-Current\-Event}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{f\-Current\-Event}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::f\-Current\-Event\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_data_a4566e332acab8fe25be41f05c2862222}
+\hypertarget{class_ph2___hw_interface_1_1_data_a1b13d9197eeb9fd673a42a35b55e8dd8}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!f\-Event@{f\-Event}}
+\index{f\-Event@{f\-Event}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{f\-Event}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Event} Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::f\-Event\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_data_a1b13d9197eeb9fd673a42a35b55e8dd8}
+\hypertarget{class_ph2___hw_interface_1_1_data_ac27abb30ceb327ce0fc4245caaf0b3d5}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}!f\-Nevents@{f\-Nevents}}
+\index{f\-Nevents@{f\-Nevents}!Ph2_HwInterface::Data@{Ph2\-\_\-\-Hw\-Interface\-::\-Data}}
+\subsubsection[{f\-Nevents}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Data\-::f\-Nevents\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_data_ac27abb30ceb327ce0fc4245caaf0b3d5}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+H\-W\-Interface/\hyperlink{_data_8h}{Data.\-h}\item 
+H\-W\-Interface/\hyperlink{_data_8cc}{Data.\-cc}\end{DoxyCompactItemize}

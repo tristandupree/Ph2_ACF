@@ -1,19 +1,23 @@
 /*
 
-  FileName :                     Utilities.cc
-  Content :                      Some objects that might come in handy
-  Programmer :                   Nicolas PIERRE
-  Version :                      0.3
-  Date of creation :             10/06/14
-  Support :                      mail to : nicolas.pierre@cern.ch
+    FileName :                     Utilities.cc
+    Content :                      Some objects that might come in handy
+    Programmer :                   Nicolas PIERRE
+    Version :                      0.4
+    Date of creation :             10/06/14
+    Support :                      mail to : nicolas.pierre@icloud.com
 
 */
-#include "Utilities.h"
-#include <iostream>
 
+#include "Utilities.h"
+#include "../HWDescription/Definition.h"
+#include <iostream>
 
 namespace Ph2_HwInterface
 {
+
+    //Get time took
+
     long getTimeTook( struct timeval &pStart, bool pMili )
     {
         struct timeval end;
@@ -34,17 +38,19 @@ namespace Ph2_HwInterface
         }
     }
 
+    //--------------------------------------------------------------------------
+    //Press enter function
 
-void myflush ( std::istream& in )
-{
-    in.ignore ( std::numeric_limits<std::streamsize>::max(), '\n' );
-    in.clear();
-}
+    void myflush ( std::istream& in )
+    {
+        in.ignore ( std::numeric_limits<std::streamsize>::max(), '\n' );
+        in.clear();
+    }
 
-void mypause()
-{
-    std::cout<<"Press [Enter] to continue ...";
-    std::cin.get();
-}
+    void mypause()
+    {
+        std::cout<<"Press [Enter] to continue ...";
+        std::cin.get();
+    }
 
 }

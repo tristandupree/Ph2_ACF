@@ -64,10 +64,11 @@
 	<!--SRAM memory space -->
 	<node id="sram1" address="0x02000000" permission="rw" mode="block" size="0x02000000"/>
 	<node id="sram2" address="0x04000000" permission="rw" mode="block" size="0x02000000"/>
-	
+
 	<!--node id="freq_ttc_fmc"			address="0x40000001"    permission="r" mode="single"/-->
 
     <node id="cbc_i2c_cmd_ack"  address="0x80000008"    mask="0x0000000C" permission="rw"/>
+    <node id="cbc_i2c_cmd_ack_fe2"  address="0x80000008"    mask="0x00000030" permission="rw"/>
 
     <node id="cbc_hard_reset"	address="0x80000009"	mask="0x00000002"	permission="rw"/>
     <node id="cbc_i2c_refresh"	address="0x80000009"	mask="0x00000004"	permission="rw"/>
@@ -88,7 +89,7 @@
     <node id="break_trigger" 	address="0x8000000C" mask="0x00000001" permission="rw" />
     <node id="COMMISSIONNING_MODE_RQ"   address="0x8000000c"    mask="0x00000002"       permission="rw" tags="checkbox"/>
     <node id="COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET"       address="0x8000000c"    mask="0x0003fffc"       permission="rw"/>
-    <node id="COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"		address="0x8000000c"	mask="0x00040000"	permission="rw" tags="checkbox"/>    
+    <node id="COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"		address="0x8000000c"	mask="0x00040000"	permission="rw" tags="checkbox"/>
 <!--  reg(13) -->
     <node id="COMMISSIONNING_MODE_DELAY_AFTER_TEST_PULSE"       address="0x8000000d"    mask="0x0000ffff"       permission="rw"/>
     <node id="COMMISSIONNING_MODE_DELAY_AFTER_L1A"      address="0x8000000d"    mask="0xffff0000"       permission="rw"/>
@@ -136,9 +137,9 @@
 			<node id = "sTTS_code"		mask="0x0000000F"/>
 			<node id = "fifo1_full"		mask="0x00000010"/>
 			<node id = "fifo2_full"		mask="0x00000020"/>
-			<node id = "cdr_clk_locked"	mask="0x00000040"/> 
-			<node id = "cdr_lol"		mask="0x00000080"/> 
-			<node id = "cdr_los"		mask="0x00000100"/> 
+			<node id = "cdr_clk_locked"	mask="0x00000040"/>
+			<node id = "cdr_lol"		mask="0x00000080"/>
+			<node id = "cdr_los"		mask="0x00000100"/>
 			<node id = "FSM_sTTS_ctrl"	mask="0x00001E00"/>
 			<node id = "spurious_frame"	mask="0x00002000"/>
 			<node id = "CMD_START_VALID"	mask="0x00004000"/>

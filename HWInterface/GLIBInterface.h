@@ -5,7 +5,7 @@
     \author                       Nicolas PIERRE
     \version                      0.3
     Date of creation :            07/06/14
-    Support :                     mail to : nicolas.pierre@cern.ch
+    Support :                     mail to : nicolas.pierre@icloud.com
 
 */
 #ifndef __GLIBINTERFACE_H__
@@ -14,9 +14,14 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <boost/format.hpp>
 #include <uhal/uhal.hpp>
 #include "RegManager.h"
+#include "Event.h"
+#include "Data.h"
+#include "Utilities.h"
 #include "../HWDescription/Glib.h"
+
 
 using namespace Ph2_HwDescription;
 
@@ -34,17 +39,18 @@ namespace Ph2_HwInterface
     {
         private:
 			//Unused variables for the moment, useful for the future
-            /*
-            unsigned int                    fNeventPerAcq;
+
             unsigned int                    fNTotalAcq;
-			bool                            fNegativeLogicCBC;
-			bool                            fStop;
+            bool                            fStop;
+			/*
+            bool                            fNegativeLogicCBC;
             */
 
             struct timeval fStartVeto;
             std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
+            std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
 
-            uhal::ValVector<uint32_t> fData; /*!< Data read storage*/
+            std::ofstream *fDataFile; /*!< File storing data*/
 
         private:
             /*!
@@ -52,6 +58,9 @@ namespace Ph2_HwInterface
             * \param pNthAcq : actual number of acquisitions
             */
             void SelectSRAM(uint32_t pNthAcq);
+
+        public:
+            Data *fData; /*!< Data read storage*/
 
         public:
             /*!
@@ -64,6 +73,16 @@ namespace Ph2_HwInterface
             */
             ~GlibInterface();
 
+            /*!
+            * \brief Get the board infos
+            * \param pGlib
+            */
+            void getBoardInfo(Glib& pGlib);
+            /*!
+            * \brief Detect the right FE Id to write the right registers (not tested)
+            * \param pGlib
+            */
+            void SelectFEId(Glib& pGlib);
             /*!
             * \brief Configure the Glib with its Config File
             * \param pGlib
@@ -96,7 +115,12 @@ namespace Ph2_HwInterface
             * \param pNthAcq : actual number of acquisitions
             * \param pBreakTrigger : if true, enable the break trigger
             */
-            void ReadData(Glib& pGlib,uint32_t pNthAcq,bool pBreakTrigger);
+            void ReadData(Glib& pGlib, uint32_t pNthAcq, bool pBreakTrigger);
+            /*!
+            * \brief Run a DAQ
+            * \param pGlib
+            */
+            void Run(Glib& pGlib);
             /*!
             * \brief Update both Glib register and Config File
             * \param pGlib

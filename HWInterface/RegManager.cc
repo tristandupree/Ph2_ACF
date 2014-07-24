@@ -14,7 +14,7 @@
 #include "Utilities.h"
 #include "../HWDescription/Definition.h"
 
-#define DEV_FLAG    1
+#define DEV_FLAG    0
 
 namespace Ph2_HwInterface
 {
@@ -23,6 +23,10 @@ namespace Ph2_HwInterface
         fThread([=]{StackWriteTimeOut();}),
         fDeactiveThread(false)
     {
+        // Loging settings
+        uhal::disableLogging();
+        //uhal::setLogLevelTo(uhal::Error()); //Raise the log level
+
         fUHalConfigFileName = puHalConfigFileName;
 
         uhal::ConnectionManager cm( fUHalConfigFileName ); // Get connection
@@ -227,7 +231,7 @@ namespace Ph2_HwInterface
         while(!fDeactiveThread)
         {
             std::this_thread::sleep_for(std::chrono::seconds(TIME_OUT));
-            std::cout << "Ping ! \nThread ID : " << std::this_thread::get_id() << "\n" << std::endl;
+            //std::cout << "Ping ! \nThread ID : " << std::this_thread::get_id() << "\n" << std::endl;
             if(fStackReg.size() != 0)
             {
                 WriteStackReg(fStackReg);

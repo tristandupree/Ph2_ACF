@@ -77,6 +77,7 @@ Last Updates
 ------------
 
 - 09/07/14 : Added threading for stack writing registers
+- 10/07/14 : Read Data from acquisition in a rubbish format
 
 
 Future Improvements

@@ -1,13 +1,14 @@
 /*
 
-  FileName :                     Utilities.h
-  Content :                      Some objects that might come in handy
-  Programmer :                   Nicolas PIERRE
-  Version :                      0.3
-  Date of creation :             10/06/14
-  Support :                      mail to : nicolas.pierre@cern.ch
+    FileName :                     Utilities.h
+    Content :                      Some objects that might come in handy
+    Programmer :                   Nicolas PIERRE
+    Version :                      0.4
+    Date of creation :             10/06/14
+    Support :                      mail to : nicolas.pierre@icloud.com
 
 */
+
 #ifndef __UTILITIES_H__
 #define __UTILITIES_H__
 
@@ -38,6 +39,7 @@ namespace Ph2_HwInterface
     * \brief Wait for Enter key press
     */
     void mypause ();
+
 }
 
 #endif

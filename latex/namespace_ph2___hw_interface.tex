@@ -13,20 +13,31 @@ class \hyperlink{class_ph2___hw_interface_1_1_be_board_interface}{Be\-Board\-Int
 \item 
 class \hyperlink{class_ph2___hw_interface_1_1_cbc_interface}{Cbc\-Interface}
 \begin{DoxyCompactList}\small\item\em Permit r/w given registers in the Cbc you specify. \end{DoxyCompactList}\item 
+class \hyperlink{class_ph2___hw_interface_1_1_data}{Data}
+\begin{DoxyCompactList}\small\item\em Dummy data format in order to test. \end{DoxyCompactList}\item 
+class \hyperlink{class_ph2___hw_interface_1_1_event}{Event}
+\item 
 class \hyperlink{class_ph2___hw_interface_1_1_exception}{Exception}
 \item 
 class \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\-Interface}
 \begin{DoxyCompactList}\small\item\em Permit r/w given registers in the Glib you specify. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager}
 \begin{DoxyCompactList}\small\item\em Permit connection to given boards and r/w given registers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\-::map$<$ uint32\-\_\-t, \\*
+char $\ast$ $>$ \hyperlink{namespace_ph2___hw_interface_a50d97ee46941c2c0c2ecadc929e41b05}{Fe\-Event\-Map}
+\item 
+typedef std\-::map$<$ uint32\-\_\-t, \\*
+\hyperlink{namespace_ph2___hw_interface_a50d97ee46941c2c0c2ecadc929e41b05}{Fe\-Event\-Map} $>$ \hyperlink{namespace_ph2___hw_interface_acf9f41d647e7a3ad9bae233b04b9e3bc}{Event\-Map}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-uhal\-::\-Connection\-Manager \hyperlink{namespace_ph2___hw_interface_aeee4c168d3cfbc0f58774cfea91e0363}{cm} (f\-U\-Hal\-Config\-File\-Name)
+void \hyperlink{namespace_ph2___hw_interface_ad58bc815dfbb93c57791f3aecc84a1ea}{swap\-\_\-byte\-\_\-order} (const void $\ast$org, void $\ast$swapped, unsigned int nbyte)
 \item 
-\hyperlink{namespace_ph2___hw_interface_a913071592e2cafb4f781028cebbfff8b}{for} (int i=0;i$<$ 1;i++)
-\item 
-f\-Thread \hyperlink{namespace_ph2___hw_interface_a4a4be1daf233dc838bd9618cf48dd5a8}{detach} ()
+\hyperlink{namespace_ph2___hw_interface_a45c84dee08a5b37d565bbcd5eeab2b4d}{f\-Deactive\-Thread} (false)
 \item 
 long \hyperlink{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}{get\-Time\-Took} (struct timeval \&p\-Start, bool p\-Mili)
 \begin{DoxyCompactList}\small\item\em Get time took since the start. \end{DoxyCompactList}\item 
@@ -39,28 +50,23 @@ void \hyperlink{namespace_ph2___hw_interface_a20399ed909de2641f1e7e086a4ec3667}{
 \subsection{Detailed Description}
 Namespace regrouping all the interfaces to the hardware. 
 
+\subsection{Typedef Documentation}
+\hypertarget{namespace_ph2___hw_interface_acf9f41d647e7a3ad9bae233b04b9e3bc}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!Event\-Map@{Event\-Map}}
+\index{Event\-Map@{Event\-Map}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{Event\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$uint32\-\_\-t, {\bf Fe\-Event\-Map}$>$ {\bf Ph2\-\_\-\-Hw\-Interface\-::\-Event\-Map}}}\label{namespace_ph2___hw_interface_acf9f41d647e7a3ad9bae233b04b9e3bc}
+\hypertarget{namespace_ph2___hw_interface_a50d97ee46941c2c0c2ecadc929e41b05}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!Fe\-Event\-Map@{Fe\-Event\-Map}}
+\index{Fe\-Event\-Map@{Fe\-Event\-Map}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{Fe\-Event\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$uint32\-\_\-t, char$\ast$$>$ {\bf Ph2\-\_\-\-Hw\-Interface\-::\-Fe\-Event\-Map}}}\label{namespace_ph2___hw_interface_a50d97ee46941c2c0c2ecadc929e41b05}
+
+
 \subsection{Function Documentation}
-\hypertarget{namespace_ph2___hw_interface_aeee4c168d3cfbc0f58774cfea91e0363}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!cm@{cm}}
-\index{cm@{cm}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
-\subsubsection[{cm}]{\setlength{\rightskip}{0pt plus 5cm}uhal\-::\-Connection\-Manager Ph2\-\_\-\-Hw\-Interface\-::cm (
+\hypertarget{namespace_ph2___hw_interface_a45c84dee08a5b37d565bbcd5eeab2b4d}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!f\-Deactive\-Thread@{f\-Deactive\-Thread}}
+\index{f\-Deactive\-Thread@{f\-Deactive\-Thread}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{f\-Deactive\-Thread}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::f\-Deactive\-Thread (
 \begin{DoxyParamCaption}
-\item[{f\-U\-Hal\-Config\-File\-Name}]{}
+\item[{false}]{}
 \end{DoxyParamCaption}
-)}}\label{namespace_ph2___hw_interface_aeee4c168d3cfbc0f58774cfea91e0363}
-\hypertarget{namespace_ph2___hw_interface_a4a4be1daf233dc838bd9618cf48dd5a8}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!detach@{detach}}
-\index{detach@{detach}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
-\subsubsection[{detach}]{\setlength{\rightskip}{0pt plus 5cm}f\-Thread Ph2\-\_\-\-Hw\-Interface\-::detach (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}\label{namespace_ph2___hw_interface_a4a4be1daf233dc838bd9618cf48dd5a8}
-\hypertarget{namespace_ph2___hw_interface_a913071592e2cafb4f781028cebbfff8b}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!for@{for}}
-\index{for@{for}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
-\subsubsection[{for}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::for (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}\label{namespace_ph2___hw_interface_a913071592e2cafb4f781028cebbfff8b}
+)}}\label{namespace_ph2___hw_interface_a45c84dee08a5b37d565bbcd5eeab2b4d}
 \hypertarget{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!get\-Time\-Took@{get\-Time\-Took}}
 \index{get\-Time\-Took@{get\-Time\-Took}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
 \subsubsection[{get\-Time\-Took}]{\setlength{\rightskip}{0pt plus 5cm}long Ph2\-\_\-\-Hw\-Interface\-::get\-Time\-Took (
@@ -110,3 +116,12 @@ Flush the content of the input stream.
 
 Wait for Enter key press. 
 
+\hypertarget{namespace_ph2___hw_interface_ad58bc815dfbb93c57791f3aecc84a1ea}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!swap\-\_\-byte\-\_\-order@{swap\-\_\-byte\-\_\-order}}
+\index{swap\-\_\-byte\-\_\-order@{swap\-\_\-byte\-\_\-order}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
+\subsubsection[{swap\-\_\-byte\-\_\-order}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::swap\-\_\-byte\-\_\-order (
+\begin{DoxyParamCaption}
+\item[{const void $\ast$}]{org, }
+\item[{void $\ast$}]{swapped, }
+\item[{unsigned int}]{nbyte}
+\end{DoxyParamCaption}
+)}}\label{namespace_ph2___hw_interface_ad58bc815dfbb93c57791f3aecc84a1ea}

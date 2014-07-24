@@ -105,7 +105,6 @@ Inheritance diagram for Ph2_HwInterface::BeBoardInterface:</div>
   <img src="class_ph2___hw_interface_1_1_be_board_interface.png" usemap="#Ph2_HwInterface::BeBoardInterface_map" alt=""/>
   <map id="Ph2_HwInterface::BeBoardInterface_map" name="Ph2_HwInterface::BeBoardInterface_map">
 <area href="class_ph2___hw_interface_1_1_reg_manager.html" title="Permit connection to given boards and r/w given registers. " alt="Ph2_HwInterface::RegManager" shape="rect" coords="0,0,214,24"/>
-<area href="class_ph2___hw_interface_1_1_glib_interface.html" title="Permit r/w given registers in the Glib you specify. " alt="Ph2_HwInterface::GlibInterface" shape="rect" coords="0,112,214,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -142,6 +141,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5d650c4e6467153f98f999abbbfc354c inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a5d650c4e6467153f98f999abbbfc354c">~RegManager</a> ()</td></tr>
 <tr class="memdesc:a5d650c4e6467153f98f999abbbfc354c inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor of the <a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html" title="Permit connection to given boards and r/w given registers. ">RegManager</a> class.  <a href="#a5d650c4e6467153f98f999abbbfc354c">More...</a><br/></td></tr>
 <tr class="separator:a5d650c4e6467153f98f999abbbfc354c inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409c95948e25ea5fb7f897926e9de1e6 inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a409c95948e25ea5fb7f897926e9de1e6">StackReg</a> (const std::string &amp;pRegNode, const uint32_t &amp;pVal, bool pSend=false)</td></tr>
+<tr class="separator:a409c95948e25ea5fb7f897926e9de1e6 inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -161,11 +162,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual uhal::ValVector&lt; uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a6481c211d27badc409ff0e7af20575e4">ReadBlockReg</a> (const std::string &amp;pRegNode, const uint32_t &amp;pBlocksize)</td></tr>
 <tr class="memdesc:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a block of values in a register.  <a href="#a6481c211d27badc409ff0e7af20575e4">More...</a><br/></td></tr>
 <tr class="separator:a6481c211d27badc409ff0e7af20575e4 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a409c95948e25ea5fb7f897926e9de1e6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a409c95948e25ea5fb7f897926e9de1e6">StackReg</a> (const std::string &amp;pRegNode, const uint32_t &amp;pVal, bool pSend=false)</td></tr>
-<tr class="memdesc:a409c95948e25ea5fb7f897926e9de1e6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack the commands, deliver when full or timeout.  <a href="#a409c95948e25ea5fb7f897926e9de1e6">More...</a><br/></td></tr>
-<tr class="separator:a409c95948e25ea5fb7f897926e9de1e6 inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4e24cf318772c09a6c7e24b88b1dedb inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#ab4e24cf318772c09a6c7e24b88b1dedb">StackWriteTimeOut</a> ()</td></tr>
-<tr class="memdesc:ab4e24cf318772c09a6c7e24b88b1dedb inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time Out for sending the register/value stack in the writting.  <a href="#ab4e24cf318772c09a6c7e24b88b1dedb">More...</a><br/></td></tr>
+<tr class="memdesc:ab4e24cf318772c09a6c7e24b88b1dedb inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack the commands, deliver when full or timeout.  <a href="#ab4e24cf318772c09a6c7e24b88b1dedb">More...</a><br/></td></tr>
 <tr class="separator:ab4e24cf318772c09a6c7e24b88b1dedb inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20c502bcad5115c6ae16d4d356b72f0c inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a20c502bcad5115c6ae16d4d356b72f0c">ChooseBoard</a> (uint8_t pBoardId)</td></tr>
 <tr class="memdesc:a20c502bcad5115c6ae16d4d356b72f0c inherit pro_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose the board we want to talk with.  <a href="#a20c502bcad5115c6ae16d4d356b72f0c">More...</a><br/></td></tr>
@@ -178,9 +176,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a9c34ffe467a572796c05036533bb6d39 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">std::map&lt; uint8_t, <br class="typebreak"/>
 uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a9c34ffe467a572796c05036533bb6d39">fBoardMap</a></td></tr>
 <tr class="separator:a9c34ffe467a572796c05036533bb6d39 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42f9437febcc01def682f69714e609ee inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair<br class="typebreak"/>
-&lt; std::string, uint32_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a42f9437febcc01def682f69714e609ee">fStackReg</a></td></tr>
-<tr class="separator:a42f9437febcc01def682f69714e609ee inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a382c1c2373fde66d98a44e4aa0208e81 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair<br class="typebreak"/>
+&lt; std::string, uint32_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a382c1c2373fde66d98a44e4aa0208e81">fStackReg</a></td></tr>
+<tr class="separator:a382c1c2373fde66d98a44e4aa0208e81 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3aa2f1c4769f122a2e902f2d70865b30 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a3aa2f1c4769f122a2e902f2d70865b30">fThread</a></td></tr>
 <tr class="separator:a3aa2f1c4769f122a2e902f2d70865b30 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae337041a55b10db74bbd8e171424807a inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#ae337041a55b10db74bbd8e171424807a">fDeactiveThread</a></td></tr>
@@ -453,7 +451,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 8 2014 11:34:30 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jul 21 2014 14:19:08 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

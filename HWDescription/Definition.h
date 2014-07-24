@@ -1,11 +1,11 @@
 /*
 
-  FileName :                     Definition.h
-  Content :                      Definition File, listing the registers
-  Programmer :                   Nicolas PIERRE
-  Version :                      0.3
-  Date of creation :             07/06/14
-  Support :                      mail to : nico.pierre@icloud.com
+    \file                          Definition.h
+    \brief                         Definition File, listing the registers
+    \author                        Nicolas PIERRE
+    \version                       0.3
+    Date of creation :             07/06/14
+    Support :                      mail to : nico.pierre@icloud.com
 
 */
 
@@ -35,19 +35,33 @@
 
 #define I2C_CTRL_ENABLE   0x000009F4
 #define I2C_CTRL_DISABLE  0
-#define I2C_STROBE			  1
-#define I2C_M16B				  0
-#define I2C_MEM				    1
-#define I2C_WRITE_ADDR	  0x09
-#define I2C_READ_ADDR		  0x06
+#define I2C_STROBE        1
+#define I2C_M16B          0
+#define I2C_MEM           1
+#define I2C_WRITE_ADDR    0x09
+#define I2C_READ_ADDR     0x06
 
-#define I2C_SLAVE			    0x5B
-#define I2C_COMMAND			  "user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
-#define I2C_REPLY			    "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
-#define I2C_SETTINGS             "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
+#define I2C_SLAVE         0x5B
+#define I2C_COMMAND       "user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
+#define I2C_REPLY         "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
+#define I2C_SETTINGS      "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
 
-#define MAX_NB_LOOP			  50
+#define MAX_NB_LOOP       50
 
+//------------------------------------------------------------------------------
+//Board infos
+
+#define BOARD_TYPE          "board_id"
+#define FW_VERSION_MAJOR    "firm_id.firmware_major"
+#define FW_VERSION_MINOR    "firm_id.firmware_minor"
+#define FW_VERSION_BUILD    "firm_id.firmware_build"
+#define FMC1_PRESENT        "status.fmc1_present"
+#define FMC2_PRESENT        "status.fmc2_present"
+
+    //FMC infos
+#define FMC_USER_BOARD_ID "user_wb_ttc_fmc_regs.user_board_id"
+#define FMC_USER_SYS_ID   "user_wb_ttc_fmc_regs.user_sys_id"
+#define FMC_USER_VERSION  "user_wb_ttc_fmc_regs.user_version"
 
 //------------------------------------------------------------------------------
 //GLIB Useful Registers
@@ -70,9 +84,14 @@
 #define SRAM1_FULL        "user_wb_ttc_fmc_regs.flags.SRAM1_full"
 #define SRAM2_FULL        "user_wb_ttc_fmc_regs.flags.SRAM2_full"
 
-//GLIBS settings
+//GLIB
+
+    //GLIBS settings
 #define FAKE_DATA	  "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"
 #define EXT_TRG		  "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
+
+    //Hybrid type
+#define HYBRID_TYPE   "user_wb_ttc_fmc_regs.new.hybrid_type"
 
 //------------------------------------------------------------------------------
 //CBC
@@ -93,18 +112,29 @@
 #define CBC_TRIGGER_1SHOT    "user_wb_ttc_fmc_regs.cbc_acquisition.CBC_TRIGGER_ONE_SHOT"
 
     //CBC stubdata latency adjustement
+#define CBC_STUB_LATENCY     "cbc_stubdata_latency_adjust"
 #define CBC_STUB_LATENCY_FE1 "cbc_stubdata_latency_adjust_fe1"
 #define CBC_STUB_LATENCY_FE2 "cbc_stubdata_latency_adjust_fe2"
 
     //CBC I2C command acknoledgement
 #define CBC_I2C_CMD_ACK      "cbc_i2c_cmd_ack"
+#define CBC_I2C_CMD_ACK_FE1  "cbc_i2c_cmd_ack_fe1"
+#define CBC_I2C_CMD_ACK_FE2  "cbc_i2c_cmd_ack_fe2"
 
     //CBC I2C command request
 #define CBC_I2C_CMD_RQ       "cbc_i2c_cmd_rq"
+#define CBC_I2C_CMD_RQ_FE1   "cbc_i2c_cmd_rq_fe1"
+#define CBC_I2C_CMD_RQ_FE2   "cbc_i2c_cmd_rq_fe2"
 
-    //CBC reset
+    //CBC Hard Reset
 #define CBC_HARD_RESET       "cbc_hard_reset"
+#define CBC_HARD_RESET_FE1   "cbc_hard_reset_fe1"
+#define CBC_HARD_RESET_FE2   "cbc_hard_reset_fe2"
+
+    //CBC Fast Reset
 #define CBC_FAST_RESET       "cbc_fast_reset"
+#define CBC_FAST_RESET_FE1   "cbc_fast_reset_fe1"
+#define CBC_FAST_RESET_FE2   "cbc_fast_reset_fe2"
 
 //------------------------------------------------------------------------------
 //Delays
@@ -129,6 +159,47 @@
 
     //Trigger Select
 #define TRIGGER_SELECT   "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
+
+//------------------------------------------------------------------------------
+//Events
+
+    //Event number
+#define EVENT_NUMBER     100
+
+    //Event Size
+#define EVENT_SIZE_32    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1
+
+    //Event
+#define OFFSET_BUNCH               8
+#define WIDTH_BUNCH                24
+#define OFFSET_ORBIT               1*32+8
+#define WIDTH_ORBIT                24
+#define OFFSET_LUMI                2*32+8
+#define WIDTH_LUMI                 24
+#define OFFSET_EVENT_COUNT         3*32+8
+#define WIDTH_EVENT_COUNT          24
+#define OFFSET_EVENT_COUNT_CBC     4*32+8
+#define WIDTH_EVENT_COUNT_CBC      3*8
+#define OFFSET_FE_EVENT            5*4
+#define WIDTH_FE_EVENT             9*4*2            //CBC_NCHAR*2
+#define OFFSET_TDC                 5*32+9*4*2       //5*32+WIDTH_FE_EVENT
+#define WIDTH_TDC                  32
+#define FE_NCHAR                   9*4*2            //CBC_NCHAR*2
+
+
+    //Cbc Event
+#define NSENSOR                   254
+#define OFFSET_ERROR              0
+#define WIDTH_ERROR               2
+#define OFFSET_PIPELINE_ADDRESS   2       //OFFSET_ERROR + WIDTH_ERROR
+#define WIDTH_PIPELINE_ADDRESS    8
+#define OFFSET_CBCDATA            2+8     //OFFSET_PIPELINE_ADDRESS + WIDTH_PIPELINE_ADDRESS
+#define WIDTH_CBCDATA             254     //NSENSOR
+#define OFFSET_GLIBFLAG           10+254  //OFFSET_CBCDATA + WIDTH_CBCDATA
+#define WIDTH_GLIBFLAG            12
+#define OFFSET_CBCSTABDATA        264+12  //OFFSET_GLIBFLAG + WIDTH_GLIBFLAG
+#define WIDTH_CBCSTABDATA         12
+#define CBC_NCHAR                 9*4
 
 //------------------------------------------------------------------------------
 //Others
@@ -163,9 +234,6 @@
 
     //Polarity
 #define POLARITY        "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"
-
-    //Event number
-#define EVENT_NUMBER     100
 
     //Packet size
 #define PACKET_SIZE      32
