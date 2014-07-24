@@ -37,6 +37,28 @@ namespace Ph2_HwInterface
 
 	}
 
+    /*
+    void CbcInterface::SelectFEId()
+    {
+        if(uint32_t(ReadReg(HYBRID_TYPE)) == 8)
+        {
+            fCbcStubLat  = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_STUB_LATENCY_FE1 : CBC_STUB_LATENCY_FE2);
+            fCbcI2CCmdAck =  (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_I2C_CMD_ACK_FE1 : CBC_I2C_CMD_ACK_FE2);
+            fCbcI2CCmdRq = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_I2C_CMD_RQ_FE1 : CBC_I2C_CMD_RQ_FE2);
+            fCbcHardReset = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_HARD_RESET_FE1 : CBC_HARD_RESET_FE2);
+            fCbcFastReset = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_FAST_RESET_FE1 : CBC_FAST_RESET_FE2);
+        }
+        else
+        {
+            fCbcStubLat  = CBC_STUB_LATENCY;
+            fCbcI2CCmdAck =  CBC_I2C_CMD_ACK;
+            fCbcI2CCmdRq = CBC_I2C_CMD_RQ;
+            fCbcHardReset = CBC_HARD_RESET;
+            fCbcFastReset = CBC_FAST_RESET;
+        }
+    }
+    */
+
 
     void CbcInterface::SelectSRAM(uint32_t pCbcId)
     {
