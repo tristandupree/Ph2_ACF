@@ -22,16 +22,23 @@ Here are the step to make the program functional
 
 2. Change in HWDescription/Definition.h the path to the uHal connection file.
    - It's per default set to :
-   file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml
+   file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml
    - You have to change it to :
    file://$(BUILD)/settings/connections.xml (where $(BUILD) is the path to the
    root of the GitHub repo you recovered)
 
-3. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
+3. Change in settings/connections.xml the path to the adress table
+   - It's per default set to :
+   file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table.xml
+   - You have to change it to :
+   file://$(BUILD)/settings/adress_table.xml (where $(BUILD) is the path to the
+   root of the GitHub repo you recovered)
 
-4. Launch testpgrm command if you want to test if everything is working good
+4. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
 
-5. Launch mcp to play with the Test Interface
+5. Launch testpgrm command if you want to test if everything is working good
+
+6. Launch mcp to play with the Test Interface
 
 
 What can you do with the software ?
@@ -78,6 +85,7 @@ Last Updates
 
 - 09/07/14 : Added threading for stack writing registers
 - 10/07/14 : Read Data from acquisition in a rubbish format
+  25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC
 
 
 Future Improvements
