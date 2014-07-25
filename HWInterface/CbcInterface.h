@@ -41,6 +41,10 @@ namespace Ph2_HwInterface
         private:
             void SelectSRAM(uint32_t pCbcId);
             /*!
+            * \brief Detect the right FE Id to write the right registers (not tested)
+            */
+            //void SelectFEId();
+            /*!
             * \brief Wait for the I2C command acknowledgement
             * \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false
             * \param pNcount : Number of registers at stake
