@@ -41,10 +41,6 @@ namespace Ph2_HwInterface
         private:
             void SelectSRAM(uint32_t pCbcId);
             /*!
-            * \brief Detect the right FE Id to write the right registers (not tested)
-            */
-            //void SelectFEId();
-            /*!
             * \brief Wait for the I2C command acknowledgement
             * \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false
             * \param pNcount : Number of registers at stake
@@ -121,7 +117,7 @@ namespace Ph2_HwInterface
             * \param pRegNode : Node of the register to write
             * \param pValue : Value to write
             */
-            void UpdateCbcWrite(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue);
+            void UpdateCbcWrite(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue);
             /*!
             * \brief Read the designated register in the Cbc and update the Cbc Config File
             * \param pCbc
