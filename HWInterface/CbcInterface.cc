@@ -37,36 +37,12 @@ namespace Ph2_HwInterface
 
 	}
 
-    /*
-    void CbcInterface::SelectFEId()
-    {
-        if(uint32_t(ReadReg(HYBRID_TYPE)) == 8)
-        {
-            fCbcStubLat  = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_STUB_LATENCY_FE1 : CBC_STUB_LATENCY_FE2);
-            fCbcI2CCmdAck =  (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_I2C_CMD_ACK_FE1 : CBC_I2C_CMD_ACK_FE2);
-            fCbcI2CCmdRq = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_I2C_CMD_RQ_FE1 : CBC_I2C_CMD_RQ_FE2);
-            fCbcHardReset = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_HARD_RESET_FE1 : CBC_HARD_RESET_FE2);
-            fCbcFastReset = (uint32_t(ReadReg(FMC1_PRESENT)) ? CBC_FAST_RESET_FE1 : CBC_FAST_RESET_FE2);
-        }
-        else
-        {
-            fCbcStubLat  = CBC_STUB_LATENCY;
-            fCbcI2CCmdAck =  CBC_I2C_CMD_ACK;
-            fCbcI2CCmdRq = CBC_I2C_CMD_RQ;
-            fCbcHardReset = CBC_HARD_RESET;
-            fCbcFastReset = CBC_FAST_RESET;
-        }
-    }
-    */
-
 
     void CbcInterface::SelectSRAM(uint32_t pCbcId)
     {
-        fStrSram  = (pCbcId==0 ? SRAM1 : SRAM2);
-        fStrOtherSram = (pCbcId==0 ? SRAM2 : SRAM1);
-        fStrSramUserLogic =  (pCbcId==0 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
-        fStrFull = (pCbcId==0 ? SRAM1_FULL : SRAM2_FULL);
-        fStrReadout= (pCbcId==0 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
+        fStrSram  = (pCbcId ? SRAM2 : SRAM1);
+        fStrOtherSram = (pCbcId ? SRAM1 : SRAM2);
+        fStrSramUserLogic =  (pCbcId ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
     }
 
 
@@ -76,7 +52,7 @@ namespace Ph2_HwInterface
 
         if( pAckVal )
         {
-			cWait = pNcount * 500;
+			cWait = pNcount * 1000;
 		}
 
 		usleep( cWait );
@@ -94,7 +70,7 @@ namespace Ph2_HwInterface
 				usleep( cWait );
 			}
 
-		} while (cVal!= pAckVal && ++cLoop<MAX_NB_LOOP);
+		} while (cVal!= pAckVal /*&& ++cLoop<MAX_NB_LOOP*/);
 
 		if (cLoop>=MAX_NB_LOOP)
         {
@@ -111,14 +87,14 @@ namespace Ph2_HwInterface
 
         WriteReg(fStrSramUserLogic,1);
 
-		pVecReq.push_back(0xFFFFFFFF);
+    	pVecReq.push_back(0xFFFFFFFF);
 
-		WriteReg(fStrSramUserLogic,0);
+    	WriteReg(fStrSramUserLogic,0);
 
-		WriteBlockReg(fStrSram,pVecReq);
+    	WriteBlockReg(fStrSram,pVecReq);
         WriteReg(fStrOtherSram,0xFFFFFFFF);
 
-		WriteReg(fStrSramUserLogic,1);
+    	WriteReg(fStrSramUserLogic,1);
 
         WriteReg(CBC_HARD_RESET,0);
 
@@ -339,10 +315,20 @@ namespace Ph2_HwInterface
 			gettimeofday(&start0, 0);
 		}
 #endif
+        int cMissed=0;
 
 		for(uint8_t i=0;i<pModule->getNCbc();i++)
-		{
-			UpdateCbcRead(pModule->getCbc(i),pRegNode);
+        {
+            if(pModule->getCbc(i+cMissed) == NULL)
+            {
+              i--;
+              cMissed++;
+            }
+
+            else
+            {
+                UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
+            }
 		}
 
 #ifdef __CBCDAQ_DEV__
@@ -424,7 +410,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::UpdateCbcWrite(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
+	void CbcInterface::UpdateCbcWrite(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue)
 	{
 #ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
@@ -447,7 +433,7 @@ namespace Ph2_HwInterface
 
 		WriteCbcBlockReg(pCbc,cVecReq);
 
-		pCbc->setReg(pRegNode,cRegItem.fValue);
+		//pCbc->setReg(pRegNode,cRegItem.fValue);
 
 #ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG ){
@@ -488,7 +474,6 @@ namespace Ph2_HwInterface
 		ReadCbcBlockReg(pCbc,cVecReq);
 
 		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
-        std::cout << uint32_t(cCbcId) << std::endl;
         std::cout << uint32_t(cRegItem.fValue) << std::endl;
 
 

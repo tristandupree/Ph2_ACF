@@ -24,7 +24,7 @@ namespace Ph2_HwInterface
         fDeactiveThread(false)
     {
         // Loging settings
-        uhal::disableLogging();
+        //uhal::disableLogging();
         //uhal::setLogLevelTo(uhal::Error()); //Raise the log level
 
         fUHalConfigFileName = puHalConfigFileName;
