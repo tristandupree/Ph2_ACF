@@ -15,8 +15,13 @@ Here are the step to make the program functional
 \item Recover the Git\-Hub repo with the latest tested version of the M\-C\-P.
 \item Change in \hyperlink{_definition_8h}{H\-W\-Description/\-Definition.\-h} the path to the u\-Hal connection file.
 \begin{DoxyItemize}
-\item It's per default set to \-: \href{file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml}{\tt file\-:///afs/cern.\-ch/user/n/npierre/public/settings/connections.\-xml}
+\item It's per default set to \-: \href{file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml}{\tt file\-:///afs/cern.\-ch/user/n/npierre/dev/settings/connections.\-xml}
 \item You have to change it to \-: \href{file://$(BUILD)/settings/connections.xml}{\tt file\-://\$(\-B\-U\-I\-L\-D)/settings/connections.\-xml} (where  is the path to the root of the Git\-Hub repo you recovered)
+\end{DoxyItemize}
+\item Change in settings/connections.\-xml the path to the adress table
+\begin{DoxyItemize}
+\item It's per default set to \-: \href{file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table.xml}{\tt file\-:///afs/cern.\-ch/user/n/npierre/dev/settings/adress\-\_\-table.\-xml}
+\item You have to change it to \-: \href{file://$(BUILD)/settings/adress_table.xml}{\tt file\-://\$(\-B\-U\-I\-L\-D)/settings/adress\-\_\-table.\-xml} (where  is the path to the root of the Git\-Hub repo you recovered)
 \end{DoxyItemize}
 \item Do a make in the root the repo (make sure you have all u\-Hal, root, boost... libraries on your computer)
 \item Launch testpgrm command if you want to test if everything is working good
@@ -56,6 +61,7 @@ Warning ! \-: be careful with options choice in the program menus, some mistypes
 \begin{DoxyItemize}
 \item 09/07/14 \-: Added threading for stack writing registers
 \item 10/07/14 \-: Read Data from acquisition in a rubbish format
+\item 25/07/14 \-: Fully functional for 2\-C\-B\-C (safe from Broadcast obviously), pending for 8\-C\-B\-C
 \end{DoxyItemize}
 
 \subsection*{Future Improvements }

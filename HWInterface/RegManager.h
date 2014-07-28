@@ -76,11 +76,6 @@ namespace Ph2_HwInterface
             */
             virtual uhal::ValVector<uint32_t> ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlocksize);
             /*!
-            * \brief Stack the commands, deliver when full or timeout
-            * \param
-            */
-            //virtual void StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend=false);
-            /*!
             * \brief Time Out for sending the register/value stack in the writting.
             * \brief It has only to be set in a detached thread from the one you're working on
             */
@@ -102,7 +97,12 @@ namespace Ph2_HwInterface
             * \brief Destructor of the RegManager class
             */
             virtual ~RegManager();
-
+            /*!
+            * \brief Stack the commands, deliver when full or timeout
+            * \param pRegNode : Register to write
+            * \param pVal : Value to write
+            * \param pSend : Send the stack to write or nor (1/0)
+            */
             virtual void StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend=false);
 
     };

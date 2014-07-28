@@ -82,11 +82,14 @@ namespace Ph2_HwInterface
         std::cout << "FMC User Board ID : " << uint32_t(ReadReg(FMC_USER_BOARD_ID)) << std::endl;
         std::cout << "FMC User System ID : " << uint32_t(ReadReg(FMC_USER_SYS_ID)) << std::endl;
         std::cout << "FMC User Version : " << uint32_t(ReadReg(FMC_USER_VERSION)) << std::endl;
+        std::cout << "Nb FE : " << uint32_t(ReadReg(NB_FE)) << std::endl;
+        std::cout << "Hybrid Type : " << uint32_t(ReadReg(HYBRID_TYPE)) << std::endl;
+        std::cout << "Hybrid Version : " << uint32_t(ReadReg(HYBRID_VERSION)) << std::endl;
 
     }
 
 
-    void GlibInterface::SelectFEId(Glib& pGlib)
+    void GlibInterface::SelectFEId()
     {
         if(uint32_t(ReadReg(HYBRID_TYPE)) == 8)
         {

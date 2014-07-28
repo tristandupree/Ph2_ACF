@@ -23,7 +23,7 @@ Inheritance diagram for Ph2\-\_\-\-Hw\-Interface\-:\-:Reg\-Manager\-:\begin{figu
 \begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager} class. \end{DoxyCompactList}\item 
 virtual \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a5d650c4e6467153f98f999abbbfc354c}{$\sim$\-Reg\-Manager} ()
 \begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager} class. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a409c95948e25ea5fb7f897926e9de1e6}{Stack\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val, bool p\-Send=false)
+virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_af4192a14a0da7dd14afa14e236cbf7e1}{Stack\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val, bool p\-Send=false)
 \end{DoxyCompactItemize}
 \subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -38,8 +38,10 @@ virtual uhal\-::\-Val\-Word$<$ uint32\-\_\-t $>$ \hyperlink{class_ph2___hw_inter
 \begin{DoxyCompactList}\small\item\em Read a value in a register. \end{DoxyCompactList}\item 
 virtual uhal\-::\-Val\-Vector$<$ uint32\-\_\-t $>$ \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a6481c211d27badc409ff0e7af20575e4}{Read\-Block\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Blocksize)
 \begin{DoxyCompactList}\small\item\em Read a block of values in a register. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_ab4e24cf318772c09a6c7e24b88b1dedb}{Stack\-Write\-Time\-Out} ()
+virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a409c95948e25ea5fb7f897926e9de1e6}{Stack\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val, bool p\-Send=false)
 \begin{DoxyCompactList}\small\item\em Stack the commands, deliver when full or timeout. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_ab4e24cf318772c09a6c7e24b88b1dedb}{Stack\-Write\-Time\-Out} ()
+\begin{DoxyCompactList}\small\item\em Time Out for sending the register/value stack in the writting. \end{DoxyCompactList}\item 
 virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a20c502bcad5115c6ae16d4d356b72f0c}{Choose\-Board} (uint8\-\_\-t p\-Board\-Id)
 \begin{DoxyCompactList}\small\item\em Choose the board we want to talk with. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
@@ -162,7 +164,29 @@ Val\-Word value of the register
 \item[{const uint32\-\_\-t \&}]{p\-Val, }
 \item[{bool}]{p\-Send = {\ttfamily false}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a409c95948e25ea5fb7f897926e9de1e6}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a409c95948e25ea5fb7f897926e9de1e6}
+
+
+Stack the commands, deliver when full or timeout. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Reg\-Node} & \-: Register to write \\
+\hline
+{\em p\-Val} & \-: Value to write \\
+\hline
+{\em p\-Send} & \-: Send the stack to write or nor (1/0) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_reg_manager_af4192a14a0da7dd14afa14e236cbf7e1}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Stack\-Reg@{Stack\-Reg}}
+\index{Stack\-Reg@{Stack\-Reg}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
+\subsubsection[{Stack\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Stack\-Reg (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{p\-Reg\-Node, }
+\item[{const uint32\-\_\-t \&}]{p\-Val, }
+\item[{bool}]{p\-Send = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_af4192a14a0da7dd14afa14e236cbf7e1}
 \hypertarget{class_ph2___hw_interface_1_1_reg_manager_ab4e24cf318772c09a6c7e24b88b1dedb}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Stack\-Write\-Time\-Out@{Stack\-Write\-Time\-Out}}
 \index{Stack\-Write\-Time\-Out@{Stack\-Write\-Time\-Out}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
 \subsubsection[{Stack\-Write\-Time\-Out}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Stack\-Write\-Time\-Out (
@@ -172,14 +196,9 @@ Val\-Word value of the register
 )\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_ab4e24cf318772c09a6c7e24b88b1dedb}
 
 
-Stack the commands, deliver when full or timeout. 
+Time Out for sending the register/value stack in the writting. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em Time} & Out for sending the register/value stack in the writting. It has only to be set in a detached thread from the one you're working on \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_reg_manager_a888f5cccb05daa28896cf622abfdcbd6}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Write\-Block\-Reg@{Write\-Block\-Reg}}
+It has only to be set in a detached thread from the one you're working on \hypertarget{class_ph2___hw_interface_1_1_reg_manager_a888f5cccb05daa28896cf622abfdcbd6}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Write\-Block\-Reg@{Write\-Block\-Reg}}
 \index{Write\-Block\-Reg@{Write\-Block\-Reg}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
 \subsubsection[{Write\-Block\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Write\-Block\-Reg (
 \begin{DoxyParamCaption}

@@ -111,6 +111,10 @@ namespace Ph2_HwInterface
             ~CbcInterface();
 
             /*!
+            * \brief Proto
+            */
+            void EnableCbc();
+            /*!
             * \brief Configure the Cbc with the Cbc Config File
             * \param pCbc
             */

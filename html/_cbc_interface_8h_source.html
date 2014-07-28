@@ -125,34 +125,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_cbc_interface.html#a61c9447688cc556e33d7051c26459755">   39</a></span>&#160;            std::string fStrSram, fStrOtherSram, <a class="code" href="class_ph2___hw_interface_1_1_cbc_interface.html#a61c9447688cc556e33d7051c26459755">fStrSramUserLogic</a>, fStrFull, fStrReadout;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordtype">bool</span> I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount=1 );</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordtype">void</span> SendBlockCbcI2cRequest(std::vector&lt;uint32_t&gt;&amp; pVecReq, <span class="keywordtype">bool</span> pWrite);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordtype">void</span> ReadI2cBlockValuesInSRAM(std::vector&lt;uint32_t&gt; &amp;pVecReq );</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordtype">void</span> EnableI2c( <a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, <span class="keywordtype">bool</span> pEnable );</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="comment">//r/w the Cbc registers</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"></span>            <span class="keywordtype">void</span> WriteCbcBlockReg( <a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, std::vector&lt;uint32_t&gt;&amp; pVecReq );</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordtype">void</span> ReadCbcBlockReg( <a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, std::vector&lt;uint32_t&gt;&amp; pVecReq );</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="comment">//Encode/Decode Cbc values</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment"></span>            <span class="keywordtype">void</span> EncodeReg(<a class="code" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a>&amp; pRegItem, uint8_t&amp; pCbcId, std::vector&lt;uint32_t&gt;&amp; pVecReq); </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordtype">void</span> DecodeReg(<a class="code" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a>&amp; pRegItem, uint8_t&amp; pCbcId, uint32_t pWord); </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_cbc_interface.html">CbcInterface</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *puHalConfigFileName);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            ~<a class="code" href="class_ph2___hw_interface_1_1_cbc_interface.html">CbcInterface</a>();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordtype">void</span> ConfigureCbc(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordtype">void</span> UpdateCbcWrite(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, <span class="keyword">const</span> std::string&amp; pRegNode, uint8_t pValue);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordtype">void</span> UpdateCbcRead(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc,<span class="keyword">const</span> std::string&amp; pRegNode);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keywordtype">void</span> ReadCbc(<a class="code" href="class_ph2___hw_description_1_1_module.html">Module</a>* pModule,<span class="keyword">const</span> std::string&amp; pRegNode);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordtype">void</span> WriteBroadcast(<a class="code" href="class_ph2___hw_description_1_1_module.html">Module</a>* pModule,<span class="keyword">const</span> std::string&amp; pRegNode,uint8_t pValue);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <span class="keywordtype">void</span> CbcHardReset(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            <span class="keywordtype">void</span> CbcFastReset(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    };</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;}</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordtype">void</span> SelectSRAM(uint32_t pCbcId);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="comment">//void SelectFEId();</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"></span>            <span class="keywordtype">bool</span> I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount=1 );</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordtype">void</span> SendBlockCbcI2cRequest(std::vector&lt;uint32_t&gt;&amp; pVecReq, <span class="keywordtype">bool</span> pWrite);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordtype">void</span> ReadI2cBlockValuesInSRAM(std::vector&lt;uint32_t&gt; &amp;pVecReq );</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">void</span> EnableI2c( <a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, <span class="keywordtype">bool</span> pEnable );</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <span class="comment">//r/w the Cbc registers</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment"></span>            <span class="keywordtype">void</span> WriteCbcBlockReg( <a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, std::vector&lt;uint32_t&gt;&amp; pVecReq );</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keywordtype">void</span> ReadCbcBlockReg( <a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, std::vector&lt;uint32_t&gt;&amp; pVecReq );</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="comment">//Encode/Decode Cbc values</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment"></span>            <span class="keywordtype">void</span> EncodeReg(<a class="code" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a>&amp; pRegItem, uint8_t&amp; pCbcId, std::vector&lt;uint32_t&gt;&amp; pVecReq); </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordtype">void</span> DecodeReg(<a class="code" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a>&amp; pRegItem, uint8_t&amp; pCbcId, uint32_t pWord); </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_cbc_interface.html">CbcInterface</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *puHalConfigFileName);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            ~<a class="code" href="class_ph2___hw_interface_1_1_cbc_interface.html">CbcInterface</a>();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keywordtype">void</span> EnableCbc();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordtype">void</span> ConfigureCbc(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keywordtype">void</span> UpdateCbcWrite(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, <span class="keyword">const</span> std::string&amp; pRegNode, uint8_t pValue);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordtype">void</span> UpdateCbcRead(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc,<span class="keyword">const</span> std::string&amp; pRegNode);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordtype">void</span> ReadCbc(<a class="code" href="class_ph2___hw_description_1_1_module.html">Module</a>* pModule,<span class="keyword">const</span> std::string&amp; pRegNode);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordtype">void</span> WriteBroadcast(<a class="code" href="class_ph2___hw_description_1_1_module.html">Module</a>* pModule,<span class="keyword">const</span> std::string&amp; pRegNode,uint8_t pValue);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keywordtype">void</span> CbcHardReset(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="keywordtype">void</span> CbcFastReset(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    };</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_cbc_interface_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_cbc_interface.html">Ph2_HwInterface::CbcInterface</a></div><div class="ttdoc">Permit r/w given registers in the Cbc you specify. </div><div class="ttdef"><b>Definition:</b> CbcInterface.h:36</div></div>
 <div class="ttc" id="class_ph2___hw_description_1_1_module_html"><div class="ttname"><a href="class_ph2___hw_description_1_1_module.html">Ph2_HwDescription::Module</a></div><div class="ttdoc">contains a vector of Cbc which are connected to the Module </div><div class="ttdef"><b>Definition:</b> Module.h:32</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html">Ph2_HwInterface::RegManager</a></div><div class="ttdoc">Permit connection to given boards and r/w given registers. </div><div class="ttdef"><b>Definition:</b> RegManager.h:33</div></div>
@@ -163,7 +166,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 21 2014 14:19:08 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 25 2014 13:50:21 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

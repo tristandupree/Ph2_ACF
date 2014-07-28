@@ -60,13 +60,53 @@ namespace Ph2_HwInterface
     */
 
 
+    void CbcInterface::EnableCbc()
+    {
+        /*
+        std::vector< std::pair<std::string,uint32_t> > cVecReg;
+        std::pair<std::string,uint32_t> cPairReg;
+
+        cPairReg.first = ENABLE_FE0_CBC0; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = ENABLE_FE0_CBC1; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = ENABLE_FE0_CBC2; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = ENABLE_FE0_CBC3; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = ENABLE_FE0_CBC4; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = ENABLE_FE0_CBC5; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = ENABLE_FE0_CBC6; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+        cPairReg.first = ENABLE_FE0_CBC7; cPairReg.second = 1;
+        cVecReg.push_back(cPairReg);
+
+        WriteStackReg(cVecReg);
+
+        cVecReg.clear();
+        */
+
+        std::cout << uint32_t(ReadReg(CBC_FE1_ENABLED)) << std::endl;
+        std::cout << uint32_t(ReadReg(ENABLE_FE0_CBC0)) << std::endl;
+        std::cout << uint32_t(ReadReg(ENABLE_FE0_CBC1)) << std::endl;
+        std::cout << uint32_t(ReadReg(ENABLE_FE0_CBC2)) << std::endl;
+        std::cout << uint32_t(ReadReg(ENABLE_FE0_CBC3)) << std::endl;
+        std::cout << uint32_t(ReadReg(ENABLE_FE0_CBC4)) << std::endl;
+        std::cout << uint32_t(ReadReg(ENABLE_FE0_CBC5)) << std::endl;
+        std::cout << uint32_t(ReadReg(ENABLE_FE0_CBC6)) << std::endl;
+        std::cout << uint32_t(ReadReg(ENABLE_FE0_CBC7)) << std::endl;
+    }
+
+
     void CbcInterface::SelectSRAM(uint32_t pCbcId)
     {
-        fStrSram  = (pCbcId==0 ? SRAM1 : SRAM2);
-        fStrOtherSram = (pCbcId==0 ? SRAM2 : SRAM1);
-        fStrSramUserLogic =  (pCbcId==0 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
-        fStrFull = (pCbcId==0 ? SRAM1_FULL : SRAM2_FULL);
-        fStrReadout= (pCbcId==0 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
+        fStrSram  = /*(pCbcId==0 ?*/ SRAM1 /*: SRAM2)*/;
+        fStrOtherSram = /*(pCbcId==0 ?*/ SRAM2 /*: SRAM1)*/;
+        fStrSramUserLogic =  /*(pCbcId==0 ?*/ SRAM1_USR_LOGIC /*: SRAM2_USR_LOGIC)*/;
+        fStrFull = /*(pCbcId==0 ?*/ SRAM1_FULL /*: SRAM2_FULL)*/;
+        fStrReadout= /*(pCbcId==0 ?*/ SRAM1_END_READOUT /*: SRAM2_END_READOUT)*/;
     }
 
 
@@ -340,9 +380,21 @@ namespace Ph2_HwInterface
 		}
 #endif
 
+        int cMissed = 0;
+
 		for(uint8_t i=0;i<pModule->getNCbc();i++)
 		{
-			UpdateCbcRead(pModule->getCbc(i),pRegNode);
+
+            if(pModule->getCbc(i+cMissed) == NULL)
+            {
+                i--;
+                cMissed++;
+            }
+
+            else
+            {
+                UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
+            }
 		}
 
 #ifdef __CBCDAQ_DEV__

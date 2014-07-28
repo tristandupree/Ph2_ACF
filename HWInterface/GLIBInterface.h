@@ -80,9 +80,8 @@ namespace Ph2_HwInterface
             void getBoardInfo(Glib& pGlib);
             /*!
             * \brief Detect the right FE Id to write the right registers (not tested)
-            * \param pGlib
             */
-            void SelectFEId(Glib& pGlib);
+            void SelectFEId();
             /*!
             * \brief Configure the Glib with its Config File
             * \param pGlib

@@ -25,8 +25,8 @@ Inheritance diagram for Ph2\-\_\-\-Hw\-Interface\-:\-:Glib\-Interface\-:\begin{f
 \begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\-Interface} class. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a51dd2e5a8128fd01a41c4d6b204df948}{get\-Board\-Info} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib)
 \begin{DoxyCompactList}\small\item\em Get the board infos. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_ad53d40d7cfea163bd3dcd04e233a02e3}{Select\-F\-E\-Id} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib)
-\begin{DoxyCompactList}\small\item\em Detect the right F\-E Id to write the right registers. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a73d61c4a430d7a883948184400dfd8b4}{Select\-F\-E\-Id} ()
+\begin{DoxyCompactList}\small\item\em Detect the right F\-E Id to write the right registers (not tested) \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_aad68569190ea9b318b5be1abae4fd23f}{Configure\-Glib} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib)
 \begin{DoxyCompactList}\small\item\em Configure the Glib with its Config File. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a0706eb396293fe5c8c717c5d0ab82165}{Start} (\hyperlink{class_ph2___hw_description_1_1_glib}{Glib} \&p\-Glib)
@@ -71,6 +71,16 @@ std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a27b44db1be
 std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a40299b584632b402f3c54fc9d98d87f2}{f\-Str\-Full}
 \item 
 std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a925d65d022d0dc6d453e0e611826c377}{f\-Str\-Readout}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_aa72b2c10537eb001fe5bd7ee611b2d57}{f\-Cbc\-Stub\-Lat}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_ae9ec903a2dd264ad800292d7c3aa3d2b}{f\-Cbc\-I2\-C\-Cmd\-Ack}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a413443d88da98de71c5fcfa998ea89b5}{f\-Cbc\-I2\-C\-Cmd\-Rq}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a3c87ad019e3df02833d10cf653b4e1eb}{f\-Cbc\-Hard\-Reset}
+\item 
+std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a3f6d3aec340c12329fe26242de9b9577}{f\-Cbc\-Fast\-Reset}
 \item 
 std\-::ofstream $\ast$ \hyperlink{class_ph2___hw_interface_1_1_glib_interface_a6efc2da55aafca870e1259e78436e1ef}{f\-Data\-File}
 \end{DoxyCompactItemize}
@@ -197,22 +207,17 @@ Run a D\-A\-Q.
 {\em p\-Glib} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_glib_interface_ad53d40d7cfea163bd3dcd04e233a02e3}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Select\-F\-E\-Id@{Select\-F\-E\-Id}}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a73d61c4a430d7a883948184400dfd8b4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Select\-F\-E\-Id@{Select\-F\-E\-Id}}
 \index{Select\-F\-E\-Id@{Select\-F\-E\-Id}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
 \subsubsection[{Select\-F\-E\-Id}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Select\-F\-E\-Id (
 \begin{DoxyParamCaption}
-\item[{{\bf Glib} \&}]{p\-Glib}
+{}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_glib_interface_ad53d40d7cfea163bd3dcd04e233a02e3}
+)}}\label{class_ph2___hw_interface_1_1_glib_interface_a73d61c4a430d7a883948184400dfd8b4}
 
 
-Detect the right F\-E Id to write the right registers. 
+Detect the right F\-E Id to write the right registers (not tested) 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Glib} & \\
-\hline
-\end{DoxyParams}
 \hypertarget{class_ph2___hw_interface_1_1_glib_interface_a014fc0ea74353469aa54e4eecaffb225}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!Select\-S\-R\-A\-M@{Select\-S\-R\-A\-M}}
 \index{Select\-S\-R\-A\-M@{Select\-S\-R\-A\-M}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
 \subsubsection[{Select\-S\-R\-A\-M}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::\-Select\-S\-R\-A\-M (
@@ -324,6 +329,21 @@ Update both Glib register and Config File.
 
 
 \subsection{Field Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a3f6d3aec340c12329fe26242de9b9577}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Cbc\-Fast\-Reset@{f\-Cbc\-Fast\-Reset}}
+\index{f\-Cbc\-Fast\-Reset@{f\-Cbc\-Fast\-Reset}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Cbc\-Fast\-Reset}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Cbc\-Fast\-Reset\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a3f6d3aec340c12329fe26242de9b9577}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a3c87ad019e3df02833d10cf653b4e1eb}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Cbc\-Hard\-Reset@{f\-Cbc\-Hard\-Reset}}
+\index{f\-Cbc\-Hard\-Reset@{f\-Cbc\-Hard\-Reset}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Cbc\-Hard\-Reset}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Cbc\-Hard\-Reset\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a3c87ad019e3df02833d10cf653b4e1eb}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_ae9ec903a2dd264ad800292d7c3aa3d2b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Cbc\-I2\-C\-Cmd\-Ack@{f\-Cbc\-I2\-C\-Cmd\-Ack}}
+\index{f\-Cbc\-I2\-C\-Cmd\-Ack@{f\-Cbc\-I2\-C\-Cmd\-Ack}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Cbc\-I2\-C\-Cmd\-Ack}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Cbc\-I2\-C\-Cmd\-Ack\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_ae9ec903a2dd264ad800292d7c3aa3d2b}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_a413443d88da98de71c5fcfa998ea89b5}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Cbc\-I2\-C\-Cmd\-Rq@{f\-Cbc\-I2\-C\-Cmd\-Rq}}
+\index{f\-Cbc\-I2\-C\-Cmd\-Rq@{f\-Cbc\-I2\-C\-Cmd\-Rq}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Cbc\-I2\-C\-Cmd\-Rq}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Cbc\-I2\-C\-Cmd\-Rq\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_a413443d88da98de71c5fcfa998ea89b5}
+\hypertarget{class_ph2___hw_interface_1_1_glib_interface_aa72b2c10537eb001fe5bd7ee611b2d57}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Cbc\-Stub\-Lat@{f\-Cbc\-Stub\-Lat}}
+\index{f\-Cbc\-Stub\-Lat@{f\-Cbc\-Stub\-Lat}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
+\subsubsection[{f\-Cbc\-Stub\-Lat}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Cbc\-Stub\-Lat\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_glib_interface_aa72b2c10537eb001fe5bd7ee611b2d57}
 \hypertarget{class_ph2___hw_interface_1_1_glib_interface_ae0e95a15055342afd67e1f46aab1481c}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}!f\-Data@{f\-Data}}
 \index{f\-Data@{f\-Data}!Ph2_HwInterface::GlibInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface}}
 \subsubsection[{f\-Data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Data}$\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-Interface\-::f\-Data}}\label{class_ph2___hw_interface_1_1_glib_interface_ae0e95a15055342afd67e1f46aab1481c}

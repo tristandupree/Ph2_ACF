@@ -29,9 +29,9 @@ virtual uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_a54e7ce5
 \begin{DoxyCompactList}\small\item\em Get the Be Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\item 
 virtual uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_addc30268e0f48b5a1408fd261d080f03}{get\-Shelve\-Id} ()
 \begin{DoxyCompactList}\small\item\em Get the Shelve Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\item 
-virtual uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_aa2e7c853b3df1fb6b3d320cdcf4bf85a}{get\-Reg} (std\-::string p\-Reg)
+virtual uint16\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_ac25f4182e6340ca29d42ba9b861d8e67}{get\-Reg} (std\-::string p\-Reg)
 \begin{DoxyCompactList}\small\item\em Get any register from the Map. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_description_1_1_be_board_a7651d75760d934d237a2df889ba4e73c}{set\-Reg} (std\-::string p\-Reg, uint8\-\_\-t pset\-Value)
+virtual void \hyperlink{class_ph2___hw_description_1_1_be_board_a933f9d5f715fbe9187f6aa79589cb55c}{set\-Reg} (std\-::string p\-Reg, uint16\-\_\-t pset\-Value)
 \begin{DoxyCompactList}\small\item\em Set any register of the Map. \end{DoxyCompactList}\item 
 virtual void \hyperlink{class_ph2___hw_description_1_1_be_board_a5242925c065165be9b407dabf889ac9a}{add\-Module} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} \&p\-Module)
 \begin{DoxyCompactList}\small\item\em Adding a module to the vector. \end{DoxyCompactList}\item 
@@ -40,7 +40,7 @@ virtual bool \hyperlink{class_ph2___hw_description_1_1_be_board_aba02e7319c8c41b
 virtual \hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$ \hyperlink{class_ph2___hw_description_1_1_be_board_a71b8e3e970d554d7642bea8a9d21b037}{get\-Module} (uint8\-\_\-t p\-Module\-Id)
 \begin{DoxyCompactList}\small\item\em Get a module from the vector. \end{DoxyCompactList}\item 
 virtual std\-::map$<$ std\-::string, \\*
-uint8\-\_\-t $>$ \hyperlink{class_ph2___hw_description_1_1_be_board_a91b95aaeb4d54df3ae4bae7cf2304912}{get\-Be\-Board\-Reg\-Map} ()
+uint16\-\_\-t $>$ \hyperlink{class_ph2___hw_description_1_1_be_board_a8d27a8030371768636694f5b2ac95046}{get\-Be\-Board\-Reg\-Map} ()
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -51,7 +51,7 @@ uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_aabe1a515a23ff88
 \item 
 std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_module}{Module} $>$ \hyperlink{class_ph2___hw_description_1_1_be_board_adcee78870a20c92fc8c060ff709a4baf}{f\-Module\-Vector}
 \item 
-\hyperlink{namespace_ph2___hw_description_a9b77ad2bbc2b144cdd4f1574b31eaa20}{Be\-Board\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_be_board_a6db4850485715c0f23c97c3d621a781b}{f\-Reg\-Map}
+\hyperlink{namespace_ph2___hw_description_a2e13fb82c8ed98154c60f9d0f8467d72}{Be\-Board\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_be_board_a6db4850485715c0f23c97c3d621a781b}{f\-Reg\-Map}
 \end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -100,13 +100,13 @@ Adding a module to the vector.
 {\em p\-Module} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a91b95aaeb4d54df3ae4bae7cf2304912}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Be\-Board\-Reg\-Map@{get\-Be\-Board\-Reg\-Map}}
+\hypertarget{class_ph2___hw_description_1_1_be_board_a8d27a8030371768636694f5b2ac95046}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Be\-Board\-Reg\-Map@{get\-Be\-Board\-Reg\-Map}}
 \index{get\-Be\-Board\-Reg\-Map@{get\-Be\-Board\-Reg\-Map}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{get\-Be\-Board\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::map$<$ std\-::string, uint8\-\_\-t $>$ Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Be\-Board\-Reg\-Map (
+\subsubsection[{get\-Be\-Board\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\-::map$<$ std\-::string, uint16\-\_\-t $>$ Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Be\-Board\-Reg\-Map (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_description_1_1_be_board_a91b95aaeb4d54df3ae4bae7cf2304912}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_description_1_1_be_board_a8d27a8030371768636694f5b2ac95046}
 \hypertarget{class_ph2___hw_description_1_1_be_board_a54e7ce5a90312b4b71f2af9d88e90dbb}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Be\-Id@{get\-Be\-Id}}
 \index{get\-Be\-Id@{get\-Be\-Id}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
 \subsubsection[{get\-Be\-Id}]{\setlength{\rightskip}{0pt plus 5cm}virtual uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Be\-Id (
@@ -154,13 +154,13 @@ Get the number of modules connected to the \hyperlink{class_ph2___hw_description
 \begin{DoxyReturn}{Returns}
 The size of the vector 
 \end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_aa2e7c853b3df1fb6b3d320cdcf4bf85a}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Reg@{get\-Reg}}
+\hypertarget{class_ph2___hw_description_1_1_be_board_ac25f4182e6340ca29d42ba9b861d8e67}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Reg@{get\-Reg}}
 \index{get\-Reg@{get\-Reg}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{get\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Reg (
+\subsubsection[{get\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}uint16\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Reg (
 \begin{DoxyParamCaption}
 \item[{std\-::string}]{p\-Reg}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_description_1_1_be_board_aa2e7c853b3df1fb6b3d320cdcf4bf85a}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_description_1_1_be_board_ac25f4182e6340ca29d42ba9b861d8e67}
 
 
 Get any register from the Map. 
@@ -222,14 +222,14 @@ Remove a \hyperlink{class_ph2___hw_description_1_1_module}{Module} from the vect
 \begin{DoxyReturn}{Returns}
 a bool which indicate if the removing was successful 
 \end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a7651d75760d934d237a2df889ba4e73c}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!set\-Reg@{set\-Reg}}
+\hypertarget{class_ph2___hw_description_1_1_be_board_a933f9d5f715fbe9187f6aa79589cb55c}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!set\-Reg@{set\-Reg}}
 \index{set\-Reg@{set\-Reg}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
 \subsubsection[{set\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::set\-Reg (
 \begin{DoxyParamCaption}
 \item[{std\-::string}]{p\-Reg, }
-\item[{uint8\-\_\-t}]{pset\-Value}
+\item[{uint16\-\_\-t}]{pset\-Value}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_description_1_1_be_board_a7651d75760d934d237a2df889ba4e73c}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_description_1_1_be_board_a933f9d5f715fbe9187f6aa79589cb55c}
 
 
 Set any register of the Map. 

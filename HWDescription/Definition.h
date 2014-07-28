@@ -42,9 +42,9 @@
 #define I2C_READ_ADDR     0x06
 
 #define I2C_SLAVE         0x5B
-#define I2C_COMMAND       "user_wb_ttc_fmc_regs.i2c_command"
-#define I2C_REPLY         "user_wb_ttc_fmc_regs.i2c_reply"
-#define I2C_SETTINGS      "user_wb_ttc_fmc_regs.i2c_settings"
+#define I2C_COMMAND       "user_wb_ttc_fmc_regs.cbc_reg_i2c_command"
+#define I2C_REPLY         "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
+#define I2C_SETTINGS      "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
 
 #define MAX_NB_LOOP       50
 
@@ -90,8 +90,12 @@
 #define FAKE_DATA	  "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"
 #define EXT_TRG		  "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
 
-    //Hybrid type
-#define HYBRID_TYPE   "user_wb_ttc_fmc_regs.new.hybrid_type"
+    //Hybrid
+#define HYBRID_TYPE      "hybrid_type"
+#define HYBRID_VERSION   "user_wb_ttc_fmc_regs.new.hybrid_version"
+
+    //NB FE
+#define NB_FE         "nb_FE"
 
 //------------------------------------------------------------------------------
 //CBC
@@ -135,6 +139,46 @@
 #define CBC_FAST_RESET       "cbc_fast_reset"
 #define CBC_FAST_RESET_FE1   "cbc_fast_reset_fe1"
 #define CBC_FAST_RESET_FE2   "cbc_fast_reset_fe2"
+
+    //Enable Cbc
+
+        //FE0
+#define ENABLE_FE0_CBC0          "user_wb_ttc_fmc_regs.FE0.CBC0"
+#define ENABLE_FE0_CBC1          "user_wb_ttc_fmc_regs.FE0.CBC1"
+#define ENABLE_FE0_CBC2          "user_wb_ttc_fmc_regs.FE0.CBC2"
+#define ENABLE_FE0_CBC3          "user_wb_ttc_fmc_regs.FE0.CBC3"
+#define ENABLE_FE0_CBC4          "user_wb_ttc_fmc_regs.FE0.CBC4"
+#define ENABLE_FE0_CBC5          "user_wb_ttc_fmc_regs.FE0.CBC5"
+#define ENABLE_FE0_CBC6          "user_wb_ttc_fmc_regs.FE0.CBC6"
+#define ENABLE_FE0_CBC7          "user_wb_ttc_fmc_regs.FE0.CBC7"
+#define ENABLE_FE0_CBC8          "user_wb_ttc_fmc_regs.FE0.CBC8"
+#define ENABLE_FE0_CBC9          "user_wb_ttc_fmc_regs.FE0.CBC9"
+#define ENABLE_FE0_CBC10         "user_wb_ttc_fmc_regs.FE0.CBC10"
+#define ENABLE_FE0_CBC11         "user_wb_ttc_fmc_regs.FE0.CBC11"
+#define ENABLE_FE0_CBC12         "user_wb_ttc_fmc_regs.FE0.CBC12"
+#define ENABLE_FE0_CBC13         "user_wb_ttc_fmc_regs.FE0.CBC13"
+#define ENABLE_FE0_CBC14         "user_wb_ttc_fmc_regs.FE0.CBC14"
+#define ENABLE_FE0_CBC15         "user_wb_ttc_fmc_regs.FE0.CBC15"
+#define CBC_FE0_ENABLED          "user_wb_ttc_fmc_regs.FE0.enabled"
+
+        //FE1
+#define ENABLE_FE1_CBC0          "user_wb_ttc_fmc_regs.FE1.CBC0"
+#define ENABLE_FE1_CBC1          "user_wb_ttc_fmc_regs.FE1.CBC1"
+#define ENABLE_FE1_CBC2          "user_wb_ttc_fmc_regs.FE1.CBC2"
+#define ENABLE_FE1_CBC3          "user_wb_ttc_fmc_regs.FE1.CBC3"
+#define ENABLE_FE1_CBC4          "user_wb_ttc_fmc_regs.FE1.CBC4"
+#define ENABLE_FE1_CBC5          "user_wb_ttc_fmc_regs.FE1.CBC5"
+#define ENABLE_FE1_CBC6          "user_wb_ttc_fmc_regs.FE1.CBC6"
+#define ENABLE_FE1_CBC7          "user_wb_ttc_fmc_regs.FE1.CBC7"
+#define ENABLE_FE1_CBC8          "user_wb_ttc_fmc_regs.FE1.CBC8"
+#define ENABLE_FE1_CBC9          "user_wb_ttc_fmc_regs.FE1.CBC9"
+#define ENABLE_FE1_CBC10         "user_wb_ttc_fmc_regs.FE1.CBC10"
+#define ENABLE_FE1_CBC11         "user_wb_ttc_fmc_regs.FE1.CBC11"
+#define ENABLE_FE1_CBC12         "user_wb_ttc_fmc_regs.FE1.CBC12"
+#define ENABLE_FE1_CBC13         "user_wb_ttc_fmc_regs.FE1.CBC13"
+#define ENABLE_FE1_CBC14         "user_wb_ttc_fmc_regs.FE1.CBC14"
+#define ENABLE_FE1_CBC15         "user_wb_ttc_fmc_regs.FE1.CBC15"
+#define CBC_FE1_ENABLED          "user_wb_ttc_fmc_regs.FE1.enabled"
 
 //------------------------------------------------------------------------------
 //Delays

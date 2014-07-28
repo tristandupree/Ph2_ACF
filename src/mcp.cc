@@ -296,6 +296,7 @@ int main()
                                 }
                                 else
                                 {
+
                                     for(uint8_t i=0; i<8; i++)
                                     {
                                         if(cGlib.getModule(cModuleId)->getCbc(i) == NULL)
@@ -304,6 +305,28 @@ int main()
                                             cGlib.getModule(cModuleId)->addCbc(cCbc);
                                         }
                                     }
+
+                                    //cCbcInterface.EnableCbc();
+
+                                    /*
+                                    cCbc.fCbcId=0xA0;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                    cCbc.fCbcId=0xA1;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                    cCbc.fCbcId=0xA2;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                    cCbc.fCbcId=0xA3;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                    cCbc.fCbcId=0xB0;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                    cCbc.fCbcId=0xB1;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                    cCbc.fCbcId=0xB2;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                    cCbc.fCbcId=0xB3;
+                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                    */
+
                                     std::cout << "*** 8Cbc Hybrid Structure Added ***" << std::endl;
                                 }
                             break;

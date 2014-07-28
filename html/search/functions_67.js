@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['getbeboardregmap',['getBeBoardRegMap',['../class_ph2___hw_description_1_1_be_board.html#a91b95aaeb4d54df3ae4bae7cf2304912',1,'Ph2_HwDescription::BeBoard']]],
+  ['getbeboardregmap',['getBeBoardRegMap',['../class_ph2___hw_description_1_1_be_board.html#a8d27a8030371768636694f5b2ac95046',1,'Ph2_HwDescription::BeBoard']]],
   ['getbeid',['getBeId',['../class_ph2___hw_description_1_1_be_board.html#a54e7ce5a90312b4b71f2af9d88e90dbb',1,'Ph2_HwDescription::BeBoard::getBeId()'],['../class_ph2___hw_description_1_1_front_end_description.html#ae2d759253890ec653dbe1b5c3141887a',1,'Ph2_HwDescription::FrontEndDescription::getBeId()']]],
   ['getboardinfo',['getBoardInfo',['../class_ph2___hw_interface_1_1_glib_interface.html#a51dd2e5a8128fd01a41c4d6b204df948',1,'Ph2_HwInterface::GlibInterface']]],
   ['getbuffer',['GetBuffer',['../class_ph2___hw_interface_1_1_data.html#a6093f26d20db6ca6a2a248b6bc8ddb25',1,'Ph2_HwInterface::Data']]],
@@ -18,7 +18,7 @@ var searchData=
   ['getnextevent',['GetNextEvent',['../class_ph2___hw_interface_1_1_data.html#a18d1e30edd97079893bbd2332809cba8',1,'Ph2_HwInterface::Data']]],
   ['getnfe',['getNFe',['../class_ph2___hw_description_1_1_be_board.html#acee42e119fd170dd4291825b10a30436',1,'Ph2_HwDescription::BeBoard']]],
   ['getorbit',['GetOrbit',['../class_ph2___hw_interface_1_1_event.html#a02d8bec5f5249cb80e2835e8aff037d7',1,'Ph2_HwInterface::Event']]],
-  ['getreg',['getReg',['../class_ph2___hw_description_1_1_be_board.html#aa2e7c853b3df1fb6b3d320cdcf4bf85a',1,'Ph2_HwDescription::BeBoard::getReg()'],['../class_ph2___hw_description_1_1_cbc.html#a8e29ea3bf86977585b3824941d948f91',1,'Ph2_HwDescription::Cbc::getReg()']]],
+  ['getreg',['getReg',['../class_ph2___hw_description_1_1_be_board.html#ac25f4182e6340ca29d42ba9b861d8e67',1,'Ph2_HwDescription::BeBoard::getReg()'],['../class_ph2___hw_description_1_1_cbc.html#a8e29ea3bf86977585b3824941d948f91',1,'Ph2_HwDescription::Cbc::getReg()']]],
   ['getregmap',['getRegMap',['../class_ph2___hw_description_1_1_cbc.html#ad2bae647b2474b4737d7f2ede5a73ed3',1,'Ph2_HwDescription::Cbc']]],
   ['getshelveid',['getShelveId',['../class_ph2___hw_description_1_1_be_board.html#addc30268e0f48b5a1408fd261d080f03',1,'Ph2_HwDescription::BeBoard::getShelveId()'],['../class_ph2___hw_description_1_1_front_end_description.html#a2599816f65ecea30824cd3d8fe1fcadc',1,'Ph2_HwDescription::FrontEndDescription::getShelveId()']]],
   ['getstatus',['getStatus',['../class_ph2___hw_description_1_1_front_end_description.html#ad5b25135c78f750c36673a8861395426',1,'Ph2_HwDescription::FrontEndDescription']]],

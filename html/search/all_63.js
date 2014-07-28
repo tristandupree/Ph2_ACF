@@ -9,6 +9,8 @@ var searchData=
   ['cbc_5ffast_5freset',['CBC_FAST_RESET',['../_definition_8h.html#a46c24affadd18b38f8f180c29996c917',1,'Definition.h']]],
   ['cbc_5ffast_5freset_5ffe1',['CBC_FAST_RESET_FE1',['../_definition_8h.html#a14ca43ce56b6ba3282562ec26d4dd1d4',1,'Definition.h']]],
   ['cbc_5ffast_5freset_5ffe2',['CBC_FAST_RESET_FE2',['../_definition_8h.html#aac0c28e4301536787f75b2b7c8f8a4ab',1,'Definition.h']]],
+  ['cbc_5ffe0_5fenabled',['CBC_FE0_ENABLED',['../_definition_8h.html#ade36fc7aee3ea334c79116a6274842cb',1,'Definition.h']]],
+  ['cbc_5ffe1_5fenabled',['CBC_FE1_ENABLED',['../_definition_8h.html#a83f524d50b61345b68f47f01131af8f4',1,'Definition.h']]],
   ['cbc_5fhard_5freset',['CBC_HARD_RESET',['../_definition_8h.html#a339750768b74eeb2a5e15d27002e5ed1',1,'Definition.h']]],
   ['cbc_5fhard_5freset_5ffe1',['CBC_HARD_RESET_FE1',['../_definition_8h.html#a1afae7c30406c0520e384fa1806e97ca',1,'Definition.h']]],
   ['cbc_5fhard_5freset_5ffe2',['CBC_HARD_RESET_FE2',['../_definition_8h.html#ae6dcd5d0b1ff293b4ad62fe648e34127',1,'Definition.h']]],

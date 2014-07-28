@@ -66,7 +66,7 @@
 	<node id="sram1_256" address="0x020000ff" permission="rw" mode="single" description="SRAM1 256th word"/>
 	<node id="sram2" address="0x04000000" permission="rw" mode="block" size="0x00800000" description="SRAM2 bank address"/>
 	<node id="sram2_256" address="0x040000ff" permission="rw" mode="single" description="SRAM2 256th word"/>
-	
+
 	<!--node id="freq_ttc_fmc"			address="0x40000001"    permission="r" mode="single"/-->
 
     <node id="cbc_i2c_cmd_ack"  address="0x80000008"    mask="0x0000000C" permission="rw" description="Hand shaking before reading result of I2C request. 0:Wait, 1:OK"/>
@@ -90,7 +90,7 @@
     <node id="break_trigger" 	address="0x8000000C" mask="0x00000001" permission="rw"  description="1: The acquisition is paused, 0: The acquisition is resumed (the events that had not been sent are lost)"/>
     <node id="COMMISSIONNING_MODE_RQ"   address="0x8000000c"    mask="0x00000002"       permission="rw" tags="checkbox" description="1:The acquisition commissioning mode is requested"/>
     <node id="COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET"       address="0x8000000c"    mask="0x0003fffc"       permission="rw" description="Delay (ms ?) after fast reset in commissioning mode"/>
-    <node id="COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"		address="0x8000000c"	mask="0x00040000"	permission="rw" tags="checkbox"  description="Test pulse generated during commissioning mode"/>    
+    <node id="COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"		address="0x8000000c"	mask="0x00040000"	permission="rw" tags="checkbox"  description="Test pulse generated during commissioning mode"/>
 <!--  reg(13) -->
     <node id="COMMISSIONNING_MODE_DELAY_AFTER_TEST_PULSE"       address="0x8000000d"    mask="0x0000ffff"       permission="rw" description="Delay after test pulse in commissioning mode"/>
     <node id="COMMISSIONNING_MODE_DELAY_AFTER_L1A"      address="0x8000000d"    mask="0xffff0000"       permission="rw" description="Delay after L1A trigger during commissioning mode"/>
@@ -138,9 +138,9 @@
 			<node id = "sTTS_code"		mask="0x0000000F" description="?"/>
 			<node id = "fifo1_full"		mask="0x00000010" description="?"/>
 			<node id = "fifo2_full"		mask="0x00000020" description="?"/>
-			<node id = "cdr_clk_locked"	mask="0x00000040" description="?"/> 
-			<node id = "cdr_lol"		mask="0x00000080" description="?"/> 
-			<node id = "cdr_los"		mask="0x00000100" description="?"/> 
+			<node id = "cdr_clk_locked"	mask="0x00000040" description="?"/>
+			<node id = "cdr_lol"		mask="0x00000080" description="?"/>
+			<node id = "cdr_los"		mask="0x00000100" description="?"/>
 			<node id = "FSM_sTTS_ctrl"	mask="0x00001E00" description="?"/>
 			<node id = "spurious_frame"	mask="0x00002000" description="1: A spurious frame has been sent ?"/>
 			<node id = "CMD_START_VALID"	mask="0x00004000" description="1: Acquisition start validated by firmware"/>
@@ -154,7 +154,7 @@
 			<node id="FE0_masked"      mask="0x00000100" tags="checkbox" description="Front End 0 masked"/>
 			<node id="FE1_masked"      mask="0x00000200" tags="checkbox" description="Front End 1 masked"/>
 		</node>
-		<!--node id ="cbc_reg_i2c_settings"	address="0x18"	permission="rw"	mode="single" description="I2C value zone (CBC I2C bus requests)"/>
+		<node id ="cbc_reg_i2c_settings"	address="0x18"	permission="rw"	mode="single" description="I2C value zone (CBC I2C bus requests)"/>
 		<node id ="cbc_reg_i2c_command"	address="0x19"	permission="rw"	mode="single" description="I2C command (CBC I2C bus requests)"/>
 		<node id ="cbc_reg_i2c_reply"	address="0x1A"	permission="r"	mode="single" description="I2C reply zone (CBC I2C bus requests)"/-->
 		<node id ="cbc_acquisition"	address="0x1B"	permission="rw" mode="single">
@@ -163,336 +163,336 @@
 			<node id="CBC_TRIGGER_ONE_SHOT"	mask="0x00000010" description="deprecated ?"/>
 			<node id="CBC_TRIGGER_FREQ_SEL"	mask="0x000001E0" description="deprecated"/>
 		</node>
-                <node id ="new" address="0x1F" permission="rw" mode="single" description="New parameters">
-                        <node id="nb_FE"                mask="0x0000001F" tags="select" description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
-                        <node id="hybrid_type"          mask="0x000003E0" tags="select" description="2: 2xCBCv2, 8: 8xCBCv2, 16: 16xCBCv2"/>
-                        <node id="hybrid_version"       mask="0x000FC000" description="Version number of the hybrid containing CBCs"/>
-                        <node id="carrier_version"      mask="0x0F000000" description="Version number of the PCB carrying the hybrid"/>
-                        <node id="mezzanine_version"    mask="0xF0000000" description="Version number of the FMC mezzanine connecting to carrier"/>
-                </node>
-                <node id="FE0" address="0x14" permission="rw" mode="single" description="Front end enable and CBC enable for this FE (new parameters)">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE1" address="0x15" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <!--node id="FE2" address="0x22" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE3" address="0x23" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE4" address="0x24" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE5" address="0x25" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE6" address="0x26" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE7" address="0x27" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE8" address="0x28" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE9" address="0x29" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE10" address="0x2A" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE11" address="0x2B" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE11" address="0x2B" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE12" address="0x2C" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE13" address="0x2D" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE14" address="0x2E" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node>
-                <node id="FE15" address="0x2F" permission="rw" mode="single">
-                        <node id="CBC0" mask="0x00000001" tags="checkbox"/>
-                        <node id="CBC1" mask="0x00000002" tags="checkbox"/>
-                        <node id="CBC2" mask="0x00000004" tags="checkbox"/>
-                        <node id="CBC3" mask="0x00000008" tags="checkbox"/>
-                        <node id="CBC4" mask="0x00000010" tags="checkbox"/>
-                        <node id="CBC5" mask="0x00000020" tags="checkbox"/>
-                        <node id="CBC6" mask="0x00000040" tags="checkbox"/>
-                        <node id="CBC7" mask="0x00000080" tags="checkbox"/>
-                        <node id="CBC8" mask="0x00000100" tags="checkbox"/>
-                        <node id="CBC9" mask="0x00000200" tags="checkbox"/>
-                        <node id="CBC10" mask="0x00000400" tags="checkbox"/>
-                        <node id="CBC11" mask="0x00000800" tags="checkbox"/>
-                        <node id="CBC12" mask="0x00001000" tags="checkbox"/>
-                        <node id="CBC13" mask="0x00002000" tags="checkbox"/>
-                        <node id="CBC14" mask="0x00004000" tags="checkbox"/>
-                        <node id="CBC15" mask="0x00008000" tags="checkbox"/>
-                        <node id="enabled" mask="0x00010000" tags="checkbox"/>
-                </node-->
+        <node id ="new" address="0x1F" permission="rw" mode="single" description="New parameters">
+                <node id="nb_FE"                mask="0x0000001F" tags="select" description="0: 1 FE, 1: 1 FE + TTC FMC, 2: 2 FE"/>
+                <node id="hybrid_type"          mask="0x000003E0" tags="select" description="2: 2xCBCv2, 8: 8xCBCv2, 16: 16xCBCv2"/>
+                <node id="hybrid_version"       mask="0x000FC000" description="Version number of the hybrid containing CBCs"/>
+                <node id="carrier_version"      mask="0x0F000000" description="Version number of the PCB carrying the hybrid"/>
+                <node id="mezzanine_version"    mask="0xF0000000" description="Version number of the FMC mezzanine connecting to carrier"/>
+        </node>
+        <node id="FE0" address="0x14" permission="rw" mode="single" description="Front end enable and CBC enable for this FE (new parameters)">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE1" address="0x15" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <!--node id="FE2" address="0x22" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE3" address="0x23" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE4" address="0x24" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE5" address="0x25" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE6" address="0x26" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE7" address="0x27" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE8" address="0x28" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE9" address="0x29" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE10" address="0x2A" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE11" address="0x2B" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE11" address="0x2B" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE12" address="0x2C" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE13" address="0x2D" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE14" address="0x2E" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node>
+        <node id="FE15" address="0x2F" permission="rw" mode="single">
+                <node id="CBC0" mask="0x00000001" tags="checkbox"/>
+                <node id="CBC1" mask="0x00000002" tags="checkbox"/>
+                <node id="CBC2" mask="0x00000004" tags="checkbox"/>
+                <node id="CBC3" mask="0x00000008" tags="checkbox"/>
+                <node id="CBC4" mask="0x00000010" tags="checkbox"/>
+                <node id="CBC5" mask="0x00000020" tags="checkbox"/>
+                <node id="CBC6" mask="0x00000040" tags="checkbox"/>
+                <node id="CBC7" mask="0x00000080" tags="checkbox"/>
+                <node id="CBC8" mask="0x00000100" tags="checkbox"/>
+                <node id="CBC9" mask="0x00000200" tags="checkbox"/>
+                <node id="CBC10" mask="0x00000400" tags="checkbox"/>
+                <node id="CBC11" mask="0x00000800" tags="checkbox"/>
+                <node id="CBC12" mask="0x00001000" tags="checkbox"/>
+                <node id="CBC13" mask="0x00002000" tags="checkbox"/>
+                <node id="CBC14" mask="0x00004000" tags="checkbox"/>
+                <node id="CBC15" mask="0x00008000" tags="checkbox"/>
+                <node id="enabled" mask="0x00010000" tags="checkbox"/>
+        </node-->
     </node>
     <node id="neuf"	address="0x90000000" mode="block" size="1000" description="9000"/>
 </node>

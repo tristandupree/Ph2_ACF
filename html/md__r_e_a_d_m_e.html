@@ -92,8 +92,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ol type="1">
 <li>Recover the GitHub repo with the latest tested version of the MCP.</li>
 <li>Change in <a class="el" href="_definition_8h.html">HWDescription/Definition.h</a> the path to the uHal connection file.<ul>
-<li>It's per default set to : <a href="file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml">file:///afs/cern.ch/user/n/npierre/public/settings/connections.xml</a></li>
+<li>It's per default set to : <a href="file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml">file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml</a></li>
 <li>You have to change it to : <a href="file://$(BUILD)/settings/connections.xml">file://$(BUILD)/settings/connections.xml</a> (where  is the path to the root of the GitHub repo you recovered)</li>
+</ul>
+</li>
+<li>Change in settings/connections.xml the path to the adress table<ul>
+<li>It's per default set to : <a href="file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table.xml">file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table.xml</a></li>
+<li>You have to change it to : <a href="file://$(BUILD)/settings/adress_table.xml">file://$(BUILD)/settings/adress_table.xml</a> (where  is the path to the root of the GitHub repo you recovered)</li>
 </ul>
 </li>
 <li>Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)</li>
@@ -121,6 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ul>
 <li>09/07/14 : Added threading for stack writing registers</li>
 <li>10/07/14 : Read Data from acquisition in a rubbish format</li>
+<li>25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC</li>
 </ul>
 <h2>Future Improvements </h2>
 <ul>
@@ -133,7 +139,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 21 2014 14:19:08 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 25 2014 13:50:21 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
