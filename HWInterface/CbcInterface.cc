@@ -20,7 +20,7 @@
 #include "../HWDescription/Module.h"
 #include "../HWDescription/Cbc.h"
 
-#define DEV_FLAG                0
+#define DEV_FLAG                1
 
 namespace Ph2_HwInterface
 {
@@ -43,6 +43,7 @@ namespace Ph2_HwInterface
         fStrSram  = (pCbcId ? SRAM2 : SRAM1);
         fStrOtherSram = (pCbcId ? SRAM1 : SRAM2);
         fStrSramUserLogic =  (pCbcId ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
+        fStrOtherSramUserLogic =  (pCbcId ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
     }
 
 
@@ -52,7 +53,7 @@ namespace Ph2_HwInterface
 
         if( pAckVal )
         {
-			cWait = pNcount * 1000;
+			cWait = pNcount * 600;
 		}
 
 		usleep( cWait );
@@ -64,13 +65,15 @@ namespace Ph2_HwInterface
         {
 			cVal=ReadReg(CBC_I2C_CMD_ACK);
 
+            std::cout << cVal << std::endl;
+
 			if (cVal!=pAckVal)
             {
 				std::cout << "Waiting for the I2c command acknowledge to be " << pAckVal << " for " << uint32_t(pNcount) << " registers." << std::endl;
 				usleep( cWait );
 			}
 
-		} while (cVal!= pAckVal /*&& ++cLoop<MAX_NB_LOOP*/);
+		} while (cVal!= pAckVal && ++cLoop<MAX_NB_LOOP);
 
 		if (cLoop>=MAX_NB_LOOP)
         {
@@ -85,18 +88,27 @@ namespace Ph2_HwInterface
     void CbcInterface::SendBlockCbcI2cRequest(std::vector<uint32_t>& pVecReq, bool pWrite)
     {
 
+        WriteReg(PC_CONFIG_OK,0);
+
         WriteReg(fStrSramUserLogic,1);
+        WriteReg(fStrOtherSramUserLogic,1);
 
     	pVecReq.push_back(0xFFFFFFFF);
 
-    	WriteReg(fStrSramUserLogic,0);
+    	WriteReg(fStrOtherSramUserLogic,0);
+
+        WriteReg(fStrOtherSram,0xFFFFFFFF);
+
+        WriteReg(fStrOtherSramUserLogic,1);
+
+        WriteReg(fStrSramUserLogic,0);
 
     	WriteBlockReg(fStrSram,pVecReq);
-        WriteReg(fStrOtherSram,0xFFFFFFFF);
+        //WriteReg(fStrOtherSram,0xFFFFFFFF);
 
     	WriteReg(fStrSramUserLogic,1);
 
-        WriteReg(CBC_HARD_RESET,0);
+        //WriteReg(CBC_HARD_RESET,0);
 
         //r/w request
 		WriteReg(CBC_I2C_CMD_RQ,pWrite ? 3: 1);
@@ -120,6 +132,9 @@ namespace Ph2_HwInterface
 
     void CbcInterface::ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq )
     {
+
+        std::cout << fStrSram << std::endl;
+        std::cout << fStrSramUserLogic << std::endl;
 
         WriteReg(fStrSramUserLogic,0);
 
@@ -167,8 +182,8 @@ namespace Ph2_HwInterface
 		}
 #endif
 
-		EnableI2c(pCbc,1);
         SelectSRAM(uint32_t(pCbc->getCbcId()));
+		EnableI2c(pCbc,1);
 
 		try
 		{
@@ -209,8 +224,8 @@ namespace Ph2_HwInterface
 		}
 #endif
 
-		EnableI2c(pCbc,1);
         SelectSRAM(uint32_t(pCbc->getCbcId()));
+		EnableI2c(pCbc,1);
 
 		try
 		{
@@ -467,7 +482,7 @@ namespace Ph2_HwInterface
 
         std::cout << uint32_t(cRegItem.fValue) << std::endl;
 
-		ChooseBoard(pCbc->getBeId());
+		//ChooseBoard(pCbc->getBeId());
 
 		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 

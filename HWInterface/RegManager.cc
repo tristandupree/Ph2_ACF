@@ -14,7 +14,7 @@
 #include "Utilities.h"
 #include "../HWDescription/Definition.h"
 
-#define DEV_FLAG    0
+#define DEV_FLAG    1
 
 namespace Ph2_HwInterface
 {
@@ -148,6 +148,7 @@ namespace Ph2_HwInterface
                 //Use size_t and not an iterator as op[] only works with size_t type
                 for(std::size_t i = 0; i != cBlockRead.size(); i++ )
                 {
+                  std::cout << cBlockRead[i] << "  " << pValues[i] << std::endl;
                   if(cBlockRead[i]!=pValues[i])
                   {
                       cWriteCorr = false;

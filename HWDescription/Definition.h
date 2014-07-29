@@ -46,7 +46,7 @@
 #define I2C_REPLY         "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
 #define I2C_SETTINGS      "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
 
-#define MAX_NB_LOOP       50
+#define MAX_NB_LOOP       100
 
 //------------------------------------------------------------------------------
 //Board infos

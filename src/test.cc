@@ -41,14 +41,16 @@ int main()
 
 	cGlibInterface.ConfigureGlib(cGlib_00);
 
-	//cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(0));
+	cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(0));
 
-	//cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(1));
+	std::cout << "pouet" << std::endl;
+
+	cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(1));
 
 	std::cout << "\nChanging Value of VCth...\n" << std::endl;
 
-        cCbcInterface.UpdateCbcWrite(cGlib_00.getModule(0)->getCbc(0),"VCth",0x09);
-	cCbcInterface.UpdateCbcWrite(cGlib_00.getModule(0)->getCbc(1),"VCth",0x07);
+    cCbcInterface.UpdateCbcWrite(cGlib_00.getModule(0)->getCbc(0),"VCth",0x03);
+	cCbcInterface.UpdateCbcWrite(cGlib_00.getModule(0)->getCbc(1),"VCth",0x10);
 	cCbcInterface.ReadCbc(cGlib_00.getModule(0),"VCth");
 
         std::cout << "\nValue of VCth Changed !\n" << std::endl;

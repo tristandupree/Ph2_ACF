@@ -36,7 +36,7 @@ namespace Ph2_HwInterface
     class CbcInterface : public RegManager
     {
         private:
-            std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
+            std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrOtherSramUserLogic;
 
         private:
             void SelectSRAM(uint32_t pCbcId);

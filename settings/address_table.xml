@@ -62,13 +62,12 @@
 		<node id="flash_select"				mask="0x00100000"/>
 	</node>
 	<!--SRAM memory space -->
-	<node id="sram1" address="0x02000000" permission="rw" mode="block" size="0x00800000" description="SRAM1 bank address"/>
-	<node id="sram2" address="0x04000000" permission="rw" mode="block" size="0x00800000" description="SRAM2 bank address"/>
+	<node id="sram1" address="0x02000000" permission="rw" mode="block" size="0x02000000"/>
+    <node id="sram2" address="0x04000000" permission="rw" mode="block" size="0x02000000"/>
 
 	<!--node id="freq_ttc_fmc"			address="0x40000001"    permission="r" mode="single"/-->
 
     <node id="cbc_i2c_cmd_ack"  address="0x80000008"    mask="0x0000000C" permission="rw"/>
-    <node id="cbc_i2c_cmd_ack_fe2"  address="0x80000008"    mask="0x00000030" permission="rw"/>
 
     <node id="cbc_hard_reset"	address="0x80000009"	mask="0x00000002"	permission="rw"/>
     <node id="cbc_i2c_refresh"	address="0x80000009"	mask="0x00000004"	permission="rw"/>
