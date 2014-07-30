@@ -20,7 +20,8 @@
 #include "../HWDescription/Module.h"
 #include "../HWDescription/Cbc.h"
 
-#define DEV_FLAG                1
+#define DEV_FLAG                0
+#define VERIFICATION_LOOP       0
 
 namespace Ph2_HwInterface
 {
@@ -38,12 +39,12 @@ namespace Ph2_HwInterface
 	}
 
 
-    void CbcInterface::SelectSRAM(uint32_t pCbcId)
+    void CbcInterface::SelectSRAM(uint32_t pFe)
     {
-        fStrSram  = SRAM1;
-        fStrOtherSram = SRAM2;
-        fStrSramUserLogic =  SRAM1_USR_LOGIC;
-        fStrOtherSramUserLogic =  SRAM2_USR_LOGIC;
+        fStrSram  = (pFe ? SRAM2 : SRAM1);
+        fStrOtherSram = (pFe ? SRAM1 : SRAM2);
+        fStrSramUserLogic =  (pFe ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
+        fStrOtherSramUserLogic =  (pFe ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
     }
 
 
@@ -53,7 +54,7 @@ namespace Ph2_HwInterface
 
         if( pAckVal )
         {
-			cWait = pNcount * 600;
+			cWait = pNcount * 500;
 		}
 
 		usleep( cWait );
@@ -65,11 +66,10 @@ namespace Ph2_HwInterface
         {
 			cVal=ReadReg(CBC_I2C_CMD_ACK);
 
-            std::cout << cVal << std::endl;
-
 			if (cVal!=pAckVal)
             {
-				std::cout << "Waiting for the I2c command acknowledge to be " << pAckVal << " for " << uint32_t(pNcount) << " registers." << std::endl;
+				if(VERIFICATION_LOOP)
+                    std::cout << "Waiting for the I2c command acknowledge to be " << pAckVal << " for " << uint32_t(pNcount) << " registers." << std::endl;
 				usleep( cWait );
 			}
 
@@ -104,7 +104,6 @@ namespace Ph2_HwInterface
         WriteReg(fStrSramUserLogic,0);
 
     	WriteBlockReg(fStrSram,pVecReq);
-        //WriteReg(fStrOtherSram,0xFFFFFFFF);
 
     	WriteReg(fStrSramUserLogic,1);
 
@@ -132,9 +131,6 @@ namespace Ph2_HwInterface
 
     void CbcInterface::ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq )
     {
-
-        std::cout << fStrSram << std::endl;
-        std::cout << fStrSramUserLogic << std::endl;
 
         WriteReg(fStrSramUserLogic,0);
 
@@ -182,7 +178,7 @@ namespace Ph2_HwInterface
 		}
 #endif
 
-        SelectSRAM(uint32_t(pCbc->getCbcId()));
+        SelectSRAM(0);
 		EnableI2c(pCbc,1);
 
 		try
@@ -224,7 +220,7 @@ namespace Ph2_HwInterface
 		}
 #endif
 
-        SelectSRAM(uint32_t(pCbc->getCbcId()));
+        SelectSRAM(0);
 		EnableI2c(pCbc,1);
 
 		try
@@ -294,14 +290,11 @@ namespace Ph2_HwInterface
 #endif
 
 		std::vector<uint32_t> cVecReq;
-        cVecReq.clear();
-
 		CbcRegMap cCbcRegMap = pCbc->getRegMap();
 
 		for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
 		{
 			EncodeReg(cIt->second,pCbc->fCbcId,cVecReq);
-            std::cout << uint32_t(pCbc->fCbcId) << "  " << cIt->first << "  " << uint32_t(cIt->second.fValue) << std::endl;
 		}
 
 		WriteCbcBlockReg(pCbc,cVecReq);
@@ -320,7 +313,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::ReadCbc(Module* pModule,const std::string& pRegNode)
+	void CbcInterface::UpdateAllCbc(Module* pModule)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -332,19 +325,47 @@ namespace Ph2_HwInterface
 			gettimeofday(&start0, 0);
 		}
 #endif
+        CbcRegItem cRegItem;
+        uint8_t cCbcId;
+        std::vector<uint32_t> cVecReq;
+        std::vector<std::string> cVecRegNode;
+        Cbc *cCbc;
         int cMissed=0;
 
 		for(uint8_t i=0;i<pModule->getNCbc();i++)
-        {
+		{
+
             if(pModule->getCbc(i+cMissed) == NULL)
             {
-              i--;
-              cMissed++;
+                i--;
+                cMissed++;
             }
 
             else
             {
-                UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
+                cCbc = pModule->getCbc(i+cMissed);
+
+                CbcRegMap cCbcRegMap = cCbc->getRegMap();
+
+                for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
+                {
+                   EncodeReg(cIt->second,cCbc->fCbcId,cVecReq);
+                   cVecRegNode.push_back(cIt->first);
+                }
+
+                ReadCbcBlockReg(cCbc,cVecReq);
+
+                for(uint32_t j=0;j<cVecReq.size();j++)
+                {
+                    DecodeReg(cRegItem,cCbcId,cVecReq[j]);
+
+#ifdef __CBCDAQ_DEV__
+                    std::cout << "CbcId : " << uint32_t(cCbcId) << std::endl;
+                    std::cout << "Value read : " << uint32_t(cRegItem.fValue) << std::endl;
+#endif
+
+                    cCbc->setReg(cVecRegNode[j],cRegItem.fValue);
+                }
             }
 		}
 
@@ -403,12 +424,12 @@ namespace Ph2_HwInterface
 
 				WriteCbcBlockReg(cCbc,cVecReq);
 
-				UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
+				UpdateCbc(pModule->getCbc(i+cMissed),pRegNode);
 			}
 
 			else
 			{
-				UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
+				UpdateCbc(pModule->getCbc(i+cMissed),pRegNode);
 			}
 		}
 
@@ -427,7 +448,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::UpdateCbcWrite(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue)
+	void CbcInterface::WriteCbc(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue)
 	{
 #ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
@@ -440,35 +461,44 @@ namespace Ph2_HwInterface
 #endif
 
 		CbcRegItem cRegItem = (pCbc->getRegMap())[pRegNode];
-		std::vector<uint32_t> cVecReq;
-        uint32_t cWriteValue, cReadValue;
-        uint8_t cCbcId = pCbc->getCbcId();
+        std::vector<uint32_t> cVecReq;
 
-		cRegItem.fValue = pValue;
+        cRegItem.fValue = pValue;
 
-		ChooseBoard(pCbc->getBeId());
-
-		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
-
-		WriteCbcBlockReg(pCbc,cVecReq);
-
-        DecodeReg(cRegItem,cCbcId,cVecReq[0]);
-
-        cWriteValue = cRegItem.fValue;
-        cRegItem.fValue = 0;
+        ChooseBoard(pCbc->getBeId());
 
         EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
-        ReadCbcBlockReg(pCbc,cVecReq);
+        WriteCbcBlockReg(pCbc,cVecReq);
 
-        DecodeReg(cRegItem,cCbcId,cVecReq[0]);
-        std::cout << uint32_t(cRegItem.fValue) << std::endl;
+        if(VERIFICATION_LOOP)
+        {
+            uint32_t cWriteValue, cReadValue;
+            uint8_t cCbcId = pCbc->getCbcId();
 
-        cReadValue = cRegItem.fValue;
+            DecodeReg(cRegItem,cCbcId,cVecReq[0]);
 
-        std::cout << "\n\n\n\n\n" << cWriteValue << "  " << cReadValue << "\n\n\n\n\n" << std::endl;
+            cWriteValue = cRegItem.fValue;
+            cRegItem.fValue = 0;
 
-		//pCbc->setReg(pRegNode,cRegItem.fValue);
+            EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+
+            ReadCbcBlockReg(pCbc,cVecReq);
+
+            DecodeReg(cRegItem,cCbcId,cVecReq[0]);
+
+            cReadValue = cRegItem.fValue;
+
+            if(cReadValue != cWriteValue)
+            {
+                std::cout << "ERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+            }
+            else
+            {
+                std::cout << "Writing correctly done :\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+            }
+
+        }
 
 #ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG ){
@@ -484,7 +514,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::UpdateCbcRead(Cbc* pCbc,const std::string& pRegNode)
+	void CbcInterface::UpdateCbc(Cbc* pCbc,const std::string& pRegNode)
 	{
 #ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
@@ -500,17 +530,18 @@ namespace Ph2_HwInterface
 		CbcRegItem cRegItem = (pCbc->getRegMap())[pRegNode];
 		std::vector<uint32_t> cVecReq;
 
-        std::cout << uint32_t(cRegItem.fValue) << std::endl;
-
-		//ChooseBoard(pCbc->getBeId());
+		ChooseBoard(pCbc->getBeId());
 
 		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
 		ReadCbcBlockReg(pCbc,cVecReq);
 
 		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
-        std::cout << uint32_t(cRegItem.fValue) << std::endl;
 
+#ifdef __CBCDAQ_DEV__
+        std::cout << "CbcId : " << uint32_t(cCbcId) << std::endl;
+        std::cout << "Value read : " << uint32_t(cRegItem.fValue) << std::endl;
+#endif
 
 		pCbc->setReg(pRegNode,cRegItem.fValue);
 
