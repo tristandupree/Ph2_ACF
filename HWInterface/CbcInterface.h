@@ -38,7 +38,7 @@ namespace Ph2_HwInterface
         private:
             std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrOtherSramUserLogic;
 
-        private:
+        public:
             void SelectSRAM(uint32_t pCbcId);
             /*!
             * \brief Wait for the I2C command acknowledgement
