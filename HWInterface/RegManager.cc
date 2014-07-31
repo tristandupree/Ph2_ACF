@@ -24,8 +24,10 @@ namespace Ph2_HwInterface
         fDeactiveThread(false)
     {
         // Loging settings
-        //uhal::disableLogging();
-        //uhal::setLogLevelTo(uhal::Error()); //Raise the log level
+        if(DEV_FLAG)
+            uhal::setLogLevelTo(uhal::Error()); //Raise the log level
+        else
+            uhal::disableLogging();
 
         fUHalConfigFileName = puHalConfigFileName;
 
@@ -148,6 +150,7 @@ namespace Ph2_HwInterface
                 //Use size_t and not an iterator as op[] only works with size_t type
                 for(std::size_t i = 0; i != cBlockRead.size(); i++ )
                 {
+                  std::cout << cBlockRead[i] << "  " << pValues[i] << std::endl;
                   if(cBlockRead[i]!=pValues[i])
                   {
                       cWriteCorr = false;

@@ -122,9 +122,9 @@ namespace Ph2_HwInterface
 
         //Primary Configuration
         cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
-	cVecReg.push_back(cPairReg);
-	cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
-	cVecReg.push_back(cPairReg);
+	    cVecReg.push_back(cPairReg);
+	    cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
+	    cVecReg.push_back(cPairReg);
         cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
         cVecReg.push_back(cPairReg);
         cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;

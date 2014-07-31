@@ -22,9 +22,8 @@ using namespace Ph2_HwInterface;
 int main()
 {
 	//Two Cbc
-	Cbc cCbc_00;
-	Cbc cCbc_01;
-	cCbc_01.fCbcId=1;
+	Cbc cCbc_00(0,0,0,0,0,FE0CBC0HOLE);
+	Cbc cCbc_01(0,0,0,0,1,FE0CBC1HOLE);
 
 	//One Module
 	Module cModule_00;
@@ -41,17 +40,16 @@ int main()
 
 	cGlibInterface.ConfigureGlib(cGlib_00);
 
-	//cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(0));
-
-	//cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(1));
+	cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(0));
+	cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(1));
 
 	std::cout << "\nChanging Value of VCth...\n" << std::endl;
 
-        cCbcInterface.UpdateCbcWrite(cGlib_00.getModule(0)->getCbc(0),"VCth",0x09);
-	cCbcInterface.UpdateCbcWrite(cGlib_00.getModule(0)->getCbc(1),"VCth",0x07);
-	cCbcInterface.ReadCbc(cGlib_00.getModule(0),"VCth");
+    cCbcInterface.WriteCbc(cGlib_00.getModule(0)->getCbc(0),"VCth",0x03);
+	cCbcInterface.WriteCbc(cGlib_00.getModule(0)->getCbc(1),"VCth",0x10);
+	cCbcInterface.UpdateAllCbc(cGlib_00.getModule(0));
 
-        std::cout << "\nValue of VCth Changed !\n" << std::endl;
+    std::cout << "\nValue of VCth Changed !\n" << std::endl;
 
 	cGlibInterface.UpdateGlibRead(cGlib_00,EXT_TRG);
 	cGlibInterface.UpdateGlibRead(cGlib_00,FAKE_DATA);
@@ -62,7 +60,7 @@ int main()
 	std::cout << "\nThe value for EXT_TRG is " << dump1 << std::endl;
 	std::cout << "\nThe value for FAKE_DATA is " << dump2 << std::endl;
 
-    	cGlib_00.getModule(0)->getCbc(0)->writeRegValues("/afs/cern.ch/user/n/npierre/public/settings/output_00.txt");
+    cGlib_00.getModule(0)->getCbc(0)->writeRegValues("/afs/cern.ch/user/n/npierre/public/settings/output_00.txt");
 	cGlib_00.getModule(0)->getCbc(1)->writeRegValues("/afs/cern.ch/user/n/npierre/public/settings/output_01.txt");
 
 	std::cout << "\nHurray, it works !!" << std::endl;

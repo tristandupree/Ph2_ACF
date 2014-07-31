@@ -36,10 +36,14 @@ namespace Ph2_HwInterface
     class CbcInterface : public RegManager
     {
         private:
-            std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrFull, fStrReadout;
+            std::string fStrSram, fStrOtherSram, fStrSramUserLogic, fStrOtherSramUserLogic;
 
-        private:
-            void SelectSRAM(uint32_t pCbcId);
+        public:
+            /*!
+            * \brief Select SRAM from FE (used with 0 per default)
+            * \param pFe : FE Id
+            */
+            void SelectSRAM(uint32_t pFe);
             /*!
             * \brief Wait for the I2C command acknowledgement
             * \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false
@@ -117,21 +121,20 @@ namespace Ph2_HwInterface
             * \param pRegNode : Node of the register to write
             * \param pValue : Value to write
             */
-            void UpdateCbcWrite(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue);
+            void WriteCbc(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue);
             /*!
-            * \brief Read the designated register in the Cbc and update the Cbc Config File
+            * \brief Read the designated register in the Cbc
             * \param pCbc
             * \param pRegNode : Node of the register to read
             */
-            void UpdateCbcRead(Cbc* pCbc,const std::string& pRegNode);
+            void UpdateCbc(Cbc* pCbc,const std::string& pRegNode);
             /*!
-            * \brief Read same register in all Cbcs and then UpdateCbcRead
+            * \brief Read all register in all Cbcs and then UpdateCbc
             * \param pModule : Module containing vector of Cbcs
-            * \param pRegNode : Node of the register to read
             */
-            void ReadCbc(Module* pModule,const std::string& pRegNode);
+            void UpdateAllCbc(Module* pModule);
             /*!
-            * \brief Write same register in all Cbcs and then UpdateCbcRead
+            * \brief Write same register in all Cbcs and then UpdateCbc
             * \param pModule : Module containing vector of Cbcs
             * \param pRegNode : Node of the register to write
             * \param pValue : Value to write
