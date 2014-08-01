@@ -13,9 +13,8 @@
 
 namespace Ph2_HwInterface{
 
-	BeBoardInterface::BeBoardInterface(BeBoardFWMap& pBoardMap)
+	BeBoardInterface::BeBoardInterface(BeBoardFWMap& pBoardMap):fBoardMap(pBoardMap)
 	{
-		fBoardMap=pBoardMap;
 		fBoardFW=NULL;
 		prevBoardId=255;
 	}
@@ -25,17 +24,17 @@ namespace Ph2_HwInterface{
 		
 	}
 
-	void BeBoardInterface::BeBoardFWInterface* setBoard(uint8_t pBoardId);
+	void BeBoardInterface::setBoard(uint8_t pBoardId)
 	{
 		if(prevBoardId==pBoardId)
 			return;
 		else
 		{
-			BeBoardFWMap iterator i;
+			BeBoardFWMap::iterator i;
 			i=fBoardMap.find(pBoardId);
 			if (i==fBoardMap.end())
 			{
-				std::cout<<"The Board: "<<pBoardId<<"doesn't exist"<<std:endl;}
+				std::cout<<"The Board: "<<pBoardId<<"doesn't exist"<<std::endl;
 			}
 			else
 			{	
@@ -45,7 +44,7 @@ namespace Ph2_HwInterface{
 		}
 	}
 
-	void BeBoardInterface::WriteReg(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal)
+	void BeBoardInterface::WriteGlibReg(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal)
     	{
 		setBoard(pGlib.getBeId());
         	fBoardFW->ChooseBoard(pGlib.getBeId());
@@ -55,12 +54,12 @@ namespace Ph2_HwInterface{
     	}
 
 
-    	void BeBoardInterface::ReadReg(Glib& pGlib,const std::string& pRegNode)
+    	void BeBoardInterface::ReadGlibReg(Glib& pGlib,const std::string& pRegNode)
     	{
 		setBoard(pGlib.getBeId());
         	fBoardFW->ChooseBoard(pGlib.getBeId());
 
-        	pGlib.setReg(pRegNode,(uint32_t) ReadReg(pRegNode));
+        	pGlib.setReg(pRegNode,(uint32_t) fBoardFW->ReadReg(pRegNode));
 	}
 
 }

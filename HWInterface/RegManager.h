@@ -41,7 +41,7 @@ namespace Ph2_HwInterface
             bool fDeactiveThread; /*!< Bool to terminate the thread in the destructor*/
             std::mutex fBoardMutex; /*!< Mutex to avoid conflict btw threads on shared resources*/
 
-        protected:
+        public:
             /*!
             * \brief Write a register
             * \param pRegNode : Node of the register to write

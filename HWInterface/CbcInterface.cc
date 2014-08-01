@@ -9,14 +9,13 @@
 *
 */
 
-#include "CBCInterface.h"
+#include "CbcInterface.h"
 
 namespace Ph2_HwInterface
 {
 
-	CbcInterface::CbcInterface(BeBoardFWMap& pBoardMap)
+	CbcInterface::CbcInterface(BeBoardFWMap& pBoardMap):fBoardMap(pBoardMap)
 	{
-		fBoardMap=pBoardMap;
 		fBoardFW=NULL;
 		prevBoardId=255;
 	}
@@ -26,17 +25,17 @@ namespace Ph2_HwInterface
 		
 	}
 
-	void CbcInterface::setBoard(uint8_t pBoardId);
+	void CbcInterface::setBoard(uint8_t pBoardId)
 	{
 		if(prevBoardId==pBoardId)
 			return;
 		else
 		{
-			BeBoardFWMap iterator i;
+			BeBoardFWMap::iterator i;
 			i=fBoardMap.find(pBoardId);
 			if (i==fBoardMap.end())
 			{
-				std::cout<<"The Board: "<<pBoardId<<"doesn't exist"<<std:endl;}
+				std::cout<<"The Board: "<<pBoardId<<"doesn't exist"<<std::endl;
 			}
 			else
 			{	
@@ -46,49 +45,6 @@ namespace Ph2_HwInterface
 		}
 	}
 		
-
-
-	void CbcInterface::EnableCbc(BeBoard& pBeBoard)
-   	 {
-
-		setBoard(pBeBoard.getBeId());
-        	/*
-        	std::vector< std::pair<std::string,uint32_t> > cVecReg;
-        	std::pair<std::string,uint32_t> cPairReg;
-
-        	cPairReg.first = ENABLE_FE0_CBC0; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = ENABLE_FE0_CBC1; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = ENABLE_FE0_CBC2; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = ENABLE_FE0_CBC3; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = ENABLE_FE0_CBC4; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = ENABLE_FE0_CBC5; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = ENABLE_FE0_CBC6; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = ENABLE_FE0_CBC7; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-
-        	WriteStackReg(cVecReg);
-
-        	cVecReg.clear();
-        	*/
-
-        	std::cout << uint32_t(fBoardFW->ReadReg(CBC_FE1_ENABLED)) << std::endl;
-        	std::cout << uint32_t(fBoardFW->ReadReg(ENABLE_FE0_CBC0)) << std::endl;
-        	std::cout << uint32_t(fBoardFW->ReadReg(ENABLE_FE0_CBC1)) << std::endl;
-        	std::cout << uint32_t(fBoardFW->ReadReg(ENABLE_FE0_CBC2)) << std::endl;
-        	std::cout << uint32_t(fBoardFW->ReadReg(ENABLE_FE0_CBC3)) << std::endl;
-        	std::cout << uint32_t(fBoardFW->ReadReg(ENABLE_FE0_CBC4)) << std::endl;
-        	std::cout << uint32_t(fBoardFW->ReadReg(ENABLE_FE0_CBC5)) << std::endl;
-        	std::cout << uint32_t(fBoardFW->ReadReg(ENABLE_FE0_CBC6)) << std::endl;
-        	std::cout << uint32_t(fBoardFW->ReadReg(ENABLE_FE0_CBC7)) << std::endl;
-	}
-
 
 	void CbcInterface::ConfigureCbc(Cbc* pCbc)
 	{
@@ -131,7 +87,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
+	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
 	{
 		setBoard(pCbc->getBeId());
 
@@ -174,7 +130,7 @@ namespace Ph2_HwInterface
 	}
 
 	
-	void CbcInterface::ReadReg(Cbc* pCbc,const std::string& pRegNode)
+	void CbcInterface::ReadCbcReg(Cbc* pCbc,const std::string& pRegNode)
 	{
 		setBoard(pCbc->getBeId());
 
@@ -251,7 +207,7 @@ namespace Ph2_HwInterface
 
             		else
             		{
-                		fBoardFW->UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
+                		ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
             		}
 		}
 
@@ -312,12 +268,12 @@ namespace Ph2_HwInterface
 
 				fBoardFW->WriteCbcBlockReg(cCbc,cVecReq);
 
-				fBoardFW->UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
+				ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
 			}
 
 			else
 			{
-				fBoardFW->UpdateCbcRead(pModule->getCbc(i+cMissed),pRegNode);
+				ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
 			}
 		}
 

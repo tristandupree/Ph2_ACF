@@ -664,3 +664,4 @@ namespace Ph2_HwInterface
 		EnableI2c(pCbc,0);
 
 	}
+}

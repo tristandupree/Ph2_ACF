@@ -9,6 +9,9 @@
 *
 */
 
+#ifndef __CBCINTERFACE_H__
+#define __CBCINTERFACE_H__
+
 #include "GlibFWInterface.h"
 
 using namespace Ph2_HwDescription;
@@ -26,7 +29,7 @@ namespace Ph2_HwInterface
 	* \class CBCInterface
 	* \brief 
 	*/
-	class CBCInterface {
+	class CbcInterface {
 
 	private:
 		BeBoardFWMap& fBoardMap;
@@ -41,7 +44,7 @@ namespace Ph2_HwInterface
 
 		/*!
 		* \brief Constructor of the CbcInterface class
-		* \param Reference to the BoardFWInterface
+		* \param Reference to a Map of BoardId vs pointer to the type of Board
 		*/
 		CbcInterface(BeBoardFWMap& pBoardMap);
 		/*!
@@ -50,10 +53,6 @@ namespace Ph2_HwInterface
 		~CbcInterface();
 
 
-            	/*!
-            	* \brief Proto
-            	*/
-            	void EnableCbc();
             	/*!
             	* \brief Configure the Cbc with the Cbc Config File
             	* \param pCbc
@@ -65,13 +64,13 @@ namespace Ph2_HwInterface
             	* \param pRegNode : Node of the register to write
             	* \param pValue : Value to write
             	*/
-            	void WriteReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue);
+            	void WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue);
             	/*!
             	* \brief Read the designated register in the Cbc and update the Cbc Config File
             	* \param pCbc
             	* \param pRegNode : Node of the register to read
             	*/
-            	void ReadReg(Cbc* pCbc,const std::string& pRegNode);
+            	void ReadCbcReg(Cbc* pCbc,const std::string& pRegNode);
             	/*!
             	* \brief Read same register in all Cbcs and then UpdateCbcRead
             	* \param pModule : Module containing vector of Cbcs
@@ -112,7 +111,7 @@ namespace Ph2_HwInterface
             	* \param pWord : variable to put the decoded word
             	*/
             	void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
-		{fBoardFW->DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord);}; /*!< Decode a word from a read of a register of the Cbc*/
+		{fBoardFW->DecodeReg(pRegItem, pCbcId, pWord);}; /*!< Decode a word from a read of a register of the Cbc*/
 
 
 	};

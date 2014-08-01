@@ -9,6 +9,9 @@
 *
 */
 
+#ifndef __BEBOARDINTERFACE_H__
+#define __BEBOARDINTERFACE_H__
+
 #include "GlibFWInterface.h"
 
 using namespace Ph2_HwDescription;
@@ -19,6 +22,9 @@ using namespace Ph2_HwDescription;
 */
 namespace Ph2_HwInterface
 {
+
+	typedef std::map<int8_t,BeBoardFWInterface*> BeBoardFWMap;
+
 	/*!
 	* \class BeBoardInterface
 	* \brief 
@@ -38,7 +44,7 @@ namespace Ph2_HwInterface
             	* \brief Constructor of the BeBoardInterface class
             	* \param Reference to the BoardFWInterface
             	*/
-            	BeBoardInterface(BeBoardFWInterface& pBoardFWI);
+            	BeBoardInterface(BeBoardFWMap& pBoardMap);
             	/*!
             	* \brief Destructor of the BeBoardInterface class
             	*/
@@ -49,7 +55,8 @@ namespace Ph2_HwInterface
             	* \param pGlib
            	*/
             	void getBoardInfo(Glib& pGlib)
-		{cBoardFWI.getBoardInfo(pGlib);};
+		{setBoard(pGlib.getBeId());
+		fBoardFW->getBoardInfo(pGlib);};
 
 		/*!
 		* \brief Update both Glib register and Config File
@@ -57,26 +64,20 @@ namespace Ph2_HwInterface
             	* \param pRegNode : Node of the register to update
             	* \param pVal : Value to write
             	*/
-            	void WriteReg(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
+            	void WriteGlibReg(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
             	/*!
             	* \brief Update Config File with the value in the Glib register
             	* \param pGlib
             	* \param pRegNode : Node of the register to update
 		*/
-		void ReadReg(Glib& pGlib,const std::string& pRegNode);
+		void ReadGlibReg(Glib& pGlib,const std::string& pRegNode);
 		/*!
             	* \brief Configure the Glib with its Config File
             	* \param pGlib
             	*/
 		void ConfigureGlib(Glib& pGlib)
 		{setBoard(pGlib.getBeId());
-		fBoardFW->ConfigureGlib(pGlib)};
-		/*!
-            	* \brief Detect the right FE Id to write the right registers (not tested)
-            	*/
-		void SelectFEId(Glib& pGlib)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->SelectFEId();};
+		fBoardFW->ConfigureGlib(pGlib);};
             	/*!
             	* \brief Start a DAQ
            	* \param pGlib

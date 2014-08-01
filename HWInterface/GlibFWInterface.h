@@ -9,6 +9,9 @@
 *
 */
 
+#ifndef __GLIBFWINTERFACE_H__
+#define __GLIBFWINTERFACE_H__
+
 #include <string>
 #include <map>
 #include <vector>
@@ -34,7 +37,7 @@ namespace Ph2_HwInterface
 
 	private:
 		struct timeval fStartVeto;
-            	std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
+            	std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout, fStrOtherSram;
             	std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
 
 
