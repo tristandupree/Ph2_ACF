@@ -19,6 +19,11 @@
 #include "Data.h"
 #include "Utilities.h"
 #include "../HWDescription/Glib.h"
+#include "../HWDescription/Definition.h"
+#include "../HWDescription/CbcRegItem.h"
+#include "../HWDescription/Cbc.h"
+#include "../HWDescription/Module.h"
+#include "../HWDescription/Glib.h"
 
 using namespace Ph2_HwDescription;
 
@@ -64,6 +69,23 @@ namespace Ph2_HwInterface
 		//These two methods will be implemented soon
 		virtual void FlashProm(){};
 		virtual void ProgramCdce(){};
+
+		//Encode/Decode Cbc values
+		/*!
+		* \brief Encode a/several word(s) readable for a Cbc
+		* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to write
+		* \param pCbcId : Id of the Cbc to work with
+		* \param pVecReq : Vector to stack the encoded words
+		*/
+		virtual void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq); /*!< Encode a/several word(s) readable for a Cbc*/
+		/*!
+		* \brief Decode a word from a read of a register of the Cbc
+            	* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
+            	* \param pCbcId : Id of the Cbc to work with
+            	* \param pWord : variable to put the decoded word
+            	*/
+            	virtual void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord); /*!< Decode a word from a read of a register of the Cbc*/
+
 	};
 }
 

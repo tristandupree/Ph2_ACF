@@ -18,7 +18,7 @@
 #include <TStyle.h>
 #include "GlibFWInterface.h"
 
-namespace Ph2_HwInterface;
+namespace Ph2_HwInterface
 {
 
 	GlibFWInterface::GlibFWInterface(const char *puHalConfigFileName):BeBoardFWInterface(puHalConfigFileName){

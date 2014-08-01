@@ -34,8 +34,8 @@ namespace Ph2_HwInterface
     	}
 
 
-   	 void BeBoardFWInterface::getBoardInfo(Glib& pGlib)
-    	{
+	void BeBoardFWInterface::getBoardInfo(Glib& pGlib)
+	{
         	std::cout << "FMC1 present : " << uint32_t(ReadReg(FMC1_PRESENT)) << std::endl;
         	std::cout << "FMC2 present : " << uint32_t(ReadReg(FMC2_PRESENT)) << std::endl;
         	std::cout << "FW version : " << uint32_t(ReadReg(FW_VERSION_MAJOR)) << "." << uint32_t(ReadReg(FW_VERSION_MINOR)) << "." << uint32_t(ReadReg(FW_VERSION_BUILD)) << std::endl;
@@ -76,4 +76,30 @@ namespace Ph2_HwInterface
         	std::cout << "Hybrid Version : " << uint32_t(ReadReg(HYBRID_VERSION)) << std::endl;
 
 	}
+
+
+	void BeBoardFWInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq)
+	{
+		pVecReq.push_back(pCbcId<<24 | pRegItem.fPage<<16 | pRegItem.fAddress<<8 | pRegItem.fValue);
+	}
+
+
+	void BeBoardFWInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
+	{
+		uint32_t cMask(0x00000000);
+		unsigned int i(0);
+
+		for( i=24; i < 32; i++ ) cMask |= ( (uint32_t) 1 << i );
+		pCbcId = ( ( pWord & cMask ) >> 24 );
+
+		for( cMask=0, i=16; i < 24; i++ ) cMask |= (uint32_t) 1 << i;
+		pRegItem.fPage = ( pWord & cMask ) >> 16;
+
+		for( cMask=0, i=8; i < 16; i++ ) cMask |= (uint32_t) 1 << i;
+		pRegItem.fAddress = ( pWord & cMask ) >> 8;
+
+		for( cMask=0, i=0; i < 8; i++ ) cMask |= (uint32_t) 1 << i;
+		pRegItem.fValue = pWord & cMask;
+	}
+
 }

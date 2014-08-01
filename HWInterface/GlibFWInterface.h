@@ -1,7 +1,7 @@
 /*!
 *
 * \file GlibFWInterface.h
-* \brief GlibFWInterface init/config of the Glib
+* \brief GlibFWInterface init/config of the Glib and its Cbc's
 * \author Lorenzo BIDEGAIN, Nicolas Pierre
 * \date 28/07/14
 *
@@ -16,9 +16,7 @@
 #include <TROOT.h>
 #include <limits.h>
 #include <boost/cstdint.hpp>
-#include "../HWDescription/CbcRegItem.h"
-#include "../HWDescription/Cbc.h"
-#include "../HWDescription/Module.h"
+
 
 using namespace Ph2_HwDescription;
 
@@ -69,7 +67,7 @@ namespace Ph2_HwInterface
 		void SelectFEId();
             	/*!
             	* \brief Start a DAQ
-           	 * \param pGlib
+           	* \param pGlib
             	*/
             	void Start(Glib& pGlib);
             	/*!
@@ -101,9 +99,11 @@ namespace Ph2_HwInterface
     	        */
             	void Run(Glib& pGlib);
 
-	//Methos for the Cbc's:
+	//Methods for the Cbc's:
 
-	public:
+	private: 
+
+		//I2C Methods
 
 		/*!
 		* \brief Wait for the I2C command acknowledgement
@@ -129,6 +129,8 @@ namespace Ph2_HwInterface
             	* \param pEnable : 1/0 -> Enable/Disable
             	*/
             	void EnableI2c( Cbc* pCbc, bool pEnable );
+
+	public:
 
             	//r/w the Cbc registers
             	/*!
