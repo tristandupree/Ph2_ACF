@@ -22,7 +22,7 @@ On this GitHub, you can find different version of the software :
 - An agnostic (to the number of CBCs) version with the new structure still in development in the Dev branch
 <br>
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__What are the differences between the 2CBC/8CBC versions ?__
+__What are the differences between the 2CBC/8CBC versions ?__
 
 The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
 Also, some functions are present in 8CBC and not in 2CBC due to the fact that the firmware of the 8CBC is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)
@@ -61,7 +61,7 @@ Here are the step to make the program functional
 6. Launch mcp to play with the Test Interface
 <br>
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__What can you do with the software ?__
+__What can you do with the software ?__
 
 A Glib is created per default (maybe in the future you will be able to play with more than one Glib)
 
@@ -114,7 +114,7 @@ On the go...
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
 <br>
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Future Improvements__
+__Future Improvements__
 
 - Finish the implementation of the new structure
 - Make a System Manager class that is wrapping the new structure
