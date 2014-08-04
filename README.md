@@ -1,7 +1,7 @@
 Git Repository for PH2_DAQ Software
 ===================================
 
-__Supposed to contain__
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
 
 - A middleware API layer, implemented in C++, which will basically wrap
 to abstracted functions the firmware calls and handshakes currently
@@ -105,7 +105,7 @@ to unexpected hazards :-(.
 On the go...
 ------------
   
-__Last Updates__
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Last Updates__
 
 - 09/07/14 : Added threading for stack writing registers
 - 10/07/14 : Read Data from acquisition in a rubbish format
@@ -114,7 +114,7 @@ __Last Updates__
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
 <br>
 <br>
-__Future Improvements__
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Future Improvements__
 
 - Finish the implementation of the new structure
 - Make a System Manager class that is wrapping the new structure
