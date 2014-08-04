@@ -1,8 +1,7 @@
 Git Repository for PH2_DAQ Software
 ===================================
-  
-    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
+
+__Supposed to contain__
 
 - A middleware API layer, implemented in C++, which will basically wrap
 to abstracted functions the firmware calls and handshakes currently
@@ -16,13 +15,12 @@ Hybrids, Boards) and their properties(values, status)
 
 Different versions for different setups
 ---------------------------------------
-  
-  
+
 On this GitHub, you can find different version of the software :
 - A 2CBC version on the Master and the 2CBC branches
 - A 8CBC version on the 8CBC branch
 - An agnostic (to the number of CBCs) version with the new structure still in development in the Dev branch
-
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__What are the differences between the 2CBC/8CBC versions ?__
 
 The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
@@ -32,7 +30,8 @@ Also, some functions are present in 8CBC and not in 2CBC due to the fact that th
 The Test Software itself : the MCP Test Interface
 -------------------------------------------------
   
-  
+You'll find an install step by step and a How To.
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Install the MCP Test Interface step by step...__
 
 Here are the step to make the program functional
@@ -58,8 +57,7 @@ Here are the step to make the program functional
 5. Launch testpgrm command if you want to test if everything is working good
 
 6. Launch mcp to play with the Test Interface
-  
-  
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__What can you do with the software ?__
 
 A Glib is created per default (maybe in the future you will be able to play with more than one Glib)
@@ -104,15 +102,15 @@ to unexpected hazards :-(.
 On the go...
 ------------
   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Last Updates__
+__Last Updates__
 
 - 09/07/14 : Added threading for stack writing registers
 - 10/07/14 : Read Data from acquisition in a rubbish format
 - ~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~
 - ~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
-  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Future Improvements__
+<br>
+__Future Improvements__
 
 - Finish the implementation of the new structure
 - Make a System Manager class that is wrapping the new structure
