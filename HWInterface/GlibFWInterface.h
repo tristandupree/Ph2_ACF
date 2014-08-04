@@ -37,7 +37,7 @@ namespace Ph2_HwInterface
 
 	private:
 		struct timeval fStartVeto;
-            	std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout, fStrOtherSram;
+            	std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout, fStrOtherSram, fStrOtherSramUserLogic;
             	std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
 
 
@@ -46,7 +46,7 @@ namespace Ph2_HwInterface
             	* \brief SRAM selection for DAQ
             	* \param pNthAcq : actual number of acquisitions
            	*/
-		void SelectSRAM(uint32_t pNthAcq);
+		void SelectSRAMDAQ(uint32_t pNthAcq);
 
 	public:
 		/*!
@@ -132,6 +132,8 @@ namespace Ph2_HwInterface
             	* \param pEnable : 1/0 -> Enable/Disable
             	*/
             	void EnableI2c( Cbc* pCbc, bool pEnable );
+
+		void SelectSRAM(uint32_t pFe);
 
 	public:
 
