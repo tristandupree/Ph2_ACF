@@ -102,7 +102,7 @@ int main()
                         if(cBeBoardFWMap.find(cBoardId) == cBeBoardFWMap.end())
                         {
                             cBeBoard->fBeId=cBoardId;
-                            cBeBoardFWInterface = 
+                            cBeBoardFWInterface = new cBeBoardFWInterface(UHAL_CONFIG_FILE,);
                             if(getBoardType)
                             {
 
