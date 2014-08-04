@@ -12,9 +12,26 @@ hardcoded into DAQ systems software.
 Hybrids, Boards) and their properties(values, status)
 
 
+Different versions for different setups
+---------------------------------------
 
-MCP Test Interface
-------------------
+__Overall__
+   
+On this GitHub, you can find different version of the software :
+- A 2CBC version on the Master and the 2CBC branches
+- A 8CBC version on the 8CBC branch
+- An agnostic (to the number of CBCs) version with the new structure still in development in the Dev branch
+
+__What are the differences between the 2CBC/8CBC versions ?__
+
+The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
+Also, some functions are present in 8CBC and not in 2CBC due to the fact that the firmware of the 8CBC is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)
+
+
+The Test Software itself : the MCP Test Interface
+-------------------------------------------------
+
+__Install the MCP Test Interface step by step...__
 
 Here are the step to make the program functional
 
@@ -41,8 +58,7 @@ Here are the step to make the program functional
 6. Launch mcp to play with the Test Interface
 
 
-What can you do with the software ?
------------------------------------
+__What can you do with the software ?__
 
 A Glib is created per default (maybe in the future you will be able to play with more than one Glib)
 
@@ -70,6 +86,8 @@ For writing value in register, we invite you to put in the following format : 0x
 You must thus type '0xFF' for exemple and not just 'FF' in the command line. That
 might change in the future..
 
+You can also run DAQ and recover the Hit Histogram for each Cbc and each Event in the output file.
+
 At the end of the program, the register maps are saved into output_X_X.txt files
 you can find in the settings directory. For example, output_1_2.txt contains the
 register map of the Cbc 2 of the Module 1.
@@ -80,8 +98,11 @@ locally to benefit from them.
 Warning ! : be careful with options choice in the program menus, some mistypes can leed
 to unexpected hazards :-(.
 
-Last Updates
+
+On the go...
 ------------
+
+__Last Updates__
 
 - 09/07/14 : Added threading for stack writing registers
 - 10/07/14 : Read Data from acquisition in a rubbish format
@@ -90,13 +111,10 @@ Last Updates
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
 
 
-Future Improvements
--------------------
+__Future Improvements__
 
-- Implementation of generic BeBoard and BeBoardInterface Class which will help us
-dealing with multiple board type (Glib, FC7).
-- Work on the Cbc class to make it recognize if the Cbc is from a Glib or a FC7.
-- Implement the new Strasbourg firmware as soon as it comes out.
+- Finish the implementation of the new structure
+- Make a System Manager class that is wrapping the new structure
 
 
 Support, Suggestions ?
