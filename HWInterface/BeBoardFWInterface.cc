@@ -34,7 +34,41 @@ namespace Ph2_HwInterface
     	}
 
 
-	void BeBoardFWInterface::getBoardInfo(Glib& pGlib)
+	std::string BeBoardFWInterface::getBoardType()
+	{
+
+		uhal::ValWord<uint32_t> cBoardType = ReadReg(BOARD_TYPE);
+
+		uint32_t cMask(0x00000000);
+		unsigned int i(0);
+		char cChar;
+		std::string cBoardType;
+
+		for( i=24; i < 32; i++ ) cMask |= ( (uint32_t) 1 << i );
+		cChar = ( ( cBoardType & cMask ) >> 24 );
+
+		cBoardType.push_back(cChar);
+
+		for( cMask=0, i=16; i < 24; i++ ) cMask |= (uint32_t) 1 << i;
+		cChar = (( cBoardType & cMask ) >> 16);
+
+		cBoardType.push_back(cChar);
+
+		for( cMask=0, i=8; i < 16; i++ ) cMask |= (uint32_t) 1 << i;
+		cChar = (( cBoardType & cMask ) >> 8);
+
+		cBoardType.push_back(cChar);
+
+		for( cMask=0, i=0; i < 8; i++ ) cMask |= (uint32_t) 1 << i;
+		cChar = (cBoardType & cMask);
+
+		cBoardType.push_back(cChar);
+
+		return cBoardType;
+	}
+
+
+	void BeBoardFWInterface::getBoardInfo()
 	{
         	std::cout << "FMC1 present : " << uint32_t(ReadReg(FMC1_PRESENT)) << std::endl;
         	std::cout << "FMC2 present : " << uint32_t(ReadReg(FMC2_PRESENT)) << std::endl;

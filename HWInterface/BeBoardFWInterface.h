@@ -48,9 +48,9 @@ namespace Ph2_HwInterface
 
 	public:
             	Data *fData; /*!< Data read storage*/
-		
+
 	public:
-		
+
 		/*!
 		* \brief Constructor of the BeBoardFWInterface class
 		* \param puHalConfigFileName : path of the uHal Config File
@@ -61,12 +61,17 @@ namespace Ph2_HwInterface
 		*/
 		virtual ~BeBoardFWInterface();
 
+
 		/*!
-            	* \brief Get the board infos
-            	* \param pGlib
-           	*/
-            	virtual	void getBoardInfo(Glib& pGlib);
-		
+		* \brief Get the board type
+		* \return Board type in string
+		*/
+		virtual std::string getBoardType();
+		/*!
+		* \brief Get the board infos
+		*/
+		virtual	void getBoardInfo();
+
 		//These two methods will be implemented soon
 		virtual void FlashProm(){};
 		virtual void ProgramCdce(){};
