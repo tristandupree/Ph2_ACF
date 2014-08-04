@@ -22,7 +22,6 @@ On this GitHub, you can find different version of the software :
 - An agnostic (to the number of CBCs) version with the new structure still in development in the Dev branch
 <br>
 <br>
-<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__What are the differences between the 2CBC/8CBC versions ?__
 
 The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
@@ -33,7 +32,6 @@ The Test Software itself : the MCP Test Interface
 -------------------------------------------------
   
 You'll find an install step by step and a How To.
-<br>
 <br>
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Install the MCP Test Interface step by step...__
@@ -61,6 +59,7 @@ Here are the step to make the program functional
 5. Launch testpgrm command if you want to test if everything is working good
 
 6. Launch mcp to play with the Test Interface
+<br>
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__What can you do with the software ?__
 
@@ -113,6 +112,7 @@ __Last Updates__
 - ~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~
 - ~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
+<br>
 <br>
 __Future Improvements__
 
