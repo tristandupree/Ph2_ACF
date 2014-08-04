@@ -9,9 +9,11 @@
 *
 */
 
-#define DEV_FLAG         0
+
 
 #include "BeBoardFWInterface.h"
+
+#define DEV_FLAG         0
 
 namespace Ph2_HwInterface
 {

@@ -18,6 +18,8 @@
 #include <TStyle.h>
 #include "GlibFWInterface.h"
 
+#define DEV_FLAG         0
+
 namespace Ph2_HwInterface
 {
 
@@ -466,6 +468,7 @@ namespace Ph2_HwInterface
 	void GlibFWInterface::SelectSRAM(uint32_t pNthAcq)
     	{
         	fStrSram  = ((pNthAcq%2+1)==1 ? SRAM1 : SRAM2);
+		fStrOtherSram = (pNthAcq ? SRAM1 : SRAM2);
         	fStrSramUserLogic =  ((pNthAcq%2+1)==1 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
         	fStrFull = ((pNthAcq%2+1)==1 ? SRAM1_FULL : SRAM2_FULL);
         	fStrReadout= ((pNthAcq%2+1)==1 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
