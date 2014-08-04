@@ -25,10 +25,10 @@ int main()
 {
     int i;
 
-    Glib cGlib;
-    Module cModule;
-    Cbc cCbc;
-    uint32_t cModuleId, cCbcId, cShelveId, cBeId, cFMCId, cFeId;
+    BeBoard* cBeBoard;
+    Module* cModule;
+    Cbc* cCbc;
+    uint32_t cBoardId, cModuleId, cCbcId, cShelveId, cBeId, cFMCId, cFeId;
     std::string cFilePath;
     std::string cRegNode;
     std::string cValue;
@@ -38,8 +38,11 @@ int main()
     int cMissedModule = 0;
     int cMissedCbc = 0;
 
-    GlibInterface cGlibInterface(UHAL_CONNECTION_FILE);
-    CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
+    BeBoardFWMap cBeBoardFWMap;
+
+    BeBoardFWInterface* cBeBoardFWInterface;
+    BeBoardInterface cBeBoardInterface(cBeBoardFWMap);
+    CbcInterface cCbcInterface(cBeBoardFWMap);
 
     cGlibInterface.ConfigureGlib(cGlib);
 
@@ -59,7 +62,7 @@ int main()
         std::cout << "***                  Main Menu                   ***" << std::endl;
         std::cout << "****************************************************\n" << std::endl;
         std::cout << "\n\n\n\nWhat do you want to do ?\n" << std::endl;
-        std::cout << "1: Add/Remove a Module or a Cbc" << std::endl;
+        std::cout << "1: Add/Remove Board/Module/Cbc" << std::endl;
         std::cout << "2: Configure" << std::endl;
         std::cout << "3: Glib Manipulation" << std::endl;
         std::cout << "4: Cbc Manipulation" << std::endl;
@@ -80,17 +83,44 @@ int main()
                 std::cout << "***            Add a Module or a Cbc             ***" << std::endl;
                 std::cout << "****************************************************\n" << std::endl;
 
-                std::cout << "1: Add Module" << std::endl;
-                std::cout << "2: Add Cbc" << std::endl;
-                std::cout << "3: Remove Module" << std::endl;
-                std::cout << "4: Remove Cbc\n" << std::endl;
+                std::cout << "1: Add Board" << std::endl;
+                std::cout << "2: Add Module" << std::endl;
+                std::cout << "3: Add Cbc" << std::endl;
+                std::cout << "4: Remove Board" << std::endl;
+                std::cout << "5: Remove Module" << std::endl;
+                std::cout << "6: Remove Cbc\n" << std::endl;
 
                 std::cin >> i;
 
                 switch(i)
                 {
 
-                    case 1:
+                    case 2:
+                        std::cout << "*** Add Board ***" << std::endl;
+                        std::cout << "--> Which BoardId ?" << std::endl;
+                        std::cin >> cBoardId;
+                        if(cBeBoardFWMap.find(cBoardId) == cBeBoardFWMap.end())
+                        {
+                            cBeBoard->fBeId=cBoardId;
+                            if(getBoardType)
+                            {
+                                std::cout << "*** Glib Added ***" << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << "ERROR : Unknown type of board !" << std::endl;
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "ERROR : This board already exists !" << std::endl;
+                            myflush( std::cin );
+                            mypause();
+                        }
+                    break;
+
+
+                    case 2:
                         std::cout << "*** Add Module ***" << std::endl;
                         std::cout << "--> Which ModuleId ?" << std::endl;
                         std::cin >> cModuleId;
@@ -109,12 +139,11 @@ int main()
                     break;
 
 
-                    case 2:
+                    case 3:
                         std::cout << "*** Add Cbc ***" << std::endl;
                         std::cout << "1: Add Default Cbc" << std::endl;
                         std::cout << "2: Add Personalised Cbc" << std::endl;
-                        std::cout << "3: Add a 2Cbc Structure" << std::endl;
-                        std::cout << "4: Add a 8Cbc Hybrid Structure\n" << std::endl;
+                        std::cout << "3: Add a 8Cbc Hybrid Structure\n" << std::endl;
 
                         std::cin >> i;
 
@@ -139,8 +168,9 @@ int main()
                                     std::cin >> cCbcId;
                                     if(cGlib.getModule(cModuleId)->getCbc(cCbcId) == NULL)
                                     {
-                                        cCbc.fCbcId=cCbcId;
-                                        cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                        cCbc = new Cbc(0,0,0,0,cCbcId,DEFAULT_FILE);
+                                        cGlib.getModule(cModuleId)->addCbc(*cCbc);
+                                        delete cCbc;
                                         std::cout << "*** Cbc Added ***" << std::endl;
                                     }
                                     else
@@ -256,33 +286,6 @@ int main()
 
 
                             case 3:
-                                std::cout << "*** Add a 2Cbc Structure ***" << std::endl;
-                                std::cout << "--> Which ModuleId ?" << std::endl;
-                                std::cin >> cModuleId;
-                                if (cGlib.getModule(cModuleId) == NULL)
-                                {
-                                    std::cout << "*** ERROR !!                                      ***" << std::endl;
-                                    std::cout << "*** This module does not exist !                  ***" << std::endl;
-                                    std::cout << "*** This is not the module you are looking for... ***" << std::endl;
-                                    myflush( std::cin );
-                                    mypause();
-                                }
-                                else
-                                {
-                                    for(uint8_t i=0; i<2; i++)
-                                    {
-                                        if(cGlib.getModule(cModuleId)->getCbc(i) == NULL)
-                                        {
-                                            cCbc.fCbcId=i;
-                                            cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                        }
-                                    }
-                                    std::cout << "*** 2Cbc Structure Added ***" << std::endl;
-                                }
-                            break;
-
-
-                            case 4:
                                 std::cout << "*** Add a 8Cbc Hybrid Structure ***" << std::endl;
                                 std::cout << "--> Which ModuleId ?" << std::endl;
                                 std::cin >> cModuleId;
@@ -296,36 +299,17 @@ int main()
                                 }
                                 else
                                 {
-
                                     for(uint8_t i=0; i<8; i++)
                                     {
                                         if(cGlib.getModule(cModuleId)->getCbc(i) == NULL)
                                         {
-                                            cCbc.fCbcId=i;
-                                            cGlib.getModule(cModuleId)->addCbc(cCbc);
+                                            cCbc = new Cbc(0,0,0,0,i,(boost::format("settings/FE0CBC%d.txt") %(uint32_t(i))).str());
+                                            cGlib.getModule(cModuleId)->addCbc(*cCbc);
+                                            delete cCbc;
                                         }
                                     }
 
-                                    //cCbcInterface.EnableCbc();
-
-                                    /*
-                                    cCbc.fCbcId=0xA0;
-                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                    cCbc.fCbcId=0xA1;
-                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                    cCbc.fCbcId=0xA2;
-                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                    cCbc.fCbcId=0xA3;
-                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                    cCbc.fCbcId=0xB0;
-                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                    cCbc.fCbcId=0xB1;
-                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                    cCbc.fCbcId=0xB2;
-                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                    cCbc.fCbcId=0xB3;
-                                    cGlib.getModule(cModuleId)->addCbc(cCbc);
-                                    */
+                                    cCbcInterface.UpdateAllCbc(cGlib.getModule(cModuleId));
 
                                     std::cout << "*** 8Cbc Hybrid Structure Added ***" << std::endl;
                                 }
@@ -615,10 +599,10 @@ int main()
                 std::cout << "***               Cbc Manipulation               ***" << std::endl;
                 std::cout << "****************************************************\n" << std::endl;
 
-                std::cout << "1: Update both ways" << std::endl;
-                std::cout << "2: Update one way" << std::endl;
+                std::cout << "1: Write Cbc" << std::endl;
+                std::cout << "2: Update Cbc" << std::endl;
                 std::cout << "3: Write all Cbc" << std::endl;
-                std::cout << "4: Read all Cbc" << std::endl;
+                std::cout << "4: Update all Cbc" << std::endl;
                 std::cout << "5: Hard Reset a Cbc" << std::endl;
                 std::cout << "6: Fast Reset Cbc\n" << std::endl;
 
@@ -628,7 +612,7 @@ int main()
                 {
 
                     case 1:
-                        std::cout << "*** Update both ways ***" << std::endl;
+                        std::cout << "*** Write Cbc ***" << std::endl;
                         std::cout << "--> Which ModuleId ?" << std::endl;
                         std::cin >> cModuleId;
                         if(cGlib.getModule(cModuleId) == NULL)
@@ -667,8 +651,8 @@ int main()
                                 }
                                 else
                                 {
-                                    cCbcInterface.UpdateCbcWrite(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode,cValueHex);
-                                    std::cout << "*** Updated ***" << std::endl;
+                                    cCbcInterface.WriteCbc(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode,cValueHex);
+                                    std::cout << "*** Cbc Written ***" << std::endl;
                                 }
                             }
                         }
@@ -676,7 +660,7 @@ int main()
 
 
                     case 2:
-                        std::cout << "*** Update one way ***" << std::endl;
+                        std::cout << "*** Update Cbc ***" << std::endl;
                         std::cout << "--> Which ModuleId ?" << std::endl;
                         std::cin >> cModuleId;
                         if(cGlib.getModule(cModuleId) == NULL)
@@ -703,7 +687,7 @@ int main()
                             {
                                 std::cout << "--> Which Register ?" << std::endl;
                                 std::cin >> cRegNode;
-                                cCbcInterface.UpdateCbcRead(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode);
+                                cCbcInterface.UpdateCbc(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode);
                                 std::cout << "*** Updated ***" << std::endl;
                             }
                         }
@@ -746,7 +730,7 @@ int main()
 
 
                     case 4:
-                        std::cout << "*** Read all Cbc ***" << std::endl;
+                        std::cout << "*** Update all Cbc ***" << std::endl;
                         std::cout << "--> Which ModuleId ?" << std::endl;
                         std::cin >> cModuleId;
                         if(cGlib.getModule(cModuleId) == NULL)
@@ -759,10 +743,8 @@ int main()
                         }
                         else
                         {
-                            std::cout << "--> Which Register ?" << std::endl;
-                            std::cin >> cRegNode;
-                            cCbcInterface.ReadCbc(cGlib.getModule(cModuleId),cRegNode);
-                            std::cout << "*** All Cbc Read ***" << std::endl;
+                            cCbcInterface.UpdateAllCbc(cGlib.getModule(cModuleId));
+                            std::cout << "*** All Cbc Updated ***" << std::endl;
                         }
                     break;
 
@@ -981,6 +963,8 @@ int main()
                                     std::cout << "| Number of Cbc : " << uint32_t(cGlib.getModule(k+cMissedModule)->getNCbc()) << std::endl;
                                     std::cout << " --------------------- \n" << std::endl;
 
+                                    cCbcInterface.UpdateAllCbc(cGlib.getModule(cModuleId));
+
                                     for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
                                     {
                                         if(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc) == NULL)
@@ -1058,6 +1042,8 @@ int main()
                                     std::cout << "| Module Id : "<< uint32_t(cGlib.getModule(k+cMissedModule)->fModuleId) << std::endl;
                                     std::cout << "| Number of Cbc : " << uint32_t(cGlib.getModule(k+cMissedModule)->getNCbc()) << std::endl;
                                     std::cout << " --------------------- \n" << std::endl;
+
+                                    cCbcInterface.UpdateAllCbc(cGlib.getModule(cModuleId));
 
                                     for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
                                     {
@@ -1156,10 +1142,10 @@ int main()
             for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
             {
                 if(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc) == NULL)
-    			{
-    				j--;
-    				cMissedCbc++;
-    			}
+                {
+                    j--;
+                    cMissedCbc++;
+                }
 
                 else
                 {

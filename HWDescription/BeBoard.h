@@ -95,10 +95,13 @@ namespace Ph2_HwDescription{
 
 		virtual std::map< std::string, uint16_t > getBeBoardRegMap (){return fRegMap;};
 
+	public:
+		//Connection Members
+		uint8_t fBeId;
+
 	protected:
 		// Connection Members
 		uint8_t fShelveId;
-		uint8_t fBeId;
 
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
 		std::vector< Module > fModuleVector;
