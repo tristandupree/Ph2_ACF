@@ -2,20 +2,20 @@ Git Repository for PH2_DAQ Software
 ===================================
 
 
-Supposed to contain:
+__Supposed to contain__
 
 - A middleware API layer, implemented in C++, which will basically wrap
 to abstracted functions the firmware calls and handshakes currently
-hardcoded into DAQ systems software.
+hardcoded into DAQ systems software
 
 - A C++ object-based library describing the system components (CBCs,
 Hybrids, Boards) and their properties(values, status)
 
+- The MCP test program that is the wrapping the previous two
+
 
 Different versions for different setups
 ---------------------------------------
-
-__Overall__
    
 On this GitHub, you can find different version of the software :
 - A 2CBC version on the Master and the 2CBC branches
