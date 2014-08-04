@@ -27,9 +27,7 @@ namespace Ph2_HwInterface
 
 	void CbcInterface::setBoard(uint8_t pBoardId)
 	{
-		if(prevBoardId==pBoardId)
-			return;
-		else
+		if(prevBoardId!=pBoardId)
 		{
 			BeBoardFWMap::iterator i;
 			i=fBoardMap.find(pBoardId);

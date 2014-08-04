@@ -27,8 +27,6 @@ namespace Ph2_HwInterface{
 	void BeBoardInterface::setBoard(uint8_t pBoardId)
 	{
 		if(prevBoardId==pBoardId)
-			return;
-		else
 		{
 			BeBoardFWMap::iterator i;
 			i=fBoardMap.find(pBoardId);
