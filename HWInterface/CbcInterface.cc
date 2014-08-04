@@ -11,6 +11,10 @@
 
 #include "CbcInterface.h"
 
+
+#define DEV_FLAG 0
+#define VERIFICATION_LOOP 0
+
 namespace Ph2_HwInterface
 {
 
@@ -106,7 +110,7 @@ namespace Ph2_HwInterface
 
         EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
-        WriteCbcBlockReg(pCbc,cVecReq);
+        fBoardFW->WriteCbcBlockReg(pCbc,cVecReq);
 
         if(VERIFICATION_LOOP)
         {
@@ -120,7 +124,7 @@ namespace Ph2_HwInterface
 
             EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
-            ReadCbcBlockReg(pCbc,cVecReq);
+            fBoardFW->ReadCbcBlockReg(pCbc,cVecReq);
 
             DecodeReg(cRegItem,cCbcId,cVecReq[0]);
 
@@ -231,7 +235,7 @@ namespace Ph2_HwInterface
                cVecRegNode.push_back(cIt->first);
             }
 
-            ReadCbcBlockReg(cCbc,cVecReq);
+            fBoardFW->ReadCbcBlockReg(cCbc,cVecReq);
 
             for(uint32_t j=0;j<cVecReq.size();j++)
             {
@@ -303,12 +307,12 @@ namespace Ph2_HwInterface
 
 				fBoardFW->WriteCbcBlockReg(cCbc,cVecReq);
 
-				ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
+				UpdateCbc(pModule->getCbc(i+cMissed),pRegNode);
 			}
 
 			else
 			{
-				ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
+				UpdateCbc(pModule->getCbc(i+cMissed),pRegNode);
 			}
 		}
 
