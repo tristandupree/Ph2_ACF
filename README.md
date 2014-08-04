@@ -21,6 +21,8 @@ On this GitHub, you can find different version of the software :
 - A 8CBC version on the 8CBC branch
 - An agnostic (to the number of CBCs) version with the new structure still in development in the Dev branch
 <br>
+<br>
+<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__What are the differences between the 2CBC/8CBC versions ?__
 
 The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
