@@ -22,7 +22,7 @@ namespace Ph2_HwInterface
 
 	CbcInterface::~CbcInterface()
 	{
-		
+
 	}
 
 	void CbcInterface::setBoard(uint8_t pBoardId)
@@ -36,18 +36,18 @@ namespace Ph2_HwInterface
 				std::cout<<"The Board: "<<pBoardId<<"doesn't exist"<<std::endl;
 			}
 			else
-			{	
+			{
 				fBoardFW=i->second;
 				prevBoardId=pBoardId;
 			}
 		}
 	}
-		
+
 
 	void CbcInterface::ConfigureCbc(Cbc* pCbc)
 	{
 		setBoard(pCbc->getBeId());
-	
+
 		#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
@@ -60,7 +60,6 @@ namespace Ph2_HwInterface
 		#endif
 
 		std::vector<uint32_t> cVecReq;
-        	pCbc->loadfRegMap(DEFAULT_FILE);
 		CbcRegMap cCbcRegMap = pCbc->getRegMap();
 
 		for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
@@ -85,35 +84,59 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
+	void CbcInterface::WriteCbc(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
 	{
-		setBoard(pCbc->getBeId());
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
 
-		if(  DEV_FLAG )
-		{
+		if(  DEV_FLAG ){
 			gettimeofday(&start0, 0);
 		}
-		#endif
+#endif
 
-		CbcRegItem cRegItem = (pCbc->getRegMap())[pRegNode];
-		std::vector<uint32_t> cVecReq;
+        CbcRegItem cRegItem = (pCbc->getRegMap())[pRegNode];
+        std::vector<uint32_t> cVecReq;
 
-		cRegItem.fValue = pValue;
+        cRegItem.fValue = pValue;
 
-		fBoardFW->ChooseBoard(pCbc->getBeId());
+        setBoard(pCbc->getBeId());
 
-		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+        EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
-		fBoardFW->WriteCbcBlockReg(pCbc,cVecReq);
+        WriteCbcBlockReg(pCbc,cVecReq);
 
-		pCbc->setReg(pRegNode,cRegItem.fValue);
+        if(VERIFICATION_LOOP)
+        {
+            uint32_t cWriteValue, cReadValue;
+            uint8_t cCbcId = pCbc->getCbcId();
 
-		#ifdef __CBCDAQ_DEV__
+            DecodeReg(cRegItem,cCbcId,cVecReq[0]);
+
+            cWriteValue = cRegItem.fValue;
+            cRegItem.fValue = 0;
+
+            EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+
+            ReadCbcBlockReg(pCbc,cVecReq);
+
+            DecodeReg(cRegItem,cCbcId,cVecReq[0]);
+
+            cReadValue = cRegItem.fValue;
+
+            if(cReadValue != cWriteValue)
+            {
+                std::cout << "ERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+            }
+            else
+            {
+                std::cout << "Writing correctly done :\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+            }
+		}
+
+#ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG )
 		{
 			gettimeofday( &end, 0 );
@@ -123,48 +146,46 @@ namespace Ph2_HwInterface
 			sec += ( seconds + useconds / 1000000 ) %60;
 			std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
 		}
-		#endif
+#endif
+
 
 	}
 
-	
-	void CbcInterface::ReadCbcReg(Cbc* pCbc,const std::string& pRegNode)
-	{
-		setBoard(pCbc->getBeId());
 
-		#ifdef __CBCDAQ_DEV__
+	void CbcInterface::UpdateCbc(Cbc* pCbc,const std::string& pRegNode)
+	{
+
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
 
-		if(  DEV_FLAG )
-		{
+		if(  DEV_FLAG ){
 			gettimeofday(&start0, 0);
 		}
-		#endif
+#endif
 
 		uint8_t cCbcId;
 		CbcRegItem cRegItem = (pCbc->getRegMap())[pRegNode];
 		std::vector<uint32_t> cVecReq;
 
-        	std::cout << uint32_t(cRegItem.fValue) << std::endl;
-
-		fBoardFW->ChooseBoard(pCbc->getBeId());
+		setBoard(pCbc->getBeId());
 
 		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
 		fBoardFW->ReadCbcBlockReg(pCbc,cVecReq);
 
 		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
-        	std::cout << uint32_t(cCbcId) << std::endl;
-        	std::cout << uint32_t(cRegItem.fValue) << std::endl;
 
+#ifdef __CBCDAQ_DEV__
+        std::cout << "CbcId : " << uint32_t(cCbcId) << std::endl;
+        std::cout << "Value read : " << uint32_t(cRegItem.fValue) << std::endl;
+#endif
 
 		pCbc->setReg(pRegNode,cRegItem.fValue);
 
-		#ifdef __CBCDAQ_DEV__
-		if(  DEV_FLAG )
-		{
+#ifdef __CBCDAQ_DEV__
+		if(  DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
 			useconds = end.tv_usec - start0.tv_usec;
@@ -172,46 +193,61 @@ namespace Ph2_HwInterface
 			sec += ( seconds + useconds / 1000000 ) %60;
 			std::cout << "Time took for Cbc register refresh so far = " << min << " min " << sec << " sec." << std::endl;
 		}
-		#endif
+#endif
+
 
 	}
 
 
-	void CbcInterface::ReadCbc(Module* pModule,const std::string& pRegNode)
+	void CbcInterface::UpdateAllCbc(Module* pModule,const std::string& pRegNode)
 	{
-		setBoard(pModule->getBeId());
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
 
-		if(  DEV_FLAG )
-		{
+		if(  DEV_FLAG ){
 			gettimeofday(&start0, 0);
 		}
-		#endif
+#endif
+        CbcRegItem cRegItem;
+        uint8_t cCbcId;
+        std::vector<uint32_t> cVecReq;
+        std::vector<std::string> cVecRegNode;
+        Cbc *cCbc;
 
-		int cMissed = 0;
+		setBoard(pModule->getBeId());
 
 		for(uint8_t i=0;i<pModule->getNCbc();i++)
 		{
+			cCbc = pModule->getCbc(i);
 
-            		if(pModule->getCbc(i+cMissed) == NULL)
-            		{
-                		i--;
-                		cMissed++;
-            		}
+            CbcRegMap cCbcRegMap = cCbc->getRegMap();
 
-            		else
-            		{
-                		ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
-            		}
+            for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
+            {
+               EncodeReg(cIt->second,cCbc->fCbcId,cVecReq);
+               cVecRegNode.push_back(cIt->first);
+            }
+
+            ReadCbcBlockReg(cCbc,cVecReq);
+
+            for(uint32_t j=0;j<cVecReq.size();j++)
+            {
+                DecodeReg(cRegItem,cCbcId,cVecReq[j]);
+
+#ifdef __CBCDAQ_DEV__
+                std::cout << "CbcId : " << uint32_t(cCbcId) << std::endl;
+                std::cout << "Value read : " << uint32_t(cRegItem.fValue) << std::endl;
+#endif
+
+                cCbc->setReg(cVecRegNode[j],cRegItem.fValue);
+            }
 		}
 
-		#ifdef __CBCDAQ_DEV__
-		if(  DEV_FLAG )
-		{
+#ifdef __CBCDAQ_DEV__
+		if(  DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
 			useconds = end.tv_usec - start0.tv_usec;
@@ -219,7 +255,8 @@ namespace Ph2_HwInterface
 			sec += ( seconds + useconds / 1000000 ) %60;
 			std::cout << "Time took for reading all Cbcs so far = " << min << " min " << sec << " sec." << std::endl;
 		}
-		#endif
+#endif
+
 
 	}
 
@@ -292,8 +329,6 @@ namespace Ph2_HwInterface
 	void CbcInterface::CbcHardReset(Cbc* pCbc)
 	{
 		setBoard(pCbc->getBeId());
-		
-		fBoardFW->ChooseBoard(pCbc->getBeId());
 
 		fBoardFW->WriteReg(CBC_HARD_RESET,1);
 
@@ -307,8 +342,6 @@ namespace Ph2_HwInterface
 	void CbcInterface::CbcFastReset(Cbc* pCbc)
 	{
 		setBoard(pCbc->getBeId());
-		
-		fBoardFW->ChooseBoard(pCbc->getBeId());
 
 		fBoardFW->WriteReg(CBC_FAST_RESET,1);
 

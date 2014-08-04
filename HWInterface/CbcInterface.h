@@ -23,11 +23,11 @@ using namespace Ph2_HwDescription;
 namespace Ph2_HwInterface
 {
 
-	typedef std::map<int8_t,BeBoardFWInterface*> BeBoardFWMap;	
+	typedef std::map<int8_t,BeBoardFWInterface*> BeBoardFWMap;
 
 	/*!
 	* \class CBCInterface
-	* \brief 
+	* \brief
 	*/
 	class CbcInterface {
 
@@ -38,7 +38,7 @@ namespace Ph2_HwInterface
 
 	private:
 		void setBoard(uint8_t pBoardId);
-			
+
 
 	public:
 
@@ -52,49 +52,48 @@ namespace Ph2_HwInterface
 		*/
 		~CbcInterface();
 
+    	/*!
+    	* \brief Configure the Cbc with the Cbc Config File
+    	* \param pCbc
+    	*/
+    	void ConfigureCbc(Cbc* pCbc);
+    	/*!
+    	* \brief Write the designated register in Cbc
+    	* \param pCbc
+    	* \param pRegNode : Node of the register to write
+    	* \param pValue : Value to write
+    	*/
+    	void WriteCbc(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue);
+    	/*!
+    	* \brief Read the designated register in the Cbc and update the Cbc Config File
+    	* \param pCbc
+    	* \param pRegNode : Node of the register to read
+    	*/
+    	void UpdateCbc(Cbc* pCbc,const std::string& pRegNode);
+    	/*!
+    	* \brief Read same register in all Cbcs and then UpdateCbc
+    	* \param pModule : Module containing vector of Cbcs
+    	* \param pRegNode : Node of the register to read
+    	*/
+    	void UpdateAllCbc(Module* pModule,const std::string& pRegNode);
+    	/*!
+    	* \brief Write same register in all Cbcs and then UpdateCbcRead
+    	* \param pModule : Module containing vector of Cbcs
+    	* \param pRegNode : Node of the register to write
+    	* \param pValue : Value to write
+    	*/
+    	void WriteBroadcast(Module* pModule,const std::string& pRegNode,uint8_t pValue);
+    	/*!
+    	* \brief Hard reset of the Cbc
+    	* \param pCbc
+    	*/
+    	void CbcHardReset(Cbc* pCbc);
+    	/*!
+    	* \brief Fast Reset of the Cbc
+    	* \param pCbc
+    	*/
+    	void CbcFastReset(Cbc* pCbc);
 
-            	/*!
-            	* \brief Configure the Cbc with the Cbc Config File
-            	* \param pCbc
-            	*/
-            	void ConfigureCbc(Cbc* pCbc);
-            	/*!
-            	* \brief Write the designated register in both Cbc and Cbc Config File
-            	* \param pCbc
-            	* \param pRegNode : Node of the register to write
-            	* \param pValue : Value to write
-            	*/
-            	void WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue);
-            	/*!
-            	* \brief Read the designated register in the Cbc and update the Cbc Config File
-            	* \param pCbc
-            	* \param pRegNode : Node of the register to read
-            	*/
-            	void ReadCbcReg(Cbc* pCbc,const std::string& pRegNode);
-            	/*!
-            	* \brief Read same register in all Cbcs and then UpdateCbcRead
-            	* \param pModule : Module containing vector of Cbcs
-            	* \param pRegNode : Node of the register to read
-            	*/
-            	void ReadCbc(Module* pModule,const std::string& pRegNode);
-            	/*!
-            	* \brief Write same register in all Cbcs and then UpdateCbcRead
-            	* \param pModule : Module containing vector of Cbcs
-            	* \param pRegNode : Node of the register to write
-            	* \param pValue : Value to write
-            	*/
-            	void WriteBroadcast(Module* pModule,const std::string& pRegNode,uint8_t pValue);
-            	/*!
-            	* \brief Hard reset of the Cbc
-            	* \param pCbc
-            	*/
-            	void CbcHardReset(Cbc* pCbc);
-            	/*!
-            	* \brief Fast Reset of the Cbc
-            	* \param pCbc
-            	*/
-            	void CbcFastReset(Cbc* pCbc);
-		
 		//Encode/Decode Cbc values
 		/*!
 		* \brief Encode a/several word(s) readable for a Cbc
@@ -106,13 +105,12 @@ namespace Ph2_HwInterface
 		{fBoardFW->EncodeReg(pRegItem, pCbcId, pVecReq);}; /*!< Encode a/several word(s) readable for a Cbc*/
 		/*!
 		* \brief Decode a word from a read of a register of the Cbc
-            	* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
-            	* \param pCbcId : Id of the Cbc to work with
-            	* \param pWord : variable to put the decoded word
-            	*/
-            	void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
+    	* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
+    	* \param pCbcId : Id of the Cbc to work with
+    	* \param pWord : variable to put the decoded word
+    	*/
+    	void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
 		{fBoardFW->DecodeReg(pRegItem, pCbcId, pWord);}; /*!< Decode a word from a read of a register of the Cbc*/
-
 
 	};
 }
