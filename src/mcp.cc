@@ -102,8 +102,10 @@ int main()
                         if(cBeBoardFWMap.find(cBoardId) == cBeBoardFWMap.end())
                         {
                             cBeBoard->fBeId=cBoardId;
+                            cBeBoardFWInterface = 
                             if(getBoardType)
                             {
+
                                 std::cout << "*** Glib Added ***" << std::endl;
                             }
                             else
