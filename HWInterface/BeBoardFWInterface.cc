@@ -77,7 +77,7 @@ namespace Ph2_HwInterface
 
 	void BeBoardFWInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq)
 	{
-		pVecReq.push_back(pCbcId<<24 | pRegItem.fPage<<16 | pRegItem.fAddress<<8 | pRegItem.fValue);
+		pVecReq.push_back(pCbcId<<17 | pRegItem.fPage<<16 | pRegItem.fAddress<<8 | pRegItem.fValue);
 	}
 
 
@@ -86,10 +86,10 @@ namespace Ph2_HwInterface
 		uint32_t cMask(0x00000000);
 		unsigned int i(0);
 
-		for( i=24; i < 32; i++ ) cMask |= ( (uint32_t) 1 << i );
-		pCbcId = ( ( pWord & cMask ) >> 24 );
+		for( i=17; i < 21; i++ ) cMask |= ( (uint32_t) 1 << i );
+		pCbcId = ( ( pWord & cMask ) >> 17 );
 
-		for( cMask=0, i=16; i < 24; i++ ) cMask |= (uint32_t) 1 << i;
+		for( cMask=0, i=16; i < 17; i++ ) cMask |= (uint32_t) 1 << i;
 		pRegItem.fPage = ( pWord & cMask ) >> 16;
 
 		for( cMask=0, i=8; i < 16; i++ ) cMask |= (uint32_t) 1 << i;
