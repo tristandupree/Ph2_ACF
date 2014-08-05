@@ -167,7 +167,8 @@
 #define EVENT_NUMBER     100
 
     //Event Size
-#define EVENT_SIZE_32    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1
+#define EVENT_SIZE_32_2CBC    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1
+#define EVENT_SIZE_32_8CBC    16*9+6            //2 FE(FMC) x 8CBC (16*9) and  header (5) + 1
 
     //Event
 #define OFFSET_BUNCH               8
