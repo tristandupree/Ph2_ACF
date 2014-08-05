@@ -49,6 +49,7 @@ namespace Ph2_HwInterface
             struct timeval fStartVeto;
             std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout;
             std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
+            uint32_t fEventNumber;
 
             std::ofstream *fDataFile; /*!< File storing data*/
 
@@ -67,7 +68,7 @@ namespace Ph2_HwInterface
             * \brief Constructor of the GlibInterface class
             * \param puHalConfigFileName : path of the uHal Config File
             */
-            GlibInterface(const char *puHalConfigFileName);
+            GlibInterface(const char *puHalConfigFileName, uint32_t pNbCbc);
             /*!
             * \brief Destructor of the GlibInterface class
             */
