@@ -28,7 +28,7 @@ namespace Ph2_HwInterface
 {
 
     //Constructor, makes the board map
-    GlibInterface::GlibInterface(const char *puHalConfigFileName):
+    GlibInterface::GlibInterface(const char *puHalConfigFileName, uint32_t pEventNumber):
         RegManager(puHalConfigFileName),
         fNTotalAcq(0),
         fDataFile(0),
@@ -36,6 +36,14 @@ namespace Ph2_HwInterface
 		fStop(false)
     {
         fData = new Data();
+
+        if( pEventNumber == 2 )
+            fEventNumber = 2CBC_EVENT_NUMBER;
+        else if( pEventNumber == 8 )
+            fEventNumber = 8CBC_EVENT_NUMBER;
+        else
+            fEventNumber = 2CBC_EVENT_NUMBER;
+            std::cout << "Value non recognized : fEventNumber put to 2CBC_EVENT_NUMBER" << std::endl;
     }
 
 
@@ -324,7 +332,7 @@ namespace Ph2_HwInterface
 		boost::posix_time::milliseconds cWait(1);
 
 		uhal::ValWord<uint32_t> cVal;
-		uint32_t cNPackets= EVENT_NUMBER+1;
+		uint32_t cNPackets= fEventNumber+1;
 		uint32_t cBlockSize = cNPackets * PACKET_SIZE;
 
 		//Wait for start acknowledge
@@ -456,7 +464,7 @@ namespace Ph2_HwInterface
 
         usleep( 100 );
 
-        fData->Initialise( EVENT_NUMBER, pGlib );
+        fData->Initialise( fEventNumber, pGlib );
 
         while(!fStop)
         {
