@@ -35,7 +35,7 @@ int main()
 	Glib cGlib_00;
 	cGlib_00.addModule(cModule_00);
 
-	GlibInterface cGlibInterface(UHAL_CONNECTION_FILE);
+	GlibInterface cGlibInterface(UHAL_CONNECTION_FILE,8);
 	CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
 
 	cGlibInterface.ConfigureGlib(cGlib_00);

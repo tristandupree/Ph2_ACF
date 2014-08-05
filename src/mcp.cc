@@ -28,7 +28,7 @@ int main()
     Glib cGlib;
     Module cModule;
     Cbc* cCbc;
-    uint32_t cModuleId, cCbcId, cShelveId, cBeId, cFMCId, cFeId;
+    uint32_t cModuleId, cCbcId, cShelveId, cBeId, cFMCId, cFeId, cNbCbc;
     std::string cFilePath;
     std::string cRegNode;
     std::string cValue;
@@ -38,11 +38,6 @@ int main()
     int cMissedModule = 0;
     int cMissedCbc = 0;
 
-    GlibInterface cGlibInterface(UHAL_CONNECTION_FILE);
-    CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
-
-    cGlibInterface.ConfigureGlib(cGlib);
-
     std::cout << "\n\n\n\n" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
@@ -50,6 +45,15 @@ int main()
     std::cout << "***                N. Pierre, L. Bidegain v0.3               ***" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
+    std::cout << "\n\n\n\n" << std::endl;
+
+    std::cout << "How many Cbc are you handling ?" << std::endl;
+    std::cin >> cNbCbc;
+
+    GlibInterface cGlibInterface(UHAL_CONNECTION_FILE,cNbCbc);
+    CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
+
+    cGlibInterface.ConfigureGlib(cGlib);
 
     do
     {
