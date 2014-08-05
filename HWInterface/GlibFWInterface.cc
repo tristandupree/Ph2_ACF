@@ -18,6 +18,8 @@
 #include <TStyle.h>
 #include "GlibFWInterface.h"
 
+#define DEV_FLAG         0
+
 namespace Ph2_HwInterface
 {
 
@@ -183,7 +185,7 @@ namespace Ph2_HwInterface
         	ChooseBoard(pGlib.getBeId());
 
         	//Select SRAM
-        	SelectSRAM( pNthAcq );
+        	SelectSRAMDAQ( pNthAcq );
 
         	//Stop the DAQ
         	cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
@@ -275,7 +277,7 @@ namespace Ph2_HwInterface
 
 		//FIFO goes to write_data state
 		//Select SRAM
-		SelectSRAM( pNthAcq );
+		SelectSRAMDAQ( pNthAcq );
 
 		#ifdef __CBCDAQ_DEV__
 		gettimeofday(&start, 0);
@@ -463,7 +465,7 @@ namespace Ph2_HwInterface
         	cfile.close();
 	}
 
-	void GlibFWInterface::SelectSRAM(uint32_t pNthAcq)
+	void GlibFWInterface::SelectSRAMDAQ(uint32_t pNthAcq)
     	{
         	fStrSram  = ((pNthAcq%2+1)==1 ? SRAM1 : SRAM2);
         	fStrSramUserLogic =  ((pNthAcq%2+1)==1 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
@@ -472,6 +474,15 @@ namespace Ph2_HwInterface
     	}
 
 	//Methods for Cbc's:
+
+	void GlibFWInterface::SelectSRAM(uint32_t pFe)
+    	{
+		pFe=0;
+        	fStrSram = (pFe ? SRAM2 : SRAM1);
+        	fStrOtherSram = (pFe ? SRAM1 : SRAM2);
+        	fStrSramUserLogic = (pFe ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
+        	fStrOtherSramUserLogic = (pFe ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
+    	}
 
 	bool GlibFWInterface::I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount )
 	{
