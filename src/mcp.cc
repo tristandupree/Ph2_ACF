@@ -102,14 +102,16 @@ int main()
                         if(cBeBoardFWMap.find(cBoardId) == cBeBoardFWMap.end())
                         {
                             cBeBoard->fBeId=cBoardId;
-                            cBeBoardFWInterface = new cBeBoardFWInterface(UHAL_CONFIG_FILE,);
-                            if(getBoardType)
+                            cBeBoardFWInterface = new cBeBoardFWInterface(UHAL_CONFIG_FILE,cBoardId);
+                            if(cBeBoardFWInterface->getBoardType() == "GLIB")
                             {
-
+                                delete cBeBoardFWInterface;
+                                cBeBoardFWMap[cBoardId] = new cGlibFWInterface(UHAL_CONFIG_FILE,cBoardId);
                                 std::cout << "*** Glib Added ***" << std::endl;
                             }
                             else
                             {
+                                delete cBeBoardFWInterface;
                                 std::cout << "ERROR : Unknown type of board !" << std::endl;
                             }
                         }
@@ -124,20 +126,33 @@ int main()
 
                     case 2:
                         std::cout << "*** Add Module ***" << std::endl;
-                        std::cout << "--> Which ModuleId ?" << std::endl;
-                        std::cin >> cModuleId;
-                        if(cGlib.getModule(cModuleId) == NULL)
+                        std::cout << "--> Which BoardId ?" << std::endl;
+                        std::cin >> cBoardId;
+
+                        if(cBeBoardFWMap.find(cBoardId) != cBeBoardFWMap.end())
                         {
-                            cModule.fModuleId=cModuleId;
-                            cGlib.addModule(cModule);
-                            std::cout << "*** Module Added ***" << std::endl;
+                            std::cout << "--> Which ModuleId ?" << std::endl;
+                            std::cin >> cModuleId;
+                            if(cGlib.getModule(cModuleId) == NULL)
+                            {
+                                cModule.fModuleId=cModuleId;
+                                cBeBoardFWMap[cBoardId]->addModule(cModule);
+                                std::cout << "*** Module Added ***" << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << "ERROR : This module already exists !" << std::endl;
+                                myflush( std::cin );
+                                mypause();
+                            }
                         }
                         else
                         {
-                            std::cout << "ERROR : This module already exists !" << std::endl;
+                            std::cout << "ERROR : This board does not exist !" << std::endl;
                             myflush( std::cin );
                             mypause();
                         }
+
                     break;
 
 
@@ -154,34 +169,47 @@ int main()
 
                             case 1:
                                 std::cout << "*** Add Default Cbc ***" << std::endl;
-                                std::cout << "--> Which ModuleId ?" << std::endl;
-                                std::cin >> cModuleId;
-                                if (cGlib.getModule(cModuleId) == NULL)
+                                std::cout << "--> Which BoardId ?" << std::endl;
+                                std::cin >> cBoardId;
+
+                                if(cBeBoardFWMap.find(cBoardId) != cBeBoardFWMap.end())
                                 {
-                                    std::cout << "*** ERROR !!                                      ***" << std::endl;
-                                    std::cout << "*** This module does not exist !                  ***" << std::endl;
-                                    std::cout << "*** This is not the module you are looking for... ***" << std::endl;
-                                    myflush( std::cin );
-                                    mypause();
-                                }
-                                else
-                                {
-                                    std::cout << "--> Which CbcId ?" << std::endl;
-                                    std::cin >> cCbcId;
-                                    if(cGlib.getModule(cModuleId)->getCbc(cCbcId) == NULL)
+                                    std::cout << "--> Which ModuleId ?" << std::endl;
+                                    std::cin >> cModuleId;
+                                    if (cGlib.getModule(cModuleId) == NULL)
                                     {
-                                        cCbc = new Cbc(0,0,0,0,cCbcId,DEFAULT_FILE);
-                                        cGlib.getModule(cModuleId)->addCbc(*cCbc);
-                                        delete cCbc;
-                                        std::cout << "*** Cbc Added ***" << std::endl;
-                                    }
-                                    else
-                                    {
-                                        std::cout << "ERROR : This cbc already exists !" << std::endl;
+                                        std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                        std::cout << "*** This module does not exist !                  ***" << std::endl;
+                                        std::cout << "*** This is not the module you are looking for... ***" << std::endl;
                                         myflush( std::cin );
                                         mypause();
                                     }
+                                    else
+                                    {
+                                        std::cout << "--> Which CbcId ?" << std::endl;
+                                        std::cin >> cCbcId;
+                                        if(cBeBoardFWMap[cBoardId]->getModule(cModuleId)->getCbc(cCbcId) == NULL)
+                                        {
+                                            cCbc = new Cbc(0,0,0,0,cCbcId,DEFAULT_FILE);
+                                            cBeBoardFWMap[cBoardId]->getModule(cModuleId)->addCbc(*cCbc);
+                                            delete cCbc;
+                                            std::cout << "*** Cbc Added ***" << std::endl;
+                                        }
+                                        else
+                                        {
+                                            std::cout << "ERROR : This cbc already exists !" << std::endl;
+                                            myflush( std::cin );
+                                            mypause();
+                                        }
+                                    }
                                 }
+                                else
+                                {
+                                    std::cout << "ERROR : This board does not exist !" << std::endl;
+                                    myflush( std::cin );
+                                    mypause();
+                                }
+
                             break;
 
 
