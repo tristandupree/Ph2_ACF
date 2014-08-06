@@ -38,7 +38,8 @@ namespace Ph2_HwInterface
         fEvent.AddBoard(pBoard);
     }
 
-    Data::Data( Data &pD )
+    Data::Data( Data &pD ):
+        fEvent(0)
     {
         fBuf = 0;
         Initialise( pD.fNevents);
