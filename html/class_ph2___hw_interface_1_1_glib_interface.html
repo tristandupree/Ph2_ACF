@@ -116,9 +116,9 @@ Inheritance diagram for Ph2_HwInterface::GlibInterface:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4aebde48748debad7e261c654c2c6fd8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#a4aebde48748debad7e261c654c2c6fd8">GlibInterface</a> (const char *puHalConfigFileName)</td></tr>
-<tr class="memdesc:a4aebde48748debad7e261c654c2c6fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html" title="Permit r/w given registers in the Glib you specify. ">GlibInterface</a> class.  <a href="#a4aebde48748debad7e261c654c2c6fd8">More...</a><br/></td></tr>
-<tr class="separator:a4aebde48748debad7e261c654c2c6fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb62537ce011e67f895bde9981e3cba5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#aeb62537ce011e67f895bde9981e3cba5">GlibInterface</a> (const char *puHalConfigFileName, uint32_t pNbCbc)</td></tr>
+<tr class="memdesc:aeb62537ce011e67f895bde9981e3cba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html" title="Permit r/w given registers in the Glib you specify. ">GlibInterface</a> class.  <a href="#aeb62537ce011e67f895bde9981e3cba5">More...</a><br/></td></tr>
+<tr class="separator:aeb62537ce011e67f895bde9981e3cba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1182c81cb29bca33b23a2c9f662df2ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#a1182c81cb29bca33b23a2c9f662df2ed">~GlibInterface</a> ()</td></tr>
 <tr class="memdesc:a1182c81cb29bca33b23a2c9f662df2ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html" title="Permit r/w given registers in the Glib you specify. ">GlibInterface</a> class.  <a href="#a1182c81cb29bca33b23a2c9f662df2ed">More...</a><br/></td></tr>
 <tr class="separator:a1182c81cb29bca33b23a2c9f662df2ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,7 +126,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a51dd2e5a8128fd01a41c4d6b204df948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the board infos.  <a href="#a51dd2e5a8128fd01a41c4d6b204df948">More...</a><br/></td></tr>
 <tr class="separator:a51dd2e5a8128fd01a41c4d6b204df948"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad53d40d7cfea163bd3dcd04e233a02e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#ad53d40d7cfea163bd3dcd04e233a02e3">SelectFEId</a> (<a class="el" href="class_ph2___hw_description_1_1_glib.html">Glib</a> &amp;pGlib)</td></tr>
-<tr class="memdesc:ad53d40d7cfea163bd3dcd04e233a02e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detect the right FE Id to write the right registers.  <a href="#ad53d40d7cfea163bd3dcd04e233a02e3">More...</a><br/></td></tr>
+<tr class="memdesc:ad53d40d7cfea163bd3dcd04e233a02e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detect the right FE Id to write the right registers (not tested)  <a href="#ad53d40d7cfea163bd3dcd04e233a02e3">More...</a><br/></td></tr>
 <tr class="separator:ad53d40d7cfea163bd3dcd04e233a02e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad68569190ea9b318b5be1abae4fd23f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#aad68569190ea9b318b5be1abae4fd23f">ConfigureGlib</a> (<a class="el" href="class_ph2___hw_description_1_1_glib.html">Glib</a> &amp;pGlib)</td></tr>
 <tr class="memdesc:aad68569190ea9b318b5be1abae4fd23f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the Glib with its Config File.  <a href="#aad68569190ea9b318b5be1abae4fd23f">More...</a><br/></td></tr>
@@ -192,6 +192,18 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a40299b584632b402f3c54fc9d98d87f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a925d65d022d0dc6d453e0e611826c377"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#a925d65d022d0dc6d453e0e611826c377">fStrReadout</a></td></tr>
 <tr class="separator:a925d65d022d0dc6d453e0e611826c377"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa72b2c10537eb001fe5bd7ee611b2d57"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#aa72b2c10537eb001fe5bd7ee611b2d57">fCbcStubLat</a></td></tr>
+<tr class="separator:aa72b2c10537eb001fe5bd7ee611b2d57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ec903a2dd264ad800292d7c3aa3d2b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#ae9ec903a2dd264ad800292d7c3aa3d2b">fCbcI2CCmdAck</a></td></tr>
+<tr class="separator:ae9ec903a2dd264ad800292d7c3aa3d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a413443d88da98de71c5fcfa998ea89b5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#a413443d88da98de71c5fcfa998ea89b5">fCbcI2CCmdRq</a></td></tr>
+<tr class="separator:a413443d88da98de71c5fcfa998ea89b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c87ad019e3df02833d10cf653b4e1eb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#a3c87ad019e3df02833d10cf653b4e1eb">fCbcHardReset</a></td></tr>
+<tr class="separator:a3c87ad019e3df02833d10cf653b4e1eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f6d3aec340c12329fe26242de9b9577"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#a3f6d3aec340c12329fe26242de9b9577">fCbcFastReset</a></td></tr>
+<tr class="separator:a3f6d3aec340c12329fe26242de9b9577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7d9a0ed785d3779c22757377c74f0bc"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#ae7d9a0ed785d3779c22757377c74f0bc">fEventNumber</a></td></tr>
+<tr class="separator:ae7d9a0ed785d3779c22757377c74f0bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6efc2da55aafca870e1259e78436e1ef"><td class="memItemLeft" align="right" valign="top">std::ofstream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_interface.html#a6efc2da55aafca870e1259e78436e1ef">fDataFile</a></td></tr>
 <tr class="separator:a6efc2da55aafca870e1259e78436e1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -240,7 +252,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Permit r/w given registers in the Glib you specify. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a4aebde48748debad7e261c654c2c6fd8"></a>
+<a class="anchor" id="aeb62537ce011e67f895bde9981e3cba5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -248,8 +260,18 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
           <td class="memname">Ph2_HwInterface::GlibInterface::GlibInterface </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>puHalConfigFileName</em></td><td>)</td>
+          <td class="paramname"><em>puHalConfigFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pNbCbc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -434,7 +456,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
       </table>
 </div><div class="memdoc">
 
-<p>Detect the right FE Id to write the right registers. </p>
+<p>Detect the right FE Id to write the right registers (not tested) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pGlib</td><td></td></tr>
@@ -637,6 +659,106 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 </div>
 </div>
 <h2 class="groupheader">Field Documentation</h2>
+<a class="anchor" id="a3f6d3aec340c12329fe26242de9b9577"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ph2_HwInterface::GlibInterface::fCbcFastReset</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3c87ad019e3df02833d10cf653b4e1eb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ph2_HwInterface::GlibInterface::fCbcHardReset</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae9ec903a2dd264ad800292d7c3aa3d2b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ph2_HwInterface::GlibInterface::fCbcI2CCmdAck</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a413443d88da98de71c5fcfa998ea89b5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ph2_HwInterface::GlibInterface::fCbcI2CCmdRq</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa72b2c10537eb001fe5bd7ee611b2d57"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Ph2_HwInterface::GlibInterface::fCbcStubLat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ae0e95a15055342afd67e1f46aab1481c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -668,6 +790,26 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 </table>
 </div><div class="memdoc">
 <p>File storing data </p>
+
+</div>
+</div>
+<a class="anchor" id="ae7d9a0ed785d3779c22757377c74f0bc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Ph2_HwInterface::GlibInterface::fEventNumber</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -818,7 +960,7 @@ uhal::HwInterface * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a c
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 21 2014 14:19:08 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 6 2014 11:28:29 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

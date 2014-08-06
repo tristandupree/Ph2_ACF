@@ -1,7 +1,7 @@
 var searchData=
 [
   ['data',['Data',['../class_ph2___hw_interface_1_1_data.html',1,'Ph2_HwInterface']]],
-  ['data',['Data',['../class_ph2___hw_interface_1_1_data.html#a72e6b3c8af444dd82569d3a47f89812c',1,'Ph2_HwInterface::Data::Data()'],['../class_ph2___hw_interface_1_1_data.html#aa98dbf6219ca78afda306b2fa41dbcc5',1,'Ph2_HwInterface::Data::Data(BeBoard &amp;pBoard)'],['../class_ph2___hw_interface_1_1_data.html#aefcb0c450523abe1c4397189f64a3aff',1,'Ph2_HwInterface::Data::Data(Data &amp;pData)']]],
+  ['data',['Data',['../class_ph2___hw_interface_1_1_data.html#a4cbcbfc2a023f0e826253fc7308ebb17',1,'Ph2_HwInterface::Data::Data(uint32_t pNbCbc)'],['../class_ph2___hw_interface_1_1_data.html#a6b19ec929731107ee1bf288493b2ee7a',1,'Ph2_HwInterface::Data::Data(BeBoard &amp;pBoard, uint32_t pNbCbc)'],['../class_ph2___hw_interface_1_1_data.html#aefcb0c450523abe1c4397189f64a3aff',1,'Ph2_HwInterface::Data::Data(Data &amp;pData)']]],
   ['data_2ecc',['Data.cc',['../_data_8cc.html',1,'']]],
   ['data_2eh',['Data.h',['../_data_8h.html',1,'']]],
   ['databit',['DataBit',['../class_ph2___hw_interface_1_1_event.html#a3e93e6f16944f443caffd2df81262fbe',1,'Ph2_HwInterface::Event']]],

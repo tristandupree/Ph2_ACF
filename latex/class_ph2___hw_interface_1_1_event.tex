@@ -8,9 +8,9 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_ph2___hw_interface_1_1_event_a61150c0e6dad5ec2068c126e8a018fe1}{Event} ()
+\hyperlink{class_ph2___hw_interface_1_1_event_a76e38e4a345ed8cac86579821efe9b73}{Event} (uint32\-\_\-t p\-Nb\-Cbc)
 \item 
-\hyperlink{class_ph2___hw_interface_1_1_event_ae6873ebe9fd64b7d039098e97d815106}{Event} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board)
+\hyperlink{class_ph2___hw_interface_1_1_event_a75a7e673a29d9cca0080c5517895d838}{Event} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint32\-\_\-t p\-Nb\-Cbc)
 \item 
 \hyperlink{class_ph2___hw_interface_1_1_event_a3f676bea23859e6417f1ccbade7308df}{Event} (\hyperlink{class_ph2___hw_interface_1_1_event}{Event} \&p\-Event)
 \item 
@@ -64,6 +64,11 @@ std\-::string \hyperlink{class_ph2___hw_interface_1_1_event_abc647a9563bd796f878
 \item 
 char \hyperlink{class_ph2___hw_interface_1_1_event_a348abea85bdfdfc8c0b88cda907dbea8}{Char} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint32\-\_\-t p\-Byte\-Position)
 \end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a0a12db10e67652851517cc65c8057667}{f\-Event\-Size}
+\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -86,20 +91,21 @@ uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_ab91638311238d12f1cd
 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_event_a61150c0e6dad5ec2068c126e8a018fe1}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Event@{Event}}
+\hypertarget{class_ph2___hw_interface_1_1_event_a76e38e4a345ed8cac86579821efe9b73}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Event@{Event}}
 \index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
 \subsubsection[{Event}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Event (
 \begin{DoxyParamCaption}
-{}
+\item[{uint32\-\_\-t}]{p\-Nb\-Cbc}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_a61150c0e6dad5ec2068c126e8a018fe1}
-\hypertarget{class_ph2___hw_interface_1_1_event_ae6873ebe9fd64b7d039098e97d815106}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Event@{Event}}
+)}}\label{class_ph2___hw_interface_1_1_event_a76e38e4a345ed8cac86579821efe9b73}
+\hypertarget{class_ph2___hw_interface_1_1_event_a75a7e673a29d9cca0080c5517895d838}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Event@{Event}}
 \index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
 \subsubsection[{Event}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Event (
 \begin{DoxyParamCaption}
-\item[{{\bf Be\-Board} \&}]{p\-Board}
+\item[{{\bf Be\-Board} \&}]{p\-Board, }
+\item[{uint32\-\_\-t}]{p\-Nb\-Cbc}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_ae6873ebe9fd64b7d039098e97d815106}
+)}}\label{class_ph2___hw_interface_1_1_event_a75a7e673a29d9cca0080c5517895d838}
 \hypertarget{class_ph2___hw_interface_1_1_event_a3f676bea23859e6417f1ccbade7308df}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Event@{Event}}
 \index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
 \subsubsection[{Event}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Event (
@@ -325,6 +331,9 @@ uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_ab91638311238d12f1cd
 \hypertarget{class_ph2___hw_interface_1_1_event_ace9844f1fc14895f880ed111c705d392}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Event\-Map@{f\-Event\-Map}}
 \index{f\-Event\-Map@{f\-Event\-Map}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
 \subsubsection[{f\-Event\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Event\-Map} Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Event\-Map\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_ace9844f1fc14895f880ed111c705d392}
+\hypertarget{class_ph2___hw_interface_1_1_event_a0a12db10e67652851517cc65c8057667}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Event\-Size@{f\-Event\-Size}}
+\index{f\-Event\-Size@{f\-Event\-Size}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
+\subsubsection[{f\-Event\-Size}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Event\-Size}}\label{class_ph2___hw_interface_1_1_event_a0a12db10e67652851517cc65c8057667}
 \hypertarget{class_ph2___hw_interface_1_1_event_a78afd0886560acf70ee6b982c5690e0a}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Lumi@{f\-Lumi}}
 \index{f\-Lumi@{f\-Lumi}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
 \subsubsection[{f\-Lumi}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Lumi\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_a78afd0886560acf70ee6b982c5690e0a}

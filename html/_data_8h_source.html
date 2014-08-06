@@ -130,8 +130,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordtype">void</span> swapByteOrder( <span class="keyword">const</span> <span class="keywordtype">char</span> *org, <span class="keywordtype">char</span> *swapped, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nbyte );</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_data.html#a72e6b3c8af444dd82569d3a47f89812c">   43</a></span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_data.html#a72e6b3c8af444dd82569d3a47f89812c">Data</a>():fBuf(0),fCurrentEvent(0) {}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_data.html">Data</a>(<a class="code" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a>&amp; pBoard);</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_data.html#a4cbcbfc2a023f0e826253fc7308ebb17">   43</a></span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_data.html#a4cbcbfc2a023f0e826253fc7308ebb17">Data</a>(uint32_t pNbCbc):fBuf(0),fCurrentEvent(0),fEvent(pNbCbc) {}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_data.html">Data</a>(<a class="code" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a>&amp; pBoard, uint32_t pNbCbc);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_data.html">Data</a>(<a class="code" href="class_ph2___hw_interface_1_1_data.html">Data</a> &amp;pData);</div>
 <div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_data.html#a889228098e5c0b4eb5d06ad7850cdd7e">   46</a></span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_data.html#a889228098e5c0b4eb5d06ad7850cdd7e">~Data</a>() {<span class="keywordflow">if</span>(fBuf) free(fBuf);}</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
@@ -156,13 +156,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="_event_8h_html"><div class="ttname"><a href="_event_8h.html">Event.h</a></div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_data_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_data.html">Ph2_HwInterface::Data</a></div><div class="ttdoc">Dummy data format in order to test. </div><div class="ttdef"><b>Definition:</b> Data.h:30</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_data_html_a889228098e5c0b4eb5d06ad7850cdd7e"><div class="ttname"><a href="class_ph2___hw_interface_1_1_data.html#a889228098e5c0b4eb5d06ad7850cdd7e">Ph2_HwInterface::Data::~Data</a></div><div class="ttdeci">~Data()</div><div class="ttdef"><b>Definition:</b> Data.h:46</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_data_html_a72e6b3c8af444dd82569d3a47f89812c"><div class="ttname"><a href="class_ph2___hw_interface_1_1_data.html#a72e6b3c8af444dd82569d3a47f89812c">Ph2_HwInterface::Data::Data</a></div><div class="ttdeci">Data()</div><div class="ttdef"><b>Definition:</b> Data.h:43</div></div>
+<div class="ttc" id="class_ph2___hw_interface_1_1_data_html_a4cbcbfc2a023f0e826253fc7308ebb17"><div class="ttname"><a href="class_ph2___hw_interface_1_1_data.html#a4cbcbfc2a023f0e826253fc7308ebb17">Ph2_HwInterface::Data::Data</a></div><div class="ttdeci">Data(uint32_t pNbCbc)</div><div class="ttdef"><b>Definition:</b> Data.h:43</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_data_html_a1b13d9197eeb9fd673a42a35b55e8dd8"><div class="ttname"><a href="class_ph2___hw_interface_1_1_data.html#a1b13d9197eeb9fd673a42a35b55e8dd8">Ph2_HwInterface::Data::fEvent</a></div><div class="ttdeci">Event fEvent</div><div class="ttdef"><b>Definition:</b> Data.h:36</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_data_html_acf647e64b2febe8555e7b044e5cfc98d"><div class="ttname"><a href="class_ph2___hw_interface_1_1_data.html#acf647e64b2febe8555e7b044e5cfc98d">Ph2_HwInterface::Data::fBuf</a></div><div class="ttdeci">char * fBuf</div><div class="ttdef"><b>Definition:</b> Data.h:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 21 2014 14:19:08 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 6 2014 11:28:29 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

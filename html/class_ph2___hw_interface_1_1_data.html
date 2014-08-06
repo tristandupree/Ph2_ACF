@@ -106,10 +106,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a72e6b3c8af444dd82569d3a47f89812c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_data.html#a72e6b3c8af444dd82569d3a47f89812c">Data</a> ()</td></tr>
-<tr class="separator:a72e6b3c8af444dd82569d3a47f89812c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa98dbf6219ca78afda306b2fa41dbcc5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_data.html#aa98dbf6219ca78afda306b2fa41dbcc5">Data</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> &amp;pBoard)</td></tr>
-<tr class="separator:aa98dbf6219ca78afda306b2fa41dbcc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cbcbfc2a023f0e826253fc7308ebb17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_data.html#a4cbcbfc2a023f0e826253fc7308ebb17">Data</a> (uint32_t pNbCbc)</td></tr>
+<tr class="separator:a4cbcbfc2a023f0e826253fc7308ebb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b19ec929731107ee1bf288493b2ee7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_data.html#a6b19ec929731107ee1bf288493b2ee7a">Data</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> &amp;pBoard, uint32_t pNbCbc)</td></tr>
+<tr class="separator:a6b19ec929731107ee1bf288493b2ee7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefcb0c450523abe1c4397189f64a3aff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_data.html#aefcb0c450523abe1c4397189f64a3aff">Data</a> (<a class="el" href="class_ph2___hw_interface_1_1_data.html">Data</a> &amp;pData)</td></tr>
 <tr class="separator:aefcb0c450523abe1c4397189f64a3aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a889228098e5c0b4eb5d06ad7850cdd7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_data.html#a889228098e5c0b4eb5d06ad7850cdd7e">~Data</a> ()</td></tr>
@@ -150,7 +150,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dummy data format in order to test. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a72e6b3c8af444dd82569d3a47f89812c"></a>
+<a class="anchor" id="a4cbcbfc2a023f0e826253fc7308ebb17"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -160,7 +160,8 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">Ph2_HwInterface::Data::Data </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pNbCbc</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -173,7 +174,7 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa98dbf6219ca78afda306b2fa41dbcc5"></a>
+<a class="anchor" id="a6b19ec929731107ee1bf288493b2ee7a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -181,8 +182,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">Ph2_HwInterface::Data::Data </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> &amp;&#160;</td>
-          <td class="paramname"><em>pBoard</em></td><td>)</td>
+          <td class="paramname"><em>pBoard</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pNbCbc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -497,7 +508,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 21 2014 14:19:08 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 6 2014 11:28:29 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

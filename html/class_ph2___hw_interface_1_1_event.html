@@ -92,6 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Ph2_HwInterface::Event Class Reference</div>  </div>
@@ -102,10 +103,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a61150c0e6dad5ec2068c126e8a018fe1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#a61150c0e6dad5ec2068c126e8a018fe1">Event</a> ()</td></tr>
-<tr class="separator:a61150c0e6dad5ec2068c126e8a018fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6873ebe9fd64b7d039098e97d815106"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#ae6873ebe9fd64b7d039098e97d815106">Event</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> &amp;pBoard)</td></tr>
-<tr class="separator:ae6873ebe9fd64b7d039098e97d815106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76e38e4a345ed8cac86579821efe9b73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#a76e38e4a345ed8cac86579821efe9b73">Event</a> (uint32_t pNbCbc)</td></tr>
+<tr class="separator:a76e38e4a345ed8cac86579821efe9b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75a7e673a29d9cca0080c5517895d838"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#a75a7e673a29d9cca0080c5517895d838">Event</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> &amp;pBoard, uint32_t pNbCbc)</td></tr>
+<tr class="separator:a75a7e673a29d9cca0080c5517895d838"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f676bea23859e6417f1ccbade7308df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#a3f676bea23859e6417f1ccbade7308df">Event</a> (<a class="el" href="class_ph2___hw_interface_1_1_event.html">Event</a> &amp;pEvent)</td></tr>
 <tr class="separator:a3f676bea23859e6417f1ccbade7308df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2698d395adfcd65d0853676a899127fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#a2698d395adfcd65d0853676a899127fc">~Event</a> ()</td></tr>
@@ -159,6 +160,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a348abea85bdfdfc8c0b88cda907dbea8"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#a348abea85bdfdfc8c0b88cda907dbea8">Char</a> (uint8_t pFeId, uint8_t pCbcId, uint32_t pBytePosition)</td></tr>
 <tr class="separator:a348abea85bdfdfc8c0b88cda907dbea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:a0a12db10e67652851517cc65c8057667"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#a0a12db10e67652851517cc65c8057667">fEventSize</a></td></tr>
+<tr class="separator:a0a12db10e67652851517cc65c8057667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ab396cf1480f11b535d0e464aa6f9f046"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_event.html#ab396cf1480f11b535d0e464aa6f9f046">fBuf</a></td></tr>
@@ -179,49 +185,44 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ab91638311238d12f1cd258556c8d1d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a61150c0e6dad5ec2068c126e8a018fe1"></a>
+<a class="anchor" id="a76e38e4a345ed8cac86579821efe9b73"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Ph2_HwInterface::Event::Event </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pNbCbc</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="ae6873ebe9fd64b7d039098e97d815106"></a>
+<a class="anchor" id="a75a7e673a29d9cca0080c5517895d838"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Ph2_HwInterface::Event::Event </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> &amp;&#160;</td>
-          <td class="paramname"><em>pBoard</em></td><td>)</td>
+          <td class="paramname"><em>pBoard</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>pNbCbc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -995,6 +996,18 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a0a12db10e67652851517cc65c8057667"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Ph2_HwInterface::Event::fEventSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a78afd0886560acf70ee6b982c5690e0a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1062,7 +1075,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jul 21 2014 14:19:08 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 6 2014 11:28:29 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
