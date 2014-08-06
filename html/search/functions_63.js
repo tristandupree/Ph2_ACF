@@ -7,7 +7,6 @@ var searchData=
   ['char',['Char',['../class_ph2___hw_interface_1_1_event.html#a348abea85bdfdfc8c0b88cda907dbea8',1,'Ph2_HwInterface::Event']]],
   ['chooseboard',['ChooseBoard',['../class_ph2___hw_interface_1_1_reg_manager.html#a20c502bcad5115c6ae16d4d356b72f0c',1,'Ph2_HwInterface::RegManager']]],
   ['clear',['Clear',['../class_ph2___hw_interface_1_1_event.html#ac324585a7a75fb07c51e71317e53ea64',1,'Ph2_HwInterface::Event']]],
-  ['configureboard',['ConfigureBoard',['../class_ph2___hw_interface_1_1_be_board_interface.html#a8bb4c51e30c7a969833f1fe83d005b00',1,'Ph2_HwInterface::BeBoardInterface']]],
   ['configurecbc',['ConfigureCbc',['../class_ph2___hw_interface_1_1_cbc_interface.html#a0567c7a31f70f446202e60d037c869ea',1,'Ph2_HwInterface::CbcInterface']]],
   ['configureglib',['ConfigureGlib',['../class_ph2___hw_interface_1_1_glib_interface.html#aad68569190ea9b318b5be1abae4fd23f',1,'Ph2_HwInterface::GlibInterface']]],
   ['copybuffer',['CopyBuffer',['../class_ph2___hw_interface_1_1_data.html#a751235bbc2393f58f9fd83b8837ad2b4',1,'Ph2_HwInterface::Data']]]

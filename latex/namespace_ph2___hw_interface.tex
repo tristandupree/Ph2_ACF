@@ -9,16 +9,14 @@ Namespace regrouping all the interfaces to the hardware.
 \subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{class_ph2___hw_interface_1_1_be_board_interface}{Be\-Board\-Interface}
-\item 
 class \hyperlink{class_ph2___hw_interface_1_1_cbc_interface}{Cbc\-Interface}
 \begin{DoxyCompactList}\small\item\em Permit r/w given registers in the Cbc you specify. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_data}{Data}
-\begin{DoxyCompactList}\small\item\em Dummy data format in order to test. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_ph2___hw_interface_1_1_data}{Data} container to manipulate data flux from the Cbc. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_event}{Event}
-\item 
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_ph2___hw_interface_1_1_event}{Event} container to manipulate event flux from the Cbc. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_exception}{Exception}
-\item 
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_ph2___hw_interface_1_1_exception}{Exception} handling class, inheriting from std\-::exception. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\-Interface}
 \begin{DoxyCompactList}\small\item\em Permit r/w given registers in the Glib you specify. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager}
@@ -54,10 +52,10 @@ Namespace regrouping all the interfaces to the hardware.
 \hypertarget{namespace_ph2___hw_interface_acf9f41d647e7a3ad9bae233b04b9e3bc}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!Event\-Map@{Event\-Map}}
 \index{Event\-Map@{Event\-Map}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
 \subsubsection[{Event\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$uint32\-\_\-t, {\bf Fe\-Event\-Map}$>$ {\bf Ph2\-\_\-\-Hw\-Interface\-::\-Event\-Map}}}\label{namespace_ph2___hw_interface_acf9f41d647e7a3ad9bae233b04b9e3bc}
-\hypertarget{namespace_ph2___hw_interface_a50d97ee46941c2c0c2ecadc929e41b05}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!Fe\-Event\-Map@{Fe\-Event\-Map}}
+\hyperlink{class_ph2___hw_interface_1_1_event}{Event} Map of F\-E \hypertarget{namespace_ph2___hw_interface_a50d97ee46941c2c0c2ecadc929e41b05}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!Fe\-Event\-Map@{Fe\-Event\-Map}}
 \index{Fe\-Event\-Map@{Fe\-Event\-Map}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
 \subsubsection[{Fe\-Event\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$uint32\-\_\-t, char$\ast$$>$ {\bf Ph2\-\_\-\-Hw\-Interface\-::\-Fe\-Event\-Map}}}\label{namespace_ph2___hw_interface_a50d97ee46941c2c0c2ecadc929e41b05}
-
+\hyperlink{class_ph2___hw_interface_1_1_event}{Event} Map of Cbc 
 
 \subsection{Function Documentation}
 \hypertarget{namespace_ph2___hw_interface_a45c84dee08a5b37d565bbcd5eeab2b4d}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!f\-Deactive\-Thread@{f\-Deactive\-Thread}}
