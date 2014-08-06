@@ -36,7 +36,7 @@ namespace Ph2_HwInterface
     	}
 
 
-	void BeBoardFWInterface::getBoardInfo(Glib& pGlib)
+	void BeBoardFWInterface::getBoardInfo(BeBoard* pBoard)
 	{
         	std::cout << "FMC1 present : " << uint32_t(ReadReg(FMC1_PRESENT)) << std::endl;
         	std::cout << "FMC2 present : " << uint32_t(ReadReg(FMC2_PRESENT)) << std::endl;

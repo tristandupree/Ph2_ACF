@@ -43,18 +43,6 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth ):FrontEndDescription(pFeDesc)
-	{
-		fCbcId=pCbcId;
-
-		loadfRegMap(DEFAULT_FILE);
-
-		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
-		fRegMap["Vcth"].fValue=pVcth;
-
-	}
-
-
 	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId ):FrontEndDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
@@ -69,17 +57,6 @@ namespace Ph2_HwDescription{
 
 		fCbcId=pCbcId;
 		loadfRegMap(filename);
-	}
-
-
-	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, uint8_t pTriggerLatency,uint8_t pVcth ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
-	{
-		fCbcId=pCbcId;
-
-		loadfRegMap(DEFAULT_FILE);
-
-		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
-		fRegMap["Vcth"].fValue=pVcth;
 	}
 
 
@@ -140,53 +117,6 @@ namespace Ph2_HwDescription{
 			std::cerr<< "The CBC Settings File " << filename << " could not be opened!" <<std::endl;
 	}
 
-	uint8_t Cbc::getTriggerLatency()
-	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find("TriggerLatency");
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have TriggerLatency"<<std::endl;
-		return 0;}
-		else
-		return i->second.fValue;
-	}
-
-	void Cbc::setTriggerLatency(uint8_t pTriggerLatency)
-	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find("TriggerLatency");
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have TriggerLatency"<<std::endl;}
-		else
-		{
-			i->second.fValue=pTriggerLatency;
-		}
-	}
-
-	uint8_t Cbc::getVcth()
-	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find("VCth");
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have Vcth"<<std::endl;
-		return 0;}
-		else
-		return i->second.fValue;
-	}
-
-	void Cbc::setVcth(uint8_t psetVcth)
-	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find("VCth");
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have Vcth"<<std::endl;}
-		else
-		{
-			i->second.fValue=psetVcth;
-
-		}
-	}
-
 
 	uint8_t Cbc::getReg(std::string pReg)
 	{
@@ -218,7 +148,7 @@ namespace Ph2_HwDescription{
 
 	//Write RegValues in a file
 
-	void Cbc::writeRegValues( std::string filename )
+	void Cbc::saveRegMap( std::string filename )
 	{
 
 		std::ofstream file(filename.c_str(), std::ios::out | std::ios::trunc);

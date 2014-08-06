@@ -12,7 +12,7 @@
 #ifndef __BEBOARDINTERFACE_H__
 #define __BEBOARDINTERFACE_H__
 
-#include "GlibFWInterface.h"
+#include "BeBoardFWInterface.h"
 
 using namespace Ph2_HwDescription;
 
@@ -52,77 +52,70 @@ namespace Ph2_HwInterface
 
 		/*!
             	* \brief Get the board infos
-            	* \param pGlib
+            	* \param pBoard
            	*/
-            	void getBoardInfo(Glib& pGlib)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->getBoardInfo(pGlib);};
+            	void getBoardInfo(BeBoard* pBoard)
+		{setBoard(pBoard->getBeId());
+		fBoardFW->getBoardInfo(pBoard);};
 
 		/*!
-		* \brief Update both Glib register and Config File
-            	* \param pGlib
+		* \brief Update both Board register and Config File
+            	* \param pBoard
             	* \param pRegNode : Node of the register to update
             	* \param pVal : Value to write
             	*/
-            	void WriteGlibReg(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal);
+            	void WriteBoardReg(BeBoard* pBoard,const std::string& pRegNode,const uint32_t& pVal);
             	/*!
-            	* \brief Update Config File with the value in the Glib register
-            	* \param pGlib
+            	* \brief Update Config File with the value in the Board register
+            	* \param pBoard
             	* \param pRegNode : Node of the register to update
 		*/
-		void ReadGlibReg(Glib& pGlib,const std::string& pRegNode);
+		void ReadBoardReg(BeBoard* pBoard,const std::string& pRegNode);
 		/*!
-            	* \brief Configure the Glib with its Config File
-            	* \param pGlib
+            	* \brief Configure the board with its Config File
+            	* \param pBoard
             	*/
-		void ConfigureGlib(Glib& pGlib)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->ConfigureGlib(pGlib);};
+		void ConfigureBoard(BeBoard* pBoard)
+		{setBoard(pBoard->getBeId());
+		fBoardFW->ConfigureBoard(pBoard);};
             	/*!
             	* \brief Start a DAQ
-           	* \param pGlib
+           	* \param pBoard
             	*/
-            	void Start(Glib& pGlib)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->Start(pGlib);};
+            	void Start(BeBoard* pBoard)
+		{setBoard(pBoard->getBeId());
+		fBoardFW->Start(pBoard);};
             	/*!
             	* \brief Stop a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	* \param pNthAcq : actual number of acquisitions
             	*/
-            	void Stop(Glib& pGlib,uint32_t pNthAcq)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->Stop(pGlib, pNthAcq);};
+            	void Stop(BeBoard* pBoard,uint32_t pNthAcq)
+		{setBoard(pBoard->getBeId());
+		fBoardFW->Stop(pBoard, pNthAcq);};
             	/*!
             	* \brief Pause a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	*/
-            	void Pause(Glib& pGlib)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->Pause(pGlib);};
+            	void Pause(BeBoard* pBoard)
+		{setBoard(pBoard->getBeId());
+		fBoardFW->Pause(pBoard);};
             	/*!
             	* \brief Unpause a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	*/
-            	void Unpause(Glib& pGlib)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->Unpause(pGlib);};
+            	void Resume(BeBoard* pBoard)
+		{setBoard(pBoard->getBeId());
+		fBoardFW->Resume(pBoard);};
             	/*!
             	* \brief Read data from DAQ
-            	* \param pGlib
+            	* \param pBoard
             	* \param pNthAcq : actual number of acquisitions
             	* \param pBreakTrigger : if true, enable the break trigger
             	*/
-            	void ReadData(Glib& pGlib, uint32_t pNthAcq, bool pBreakTrigger)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->ReadData(pGlib, pNthAcq, pBreakTrigger);};
-		/*!
-		* \brief Run a DAQ
-    	        * \param pGlib
-    	        */
-            	void Run(Glib& pGlib)
-		{setBoard(pGlib.getBeId());
-		fBoardFW->Run(pGlib);};
+            	void ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger)
+		{setBoard(pBoard->getBeId());
+		fBoardFW->ReadData(pBoard, pNthAcq, pBreakTrigger);};
 
 	};
 }
