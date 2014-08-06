@@ -539,6 +539,8 @@ namespace Ph2_HwInterface
         cCanvas->Print("output/Histogram_Mean.pdf");
 
         delete cHist;
+        delete cCanvas;
+        delete cCanvasMean;
 
         cfile.close();
     }
