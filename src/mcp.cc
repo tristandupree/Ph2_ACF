@@ -453,7 +453,34 @@ int main()
                     break;
 
 
-                    case 3:
+                    case 4:
+                        std::cout << "*** Remove Board ***" << std::endl;
+                        std::cout << "--> Which BoardId ?" << std::endl;
+                        std::cin >> cBoardId;
+
+                        std::vector<BeBoard*>::iterator cIt;
+
+                        for(cIt=cBeBoardVec.begin(); cIt!=cBeBoardVec.end(); cIt++)
+                        {
+                            if((*cIt)->fBeId == cBoardId)
+                            {
+                                cBeBoardFWMap.erase(cBoardId);
+                                cBeBoardVec.erase(cIt);
+                                std::cout << "*** Board removed ! ***" << std::endl;
+                            }
+                        }
+
+                        if(cIt == cBeBoardVec.end())
+                        {
+                            std::cout << "ERROR : This board does not exist !" << std::endl;
+                            myflush( std::cin );
+                            mypause();
+                        }
+
+                    break;
+
+
+                    case 5:
                         std::cout << "*** Remove Module ***" << std::endl;
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
@@ -490,7 +517,7 @@ int main()
                     break;
 
 
-                    case 4:
+                    case 6:
                         std::cout << "*** Remove Cbc ***" << std::endl;
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
