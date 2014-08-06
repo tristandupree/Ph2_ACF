@@ -17,7 +17,8 @@ Different versions for different setups
 ---------------------------------------
 
 On this GitHub, you can find different version of the software :
-- A 2CBC version on the Master and the 2CBC branches
+- An agnostic (to the number of CBCs) version on the Master branch
+- A 2CBC version on the 2CBC branch
 - A 8CBC version on the 8CBC branch
 - An agnostic (to the number of CBCs) version with the new structure still in development in the Dev branch
 <br>
@@ -75,7 +76,7 @@ After this creation round, you can do anything you want :
 - Configure the Glib or the Cbcs
 - Manipulate the registers in the Glib
 - Manipulate the registers in the Cbcs
-- Do the manipulation to Start/Stop an acquisition, but not actually acquiring something relevant
+- Perform a DAQ and tracing diagrams counting the number of hits
 - Have a configuration recap of all the objects you created
 
 Concerning the manipulation of the Cbcs, you have the opportunity to modify all the
@@ -94,6 +95,7 @@ You can also run DAQ and recover the Hit Histogram for each Cbc and each Event i
 At the end of the program, the register maps are saved into output_X_X.txt files
 you can find in the settings directory. For example, output_1_2.txt contains the
 register map of the Cbc 2 of the Module 1.
+You can also find different .pdf files containing the histograms of the DAQ.
 
 More features will be implemented later, so make sure to have the last release
 locally to benefit from them.
