@@ -25,6 +25,32 @@ namespace Ph2_HwInterface
 {
 
 	//Event implementation
+	Event::Event(uint32_t pNbCbc)
+	{
+		if(pNbCbc == 2)
+			fEventSize = EVENT_SIZE_32_2CBC;
+		else if(pNbCbc == 8)
+			fEventSize = EVENT_SIZE_32_8CBC;
+		else
+		{
+			fEventSize = pNbCbc*2*9+6;
+		}
+	}
+
+
+	Event::Event( BeBoard& pBoard, uint32_t pNbCbc )
+	{
+		if(pNbCbc == 2)
+			fEventSize = EVENT_SIZE_32_2CBC;
+		else if(pNbCbc == 8)
+			fEventSize = EVENT_SIZE_32_8CBC;
+		else
+		{
+			std::cout << "ERROR !\n Non recognized value : Event size put to EVENT_SIZE_32_2CBC" << std::endl;
+			fEventSize = EVENT_SIZE_32_2CBC;
+		}
+		AddBoard(pBoard);
+	}
 
 	Event::Event(Event &pEvent):
 		fBuf(0),
@@ -130,7 +156,7 @@ namespace Ph2_HwInterface
 
 		os <<std::hex;
 
-    	for( uint32_t i=0; i<EVENT_SIZE_32; i++)
+    	for( uint32_t i=0; i<fEventSize; i++)
         {
 			os <<std::uppercase<<std::setw(2)<<std::setfill('0')<< (fBuf[i]&0xFF);
 		}

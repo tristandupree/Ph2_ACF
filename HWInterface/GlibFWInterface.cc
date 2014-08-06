@@ -13,9 +13,6 @@
 #include <boost/date_time.hpp>
 #include <boost/thread.hpp>
 #include <time.h>
-#include <TH1F.h>
-#include <TCanvas.h>
-#include <TStyle.h>
 #include "GlibFWInterface.h"
 
 #define DEV_FLAG         0
@@ -23,108 +20,110 @@
 namespace Ph2_HwInterface
 {
 
-	GlibFWInterface::GlibFWInterface(const char *puHalConfigFileName):BeBoardFWInterface(puHalConfigFileName){
+	GlibFWInterface::GlibFWInterface(const char *puHalConfigFileName, uint32_t pBoardId):
+		BeBoardFWInterface(puHalConfigFileName,pBoardId,pNbCbc)
+	{
+
 	}
 
 
 	void GlibFWInterface::ConfigureBoard(BeBoard* pBoard)
-    	{
+    {
 
-        	//We may here switch in the future with the StackReg method of the RegManager
-        	//when the timeout thing will be implemented in a transparent and pretty way
+    	//We may here switch in the future with the StackReg method of the RegManager
+    	//when the timeout thing will be implemented in a transparent and pretty way
 
-        	std::vector< std::pair<std::string,uint32_t> > cVecReg;
-        	std::pair<std::string,uint32_t> cPairReg;
+    	std::vector< std::pair<std::string,uint32_t> > cVecReg;
+    	std::pair<std::string,uint32_t> cPairReg;
 
-        	ChooseBoard(pBoard->getBeId());
+    	boost::posix_time::milliseconds cPause(200);
 
-        	boost::posix_time::milliseconds cPause(200);
-
-        	//Primary Configuration
-        	cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
+    	//Primary Configuration
+    	cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
 		cVecReg.push_back(cPairReg);
-        	cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
+    	cVecReg.push_back(cPairReg);
 
-        	WriteStackReg(cVecReg);
+    	WriteStackReg(cVecReg);
 
-        	cVecReg.clear();
+    	cVecReg.clear();
 
 		boost::this_thread::sleep(cPause);
 
 
-        	/*
-       		GlibRegMap : map<std::string,uint8_t> created from Glib class
+    	/*
+   		GlibRegMap : map<std::string,uint8_t> created from Glib class
 
-        	Mandatory to go through a created cGlibRegMap.
-        	If you want to put directly pGlib.getGlibRegMap(), you'll end up with
-        	a seg fault error, as it is not putting all the map in mem but only
-        	begin() and end().
-        	*/
+    	Mandatory to go through a created cGlibRegMap.
+    	If you want to put directly pGlib.getGlibRegMap(), you'll end up with
+    	a seg fault error, as it is not putting all the map in mem but only
+    	begin() and end().
+    	*/
 
-        	BeBoardRegMap cGlibRegMap = pBoard->getBeBoardRegMap();
+    	BeBoardRegMap cGlibRegMap = pBoard->getBeBoardRegMap();
 		for(BeBoardRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
-        	{
-        		cPairReg.first = cIt->first; cPairReg.second = cIt->second;
-            		cVecReg.push_back(cPairReg);
+        {
+    		cPairReg.first = cIt->first; cPairReg.second = cIt->second;
+        	cVecReg.push_back(cPairReg);
 		}
 
-        	WriteStackReg(cVecReg);
+    	WriteStackReg(cVecReg);
 
-        	cVecReg.clear();
+    	cVecReg.clear();
 
-        	cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = CBC_TRIGGER_1SHOT; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = CBC_TRIGGER_1SHOT; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
+    	cVecReg.push_back(cPairReg);
 
-        	WriteStackReg(cVecReg);
+    	WriteStackReg(cVecReg);
 
-        	cVecReg.clear();
+    	cVecReg.clear();
 
 
-        	cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
+    	cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
+    	cVecReg.push_back(cPairReg);
 
-        	WriteStackReg(cVecReg);
+    	WriteStackReg(cVecReg);
 
-        	cVecReg.clear();
+    	cVecReg.clear();
 
 		boost::this_thread::sleep(cPause);
 
 
-        	cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = CBC_TRIGGER_1SHOT; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
+    	cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = CBC_TRIGGER_1SHOT; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
+    	cVecReg.push_back(cPairReg);
 
-        	WriteStackReg(cVecReg);
+    	WriteStackReg(cVecReg);
 
-        	cVecReg.clear();
+    	cVecReg.clear();
 
 		boost::this_thread::sleep( cPause*3 );
 
-    	}
+    }
+
 
 	void GlibFWInterface::SelectFEId()
 	{
@@ -146,101 +145,96 @@ namespace Ph2_HwInterface
         	}
     	}
 
-	void GlibFWInterface::Start(BeBoard* pBoard)
+	void GlibFWInterface::Start()
 	{
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		long mtime = getTimeTook( fStartVeto, 1 );
 		std::cout << "Time took for the trigger veto to trigger enable: " << std::dec << mtime << " ms." << std::endl;
-		#endif
+#endif
 
 		std::vector< std::pair<std::string,uint32_t> > cVecReg;
 		std::pair<std::string,uint32_t> cPairReg;
 
-        	ChooseBoard(pBoard->getBeId());
+		//Starting the DAQ
 
-        	//Starting the DAQ
+		cPairReg.first = BREAK_TRIGGER; cPairReg.second = 0;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = FORCE_BG0_START; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
 
-        	cPairReg.first = BREAK_TRIGGER; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = FORCE_BG0_START; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
+		WriteStackReg(cVecReg);
 
-        	WriteStackReg(cVecReg);
-
-        	cVecReg.clear();
+		cVecReg.clear();
 
     }
 
-	void GlibFWInterface::Stop(BeBoard* pBoard, uint32_t pNthAcq )
-    	{
+	void GlibFWInterface::Stop(uint32_t pNthAcq)
+    {
 
-        	std::vector< std::pair<std::string,uint32_t> > cVecReg;
-        	std::pair<std::string,uint32_t> cPairReg;
+    	std::vector< std::pair<std::string,uint32_t> > cVecReg;
+    	std::pair<std::string,uint32_t> cPairReg;
 
 		uhal::ValWord<uint32_t> cVal;
 
-        	ChooseBoard(pBoard->getBeId());
+    	//Select SRAM
+    	SelectDaqSRAM( pNthAcq );
 
-        	//Select SRAM
-        	SelectSRAMDAQ( pNthAcq );
+    	//Stop the DAQ
+    	cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
+    	cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
+    	cVecReg.push_back(cPairReg);
 
-        	//Stop the DAQ
-        	cPairReg.first = BREAK_TRIGGER; cPairReg.second = 1;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
-        	cPairReg.first = FORCE_BG0_START; cPairReg.second = 0;
-        	cVecReg.push_back(cPairReg);
+    	WriteStackReg(cVecReg);
+    	cVecReg.clear();
 
-        	WriteStackReg(cVecReg);
-        	cVecReg.clear();
+    	boost::posix_time::milliseconds cWait(100);
 
-        	boost::posix_time::milliseconds cWait(100);
-
-        	//Wait for the selected SRAM to be full then empty it
+    	//Wait for the selected SRAM to be full then empty it
 		do
-        	{
+        {
 			cVal = ReadReg(fStrFull);
 
-            		if (cVal==1)
-                	boost::this_thread::sleep(cWait);
+    		if (cVal==1)
+        		boost::this_thread::sleep(cWait);
 
-        	} while (cVal==1);
+        } while (cVal==1);
 
-        	WriteReg(fStrReadout,0);
-        	fNTotalAcq++;
-    	}
+    	WriteReg(fStrReadout,0);
+    	fNTotalAcq++;
+    }
 
-    	void GlibFWInterface::Pause(BeBoard* pBoard)
-    	{
 
-        	ChooseBoard(pBoard->getBeId());
+	void GlibFWInterface::Pause()
+	{
 
-        	WriteReg(BREAK_TRIGGER,1);
+		WriteReg(BREAK_TRIGGER,1);
 
-		#ifdef __CBCDAQ_DEV__
-        	std::cout << "Pause engaged" << std::endl;
-		#endif
-    	}
+#ifdef __CBCDAQ_DEV__
+		std::cout << "Pause engaged" << std::endl;
+#endif
+    }
 
-	void GlibFWInterface::Resume(BeBoard* pBoard)
-    	{
-        	ChooseBoard(pBoard->getBeId());
 
-        	WriteReg(BREAK_TRIGGER,0);
+	void GlibFWInterface::Resume()
+    {
 
-		#ifdef __CBCDAQ_DEV__
-        	std::cout << "Pause disengaged" << std::endl;
-		#endif
-    	}
+		WriteReg(BREAK_TRIGGER,0);
 
-	void GlibFWInterface::ReadData(BeBoard* pBoard, unsigned int pNthAcq, bool pBreakTrigger )
-    	{
+#ifdef __CBCDAQ_DEV__
+		std::cout << "Pause disengaged" << std::endl;
+#endif
+    }
 
-		#ifdef __CBCDAQ_DEV__
+	void GlibFWInterface::ReadData( Module* cModule, unsigned int pNthAcq, bool pBreakTrigger )
+    {
+
+#ifdef __CBCDAQ_DEV__
         	std::cout << "ReadDataInSRAM" << std::endl;
 
 		struct timeval cStartReadDataInSRAM, cStartBlockRead;
@@ -249,9 +243,7 @@ namespace Ph2_HwInterface
 
 		gettimeofday( &cStartReadDataInSRAM, 0 );
 		gettimeofday(&start, 0);
-		#endif
-
-        	ChooseBoard(pBoard->getBeId());
+#endif
 
 		//Readout settings
 		boost::posix_time::milliseconds cWait(1);
@@ -260,9 +252,11 @@ namespace Ph2_HwInterface
 		uint32_t cNPackets= EVENT_NUMBER+1;
 		uint32_t cBlockSize = cNPackets * PACKET_SIZE;
 
+		defineEventSize(cModule->getNCbc());
+
 		//Wait for start acknowledge
 		do
-        	{
+        {
 			cVal=ReadReg(CMD_START_VALID);
 
 			if ( cVal==0 )
@@ -270,34 +264,34 @@ namespace Ph2_HwInterface
 
 		} while ( cVal==0 );
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 1 );
 		std::cout << "GlibController::ReadData()  Time took for the CMD_START_VALID flag to be set: " << 			std::dec << mtime << " ms." << std::endl;
-		#endif
+#endif
 
 		//FIFO goes to write_data state
 		//Select SRAM
-		SelectSRAMDAQ( pNthAcq );
+		SelectDaqSRAM( pNthAcq );
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		gettimeofday(&start, 0);
-		#endif
+#endif
 
 		//Wait for the SRAM full condition.
 		cVal = ReadReg(fStrFull);
 
-        	do
-        	{
+    	do
+    	{
 			boost::this_thread::sleep( cWait );
 
 			cVal = ReadReg(fStrFull);
 
 		} while (cVal==0);
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 1 );
 		std::cout << "Time took for the data to be ready : " << std::dec << mtime << " ms." << std::endl;
-		#endif
+#endif
 
 		//break trigger
 		if( pBreakTrigger )
@@ -305,36 +299,37 @@ namespace Ph2_HwInterface
 			WriteReg(BREAK_TRIGGER,1);
 		}
 
-        	// JRF end
-		#ifdef __CBCDAQ_DEV__
+        // JRF end
+
+#ifdef __CBCDAQ_DEV__
 		gettimeofday( &fStartVeto, 0 );
-		#endif
+#endif
 
 		//Set read mode to SRAM
 		WriteReg(fStrSramUserLogic,0);
 
-		#ifdef __CBCDAQ_DEV__
-	    	gettimeofday( &cStartBlockRead, 0 );
-		#endif
+#ifdef __CBCDAQ_DEV__
+	    gettimeofday( &cStartBlockRead, 0 );
+#endif
 
 		//Read SRAM
 		uhal::ValVector<uint32_t> cData = ReadBlockReg(fStrSram,cBlockSize);
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( cStartBlockRead, 1 );
 		std::cout << "Time took for block read: " << std::dec << mtime << " ms." << std::endl;
-		#endif
+#endif
 
 		WriteReg(fStrSramUserLogic,1);
 		WriteReg(fStrReadout,1);
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		gettimeofday(&start, 0);
-		#endif
+#endif
 
 		//Wait for the non SRAM full condition starts,
 		do
-        	{
+        {
 			cVal = ReadReg(fStrFull);
 
 			if (cVal==1)
@@ -343,48 +338,48 @@ namespace Ph2_HwInterface
 		} while (cVal==1);
 
 		//Wait for the non SRAM full condition ends.
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 0 );
 		std::cout << "Time took to the full flag to be 0 : " << std::dec << mtime << " us." << std::endl;
-		#endif
+#endif
 
 		WriteReg(fStrReadout,0);
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( cStartReadDataInSRAM, 1 );
 		std::cout << "Time took for ReadDataInSRAM: " << std::dec << mtime << " ms." << std::endl;
-		#endif
+#endif
 
-        	//One data for one event --> Enhanced later
 		fData->Set(&cData);
 
 	}
 
-	void GlibFWInterface::SelectSRAMDAQ(uint32_t pNthAcq)
-    	{
-        	fStrSram  = ((pNthAcq%2+1)==1 ? SRAM1 : SRAM2);
-        	fStrSramUserLogic =  ((pNthAcq%2+1)==1 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
-        	fStrFull = ((pNthAcq%2+1)==1 ? SRAM1_FULL : SRAM2_FULL);
-        	fStrReadout= ((pNthAcq%2+1)==1 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
-    	}
+	void GlibFWInterface::SelectDaqSRAM(uint32_t pNthAcq)
+	{
+    	fStrSram  = ((pNthAcq%2+1)==1 ? SRAM1 : SRAM2);
+    	fStrSramUserLogic =  ((pNthAcq%2+1)==1 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
+    	fStrFull = ((pNthAcq%2+1)==1 ? SRAM1_FULL : SRAM2_FULL);
+    	fStrReadout= ((pNthAcq%2+1)==1 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
+	}
+
 
 	//Methods for Cbc's:
 
-	void GlibFWInterface::SelectSRAM(uint32_t pFe)
-    	{
+	void GlibFWInterface::SelectFeSRAM(uint32_t pFe)
+    {
 		pFe=0;
-        	fStrSram = (pFe ? SRAM2 : SRAM1);
-        	fStrOtherSram = (pFe ? SRAM1 : SRAM2);
-        	fStrSramUserLogic = (pFe ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
-        	fStrOtherSramUserLogic = (pFe ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
-    	}
+    	fStrSram = (pFe ? SRAM2 : SRAM1);
+    	fStrOtherSram = (pFe ? SRAM1 : SRAM2);
+    	fStrSramUserLogic = (pFe ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
+    	fStrOtherSramUserLogic = (pFe ? SRAM2_USR_LOGIC : SRAM1_USR_LOGIC);
+    }
 
 	bool GlibFWInterface::I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount )
 	{
-        	unsigned int cWait(100);
+        unsigned int cWait(100);
 
-        	if( pAckVal )
-        	{
+    	if( pAckVal )
+    	{
 			cWait = pNcount * 500;
 		}
 
@@ -393,12 +388,12 @@ namespace Ph2_HwInterface
 		uhal::ValWord<uint32_t> cVal;
 		uint32_t cLoop=0;
 
-        	do
-        	{
+    	do
+    	{
 			cVal=ReadReg(CBC_I2C_CMD_ACK);
 
 			if (cVal!=pAckVal)
-            		{
+	        {
 				std::cout << "Waiting for the I2c command acknowledge to be " << pAckVal << " for " << uint32_t(pNcount) << " registers." << std::endl;
 				usleep( cWait );
 			}
@@ -406,10 +401,10 @@ namespace Ph2_HwInterface
 		} while (cVal!= pAckVal && ++cLoop<MAX_NB_LOOP);
 
 		if (cLoop>=MAX_NB_LOOP)
-        		{
+        {
 			std::cout<<"Warning: time out in I2C acknowledge loop (" << pAckVal << ")" << std::endl;
 			return false;
-			}
+		}
 
 		return true;
 	}
@@ -424,35 +419,35 @@ namespace Ph2_HwInterface
 		WriteReg(fStrSramUserLogic,0);
 
 		WriteBlockReg(fStrSram,pVecReq);
-        	WriteReg(fStrOtherSram,0xFFFFFFFF);
+        WriteReg(fStrOtherSram,0xFFFFFFFF);
 
 		WriteReg(fStrSramUserLogic,1);
 
-        	WriteReg(CBC_HARD_RESET,0);
+        WriteReg(CBC_HARD_RESET,0);
 
-        	//r/w request
+        //r/w request
 		WriteReg(CBC_I2C_CMD_RQ,pWrite ? 3: 1);
 
 		pVecReq.pop_back();
 
-        	if( I2cCmdAckWait( (uint32_t)1, pVecReq.size() ) ==0 )
-        	{
-            		throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 1 ) );
-        	}
+    	if( I2cCmdAckWait( (uint32_t)1, pVecReq.size() ) ==0 )
+    	{
+        	throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 1 ) );
+    	}
 
-        	WriteReg(CBC_I2C_CMD_RQ,0);
+    	WriteReg(CBC_I2C_CMD_RQ,0);
 
-        	if( I2cCmdAckWait( (uint32_t)0, pVecReq.size() ) ==0 )
-        	{
-            		throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 0 ) );
-        	}
+    	if( I2cCmdAckWait( (uint32_t)0, pVecReq.size() ) ==0 )
+    	{
+        	throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 0 ) );
+    	}
 
 	}
 
 	void GlibFWInterface::ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq )
-    	{
+    {
 
-        	WriteReg(fStrSramUserLogic,0);
+        WriteReg(fStrSramUserLogic,0);
 
 		uhal::ValVector<uint32_t> cData = ReadBlockReg(fStrSram,pVecReq.size());
 
@@ -462,44 +457,43 @@ namespace Ph2_HwInterface
 		std::vector<uint32_t>::iterator it = pVecReq.begin();
 		uhal::ValVector< uint32_t >::const_iterator itValue = cData.begin();
 
-       		while( it != pVecReq.end() )
-        	{
+   		while( it != pVecReq.end() )
+    	{
 			*it = *itValue;
 			it++; itValue++;
 		}
-    	}
+    }
 
 
-	void GlibFWInterface::EnableI2c( Cbc* pCbc, bool pEnable )
-    	{
-		ChooseBoard(pCbc->fBeId);
-
+	void GlibFWInterface::EnableI2c( bool pEnable )
+    {
 		uint32_t cValue = I2C_CTRL_ENABLE;
 
-       		if( !pEnable )
-            	cValue = I2C_CTRL_DISABLE;
+   		if( !pEnable )
+        	cValue = I2C_CTRL_DISABLE;
 
 		WriteReg(I2C_SETTINGS,cValue);
 
-        	if( pEnable )
+        if( pEnable )
            	usleep(100000);
 	}
 
-	void GlibFWInterface::WriteCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq )
+	void GlibFWInterface::WriteCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq )
 	{
-		#ifdef __CBCDAQ_DEV__
+
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
 
 		if(  DEV_FLAG )
-			{
+		{
 			gettimeofday(&start0, 0);
-			}
-		#endif
+		}
+#endif
 
-		EnableI2c(pCbc,1);
-        	SelectSRAM(uint32_t(pCbc->getCbcId()));
+		SelectFeSRAM(pFeId);
+		EnableI2c(1);
 
 		try
 		{
@@ -511,7 +505,7 @@ namespace Ph2_HwInterface
 			throw except;
 		}
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if( DEV_FLAG ){
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
@@ -521,27 +515,27 @@ namespace Ph2_HwInterface
 			std::cout << "Time took for Cbc register write so far = " << min << " min " << sec << " sec." << std::endl;
 
 		}
-		#endif
+#endif
 
-		EnableI2c(pCbc,0);
+		EnableI2c(0);
 	}
 
-	void GlibFWInterface::ReadCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq )
+	void GlibFWInterface::ReadCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq )
 	{
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		static long min(0), sec(0);
 		struct timeval start0, end;
 		long seconds(0), useconds(0);
 
 		if(  DEV_FLAG )
-			{
+		{
 			gettimeofday(&start0, 0);
-			}
-		#endif
+		}
+#endif
 
-		EnableI2c(pCbc,1);
-        	SelectSRAM(uint32_t(pCbc->getCbcId()));
+		SelectFeSRAM(pFeId);
+		EnableI2c(1);
 
 		try
 		{
@@ -553,9 +547,9 @@ namespace Ph2_HwInterface
 			throw e;
 		}
 
-		#ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
 		if(DEV_FLAG)
-        	{
+        {
 			gettimeofday( &end, 0 );
 			seconds = end.tv_sec - start0.tv_sec;
 			useconds = end.tv_usec - start0.tv_usec;
@@ -563,11 +557,11 @@ namespace Ph2_HwInterface
 			sec += ( seconds + useconds / 1000000 ) %60;
 			std::cout << "Time took for Cbc register read so far = " << min << " min " << sec << " sec." << std::endl;
 		}
-		#endif
+#endif
 
 		ReadI2cBlockValuesInSRAM( pVecReq );
 
-		EnableI2c(pCbc,0);
+		EnableI2c(0);
 
 	}
 }

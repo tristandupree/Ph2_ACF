@@ -21,7 +21,7 @@ namespace Ph2_HwInterface{
 
 	BeBoardInterface::~BeBoardInterface()
 	{
-		
+
 	}
 
 	void BeBoardInterface::setBoard(uint8_t pBoardId)
@@ -35,7 +35,7 @@ namespace Ph2_HwInterface{
 				std::cout<<"The Board: "<<pBoardId<<"doesn't exist"<<std::endl;
 			}
 			else
-			{	
+			{
 				fBoardFW=i->second;
 				prevBoardId=pBoardId;
 			}
@@ -43,21 +43,19 @@ namespace Ph2_HwInterface{
 	}
 
 	void BeBoardInterface::WriteBoardReg(BeBoard* pBoard,const std::string& pRegNode,const uint32_t& pVal)
-    	{
+    {
 		setBoard(pBoard->getBeId());
-        	fBoardFW->ChooseBoard(pBoard->getBeId());
 
-        	fBoardFW->WriteReg( pRegNode,pVal );
-        	pBoard->setReg( pRegNode,pVal );
-    	}
+    	fBoardFW->WriteReg( pRegNode,pVal );
+    	pBoard->setReg( pRegNode,pVal );
+    }
 
 
-    	void BeBoardInterface::ReadBoardReg(BeBoard* pBoard,const std::string& pRegNode)
-    	{
+    void BeBoardInterface::ReadBoardReg(BeBoard* pBoard,const std::string& pRegNode)
+    {
 		setBoard(pBoard->getBeId());
-        	fBoardFW->ChooseBoard(pBoard->getBeId());
 
-        	pBoard->setReg(pRegNode,(uint32_t) fBoardFW->ReadReg(pRegNode));
+        pBoard->setReg(pRegNode,uint32_t(fBoardFW->ReadReg(pRegNode)));
 	}
 
 }

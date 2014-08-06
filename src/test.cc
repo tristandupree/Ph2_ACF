@@ -22,7 +22,7 @@ using namespace Ph2_HwInterface;
 int main()
 {
 	//std::cout<<std::hex<<106<<std::endl;
-	
+
 	//Two Cbc
 	Cbc cCbc_00(0,0,0,0,0,FE0CBC0HOLE);
 	Cbc cCbc_01(0,0,0,0,1,FE0CBC1HOLE);
@@ -40,7 +40,7 @@ int main()
 	BeBoardFWInterface* cBeBoardFW;
 	std::map<int8_t,BeBoardFWInterface*> cBeBoardMap;
 
-	cBeBoardFW= new GlibFWInterface(UHAL_CONNECTION_FILE);
+	cBeBoardFW= new GlibFWInterface(UHAL_CONNECTION_FILE,0,2);
 	cBeBoardMap[0]=cBeBoardFW;
 	CbcInterface cCbcInterface(cBeBoardMap);
 	BeBoardInterface cBeBoardInterface(cBeBoardMap);
@@ -54,7 +54,7 @@ int main()
 
     cCbcInterface.WriteCbcReg(cGlib_00.getModule(0)->getCbc(0),"VCth",0x03);
 	cCbcInterface.WriteCbcReg(cGlib_00.getModule(0)->getCbc(1),"VCth",0x10);
-	cCbcInterface.ReadAllCbc(cGlib_00.getModule(0),"VCth");
+	cCbcInterface.ReadAllCbc(cGlib_00.getModule(0));
 
     std::cout << "\nValue of VCth Changed !\n" << std::endl;
 
@@ -67,11 +67,11 @@ int main()
 	std::cout << "\nThe value for EXT_TRG is " << dump1 << std::endl;
 	std::cout << "\nThe value for FAKE_DATA is " << dump2 << std::endl;
 
-    cGlib_00.getModule(0)->getCbc(0)->saveRegMap("/afs/cern.ch/user/l/lbidegai/public/new_archi/settings/output_00.txt");
-	cGlib_00.getModule(0)->getCbc(1)->saveRegMap("/afs/cern.ch/user/l/lbidegai/public/new_archi/settings/output_01.txt");
+    cGlib_00.getModule(0)->getCbc(0)->saveRegMap("/afs/cern.ch/user/n/npierre/dev/output/output_00.txt");
+	cGlib_00.getModule(0)->getCbc(1)->saveRegMap("/afs/cern.ch/user/n/npierre/dev/output/output_01.txt");
 
 	std::cout << "\nHurray, it works !!" << std::endl;
-	
+
 	delete cBeBoardFW;
 
 	return 0;

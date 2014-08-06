@@ -15,10 +15,11 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "BeBoardFWInterface.h"
 #include <TROOT.h>
 #include <limits.h>
 #include <boost/cstdint.hpp>
+#include "BeBoardFWInterface.h"
+#include "../HWDescription/Module.h"
 
 
 using namespace Ph2_HwDescription;
@@ -37,115 +38,108 @@ namespace Ph2_HwInterface
 
 	private:
 		struct timeval fStartVeto;
-            	std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout, fStrOtherSram, fStrOtherSramUserLogic;
-            	std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
+    	std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout, fStrOtherSram, fStrOtherSramUserLogic;
+    	std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
 
 
 	private:
-            	/*!
-            	* \brief SRAM selection for DAQ
-            	* \param pNthAcq : actual number of acquisitions
-           	*/
-		void SelectSRAMDAQ(uint32_t pNthAcq);
+		/*!
+		* \brief SRAM selection for DAQ
+		* \param pNthAcq : actual number of acquisitions
+		*/
+		void SelectDaqSRAM(uint32_t pNthAcq);
 
 	public:
 		/*!
 		* \brief Constructor of the GlibFWInterface class
 		* \param puHalConfigFileName : path of the uHal Config File
+		* \param pBoardId
 		*/
-		GlibFWInterface(const char *puHalConfigFileName);
+		GlibFWInterface(const char *puHalConfigFileName, uint32_t pBoardId);
 		/*!
 		* \brief Destructor of the GlibFWInterface class
 		*/
 		~GlibFWInterface(){};
 
 		/*!
-            	* \brief Configure the board with its Config File
-            	* \param pBoard
-            	*/
-            	void ConfigureBoard(BeBoard* pBoard);
+    	* \brief Configure the board with its Config File
+    	* \param pBoard
+    	*/
+    	void ConfigureBoard(BeBoard* pBoard);
 		/*!
-            	* \brief Detect the right FE Id to write the right registers (not tested)
-            	*/
+    	* \brief Detect the right FE Id to write the right registers (not working with the latest Firmware)
+    	*/
 		void SelectFEId();
-            	/*!
-            	* \brief Start a DAQ
-           	* \param pBoard
-            	*/
-            	void Start(BeBoard* pBoard);
-            	/*!
-            	* \brief Stop a DAQ
-            	* \param pBoard
-            	* \param pNthAcq : actual number of acquisitions
-            	*/
-            	void Stop(BeBoard* pBeBoard,uint32_t pNthAcq);
-            	/*!
-            	* \brief Pause a DAQ
-            	* \param pBoard
-            	*/
-            	void Pause(BeBoard* pBoard);
-            	/*!
-            	* \brief Unpause a DAQ
-            	* \param pBoard
-            	*/
-            	void Resume(BeBoard* pBoard);
-            	/*!
-            	* \brief Read data from DAQ
-            	* \param pBoard
-            	* \param pNthAcq : actual number of acquisitions
-            	* \param pBreakTrigger : if true, enable the break trigger
-            	*/
-            	void ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger);
+		/*!
+		* \brief Start a DAQ
+		*/
+		void Start();
+		/*!
+		* \brief Stop a DAQ
+		* \param pNthAcq : actual number of acquisitions
+		*/
+		void Stop(uint32_t pNthAcq);
+		/*!
+		* \brief Pause a DAQ
+		*/
+		void Pause();
+		/*!
+		* \brief Unpause a DAQ
+		*/
+		void Resume();
+		/*!
+		* \brief Read data from DAQ
+		* \param pNthAcq : actual number of acquisitions
+		* \param pBreakTrigger : if true, enable the break trigger
+		*/
+		void ReadData( Module* cModule, uint32_t pNthAcq, bool pBreakTrigger);
 
 
 	//Methods for the Cbc's:
 
-	private: 
+	private:
 
 		//I2C Methods
 
 		/*!
 		* \brief Wait for the I2C command acknowledgement
-            	* \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false
-            	* \param pNcount : Number of registers at stake
-            	* \return boolean confirming the acknowledgement
-            	*/
-    		bool I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount=1 );
-            	/*!
-            	* \brief Send request to r/w blocks via I2C
-            	* \param pVecReq : Block of words to send
-            	* \param pWrite : 1/0 -> Write/Read
-            	*/
-            	void SendBlockCbcI2cRequest(std::vector<uint32_t>& pVecReq, bool pWrite);
-            	/*!
-            	* \brief Read blocks from SRAM via I2C
-            	* \param pVecReq : Vector to stack the read words
-            	*/
-            	void ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq );
-            	/*!
-            	* \brief Enable I2C communications
-            	* \param pCbc : Cbc to work with
-            	* \param pEnable : 1/0 -> Enable/Disable
-            	*/
-            	void EnableI2c( Cbc* pCbc, bool pEnable );
+		* \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false
+		* \param pNcount : Number of registers at stake
+		* \return boolean confirming the acknowledgement
+		*/
+		bool I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount=1 );
+		/*!
+		* \brief Send request to r/w blocks via I2C
+		* \param pVecReq : Block of words to send
+		* \param pWrite : 1/0 -> Write/Read
+		*/
+		void SendBlockCbcI2cRequest(std::vector<uint32_t>& pVecReq, bool pWrite);
+		/*!
+		* \brief Read blocks from SRAM via I2C
+		* \param pVecReq : Vector to stack the read words
+		*/
+		void ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq );
+		/*!
+		* \brief Enable I2C communications
+		* \param pEnable : 1/0 -> Enable/Disable
+		*/
+		void EnableI2c( bool pEnable );
 
-		void SelectSRAM(uint32_t pFe);
+		void SelectFeSRAM(uint32_t pFe);
 
 	public:
 
-            	//r/w the Cbc registers
-            	/*!
-            	* \brief Write register blocks of a Cbc
-            	* \param pCbc : Cbc to work with
-            	* \param pVecReq : Block of words to write
-            	*/
-            	void WriteCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq );
-            	/*!
-            	* \brief Read register blocks of a Cbc
-            	* \param pCbc : Cbc to work with
-            	* \param pVecReq : Vector to stack the read words
-            	*/
-            	void ReadCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq );
+		//r/w the Cbc registers
+		/*!
+		* \brief Write register blocks of a Cbc
+		* \param pVecReq : Block of words to write
+		*/
+		void WriteCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq );
+		/*!
+		* \brief Read register blocks of a Cbc
+		* \param pVecReq : Vector to stack the read words
+		*/
+		void ReadCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq );
 
     };
 }

@@ -40,8 +40,8 @@ namespace Ph2_HwInterface
             void swapByteOrder( const char *org, char *swapped, unsigned int nbyte );
 
         public:
-            Data():fBuf(0),fCurrentEvent(0) {}
-            Data(BeBoard& pBoard);
+            Data(uint32_t pNbCbc):fBuf(0),fCurrentEvent(0),fEvent(pNbCbc) {}
+            Data(BeBoard& pBoard, uint32_t pNbCbc);
             Data(Data &pData);
             ~Data() {if(fBuf) free(fBuf);}
 

@@ -45,9 +45,12 @@ namespace Ph2_HwInterface
             uint32_t fEventCountCBC;
             uint32_t fTDC;
 
+		public:
+			uint32_t fEventSize;
+
         public:
-            Event() {}
-			Event( BeBoard& pBoard ) { AddBoard(pBoard); }
+            Event(uint32_t pNbCbc);
+			Event( BeBoard& pBoard, uint32_t pNbCbc );
 			Event(Event &pEvent);
 			~Event() {}
 			void Clear() { fEventMap.clear(); }

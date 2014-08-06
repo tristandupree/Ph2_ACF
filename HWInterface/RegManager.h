@@ -35,7 +35,6 @@ namespace Ph2_HwInterface
         protected:
             uhal::HwInterface *fBoard; /*!< Board in use*/
             const char *fUHalConfigFileName; /*!< path of the uHal Config File*/
-            std::map<uint8_t,uhal::HwInterface*> fBoardMap; /*!< Board Map with all known boards*/
             std::vector< std::pair<std::string,uint32_t> > fStackReg; /*!< Stack of registers*/
             std::thread fThread; /*!< Thread for timeout stack writing*/
             bool fDeactiveThread; /*!< Bool to terminate the thread in the destructor*/
@@ -80,11 +79,6 @@ namespace Ph2_HwInterface
             * \brief It has only to be set in a detached thread from the one you're working on
             */
             virtual void StackWriteTimeOut();
-            /*!
-            * \brief Choose the board we want to talk with
-            * \param pBoardId : Id of the Board to connect to
-            */
-            virtual void ChooseBoard(uint8_t pBoardId);
 
         public:
             // Connection w uHal
@@ -92,7 +86,7 @@ namespace Ph2_HwInterface
             * \brief Constructor of the RegManager class
             * \param puHalConfigFileName : path of the uHal Config File
             */
-            RegManager(const char *puHalConfigFileName);
+            RegManager(const char *puHalConfigFileName, uint32_t pBoardId);
             /*!
             * \brief Destructor of the RegManager class
             */

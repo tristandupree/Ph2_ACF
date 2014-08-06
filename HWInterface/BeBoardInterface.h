@@ -27,7 +27,7 @@ namespace Ph2_HwInterface
 
 	/*!
 	* \class BeBoardInterface
-	* \brief 
+	* \brief
 	*/
 	class BeBoardInterface {
 
@@ -41,40 +41,40 @@ namespace Ph2_HwInterface
 
 	public:
 		/*!
-            	* \brief Constructor of the BeBoardInterface class
-            	* \param Reference to the BoardFWInterface
-            	*/
-            	BeBoardInterface(BeBoardFWMap& pBoardMap);
-            	/*!
-            	* \brief Destructor of the BeBoardInterface class
-            	*/
-            	~BeBoardInterface();
+    	* \brief Constructor of the BeBoardInterface class
+    	* \param Reference to the BoardFWInterface
+    	*/
+    	BeBoardInterface(BeBoardFWMap& pBoardMap);
+    	/*!
+    	* \brief Destructor of the BeBoardInterface class
+    	*/
+    	~BeBoardInterface();
 
 		/*!
-            	* \brief Get the board infos
-            	* \param pBoard
-           	*/
-            	void getBoardInfo(BeBoard* pBoard)
+		* \brief Get the board infos
+		* \param pBoard
+		*/
+    	void getBoardInfo(BeBoard* pBoard)
 		{setBoard(pBoard->getBeId());
 		fBoardFW->getBoardInfo(pBoard);};
 
 		/*!
 		* \brief Update both Board register and Config File
-            	* \param pBoard
-            	* \param pRegNode : Node of the register to update
-            	* \param pVal : Value to write
-            	*/
-            	void WriteBoardReg(BeBoard* pBoard,const std::string& pRegNode,const uint32_t& pVal);
-            	/*!
-            	* \brief Update Config File with the value in the Board register
-            	* \param pBoard
-            	* \param pRegNode : Node of the register to update
+    	* \param pBoard
+    	* \param pRegNode : Node of the register to update
+    	* \param pVal : Value to write
+    	*/
+    	void WriteBoardReg(BeBoard* pBoard,const std::string& pRegNode,const uint32_t& pVal);
+    	/*!
+    	* \brief Update Config File with the value in the Board register
+    	* \param pBoard
+    	* \param pRegNode : Node of the register to update
 		*/
 		void ReadBoardReg(BeBoard* pBoard,const std::string& pRegNode);
 		/*!
-            	* \brief Configure the board with its Config File
-            	* \param pBoard
-            	*/
+    	* \brief Configure the board with its Config File
+    	* \param pBoard
+    	*/
 		void ConfigureBoard(BeBoard* pBoard)
 		{setBoard(pBoard->getBeId());
 		fBoardFW->ConfigureBoard(pBoard);};
@@ -84,7 +84,7 @@ namespace Ph2_HwInterface
             	*/
             	void Start(BeBoard* pBoard)
 		{setBoard(pBoard->getBeId());
-		fBoardFW->Start(pBoard);};
+		fBoardFW->Start();};
             	/*!
             	* \brief Stop a DAQ
             	* \param pBoard
@@ -92,21 +92,21 @@ namespace Ph2_HwInterface
             	*/
             	void Stop(BeBoard* pBoard,uint32_t pNthAcq)
 		{setBoard(pBoard->getBeId());
-		fBoardFW->Stop(pBoard, pNthAcq);};
+		fBoardFW->Stop(pNthAcq);};
             	/*!
             	* \brief Pause a DAQ
             	* \param pBoard
             	*/
             	void Pause(BeBoard* pBoard)
 		{setBoard(pBoard->getBeId());
-		fBoardFW->Pause(pBoard);};
+		fBoardFW->Pause();};
             	/*!
             	* \brief Unpause a DAQ
             	* \param pBoard
             	*/
             	void Resume(BeBoard* pBoard)
 		{setBoard(pBoard->getBeId());
-		fBoardFW->Resume(pBoard);};
+		fBoardFW->Resume();};
             	/*!
             	* \brief Read data from DAQ
             	* \param pBoard
@@ -115,7 +115,7 @@ namespace Ph2_HwInterface
             	*/
             	void ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger)
 		{setBoard(pBoard->getBeId());
-		fBoardFW->ReadData(pBoard, pNthAcq, pBreakTrigger);};
+		fBoardFW->ReadData(pNthAcq, pBreakTrigger);};
 
 	};
 }

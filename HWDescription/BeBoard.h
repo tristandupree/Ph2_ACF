@@ -36,13 +36,13 @@ namespace Ph2_HwDescription{
 	public:
 
 		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is + the # of FEs connected
+		// Default C'tor
+		BeBoard();
 		// C'tor for a standard BeBoard
 		BeBoard( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename = DEFAULT_GLIB_FILE );
 		// Parameters that define system for us
 		//Modify with new param
 		BeBoard( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe,/* uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData = false , std::string filename = DEFAULT_GLIB_FILE );
-		// Default C'tor
-		BeBoard();
 		// D'tor
 		~BeBoard(){};
 
@@ -100,11 +100,9 @@ namespace Ph2_HwDescription{
 	public:
 		//Connection Members
 		uint8_t fBeId;
-
-	protected:
-		// Connection Members
 		uint8_t fShelveId;
 
+	protected:
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
 		std::vector< Module > fModuleVector;
 

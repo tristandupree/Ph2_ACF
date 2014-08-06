@@ -19,22 +19,19 @@
 namespace Ph2_HwInterface
 {
 
-    RegManager::RegManager(const char *puHalConfigFileName):
+    RegManager::RegManager(const char *puHalConfigFileName, uint32_t pBoardId):
         fThread([=]{StackWriteTimeOut();}),
         fDeactiveThread(false)
     {
         // Loging settings
-        uhal::disableLogging();
+        //uhal::disableLogging();
         //uhal::setLogLevelTo(uhal::Error()); //Raise the log level
 
         fUHalConfigFileName = puHalConfigFileName;
 
         uhal::ConnectionManager cm( fUHalConfigFileName ); // Get connection
 
-        for(int i=0;i<1;i++)
-        {
-            fBoardMap.insert(std::pair<uint8_t,uhal::HwInterface*>(i,new uhal::HwInterface(cm.getDevice( boost::str( boost::format("board%1%") % i )))));
-        }
+        fBoard = new uhal::HwInterface(cm.getDevice( boost::str( boost::format("board%1%") % pBoardId )));
 
         fThread.detach();
 
@@ -44,11 +41,7 @@ namespace Ph2_HwInterface
     RegManager::~RegManager()
     {
         fDeactiveThread = true;
-
-        for(std::map<uint8_t,uhal::HwInterface*>::iterator cIt = fBoardMap.begin(); cIt != fBoardMap.end(); cIt++)
-        {
-            delete cIt->second;
-        }
+        delete fBoard;
     }
 
 
@@ -238,14 +231,6 @@ namespace Ph2_HwInterface
                 fStackReg.clear();
             }
         }
-    }
-
-
-    void RegManager::ChooseBoard(uint8_t pBoardId)
-    {
-      fBoardMutex.lock();
-      fBoard = fBoardMap[pBoardId];
-      fBoardMutex.unlock();
     }
 
 }

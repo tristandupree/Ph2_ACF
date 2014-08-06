@@ -40,33 +40,36 @@ namespace Ph2_HwInterface
 	*/
 	class BeBoardFWInterface : public RegManager{
 
-	protected:
+	public:
 		unsigned int fNTotalAcq;
-            	bool fStop;
+        bool fStop;
 
 		std::ofstream *fDataFile; /*!< File storing data*/
+        Data *fData; /*!< Data read storage*/
 
 	public:
-            	Data *fData; /*!< Data read storage*/
-		
-	public:
-		
+
 		/*!
 		* \brief Constructor of the BeBoardFWInterface class
 		* \param puHalConfigFileName : path of the uHal Config File
 		*/
-		BeBoardFWInterface(const char *puHalConfigFileName);
+		BeBoardFWInterface(const char *puHalConfigFileName, uint32_t pBoardId);
 		/*!
 		* \brief Destructor of the BeBoardFWInterface class
 		*/
 		virtual ~BeBoardFWInterface();
 
 		/*!
-            	* \brief Get the board infos
-            	* \param pBoard
-           	*/
-            	virtual	void getBoardInfo(BeBoard* pBoard);
-		
+		* \brief Get the board infos
+		* \param pBoard
+		*/
+		virtual	void defineEventSize(uint32_t cNbCbc);
+		/*!
+		* \brief Get the board infos
+		* \param pBoard
+		*/
+		virtual	void getBoardInfo(BeBoard* pBoard);
+
 		//These two methods will be implemented soon
 		virtual void FlashProm(){};
 		virtual void ProgramCdce(){};
@@ -81,70 +84,60 @@ namespace Ph2_HwInterface
 		virtual void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq); /*!< Encode a/several word(s) readable for a Cbc*/
 		/*!
 		* \brief Decode a word from a read of a register of the Cbc
-            	* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
-            	* \param pCbcId : Id of the Cbc to work with
-            	* \param pWord : variable to put the decoded word
-            	*/
-            	virtual void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord); /*!< Decode a word from a read of a register of the Cbc*/
+    	* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
+    	* \param pCbcId : Id of the Cbc to work with
+    	* \param pWord : variable to put the decoded word
+    	*/
+    	virtual void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord); /*!< Decode a word from a read of a register of the Cbc*/
 
 
-
-
-
-
-		//virtual pur methods which are defined in the proper BoardFWInterface class
-
-
-
+		//virtual pure methods which are defined in the proper BoardFWInterface class
 		//r/w the Cbc registers
-            	/*!
-            	* \brief Write register blocks of a Cbc
-            	* \param pCbc : Cbc to work with
-            	* \param pVecReq : Block of words to write
-            	*/
-            	virtual void WriteCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq )=0;
-            	/*!
-            	* \brief Read register blocks of a Cbc
-            	* \param pCbc : Cbc to work with
-            	* \param pVecReq : Vector to stack the read words
-            	*/
-            	virtual void ReadCbcBlockReg( Cbc* pCbc, std::vector<uint32_t>& pVecReq )=0;
-
-
-
+    	/*!
+    	* \brief Write register blocks of a Cbc
+    	* \param pCbc : Cbc to work with
+    	* \param pVecReq : Block of words to write
+    	*/
+    	virtual void WriteCbcBlockReg( uint8_t& pFeId, std::vector<uint32_t>& pVecReq ) {};
+    	/*!
+    	* \brief Read register blocks of a Cbc
+    	* \param pCbc : Cbc to work with
+    	* \param pVecReq : Vector to stack the read words
+    	*/
+    	virtual void ReadCbcBlockReg( uint8_t& pFeId, std::vector<uint32_t>& pVecReq ) {};
 		/*!
-            	* \brief Configure the board with its Config File
-            	* \param pBoard
-            	*/
-		virtual void ConfigureBoard(BeBoard* pBoard)=0;
-            	/*!
-            	* \brief Start a DAQ
-           	* \param pBoard
-            	*/
-            	virtual void Start(BeBoard* pBoard)=0;
-            	/*!
-            	* \brief Stop a DAQ
-            	* \param pBoard
-            	* \param pNthAcq : actual number of acquisitions
-            	*/
-            	virtual void Stop(BeBoard* pBoard,uint32_t pNthAcq)=0;
-            	/*!
-            	* \brief Pause a DAQ
-            	* \param pBoard
-            	*/
-            	virtual void Pause(BeBoard* pBoard)=0;
-            	/*!
-            	* \brief Unpause a DAQ
-            	* \param pBoard
-            	*/
-            	virtual void Resume(BeBoard* pBoard)=0;
-            	/*!
-            	* \brief Read data from DAQ
-            	* \param pBoard
-            	* \param pNthAcq : actual number of acquisitions
-            	* \param pBreakTrigger : if true, enable the break trigger
-            	*/
-            	virtual void ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger)=0;
+    	* \brief Configure the board with its Config File
+    	* \param pBoard
+    	*/
+		virtual void ConfigureBoard(BeBoard* pBoard) {};
+		/*!
+		* \brief Start a DAQ
+		* \param pBoard
+		*/
+		virtual void Start() {};
+		/*!
+		* \brief Stop a DAQ
+		* \param pBoard
+		* \param pNthAcq : actual number of acquisitions
+		*/
+		virtual void Stop(uint32_t pNthAcq) {};
+		/*!
+		* \brief Pause a DAQ
+		* \param pBoard
+		*/
+		virtual void Pause() {};
+		/*!
+		* \brief Unpause a DAQ
+		* \param pBoard
+		*/
+		virtual void Resume() {};
+		/*!
+		* \brief Read data from DAQ
+		* \param pBoard
+		* \param pNthAcq : actual number of acquisitions
+		* \param pBreakTrigger : if true, enable the break trigger
+		*/
+		virtual void ReadData( Module* cModule, uint32_t pNthAcq, bool pBreakTrigger) {};
 
 
 	};

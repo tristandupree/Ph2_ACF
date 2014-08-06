@@ -18,7 +18,8 @@
 namespace Ph2_HwInterface
 {
 
-	CbcInterface::CbcInterface(BeBoardFWMap& pBoardMap):fBoardMap(pBoardMap)
+	CbcInterface::CbcInterface(BeBoardFWMap& pBoardMap):
+		fBoardMap(pBoardMap)
 	{
 		fBoardFW=NULL;
 		prevBoardId=255;
@@ -71,7 +72,46 @@ namespace Ph2_HwInterface
 			EncodeReg(cIt->second,pCbc->fCbcId,cVecReq);
 		}
 
-		fBoardFW->WriteCbcBlockReg(pCbc,cVecReq);
+		fBoardFW->WriteCbcBlockReg(pCbc->fFeId,cVecReq);
+
+		if(VERIFICATION_LOOP)
+		{
+			std::vector<uint32_t> cWriteValue, cReadValue, cVecReqBis;
+			uint8_t cCbcId = pCbc->getCbcId();
+			CbcRegItem cRegItem;
+
+			myflush( std::cin );
+
+			for(int32_t i=0;i<cVecReq.size();i++)
+			{
+				DecodeReg(cRegItem,cCbcId,cVecReq[i]);
+
+				cWriteValue.push_back(cRegItem.fValue);
+				cRegItem.fValue = 0;
+
+				EncodeReg(cRegItem,pCbc->fCbcId,cVecReqBis);
+
+				fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReqBis);
+
+				DecodeReg(cRegItem,cCbcId,cVecReqBis[0]);
+
+				cReadValue.push_back(cRegItem.fValue);
+
+				cVecReqBis.clear();
+
+				if(cReadValue[i] != cWriteValue[i])
+				{
+					std::cout << "\nERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
+					std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
+					mypause();
+				}
+				else
+				{
+					std::cout << "Writing correctly done :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
+				}
+			}
+
+		}
 
 		#ifdef __CBCDAQ_DEV__
 		if(  DEV_FLAG )
@@ -88,7 +128,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
+	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -110,7 +150,7 @@ namespace Ph2_HwInterface
 
         EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
-        fBoardFW->WriteCbcBlockReg(pCbc,cVecReq);
+        fBoardFW->WriteCbcBlockReg(pCbc->fFeId,cVecReq);
 
         if(VERIFICATION_LOOP)
         {
@@ -124,7 +164,7 @@ namespace Ph2_HwInterface
 
             EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
-            fBoardFW->ReadCbcBlockReg(pCbc,cVecReq);
+            fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReq);
 
             DecodeReg(cRegItem,cCbcId,cVecReq[0]);
 
@@ -138,6 +178,93 @@ namespace Ph2_HwInterface
             {
                 std::cout << "Writing correctly done :\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
             }
+		}
+
+		pCbc->setReg(pRegNode,cRegItem.fValue);
+
+#ifdef __CBCDAQ_DEV__
+		if(  DEV_FLAG )
+		{
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+#endif
+
+
+	}
+
+
+	void CbcInterface::WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint32_t> > pVecReq)
+	{
+
+#ifdef __CBCDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+#endif
+
+		setBoard(pCbc->getBeId());
+
+		std::vector<uint32_t> cVecReq;
+		CbcRegItem cRegItem;
+
+		for(uint32_t i=0; i<pVecReq.size(); i++)
+		{
+			cRegItem.fValue = pVecReq[i].second;
+			cRegItem = (pCbc->getRegMap())[pVecReq[i].first];
+
+			EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+
+			pCbc->setReg(pVecReq[i].first,cRegItem.fValue);
+		}
+
+		fBoardFW->WriteCbcBlockReg(pCbc->fFeId,cVecReq);
+
+		if(VERIFICATION_LOOP)
+		{
+			std::vector<uint32_t> cWriteValue, cReadValue, cVecReqBis;
+			uint8_t cCbcId = pCbc->getCbcId();
+			CbcRegItem cRegItem;
+
+			myflush( std::cin );
+
+			for(int32_t i=0;i<cVecReq.size();i++)
+			{
+				DecodeReg(cRegItem,cCbcId,cVecReq[i]);
+
+				cWriteValue.push_back(cRegItem.fValue);
+				cRegItem.fValue = 0;
+
+				EncodeReg(cRegItem,pCbc->fCbcId,cVecReqBis);
+
+				fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReq);
+
+				DecodeReg(cRegItem,cCbcId,cVecReqBis[0]);
+
+				cReadValue.push_back(cRegItem.fValue);
+
+				cVecReqBis.clear();
+
+				if(cReadValue[i] != cWriteValue[i])
+				{
+					std::cout << "\nERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
+					std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
+					mypause();
+				}
+				else
+				{
+					std::cout << "Writing correctly done :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
+				}
+			}
+
 		}
 
 #ifdef __CBCDAQ_DEV__
@@ -177,7 +304,7 @@ namespace Ph2_HwInterface
 
 		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
 
-		fBoardFW->ReadCbcBlockReg(pCbc,cVecReq);
+		fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReq);
 
 		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
 
@@ -203,7 +330,59 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::ReadAllCbc(Module* pModule,const std::string& pRegNode)
+	void CbcInterface::ReadCbcMultReg(Cbc* pCbc,std::vector<std::string> pVecReg)
+	{
+
+#ifdef __CBCDAQ_DEV__
+		static long min(0), sec(0);
+		struct timeval start0, end;
+		long seconds(0), useconds(0);
+
+		if(  DEV_FLAG ){
+			gettimeofday(&start0, 0);
+		}
+#endif
+
+		uint8_t cCbcId;
+		CbcRegItem cRegItem;
+		std::vector<uint32_t> cVecReq;
+
+		setBoard(pCbc->getBeId());
+
+		for(uint32_t i=0; i<pVecReg.size(); i++)
+		{
+			cRegItem = (pCbc->getRegMap())[pVecReg[i]];
+
+			EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+
+			fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReq);
+
+			DecodeReg(cRegItem,cCbcId,cVecReq[0]);
+
+#ifdef __CBCDAQ_DEV__
+			std::cout << "CbcId : " << uint32_t(cCbcId) << std::endl;
+			std::cout << "Value read : " << uint32_t(cRegItem.fValue) << std::endl;
+#endif
+
+			pCbc->setReg(pVecReg[i],cRegItem.fValue);
+		}
+
+#ifdef __CBCDAQ_DEV__
+		if(  DEV_FLAG ){
+			gettimeofday( &end, 0 );
+			seconds = end.tv_sec - start0.tv_sec;
+			useconds = end.tv_usec - start0.tv_usec;
+			min += ( seconds + useconds / 1000000 ) /60;
+			sec += ( seconds + useconds / 1000000 ) %60;
+			std::cout << "Time took for Cbc register refresh so far = " << min << " min " << sec << " sec." << std::endl;
+		}
+#endif
+
+
+	}
+
+
+	void CbcInterface::ReadAllCbc(Module* pModule)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -220,33 +399,42 @@ namespace Ph2_HwInterface
         std::vector<uint32_t> cVecReq;
         std::vector<std::string> cVecRegNode;
         Cbc *cCbc;
-
-		setBoard(pModule->getBeId());
+        int cMissed=0;
 
 		for(uint8_t i=0;i<pModule->getNCbc();i++)
 		{
-			cCbc = pModule->getCbc(i);
 
-            CbcRegMap cCbcRegMap = cCbc->getRegMap();
-
-            for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
+            if(pModule->getCbc(i+cMissed) == NULL)
             {
-               EncodeReg(cIt->second,cCbc->fCbcId,cVecReq);
-               cVecRegNode.push_back(cIt->first);
+                i--;
+                cMissed++;
             }
 
-            fBoardFW->ReadCbcBlockReg(cCbc,cVecReq);
-
-            for(uint32_t j=0;j<cVecReq.size();j++)
+            else
             {
-                DecodeReg(cRegItem,cCbcId,cVecReq[j]);
+                cCbc = pModule->getCbc(i+cMissed);
+
+                CbcRegMap cCbcRegMap = cCbc->getRegMap();
+
+                for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
+                {
+                   EncodeReg(cIt->second,cCbc->fCbcId,cVecReq);
+                   cVecRegNode.push_back(cIt->first);
+                }
+
+                ReadCbcBlockReg(cCbc,cVecReq);
+
+                for(uint32_t j=0;j<cVecReq.size();j++)
+                {
+                    DecodeReg(cRegItem,cCbcId,cVecReq[j]);
 
 #ifdef __CBCDAQ_DEV__
-                std::cout << "CbcId : " << uint32_t(cCbcId) << std::endl;
-                std::cout << "Value read : " << uint32_t(cRegItem.fValue) << std::endl;
+                    std::cout << "CbcId : " << uint32_t(cCbcId) << std::endl;
+                    std::cout << "Value read : " << uint32_t(cRegItem.fValue) << std::endl;
 #endif
 
-                cCbc->setReg(cVecRegNode[j],cRegItem.fValue);
+                    cCbc->setReg(cVecRegNode[j],cRegItem.fValue);
+                }
             }
 		}
 
@@ -261,11 +449,10 @@ namespace Ph2_HwInterface
 		}
 #endif
 
-
 	}
 
 
-	void CbcInterface::WriteBroadcast(Module* pModule,const std::string& pRegNode, uint8_t pValue)
+	void CbcInterface::WriteBroadcast(Module* pModule,const std::string& pRegNode, uint32_t pValue)
 	{
 		setBoard(pModule->getBeId());
 
@@ -305,7 +492,7 @@ namespace Ph2_HwInterface
 
 				EncodeReg(cRegItem,cCbcId,cVecReq);
 
-				fBoardFW->WriteCbcBlockReg(cCbc,cVecReq);
+				fBoardFW->WriteCbcBlockReg(cCbc->fFeId,cVecReq);
 
 				ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
 			}
