@@ -114,6 +114,7 @@ On the go...
 - ~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~
 - ~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
+- 6/08/14 : Working agnostic version on Master
 <br>
 <br>
 __Future Improvements__
