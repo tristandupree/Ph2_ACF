@@ -38,6 +38,9 @@ int main()
     int cMissedModule = 0;
     int cMissedCbc = 0;
 
+    GlibInterface* cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,0);
+    CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
+
     std::cout << "\n\n\n\n" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
@@ -45,15 +48,6 @@ int main()
     std::cout << "***                N. Pierre, L. Bidegain v0.3               ***" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
-    std::cout << "\n\n\n\n" << std::endl;
-
-    std::cout << "How many Cbc are you handling ?" << std::endl;
-    std::cin >> cNbCbc;
-
-    GlibInterface cGlibInterface(UHAL_CONNECTION_FILE,cNbCbc);
-    CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
-
-    cGlibInterface.ConfigureGlib(cGlib);
 
     do
     {
@@ -118,6 +112,7 @@ int main()
                         std::cout << "1: Add Default Cbc" << std::endl;
                         std::cout << "2: Add Personalised Cbc" << std::endl;
                         std::cout << "3: Add a 2Cbc Structure" << std::endl;
+                        std::cout << "4: Add a 8Cbc Structure" << std::endl;
 
                         std::cin >> i;
 
@@ -142,6 +137,10 @@ int main()
                                     std::cin >> cCbcId;
                                     if(cGlib.getModule(cModuleId)->getCbc(cCbcId) == NULL)
                                     {
+                                        delete cGlibInterface;
+                                        cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
+                                        cGlibInterface->ConfigureGlib(cGlib);
+
                                         cCbc = new Cbc(0,0,0,0,cCbcId,DEFAULT_FILE);
                                         cGlib.getModule(cModuleId)->addCbc(*cCbc);
                                         delete cCbc;
@@ -205,6 +204,10 @@ int main()
 
                                             case 1:
                                                 {
+                                                    delete cGlibInterface;
+                                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
+                                                    cGlibInterface->ConfigureGlib(cGlib);
+
                                                     Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC0HOLE);
                                                     cGlib.getModule(cModuleId)->addCbc(cCbcPers);
                                                     std::cout << "*** Cbc Added ***" << std::endl;
@@ -214,6 +217,10 @@ int main()
 
                                             case 2:
                                                 {
+                                                    delete cGlibInterface;
+                                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
+                                                    cGlibInterface->ConfigureGlib(cGlib);
+
                                                     Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1);
                                                     cGlib.getModule(cModuleId)->addCbc(cCbcPers);
                                                     std::cout << "*** Cbc Added ***" << std::endl;
@@ -223,6 +230,10 @@ int main()
 
                                             case 3:
                                                 {
+                                                    delete cGlibInterface;
+                                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
+                                                    cGlibInterface->ConfigureGlib(cGlib);
+
                                                     Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1HOLE);
                                                     cGlib.getModule(cModuleId)->addCbc(cCbcPers);
                                                     std::cout << "*** Cbc Added ***" << std::endl;
@@ -235,6 +246,11 @@ int main()
                                                     std::cout << "--> Enter your File Path " << std::endl;
                                                     std::cout << "(Absolute path please) " << std::endl;
                                                     std::cin >> cFilePath;
+
+                                                    delete cGlibInterface;
+                                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
+                                                    cGlibInterface->ConfigureGlib(cGlib);
+
                                                     Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,cFilePath);
                                                     cGlib.getModule(cModuleId)->addCbc(cCbcPers);
                                                     std::cout << "*** Cbc Added ***" << std::endl;
@@ -273,19 +289,56 @@ int main()
                                 }
                                 else
                                 {
+                                    delete cGlibInterface;
+                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,2);
+                                    cGlibInterface->ConfigureGlib(cGlib);
+
                                     for(uint8_t i=0; i<2; i++)
                                     {
                                         if(cGlib.getModule(cModuleId)->getCbc(i) == NULL)
                                         {
                                             cCbc = new Cbc(0,0,0,0,i,(boost::format("settings/FE0CBC%dHole.txt") %(uint32_t(i))).str());
                                             cGlib.getModule(cModuleId)->addCbc(*cCbc);
+                                            cCbcInterface.ConfigureCbc(cGlib.getModule(cModuleId)->getCbc(i));
                                             delete cCbc;
                                         }
                                     }
 
-                                    UpdateAllCbc(cGlib.getModule(cModuleId));
-
                                     std::cout << "*** 2Cbc Structure Added ***" << std::endl;
+                                }
+                            break;
+
+
+                            case 4:
+                                std::cout << "*** Add a 8Cbc Hybrid Structure ***" << std::endl;
+                                std::cout << "--> Which ModuleId ?" << std::endl;
+                                std::cin >> cModuleId;
+                                if (cGlib.getModule(cModuleId) == NULL)
+                                {
+                                    std::cout << "*** ERROR !!                                      ***" << std::endl;
+                                    std::cout << "*** This module does not exist !                  ***" << std::endl;
+                                    std::cout << "*** This is not the module you are looking for... ***" << std::endl;
+                                    myflush( std::cin );
+                                    mypause();
+                                }
+                                else
+                                {
+                                    delete cGlibInterface;
+                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,8);
+                                    cGlibInterface->ConfigureGlib(cGlib);
+
+                                    for(uint8_t i=0; i<8; i++)
+                                    {
+                                        if(cGlib.getModule(cModuleId)->getCbc(i) == NULL)
+                                        {
+                                            cCbc = new Cbc(0,0,0,0,i,(boost::format("settings/FE0CBC%d.txt") %(uint32_t(i))).str());
+                                            cGlib.getModule(cModuleId)->addCbc(*cCbc);
+                                            cCbcInterface.ConfigureCbc(cGlib.getModule(cModuleId)->getCbc(i));
+                                            delete cCbc;
+                                        }
+                                    }
+
+                                    std::cout << "*** 8Cbc Hybrid Structure Added ***" << std::endl;
                                 }
                             break;
 
@@ -384,7 +437,7 @@ int main()
 
                     case 1:
                         std::cout << "*** Configure Glib ***" << std::endl;
-                        cGlibInterface.ConfigureGlib(cGlib);
+                        cGlibInterface->ConfigureGlib(cGlib);
                         std::cout << "*** Glib Configured ***" << std::endl;
                     break;
 
@@ -533,7 +586,7 @@ int main()
                         }
                         else
                         {
-                            cGlibInterface.UpdateGlibWrite(cGlib,cRegNode,cValueHex);
+                            cGlibInterface->UpdateGlibWrite(cGlib,cRegNode,cValueHex);
                             std::cout << "*** Updated ***" << std::endl;
                         }
                     break;
@@ -543,14 +596,14 @@ int main()
                         std::cout << "*** Update one way ***" << std::endl;
                         std::cout << "--> Which Register ?" << std::endl;
                         std::cin >> cRegNode;
-                        cGlibInterface.UpdateGlibRead(cGlib,cRegNode);
+                        cGlibInterface->UpdateGlibRead(cGlib,cRegNode);
                         std::cout << "*** Updated ***" << std::endl;
                     break;
 
 
                     case 3:
                         std::cout << "*** Get Infos ***" << std::endl;
-                        cGlibInterface.getBoardInfo(cGlib);
+                        cGlibInterface->getBoardInfo(cGlib);
                         std::cout << "*** Infos Get ***" << std::endl;
                     break;
 
@@ -807,11 +860,7 @@ int main()
                 std::cout << "***               Acquisition-ish                ***" << std::endl;
                 std::cout << "****************************************************\n" << std::endl;
 
-                std::cout << "1: Start" << std::endl;
-                std::cout << "2: Pause" << std::endl;
-                std::cout << "3: UnPause" << std::endl;
-                std::cout << "4: Stop" << std::endl;
-                std::cout << "5: Read Data\n" << std::endl;
+                std::cout << "1: Read Data\n" << std::endl;
 
                 std::cin >> i;
 
@@ -819,39 +868,9 @@ int main()
                 {
 
                     case 1:
-                        std::cout << "*** Start ***" << std::endl;
-                        cGlibInterface.Start(cGlib);
-                        std::cout << "*** Started ***" << std::endl;
-                    break;
-
-
-                    case 2:
-                        std::cout << "*** Pause ***" << std::endl;
-                        cGlibInterface.Pause(cGlib);
-                        std::cout << "*** Paused ***" << std::endl;
-                    break;
-
-
-                    case 3:
-                        std::cout << "*** UnPause ***" << std::endl;
-                        cGlibInterface.Unpause(cGlib);
-                        std::cout << "*** UnPaused ***" << std::endl;
-                    break;
-
-
-                    case 4:
-                        std::cout << "*** Stop ***" << std::endl;
-                        std::cout << "--> Nth Acq ?" << std::endl;
-                        std::cin >> cNthAcq;
-                        cGlibInterface.Stop(cGlib,cNthAcq);
-                        std::cout << "*** Stopped ***" << std::endl;
-                    break;
-
-
-                    case 5:
                         std::cout << "*** Run Acquisition ***" << std::endl;
 
-                        cGlibInterface.Run(cGlib);
+                        cGlibInterface->Run(cGlib);
 
                         std::cout << "*** Acquisition Run ***" << std::endl;
                     break;
@@ -1064,24 +1083,24 @@ int main()
 
             case 7:
                 std::cout << "*** Writing stack... ***" << std::endl;
-                cGlibInterface.StackReg(EXT_TRG,0);
-                cGlibInterface.StackReg(FAKE_DATA,0);
-                cGlibInterface.StackReg(CBC_STUB_LATENCY_FE1,0);
-                cGlibInterface.StackReg(CBC_STUB_LATENCY_FE2,0);
-                cGlibInterface.StackReg(CBC_TRIGGER_1SHOT,0);
-                cGlibInterface.StackReg(CBC_STUB_LATENCY_FE2,1);
+                cGlibInterface->StackReg(EXT_TRG,0);
+                cGlibInterface->StackReg(FAKE_DATA,0);
+                cGlibInterface->StackReg(CBC_STUB_LATENCY_FE1,0);
+                cGlibInterface->StackReg(CBC_STUB_LATENCY_FE2,0);
+                cGlibInterface->StackReg(CBC_TRIGGER_1SHOT,0);
+                cGlibInterface->StackReg(CBC_STUB_LATENCY_FE2,1);
                 std::cout << "*** Stack written !!! ***" << std::endl;
             break;
 
 
             case 8:
                 std::cout << "*** Writing stack... ***" << std::endl;
-                cGlibInterface.StackReg(BREAK_TRIGGER,0);
-                cGlibInterface.StackReg(POLARITY,0);
-                cGlibInterface.StackReg(NEG_LOGIC_CBC,0);
-                cGlibInterface.StackReg(NEG_LOGIC_STTS,0);
-                cGlibInterface.StackReg(CBC_TRIGGER_1SHOT,0);
-                cGlibInterface.StackReg(CBC_STUB_LATENCY_FE2,1);
+                cGlibInterface->StackReg(BREAK_TRIGGER,0);
+                cGlibInterface->StackReg(POLARITY,0);
+                cGlibInterface->StackReg(NEG_LOGIC_CBC,0);
+                cGlibInterface->StackReg(NEG_LOGIC_STTS,0);
+                cGlibInterface->StackReg(CBC_TRIGGER_1SHOT,0);
+                cGlibInterface->StackReg(CBC_STUB_LATENCY_FE2,1);
                 std::cout << "*** Stack written !!! ***" << std::endl;
             break;
 
