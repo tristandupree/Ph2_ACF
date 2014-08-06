@@ -33,13 +33,12 @@ namespace Ph2_HwInterface
 			fEventSize = EVENT_SIZE_32_8CBC;
 		else
 		{
-			std::cout << "Non recognized value : Event size put to EVENT_SIZE_32_2CBC" << std::endl;
-			fEventSize = EVENT_SIZE_32_2CBC;
+			fEventSize = pNbCbc*2*9+6;
 		}
 	}
 
 
-	Event( BeBoard& pBoard, uint32_t pNbCbc )
+	Event::Event( BeBoard& pBoard, uint32_t pNbCbc )
 	{
 		if(pNbCbc == 2)
 			fEventSize = EVENT_SIZE_32_2CBC;
