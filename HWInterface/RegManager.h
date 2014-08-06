@@ -5,7 +5,7 @@
     \author                       Nicolas PIERRE
     \version                      0.3
     Date of creation :            06/06/14
-    Support :                     mail to : nicolas.pierre@cern.ch
+    Support :                     mail to : nico.pierre@icloud.com
 
 */
 #ifndef __REGMANAGER_H__

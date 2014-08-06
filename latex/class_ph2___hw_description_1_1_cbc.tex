@@ -21,13 +21,9 @@ Inheritance diagram for Ph2\-\_\-\-Hw\-Description\-:\-:Cbc\-:\begin{figure}[H]
 \item 
 \hyperlink{class_ph2___hw_description_1_1_cbc_a88c9c022e04628b60495b94df2ab0825}{Cbc} (\hyperlink{class_ph2___hw_description_1_1_front_end_description}{Front\-End\-Description} \&p\-Fe\-Desc, uint8\-\_\-t p\-Cbc\-Id, std\-::string filename)
 \item 
-\hyperlink{class_ph2___hw_description_1_1_cbc_a929b933c8e68c922fc0f7e45d6deb32d}{Cbc} (\hyperlink{class_ph2___hw_description_1_1_front_end_description}{Front\-End\-Description} \&p\-Fe\-Desc, uint8\-\_\-t p\-Cbc\-Id, uint8\-\_\-t p\-Trigger\-Latency, uint8\-\_\-t p\-Vcth)
-\item 
 \hyperlink{class_ph2___hw_description_1_1_cbc_ae5f520d7733b7b92bc19805e39d5da66}{Cbc} (\hyperlink{class_ph2___hw_description_1_1_front_end_description}{Front\-End\-Description} \&p\-Fe\-Desc, uint8\-\_\-t p\-Cbc\-Id)
 \item 
 \hyperlink{class_ph2___hw_description_1_1_cbc_ad2ec420b5bd8e361a151b585a62c0ebe}{Cbc} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-F\-M\-C\-Id, uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, std\-::string filename)
-\item 
-\hyperlink{class_ph2___hw_description_1_1_cbc_a31698ad31b2484c74b87647e9451fc6d}{Cbc} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-F\-M\-C\-Id, uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint8\-\_\-t p\-Trigger\-Latency, uint8\-\_\-t p\-Vcth)
 \item 
 \hyperlink{class_ph2___hw_description_1_1_cbc_ac7e237f12e6950b45538e3706be11bb0}{Cbc} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-F\-M\-C\-Id, uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id)
 \item 
@@ -39,19 +35,11 @@ Inheritance diagram for Ph2\-\_\-\-Hw\-Description\-:\-:Cbc\-:\begin{figure}[H]
 \item 
 void \hyperlink{class_ph2___hw_description_1_1_cbc_afd6fdbe40eff3c160221a3a8acfb657d}{loadf\-Reg\-Map} (std\-::string filename)
 \begin{DoxyCompactList}\small\item\em Load Reg\-Map from a file. \end{DoxyCompactList}\item 
-uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_cbc_a7dcee2bd6f0cbe1e9342f4d8e4229477}{get\-Trigger\-Latency} ()
-\begin{DoxyCompactList}\small\item\em Get the register Trigger\-Latency from the Map. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_description_1_1_cbc_af2ca8a515be91e594345f59765eedc86}{set\-Trigger\-Latency} (uint8\-\_\-t p\-Trigger\-Latency)
-\begin{DoxyCompactList}\small\item\em Set the register Trigger\-Latency of the Map. \end{DoxyCompactList}\item 
-uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_cbc_ad52630f4caa9defc0c46e38c7f828d5f}{get\-Vcth} ()
-\begin{DoxyCompactList}\small\item\em Get the register Vcth from the Map. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_description_1_1_cbc_a055db371622ef5e565d7abd490d1b5bd}{set\-Vcth} (uint8\-\_\-t pset\-Vcth)
-\begin{DoxyCompactList}\small\item\em Set the register Vcth of the Map. \end{DoxyCompactList}\item 
 uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_cbc_a8e29ea3bf86977585b3824941d948f91}{get\-Reg} (std\-::string p\-Reg)
 \begin{DoxyCompactList}\small\item\em Get any register from the Map. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_description_1_1_cbc_aa24292fe56d6b19ec08ba67f9790b5c7}{set\-Reg} (std\-::string p\-Reg, uint8\-\_\-t pset\-Value)
 \begin{DoxyCompactList}\small\item\em Set any register of the Map. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_description_1_1_cbc_a21a95937ae871d154b4d0f7f2fe6bd02}{write\-Reg\-Values} (std\-::string filename)
+void \hyperlink{class_ph2___hw_description_1_1_cbc_a89ca4609c24b4186a8e2080abb4b016b}{save\-Reg\-Map} (std\-::string filename)
 \begin{DoxyCompactList}\small\item\em Write the registers of the Map in a file. \end{DoxyCompactList}\item 
 uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_cbc_a14a78f27fb0e6c74622b6bc49259a2f3}{get\-Cbc\-Id} ()
 \begin{DoxyCompactList}\small\item\em Get the \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} Id. \end{DoxyCompactList}\item 
@@ -82,16 +70,6 @@ Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on 
 \item[{std\-::string}]{filename}
 \end{DoxyParamCaption}
 )}}\label{class_ph2___hw_description_1_1_cbc_a88c9c022e04628b60495b94df2ab0825}
-\hypertarget{class_ph2___hw_description_1_1_cbc_a929b933c8e68c922fc0f7e45d6deb32d}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!Cbc@{Cbc}}
-\index{Cbc@{Cbc}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
-\subsubsection[{Cbc}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::\-Cbc (
-\begin{DoxyParamCaption}
-\item[{{\bf Front\-End\-Description} \&}]{p\-Fe\-Desc, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
-\item[{uint8\-\_\-t}]{p\-Trigger\-Latency, }
-\item[{uint8\-\_\-t}]{p\-Vcth}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_cbc_a929b933c8e68c922fc0f7e45d6deb32d}
 \hypertarget{class_ph2___hw_description_1_1_cbc_ae5f520d7733b7b92bc19805e39d5da66}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!Cbc@{Cbc}}
 \index{Cbc@{Cbc}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
 \subsubsection[{Cbc}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::\-Cbc (
@@ -112,19 +90,6 @@ Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on 
 \item[{std\-::string}]{filename}
 \end{DoxyParamCaption}
 )}}\label{class_ph2___hw_description_1_1_cbc_ad2ec420b5bd8e361a151b585a62c0ebe}
-\hypertarget{class_ph2___hw_description_1_1_cbc_a31698ad31b2484c74b87647e9451fc6d}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!Cbc@{Cbc}}
-\index{Cbc@{Cbc}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
-\subsubsection[{Cbc}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::\-Cbc (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Shelve\-Id, }
-\item[{uint8\-\_\-t}]{p\-Be\-Id, }
-\item[{uint8\-\_\-t}]{p\-F\-M\-C\-Id, }
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
-\item[{uint8\-\_\-t}]{p\-Trigger\-Latency, }
-\item[{uint8\-\_\-t}]{p\-Vcth}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_cbc_a31698ad31b2484c74b87647e9451fc6d}
 \hypertarget{class_ph2___hw_description_1_1_cbc_ac7e237f12e6950b45538e3706be11bb0}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!Cbc@{Cbc}}
 \index{Cbc@{Cbc}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
 \subsubsection[{Cbc}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::\-Cbc (
@@ -207,34 +172,6 @@ Get the Map of the registers.
 \begin{DoxyReturn}{Returns}
 The map of register 
 \end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_cbc_a7dcee2bd6f0cbe1e9342f4d8e4229477}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!get\-Trigger\-Latency@{get\-Trigger\-Latency}}
-\index{get\-Trigger\-Latency@{get\-Trigger\-Latency}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
-\subsubsection[{get\-Trigger\-Latency}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::get\-Trigger\-Latency (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_cbc_a7dcee2bd6f0cbe1e9342f4d8e4229477}
-
-
-Get the register Trigger\-Latency from the Map. 
-
-\begin{DoxyReturn}{Returns}
-The value of Trigger\-Lantency 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_cbc_ad52630f4caa9defc0c46e38c7f828d5f}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!get\-Vcth@{get\-Vcth}}
-\index{get\-Vcth@{get\-Vcth}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
-\subsubsection[{get\-Vcth}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::get\-Vcth (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_cbc_ad52630f4caa9defc0c46e38c7f828d5f}
-
-
-Get the register Vcth from the Map. 
-
-\begin{DoxyReturn}{Returns}
-The value of Vcth 
-\end{DoxyReturn}
 \hypertarget{class_ph2___hw_description_1_1_cbc_afd6fdbe40eff3c160221a3a8acfb657d}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!loadf\-Reg\-Map@{loadf\-Reg\-Map}}
 \index{loadf\-Reg\-Map@{loadf\-Reg\-Map}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
 \subsubsection[{loadf\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::loadf\-Reg\-Map (
@@ -245,6 +182,22 @@ The value of Vcth
 
 
 Load Reg\-Map from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_description_1_1_cbc_a89ca4609c24b4186a8e2080abb4b016b}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!save\-Reg\-Map@{save\-Reg\-Map}}
+\index{save\-Reg\-Map@{save\-Reg\-Map}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
+\subsubsection[{save\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::save\-Reg\-Map (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{filename}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_cbc_a89ca4609c24b4186a8e2080abb4b016b}
+
+
+Write the registers of the Map in a file. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -268,54 +221,6 @@ Set any register of the Map.
 {\em p\-Reg} & \\
 \hline
 {\em pset\-Value} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_cbc_af2ca8a515be91e594345f59765eedc86}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!set\-Trigger\-Latency@{set\-Trigger\-Latency}}
-\index{set\-Trigger\-Latency@{set\-Trigger\-Latency}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
-\subsubsection[{set\-Trigger\-Latency}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::set\-Trigger\-Latency (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Trigger\-Latency}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_cbc_af2ca8a515be91e594345f59765eedc86}
-
-
-Set the register Trigger\-Latency of the Map. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Trigger\-Latency} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_cbc_a055db371622ef5e565d7abd490d1b5bd}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!set\-Vcth@{set\-Vcth}}
-\index{set\-Vcth@{set\-Vcth}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
-\subsubsection[{set\-Vcth}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::set\-Vcth (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{pset\-Vcth}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_cbc_a055db371622ef5e565d7abd490d1b5bd}
-
-
-Set the register Vcth of the Map. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em pset\-Vcth} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_cbc_a21a95937ae871d154b4d0f7f2fe6bd02}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!write\-Reg\-Values@{write\-Reg\-Values}}
-\index{write\-Reg\-Values@{write\-Reg\-Values}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
-\subsubsection[{write\-Reg\-Values}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::write\-Reg\-Values (
-\begin{DoxyParamCaption}
-\item[{std\-::string}]{filename}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_cbc_a21a95937ae871d154b4d0f7f2fe6bd02}
-
-
-Write the registers of the Map in a file. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em filename} & \\
 \hline
 \end{DoxyParams}
 

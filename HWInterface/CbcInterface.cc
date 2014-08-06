@@ -541,4 +541,16 @@ namespace Ph2_HwInterface
 		fBoardFW->WriteReg(CBC_FAST_RESET,0);
 	}
 
+
+	void CbcInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq)
+	{
+		fBoardFW->EncodeReg(pRegItem, pCbcId, pVecReq);
+	}
+
+
+	void CbcInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
+	{
+		fBoardFW->DecodeReg(pRegItem, pCbcId, pWord);
+	}
+
 }

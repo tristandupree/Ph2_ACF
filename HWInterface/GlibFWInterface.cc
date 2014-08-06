@@ -5,7 +5,7 @@
 * \author Lorenzo BIDEGAIN, Nicolas Pierre
 * \date 28/07/14
 *
-* Support : mail to : lorenzo.bidegain@cern.ch, nicolas.pierre@cern.ch
+* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
 *
 */
 

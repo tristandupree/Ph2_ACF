@@ -13,19 +13,10 @@ Permit connection to given boards and r/w given registers.
 Inheritance diagram for Ph2\-\_\-\-Hw\-Interface\-:\-:Reg\-Manager\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=1.681682cm]{class_ph2___hw_interface_1_1_reg_manager}
+\includegraphics[height=3.000000cm]{class_ph2___hw_interface_1_1_reg_manager}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\hyperlink{class_ph2___hw_interface_1_1_reg_manager_a938f6b582b1fffcb478f35fd9d81954f}{Reg\-Manager} (const char $\ast$pu\-Hal\-Config\-File\-Name)
-\begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager} class. \end{DoxyCompactList}\item 
-virtual \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a5d650c4e6467153f98f999abbbfc354c}{$\sim$\-Reg\-Manager} ()
-\begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager} class. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_af4192a14a0da7dd14afa14e236cbf7e1}{Stack\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val, bool p\-Send=false)
-\end{DoxyCompactItemize}
-\subsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 virtual bool \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a31174516fef6706c88c3f59dd93e4fdf}{Write\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val)
@@ -38,21 +29,20 @@ virtual uhal\-::\-Val\-Word$<$ uint32\-\_\-t $>$ \hyperlink{class_ph2___hw_inter
 \begin{DoxyCompactList}\small\item\em Read a value in a register. \end{DoxyCompactList}\item 
 virtual uhal\-::\-Val\-Vector$<$ uint32\-\_\-t $>$ \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a6481c211d27badc409ff0e7af20575e4}{Read\-Block\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Blocksize)
 \begin{DoxyCompactList}\small\item\em Read a block of values in a register. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a409c95948e25ea5fb7f897926e9de1e6}{Stack\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val, bool p\-Send=false)
-\begin{DoxyCompactList}\small\item\em Stack the commands, deliver when full or timeout. \end{DoxyCompactList}\item 
 virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_ab4e24cf318772c09a6c7e24b88b1dedb}{Stack\-Write\-Time\-Out} ()
 \begin{DoxyCompactList}\small\item\em Time Out for sending the register/value stack in the writting. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a20c502bcad5115c6ae16d4d356b72f0c}{Choose\-Board} (uint8\-\_\-t p\-Board\-Id)
-\begin{DoxyCompactList}\small\item\em Choose the board we want to talk with. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\hyperlink{class_ph2___hw_interface_1_1_reg_manager_afc90c93f9e6771d2bf841883567b9eeb}{Reg\-Manager} (const char $\ast$pu\-Hal\-Config\-File\-Name, uint32\-\_\-t p\-Board\-Id)
+\begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager} class. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a5d650c4e6467153f98f999abbbfc354c}{$\sim$\-Reg\-Manager} ()
+\begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager} class. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a409c95948e25ea5fb7f897926e9de1e6}{Stack\-Reg} (const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val, bool p\-Send=false)
+\begin{DoxyCompactList}\small\item\em Stack the commands, deliver when full or timeout. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 uhal\-::\-Hw\-Interface $\ast$ \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a0d4908ec834a3a0b7d8139872fd0a4a0}{f\-Board}
 \item 
 const char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_reg_manager_aaaa29ca65c283acc645132c7bef0f24f}{f\-U\-Hal\-Config\-File\-Name}
-\item 
-std\-::map$<$ uint8\-\_\-t, \\*
-uhal\-::\-Hw\-Interface $\ast$ $>$ \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a9c34ffe467a572796c05036533bb6d39}{f\-Board\-Map}
 \item 
 std\-::vector$<$ std\-::pair\\*
 $<$ std\-::string, uint32\-\_\-t $>$ $>$ \hyperlink{class_ph2___hw_interface_1_1_reg_manager_a382c1c2373fde66d98a44e4aa0208e81}{f\-Stack\-Reg}
@@ -69,13 +59,14 @@ std\-::mutex \hyperlink{class_ph2___hw_interface_1_1_reg_manager_ab5fdbe72282089
 Permit connection to given boards and r/w given registers. 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_reg_manager_a938f6b582b1fffcb478f35fd9d81954f}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Reg\-Manager@{Reg\-Manager}}
+\hypertarget{class_ph2___hw_interface_1_1_reg_manager_afc90c93f9e6771d2bf841883567b9eeb}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Reg\-Manager@{Reg\-Manager}}
 \index{Reg\-Manager@{Reg\-Manager}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
 \subsubsection[{Reg\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Reg\-Manager (
 \begin{DoxyParamCaption}
-\item[{const char $\ast$}]{pu\-Hal\-Config\-File\-Name}
+\item[{const char $\ast$}]{pu\-Hal\-Config\-File\-Name, }
+\item[{uint32\-\_\-t}]{p\-Board\-Id}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_reg_manager_a938f6b582b1fffcb478f35fd9d81954f}
+)}}\label{class_ph2___hw_interface_1_1_reg_manager_afc90c93f9e6771d2bf841883567b9eeb}
 
 
 Constructor of the \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager} class. 
@@ -99,22 +90,6 @@ Destructor of the \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Mana
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_reg_manager_a20c502bcad5115c6ae16d4d356b72f0c}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Choose\-Board@{Choose\-Board}}
-\index{Choose\-Board@{Choose\-Board}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
-\subsubsection[{Choose\-Board}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Choose\-Board (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Board\-Id}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a20c502bcad5115c6ae16d4d356b72f0c}
-
-
-Choose the board we want to talk with. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Board\-Id} & \-: Id of the Board to connect to \\
-\hline
-\end{DoxyParams}
 \hypertarget{class_ph2___hw_interface_1_1_reg_manager_a6481c211d27badc409ff0e7af20575e4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Read\-Block\-Reg@{Read\-Block\-Reg}}
 \index{Read\-Block\-Reg@{Read\-Block\-Reg}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
 \subsubsection[{Read\-Block\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}uhal\-::\-Val\-Vector$<$ uint32\-\_\-t $>$ Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Read\-Block\-Reg (
@@ -122,7 +97,7 @@ Choose the board we want to talk with.
 \item[{const std\-::string \&}]{p\-Reg\-Node, }
 \item[{const uint32\-\_\-t \&}]{p\-Blocksize}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a6481c211d27badc409ff0e7af20575e4}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a6481c211d27badc409ff0e7af20575e4}
 
 
 Read a block of values in a register. 
@@ -143,7 +118,7 @@ Val\-Vector block values of the register
 \begin{DoxyParamCaption}
 \item[{const std\-::string \&}]{p\-Reg\-Node}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a077e0a18592206365150680213345112}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a077e0a18592206365150680213345112}
 
 
 Read a value in a register. 
@@ -164,7 +139,7 @@ Val\-Word value of the register
 \item[{const uint32\-\_\-t \&}]{p\-Val, }
 \item[{bool}]{p\-Send = {\ttfamily false}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a409c95948e25ea5fb7f897926e9de1e6}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a409c95948e25ea5fb7f897926e9de1e6}
 
 
 Stack the commands, deliver when full or timeout. 
@@ -178,22 +153,13 @@ Stack the commands, deliver when full or timeout.
 {\em p\-Send} & \-: Send the stack to write or nor (1/0) \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_reg_manager_af4192a14a0da7dd14afa14e236cbf7e1}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Stack\-Reg@{Stack\-Reg}}
-\index{Stack\-Reg@{Stack\-Reg}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
-\subsubsection[{Stack\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Stack\-Reg (
-\begin{DoxyParamCaption}
-\item[{const std\-::string \&}]{p\-Reg\-Node, }
-\item[{const uint32\-\_\-t \&}]{p\-Val, }
-\item[{bool}]{p\-Send = {\ttfamily false}}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_af4192a14a0da7dd14afa14e236cbf7e1}
 \hypertarget{class_ph2___hw_interface_1_1_reg_manager_ab4e24cf318772c09a6c7e24b88b1dedb}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!Stack\-Write\-Time\-Out@{Stack\-Write\-Time\-Out}}
 \index{Stack\-Write\-Time\-Out@{Stack\-Write\-Time\-Out}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
 \subsubsection[{Stack\-Write\-Time\-Out}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::\-Stack\-Write\-Time\-Out (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_ab4e24cf318772c09a6c7e24b88b1dedb}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_ab4e24cf318772c09a6c7e24b88b1dedb}
 
 
 Time Out for sending the register/value stack in the writting. 
@@ -205,7 +171,7 @@ It has only to be set in a detached thread from the one you're working on \hyper
 \item[{const std\-::string \&}]{p\-Reg\-Node, }
 \item[{const std\-::vector$<$ uint32\-\_\-t $>$ \&}]{p\-Values}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a888f5cccb05daa28896cf622abfdcbd6}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a888f5cccb05daa28896cf622abfdcbd6}
 
 
 Write a block of values in a register. 
@@ -227,7 +193,7 @@ boolean confirming the writing
 \item[{const std\-::string \&}]{p\-Reg\-Node, }
 \item[{const uint32\-\_\-t \&}]{p\-Val}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a31174516fef6706c88c3f59dd93e4fdf}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a31174516fef6706c88c3f59dd93e4fdf}
 
 
 Write a register. 
@@ -248,7 +214,7 @@ boolean confirming the writing
 \begin{DoxyParamCaption}
 \item[{std\-::vector$<$ std\-::pair$<$ std\-::string, uint32\-\_\-t $>$ $>$ \&}]{p\-Vec\-Reg}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_ac67c49c17b1c171ef9836ae463d8bc18}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_reg_manager_ac67c49c17b1c171ef9836ae463d8bc18}
 
 
 Write a stack of registers. 
@@ -267,10 +233,7 @@ boolean confirming the writing
 \hypertarget{class_ph2___hw_interface_1_1_reg_manager_a0d4908ec834a3a0b7d8139872fd0a4a0}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!f\-Board@{f\-Board}}
 \index{f\-Board@{f\-Board}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
 \subsubsection[{f\-Board}]{\setlength{\rightskip}{0pt plus 5cm}uhal\-::\-Hw\-Interface$\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::f\-Board\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a0d4908ec834a3a0b7d8139872fd0a4a0}
-Board in use \hypertarget{class_ph2___hw_interface_1_1_reg_manager_a9c34ffe467a572796c05036533bb6d39}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!f\-Board\-Map@{f\-Board\-Map}}
-\index{f\-Board\-Map@{f\-Board\-Map}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
-\subsubsection[{f\-Board\-Map}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$uint8\-\_\-t,uhal\-::\-Hw\-Interface$\ast$$>$ Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::f\-Board\-Map\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_interface_1_1_reg_manager_a9c34ffe467a572796c05036533bb6d39}
-Board Map with all known boards \hypertarget{class_ph2___hw_interface_1_1_reg_manager_ab5fdbe722820897d3a1344f300cc4a92}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!f\-Board\-Mutex@{f\-Board\-Mutex}}
+Board in use \hypertarget{class_ph2___hw_interface_1_1_reg_manager_ab5fdbe722820897d3a1344f300cc4a92}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!f\-Board\-Mutex@{f\-Board\-Mutex}}
 \index{f\-Board\-Mutex@{f\-Board\-Mutex}!Ph2_HwInterface::RegManager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}}
 \subsubsection[{f\-Board\-Mutex}]{\setlength{\rightskip}{0pt plus 5cm}std\-::mutex Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager\-::f\-Board\-Mutex\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_interface_1_1_reg_manager_ab5fdbe722820897d3a1344f300cc4a92}
 Mutex to avoid conflict btw threads on shared resources \hypertarget{class_ph2___hw_interface_1_1_reg_manager_ae337041a55b10db74bbd8e171424807a}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager@{Ph2\-\_\-\-Hw\-Interface\-::\-Reg\-Manager}!f\-Deactive\-Thread@{f\-Deactive\-Thread}}

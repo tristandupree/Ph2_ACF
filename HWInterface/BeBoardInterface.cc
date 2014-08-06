@@ -1,12 +1,12 @@
-/*!
-*
-* \file BeBoardInterface.cc
-* \brief BeBoardInterface User interface for the board
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 31/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nicolas.pierre@cern.ch
-*
+/*
+
+	FileName :                    BeBoardInterface.cc
+	Content :                     User Interface to the Boards
+	Programmer :                  Lorenzo BIDEGAIN, Nicolas Pierre
+	Version :                     0.3
+	Date of creation :            31/07/14
+	Support :                     mail to : nico.pierre@icloud.com
+
 */
 
 #include "BeBoardInterface.h"
@@ -57,6 +57,54 @@ namespace Ph2_HwInterface{
 		setBoard(pBoard->getBeId());
 
         pBoard->setReg(pRegNode,uint32_t(fBoardFW->ReadReg(pRegNode)));
+	}
+
+
+	void BeBoardInterface::getBoardInfo(BeBoard* pBoard)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->getBoardInfo(pBoard);
+	}
+
+	void BeBoardInterface::ConfigureBoard(BeBoard* pBoard)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->ConfigureBoard(pBoard);
+	}
+
+
+	void BeBoardInterface::Start(BeBoard* pBoard)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->Start();
+	}
+
+
+	void BeBoardInterface::Stop(BeBoard* pBoard,uint32_t pNthAcq)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->Stop(pNthAcq);
+	}
+
+
+	void BeBoardInterface::Pause(BeBoard* pBoard)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->Pause();
+	}
+
+
+	void BeBoardInterface::Resume(BeBoard* pBoard)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->Resume();
+	}
+
+
+	void BeBoardInterface::ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->ReadData(pNthAcq, pBreakTrigger);
 	}
 
 }

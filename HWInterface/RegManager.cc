@@ -5,7 +5,7 @@
     Programmer :                  Nicolas PIERRE
     Version :                     1.3
     Date of creation :            06/06/14
-    Support :                     mail to : nicolas.pierre@cern.ch
+    Support :                     mail to : nico.pierre@icloud.com
 
 */
 #include <uhal/uhal.hpp>
