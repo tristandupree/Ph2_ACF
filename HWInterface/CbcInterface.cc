@@ -88,7 +88,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteCbc(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
+	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -156,7 +156,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::UpdateCbc(Cbc* pCbc,const std::string& pRegNode)
+	void CbcInterface::ReadCbcReg(Cbc* pCbc,const std::string& pRegNode)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -203,7 +203,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::UpdateAllCbc(Module* pModule,const std::string& pRegNode)
+	void CbcInterface::ReadAllCbc(Module* pModule,const std::string& pRegNode)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -307,12 +307,12 @@ namespace Ph2_HwInterface
 
 				fBoardFW->WriteCbcBlockReg(cCbc,cVecReq);
 
-				UpdateCbc(pModule->getCbc(i+cMissed),pRegNode);
+				ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
 			}
 
 			else
 			{
-				UpdateCbc(pModule->getCbc(i+cMissed),pRegNode);
+				ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
 			}
 		}
 

@@ -40,12 +40,10 @@ namespace Ph2_HwDescription{
 
 		// C'tors with object FE Description
 		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, std::string filename );
-		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth );
 		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId );
 
 		// C'tors which take ShelveID, BeId, FeID, CbcId
 		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, std::string filename );
-		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, uint8_t pTriggerLatency,uint8_t pVcth );
 		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId );
 
 		// Default C'tor
@@ -62,28 +60,6 @@ namespace Ph2_HwDescription{
 		* \param filename
 		*/
 		void loadfRegMap(std::string filename);
-
-		 /*!
-		* \brief Get the register TriggerLatency from the Map
-		* \return The value of TriggerLantency
-		*/
-		uint8_t getTriggerLatency();
-		 /*!
-		* \brief Set the register TriggerLatency of the Map
-		* \param pTriggerLatency
-		*/
-		void setTriggerLatency(uint8_t pTriggerLatency);
-
-		/*!
-		* \brief Get the register Vcth from the Map
-		* \return The value of Vcth
-		*/
-		uint8_t getVcth();
-		/*!
-		* \brief Set the register Vcth of the Map
-		* \param psetVcth
-		*/
-		void setVcth(uint8_t psetVcth);
 
 		/*!
 		* \brief Get any register from the Map
@@ -102,7 +78,7 @@ namespace Ph2_HwDescription{
 		* \brief Write the registers of the Map in a file
 		* \param filename
 		*/
-		void writeRegValues( std::string filename );
+		void saveRegMap( std::string filename );
 
 		/*!
 		* \brief Get the Cbc Id

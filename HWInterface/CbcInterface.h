@@ -63,19 +63,19 @@ namespace Ph2_HwInterface
     	* \param pRegNode : Node of the register to write
     	* \param pValue : Value to write
     	*/
-    	void WriteCbc(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue);
+    	void WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue);
     	/*!
     	* \brief Read the designated register in the Cbc and update the Cbc Config File
     	* \param pCbc
     	* \param pRegNode : Node of the register to read
     	*/
-    	void UpdateCbc(Cbc* pCbc,const std::string& pRegNode);
+    	void ReadCbcReg(Cbc* pCbc,const std::string& pRegNode);
     	/*!
     	* \brief Read same register in all Cbcs and then UpdateCbc
     	* \param pModule : Module containing vector of Cbcs
     	* \param pRegNode : Node of the register to read
     	*/
-    	void UpdateAllCbc(Module* pModule,const std::string& pRegNode);
+    	void ReadAllCbc(Module* pModule,const std::string& pRegNode);
     	/*!
     	* \brief Write same register in all Cbcs and then UpdateCbcRead
     	* \param pModule : Module containing vector of Cbcs

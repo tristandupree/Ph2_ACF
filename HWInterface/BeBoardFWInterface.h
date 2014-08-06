@@ -19,7 +19,7 @@
 #include "Data.h"
 #include "Utilities.h"
 #include "Exception.h"
-#include "../HWDescription/Glib.h"
+#include "../HWDescription/BeBoard.h"
 #include "../HWDescription/Definition.h"
 #include "../HWDescription/CbcRegItem.h"
 #include "../HWDescription/Cbc.h"
@@ -48,9 +48,9 @@ namespace Ph2_HwInterface
 
 	public:
             	Data *fData; /*!< Data read storage*/
-
+		
 	public:
-
+		
 		/*!
 		* \brief Constructor of the BeBoardFWInterface class
 		* \param puHalConfigFileName : path of the uHal Config File
@@ -61,17 +61,12 @@ namespace Ph2_HwInterface
 		*/
 		virtual ~BeBoardFWInterface();
 
-
 		/*!
-		* \brief Get the board type
-		* \return Board type in string
-		*/
-		virtual std::string getBoardType();
-		/*!
-		* \brief Get the board infos
-		*/
-		virtual	void getBoardInfo();
-
+            	* \brief Get the board infos
+            	* \param pBoard
+           	*/
+            	virtual	void getBoardInfo(BeBoard* pBoard);
+		
 		//These two methods will be implemented soon
 		virtual void FlashProm(){};
 		virtual void ProgramCdce(){};
@@ -118,43 +113,38 @@ namespace Ph2_HwInterface
 
 
 		/*!
-            	* \brief Configure the Glib with its Config File
-            	* \param pGlib
+            	* \brief Configure the board with its Config File
+            	* \param pBoard
             	*/
-		virtual void ConfigureGlib(Glib& pGlib)=0;
+		virtual void ConfigureBoard(BeBoard* pBoard)=0;
             	/*!
             	* \brief Start a DAQ
-           	* \param pGlib
+           	* \param pBoard
             	*/
-            	virtual void Start(Glib& pGlib)=0;
+            	virtual void Start(BeBoard* pBoard)=0;
             	/*!
             	* \brief Stop a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	* \param pNthAcq : actual number of acquisitions
             	*/
-            	virtual void Stop(Glib& pGlib,uint32_t pNthAcq)=0;
+            	virtual void Stop(BeBoard* pBoard,uint32_t pNthAcq)=0;
             	/*!
             	* \brief Pause a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	*/
-            	virtual void Pause(Glib& pGlib)=0;
+            	virtual void Pause(BeBoard* pBoard)=0;
             	/*!
             	* \brief Unpause a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	*/
-            	virtual void Unpause(Glib& pGlib)=0;
+            	virtual void Resume(BeBoard* pBoard)=0;
             	/*!
             	* \brief Read data from DAQ
-            	* \param pGlib
+            	* \param pBoard
             	* \param pNthAcq : actual number of acquisitions
             	* \param pBreakTrigger : if true, enable the break trigger
             	*/
-            	virtual void ReadData(Glib& pGlib, uint32_t pNthAcq, bool pBreakTrigger)=0;
-		/*!
-		* \brief Run a DAQ
-    	        * \param pGlib
-    	        */
-            	virtual void Run(Glib& pGlib)=0;
+            	virtual void ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger)=0;
 
 
 	};

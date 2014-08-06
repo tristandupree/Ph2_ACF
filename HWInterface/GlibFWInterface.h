@@ -60,47 +60,43 @@ namespace Ph2_HwInterface
 		~GlibFWInterface(){};
 
 		/*!
-            	* \brief Configure the Glib with its Config File
-            	* \param pGlib
+            	* \brief Configure the board with its Config File
+            	* \param pBoard
             	*/
-            	void ConfigureGlib(Glib& pGlib);
+            	void ConfigureBoard(BeBoard* pBoard);
 		/*!
             	* \brief Detect the right FE Id to write the right registers (not tested)
             	*/
 		void SelectFEId();
             	/*!
             	* \brief Start a DAQ
-           	* \param pGlib
+           	* \param pBoard
             	*/
-            	void Start(Glib& pGlib);
+            	void Start(BeBoard* pBoard);
             	/*!
             	* \brief Stop a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	* \param pNthAcq : actual number of acquisitions
             	*/
-            	void Stop(Glib& pGlib,uint32_t pNthAcq);
+            	void Stop(BeBoard* pBeBoard,uint32_t pNthAcq);
             	/*!
             	* \brief Pause a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	*/
-            	void Pause(Glib& pGlib);
+            	void Pause(BeBoard* pBoard);
             	/*!
             	* \brief Unpause a DAQ
-            	* \param pGlib
+            	* \param pBoard
             	*/
-            	void Unpause(Glib& pGlib);
+            	void Resume(BeBoard* pBoard);
             	/*!
             	* \brief Read data from DAQ
-            	* \param pGlib
+            	* \param pBoard
             	* \param pNthAcq : actual number of acquisitions
             	* \param pBreakTrigger : if true, enable the break trigger
             	*/
-            	void ReadData(Glib& pGlib, uint32_t pNthAcq, bool pBreakTrigger);
-		/*!
-		* \brief Run a DAQ
-    	        * \param pGlib
-    	        */
-            	void Run(Glib& pGlib);
+            	void ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger);
+
 
 	//Methods for the Cbc's:
 

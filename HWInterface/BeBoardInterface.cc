@@ -42,22 +42,22 @@ namespace Ph2_HwInterface{
 		}
 	}
 
-	void BeBoardInterface::WriteGlibReg(Glib& pGlib,const std::string& pRegNode,const uint32_t& pVal)
+	void BeBoardInterface::WriteBoardReg(BeBoard* pBoard,const std::string& pRegNode,const uint32_t& pVal)
     	{
-		setBoard(pGlib.getBeId());
-        	fBoardFW->ChooseBoard(pGlib.getBeId());
+		setBoard(pBoard->getBeId());
+        	fBoardFW->ChooseBoard(pBoard->getBeId());
 
         	fBoardFW->WriteReg( pRegNode,pVal );
-        	pGlib.setReg( pRegNode,pVal );
+        	pBoard->setReg( pRegNode,pVal );
     	}
 
 
-    	void BeBoardInterface::ReadGlibReg(Glib& pGlib,const std::string& pRegNode)
+    	void BeBoardInterface::ReadBoardReg(BeBoard* pBoard,const std::string& pRegNode)
     	{
-		setBoard(pGlib.getBeId());
-        	fBoardFW->ChooseBoard(pGlib.getBeId());
+		setBoard(pBoard->getBeId());
+        	fBoardFW->ChooseBoard(pBoard->getBeId());
 
-        	pGlib.setReg(pRegNode,(uint32_t) fBoardFW->ReadReg(pRegNode));
+        	pBoard->setReg(pRegNode,(uint32_t) fBoardFW->ReadReg(pRegNode));
 	}
 
 }

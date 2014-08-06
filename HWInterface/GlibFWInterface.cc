@@ -27,7 +27,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void GlibFWInterface::ConfigureGlib(Glib& pGlib)
+	void GlibFWInterface::ConfigureBoard(BeBoard* pBoard)
     	{
 
         	//We may here switch in the future with the StackReg method of the RegManager
@@ -36,7 +36,7 @@ namespace Ph2_HwInterface
         	std::vector< std::pair<std::string,uint32_t> > cVecReg;
         	std::pair<std::string,uint32_t> cPairReg;
 
-        	ChooseBoard(pGlib.getBeId());
+        	ChooseBoard(pBoard->getBeId());
 
         	boost::posix_time::milliseconds cPause(200);
 
@@ -66,7 +66,7 @@ namespace Ph2_HwInterface
         	begin() and end().
         	*/
 
-        	BeBoardRegMap cGlibRegMap = pGlib.getBeBoardRegMap();
+        	BeBoardRegMap cGlibRegMap = pBoard->getBeBoardRegMap();
 		for(BeBoardRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
         	{
         		cPairReg.first = cIt->first; cPairReg.second = cIt->second;
@@ -146,7 +146,7 @@ namespace Ph2_HwInterface
         	}
     	}
 
-	void GlibFWInterface::Start(Glib& pGlib)
+	void GlibFWInterface::Start(BeBoard* pBoard)
 	{
 
 		#ifdef __CBCDAQ_DEV__
@@ -157,7 +157,7 @@ namespace Ph2_HwInterface
 		std::vector< std::pair<std::string,uint32_t> > cVecReg;
 		std::pair<std::string,uint32_t> cPairReg;
 
-        	ChooseBoard(pGlib.getBeId());
+        	ChooseBoard(pBoard->getBeId());
 
         	//Starting the DAQ
 
@@ -174,7 +174,7 @@ namespace Ph2_HwInterface
 
     }
 
-	void GlibFWInterface::Stop(Glib& pGlib, uint32_t pNthAcq )
+	void GlibFWInterface::Stop(BeBoard* pBoard, uint32_t pNthAcq )
     	{
 
         	std::vector< std::pair<std::string,uint32_t> > cVecReg;
@@ -182,7 +182,7 @@ namespace Ph2_HwInterface
 
 		uhal::ValWord<uint32_t> cVal;
 
-        	ChooseBoard(pGlib.getBeId());
+        	ChooseBoard(pBoard->getBeId());
 
         	//Select SRAM
         	SelectSRAMDAQ( pNthAcq );
@@ -214,10 +214,10 @@ namespace Ph2_HwInterface
         	fNTotalAcq++;
     	}
 
-    	void GlibFWInterface::Pause(Glib& pGlib)
+    	void GlibFWInterface::Pause(BeBoard* pBoard)
     	{
 
-        	ChooseBoard(pGlib.getBeId());
+        	ChooseBoard(pBoard->getBeId());
 
         	WriteReg(BREAK_TRIGGER,1);
 
@@ -226,9 +226,9 @@ namespace Ph2_HwInterface
 		#endif
     	}
 
-	void GlibFWInterface::Unpause(Glib& pGlib)
+	void GlibFWInterface::Resume(BeBoard* pBoard)
     	{
-        	ChooseBoard(pGlib.getBeId());
+        	ChooseBoard(pBoard->getBeId());
 
         	WriteReg(BREAK_TRIGGER,0);
 
@@ -237,7 +237,7 @@ namespace Ph2_HwInterface
 		#endif
     	}
 
-	void GlibFWInterface::ReadData(Glib& pGlib, unsigned int pNthAcq, bool pBreakTrigger )
+	void GlibFWInterface::ReadData(BeBoard* pBoard, unsigned int pNthAcq, bool pBreakTrigger )
     	{
 
 		#ifdef __CBCDAQ_DEV__
@@ -251,7 +251,7 @@ namespace Ph2_HwInterface
 		gettimeofday(&start, 0);
 		#endif
 
-        	ChooseBoard(pGlib.getBeId());
+        	ChooseBoard(pBoard->getBeId());
 
 		//Readout settings
 		boost::posix_time::milliseconds cWait(1);
@@ -358,111 +358,6 @@ namespace Ph2_HwInterface
         	//One data for one event --> Enhanced later
 		fData->Set(&cData);
 
-	}
-
-	void GlibFWInterface::Run(Glib& pGlib)
-	{
-		fStop = false;
-
-		std::ofstream cfile( "output/TestData.dat", std::ios::out | std::ios::trunc );
-
-		uint32_t cNthAcq = 0;
-		uint32_t cNevents = 10;
-		uint32_t cN = 0;
-
-        	TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 600, 400);
-        	TCanvas *cCanvasMean = new TCanvas("Data Acq Mean", "Different hits counters", 600, 400);
-        	TH1F *cHist = NULL;
-        	TH1F *cHistMean = new TH1F("Histo_Hits Mean", "Hit Counter", uint32_t(pGlib.getModule(0)->getNCbc()), 0., uint32_t(pGlib.getModule(0)->getNCbc()));
-        	gStyle->SetOptStat(kFALSE);
-
-        	usleep( 100 );
-
-        	fData->Initialise( EVENT_NUMBER, pGlib );
-
-		while(!fStop)
-        	{
-
-            		Start(pGlib);
-            		ReadData(pGlib, cNthAcq, true );
-            		Stop(pGlib, cNthAcq );
-
-            		bool cFillDataStream( false );
-
-            		const Event *cEvent = fData->GetNextEvent();
-
-            		while( cEvent )
-            		{
-
-                		if( cNevents != 0 && cN == cNevents )
-                		{
-                    			fStop = true;
-                    			break;
-                		}
-
-                		cCanvas->Divide(uint32_t(pGlib.getNFe()),1);
-
-                		for(uint8_t i=0; i<pGlib.getNFe(); i++)
-                		{
-                    			cfile << "Event N°" << cN+1 << std::endl;
-                    			cfile << "FE " << uint32_t(i) << " :" << std::endl;
-
-                    			if(cHist != NULL)
-                        		delete cHist;
-
-                    			cHist = new TH1F("Histo_Hits", "Hit Counter", uint32_t(pGlib.getModule(i)->getNCbc()), 0., uint32_t(pGlib.getModule(i)->getNCbc()));
-
-                    			cCanvas->cd(uint32_t(i));
-
-                    			for(uint8_t j=0; j<pGlib.getModule(i)->getNCbc(); j++)
-                    			{
-                        			uint32_t cNHits = 0;
-
-                        			std::vector<bool> cDataBitVector = cEvent->DataBitVector(i,j);
-
-                        			cfile << "CBC " << uint32_t(j) << " : " << cEvent->DataBitString(i,j) << std::endl;
-
-                        			for(uint32_t k=0; k<cDataBitVector.size(); k++)
-                        			{
-                            				if(cDataBitVector[k])
-                            				{
-                                				cNHits++;
-                            				}
-                        			}
-
-                        			cHist->Fill(uint32_t(j),cNHits);
-                        			cHistMean->Fill(uint32_t(j),cNHits/cNevents);
-                    			}
-
-                   			cHist->Draw();
-                    			cCanvas->Update();
-
-                    			cfile << "\n";
-				}
-
-                		cCanvas->Print(((boost::format("output/Histogram_Event_%d.pdf") %(cN)).str()).c_str());
-
-                		cEvent = fData->GetNextEvent();
-
-                		cFillDataStream = false;
-                		cN++;
-            		}
-
-			if( cN == cNevents )
-            		{
-                		fStop = true;
-                		break;
-            		}
-
-        	}
-
-		cHistMean->Draw();
-        	cCanvasMean->Update();
-        	cCanvas->Print("output/Histogram_Mean.pdf");
-
-        	delete cHist;
-
-        	cfile.close();
 	}
 
 	void GlibFWInterface::SelectSRAMDAQ(uint32_t pNthAcq)

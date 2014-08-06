@@ -12,7 +12,7 @@
 //------------------------------------------------------------------------------
 //uHal Connection File
 
-#define UHAL_CONNECTION_FILE "file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml"
+#define UHAL_CONNECTION_FILE "file:///afs/cern.ch/user/l/lbidegai/public/new_archi/settings/connections.xml"
 
 
 //-----------------------------------------------------------------------------
