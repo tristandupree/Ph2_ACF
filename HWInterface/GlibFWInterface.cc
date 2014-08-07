@@ -253,6 +253,7 @@ namespace Ph2_HwInterface
 		uint32_t cBlockSize = cNPackets * PACKET_SIZE;
 
 		defineEventSize(pBoard->getModule(0)->getNCbc());
+		fData->Initialise( EVENT_NUMBER, *pBoard );
 
 		//Wait for start acknowledge
 		do

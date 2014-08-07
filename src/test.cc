@@ -40,10 +40,10 @@ int main()
 	BeBoardFWInterface* cBeBoardFW;
 	std::map<int8_t,BeBoardFWInterface*> cBeBoardMap;
 
-	cBeBoardFW= new GlibFWInterface(UHAL_CONNECTION_FILE,0);
-	cBeBoardMap[0]=cBeBoardFW;
 	CbcInterface cCbcInterface(cBeBoardMap);
 	BeBoardInterface cBeBoardInterface(cBeBoardMap);
+	cBeBoardFW= new GlibFWInterface(UHAL_CONNECTION_FILE,0);
+	cBeBoardMap[0]=cBeBoardFW;
 
 	cBeBoardInterface.ConfigureBoard(&cGlib_00);
 

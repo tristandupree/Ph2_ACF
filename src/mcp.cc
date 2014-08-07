@@ -11,7 +11,7 @@
 
 #include "../HWDescription/Cbc.h"
 #include "../HWDescription/Module.h"
-#include "../HWDescription/Glib.h"
+#include "../HWDescription/BeBoard.h"
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
@@ -290,6 +290,7 @@ int main()
                                                         {
                                                             Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC0HOLE);
                                                             cBeBoardVec[j]->getModule(cModuleId)->addCbc(cCbcPers);
+                                                            cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(cCbcId));
                                                             std::cout << "*** Cbc Added ***" << std::endl;
                                                         }
                                                     break;
@@ -299,6 +300,7 @@ int main()
                                                         {
                                                             Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1);
                                                             cBeBoardVec[j]->getModule(cModuleId)->addCbc(cCbcPers);
+                                                            cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(cCbcId));
                                                             std::cout << "*** Cbc Added ***" << std::endl;
                                                         }
                                                     break;
@@ -308,6 +310,7 @@ int main()
                                                         {
                                                             Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1HOLE);
                                                             cBeBoardVec[j]->getModule(cModuleId)->addCbc(cCbcPers);
+                                                            cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(cCbcId));
                                                             std::cout << "*** Cbc Added ***" << std::endl;
                                                         }
                                                     break;
@@ -320,6 +323,7 @@ int main()
                                                             std::cin >> cFilePath;
                                                             Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,cFilePath);
                                                             cBeBoardVec[j]->getModule(cModuleId)->addCbc(cCbcPers);
+                                                            cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(cCbcId));
                                                             std::cout << "*** Cbc Added ***" << std::endl;
                                                         }
                                                     break;
@@ -377,11 +381,10 @@ int main()
                                                 {
                                                     cCbc = new Cbc(0,0,0,0,i,(boost::format("settings/FE0CBC%d.txt") %(uint32_t(i))).str());
                                                     cBeBoardVec[j]->getModule(cModuleId)->addCbc(*cCbc);
+                                                    cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(i));
                                                     delete cCbc;
                                                 }
                                             }
-
-                                            cCbcInterface.ReadAllCbc(cBeBoardVec[j]->getModule(cModuleId));
 
                                             std::cout << "*** 2Cbc Hybrid Structure Added ***" << std::endl;
                                         }
@@ -425,11 +428,10 @@ int main()
                                                 {
                                                     cCbc = new Cbc(0,0,0,0,i,(boost::format("settings/FE0CBC%d.txt") %(uint32_t(i))).str());
                                                     cBeBoardVec[j]->getModule(cModuleId)->addCbc(*cCbc);
+                                                    cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(i));
                                                     delete cCbc;
                                                 }
                                             }
-
-                                            cCbcInterface.ReadAllCbc(cBeBoardVec[j]->getModule(cModuleId));
 
                                             std::cout << "*** 8Cbc Hybrid Structure Added ***" << std::endl;
                                         }
@@ -693,17 +695,17 @@ int main()
                                 }
                                 else
                                 {
-                                    for(uint8_t j=0;j<cBeBoardVec[j]->getModule(cModuleId)->getNCbc();j++)
+                                    for(uint8_t k=0;k<cBeBoardVec[j]->getModule(cModuleId)->getNCbc();k++)
                                     {
-                                        if(cBeBoardVec[j]->getModule(cModuleId)->getCbc(j+cMissedCbc) == NULL)
+                                        if(cBeBoardVec[j]->getModule(cModuleId)->getCbc(k+cMissedCbc) == NULL)
                                         {
-                                            j--;
+                                            k--;
                                             cMissedCbc++;
                                         }
 
                                         else
                                         {
-                                            cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(j+cMissedCbc));
+                                            cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(k+cMissedCbc));
                                         }
                                     }
                                     cMissedCbc = 0;
@@ -740,17 +742,17 @@ int main()
 
                                     else
                                     {
-                                        for(uint8_t j=0;j<cBeBoardVec[j]->getModule(k+cMissedModule)->getNCbc();j++)
+                                        for(uint8_t m=0;j<cBeBoardVec[j]->getModule(k+cMissedModule)->getNCbc();m++)
                                         {
-                                            if(cBeBoardVec[j]->getModule(k+cMissedModule)->getCbc(j+cMissedCbc) == NULL)
+                                            if(cBeBoardVec[j]->getModule(k+cMissedModule)->getCbc(m+cMissedCbc) == NULL)
                                             {
-                                                j--;
+                                                m--;
                                                 cMissedCbc++;
                                             }
 
                                             else
                                             {
-                                                cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(k+cMissedModule)->getCbc(j+cMissedCbc));
+                                                cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(k+cMissedModule)->getCbc(m+cMissedCbc));
                                             }
                                         }
                                         cMissedCbc = 0;
@@ -1239,6 +1241,7 @@ int main()
                 {
 
                     case 1:
+                    {
                         std::cout << "*** Run Acquisition ***" << std::endl;
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
@@ -1251,7 +1254,7 @@ int main()
                                 std::ofstream cfile( "output/TestData.dat", std::ios::out | std::ios::trunc );
 
                                 uint32_t cNthAcq = 0;
-                                uint32_t cNevents = 10;
+                                uint32_t cNevents = 100;
                                 uint32_t cN = 0;
 
                                 TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 600, 400);
@@ -1262,7 +1265,7 @@ int main()
 
                                 usleep( 100 );
 
-                                cBeBoardFWMap[cBoardId]->fData->Initialise( EVENT_NUMBER, *cBeBoardVec[j] );
+                                cBeBoardFWMap[cBoardId]->fStop = false;
 
                                 while(!(cBeBoardFWMap[cBoardId]->fStop))
                                 {
@@ -1298,13 +1301,13 @@ int main()
 
                                             cCanvas->cd(uint32_t(i));
 
-                                            for(uint8_t j=0; j<cBeBoardVec[j]->getModule(i)->getNCbc(); j++)
+                                            for(uint8_t m=0; m<cBeBoardVec[j]->getModule(i)->getNCbc(); m++)
                                             {
                                                 uint32_t cNHits = 0;
 
-                                                std::vector<bool> cDataBitVector = cEvent->DataBitVector(i,j);
+                                                std::vector<bool> cDataBitVector = cEvent->DataBitVector(i,m);
 
-                                                cfile << "CBC " << uint32_t(j) << " : " << cEvent->DataBitString(i,j) << std::endl;
+                                                cfile << "CBC " << uint32_t(j) << " : " << cEvent->DataBitString(i,m) << std::endl;
 
                                                 for(uint32_t i=0; i<cDataBitVector.size(); i++)
                                                 {
@@ -1314,8 +1317,8 @@ int main()
                                                     }
                                                 }
 
-                                                cHist->Fill(uint32_t(j),cNHits);
-                                                cHistMean->Fill(uint32_t(j),cNHits/cNevents);
+                                                cHist->Fill(uint32_t(m),cNHits);
+                                                cHistMean->Fill(uint32_t(m),cNHits/cNevents);
                                             }
 
                                             cHist->Draw();
@@ -1360,6 +1363,7 @@ int main()
                                 mypause();
                             }
                         }
+                    }
                     break;
 
 

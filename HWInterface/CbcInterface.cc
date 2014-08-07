@@ -401,6 +401,8 @@ namespace Ph2_HwInterface
         Cbc *cCbc;
         int cMissed=0;
 
+		setBoard(pModule->getBeId());
+
 		for(uint8_t i=0;i<pModule->getNCbc();i++)
 		{
 
@@ -412,6 +414,7 @@ namespace Ph2_HwInterface
 
             else
             {
+
                 cCbc = pModule->getCbc(i+cMissed);
 
                 CbcRegMap cCbcRegMap = cCbc->getRegMap();
