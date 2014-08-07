@@ -5,7 +5,7 @@
 * \author Lorenzo BIDEGAIN, Nicolas Pierre
 * \date 28/07/14
 *
-* Support : mail to : lorenzo.bidegain@cern.ch, nicolas.pierre@cern.ch
+* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
 *
 */
 
@@ -36,14 +36,49 @@ namespace Ph2_HwInterface
     }
 
 
-	void BeBoardFWInterface::defineEventSize(uint32_t cNbCbc)
+	void BeBoardFWInterface::defineEventSize(uint32_t pNbCbc)
 	{
 		delete fData;
-		fData = new Data(cNCbc);
+		fData = new Data(pNbCbc);
 	}
 
 
-	void BeBoardFWInterface::getBoardInfo(BeBoard* pBoard)
+	std::string BeBoardFWInterface::getBoardType()
+	{
+		std::string cBoardTypeString;
+
+		uhal::ValWord<uint32_t> cBoardType = ReadReg(BOARD_TYPE);
+
+		uint32_t cMask(0x00000000);
+		unsigned int i(0);
+		char cChar;
+
+		for( i=24; i < 32; i++ ) cMask |= ( (uint32_t) 1 << i );
+		cChar = ( ( cBoardType & cMask ) >> 24 );
+
+		cBoardTypeString.push_back(cChar);
+
+		for( cMask=0, i=16; i < 24; i++ ) cMask |= (uint32_t) 1 << i;
+		cChar = (( cBoardType & cMask ) >> 16);
+
+		cBoardTypeString.push_back(cChar);
+
+		for( cMask=0, i=8; i < 16; i++ ) cMask |= (uint32_t) 1 << i;
+		cChar = (( cBoardType & cMask ) >> 8);
+
+		cBoardTypeString.push_back(cChar);
+
+		for( cMask=0, i=0; i < 8; i++ ) cMask |= (uint32_t) 1 << i;
+		cChar = (cBoardType & cMask);
+
+		cBoardTypeString.push_back(cChar);
+
+		return cBoardTypeString;
+
+	}
+
+
+	void BeBoardFWInterface::getBoardInfo()
 	{
     	std::cout << "FMC1 present : " << uint32_t(ReadReg(FMC1_PRESENT)) << std::endl;
     	std::cout << "FMC2 present : " << uint32_t(ReadReg(FMC2_PRESENT)) << std::endl;

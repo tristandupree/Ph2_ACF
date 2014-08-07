@@ -15,7 +15,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <TROOT.h>
 #include <limits.h>
 #include <boost/cstdint.hpp>
 #include "BeBoardFWInterface.h"
@@ -92,7 +91,7 @@ namespace Ph2_HwInterface
 		* \param pNthAcq : actual number of acquisitions
 		* \param pBreakTrigger : if true, enable the break trigger
 		*/
-		void ReadData( Module* cModule, uint32_t pNthAcq, bool pBreakTrigger);
+		void ReadData( BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger);
 
 
 	//Methods for the Cbc's:

@@ -63,7 +63,7 @@ namespace Ph2_HwInterface{
 	void BeBoardInterface::getBoardInfo(BeBoard* pBoard)
 	{
 		setBoard(pBoard->getBeId());
-		fBoardFW->getBoardInfo(pBoard);
+		fBoardFW->getBoardInfo();
 	}
 
 	void BeBoardInterface::ConfigureBoard(BeBoard* pBoard)
@@ -104,7 +104,7 @@ namespace Ph2_HwInterface{
 	void BeBoardInterface::ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger)
 	{
 		setBoard(pBoard->getBeId());
-		fBoardFW->ReadData(pNthAcq, pBreakTrigger);
+		fBoardFW->ReadData(pBoard, pNthAcq, pBreakTrigger);
 	}
 
 }

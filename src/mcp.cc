@@ -13,10 +13,14 @@
 #include "../HWDescription/Module.h"
 #include "../HWDescription/Glib.h"
 #include "../HWInterface/CbcInterface.h"
-#include "../HWInterface/GLIBInterface.h"
+#include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "../HWInterface/Utilities.h"
 #include <boost/format.hpp>
+#include <TH1F.h>
+#include <TCanvas.h>
+#include <TStyle.h>
+#include <TROOT.h>
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -104,14 +108,13 @@ int main()
 
                         if(cBeBoardFWMap.find(cBoardId) == cBeBoardFWMap.end())
                         {
-                            cBeBoard->fBeId=cBoardId;
-                            cBeBoardFWInterface = new BeBoardFWInterface(UHAL_CONFIG_FILE,cBoardId);
+                            cBeBoardFWInterface = new BeBoardFWInterface(UHAL_CONNECTION_FILE,cBoardId);
                             if(cBeBoardFWInterface->getBoardType() == "GLIB")
                             {
                                 delete cBeBoardFWInterface;
-                                cBeBoardFWMap[cBoardId] = new GlibFWInterface(UHAL_CONFIG_FILE,cBoardId);
+                                cBeBoardFWMap[cBoardId] = new GlibFWInterface(UHAL_CONNECTION_FILE,cBoardId);
                                 cBeBoardVec.push_back(new BeBoard(cShelveId,cBoardId,cNFe));
-                                std::cout << "*** Glib Added ***" << std::endl;
+                                std::cout << "*** Board Added ***" << std::endl;
                             }
                             else
                             {
@@ -147,13 +150,9 @@ int main()
                                     std::cout << "--> Which FeId ?" << std::endl;
                                     std::cin >> cFeId;
 
-                                    cModule.fModuleId=cModuleId;
-                                    cModule.fFMCId=cFMCId;
-                                    cModule.fFeId=cFeId;
-                                    cModule.fBeId=cBeBoardVec[j]->fBeId;
-                                    cModule.fShelveId=cBeBoardVec[j]->fShelveId;
+                                    cModule = new Module(cBeBoardVec[j]->fShelveId,cBeBoardVec[j]->fBeId,cFMCId,cFeId,cModuleId);
 
-                                    cBeBoardFWMap[cBoardId]->addModule(cModule);
+                                    cBeBoardVec[j]->addModule(*cModule);
                                     std::cout << "*** Module Added ***" << std::endl;
                                 }
                                 else
@@ -177,7 +176,7 @@ int main()
                         std::cout << "*** Add Cbc ***" << std::endl;
                         std::cout << "1: Add Default Cbc" << std::endl;
                         std::cout << "2: Add Personalised Cbc" << std::endl;
-                        std::cout << "3: Add a 2Cbc Hybrid Structure\n" << std::endl;
+                        std::cout << "3: Add a 2Cbc Hybrid Structure" << std::endl;
                         std::cout << "4: Add a 8Cbc Hybrid Structure\n" << std::endl;
 
                         std::cin >> i;
@@ -430,7 +429,7 @@ int main()
                                                 }
                                             }
 
-                                            cCbcInterface.UpdateAllCbc(cBeBoardVec[j]->getModule(cModuleId));
+                                            cCbcInterface.ReadAllCbc(cBeBoardVec[j]->getModule(cModuleId));
 
                                             std::cout << "*** 8Cbc Hybrid Structure Added ***" << std::endl;
                                         }
@@ -454,6 +453,7 @@ int main()
 
 
                     case 4:
+                    {
                         std::cout << "*** Remove Board ***" << std::endl;
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
@@ -476,7 +476,7 @@ int main()
                             myflush( std::cin );
                             mypause();
                         }
-
+                    }
                     break;
 
 
@@ -1257,19 +1257,19 @@ int main()
                                 TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 600, 400);
                                 TCanvas *cCanvasMean = new TCanvas("Data Acq Mean", "Different hits counters", 600, 400);
                                 TH1F *cHist = NULL;
-                                TH1F *cHistMean = new TH1F("Histo_Hits Mean", "Hit Counter", uint32_t(pGlib.getModule(0)->getNCbc()), 0., uint32_t(pGlib.getModule(0)->getNCbc()));
+                                TH1F *cHistMean = new TH1F("Histo_Hits Mean", "Hit Counter", uint32_t(cBeBoardVec[j]->getModule(0)->getNCbc()), 0., uint32_t(cBeBoardVec[j]->getModule(0)->getNCbc()));
                                 gStyle->SetOptStat(kFALSE);
 
                                 usleep( 100 );
 
-                                cBeBoardFWMap[cBoardId]->fData->Initialise( EVENT_NUMBER, pGlib );
+                                cBeBoardFWMap[cBoardId]->fData->Initialise( EVENT_NUMBER, *cBeBoardVec[j] );
 
                                 while(!(cBeBoardFWMap[cBoardId]->fStop))
                                 {
 
-                                    cCbcInterface.Start(cBeBoardVec[j]);
-                                    cCbcInterface.ReadData(cBeBoardVec[j], cNthAcq, true );
-                                    cCbcInterface.Stop(cBeBoardVec[j], cNthAcq );
+                                    cBeBoardInterface.Start(cBeBoardVec[j]);
+                                    cBeBoardInterface.ReadData(cBeBoardVec[j], cNthAcq, true );
+                                    cBeBoardInterface.Stop(cBeBoardVec[j], cNthAcq );
 
                                     bool cFillDataStream( false );
 
@@ -1286,7 +1286,7 @@ int main()
 
                                         cCanvas->Divide(uint32_t(cBeBoardVec[j]->getNFe()),1);
 
-                                        for(uint8_t i=0; i<pcBeBoardVec[j]->getNFe(); i++)
+                                        for(uint8_t i=0; i<cBeBoardVec[j]->getNFe(); i++)
                                         {
                                             cfile << "Event N°" << cN+1 << std::endl;
                                             cfile << "FE " << uint32_t(i) << " :" << std::endl;
@@ -1397,7 +1397,7 @@ int main()
                             std::cout << "***           Configuration Full Recap'          ***" << std::endl;
                             std::cout << "****************************************************\n" << std::endl;
 
-                            for(BeBoardFWMap::iterator cIt = cBeBoardMap.begin(); cIt = cBeBoardMap.end(); ++cIt)
+                            for(BeBoardFWMap::iterator cIt = cBeBoardFWMap.begin(); cIt != cBeBoardFWMap.end(); ++cIt)
                             {
 
                                 for(uint32_t m=0; m<cBeBoardVec.size(); m++)
@@ -1501,7 +1501,7 @@ int main()
                             std::cout << "***          Configuration Fast Recap'           ***" << std::endl;
                             std::cout << "****************************************************\n" << std::endl;
 
-                            for(BeBoardFWMap::iterator cIt = cBeBoardMap.begin(); cIt = cBeBoardMap.end(); ++cIt)
+                            for(BeBoardFWMap::iterator cIt = cBeBoardFWMap.begin(); cIt != cBeBoardFWMap.end(); ++cIt)
                             {
 
                                 for(uint32_t m=0; m<cBeBoardVec.size(); m++)
@@ -1545,7 +1545,7 @@ int main()
                                                 std::cout << "| Number of Cbc : " << uint32_t(cBeBoardVec[m]->getModule(k+cMissedModule)->getNCbc()) << std::endl;
                                                 std::cout << " --------------------- \n" << std::endl;
 
-                                                cCbcInterface.UpdateAllCbc(cBeBoardVec[m]->getModule(cModuleId));
+                                                cCbcInterface.ReadAllCbc(cBeBoardVec[m]->getModule(cModuleId));
 
                                                 for(uint8_t j=0;j<cBeBoardVec[m]->getModule(k+cMissedModule)->getNCbc();j++)
                                                 {
@@ -1632,7 +1632,7 @@ int main()
 
                     else
                     {
-                        cBeBoardVec[m]->getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->writeRegValues((boost::format("output/output_%d_%d_%d.txt") %(uint32_t(cBeBoardVec[m]->fBeId)) %(uint32_t(k+cMissedModule)) %(uint32_t(j+cMissedCbc))).str());
+                        cBeBoardVec[m]->getModule(k+cMissedModule)->getCbc(j+cMissedCbc)->saveRegMap((boost::format("output/output_%d_%d_%d.txt") %(uint32_t(cBeBoardVec[m]->fBeId)) %(uint32_t(k+cMissedModule)) %(uint32_t(j+cMissedCbc))).str());
                     }
                 }
 

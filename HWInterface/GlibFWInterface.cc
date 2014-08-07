@@ -21,7 +21,7 @@ namespace Ph2_HwInterface
 {
 
 	GlibFWInterface::GlibFWInterface(const char *puHalConfigFileName, uint32_t pBoardId):
-		BeBoardFWInterface(puHalConfigFileName,pBoardId,pNbCbc)
+		BeBoardFWInterface(puHalConfigFileName,pBoardId)
 	{
 
 	}
@@ -231,7 +231,7 @@ namespace Ph2_HwInterface
 #endif
     }
 
-	void GlibFWInterface::ReadData( Module* cModule, unsigned int pNthAcq, bool pBreakTrigger )
+	void GlibFWInterface::ReadData( BeBoard* pBoard, unsigned int pNthAcq, bool pBreakTrigger )
     {
 
 #ifdef __CBCDAQ_DEV__
@@ -252,7 +252,7 @@ namespace Ph2_HwInterface
 		uint32_t cNPackets= EVENT_NUMBER+1;
 		uint32_t cBlockSize = cNPackets * PACKET_SIZE;
 
-		defineEventSize(cModule->getNCbc());
+		defineEventSize(pBoard->getModule(0)->getNCbc());
 
 		//Wait for start acknowledge
 		do

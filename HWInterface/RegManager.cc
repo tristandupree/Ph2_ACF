@@ -221,15 +221,23 @@ namespace Ph2_HwInterface
 
     void RegManager::StackWriteTimeOut()
     {
+        uint32_t i=0;
+
         while(!fDeactiveThread)
         {
             std::this_thread::sleep_for(std::chrono::seconds(TIME_OUT));
             //std::cout << "Ping ! \nThread ID : " << std::this_thread::get_id() << "\n" << std::endl;
-            if(fStackReg.size() != 0)
+
+            if(fStackReg.size() != 0 && i==1)
             {
                 WriteStackReg(fStackReg);
                 fStackReg.clear();
             }
+            else if(i==0)
+            {
+                i=1;
+            }
+
         }
     }
 

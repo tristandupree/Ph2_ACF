@@ -5,7 +5,7 @@
 * \author Lorenzo BIDEGAIN, Nicolas Pierre
 * \date 30/07/14
 *
-* Support : mail to : lorenzo.bidegain@cern.ch, nicolas.pierre@cern.ch
+* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
 *
 */
 
@@ -422,7 +422,7 @@ namespace Ph2_HwInterface
                    cVecRegNode.push_back(cIt->first);
                 }
 
-                ReadCbcBlockReg(cCbc,cVecReq);
+                fBoardFW->ReadCbcBlockReg(cCbc->fFeId,cVecReq);
 
                 for(uint32_t j=0;j<cVecReq.size();j++)
                 {

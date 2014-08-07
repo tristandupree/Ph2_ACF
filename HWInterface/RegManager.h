@@ -78,7 +78,7 @@ namespace Ph2_HwInterface
             * \brief Time Out for sending the register/value stack in the writting.
             * \brief It has only to be set in a detached thread from the one you're working on
             */
-            virtual void StackWriteTimeOut();
+            void StackWriteTimeOut();
 
         public:
             // Connection w uHal

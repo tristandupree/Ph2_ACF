@@ -83,9 +83,9 @@ namespace Ph2_HwInterface
 
         fEvent.Clear();
 
-    #ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
         std::cout << "Data::Initialise done." << std::endl;
-    #endif
+#endif
 
     }
 
@@ -103,9 +103,9 @@ namespace Ph2_HwInterface
 
         fEvent.AddBoard(pBoard);
 
-    #ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
         std::cout << "Data::Initialise done." << std::endl;
-    #endif
+#endif
 
     }
 

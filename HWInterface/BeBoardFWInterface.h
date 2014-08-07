@@ -5,7 +5,7 @@
 * \author Lorenzo BIDEGAIN, Nicolas Pierre
 * \date 28/07/14
 *
-* Support : mail to : lorenzo.bidegain@cern.ch, nicolas.pierre@cern.ch
+* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
 *
 */
 
@@ -64,12 +64,17 @@ namespace Ph2_HwInterface
 			* \brief Get the board infos
 			* \param pBoard
 			*/
-			virtual	void defineEventSize(uint32_t cNbCbc);
+			virtual	void defineEventSize(uint32_t pNbCbc);
+			/*!
+			* \brief Get the board type
+			* \param pBoard
+			*/
+			virtual	std::string getBoardType();
 			/*!
 			* \brief Get the board infos
 			* \param pBoard
 			*/
-			virtual	void getBoardInfo(BeBoard* pBoard);
+			virtual	void getBoardInfo();
 
 			//These two methods will be implemented soon
 			virtual void FlashProm(){};
@@ -138,7 +143,7 @@ namespace Ph2_HwInterface
 			* \param pNthAcq : actual number of acquisitions
 			* \param pBreakTrigger : if true, enable the break trigger
 			*/
-			virtual void ReadData( Module* cModule, uint32_t pNthAcq, bool pBreakTrigger) {};
+			virtual void ReadData(	BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger) {};
 
 
 	};
