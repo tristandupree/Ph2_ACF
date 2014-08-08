@@ -39,7 +39,7 @@ namespace Ph2_HwDescription{
 
 		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is + the # of FEs connected
 		// C'tor for a standard BeBoard
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename);
+		BeBoard( uint8_t pShelveId, uint8_t pBeId,  std::string filename);
 
 		// D'tor
 		virtual ~BeBoard(){};
