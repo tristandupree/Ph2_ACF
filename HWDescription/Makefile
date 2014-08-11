@@ -1,4 +1,4 @@
-Objs                    = FrontEndDescription.o BeBoard.o Cbc.o Module.o
+Objs                    = FrontEndDescription.o BeBoard.o Cbc.o Module.o Shelve.o
 CC              = gcc
 CXX             = g++
 CCFlags         = -g -O1 -Wall -fPIC `root-config --cflags --glibs --evelibs`
