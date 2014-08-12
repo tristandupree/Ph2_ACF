@@ -33,7 +33,7 @@ namespace Ph2_HwDescription{
 
 	public:
 
-		// C'tors take FrontEndDescription or hierachy of connection and the # of CBCs
+		// C'tors take FrontEndDescription or hierachy of connection
 		Module( FrontEndDescription& pFeDesc, uint8_t pModuleId);
 		Module ( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId);
 

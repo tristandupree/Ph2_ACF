@@ -135,40 +135,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_glib_interface.html#a056c3192477cbd07c67ff822bc7123de">   49</a></span>&#160;            <span class="keyword">struct </span>timeval fStartVeto;</div>
 <div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_glib_interface.html#a27b44db1be7f8a3802ba1a5d675a9888">   50</a></span>&#160;            std::string fStrSram, <a class="code" href="class_ph2___hw_interface_1_1_glib_interface.html#a27b44db1be7f8a3802ba1a5d675a9888">fStrSramUserLogic</a>, fStrFull, fStrReadout;</div>
 <div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_glib_interface.html#aa72b2c10537eb001fe5bd7ee611b2d57">   51</a></span>&#160;            std::string <a class="code" href="class_ph2___hw_interface_1_1_glib_interface.html#aa72b2c10537eb001fe5bd7ee611b2d57">fCbcStubLat</a>, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;</div>
-<<<<<<< HEAD
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_glib_interface.html#ae7d9a0ed785d3779c22757377c74f0bc">   52</a></span>&#160;            uint32_t <a class="code" href="class_ph2___hw_interface_1_1_glib_interface.html#ae7d9a0ed785d3779c22757377c74f0bc">fEventNumber</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_glib_interface.html#a6efc2da55aafca870e1259e78436e1ef">   54</a></span>&#160;            std::ofstream *<a class="code" href="class_ph2___hw_interface_1_1_glib_interface.html#a6efc2da55aafca870e1259e78436e1ef">fDataFile</a>; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordtype">void</span> SelectSRAM(uint32_t pNthAcq);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_glib_interface.html#ae0e95a15055342afd67e1f46aab1481c">   64</a></span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_data.html">Data</a> *<a class="code" href="class_ph2___hw_interface_1_1_glib_interface.html#ae0e95a15055342afd67e1f46aab1481c">fData</a>; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_glib_interface.html">GlibInterface</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *puHalConfigFileName, uint32_t pNbCbc);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            ~<a class="code" href="class_ph2___hw_interface_1_1_glib_interface.html">GlibInterface</a>();</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordtype">void</span> getBoardInfo(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordtype">void</span> SelectFEId(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordtype">void</span> ConfigureGlib(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keywordtype">void</span> Start(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordtype">void</span> Stop(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib,uint32_t pNthAcq);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordtype">void</span> Pause(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordtype">void</span> Unpause(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordtype">void</span> ReadData(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib, uint32_t pNthAcq, <span class="keywordtype">bool</span> pBreakTrigger);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordtype">void</span> Run(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keywordtype">void</span> UpdateGlibWrite(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib,<span class="keyword">const</span> std::string&amp; pRegNode,<span class="keyword">const</span> uint32_t&amp; pVal);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keywordtype">void</span> UpdateGlibRead(<a class="code" href="class_ph2___hw_description_1_1_glib.html">Glib</a>&amp; pGlib,<span class="keyword">const</span> std::string&amp; pRegNode);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    };</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_ph2___hw_description_1_1_glib_html"><div class="ttname"><a href="class_ph2___hw_description_1_1_glib.html">Ph2_HwDescription::Glib</a></div><div class="ttdoc">Read/Write Glib&amp;#39;s registers on a file, contains a register map and contains a vector of Module which ...</div><div class="ttdef"><b>Definition:</b> Glib.h:29</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_aa72b2c10537eb001fe5bd7ee611b2d57"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#aa72b2c10537eb001fe5bd7ee611b2d57">Ph2_HwInterface::GlibInterface::fCbcStubLat</a></div><div class="ttdeci">std::string fCbcStubLat</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:51</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html">Ph2_HwInterface::RegManager</a></div><div class="ttdoc">Permit connection to given boards and r/w given registers. </div><div class="ttdef"><b>Definition:</b> RegManager.h:33</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_ae0e95a15055342afd67e1f46aab1481c"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#ae0e95a15055342afd67e1f46aab1481c">Ph2_HwInterface::GlibInterface::fData</a></div><div class="ttdeci">Data * fData</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:64</div></div>
-=======
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_ph2___hw_interface_1_1_glib_interface.html#a6efc2da55aafca870e1259e78436e1ef">   53</a></span>&#160;            std::ofstream *<a class="code" href="class_ph2___hw_interface_1_1_glib_interface.html#a6efc2da55aafca870e1259e78436e1ef">fDataFile</a>; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">private</span>:</div>
@@ -200,30 +166,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_aa72b2c10537eb001fe5bd7ee611b2d57"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#aa72b2c10537eb001fe5bd7ee611b2d57">Ph2_HwInterface::GlibInterface::fCbcStubLat</a></div><div class="ttdeci">std::string fCbcStubLat</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:51</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_reg_manager_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_reg_manager.html">Ph2_HwInterface::RegManager</a></div><div class="ttdoc">Permit connection to given boards and r/w given registers. </div><div class="ttdef"><b>Definition:</b> RegManager.h:33</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_ae0e95a15055342afd67e1f46aab1481c"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#ae0e95a15055342afd67e1f46aab1481c">Ph2_HwInterface::GlibInterface::fData</a></div><div class="ttdeci">Data * fData</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:63</div></div>
->>>>>>> origin/Dev
 <div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_a27b44db1be7f8a3802ba1a5d675a9888"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#a27b44db1be7f8a3802ba1a5d675a9888">Ph2_HwInterface::GlibInterface::fStrSramUserLogic</a></div><div class="ttdeci">std::string fStrSramUserLogic</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:50</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html">Ph2_HwInterface::GlibInterface</a></div><div class="ttdoc">Permit r/w given registers in the Glib you specify. </div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:38</div></div>
 <div class="ttc" id="_event_8h_html"><div class="ttname"><a href="_event_8h.html">Event.h</a></div></div>
 <div class="ttc" id="_utilities_8h_html"><div class="ttname"><a href="_utilities_8h.html">Utilities.h</a></div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_data_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_data.html">Ph2_HwInterface::Data</a></div><div class="ttdoc">Data container to manipulate data flux from the Cbc. </div><div class="ttdef"><b>Definition:</b> Data.h:30</div></div>
-<div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_ae7d9a0ed785d3779c22757377c74f0bc"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#ae7d9a0ed785d3779c22757377c74f0bc">Ph2_HwInterface::GlibInterface::fEventNumber</a></div><div class="ttdeci">uint32_t fEventNumber</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:52</div></div>
+<div class="ttc" id="class_ph2___hw_interface_1_1_data_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_data.html">Ph2_HwInterface::Data</a></div><div class="ttdoc">Dummy data format in order to test. </div><div class="ttdef"><b>Definition:</b> Data.h:30</div></div>
 <div class="ttc" id="_reg_manager_8h_html"><div class="ttname"><a href="_reg_manager_8h.html">RegManager.h</a></div><div class="ttdoc">RegManager class, permit connection &amp;amp; r/w registers. </div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_a1b8fe11933c22b5c97e23ad2c4e4407c"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#a1b8fe11933c22b5c97e23ad2c4e4407c">Ph2_HwInterface::GlibInterface::fNTotalAcq</a></div><div class="ttdeci">unsigned int fNTotalAcq</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:43</div></div>
 <div class="ttc" id="_data_8h_html"><div class="ttname"><a href="_data_8h.html">Data.h</a></div></div>
-<<<<<<< HEAD
-<div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_a6efc2da55aafca870e1259e78436e1ef"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#a6efc2da55aafca870e1259e78436e1ef">Ph2_HwInterface::GlibInterface::fDataFile</a></div><div class="ttdeci">std::ofstream * fDataFile</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:54</div></div>
-=======
 <div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_a6efc2da55aafca870e1259e78436e1ef"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#a6efc2da55aafca870e1259e78436e1ef">Ph2_HwInterface::GlibInterface::fDataFile</a></div><div class="ttdeci">std::ofstream * fDataFile</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:53</div></div>
->>>>>>> origin/Dev
 <div class="ttc" id="class_ph2___hw_interface_1_1_glib_interface_html_a0cc29dcdff019e8b11ea8ebab631159e"><div class="ttname"><a href="class_ph2___hw_interface_1_1_glib_interface.html#a0cc29dcdff019e8b11ea8ebab631159e">Ph2_HwInterface::GlibInterface::fStop</a></div><div class="ttdeci">bool fStop</div><div class="ttdef"><b>Definition:</b> GLIBInterface.h:44</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-<<<<<<< HEAD
-Generated on Wed Aug 6 2014 22:02:27 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
-=======
 Generated on Fri Jul 25 2014 13:50:21 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
->>>>>>> origin/Dev
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

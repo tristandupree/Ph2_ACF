@@ -17,7 +17,6 @@
 #include <vector>
 #include <map>
 #include <boost/cstdint.hpp>
-#include "Definition.h"
 
 /*!
 * \namespace Ph2_HwDescription

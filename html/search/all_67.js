@@ -1,14 +1,8 @@
 var searchData=
 [
-<<<<<<< HEAD
-  ['getbeboardregmap',['getBeBoardRegMap',['../class_ph2___hw_description_1_1_be_board.html#a8d27a8030371768636694f5b2ac95046',1,'Ph2_HwDescription::BeBoard']]],
-  ['getbeid',['getBeId',['../class_ph2___hw_description_1_1_be_board.html#a54e7ce5a90312b4b71f2af9d88e90dbb',1,'Ph2_HwDescription::BeBoard::getBeId()'],['../class_ph2___hw_description_1_1_front_end_description.html#ae2d759253890ec653dbe1b5c3141887a',1,'Ph2_HwDescription::FrontEndDescription::getBeId()']]],
-  ['getboardinfo',['getBoardInfo',['../class_ph2___hw_interface_1_1_glib_interface.html#a51dd2e5a8128fd01a41c4d6b204df948',1,'Ph2_HwInterface::GlibInterface']]],
-=======
   ['getbeboardregmap',['getBeBoardRegMap',['../class_ph2___hw_description_1_1_be_board.html#aff2710580b471a4209c240310cf23ba6',1,'Ph2_HwDescription::BeBoard']]],
   ['getbeid',['getBeId',['../class_ph2___hw_description_1_1_be_board.html#a81c2071b04bb2c4541f0b30bcf2ff1ba',1,'Ph2_HwDescription::BeBoard::getBeId()'],['../class_ph2___hw_description_1_1_front_end_description.html#ae2d759253890ec653dbe1b5c3141887a',1,'Ph2_HwDescription::FrontEndDescription::getBeId()']]],
   ['getboardinfo',['getBoardInfo',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a565131fd918a485d8af1d9ae162c5230',1,'Ph2_HwInterface::BeBoardFWInterface::getBoardInfo()'],['../class_ph2___hw_interface_1_1_be_board_interface.html#ae423a6ec7526a0abd9ce3c9e0e3b1847',1,'Ph2_HwInterface::BeBoardInterface::getBoardInfo()']]],
->>>>>>> origin/Dev
   ['getbuffer',['GetBuffer',['../class_ph2___hw_interface_1_1_data.html#a6093f26d20db6ca6a2a248b6bc8ddb25',1,'Ph2_HwInterface::Data']]],
   ['getbunch',['GetBunch',['../class_ph2___hw_interface_1_1_event.html#ab577a18ce8a9edc17debb67ea8734530',1,'Ph2_HwInterface::Event']]],
   ['getcbc',['getCbc',['../class_ph2___hw_description_1_1_module.html#a05ccbee9ca3eb8022e359b5e9dabe783',1,'Ph2_HwDescription::Module']]],
@@ -31,16 +25,9 @@ var searchData=
   ['gettdc',['GetTDC',['../class_ph2___hw_interface_1_1_event.html#a2c193b4b2bdb35267f63d03cc684e7b1',1,'Ph2_HwInterface::Event']]],
   ['gettimetook',['getTimeTook',['../namespace_ph2___hw_interface.html#a033a07cbe28368de19d534ef7cd3325d',1,'Ph2_HwInterface']]],
   ['glibflagstring',['GlibFlagString',['../class_ph2___hw_interface_1_1_event.html#a8b6a50a409927366a830084f11885882',1,'Ph2_HwInterface::Event']]],
-<<<<<<< HEAD
-  ['glibinterface',['GlibInterface',['../class_ph2___hw_interface_1_1_glib_interface.html#aeb62537ce011e67f895bde9981e3cba5',1,'Ph2_HwInterface::GlibInterface']]],
-  ['glibinterface',['GlibInterface',['../class_ph2___hw_interface_1_1_glib_interface.html',1,'Ph2_HwInterface']]],
-  ['glibinterface_2ecc',['GLIBInterface.cc',['../_g_l_i_b_interface_8cc.html',1,'']]],
-  ['glibinterface_2eh',['GLIBInterface.h',['../_g_l_i_b_interface_8h.html',1,'']]],
-=======
   ['glibfwinterface',['GlibFWInterface',['../class_ph2___hw_interface_1_1_glib_f_w_interface.html#aef1044c390e934afa17cdf9566ac71c3',1,'Ph2_HwInterface::GlibFWInterface']]],
   ['glibfwinterface',['GlibFWInterface',['../class_ph2___hw_interface_1_1_glib_f_w_interface.html',1,'Ph2_HwInterface']]],
   ['glibfwinterface_2ecc',['GlibFWInterface.cc',['../_glib_f_w_interface_8cc.html',1,'']]],
   ['glibfwinterface_2eh',['GlibFWInterface.h',['../_glib_f_w_interface_8h.html',1,'']]],
->>>>>>> origin/Dev
   ['git_20repository_20for_20ph2_5fdaq_20software',['Git Repository for PH2_DAQ Software',['../md__r_e_a_d_m_e.html',1,'']]]
 ];

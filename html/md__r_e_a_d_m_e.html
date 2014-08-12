@@ -82,27 +82,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Git Repository for PH2_DAQ Software </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>&#160;&#160;&#160;&#160;&#160;&#160;<b>Supposed to contain</b></p>
+<div class="textblock"><p>Supposed to contain:</p>
 <ul>
-<li>A middleware API layer, implemented in C++, which will basically wrap to abstracted functions the firmware calls and handshakes currently hardcoded into DAQ systems software</li>
+<li>A middleware API layer, implemented in C++, which will basically wrap to abstracted functions the firmware calls and handshakes currently hardcoded into DAQ systems software.</li>
 <li>A C++ object-based library describing the system components (CBCs, Hybrids, Boards) and their properties(values, status)</li>
-<li>The MCP test program that is the wrapping the previous two</li>
 </ul>
-<h2>Different versions for different setups </h2>
-<p>On this GitHub, you can find different version of the software :</p>
-<ul>
-<li>An agnostic (to the number of CBCs) version on the Master branch</li>
-<li>A 2CBC version on the 2CBC branch</li>
-<li>A 8CBC version on the 8CBC branch</li>
-<li>An agnostic (to the number of CBCs) version with the new structure still in development in the Dev branch <br/>
- <br/>
- <b>What are the differences between the 2CBC/8CBC versions ?</b></li>
-</ul>
-<p>The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way. Also, some functions are present in 8CBC and not in 2CBC due to the fact that the firmware of the 8CBC is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)</p>
-<h2>The Test Software itself : the MCP Test Interface </h2>
-<p>You'll find an install step by step and a How To. <br/>
- <br/>
- &#160;&#160;&#160;&#160;&#160;&#160;<b>Install the MCP Test Interface step by step...</b></p>
+<h2>MCP Test Interface </h2>
 <p>Here are the step to make the program functional</p>
 <ol type="1">
 <li>Recover the GitHub repo with the latest tested version of the MCP.</li>
@@ -118,10 +103,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)</li>
 <li>Launch testpgrm command if you want to test if everything is working good</li>
-<li>Launch mcp to play with the Test Interface <br/>
- <br/>
- <b>What can you do with the software ?</b></li>
+<li>Launch mcp to play with the Test Interface</li>
 </ol>
+<h2>What can you do with the software ? </h2>
 <p>A Glib is created per default (maybe in the future you will be able to play with more than one Glib)</p>
 <p>You can then add Modules to the Glib and Cbcs to the Modules you created. When creating a Cbc, you can choose the config file you will load to its register map. If you want to add your personal config file, please make sure to add it in #define in the HWDescription/Description.h and then to add an option in the MCP code.</p>
 <p>After this creation round, you can do anything you want :</p>
@@ -129,31 +113,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Configure the Glib or the Cbcs</li>
 <li>Manipulate the registers in the Glib</li>
 <li>Manipulate the registers in the Cbcs</li>
-<li>Perform a DAQ and tracing diagrams counting the number of hits</li>
+<li>Do the manipulation to Start/Stop an acquisition, but not actually acquiring something relevant</li>
 <li>Have a configuration recap of all the objects you created</li>
 </ul>
 <p>Concerning the manipulation of the Cbcs, you have the opportunity to modify all the Cbcs of a same Module at once with the Broadcast feature of the Cbc.</p>
 <p>When you write a register in the Glib or the Cbc, the writing is updated to the map contained in Glib/Cbc objects so that you're always fully aware of what is in the Glib/Cbc register.</p>
 <p>For writing value in register, we invite you to put in the following format : 0x__. You must thus type '0xFF' for exemple and not just 'FF' in the command line. That might change in the future..</p>
-<p>You can also run DAQ and recover the Hit Histogram for each Cbc and each Event in the output file.</p>
-<p>At the end of the program, the register maps are saved into output_X_X.txt files you can find in the settings directory. For example, output_1_2.txt contains the register map of the Cbc 2 of the Module 1. You can also find different .pdf files containing the histograms of the DAQ.</p>
+<p>At the end of the program, the register maps are saved into output_X_X.txt files you can find in the settings directory. For example, output_1_2.txt contains the register map of the Cbc 2 of the Module 1.</p>
 <p>More features will be implemented later, so make sure to have the last release locally to benefit from them.</p>
 <p>Warning ! : be careful with options choice in the program menus, some mistypes can leed to unexpected hazards :-(.</p>
-<h2>On the go... </h2>
-<p>&#160;&#160;&#160;&#160;&#160;&#160;<b>Last Updates</b></p>
+<h2>Last Updates </h2>
 <ul>
 <li>09/07/14 : Added threading for stack writing registers</li>
 <li>10/07/14 : Read Data from acquisition in a rubbish format</li>
-<<<<<<< HEAD
-<li>~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~</li>
-<li>~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~</li>
-<li>30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch</li>
-<li>6/08/14 : Working agnostic version on Master <br/>
- <br/>
- <b>Future Improvements</b></li>
-<li>Finish the implementation of the new structure</li>
-<li>Make a System Manager class that is wrapping the new structure</li>
-=======
 <li>25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC</li>
 </ul>
 <h2>Future Improvements </h2>
@@ -161,18 +133,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Implementation of generic BeBoard and BeBoardInterface Class which will help us dealing with multiple board type (Glib, FC7).</li>
 <li>Work on the Cbc class to make it recognize if the Cbc is from a Glib or a FC7.</li>
 <li>Implement the new Strasbourg firmware as soon as it comes out.</li>
->>>>>>> origin/Dev
 </ul>
 <h2>Support, Suggestions ? </h2>
 <p>For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-<<<<<<< HEAD
-Generated on Wed Aug 6 2014 22:02:27 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
-=======
 Generated on Wed Aug 6 2014 21:03:54 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
->>>>>>> origin/Dev
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

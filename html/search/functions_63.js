@@ -6,10 +6,7 @@ var searchData=
   ['cbcinterface',['CbcInterface',['../class_ph2___hw_interface_1_1_cbc_interface.html#a405f25c67abece1967d0bd0d738afbe1',1,'Ph2_HwInterface::CbcInterface']]],
   ['char',['Char',['../class_ph2___hw_interface_1_1_event.html#a348abea85bdfdfc8c0b88cda907dbea8',1,'Ph2_HwInterface::Event']]],
   ['clear',['Clear',['../class_ph2___hw_interface_1_1_event.html#ac324585a7a75fb07c51e71317e53ea64',1,'Ph2_HwInterface::Event']]],
-<<<<<<< HEAD
-=======
   ['configureboard',['ConfigureBoard',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a2507c664f19d1d5e3f6de69da16365e8',1,'Ph2_HwInterface::BeBoardFWInterface::ConfigureBoard()'],['../class_ph2___hw_interface_1_1_be_board_interface.html#a808eabcbd850dd651f9b3122f702079f',1,'Ph2_HwInterface::BeBoardInterface::ConfigureBoard()'],['../class_ph2___hw_interface_1_1_glib_f_w_interface.html#a52658cd813658d4fae48a79bdabaa5cc',1,'Ph2_HwInterface::GlibFWInterface::ConfigureBoard()']]],
->>>>>>> origin/Dev
   ['configurecbc',['ConfigureCbc',['../class_ph2___hw_interface_1_1_cbc_interface.html#a0567c7a31f70f446202e60d037c869ea',1,'Ph2_HwInterface::CbcInterface']]],
   ['copybuffer',['CopyBuffer',['../class_ph2___hw_interface_1_1_data.html#a751235bbc2393f58f9fd83b8837ad2b4',1,'Ph2_HwInterface::Data']]]
 ];

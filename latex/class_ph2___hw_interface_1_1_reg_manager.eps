@@ -5,11 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-<<<<<<< HEAD
-%%BoundingBox: 0 0 500 102.040816
-=======
 %%BoundingBox: 0 0 500 248.962656
->>>>>>> origin/Dev
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -23,22 +19,13 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-<<<<<<< HEAD
-/boundaspect 4.900000 def  % aspect ratio of the BoundingBox (width/height)
-=======
 /boundaspect 2.008333 def  % aspect ratio of the BoundingBox (width/height)
->>>>>>> origin/Dev
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-<<<<<<< HEAD
-/rows 2 def
-/cols 2 def
-=======
 /rows 3 def
 /cols 1 def
->>>>>>> origin/Dev
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
 
@@ -187,13 +174,8 @@
 boxfont setfont
 1 boundaspect scale
 (Ph2_HwInterface::RegManager) cw
-<<<<<<< HEAD
-(Ph2_HwInterface::CbcInterface) cw
-(Ph2_HwInterface::GlibInterface) cw
-=======
 (Ph2_HwInterface::BeBoardFWInterface) cw
 (Ph2_HwInterface::GlibFWInterface) cw
->>>>>>> origin/Dev
 /boxwidth boxwidth marginwidth 2 mul add def
 /xspacing boxwidth distx add def
 /yspacing boxheight disty add def
@@ -205,28 +187,13 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
-<<<<<<< HEAD
- (Ph2_HwInterface::RegManager) 0.500000 1.000000 box
- (Ph2_HwInterface::CbcInterface) 0.000000 0.000000 box
- (Ph2_HwInterface::GlibInterface) 1.000000 0.000000 box
-=======
  (Ph2_HwInterface::RegManager) 0.000000 2.000000 box
  (Ph2_HwInterface::BeBoardFWInterface) 0.000000 1.000000 box
  (Ph2_HwInterface::GlibFWInterface) 0.000000 0.000000 box
->>>>>>> origin/Dev
 
 % ----- relations -----
 
 solid
-<<<<<<< HEAD
-1 0.500000 0.250000 out
-solid
-0.000000 1.000000 1.000000 conn
-solid
-0 0.000000 0.750000 in
-solid
-0 1.000000 0.750000 in
-=======
 1 0.000000 1.250000 out
 solid
 0 0.000000 1.750000 in
@@ -234,4 +201,3 @@ solid
 1 0.000000 0.250000 out
 solid
 0 0.000000 0.750000 in
->>>>>>> origin/Dev

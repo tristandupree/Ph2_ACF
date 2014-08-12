@@ -1,12 +1,8 @@
 var searchData=
 [
-<<<<<<< HEAD
-  ['_7ebeboard',['~BeBoard',['../class_ph2___hw_description_1_1_be_board.html#a8ab3ac3c6f3aac002c33ef458779845e',1,'Ph2_HwDescription::BeBoard']]],
-=======
   ['_7ebeboard',['~BeBoard',['../class_ph2___hw_description_1_1_be_board.html#a9e763718213e7106b7a6ba1ccb5d23e2',1,'Ph2_HwDescription::BeBoard']]],
   ['_7ebeboardfwinterface',['~BeBoardFWInterface',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a22077ee1db6eb5ae149165bff88b5fa0',1,'Ph2_HwInterface::BeBoardFWInterface']]],
   ['_7ebeboardinterface',['~BeBoardInterface',['../class_ph2___hw_interface_1_1_be_board_interface.html#ad67b2d931b904565cf6e5881fa0d140e',1,'Ph2_HwInterface::BeBoardInterface']]],
->>>>>>> origin/Dev
   ['_7ecbc',['~Cbc',['../class_ph2___hw_description_1_1_cbc.html#a4e641d292073978e6e1b34fa91c13067',1,'Ph2_HwDescription::Cbc']]],
   ['_7ecbcinterface',['~CbcInterface',['../class_ph2___hw_interface_1_1_cbc_interface.html#a1f0ab7d7cf7783a0fe275e8e1d7e5a49',1,'Ph2_HwInterface::CbcInterface']]],
   ['_7edata',['~Data',['../class_ph2___hw_interface_1_1_data.html#a889228098e5c0b4eb5d06ad7850cdd7e',1,'Ph2_HwInterface::Data']]],
