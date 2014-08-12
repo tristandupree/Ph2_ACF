@@ -123,7 +123,7 @@ On the go...
 __Future Improvements__
 
 - Make a System Manager class that is wrapping the new structure
-- Calibration software
+- System Controller class
 
 
 Support, Suggestions ?
