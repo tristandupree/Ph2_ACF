@@ -162,15 +162,21 @@ namespace Ph2_HwDescription{
 			file<< "Page\tAddr\tDefval\tValue" << std::endl;
 		file<<"*--------------------------------------------------------------------------------"<<std::endl;
 
-			CbcRegMap::iterator i;
-			for (i=fRegMap.begin();i!=fRegMap.end();++i)
+			std::set<CbcRegPair,RegItemComparer> fSetRegItem;
+
+			CbcRegMap::iterator k;
+			for (k=fRegMap.begin();k!=fRegMap.end();++k)
+			{
+				fSetRegItem.insert(std::make_pair(k->first,k->second));
+			}
+
+			std::set<CbcRegPair,RegItemComparer>::iterator i;
+			for (i=fSetRegItem.begin();i!=fSetRegItem.end();++i)
 			{
 
 			file<< i->first;
 			for (int j=0;j<48;j++) {file<<" ";}
 			file.seekp(-i->first.size(),std::ios_base::cur);
-
-			std::string fpage_str;
 
 
                 	file<<"0x" << std::setfill ('0') << std::setw (2) << std::hex<< uint32_t(i->second.fPage) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fAddress) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fDefValue) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fValue) <<std::endl;
@@ -183,6 +189,8 @@ namespace Ph2_HwDescription{
 	}
 
 
+
+
 	bool CbcComparer::operator() (const Cbc& cbc1,const Cbc& cbc2)
 	{
 		if (cbc1.fShelveId != cbc2.fShelveId) return cbc1.fShelveId < cbc2.fShelveId;
@@ -190,6 +198,14 @@ namespace Ph2_HwDescription{
 		else if(cbc1.fFMCId != cbc2.fFMCId) return cbc1.fFMCId < cbc2.fFMCId;
 		else if(cbc1.fFeId != cbc2.fFeId) return cbc1.fFeId < cbc2.fFeId;
 		else return cbc1.fCbcId < cbc2.fCbcId ;
+	}
+
+
+	bool RegItemComparer::operator() (CbcRegPair pRegItem1, CbcRegPair pRegItem2)
+	{
+		if (pRegItem1.second.fPage != pRegItem2.second.fPage) 
+			return pRegItem1.second.fPage < pRegItem2.second.fPage;
+		else return pRegItem1.second.fAddress < pRegItem2.second.fAddress;
 	}
 
 }

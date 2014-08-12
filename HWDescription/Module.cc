@@ -17,7 +17,7 @@ namespace Ph2_HwDescription{
 	// Default C'tor
 	Module::Module():FrontEndDescription(){fModuleId=0;}
 
-	Module::Module( FrontEndDescription& pFeDesc):FrontEndDescription(pFeDesc){fModuleId=0;
+	Module::Module( FrontEndDescription& pFeDesc, uint8_t pModuleId):FrontEndDescription(pFeDesc){fModuleId=pModuleId;
 	}
 
 	Module::Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId ):FrontEndDescription( pShelveId, pBeId, pFMCId,pFeId ){fModuleId=pModuleId;

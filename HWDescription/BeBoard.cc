@@ -27,24 +27,24 @@ namespace Ph2_HwDescription{
 		loadConfigFile( DEFAULT_GLIB_FILE );
 	}
 
-	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename ):
+	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename ):
 		fBeId( pBeId ),
 		fShelveId( pShelveId )
 	{
 
-		fModuleVector.reserve(pNFe);
+		// fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
 
 	}
 
-	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe,/* uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData, std::string filename):
+	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, /*uint8_t pNFe, uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData, std::string filename):
 		fBeId( pBeId ),
 		fShelveId( pShelveId )
 	{
 
 		//FMCConfiguration are not yet in the registers of the firmware
 		//fRegMap["FMCConfiguration"]=pFMCConfiguration;
-		fModuleVector.reserve(pNFe);
+		// fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
 		fRegMap[EXT_TRG]=pExtTrg;
 		fRegMap[FAKE_DATA]=pFakeData;

@@ -39,10 +39,10 @@ namespace Ph2_HwDescription{
 		// Default C'tor
 		BeBoard();
 		// C'tor for a standard BeBoard
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename = DEFAULT_GLIB_FILE );
+		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename = DEFAULT_GLIB_FILE );
 		// Parameters that define system for us
 		//Modify with new param
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe,/* uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData = false , std::string filename = DEFAULT_GLIB_FILE );
+		BeBoard( uint8_t pShelveId, uint8_t pBeId, /*uint8_t pNFe, uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData = false , std::string filename = DEFAULT_GLIB_FILE );
 		// D'tor
 		~BeBoard(){};
 

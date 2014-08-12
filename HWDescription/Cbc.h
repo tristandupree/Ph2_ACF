@@ -19,6 +19,8 @@
 #include <map>
 #include <string>
 #include <boost/cstdint.hpp>
+#include <utility>
+#include <set>
 
 // Cbc2 Chip HW Description Class
 
@@ -29,6 +31,7 @@
 namespace Ph2_HwDescription{
 
 	typedef std::map < std::string, CbcRegItem > CbcRegMap;
+	typedef std::pair <std::string, CbcRegItem> CbcRegPair;
 
 	/*!
 	* \class Cbc
@@ -92,6 +95,7 @@ namespace Ph2_HwDescription{
 		*/
 		CbcRegMap getRegMap() {return fRegMap;};
 
+
 	protected:
 
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
@@ -112,6 +116,12 @@ namespace Ph2_HwDescription{
 
 		bool operator() (const Cbc& cbc1,const Cbc& cbc2);
 
+		};
+
+	struct RegItemComparer{
+
+		bool operator() (CbcRegPair pRegItem1, CbcRegPair pRegItem2);
+	
 		};
 
 }
