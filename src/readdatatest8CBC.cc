@@ -68,27 +68,34 @@ int main(int argc, char* argv[])
 
     cBeBoardInterface.ConfigureBoard(cGlib_00);
 
+    TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 1200, 700);
+    cCanvas->Divide(4,2);
+
+    std::vector<TH1F*> cHistVec;
+    for(uint8_t m=0; m<cGlib_00->getModule(0)->getNCbc(); m++)
+    {
+        cHistVec.push_back(new TH1F(Form("Histo_Hits_CBC%d",m), Form("Occupancy_CBC%d",m), 255, -0.5, 254.5));
+    }
+
     for(uint32_t i=0; i<8; i++)
         cCbcInterface.ConfigureCbc(cGlib_00->getModule(0)->getCbc(i));
+
+    uint32_t cNthAcq = 0;
 
     for(uint32_t p=0; p<0xFF; p+=10)
     {
         for(uint32_t i=0; i<8; i++)
             cCbcInterface.WriteCbcReg(cGlib_00->getModule(0)->getCbc(i),"VCth",p);
 
-        uint32_t cNthAcq = 0;
         uint32_t cNevents = 500;
         uint32_t cN = 0;
 
-        TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 1200, 700);
-        cCanvas->Divide(4,2);
-
-        std::vector<TH1F*> cHistVec;
         gStyle->SetOptStat(kFALSE);
 
         for(uint8_t m=0; m<cGlib_00->getModule(0)->getNCbc(); m++)
         {
-            cHistVec.push_back(new TH1F(Form("Histo_Hits_CBC%d",m), Form("Occupancy_CBC%d",m), 255, -0.5, 254.5));
+            delete cHistVec[m];
+            cHistVec[m] = new TH1F(Form("Histo_Hits_CBC%d",m), Form("Occupancy_CBC%d",m), 255, -0.5, 254.5);
         }
 
         usleep( 100 );
@@ -101,8 +108,6 @@ int main(int argc, char* argv[])
             cBeBoardInterface.Start(cGlib_00);
             cBeBoardInterface.ReadData(cGlib_00, cNthAcq, true );
             cBeBoardInterface.Stop(cGlib_00, cNthAcq );
-
-            bool cFillDataStream( false );
 
             const Event *cEvent = cBeBoardFWMap[0]->fData->GetNextEvent();
 
@@ -121,7 +126,6 @@ int main(int argc, char* argv[])
                     for(uint8_t m=0; m<cGlib_00->getModule(i)->getNCbc(); m++)
                     {
                         uint32_t cNHits = 0;
-
                         std::vector<bool> cDataBitVector = cEvent->DataBitVector(i,m);
 
                         for(uint32_t n=0; n<cDataBitVector.size(); n++)
@@ -129,17 +133,13 @@ int main(int argc, char* argv[])
                             if(cDataBitVector[n])
                             {
                                 cNHits++;
-                                cHistVec[m]->Fill(n);
                             }
                         }
+                        cHistVec[m]->Fill(cNHits);
                     }
                 }
 
-                //cCanvas->Print(((boost::format("output/Histogram_Event_%d.pdf") %(cN)).str()).c_str());
-
                 cEvent = cBeBoardFWMap[0]->fData->GetNextEvent();
-
-                cFillDataStream = false;
                 cN++;
             }
 
@@ -156,6 +156,8 @@ int main(int argc, char* argv[])
                 cBeBoardFWMap[0]->fStop = true;
                 break;
             }
+
+            cNthAcq++;
 
         }
 
