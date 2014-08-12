@@ -67,8 +67,8 @@ int main()
 	std::cout << "\nThe value for EXT_TRG is " << dump1 << std::endl;
 	std::cout << "\nThe value for FAKE_DATA is " << dump2 << std::endl;
 
-    cGlib_00.getModule(0)->getCbc(0)->saveRegMap("/afs/cern.ch/user/n/npierre/dev/output/output_00.txt");
-	cGlib_00.getModule(0)->getCbc(1)->saveRegMap("/afs/cern.ch/user/n/npierre/dev/output/output_01.txt");
+    cGlib_00.getModule(0)->getCbc(0)->saveRegMap("/output/output_00.txt");
+	cGlib_00.getModule(0)->getCbc(1)->saveRegMap("/output/output_01.txt");
 
 	std::cout << "\nHurray, it works !!" << std::endl;
 
