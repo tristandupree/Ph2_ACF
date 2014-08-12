@@ -20,12 +20,13 @@
 #include <TH1F.h>
 #include <TCanvas.h>
 #include <TStyle.h>
+#include <TApplication.h>
 #include <TROOT.h>
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 
-int main()
+int main(int argc, char* argv[])
 {
     int i;
 
@@ -41,6 +42,8 @@ int main()
     bool cBreakTrigger;
     int cMissedModule = 0;
     int cMissedCbc = 0;
+
+    TApplication cApp("Root Application", &argc, argv);
 
     BeBoardFWMap cBeBoardFWMap;
     std::vector<BeBoard*> cBeBoardVec;
@@ -1254,14 +1257,20 @@ int main()
                                 std::ofstream cfile( "output/TestData.dat", std::ios::out | std::ios::trunc );
 
                                 uint32_t cNthAcq = 0;
-                                uint32_t cNevents = 100;
+                                uint32_t cNevents = 500;
                                 uint32_t cN = 0;
 
                                 TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 600, 400);
-                                TCanvas *cCanvasMean = new TCanvas("Data Acq Mean", "Different hits counters", 600, 400);
-                                TH1F *cHist = NULL;
-                                TH1F *cHistMean = new TH1F("Histo_Hits Mean", "Hit Counter", uint32_t(cBeBoardVec[j]->getModule(0)->getNCbc()), 0., uint32_t(cBeBoardVec[j]->getModule(0)->getNCbc()));
+                                //cCanvas->Divide(uint32_t(cBeBoardVec[j]->getModule(0)->getNCbc()),1);
+                                cCanvas->Divide(2,1);
+
+                                std::vector<TH1F*> cHistVec;
                                 gStyle->SetOptStat(kFALSE);
+
+                                for(uint8_t m=0; m<cBeBoardVec[j]->getModule(0)->getNCbc(); m++)
+                                {
+                                    cHistVec.push_back(new TH1F(Form("Histo_Hits_CBC%d",m), Form("Occupancy_CBC%d",m), 255, -0.5, 254.5));
+                                }
 
                                 usleep( 100 );
 
@@ -1287,19 +1296,11 @@ int main()
                                             break;
                                         }
 
-                                        cCanvas->Divide(uint32_t(cBeBoardVec[j]->getNFe()),1);
-
                                         for(uint8_t i=0; i<cBeBoardVec[j]->getNFe(); i++)
                                         {
+
                                             cfile << "Event N°" << cN+1 << std::endl;
                                             cfile << "FE " << uint32_t(i) << " :" << std::endl;
-
-                                            if(cHist != NULL)
-                                                delete cHist;
-
-                                            cHist = new TH1F("Histo_Hits", "Hit Counter", uint32_t(cBeBoardVec[j]->getModule(i)->getNCbc()), 0., uint32_t(cBeBoardVec[j]->getModule(i)->getNCbc()));
-
-                                            cCanvas->cd(uint32_t(i));
 
                                             for(uint8_t m=0; m<cBeBoardVec[j]->getModule(i)->getNCbc(); m++)
                                             {
@@ -1309,31 +1310,36 @@ int main()
 
                                                 cfile << "CBC " << uint32_t(j) << " : " << cEvent->DataBitString(i,m) << std::endl;
 
-                                                for(uint32_t i=0; i<cDataBitVector.size(); i++)
+                                                for(uint32_t n=0; n<cDataBitVector.size(); n++)
                                                 {
-                                                    if(cDataBitVector[i])
+                                                    if(cDataBitVector[n])
                                                     {
                                                         cNHits++;
+                                                        cHistVec[m]->Fill(n);
                                                     }
                                                 }
 
-                                                cHist->Fill(uint32_t(m),cNHits);
-                                                cHistMean->Fill(uint32_t(m),cNHits/cNevents);
                                             }
-
-                                            cHist->Draw();
-                                            cCanvas->Update();
 
                                             cfile << "\n";
                                         }
 
-                                        cCanvas->Print(((boost::format("output/Histogram_Event_%d.pdf") %(cN)).str()).c_str());
+
+                                        //cCanvas->Print(((boost::format("output/Histogram_Event_%d.pdf") %(cN)).str()).c_str());
 
                                         cEvent = cBeBoardFWMap[cBoardId]->fData->GetNextEvent();
 
                                         cFillDataStream = false;
                                         cN++;
                                     }
+
+                                    for(uint8_t m=0; m<cHistVec.size(); m++)
+                                    {
+                                        cCanvas->cd(uint32_t(m));
+                                        cHistVec[m]->Draw();
+                                    }
+
+                                    cCanvas->Update();
 
                                     if( cN == cNevents )
                                     {
@@ -1343,14 +1349,9 @@ int main()
 
                                 }
 
-                                cHistMean->Draw();
-                                cCanvasMean->Update();
                                 cCanvas->Print("output/Histogram_Mean.pdf");
 
-                                delete cHist;
-                                delete cHistMean;
-                                delete cCanvas;
-                                delete cCanvasMean;
+                                //delete cCanvas;
 
                                 cfile.close();
 
@@ -1644,6 +1645,9 @@ int main()
             }
         }
     }
+
+    //Root cApp
+    cApp.Run();
 
     std::cout << "\n\nEnd of the MCP program...\n\n" << std::endl;
 

@@ -169,6 +169,49 @@ namespace Ph2_HwInterface
 
 		cVecReg.clear();
 
+		/*
+		cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+
+		WriteStackReg(cVecReg);
+
+		cVecReg.clear();
+
+		boost::this_thread::sleep(cWait);
+		WriteReg(CBC_HARD_RESET,0);
+		boost::this_thread::sleep(cWait);
+		WriteReg(CBC_HARD_RESET,0);
+
+		cPairReg.first = CBC_TEST_PULSE_VALID; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = DELAY_AF_FAST_RESET; cPairReg.second = 30000;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = DELAY_AF_L1A; cPairReg.second = 30000;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = DELAY_AF_TEST_PULSE; cPairReg.second = 30000;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = RQ; cPairReg.second = 1;
+		cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = ACQ_MODE; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+
+		WriteStackReg(cVecReg);
+
+		cVecReg.clear();
+		*/
+
     }
 
 	void GlibFWInterface::Stop(uint32_t pNthAcq)
@@ -250,7 +293,8 @@ namespace Ph2_HwInterface
 
 		uhal::ValWord<uint32_t> cVal;
 		uint32_t cNPackets= EVENT_NUMBER+1;
-		uint32_t cBlockSize = cNPackets * PACKET_SIZE;
+
+		uint32_t cBlockSize = cNPackets * (pBoard->getModule(0)->getNCbc()* 2 * 9 + 6);
 
 		defineEventSize(pBoard->getModule(0)->getNCbc());
 		fData->Initialise( EVENT_NUMBER, *pBoard );

@@ -28,12 +28,22 @@ namespace Ph2_HwInterface
 	Event::Event(uint32_t pNbCbc)
 	{
 		if(pNbCbc == 2)
+		{
 			fEventSize = EVENT_SIZE_32_2CBC;
+			fFeNChar = FE_NCHAR_2CBC;
+			fOffsetTDC = OFFSET_TDC_2CBC;
+		}
 		else if(pNbCbc == 8)
+		{
 			fEventSize = EVENT_SIZE_32_8CBC;
+			fFeNChar = FE_NCHAR_8CBC;
+			fOffsetTDC = OFFSET_TDC_8CBC;
+		}
 		else
 		{
 			fEventSize = pNbCbc*2*9+6;
+			fFeNChar = pNbCbc*CBC_NCHAR;
+			fOffsetTDC = 5*32+9*2*pNbCbc*32;
 		}
 	}
 
@@ -41,14 +51,24 @@ namespace Ph2_HwInterface
 	Event::Event( BeBoard& pBoard, uint32_t pNbCbc )
 	{
 		if(pNbCbc == 2)
+		{
 			fEventSize = EVENT_SIZE_32_2CBC;
+			fFeNChar = FE_NCHAR_2CBC;
+			fOffsetTDC = OFFSET_TDC_2CBC;
+		}
 		else if(pNbCbc == 8)
+		{
 			fEventSize = EVENT_SIZE_32_8CBC;
+			fFeNChar = FE_NCHAR_8CBC;
+			fOffsetTDC = OFFSET_TDC_8CBC;
+		}
 		else
 		{
-			std::cout << "ERROR !\n Non recognized value : Event size put to EVENT_SIZE_32_2CBC" << std::endl;
-			fEventSize = EVENT_SIZE_32_2CBC;
+			fEventSize = pNbCbc*2*9+6;
+			fFeNChar = pNbCbc*CBC_NCHAR;
+			fOffsetTDC = 5*32+9*4*pNbCbc;
 		}
+		
 		AddBoard(pBoard);
 	}
 
@@ -108,7 +128,7 @@ namespace Ph2_HwInterface
         swap_byte_order( &pEvent[4*vsize], &swapped, vsize );
 		fEventCountCBC = swapped & 0xFFFFFF ;
 
-        swap_byte_order( &pEvent[OFFSET_TDC], &swapped, vsize );
+        swap_byte_order( &pEvent[fOffsetTDC], &swapped, vsize );
 		fTDC = swapped & 0xFFFFFF ;
 
 
@@ -119,7 +139,7 @@ namespace Ph2_HwInterface
 			for(FeEventMap::iterator cJt = cIt->second.begin(); cJt != cIt->second.end(); cJt++ )
 			{
 				uint8_t CbcId = uint8_t(cJt->first);
-				cJt->second = &pEvent[OFFSET_FE_EVENT + FeId * FE_NCHAR + CbcId * CBC_NCHAR];
+				cJt->second = &pEvent[OFFSET_FE_EVENT + FeId * fFeNChar + CbcId * CBC_NCHAR];
 			}
 		}
 

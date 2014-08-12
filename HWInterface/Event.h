@@ -51,6 +51,8 @@ namespace Ph2_HwInterface
 
 		public:
 			uint32_t fEventSize; /*!< Size of an Event */
+			uint32_t fFeNChar; /*!< Size of a Fe Event */
+			uint32_t fOffsetTDC; /*!< Offset of TDC */
 
         public:
         	/*!
