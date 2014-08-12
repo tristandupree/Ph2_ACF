@@ -10,35 +10,27 @@ hardcoded into DAQ systems software
 - A C++ object-based library describing the system components (CBCs,
 Hybrids, Boards) and their properties(values, status)
 
-- The MCP test program that is the wrapping the previous two
-
-<<<<<<< HEAD
+- The MCP test program which is the wrapping the previous two.
 
 Different versions for different setups
 ---------------------------------------
-=======
-- **This branch contains the development of the new structure for the HWInterface**
->>>>>>> origin/Dev
 
 On this GitHub, you can find different version of the software :
-- An agnostic (to the number of CBCs) version on the Master branch
+- An agnostic (to the number of CBCs) version with the new structure in the Master branch
 - A 2CBC version on the 2CBC branch
 - A 8CBC version on the 8CBC branch
-- An agnostic (to the number of CBCs) version with the new structure still in development in the Dev branch
+- An in-progress version in the dev branch
 <br>
 <br>
 __What are the differences between the 2CBC/8CBC versions ?__
 
-<<<<<<< HEAD
 The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
 Also, some functions are present in 8CBC and not in 2CBC due to the fact that the firmware of the 8CBC is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)
 
 
-=======
->>>>>>> origin/Dev
 The Test Software itself : the MCP Test Interface
 -------------------------------------------------
-  
+
 You'll find an install step by step and a How To.
 <br>
 <br>
@@ -62,11 +54,15 @@ Here are the step to make the program functional
    file://$(BUILD)/settings/adress_table.xml (where $(BUILD) is the path to the
    root of the GitHub repo you recovered)
 
-4. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
+4. Create a /lib and /bin directories in the root of the repo.
 
-5. Launch testpgrm command if you want to test if everything is working good
+5. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
 
-6. Launch mcp to play with the Test Interface
+6. Launch testpgrm command if you want to test if everything is working good.
+
+7. You can test the data acquisition by lauching datatest2cbc or datatest8cbc.
+
+8. Launch mcp to play with the Test Interface
 <br>
 <br>
 __What can you do with the software ?__
@@ -109,34 +105,25 @@ locally to benefit from them.
 
 Warning ! : be careful with options choice in the program menus, some mistypes can leed
 to unexpected hazards :-(.
-  
-  
+
+
 On the go...
 ------------
-  
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Last Updates__
 
 - 09/07/14 : Added threading for stack writing registers
 - 10/07/14 : Read Data from acquisition in a rubbish format
 - ~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~
 - ~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~
-<<<<<<< HEAD
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
-- 6/08/14 : Working agnostic version on Master
-=======
-- 06/08/14 : Development at ~90%
->>>>>>> origin/Dev
+- 12/08/14 : Working agnostic version of the new structure on Master
 <br>
 <br>
 __Future Improvements__
 
-<<<<<<< HEAD
-- Finish the implementation of the new structure
 - Make a System Manager class that is wrapping the new structure
-=======
-- System Manager
 - Calibration software
->>>>>>> origin/Dev
 
 
 Support, Suggestions ?
