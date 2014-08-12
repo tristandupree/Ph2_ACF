@@ -5,7 +5,7 @@
     Programmer :                  Nicolas PIERRE
     Version :                     1.3
     Date of creation :            06/06/14
-    Support :                     mail to : nicolas.pierre@cern.ch
+    Support :                     mail to : nico.pierre@icloud.com
 
 */
 #include <uhal/uhal.hpp>
@@ -19,7 +19,7 @@
 namespace Ph2_HwInterface
 {
 
-    RegManager::RegManager(const char *puHalConfigFileName):
+    RegManager::RegManager(const char *puHalConfigFileName, uint32_t pBoardId):
         fThread([=]{StackWriteTimeOut();}),
         fDeactiveThread(false)
     {
@@ -33,10 +33,7 @@ namespace Ph2_HwInterface
 
         uhal::ConnectionManager cm( fUHalConfigFileName ); // Get connection
 
-        for(int i=0;i<1;i++)
-        {
-            fBoardMap.insert(std::pair<uint8_t,uhal::HwInterface*>(i,new uhal::HwInterface(cm.getDevice( boost::str( boost::format("board%1%") % i )))));
-        }
+        fBoard = new uhal::HwInterface(cm.getDevice( boost::str( boost::format("board%1%") % pBoardId )));
 
         fThread.detach();
 
@@ -46,11 +43,7 @@ namespace Ph2_HwInterface
     RegManager::~RegManager()
     {
         fDeactiveThread = true;
-
-        for(std::map<uint8_t,uhal::HwInterface*>::iterator cIt = fBoardMap.begin(); cIt != fBoardMap.end(); cIt++)
-        {
-            delete cIt->second;
-        }
+        delete fBoard;
     }
 
 
@@ -231,24 +224,24 @@ namespace Ph2_HwInterface
 
     void RegManager::StackWriteTimeOut()
     {
+        uint32_t i=0;
+
         while(!fDeactiveThread)
         {
             std::this_thread::sleep_for(std::chrono::seconds(TIME_OUT));
             //std::cout << "Ping ! \nThread ID : " << std::this_thread::get_id() << "\n" << std::endl;
-            if(fStackReg.size() != 0)
+
+            if(fStackReg.size() != 0 && i==1)
             {
                 WriteStackReg(fStackReg);
                 fStackReg.clear();
             }
+            else if(i==0)
+            {
+                i=1;
+            }
+
         }
-    }
-
-
-    void RegManager::ChooseBoard(uint8_t pBoardId)
-    {
-      fBoardMutex.lock();
-      fBoard = fBoardMap[pBoardId];
-      fBoardMutex.unlock();
     }
 
 }

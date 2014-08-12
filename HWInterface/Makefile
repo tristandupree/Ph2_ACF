@@ -1,11 +1,11 @@
-Objs                    = RegManager.o GLIBInterface.o CbcInterface.o Exception.o Utilities.o Event.o Data.o
+Objs                    = RegManager.o BeBoardFWInterface.o GlibFWInterface.o CbcInterface.o BeBoardInterface.o Exception.o Utilities.o Event.o Data.o
 CC              = gcc
 CXX             = g++
 CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags --evelibs` -Wcpp
 #DevFlags                   = -D__CBCDAQ_DEV__
 DevFlags		=
 
-IncludeDirs     =  /opt/cactus/include /opt/xdaq/include ../
+IncludeDirs     =  /opt/cactus/include ../
 
 IncludePaths            = $(IncludeDirs:%=-I%)
 

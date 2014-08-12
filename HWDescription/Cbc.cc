@@ -43,18 +43,6 @@ namespace Ph2_HwDescription{
 	}
 
 
-	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId,uint8_t pTriggerLatency,uint8_t pVcth ):FrontEndDescription(pFeDesc)
-	{
-		fCbcId=pCbcId;
-
-		loadfRegMap(DEFAULT_FILE);
-
-		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
-		fRegMap["Vcth"].fValue=pVcth;
-
-	}
-
-
 	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId ):FrontEndDescription(pFeDesc)
 	{
 		fCbcId=pCbcId;
@@ -69,17 +57,6 @@ namespace Ph2_HwDescription{
 
 		fCbcId=pCbcId;
 		loadfRegMap(filename);
-	}
-
-
-	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, uint8_t pTriggerLatency,uint8_t pVcth ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
-	{
-		fCbcId=pCbcId;
-
-		loadfRegMap(DEFAULT_FILE);
-
-		fRegMap["TriggerLatency"].fValue=pTriggerLatency;
-		fRegMap["Vcth"].fValue=pVcth;
 	}
 
 
@@ -140,53 +117,6 @@ namespace Ph2_HwDescription{
 			std::cerr<< "The CBC Settings File " << filename << " could not be opened!" <<std::endl;
 	}
 
-	uint8_t Cbc::getTriggerLatency()
-	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find("TriggerLatency");
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have TriggerLatency"<<std::endl;
-		return 0;}
-		else
-		return i->second.fValue;
-	}
-
-	void Cbc::setTriggerLatency(uint8_t pTriggerLatency)
-	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find("TriggerLatency");
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have TriggerLatency"<<std::endl;}
-		else
-		{
-			i->second.fValue=pTriggerLatency;
-		}
-	}
-
-	uint8_t Cbc::getVcth()
-	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find("VCth");
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have Vcth"<<std::endl;
-		return 0;}
-		else
-		return i->second.fValue;
-	}
-
-	void Cbc::setVcth(uint8_t psetVcth)
-	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find("VCth");
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<fCbcId<<" doesn't have Vcth"<<std::endl;}
-		else
-		{
-			i->second.fValue=psetVcth;
-
-		}
-	}
-
 
 	uint8_t Cbc::getReg(std::string pReg)
 	{
@@ -218,7 +148,7 @@ namespace Ph2_HwDescription{
 
 	//Write RegValues in a file
 
-	void Cbc::writeRegValues( std::string filename )
+	void Cbc::saveRegMap( std::string filename )
 	{
 
 		std::ofstream file(filename.c_str(), std::ios::out | std::ios::trunc);
@@ -232,15 +162,21 @@ namespace Ph2_HwDescription{
 			file<< "Page\tAddr\tDefval\tValue" << std::endl;
 		file<<"*--------------------------------------------------------------------------------"<<std::endl;
 
-			CbcRegMap::iterator i;
-			for (i=fRegMap.begin();i!=fRegMap.end();++i)
+			std::set<CbcRegPair,RegItemComparer> fSetRegItem;
+
+			CbcRegMap::iterator k;
+			for (k=fRegMap.begin();k!=fRegMap.end();++k)
+			{
+				fSetRegItem.insert(std::make_pair(k->first,k->second));
+			}
+
+			std::set<CbcRegPair,RegItemComparer>::iterator i;
+			for (i=fSetRegItem.begin();i!=fSetRegItem.end();++i)
 			{
 
 			file<< i->first;
 			for (int j=0;j<48;j++) {file<<" ";}
 			file.seekp(-i->first.size(),std::ios_base::cur);
-
-			std::string fpage_str;
 
 
                 	file<<"0x" << std::setfill ('0') << std::setw (2) << std::hex<< uint32_t(i->second.fPage) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fAddress) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fDefValue) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fValue) <<std::endl;
@@ -253,6 +189,8 @@ namespace Ph2_HwDescription{
 	}
 
 
+
+
 	bool CbcComparer::operator() (const Cbc& cbc1,const Cbc& cbc2)
 	{
 		if (cbc1.fShelveId != cbc2.fShelveId) return cbc1.fShelveId < cbc2.fShelveId;
@@ -260,6 +198,14 @@ namespace Ph2_HwDescription{
 		else if(cbc1.fFMCId != cbc2.fFMCId) return cbc1.fFMCId < cbc2.fFMCId;
 		else if(cbc1.fFeId != cbc2.fFeId) return cbc1.fFeId < cbc2.fFeId;
 		else return cbc1.fCbcId < cbc2.fCbcId ;
+	}
+
+
+	bool RegItemComparer::operator() (CbcRegPair pRegItem1, CbcRegPair pRegItem2)
+	{
+		if (pRegItem1.second.fPage != pRegItem2.second.fPage) 
+			return pRegItem1.second.fPage < pRegItem2.second.fPage;
+		else return pRegItem1.second.fAddress < pRegItem2.second.fAddress;
 	}
 
 }

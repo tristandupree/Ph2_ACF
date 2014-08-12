@@ -3,51 +3,72 @@
 }
 
 
+Class representing the User Interface to the different boards.  
+
+
+
+
 {\ttfamily \#include $<$Be\-Board\-Interface.\-h$>$}
 
-Inheritance diagram for Ph2\-\_\-\-Hw\-Interface\-:\-:Be\-Board\-Interface\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_ph2___hw_interface_1_1_be_board_interface}
-\end{center}
-\end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a77f4c3f95a46b345ef3607f8f071333b}{Be\-Board\-Interface} (const char $\ast$pu\-Hal\-Config\-File\-Name)
-\begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\-Interface} class. \end{DoxyCompactList}\item 
-virtual \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_ad67b2d931b904565cf6e5881fa0d140e}{$\sim$\-Be\-Board\-Interface} ()
-\begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\-Interface} class. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a8bb4c51e30c7a969833f1fe83d005b00}{Configure\-Board} ()
-\begin{DoxyCompactList}\small\item\em Configure the Glib with its Config File. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_af0e7befff69ce3743b15ed1a99b13805}{Start} ()
+\hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a621bd484157724e03eeba5d52ce0b726}{Be\-Board\-Interface} (\hyperlink{namespace_ph2___hw_interface_ac35d341eb47fa7cbe4d28ccbc6ab4875}{Be\-Board\-F\-W\-Map} \&p\-Board\-Map)
+\begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_be_board_interface}{Be\-Board\-Interface} class. \end{DoxyCompactList}\item 
+\hyperlink{class_ph2___hw_interface_1_1_be_board_interface_ad67b2d931b904565cf6e5881fa0d140e}{$\sim$\-Be\-Board\-Interface} ()
+\begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_be_board_interface}{Be\-Board\-Interface} class. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_add92a5f30e058c3a384b8fde1015f31a}{Write\-Board\-Reg} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board, const std\-::string \&p\-Reg\-Node, const uint32\-\_\-t \&p\-Val)
+\begin{DoxyCompactList}\small\item\em Update both Board register and Config File. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a1b3096f0b052d6e9329fdb3b9a8299fb}{Read\-Board\-Reg} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board, const std\-::string \&p\-Reg\-Node)
+\begin{DoxyCompactList}\small\item\em Update Config File with the value in the Board register. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_ae423a6ec7526a0abd9ce3c9e0e3b1847}{get\-Board\-Info} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
+\begin{DoxyCompactList}\small\item\em Get the board infos. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a808eabcbd850dd651f9b3122f702079f}{Configure\-Board} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
+\begin{DoxyCompactList}\small\item\em Configure the board with its Config File. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_ac78a16fd4779f86c1224b09d30349e18}{Start} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
 \begin{DoxyCompactList}\small\item\em Start a D\-A\-Q. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a4a5023dc6400ea99f87b672135fb4ef9}{Stop} (uint32\-\_\-t p\-Nth\-Acq)
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a08d0374efe31d8078f8d31f58b709e6f}{Stop} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board, uint32\-\_\-t p\-Nth\-Acq)
 \begin{DoxyCompactList}\small\item\em Stop a D\-A\-Q. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a6b539fb5557c67c09aea751877829c7e}{Pause} ()
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a2b9692f018d7756fbfd720224da542da}{Pause} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
 \begin{DoxyCompactList}\small\item\em Pause a D\-A\-Q. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a2e038a82ddb613a85be7491f553bd31f}{Unpause} ()
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_ad21d2651379571889a7a2ebc55ee3223}{Resume} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
 \begin{DoxyCompactList}\small\item\em Unpause a D\-A\-Q. \end{DoxyCompactList}\item 
-virtual void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a7a11c86647d77898df75269b70bf32b6}{Read\-Data} (Glib \&p\-Glib, uint32\-\_\-t p\-Nth\-Acq, bool p\-Break\-Trigger)=0
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a3e5106285fa795c21cb9d20fbf753759}{Read\-Data} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board, uint32\-\_\-t p\-Nth\-Acq, bool p\-Break\-Trigger)
 \begin{DoxyCompactList}\small\item\em Read data from D\-A\-Q. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Additional Inherited Members}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_ac4f6fae0f69208acc832437359993665}{set\-Board} (uint8\-\_\-t p\-Board\-Id)
+\begin{DoxyCompactList}\small\item\em Set the board to talk with. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespace_ph2___hw_interface_ac35d341eb47fa7cbe4d28ccbc6ab4875}{Be\-Board\-F\-W\-Map} \& \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_aff153bb1272b1f145c919a9ba2cc572d}{f\-Board\-Map}
+\item 
+\hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface}{Be\-Board\-F\-W\-Interface} $\ast$ \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a763c8be5545618fb5ca0dfe01667f9ae}{f\-Board\-F\-W}
+\item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_af248fa0474f163d72349854f12d3ad61}{prev\-Board\-Id}
+\end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+Class representing the User Interface to the different boards. 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a77f4c3f95a46b345ef3607f8f071333b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Be\-Board\-Interface@{Be\-Board\-Interface}}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a621bd484157724e03eeba5d52ce0b726}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Be\-Board\-Interface@{Be\-Board\-Interface}}
 \index{Be\-Board\-Interface@{Be\-Board\-Interface}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
 \subsubsection[{Be\-Board\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Be\-Board\-Interface (
 \begin{DoxyParamCaption}
-\item[{const char $\ast$}]{pu\-Hal\-Config\-File\-Name}
+\item[{{\bf Be\-Board\-F\-W\-Map} \&}]{p\-Board\-Map}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_be_board_interface_a77f4c3f95a46b345ef3607f8f071333b}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_a621bd484157724e03eeba5d52ce0b726}
 
 
-Constructor of the \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\-Interface} class. 
+Constructor of the \hyperlink{class_ph2___hw_interface_1_1_be_board_interface}{Be\-Board\-Interface} class. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em pu\-Hal\-Config\-File\-Name} & \-: path of the u\-Hal Config File \\
+{\em Reference} & to the Board\-F\-W\-Interface \\
 \hline
 \end{DoxyParams}
 \hypertarget{class_ph2___hw_interface_1_1_be_board_interface_ad67b2d931b904565cf6e5881fa0d140e}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!$\sim$\-Be\-Board\-Interface@{$\sim$\-Be\-Board\-Interface}}
@@ -56,119 +77,205 @@ Constructor of the \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_ad67b2d931b904565cf6e5881fa0d140e}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_ad67b2d931b904565cf6e5881fa0d140e}
 
 
-Destructor of the \hyperlink{class_ph2___hw_interface_1_1_glib_interface}{Glib\-Interface} class. 
+Destructor of the \hyperlink{class_ph2___hw_interface_1_1_be_board_interface}{Be\-Board\-Interface} class. 
 
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a8bb4c51e30c7a969833f1fe83d005b00}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Configure\-Board@{Configure\-Board}}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a808eabcbd850dd651f9b3122f702079f}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Configure\-Board@{Configure\-Board}}
 \index{Configure\-Board@{Configure\-Board}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
 \subsubsection[{Configure\-Board}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Configure\-Board (
 \begin{DoxyParamCaption}
-{}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_a8bb4c51e30c7a969833f1fe83d005b00}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_a808eabcbd850dd651f9b3122f702079f}
 
 
-Configure the Glib with its Config File. 
+Configure the board with its Config File. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Glib} & \\
+{\em p\-Board} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a6b539fb5557c67c09aea751877829c7e}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Pause@{Pause}}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_ae423a6ec7526a0abd9ce3c9e0e3b1847}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!get\-Board\-Info@{get\-Board\-Info}}
+\index{get\-Board\-Info@{get\-Board\-Info}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{get\-Board\-Info}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::get\-Board\-Info (
+\begin{DoxyParamCaption}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_ae423a6ec7526a0abd9ce3c9e0e3b1847}
+
+
+Get the board infos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Board} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a2b9692f018d7756fbfd720224da542da}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Pause@{Pause}}
 \index{Pause@{Pause}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
 \subsubsection[{Pause}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Pause (
 \begin{DoxyParamCaption}
-{}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_a6b539fb5557c67c09aea751877829c7e}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_a2b9692f018d7756fbfd720224da542da}
 
 
 Pause a D\-A\-Q. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Glib} & \\
+{\em p\-Board} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a7a11c86647d77898df75269b70bf32b6}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Read\-Data@{Read\-Data}}
-\index{Read\-Data@{Read\-Data}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
-\subsubsection[{Read\-Data}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Read\-Data (
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a1b3096f0b052d6e9329fdb3b9a8299fb}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Read\-Board\-Reg@{Read\-Board\-Reg}}
+\index{Read\-Board\-Reg@{Read\-Board\-Reg}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{Read\-Board\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Read\-Board\-Reg (
 \begin{DoxyParamCaption}
-\item[{Glib \&}]{p\-Glib, }
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board, }
+\item[{const std\-::string \&}]{p\-Reg\-Node}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_a1b3096f0b052d6e9329fdb3b9a8299fb}
+
+
+Update Config File with the value in the Board register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Board} & \\
+\hline
+{\em p\-Reg\-Node} & \-: Node of the register to update \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a3e5106285fa795c21cb9d20fbf753759}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Read\-Data@{Read\-Data}}
+\index{Read\-Data@{Read\-Data}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{Read\-Data}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Read\-Data (
+\begin{DoxyParamCaption}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board, }
 \item[{uint32\-\_\-t}]{p\-Nth\-Acq, }
 \item[{bool}]{p\-Break\-Trigger}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_a7a11c86647d77898df75269b70bf32b6}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_a3e5106285fa795c21cb9d20fbf753759}
 
 
 Read data from D\-A\-Q. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Glib} & \\
+{\em p\-Board} & \\
 \hline
 {\em p\-Nth\-Acq} & \-: actual number of acquisitions \\
 \hline
 {\em p\-Break\-Trigger} & \-: if true, enable the break trigger \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_af0e7befff69ce3743b15ed1a99b13805}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Start@{Start}}
-\index{Start@{Start}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
-\subsubsection[{Start}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Start (
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_ad21d2651379571889a7a2ebc55ee3223}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Resume@{Resume}}
+\index{Resume@{Resume}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{Resume}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Resume (
 \begin{DoxyParamCaption}
-{}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_af0e7befff69ce3743b15ed1a99b13805}
-
-
-Start a D\-A\-Q. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Glib} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a4a5023dc6400ea99f87b672135fb4ef9}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Stop@{Stop}}
-\index{Stop@{Stop}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
-\subsubsection[{Stop}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Stop (
-\begin{DoxyParamCaption}
-\item[{uint32\-\_\-t}]{p\-Nth\-Acq}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_a4a5023dc6400ea99f87b672135fb4ef9}
-
-
-Stop a D\-A\-Q. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Glib} & \\
-\hline
-{\em p\-Nth\-Acq} & \-: actual number of acquisitions \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a2e038a82ddb613a85be7491f553bd31f}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Unpause@{Unpause}}
-\index{Unpause@{Unpause}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
-\subsubsection[{Unpause}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Unpause (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_a2e038a82ddb613a85be7491f553bd31f}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_ad21d2651379571889a7a2ebc55ee3223}
 
 
 Unpause a D\-A\-Q. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Glib} & \\
+{\em p\-Board} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_ac4f6fae0f69208acc832437359993665}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!set\-Board@{set\-Board}}
+\index{set\-Board@{set\-Board}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{set\-Board}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::set\-Board (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Board\-Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_ac4f6fae0f69208acc832437359993665}
+
+
+Set the board to talk with. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Board\-Id} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_ac78a16fd4779f86c1224b09d30349e18}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Start@{Start}}
+\index{Start@{Start}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{Start}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Start (
+\begin{DoxyParamCaption}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_ac78a16fd4779f86c1224b09d30349e18}
+
+
+Start a D\-A\-Q. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Board} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a08d0374efe31d8078f8d31f58b709e6f}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Stop@{Stop}}
+\index{Stop@{Stop}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{Stop}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Stop (
+\begin{DoxyParamCaption}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board, }
+\item[{uint32\-\_\-t}]{p\-Nth\-Acq}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_a08d0374efe31d8078f8d31f58b709e6f}
+
+
+Stop a D\-A\-Q. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Board} & \\
+\hline
+{\em p\-Nth\-Acq} & \-: actual number of acquisitions \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_add92a5f30e058c3a384b8fde1015f31a}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Write\-Board\-Reg@{Write\-Board\-Reg}}
+\index{Write\-Board\-Reg@{Write\-Board\-Reg}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{Write\-Board\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Write\-Board\-Reg (
+\begin{DoxyParamCaption}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board, }
+\item[{const std\-::string \&}]{p\-Reg\-Node, }
+\item[{const uint32\-\_\-t \&}]{p\-Val}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_add92a5f30e058c3a384b8fde1015f31a}
+
+
+Update both Board register and Config File. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Board} & \\
+\hline
+{\em p\-Reg\-Node} & \-: Node of the register to update \\
+\hline
+{\em p\-Val} & \-: Value to write \\
 \hline
 \end{DoxyParams}
 
+
+\subsection{Field Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a763c8be5545618fb5ca0dfe01667f9ae}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!f\-Board\-F\-W@{f\-Board\-F\-W}}
+\index{f\-Board\-F\-W@{f\-Board\-F\-W}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{f\-Board\-F\-W}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Be\-Board\-F\-W\-Interface}$\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::f\-Board\-F\-W\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_a763c8be5545618fb5ca0dfe01667f9ae}
+Board loaded \hypertarget{class_ph2___hw_interface_1_1_be_board_interface_aff153bb1272b1f145c919a9ba2cc572d}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!f\-Board\-Map@{f\-Board\-Map}}
+\index{f\-Board\-Map@{f\-Board\-Map}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{f\-Board\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Be\-Board\-F\-W\-Map}\& Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::f\-Board\-Map\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_aff153bb1272b1f145c919a9ba2cc572d}
+Map of Board connected \hypertarget{class_ph2___hw_interface_1_1_be_board_interface_af248fa0474f163d72349854f12d3ad61}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!prev\-Board\-Id@{prev\-Board\-Id}}
+\index{prev\-Board\-Id@{prev\-Board\-Id}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{prev\-Board\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::prev\-Board\-Id\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_be_board_interface_af248fa0474f163d72349854f12d3ad61}
+Id of the previous board 
 
 The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 

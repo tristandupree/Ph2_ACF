@@ -12,9 +12,13 @@ Hybrids, Boards) and their properties(values, status)
 
 - The MCP test program that is the wrapping the previous two
 
+<<<<<<< HEAD
 
 Different versions for different setups
 ---------------------------------------
+=======
+- **This branch contains the development of the new structure for the HWInterface**
+>>>>>>> origin/Dev
 
 On this GitHub, you can find different version of the software :
 - An agnostic (to the number of CBCs) version on the Master branch
@@ -25,10 +29,13 @@ On this GitHub, you can find different version of the software :
 <br>
 __What are the differences between the 2CBC/8CBC versions ?__
 
+<<<<<<< HEAD
 The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
 Also, some functions are present in 8CBC and not in 2CBC due to the fact that the firmware of the 8CBC is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)
 
 
+=======
+>>>>>>> origin/Dev
 The Test Software itself : the MCP Test Interface
 -------------------------------------------------
   
@@ -113,14 +120,23 @@ On the go...
 - 10/07/14 : Read Data from acquisition in a rubbish format
 - ~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~
 - ~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~
+<<<<<<< HEAD
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
 - 6/08/14 : Working agnostic version on Master
+=======
+- 06/08/14 : Development at ~90%
+>>>>>>> origin/Dev
 <br>
 <br>
 __Future Improvements__
 
+<<<<<<< HEAD
 - Finish the implementation of the new structure
 - Make a System Manager class that is wrapping the new structure
+=======
+- System Manager
+- Calibration software
+>>>>>>> origin/Dev
 
 
 Support, Suggestions ?

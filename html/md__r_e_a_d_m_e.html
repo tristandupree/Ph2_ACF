@@ -67,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -144,6 +144,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <ul>
 <li>09/07/14 : Added threading for stack writing registers</li>
 <li>10/07/14 : Read Data from acquisition in a rubbish format</li>
+<<<<<<< HEAD
 <li>~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~</li>
 <li>~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~</li>
 <li>30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch</li>
@@ -152,13 +153,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <b>Future Improvements</b></li>
 <li>Finish the implementation of the new structure</li>
 <li>Make a System Manager class that is wrapping the new structure</li>
+=======
+<li>25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC</li>
+</ul>
+<h2>Future Improvements </h2>
+<ul>
+<li>Implementation of generic BeBoard and BeBoardInterface Class which will help us dealing with multiple board type (Glib, FC7).</li>
+<li>Work on the Cbc class to make it recognize if the Cbc is from a Glib or a FC7.</li>
+<li>Implement the new Strasbourg firmware as soon as it comes out.</li>
+>>>>>>> origin/Dev
 </ul>
 <h2>Support, Suggestions ? </h2>
 <p>For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
+<<<<<<< HEAD
 Generated on Wed Aug 6 2014 22:02:27 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+=======
+Generated on Wed Aug 6 2014 21:03:54 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+>>>>>>> origin/Dev
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

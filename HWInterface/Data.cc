@@ -76,16 +76,16 @@ namespace Ph2_HwInterface
     {
 
         fNevents = pNevents;
-        fBufSize = ( fNevents + 1 ) * PACKET_SIZE * 4;
+        fBufSize = ( fNevents + 1 ) * fEvent.fEventSize * 4;
         if( fBuf )
             free( fBuf );
         fBuf = (char *) malloc( fBufSize );
 
         fEvent.Clear();
 
-    #ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
         std::cout << "Data::Initialise done." << std::endl;
-    #endif
+#endif
 
     }
 
@@ -94,7 +94,7 @@ namespace Ph2_HwInterface
     {
 
         fNevents = pNevents;
-        fBufSize = ( fNevents + 1 ) * PACKET_SIZE * 4;
+        fBufSize = ( fNevents + 1 ) * fEvent.fEventSize * 4;
         if( fBuf )
             free( fBuf );
         fBuf = (char *) malloc( fBufSize );
@@ -103,9 +103,9 @@ namespace Ph2_HwInterface
 
         fEvent.AddBoard(pBoard);
 
-    #ifdef __CBCDAQ_DEV__
+#ifdef __CBCDAQ_DEV__
         std::cout << "Data::Initialise done." << std::endl;
-    #endif
+#endif
 
     }
 

@@ -5,7 +5,7 @@
     \author                       Nicolas PIERRE
     \version                      0.3
     Date of creation :            06/06/14
-    Support :                     mail to : nicolas.pierre@cern.ch
+    Support :                     mail to : nico.pierre@icloud.com
 
 */
 #ifndef __REGMANAGER_H__
@@ -35,13 +35,12 @@ namespace Ph2_HwInterface
         protected:
             uhal::HwInterface *fBoard; /*!< Board in use*/
             const char *fUHalConfigFileName; /*!< path of the uHal Config File*/
-            std::map<uint8_t,uhal::HwInterface*> fBoardMap; /*!< Board Map with all known boards*/
             std::vector< std::pair<std::string,uint32_t> > fStackReg; /*!< Stack of registers*/
             std::thread fThread; /*!< Thread for timeout stack writing*/
             bool fDeactiveThread; /*!< Bool to terminate the thread in the destructor*/
             std::mutex fBoardMutex; /*!< Mutex to avoid conflict btw threads on shared resources*/
 
-        protected:
+        public:
             /*!
             * \brief Write a register
             * \param pRegNode : Node of the register to write
@@ -76,20 +75,10 @@ namespace Ph2_HwInterface
             */
             virtual uhal::ValVector<uint32_t> ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlocksize);
             /*!
-            * \brief Stack the commands, deliver when full or timeout
-            * \param
-            */
-            //virtual void StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend=false);
-            /*!
             * \brief Time Out for sending the register/value stack in the writting.
             * \brief It has only to be set in a detached thread from the one you're working on
             */
-            virtual void StackWriteTimeOut();
-            /*!
-            * \brief Choose the board we want to talk with
-            * \param pBoardId : Id of the Board to connect to
-            */
-            virtual void ChooseBoard(uint8_t pBoardId);
+            void StackWriteTimeOut();
 
         public:
             // Connection w uHal
@@ -97,12 +86,17 @@ namespace Ph2_HwInterface
             * \brief Constructor of the RegManager class
             * \param puHalConfigFileName : path of the uHal Config File
             */
-            RegManager(const char *puHalConfigFileName);
+            RegManager(const char *puHalConfigFileName, uint32_t pBoardId);
             /*!
             * \brief Destructor of the RegManager class
             */
             virtual ~RegManager();
-
+            /*!
+            * \brief Stack the commands, deliver when full or timeout
+            * \param pRegNode : Register to write
+            * \param pVal : Value to write
+            * \param pSend : Send the stack to write or nor (1/0)
+            */
             virtual void StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend=false);
 
     };
