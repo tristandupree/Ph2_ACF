@@ -30,17 +30,10 @@ int main(int argc, char* argv[])
 {
     int i;
 
-<<<<<<< HEAD
-    Glib cGlib;
-    Module cModule;
-    Cbc* cCbc;
-    uint32_t cModuleId, cCbcId, cShelveId, cBeId, cFMCId, cFeId, cNbCbc;
-=======
     BeBoard* cBeBoard;
     Module* cModule;
     Cbc* cCbc;
     uint32_t cBoardId, cModuleId, cCbcId, cShelveId, cBeId, cFMCId, cFeId, cNFe;
->>>>>>> origin/Dev
     std::string cFilePath;
     std::string cRegNode;
     std::string cValue;
@@ -50,11 +43,6 @@ int main(int argc, char* argv[])
     int cMissedModule = 0;
     int cMissedCbc = 0;
 
-<<<<<<< HEAD
-    GlibInterface* cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,0);
-    CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
-
-=======
     TApplication cApp("Root Application", &argc, argv);
 
     BeBoardFWMap cBeBoardFWMap;
@@ -64,7 +52,6 @@ int main(int argc, char* argv[])
     BeBoardInterface cBeBoardInterface(cBeBoardFWMap);
     CbcInterface cCbcInterface(cBeBoardFWMap);
 
->>>>>>> origin/Dev
     std::cout << "\n\n\n\n" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
@@ -192,13 +179,8 @@ int main(int argc, char* argv[])
                         std::cout << "*** Add Cbc ***" << std::endl;
                         std::cout << "1: Add Default Cbc" << std::endl;
                         std::cout << "2: Add Personalised Cbc" << std::endl;
-<<<<<<< HEAD
-                        std::cout << "3: Add a 2Cbc Structure" << std::endl;
-                        std::cout << "4: Add a 8Cbc Structure" << std::endl;
-=======
                         std::cout << "3: Add a 2Cbc Hybrid Structure" << std::endl;
                         std::cout << "4: Add a 8Cbc Hybrid Structure\n" << std::endl;
->>>>>>> origin/Dev
 
                         std::cin >> i;
 
@@ -215,16 +197,6 @@ int main(int argc, char* argv[])
 
                                     if(cBeBoardVec[j]->fBeId == cBoardId)
                                     {
-<<<<<<< HEAD
-                                        delete cGlibInterface;
-                                        cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
-                                        cGlibInterface->ConfigureGlib(cGlib);
-
-                                        cCbc = new Cbc(0,0,0,0,cCbcId,DEFAULT_FILE);
-                                        cGlib.getModule(cModuleId)->addCbc(*cCbc);
-                                        delete cCbc;
-                                        std::cout << "*** Cbc Added ***" << std::endl;
-=======
                                         std::cout << "--> Which ModuleId ?" << std::endl;
                                         std::cin >> cModuleId;
                                         if (cBeBoardVec[j]->getModule(cModuleId) == NULL)
@@ -253,7 +225,6 @@ int main(int argc, char* argv[])
                                                 mypause();
                                             }
                                         }
->>>>>>> origin/Dev
                                     }
                                     else if(j == cBeBoardVec.size())
                                     {
@@ -289,66 +260,24 @@ int main(int argc, char* argv[])
                                             std::cout << "--> Which CbcId ?" << std::endl;
                                             std::cin >> cCbcId;
 
-<<<<<<< HEAD
-                                            case 1:
-                                                {
-                                                    delete cGlibInterface;
-                                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
-                                                    cGlibInterface->ConfigureGlib(cGlib);
-
-                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC0HOLE);
-                                                    cGlib.getModule(cModuleId)->addCbc(cCbcPers);
-                                                    std::cout << "*** Cbc Added ***" << std::endl;
-                                                }
-                                            break;
-=======
                                             if(cBeBoardVec[j]->getModule(cModuleId)->getCbc(cCbcId) == NULL)
                                             {
->>>>>>> origin/Dev
 
                                                 std::cout << "--> Which ShelveId ?" << std::endl;
                                                 std::cout << "(Put 0 if you want it per default)" << std::endl;
                                                 std::cin >> cShelveId;
 
-<<<<<<< HEAD
-                                            case 2:
-                                                {
-                                                    delete cGlibInterface;
-                                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
-                                                    cGlibInterface->ConfigureGlib(cGlib);
-
-                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1);
-                                                    cGlib.getModule(cModuleId)->addCbc(cCbcPers);
-                                                    std::cout << "*** Cbc Added ***" << std::endl;
-                                                }
-                                            break;
-=======
                                                 std::cout << "--> Which BeId ?" << std::endl;
                                                 std::cout << "(Put 0 if you want it per default)" << std::endl;
                                                 std::cin >> cBeId;
->>>>>>> origin/Dev
 
                                                 std::cout << "--> Which FMCId ?" << std::endl;
                                                 std::cout << "(Put 0 if you want it per default)" << std::endl;
                                                 std::cin >> cFMCId;
 
-<<<<<<< HEAD
-                                            case 3:
-                                                {
-                                                    delete cGlibInterface;
-                                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
-                                                    cGlibInterface->ConfigureGlib(cGlib);
-
-                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,FE0CBC1HOLE);
-                                                    cGlib.getModule(cModuleId)->addCbc(cCbcPers);
-                                                    std::cout << "*** Cbc Added ***" << std::endl;
-                                                }
-                                            break;
-=======
                                                 std::cout << "--> Which FeId ?" << std::endl;
                                                 std::cout << "(Put 0 if you want it per default)" << std::endl;
                                                 std::cin >> cFeId;
->>>>>>> origin/Dev
 
                                                 std::cout << "--> Choose your Config File" << std::endl;
                                                 std::cout << "1: FE0CBC0HOLE" << std::endl;
@@ -359,22 +288,6 @@ int main(int argc, char* argv[])
 
                                                 switch(i)
                                                 {
-<<<<<<< HEAD
-                                                    std::cout << "--> Enter your File Path " << std::endl;
-                                                    std::cout << "(Absolute path please) " << std::endl;
-                                                    std::cin >> cFilePath;
-
-                                                    delete cGlibInterface;
-                                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,uint32_t(cGlib.getModule(cModuleId)->getNCbc()));
-                                                    cGlibInterface->ConfigureGlib(cGlib);
-
-                                                    Cbc cCbcPers(cShelveId,cBeId,cFMCId,cFeId,cCbcId,cFilePath);
-                                                    cGlib.getModule(cModuleId)->addCbc(cCbcPers);
-                                                    std::cout << "*** Cbc Added ***" << std::endl;
-                                                }
-                                            break;
-=======
->>>>>>> origin/Dev
 
                                                     case 1:
                                                         {
@@ -450,16 +363,8 @@ int main(int argc, char* argv[])
 
                                 for(uint32_t j=0; j<cBeBoardVec.size(); j++)
                                 {
-<<<<<<< HEAD
-                                    delete cGlibInterface;
-                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,2);
-                                    cGlibInterface->ConfigureGlib(cGlib);
-
-                                    for(uint8_t i=0; i<2; i++)
-=======
 
                                     if(cBeBoardVec[j]->fBeId == cBoardId)
->>>>>>> origin/Dev
                                     {
                                         std::cout << "--> Which ModuleId ?" << std::endl;
                                         std::cin >> cModuleId;
@@ -473,16 +378,6 @@ int main(int argc, char* argv[])
                                         }
                                         else
                                         {
-<<<<<<< HEAD
-                                            cCbc = new Cbc(0,0,0,0,i,(boost::format("settings/FE0CBC%dHole.txt") %(uint32_t(i))).str());
-                                            cGlib.getModule(cModuleId)->addCbc(*cCbc);
-                                            cCbcInterface.ConfigureCbc(cGlib.getModule(cModuleId)->getCbc(i));
-                                            delete cCbc;
-                                        }
-                                    }
-
-                                    std::cout << "*** 2Cbc Structure Added ***" << std::endl;
-=======
                                             for(uint8_t i=0; i<2; i++)
                                             {
                                                 if(cBeBoardVec[j]->getModule(cModuleId)->getCbc(i) == NULL)
@@ -503,7 +398,6 @@ int main(int argc, char* argv[])
                                         myflush( std::cin );
                                         mypause();
                                     }
->>>>>>> origin/Dev
                                 }
                             break;
 
@@ -516,31 +410,13 @@ int main(int argc, char* argv[])
 
                                 for(uint32_t j=0; j<cBeBoardVec.size(); j++)
                                 {
-<<<<<<< HEAD
-                                    delete cGlibInterface;
-                                    cGlibInterface = new GlibInterface(UHAL_CONNECTION_FILE,8);
-                                    cGlibInterface->ConfigureGlib(cGlib);
-
-                                    for(uint8_t i=0; i<8; i++)
-=======
 
                                     if(cBeBoardVec[j]->fBeId == cBoardId)
->>>>>>> origin/Dev
                                     {
                                         std::cout << "--> Which ModuleId ?" << std::endl;
                                         std::cin >> cModuleId;
                                         if (cBeBoardVec[j]->getModule(cModuleId) == NULL)
                                         {
-<<<<<<< HEAD
-                                            cCbc = new Cbc(0,0,0,0,i,(boost::format("settings/FE0CBC%d.txt") %(uint32_t(i))).str());
-                                            cGlib.getModule(cModuleId)->addCbc(*cCbc);
-                                            cCbcInterface.ConfigureCbc(cGlib.getModule(cModuleId)->getCbc(i));
-                                            delete cCbc;
-                                        }
-                                    }
-
-                                    std::cout << "*** 8Cbc Hybrid Structure Added ***" << std::endl;
-=======
                                             std::cout << "*** ERROR !!                                      ***" << std::endl;
                                             std::cout << "*** This module does not exist !                  ***" << std::endl;
                                             std::cout << "*** This is not the module you are looking for... ***" << std::endl;
@@ -569,7 +445,6 @@ int main(int argc, char* argv[])
                                         myflush( std::cin );
                                         mypause();
                                     }
->>>>>>> origin/Dev
                                 }
                             break;
 
@@ -729,11 +604,6 @@ int main(int argc, char* argv[])
                 {
 
                     case 1:
-<<<<<<< HEAD
-                        std::cout << "*** Configure Glib ***" << std::endl;
-                        cGlibInterface->ConfigureGlib(cGlib);
-                        std::cout << "*** Glib Configured ***" << std::endl;
-=======
                         std::cout << "*** Configure Board ***" << std::endl;
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
@@ -753,7 +623,6 @@ int main(int argc, char* argv[])
                                 mypause();
                             }
                         }
->>>>>>> origin/Dev
                     break;
 
 
@@ -939,10 +808,6 @@ int main(int argc, char* argv[])
 
                         for(uint32_t j=0; j<cBeBoardVec.size(); j++)
                         {
-<<<<<<< HEAD
-                            cGlibInterface->UpdateGlibWrite(cGlib,cRegNode,cValueHex);
-                            std::cout << "*** Updated ***" << std::endl;
-=======
 
                             if(cBeBoardVec[j]->fBeId == cBoardId)
                             {
@@ -970,19 +835,11 @@ int main(int argc, char* argv[])
                                 myflush( std::cin );
                                 mypause();
                             }
->>>>>>> origin/Dev
                         }
                     break;
 
 
                     case 2:
-<<<<<<< HEAD
-                        std::cout << "*** Update one way ***" << std::endl;
-                        std::cout << "--> Which Register ?" << std::endl;
-                        std::cin >> cRegNode;
-                        cGlibInterface->UpdateGlibRead(cGlib,cRegNode);
-                        std::cout << "*** Updated ***" << std::endl;
-=======
                         std::cout << "*** Update both ways ***" << std::endl;
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
@@ -1005,16 +862,11 @@ int main(int argc, char* argv[])
                                 mypause();
                             }
                         }
->>>>>>> origin/Dev
                     break;
 
 
                     case 3:
                         std::cout << "*** Get Infos ***" << std::endl;
-<<<<<<< HEAD
-                        cGlibInterface->getBoardInfo(cGlib);
-                        std::cout << "*** Infos Get ***" << std::endl;
-=======
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
 
@@ -1033,7 +885,6 @@ int main(int argc, char* argv[])
                                 mypause();
                             }
                         }
->>>>>>> origin/Dev
                     break;
 
 
@@ -1069,24 +920,10 @@ int main(int argc, char* argv[])
 
                     case 1:
                         std::cout << "*** Write Cbc ***" << std::endl;
-<<<<<<< HEAD
-                        std::cout << "--> Which ModuleId ?" << std::endl;
-                        std::cin >> cModuleId;
-                        if(cGlib.getModule(cModuleId) == NULL)
-                        {
-                            std::cout << "*** ERROR !!                                      ***" << std::endl;
-                            std::cout << "*** This module does not exist !                  ***" << std::endl;
-                            std::cout << "*** This is not the module you are looking for... ***" << std::endl;
-                            myflush( std::cin );
-                            mypause();
-                        }
-                        else
-=======
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
 
                         for(uint32_t j=0; j<cBeBoardVec.size(); j++)
->>>>>>> origin/Dev
                         {
 
                             if(cBeBoardVec[j]->fBeId == cBoardId)
@@ -1103,10 +940,6 @@ int main(int argc, char* argv[])
                                 }
                                 else
                                 {
-<<<<<<< HEAD
-                                    cCbcInterface.WriteCbc(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode,cValueHex);
-                                    std::cout << "*** Cbc Written ***" << std::endl;
-=======
                                     std::cout << "--> Which CbcId ?" << std::endl;
                                     std::cin >> cCbcId;
                                     if(cBeBoardVec[j]->getModule(cModuleId)->getCbc(cCbcId) == NULL)
@@ -1137,7 +970,6 @@ int main(int argc, char* argv[])
                                             std::cout << "*** Cbc Written ***" << std::endl;
                                         }
                                     }
->>>>>>> origin/Dev
                                 }
                             }
                             else if(j == cBeBoardVec.size())
@@ -1152,24 +984,10 @@ int main(int argc, char* argv[])
 
                     case 2:
                         std::cout << "*** Update Cbc ***" << std::endl;
-<<<<<<< HEAD
-                        std::cout << "--> Which ModuleId ?" << std::endl;
-                        std::cin >> cModuleId;
-                        if(cGlib.getModule(cModuleId) == NULL)
-                        {
-                            std::cout << "*** ERROR !!                                      ***" << std::endl;
-                            std::cout << "*** This module does not exist !                  ***" << std::endl;
-                            std::cout << "*** This is not the module you are looking for... ***" << std::endl;
-                            myflush( std::cin );
-                            mypause();
-                        }
-                        else
-=======
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
 
                         for(uint32_t j=0; j<cBeBoardVec.size(); j++)
->>>>>>> origin/Dev
                         {
 
                             if(cBeBoardVec[j]->fBeId == cBoardId)
@@ -1207,16 +1025,9 @@ int main(int argc, char* argv[])
                             }
                             else if(j == cBeBoardVec.size())
                             {
-<<<<<<< HEAD
-                                std::cout << "--> Which Register ?" << std::endl;
-                                std::cin >> cRegNode;
-                                cCbcInterface.UpdateCbc(cGlib.getModule(cModuleId)->getCbc(cCbcId),cRegNode);
-                                std::cout << "*** Updated ***" << std::endl;
-=======
                                 std::cout << "ERROR : This board does not exist !" << std::endl;
                                 myflush( std::cin );
                                 mypause();
->>>>>>> origin/Dev
                             }
                         }
                     break;
@@ -1274,23 +1085,6 @@ int main(int argc, char* argv[])
 
 
                     case 4:
-<<<<<<< HEAD
-                        std::cout << "*** Update all Cbc ***" << std::endl;
-                        std::cout << "--> Which ModuleId ?" << std::endl;
-                        std::cin >> cModuleId;
-                        if(cGlib.getModule(cModuleId) == NULL)
-                        {
-                            std::cout << "*** ERROR !!                                      ***" << std::endl;
-                            std::cout << "*** This module does not exist !                  ***" << std::endl;
-                            std::cout << "*** This is not the module you are looking for... ***" << std::endl;
-                            myflush( std::cin );
-                            mypause();
-                        }
-                        else
-                        {
-                            cCbcInterface.UpdateAllCbc(cGlib.getModule(cModuleId));
-                            std::cout << "*** All Cbc Updated ***" << std::endl;
-=======
                         std::cout << "*** Read all Cbc ***" << std::endl;
                         std::cout << "--> Which BoardId ?" << std::endl;
                         std::cin >> cBoardId;
@@ -1322,7 +1116,6 @@ int main(int argc, char* argv[])
                                 myflush( std::cin );
                                 mypause();
                             }
->>>>>>> origin/Dev
                         }
                     break;
 
@@ -1451,11 +1244,6 @@ int main(int argc, char* argv[])
                 {
 
                     case 1:
-<<<<<<< HEAD
-                        std::cout << "*** Run Acquisition ***" << std::endl;
-
-                        cGlibInterface->Run(cGlib);
-=======
                     {
                         std::cout << "*** Run Acquisition ***" << std::endl;
                         std::cout << "--> Which BoardId ?" << std::endl;
@@ -1560,7 +1348,6 @@ int main(int argc, char* argv[])
                                     }
 
                                 }
->>>>>>> origin/Dev
 
                                 cCanvas->Print("output/Histogram_Mean.pdf");
 
@@ -1652,15 +1439,7 @@ int main(int argc, char* argv[])
                                         std::cout << "***      Module and Cbc Configuration            ***" << std::endl;
                                         std::cout << "****************************************************" << std::endl;
 
-<<<<<<< HEAD
-                                    cCbcInterface.UpdateAllCbc(cGlib.getModule(cModuleId));
-
-                                    for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
-                                    {
-                                        if(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc) == NULL)
-=======
                                         for(uint8_t k=0;k<cBeBoardVec[m]->getNFe();k++)
->>>>>>> origin/Dev
                                         {
 
                                             if(cBeBoardVec[m]->getModule(k+cMissedModule) == NULL)
@@ -1753,15 +1532,7 @@ int main(int argc, char* argv[])
                                         std::cout << "***        Module and Cbc Configuration          ***" << std::endl;
                                         std::cout << "****************************************************" << std::endl;
 
-<<<<<<< HEAD
-                                    cCbcInterface.UpdateAllCbc(cGlib.getModule(cModuleId));
-
-                                    for(uint8_t j=0;j<cGlib.getModule(k+cMissedModule)->getNCbc();j++)
-                                    {
-                                        if(cGlib.getModule(k+cMissedModule)->getCbc(j+cMissedCbc) == NULL)
-=======
                                         for(uint8_t k=0;k<cBeBoardVec[m]->getNFe();k++)
->>>>>>> origin/Dev
                                         {
 
                                             if(cBeBoardVec[m]->getModule(k+cMissedModule) == NULL)
@@ -1826,21 +1597,6 @@ int main(int argc, char* argv[])
             break;
 
 
-<<<<<<< HEAD
-            case 7:
-                std::cout << "*** Writing stack... ***" << std::endl;
-                cGlibInterface->StackReg(EXT_TRG,0);
-                cGlibInterface->StackReg(FAKE_DATA,0);
-                cGlibInterface->StackReg(CBC_STUB_LATENCY_FE1,0);
-                cGlibInterface->StackReg(CBC_STUB_LATENCY_FE2,0);
-                cGlibInterface->StackReg(CBC_TRIGGER_1SHOT,0);
-                cGlibInterface->StackReg(CBC_STUB_LATENCY_FE2,1);
-                std::cout << "*** Stack written !!! ***" << std::endl;
-            break;
-
-
-=======
->>>>>>> origin/Dev
             case 0:
                 std::cout << "Quit..." << std::endl;
             break;
