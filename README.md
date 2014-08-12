@@ -54,7 +54,7 @@ Here are the step to make the program functional
    file://$(BUILD)/settings/adress_table.xml (where $(BUILD) is the path to the
    root of the GitHub repo you recovered)
 
-4. Create a /lib and /bin directories in the root of the repo.
+4. Create /lib, /bin and /output directories in the root of the repo.
 
 5. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
 
