@@ -37,38 +37,24 @@ int main()
 	BeBoard cGlib_00;
 	cGlib_00.addModule(cModule_00);
 
-<<<<<<< HEAD
-	GlibInterface cGlibInterface(UHAL_CONNECTION_FILE,8);
-	CbcInterface cCbcInterface(UHAL_CONNECTION_FILE);
-=======
 	BeBoardFWInterface* cBeBoardFW;
 	std::map<int8_t,BeBoardFWInterface*> cBeBoardMap;
->>>>>>> origin/Dev
 
 	CbcInterface cCbcInterface(cBeBoardMap);
 	BeBoardInterface cBeBoardInterface(cBeBoardMap);
 	cBeBoardFW= new GlibFWInterface(UHAL_CONNECTION_FILE,0);
 	cBeBoardMap[0]=cBeBoardFW;
 
-<<<<<<< HEAD
-=======
 	cBeBoardInterface.ConfigureBoard(&cGlib_00);
 
->>>>>>> origin/Dev
 	cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(0));
 	cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(1));
 
 	std::cout << "\nChanging Value of VCth...\n" << std::endl;
 
-<<<<<<< HEAD
-    cCbcInterface.WriteCbc(cGlib_00.getModule(0)->getCbc(0),"VCth",0x03);
-	cCbcInterface.WriteCbc(cGlib_00.getModule(0)->getCbc(1),"VCth",0x10);
-	cCbcInterface.UpdateAllCbc(cGlib_00.getModule(0));
-=======
     cCbcInterface.WriteCbcReg(cGlib_00.getModule(0)->getCbc(0),"VCth",0x03);
 	cCbcInterface.WriteCbcReg(cGlib_00.getModule(0)->getCbc(1),"VCth",0x10);
 	cCbcInterface.ReadAllCbc(cGlib_00.getModule(0));
->>>>>>> origin/Dev
 
     std::cout << "\nValue of VCth Changed !\n" << std::endl;
 
@@ -81,13 +67,8 @@ int main()
 	std::cout << "\nThe value for EXT_TRG is " << dump1 << std::endl;
 	std::cout << "\nThe value for FAKE_DATA is " << dump2 << std::endl;
 
-<<<<<<< HEAD
-    cGlib_00.getModule(0)->getCbc(0)->writeRegValues("/afs/cern.ch/user/n/npierre/public/settings/output_00.txt");
-	cGlib_00.getModule(0)->getCbc(1)->writeRegValues("/afs/cern.ch/user/n/npierre/public/settings/output_01.txt");
-=======
     cGlib_00.getModule(0)->getCbc(0)->saveRegMap("/afs/cern.ch/user/n/npierre/dev/output/output_00.txt");
 	cGlib_00.getModule(0)->getCbc(1)->saveRegMap("/afs/cern.ch/user/n/npierre/dev/output/output_01.txt");
->>>>>>> origin/Dev
 
 	std::cout << "\nHurray, it works !!" << std::endl;
 
