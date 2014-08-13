@@ -10,6 +10,7 @@
 */
 
 #include "Calibration.h"
+#include "Channel.h"
 
 
 namespace Ph2_HwTools{
@@ -29,15 +30,6 @@ namespace Ph2_HwTools{
 		fSettingsMap["TestPulsePotentiometer"]=0xF1;
 
 		//Representation of the Hardware (hardcoding for the moment)
-		BeBoard* cBeBoard;
-    		Module* cModule;
-    		Cbc* cCbc;
-
-		BeBoardFWMap cBeBoardFWMap;
-    		std::vector<BeBoard*> cBeBoardVec;
-
-    		BeBoardInterface cBeBoardInterface(cBeBoardFWMap);
-    		CbcInterface cCbcInterface(cBeBoardFWMap);
 
 		cBeBoardFWMap[0] = new GlibFWInterface(UHAL_CONNECTION_FILE,cBoardId)
 		cBeBoardVec.push_back(new BeBoard(0,0));

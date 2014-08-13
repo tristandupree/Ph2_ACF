@@ -57,6 +57,17 @@ namespace Ph2_HwTools{
 		
 		std::map < std::string, uint8_t > fSettingsMap;
 
+		//Representation of the Hardware (hardcoding for the moment)
+		BeBoard* cBeBoard;
+    		Module* cModule;
+    		Cbc* cCbc;
+
+		BeBoardFWMap cBeBoardFWMap;
+    		std::vector<BeBoard*> cBeBoardVec;
+
+    		BeBoardInterface cBeBoardInterface(cBeBoardFWMap);
+    		CbcInterface cCbcInterface(cBeBoardFWMap);
+
 
 }
 
