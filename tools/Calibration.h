@@ -57,16 +57,18 @@ namespace Ph2_HwTools{
 		
 		std::map < std::string, uint8_t > fSettingsMap;
 
+		TestGroupMap fTestGroupMap;
+
 		//Representation of the Hardware (hardcoding for the moment)
-		BeBoard* cBeBoard;
-    		Module* cModule;
-    		Cbc* cCbc;
+		BeBoard* fBeBoard;
+    		Module* fModule;
+    		Cbc* fCbc;
 
-		BeBoardFWMap cBeBoardFWMap;
-    		std::vector<BeBoard*> cBeBoardVec;
+		BeBoardFWMap fBeBoardFWMap;
+    		std::vector<BeBoard*> fBeBoardVec;
 
-    		BeBoardInterface cBeBoardInterface(cBeBoardFWMap);
-    		CbcInterface cCbcInterface(cBeBoardFWMap);
+    		BeBoardInterface fBeBoardInterface(cBeBoardFWMap);
+    		CbcInterface fCbcInterface(cBeBoardFWMap);
 
 
 }

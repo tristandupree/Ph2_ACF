@@ -122,3 +122,18 @@ void fitHist(uint8_t pEventsperVcth, bool pHole, TFile* pResultfile){
 
 
 }
+
+
+TestGroup::TestGroup(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId):
+fBeId( pBeId ),
+fFeId(pFeId),
+fCbcId(pCbcId),
+fGroupId(pGroupId)
+{
+	TString graphname = Form("VplusVcthGraph_Fe%d_Cbc%d_Group%d",fFeId,fCbcId,fGroupId);
+	fVplusVcthGraph = (TGraphErrors*) gROOT->FindObject(graphname);
+	if (fVplusVcthGraph) delete fVplusVcthGraph;
+	fVplusVcthGraph = new TGraphErrors();
+	fVplusVcthGraph->SetName(graphname);
+}
+	

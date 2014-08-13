@@ -5,6 +5,7 @@
 #include <vector>
 #include "TH1F.h"
 #include "TF1.h"
+#include "TGraphErrors.h"
 #include "TFile.h"
 #include "TString.h"
 #include "TROOT.h"
@@ -39,10 +40,13 @@ struct Channel{
 };
 
 struct TestGroup{
-	uint8_t BeId;
-	uint8_t FeId;
-	uint8_t CbcId;
-	uint8_t GroupId;
+	TestGroup(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
+
+	uint8_t fBeId;
+	uint8_t fFeId;
+	uint8_t fCbcId;
+	uint8_t fGroupId;
+	TGraphErrors* fVplusVcthGraph;
 };
 
 struct TestGroupComparer{
