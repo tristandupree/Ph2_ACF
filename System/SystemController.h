@@ -28,7 +28,7 @@ namespace Ph2_System
 			// Public methods
 			void InitializeHw(std::string pFilename);
 			void ConfigureHw();
-			//void Run();
+			void Run(BeBoard* pBeBoard, uint32_t pNEvents);
 
 			// Public members: user interfaces
 			BeBoardInterface*	fBeBoardInterface;

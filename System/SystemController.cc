@@ -48,7 +48,8 @@ namespace Ph2_System
 				fShelveVec[cNShelve]->addBoard(cBeBoard);
 
 				BeBoardFWInterface* cBeBoardFWInterface;
-				if(nb.attribute("boardType").value() == "GLIB")
+
+				if(std::string(nb.attribute("boardType").value()).compare(std::string("Glib")))
 				{
 					cBeBoardFWInterface = new GlibFWInterface(UHAL_CONNECTION_FILE,cBeId);
 					fBoardFWMap[cBeId] = cBeBoardFWInterface;
@@ -94,8 +95,6 @@ namespace Ph2_System
 
 		for(uint32_t i=0; i<fShelveVec.size(); i++)
 		{
-			fBeBoardInterface.ConfigureBoard(fShelveVec[i]);
-
 			cMissedBoard = 0;
 
 			for(uint32_t j=0; j<fShelveVec[i]->getNBoard(); j++)
@@ -109,6 +108,8 @@ namespace Ph2_System
 				else
 				{
 					cMissedModule = 0;
+
+					fBeBoardInterface->ConfigureBoard(fShelveVec[i]->getBoard(j+cMissedBoard));
 
 					for(uint32_t k=0; k<fShelveVec[i]->getBoard(j+cMissedBoard)->getNFe(); k++)
 					{
@@ -132,7 +133,7 @@ namespace Ph2_System
 
 								else
 								{
-									fCbcInterface.ConfigureCbc(fShelveVec[i]->getBoard(j+cMissedBoard)->getModule(k+cMissedModule)->getCbc(m+cMissedCbc));
+									fCbcInterface->ConfigureCbc(fShelveVec[i]->getBoard(j+cMissedBoard)->getModule(k+cMissedModule)->getCbc(m+cMissedCbc));
 								}
 							}
 						}
@@ -140,6 +141,13 @@ namespace Ph2_System
 				}
 			}
 		}
+	}
+
+	void SystemController::Run(BeBoard* pBeBoard, uint32_t pNEvents)
+	{
+		fBeBoardInterface->Start(pBeBoard);
+		fBeBoardInterface->ReadData(pBeBoard, pNEvents, true );
+		fBeBoardInterface->Stop(pBeBoard);
 	}
 
 }

@@ -24,7 +24,7 @@
 //------------------------------------------------------------------------------
 //Cbc Config Files
 
-#define DEFAULT_FILE   "settings/default_file.txt"
+#define DEFAULT_FILE   "settings/default_file_Hole.txt"
 #define FE0CBC0HOLE    "settings/FE0CBC0Hole.txt"
 #define FE0CBC1        "settings/FE0CBC1.txt"
 #define FE0CBC1HOLE    "settings/FE0CBC1Hole.txt"

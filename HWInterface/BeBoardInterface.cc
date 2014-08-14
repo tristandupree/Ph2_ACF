@@ -33,7 +33,7 @@ namespace Ph2_HwInterface{
 			i=fBoardMap.find(pBoardId);
 			if (i==fBoardMap.end())
 			{
-				std::cout<<"The Board: "<<pBoardId<<"doesn't exist"<<std::endl;
+				std::cout<<"The Board: "<< uint32_t(pBoardId) <<" doesn't exist"<<std::endl;
 			}
 			else
 			{
@@ -80,10 +80,10 @@ namespace Ph2_HwInterface{
 	}
 
 
-	void BeBoardInterface::Stop(BeBoard* pBoard,uint32_t pNthAcq)
+	void BeBoardInterface::Stop(BeBoard* pBoard)
 	{
 		setBoard(pBoard->getBeId());
-		fBoardFW->Stop(pNthAcq);
+		fBoardFW->Stop(fBoardFW->fNTotalAcq);
 	}
 
 
@@ -101,10 +101,16 @@ namespace Ph2_HwInterface{
 	}
 
 
-	void BeBoardInterface::ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger)
+	void BeBoardInterface::ReadData(BeBoard* pBoard, uint32_t pNEvents, bool pBreakTrigger)
 	{
 		setBoard(pBoard->getBeId());
-		fBoardFW->ReadData(pBoard, pNthAcq, pBreakTrigger);
+		fBoardFW->ReadData(pBoard, fBoardFW->fNTotalAcq, pBreakTrigger);
+	}
+
+	const Event* BeBoardInterface::GetNextEvent(BeBoard* pBoard)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->GetNextEvent();
 	}
 
 }

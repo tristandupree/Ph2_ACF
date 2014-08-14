@@ -408,6 +408,12 @@ namespace Ph2_HwInterface
 	}
 
 
+	const Event* GlibFWInterface::GetNextEvent()
+	{
+		return fData->GetNextEvent();
+	}
+
+
 	//Methods for Cbc's:
 
 	void GlibFWInterface::SelectFeSRAM(uint32_t pFe)

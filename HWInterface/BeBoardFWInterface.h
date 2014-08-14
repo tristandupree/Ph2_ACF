@@ -144,6 +144,11 @@ namespace Ph2_HwInterface
 			* \param pBreakTrigger : if true, enable the break trigger
 			*/
 			virtual void ReadData(	BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger) {};
+			/*!
+			* \brief Get next event from data buffer
+			* \return Next event
+			*/
+			virtual const Event* GetNextEvent() {};
 
 
 	};
