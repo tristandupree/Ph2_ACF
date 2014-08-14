@@ -1,4 +1,6 @@
 #include "Channel.h"
+#include "TMath.h"
+#include <cmath>
 
 Double_t MyErf( Double_t *x, Double_t *par ){
 	Double_t x0 = par[0];
@@ -42,7 +44,7 @@ void Channel::setOffset( uint8_t pOffset ){
 	fOffset = pOffset;
 }
 
-void Channel::InitializeHist(uint8_t pValue, bool pVplusScan){
+void Channel::initializeHist(uint8_t pValue, bool pVplusScan){
 
 	TString histname;
 	TString fitname;
@@ -64,19 +66,21 @@ void Channel::InitializeHist(uint8_t pValue, bool pVplusScan){
 	TF1* fFit = (TF1*) gROOT->FindObject(fitname);
 	if( fFit ) delete fFit;
 	fFit = new TF1(fitname, MyErf, 0x00, 0xFF, 2 );
+
+		}
 }
 
-void fillHist(uint8_t pVcth){
+void Channel::fillHist(uint8_t pVcth){
 		fScurve->Fill(pVcth);
 }
 
-void fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile){
+void Channel::fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile){
 
 	if ( fFit == NULL ){
 
 		// Normalize first
 		fScurve->Sumw2();
-		fScurve->Scale(h, 1/pEventsperVcth);
+		fScurve->Scale(1/pEventsperVcth);
 
 		// Get first non 0 and first 1
 		double cFirstNon0(0);
@@ -116,7 +120,7 @@ void fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultf
 		fFit->SetParameters(cMid, cWidth);
 
 		// Fit
-		fScurve->Fit(fitname,"RSLQ");
+		fScurve->Fit(fFit,"RSLQ");
 
 		// Eventually add TFitResultPointer
 		// create a Directory in the file for the current Offset and save the channel Data
@@ -155,7 +159,7 @@ fGroupId(pGroupId){
 	fVplusVcthGraph->SetName(graphname);
 }
 
-TestGroup::FillVplusVcthGraph(uint8_t pVplus, double pPedestal, double pNoise){
+void TestGroup::FillVplusVcthGraph(uint8_t pVplus, double pPedestal, double pNoise){
 
 	if (fVplusVcthGraph != NULL){
 		fVplusVcthGraph->SetPoint(fVplusVcthGraph->GetN(),pPedestal,pVplus);

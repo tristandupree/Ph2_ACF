@@ -32,7 +32,7 @@ struct Channel{
 	// Methods
 	double getPedestal();
 	double getNoise();
-	uint8_t getOffset( return fOffset );
+	uint8_t getOffset(){ return fOffset; };
 	void setOffset(uint8_t pOffset);
 
 	void initializeHist(uint8_t pValue, bool pVplusScan);
@@ -54,10 +54,10 @@ struct TestGroup{
 
 struct TestGroupComparer{
 	bool operator() (const TestGroup &g1, const TestGroup &g2) const {
-		if (g1.BeId == g2.BeId) return g1.FeId < g2.FeId;
-		else if (g1.FeId == g2.FeId) return g1.CbcId < g2.CbcId;
-		else if (g1.CbcId == g2.CbcId) return g1.GroupId < g2.GroupId;
-		else return g1.BeId < g2.BeId;
+		if (g1.fBeId == g2.fBeId) return g1.fFeId < g2.fFeId;
+		else if (g1.fFeId == g2.fFeId) return g1.fCbcId < g2.fCbcId;
+		else if (g1.fCbcId == g2.fCbcId) return g1.fGroupId < g2.fGroupId;
+		else return g1.fBeId < g2.fBeId;
 	}
 };
 

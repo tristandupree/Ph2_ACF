@@ -13,8 +13,9 @@
 #define Calibration_h__
 
 #include "../HWDescription/BeBoard.h"
-#include "../HWInterfaceCbcInterface.h"
+#include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
+#include "Channel.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -35,7 +36,10 @@ namespace Ph2_HwTools{
 	public:
 			
 		// Default C'tor
-		Calibration(){};
+		Calibration():
+		fBeBoardInterface(fBeBoardFWMap),
+		fCbcInterface(fBeBoardFWMap)
+		{};
 
 		// D'Tor
 		~Calibration(){};
@@ -47,7 +51,7 @@ namespace Ph2_HwTools{
 		/*!
 		* \brief Configure the Board
 		*/
-		void ConfigureBoard()
+		void ConfigureBoard();
 		/*!
 		* \brief Configure the Cbc's
 		*/
@@ -67,9 +71,11 @@ namespace Ph2_HwTools{
 		BeBoardFWMap fBeBoardFWMap;
     		std::vector<BeBoard*> fBeBoardVec;
 
-    		BeBoardInterface fBeBoardInterface(cBeBoardFWMap);
-    		CbcInterface fCbcInterface(cBeBoardFWMap);
+    		BeBoardInterface fBeBoardInterface;
+    		CbcInterface fCbcInterface;
 
+
+	};
 
 }
 
