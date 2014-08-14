@@ -142,12 +142,12 @@ namespace Ph2_System
 			}
 		}
 	}
-
-	void SystemController::Run(BeBoard* pBeBoard, uint32_t pNEvents)
+/*
+	void SystemController::Run(BeBoard* pBeBoard, uint32_t pNthAcq)
 	{
 		fBeBoardInterface->Start(pBeBoard);
-		fBeBoardInterface->ReadData(pBeBoard, pNEvents, true );
-		fBeBoardInterface->Stop(pBeBoard);
+		fBeBoardInterface->ReadData(pBeBoard, pNthAcq, true );
+		fBeBoardInterface->Stop(pBeBoard, pNthAcq);
 	}
-
+*/
 }

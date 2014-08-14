@@ -80,10 +80,10 @@ namespace Ph2_HwInterface{
 	}
 
 
-	void BeBoardInterface::Stop(BeBoard* pBoard)
+	void BeBoardInterface::Stop(BeBoard* pBoard, uint32_t pNthAcq)
 	{
 		setBoard(pBoard->getBeId());
-		fBoardFW->Stop(fBoardFW->fNTotalAcq);
+		fBoardFW->Stop(pNthAcq);
 	}
 
 
@@ -101,10 +101,10 @@ namespace Ph2_HwInterface{
 	}
 
 
-	void BeBoardInterface::ReadData(BeBoard* pBoard, uint32_t pNEvents, bool pBreakTrigger)
+	void BeBoardInterface::ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger)
 	{
 		setBoard(pBoard->getBeId());
-		fBoardFW->ReadData(pBoard, fBoardFW->fNTotalAcq, pBreakTrigger);
+		fBoardFW->ReadData(pBoard, pNthAcq, pBreakTrigger);
 	}
 
 	const Event* BeBoardInterface::GetNextEvent(BeBoard* pBoard)

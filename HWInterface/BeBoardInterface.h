@@ -107,7 +107,7 @@ namespace Ph2_HwInterface
         	* \param pNthAcq : actual number of acquisitions
         	* \param pBreakTrigger : if true, enable the break trigger
         	*/
-        	void ReadData(BeBoard* pBoard, uint32_t pNEvents, bool pBreakTrigger);
+        	void ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger);
 			/*!
 			* \brief Get next event from data buffer
 			* \param pBoard
