@@ -26,9 +26,9 @@ namespace Ph2_System
 			SystemController();
 			~SystemController();
 			// Public methods
-			void initializeHw(std::string pFilename);
-			//configureHw();
-			//run();
+			void InitializeHw(std::string pFilename);
+			void ConfigureHw();
+			//void Run();
 
 			// Public members: user interfaces
 			BeBoardInterface*	fBeBoardInterface;
