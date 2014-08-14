@@ -30,18 +30,21 @@ struct Channel{
 	TF1*  fFit;
 
 	// Methods
-	uint8_t getPedestal();
-	uint8_t getNoise();
+	double getPedestal();
+	double getNoise();
 	uint8_t getOffset( return fOffset );
 	void setOffset(uint8_t pOffset);
 
-	void fillHist(uint8_t pVcth, bool pHit);
-	void fitHist(uint8_t pEventsperVcth, bool pHole, 	TFile* pResultfile);
+	void initializeHist(uint8_t pValue, bool pVplusScan);
+	void fillHist(uint8_t pVcth);
+	void fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile);
+	void resetHist();
 };
 
 struct TestGroup{
 	TestGroup(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
 
+	void FillVplusVcthGraph(uint8_t pVplus, double pPedestal, double pNoise);
 	uint8_t fBeId;
 	uint8_t fFeId;
 	uint8_t fCbcId;
