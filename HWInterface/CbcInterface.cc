@@ -13,7 +13,7 @@
 
 
 #define DEV_FLAG 0
-#define VERIFICATION_LOOP 1
+#define VERIFICATION_LOOP 0
 
 namespace Ph2_HwInterface
 {
