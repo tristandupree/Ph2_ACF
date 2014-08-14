@@ -382,6 +382,7 @@ int main(int argc, char* argv[])
                                             {
                                                 if(cBeBoardVec[j]->getModule(cModuleId)->getCbc(i) == NULL)
                                                 {
+                                                    std::cout << "Adding Cbc " << uint32_t(i) << std::endl;
                                                     cCbc = new Cbc(0,0,0,0,i,(boost::format("settings/FE0CBC%d.txt") %(uint32_t(i))).str());
                                                     cBeBoardVec[j]->getModule(cModuleId)->addCbc(*cCbc);
                                                     cCbcInterface.ConfigureCbc(cBeBoardVec[j]->getModule(cModuleId)->getCbc(i));

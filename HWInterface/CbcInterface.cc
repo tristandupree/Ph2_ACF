@@ -13,7 +13,7 @@
 
 
 #define DEV_FLAG 0
-#define VERIFICATION_LOOP 0
+#define VERIFICATION_LOOP 1
 
 namespace Ph2_HwInterface
 {
@@ -79,8 +79,6 @@ namespace Ph2_HwInterface
 			std::vector<uint32_t> cWriteValue, cReadValue, cVecReqBis;
 			uint8_t cCbcId = pCbc->getCbcId();
 			CbcRegItem cRegItem;
-
-			myflush( std::cin );
 
 			for(int32_t i=0;i<cVecReq.size();i++)
 			{
