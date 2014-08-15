@@ -12,86 +12,111 @@
 #include "Calibration.h"
 
 
-namespace Ph2_HwTools{
+void Calibration::Initialise()
+{
+
+	//Initialise the Map
+	fSettingsMap["1)RunNumber"]=1;
+	fSettingsMap["2)BeamIntensity"]=0;
+	fSettingsMap["3)Nevents"]=0;
+	fSettingsMap["4)SaveData"]=0;
+	fSettingsMap["EnableTestPulse"]=0;
+	fSettingsMap["TestGroup"]=0;
+	fSettingsMap["TestPulsePotentiometer"]=0xF1;
+
+	InitializeHw("/afs/cern.ch/user/l/lbidegai/public/new_archi/System/HWDescription.xml");
 
 
-	//No arguments for now, the hardware is hardcoding, it will be different with the xml file
-	void Calibration::Initialise()
+
+	uint32_t cMissedBoard, cMissedModule, cMissedCbc;
+
+	for(uint32_t lShelve=0; lShelve<fShelveVec.size(); lShelve++)
 	{
+	  cMissedBoard = 0;
 
-		//Initialise the Map
-		fSettingsMap["1)RunNumber"]=1;
-		fSettingsMap["2)BeamIntensity"]=0;
-		fSettingsMap["3)Nevents"]=0;
-		fSettingsMap["4)SaveData"]=0;
-		fSettingsMap["EnableTestPulse"]=0;
-		fSettingsMap["TestGroup"]=0;
-		fSettingsMap["TestPulsePotentiometer"]=0xF1;
+	  for(uint32_t lBoard=0; lBoard<fShelveVec[lShelve]->getNBoard(); lBoard++)
+	  {
+	    if(fShelveVec[lShelve]->getBoard(lBoard+cMissedBoard) == NULL)
+	    {
+	      lBoard--;
+	      cMissedBoard++;
+	    }
 
-		//Representation of the Hardware (hardcoding for the moment)
+	    else
+	    {
+	      cMissedModule = 0;
 
-		fBeBoardFWMap[0] = new GlibFWInterface(UHAL_CONNECTION_FILE,0);
-		fBeBoardVec.push_back(new BeBoard(0,0));
+              for(uint32_t lFe=0; lFe<fShelveVec[lShelve]->getBoard(lBoard+cMissedBoard)->getNFe(); lFe++)
+	      {
 
-		fBeBoardInterface.ConfigureBoard(fBeBoardVec[0]);
-
-		fModule = new Module(fBeBoardVec[0]->fShelveId,fBeBoardVec[0]->fBeId,0,0,0);
-		fBeBoardVec[0]->addModule(*fModule);
-		delete fModule;
-
-		for(uint8_t lcbc=0; lcbc<8; lcbc++)
+		if(fShelveVec[lShelve]->getBoard(lBoard+cMissedBoard)->getModule(lFe+cMissedModule) == NULL)
 		{
-			fCbc = new Cbc(0,0,0,0,lcbc,(boost::format("settings/Cbc_default_electron.txt").str()));
-			fBeBoardVec[0]->getModule(0)->addCbc(*fCbc);
-			fCbcInterface.ConfigureCbc(fBeBoardVec[0]->getModule(0)->getCbc(lcbc));
-			delete fCbc;
-
-			std::cout<<"Cbc: "<<int(lcbc)<<"created!"<<std::endl;
-			
-			for(uint8_t lgroup=0; lgroup<8; lgroup++)
-			{
-				TestGroup fTestgroup(0,0,lcbc,lgroup);
-				
-				std::cout<<"	Group: "<<int(lgroup)<<"created!"<<std::endl;
-
-				std::vector<Channel> cChannelVect;
-				for(uint8_t lchannel=0; lchannel<16; lchannel++)
-				{
-					
-					if (lchannel*16+lgroup*2 < 254)
-					{
-						Channel cChannel(0,0,lcbc, lchannel*16+lgroup*2 );
-						std::cout<<"		Channel: "<<int(lchannel*16+lgroup*2)<<"created!"<<std::endl;
-						cChannelVect.push_back(cChannel);
-					}
-
-					if ((lchannel*16+lgroup*2) +1 < 254)
-					{
-						Channel cChannel(0,0,lcbc, (lchannel*16+lgroup*2) +1 );
-						std::cout<<"		Channel: "<<int( (lchannel*16+lgroup*2) +1)<<"created!"<<std::endl;
-						cChannelVect.push_back(cChannel);
-					}
-
-				}
-
-				fTestGroupMap[fTestgroup]=cChannelVect;
-			}
+		  lFe--;
+		  cMissedModule++;
 		}
-		
-	}
 
-
-	void Calibration::ConfigureBoard()
-	{
-		fBeBoardInterface.ConfigureBoard(fBeBoardVec[0]);
-	}
-
-	void Calibration::ConfigureCbc()
-	{
-		for(uint8_t i=0; i<8; i++)
+		else
 		{
-			fCbcInterface.ConfigureCbc(fBeBoardVec[0]->getModule(0)->getCbc(i));
-		}
-	}
+		  cMissedCbc = 0;
 
+		  for(uint32_t lcbc=0; lcbc<fShelveVec[lShelve]->getBoard(lBoard+cMissedBoard)->getModule(lFe+cMissedModule)->getNCbc(); lcbc++)
+		  {
+			if(fShelveVec[lShelve]->getBoard(lBoard+cMissedBoard)->getModule(lBoard+cMissedModule)->getCbc(lcbc+cMissedCbc) == NULL)
+		  {
+			lcbc--;
+		 	cMissedCbc++;
+		  }
+
+		  else
+		  {
+
+		  	std::cout<<"Cbc: "<<int(lcbc)<<"created!"<<std::endl;
+			ConstructTestGroup(lBoard, lFe, lcbc);	
+
+		  }
+
+		  }
+	        }
+	      }
+	    }
+	  }
+	}	
 }
+
+
+void Calibration::ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId)
+{
+	for(uint8_t lgroup=0; lgroup<8; lgroup++)
+	{
+		TestGroup fTestgroup(pBeId,FeId,CbcId,lgroup);
+				
+		std::cout<<"	Group: "<<int(lgroup)<<"created!"<<std::endl;
+
+		std::vector<Channel> cChannelVect;
+		for(uint8_t lchannel=0; lchannel<16; lchannel++)
+		{
+					
+			if (lchannel*16+lgroup*2 < 254)
+			{
+				Channel cChannel(pBeId,FeId,CbcId, lchannel*16+lgroup*2 );
+				std::cout<<"		Channel: "<<int(lchannel*16+lgroup*2)<<"created!"<<std::endl;
+				cChannelVect.push_back(cChannel);
+			}
+
+			if ((lchannel*16+lgroup*2) +1 < 254)
+			{
+				Channel cChannel(pBeId,FeId,CbcId, (lchannel*16+lgroup*2) +1 );
+				std::cout<<"		Channel: "<<int( (lchannel*16+lgroup*2) +1)<<"created!"<<std::endl;
+				cChannelVect.push_back(cChannel);
+			}
+
+		}
+
+		fTestGroupMap[fTestgroup]=cChannelVect;
+	}
+
+}	
+	
+
+
+

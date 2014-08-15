@@ -16,5 +16,6 @@ clean:
 	(cd System; make clean)
 	(cd HWInterface; make clean)
 	(cd HWDescription; make clean)
+	(cd tools; make clean)
 	(rm -f lib/* bin/*)
 

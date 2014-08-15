@@ -15,68 +15,44 @@
 #include "../HWDescription/BeBoard.h"
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
+#include "../System/SystemController.h"
 #include "Channel.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
-
+using namespace Ph2_System;
 
 /*!
-* \namespace Ph2_HwTools
-* \brief Namespace regrouping all the hardware tools
+* \class Calibration
+* \brief Read/Write Cbc's registers on a file
 */
-namespace Ph2_HwTools{
+class Calibration : public SystemController {
+
+public:
+			
+	// Default C'tor
+	Calibration(){};
+
+	// D'Tor
+	~Calibration(){};
 
 	/*!
-	* \class Calibration
-	* \brief Read/Write Cbc's registers on a file
+	* \brief Initialise calibration
 	*/
-	class Calibration {
+	void Initialise();
 
-	public:
-			
-		// Default C'tor
-		Calibration():
-		fBeBoardInterface(fBeBoardFWMap),
-		fCbcInterface(fBeBoardFWMap)
-		{};
 
-		// D'Tor
-		~Calibration(){};
-
-		/*!
-		* \brief Initialise calibration
-		*/
-		void Initialise();
-		/*!
-		* \brief Configure the Board
-		*/
-		void ConfigureBoard();
-		/*!
-		* \brief Configure the Cbc's
-		*/
-		void ConfigureCbc();
-
-	private:
+private:
 		
-		std::map < std::string, uint8_t > fSettingsMap;
+	std::map < std::string, uint8_t > fSettingsMap;
 
-		TestGroupMap fTestGroupMap;
+	TestGroupMap fTestGroupMap;
 
-		//Representation of the Hardware (hardcoding for the moment)
-		BeBoard* fBeBoard;
-    		Module* fModule;
-    		Cbc* fCbc;
+private:
 
-		BeBoardFWMap fBeBoardFWMap;
-    		std::vector<BeBoard*> fBeBoardVec;
-
-    		BeBoardInterface fBeBoardInterface;
-    		CbcInterface fCbcInterface;
+	void ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId);
 
 
-	};
-
-}
+};
 
 #endif

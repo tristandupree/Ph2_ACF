@@ -10,14 +10,27 @@ hardcoded into DAQ systems software
 - A C++ object-based library describing the system components (CBCs,
 Hybrids, Boards) and their properties(values, status)
 
-- The MCP test program that is the wrapping the previous two
+- The MCP test program which is the wrapping the previous two.
 
-- **This branch contains the development of the new structure for the HWInterface**
+Different versions for different setups
+---------------------------------------
+
+On this GitHub, you can find different version of the software :
+- An agnostic (to the number of CBCs) version with the new structure in the Master branch
+- A 2CBC version on the 2CBC branch with the previous structure
+- A 8CBC version on the 8CBC branch with the previous structure
+- An in-progress version in the dev branch
+<br>
+<br>
+__What are the differences between the 2CBC/8CBC versions ?__
+
+The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
+Also, some functions are present in 8CBC and not in 2CBC due to the fact that the firmware of the 8CBC is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)
 
 
 The Test Software itself : the MCP Test Interface
 -------------------------------------------------
-  
+
 You'll find an install step by step and a How To.
 <br>
 <br>
@@ -36,16 +49,20 @@ Here are the step to make the program functional
 
 3. Change in settings/connections.xml the path to the adress table
    - It's per default set to :
-   file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table.xml
+   file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table(2CBC or 8CBC).xml
    - You have to change it to :
-   file://$(BUILD)/settings/adress_table.xml (where $(BUILD) is the path to the
+   file://$(BUILD)/settings/adress_table(2CBC or 8CBC).xml (where $(BUILD) is the path to the
    root of the GitHub repo you recovered)
 
-4. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
+4. Create /lib, /bin and /output directories in the root of the repo.
 
-5. Launch testpgrm command if you want to test if everything is working good
+5. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
 
-6. Launch mcp to play with the Test Interface
+6. Launch testpgrm command if you want to test if everything is working good.
+
+7. You can test the data acquisition by lauching datatest2cbc or datatest8cbc.
+
+8. Launch mcp to play with the Test Interface
 <br>
 <br>
 __What can you do with the software ?__
@@ -83,29 +100,32 @@ you can find in the settings directory. For example, output_1_2.txt contains the
 register map of the Cbc 2 of the Module 1.
 You can also find different .pdf files containing the histograms of the DAQ.
 
+For debugging purpose, you can activate DEV_FLAG in files or in Makefile and also activate the uHal log in RegManager.cc.
+
 More features will be implemented later, so make sure to have the last release
 locally to benefit from them.
 
 Warning ! : be careful with options choice in the program menus, some mistypes can leed
 to unexpected hazards :-(.
-  
-  
+
+
 On the go...
 ------------
-  
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Last Updates__
 
 - 09/07/14 : Added threading for stack writing registers
 - 10/07/14 : Read Data from acquisition in a rubbish format
 - ~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~
 - ~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~
-- 06/08/14 : Development at ~90%
+- 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
+- 12/08/14 : Working agnostic version of the new structure on Master
+- 15/08/14 : System Controller Class working
 <br>
 <br>
 __Future Improvements__
 
-- System Manager
-- Calibration software
+- Wrap the project nicely
 
 
 Support, Suggestions ?
