@@ -69,45 +69,54 @@ void Calibration::Initialise()
 
 		  else
 		  {
-		    
 
 		  	std::cout<<"Cbc: "<<int(lcbc)<<"created!"<<std::endl;
+			ConstructTestGroup(lBoard, lFe, lcbc);	
 
-		 	for(uint8_t lgroup=0; lgroup<8; lgroup++)
-		 	{
-				TestGroup fTestgroup(lBoard,lFe,lcbc,lgroup);
-				
-				std::cout<<"	Group: "<<int(lgroup)<<"created!"<<std::endl;
-
-				std::vector<Channel> cChannelVect;
-				for(uint8_t lchannel=0; lchannel<16; lchannel++)
-				{
-					
-					if (lchannel*16+lgroup*2 < 254)
-					{
-						Channel cChannel(lBoard,lFe,lcbc, lchannel*16+lgroup*2 );
-						std::cout<<"		Channel: "<<int(lchannel*16+lgroup*2)<<"created!"<<std::endl;
-						cChannelVect.push_back(cChannel);
-					}
-
-					if ((lchannel*16+lgroup*2) +1 < 254)
-					{
-						Channel cChannel(lBoard,lFe,lcbc, (lchannel*16+lgroup*2) +1 );
-						std::cout<<"		Channel: "<<int( (lchannel*16+lgroup*2) +1)<<"created!"<<std::endl;
-						cChannelVect.push_back(cChannel);
-					}
-
-				}
-
-				fTestGroupMap[fTestgroup]=cChannelVect;
-		  	}
 		  }
 
-		}
+		  }
+	        }
 	      }
 	    }
 	  }
+	}	
+}
+
+
+void Calibration::ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId)
+{
+	for(uint8_t lgroup=0; lgroup<8; lgroup++)
+	{
+		TestGroup fTestgroup(pBeId,FeId,CbcId,lgroup);
+				
+		std::cout<<"	Group: "<<int(lgroup)<<"created!"<<std::endl;
+
+		std::vector<Channel> cChannelVect;
+		for(uint8_t lchannel=0; lchannel<16; lchannel++)
+		{
+					
+			if (lchannel*16+lgroup*2 < 254)
+			{
+				Channel cChannel(pBeId,FeId,CbcId, lchannel*16+lgroup*2 );
+				std::cout<<"		Channel: "<<int(lchannel*16+lgroup*2)<<"created!"<<std::endl;
+				cChannelVect.push_back(cChannel);
+			}
+
+			if ((lchannel*16+lgroup*2) +1 < 254)
+			{
+				Channel cChannel(pBeId,FeId,CbcId, (lchannel*16+lgroup*2) +1 );
+				std::cout<<"		Channel: "<<int( (lchannel*16+lgroup*2) +1)<<"created!"<<std::endl;
+				cChannelVect.push_back(cChannel);
+			}
+
+		}
+
+		fTestGroupMap[fTestgroup]=cChannelVect;
 	}
 
 }	
-}
+	
+
+
+

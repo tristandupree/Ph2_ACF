@@ -48,6 +48,10 @@ private:
 
 	TestGroupMap fTestGroupMap;
 
+private:
+
+	void ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId);
+
 
 };
 
