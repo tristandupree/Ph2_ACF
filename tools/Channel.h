@@ -30,18 +30,21 @@ struct Channel{
 	TF1*  fFit;
 
 	// Methods
-	uint8_t getPedestal();
-	uint8_t getNoise();
-	uint8_t getOffset( return fOffset );
+	double getPedestal();
+	double getNoise();
+	uint8_t getOffset(){ return fOffset; };
 	void setOffset(uint8_t pOffset);
 
-	void fillHist(uint8_t pVcth, bool pHit);
-	void fitHist(uint8_t pEventsperVcth, bool pHole, 	TFile* pResultfile);
+	void initializeHist(uint8_t pValue, bool pVplusScan);
+	void fillHist(uint8_t pVcth);
+	void fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile);
+	void resetHist();
 };
 
 struct TestGroup{
 	TestGroup(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
 
+	void FillVplusVcthGraph(uint8_t pVplus, double pPedestal, double pNoise);
 	uint8_t fBeId;
 	uint8_t fFeId;
 	uint8_t fCbcId;
@@ -51,10 +54,10 @@ struct TestGroup{
 
 struct TestGroupComparer{
 	bool operator() (const TestGroup &g1, const TestGroup &g2) const {
-		if (g1.BeId == g2.BeId) return g1.FeId < g2.FeId;
-		else if (g1.FeId == g2.FeId) return g1.CbcId < g2.CbcId;
-		else if (g1.CbcId == g2.CbcId) return g1.GroupId < g2.GroupId;
-		else return g1.BeId < g2.BeId;
+		if (g1.fBeId == g2.fBeId) return g1.fFeId < g2.fFeId;
+		else if (g1.fFeId == g2.fFeId) return g1.fCbcId < g2.fCbcId;
+		else if (g1.fCbcId == g2.fCbcId) return g1.fGroupId < g2.fGroupId;
+		else return g1.fBeId < g2.fBeId;
 	}
 };
 

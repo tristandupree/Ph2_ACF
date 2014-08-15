@@ -1,10 +1,12 @@
-all: HWDescription HWInterface System src
+all: HWDescription HWInterface System tools src
 
 HWDescription::
 	$(MAKE) -C $@
 HWInterface::
 	$(MAKE) -C $@
 System::
+	$(MAKE) -C $@
+tools::
 	$(MAKE) -C $@
 src::
 	$(MAKE) -C $@
