@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
     cModule_00.addCbc(cCbc_01);
 
     //One Glib
-    BeBoard* cGlib_00 = new BeBoard(0,0,0);
+    BeBoard* cGlib_00 = new BeBoard(0,0);
     cGlib_00->addModule(cModule_00);
 
     BeBoardFWInterface* cBeBoardFW;
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
         cCbcInterface.WriteCbcReg(cGlib_00->getModule(0)->getCbc(0),"VCth",p);
         cCbcInterface.WriteCbcReg(cGlib_00->getModule(0)->getCbc(1),"VCth",p);
 
-        uint32_t cNevents = 500;
+        uint32_t cNevents = 200;
         uint32_t cN = 0;
 
         for(uint8_t m=0; m<cGlib_00->getModule(0)->getNCbc(); m++)

@@ -39,7 +39,9 @@ namespace Ph2_HwInterface
     	boost::posix_time::milliseconds cPause(200);
 
     	//Primary Configuration
-    	cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
+    	cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
 		cVecReg.push_back(cPairReg);
     	cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
     	cVecReg.push_back(cPairReg);
@@ -169,7 +171,9 @@ namespace Ph2_HwInterface
 
 		cVecReg.clear();
 
-		/*
+		/*boost::posix_time::milliseconds cWait(500);
+
+
 		cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
 		cVecReg.push_back(cPairReg);
 		cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
@@ -185,11 +189,6 @@ namespace Ph2_HwInterface
 
 		cVecReg.clear();
 
-		boost::this_thread::sleep(cWait);
-		WriteReg(CBC_HARD_RESET,0);
-		boost::this_thread::sleep(cWait);
-		WriteReg(CBC_HARD_RESET,0);
-
 		cPairReg.first = CBC_TEST_PULSE_VALID; cPairReg.second = 1;
 		cVecReg.push_back(cPairReg);
 		cPairReg.first = DELAY_AF_FAST_RESET; cPairReg.second = 30000;
@@ -199,8 +198,8 @@ namespace Ph2_HwInterface
 		cPairReg.first = DELAY_AF_TEST_PULSE; cPairReg.second = 30000;
 		cVecReg.push_back(cPairReg);
 		cPairReg.first = RQ; cPairReg.second = 1;
-		cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 1;
 		cVecReg.push_back(cPairReg);
+		cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 1;
 		cVecReg.push_back(cPairReg);
 		cPairReg.first = ACQ_MODE; cPairReg.second = 1;
 		cVecReg.push_back(cPairReg);
@@ -209,8 +208,8 @@ namespace Ph2_HwInterface
 
 		WriteStackReg(cVecReg);
 
-		cVecReg.clear();
-		*/
+		cVecReg.clear();*/
+
 
     }
 
@@ -340,7 +339,7 @@ namespace Ph2_HwInterface
 
 		//break trigger
 		if( pBreakTrigger )
-        	{
+        {
 			WriteReg(BREAK_TRIGGER,1);
 		}
 
