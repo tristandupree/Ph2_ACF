@@ -37,7 +37,6 @@ namespace Ph2_System
 			// BeBoardObjects contains all HW Description
 			ShelveVec		 	fShelveVec;
 
-		private:
 			// BeBoardFWInterface Map
 			BeBoardFWMap   		fBoardFWMap;
 	};
