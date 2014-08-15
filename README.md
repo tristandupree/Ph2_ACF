@@ -100,6 +100,8 @@ you can find in the settings directory. For example, output_1_2.txt contains the
 register map of the Cbc 2 of the Module 1.
 You can also find different .pdf files containing the histograms of the DAQ.
 
+For debugging purpose, you can activate DEV_FLAG in files or in Makefile and also activate the uHal log in RegManager.cc.
+
 More features will be implemented later, so make sure to have the last release
 locally to benefit from them.
 
