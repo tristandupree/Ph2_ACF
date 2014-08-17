@@ -1,12 +1,12 @@
 /*!
-*
-* \file BeBoard.h
-* \brief BeBoard Description class, configs of the BeBoard
-* \author Lorenzo BIDEGAIN
-* \date 14/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file				 BeBoard.h
+	\brief 				 BeBoard Description class, configs of the BeBoard
+	\author 			 Lorenzo BIDEGAIN
+	\date 				 14/07/14
+	\version 			 1.0
+	Support : 			 mail to : lorenzo.bidegain@cern.ch
+
 */
 
 #ifndef _BeBoard_h__

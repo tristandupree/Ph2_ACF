@@ -1,12 +1,12 @@
 /*!
-*
-* \file BeBoardFWInterface.h
-* \brief BeBoardFWInterface base class of all type of boards
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 28/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
-*
+
+	\file				 BeBoardFWInterface.h
+	\brief 				 BeBoardFWInterface base class of all type of boards
+	\author 			 Lorenzo BIDEGAIN, Nicolas PIERRE
+	\version			 1.0
+	\date 				 28/07/14
+	Support : 			 mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+
 */
 
 #ifndef __BEBOARDFWINTERFACE_H__
@@ -149,6 +149,12 @@ namespace Ph2_HwInterface
 			* \return Next event
 			*/
 			virtual const Event* GetNextEvent() {};
+			/*!
+			* \brief Get the data buffer
+			* \param pBufSize : recovers the data buffer size
+			* \return Data buffer
+			*/
+			virtual const char * GetBuffer( uint32_t &pBufSize ) {};
 
 
 	};

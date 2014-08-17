@@ -11,6 +11,13 @@ var searchData=
   ['offset_5flumi',['OFFSET_LUMI',['../_definition_8h.html#aa726e7f33789f31d51f8e23c8027331f',1,'Definition.h']]],
   ['offset_5forbit',['OFFSET_ORBIT',['../_definition_8h.html#a7e3f5dcd64e350b19cfe6ac8d8b9de55',1,'Definition.h']]],
   ['offset_5fpipeline_5faddress',['OFFSET_PIPELINE_ADDRESS',['../_definition_8h.html#a5868314549e40a5df9050c0aefdd28d5',1,'Definition.h']]],
-  ['offset_5ftdc',['OFFSET_TDC',['../_definition_8h.html#ab92be247eb48959138e31f51abdb4595',1,'Definition.h']]],
-  ['operator_28_29',['operator()',['../struct_ph2___hw_description_1_1_cbc_comparer.html#a1b237f2b5e553f7f2c09013a42160115',1,'Ph2_HwDescription::CbcComparer']]]
+  ['offset_5ftdc_5f2cbc',['OFFSET_TDC_2CBC',['../_definition_8h.html#a855e3284919fca919a615f239330790e',1,'Definition.h']]],
+  ['offset_5ftdc_5f8cbc',['OFFSET_TDC_8CBC',['../_definition_8h.html#a2a10581af425cc172c02de8583b27faa',1,'Definition.h']]],
+  ['open_5ffile_5fwide',['open_file_wide',['../pugixml_8cpp.html#a6a347080c51ac7c992a32cde66a43801',1,'pugixml.cpp']]],
+  ['operator_21_3d',['operator!=',['../classxpath__string.html#afca32de44459a6805b90c517d5d5ab75',1,'xpath_string']]],
+  ['operator_28_29',['operator()',['../struct_ph2___hw_description_1_1_cbc_comparer.html#a1b237f2b5e553f7f2c09013a42160115',1,'Ph2_HwDescription::CbcComparer::operator()()'],['../struct_ph2___hw_description_1_1_reg_item_comparer.html#aee3e1f2a92ae7431674b6307478c8c6f',1,'Ph2_HwDescription::RegItemComparer::operator()()'],['../structequal__to.html#acaf39da83a307280fef2f11691386b0e',1,'equal_to::operator()()'],['../structnot__equal__to.html#acbcb7d0809378458b52e6ed1a07c1d7d',1,'not_equal_to::operator()()'],['../structless.html#ad467675b44baab18215475c7cba0cb48',1,'less::operator()()'],['../structless__equal.html#a88d7a445c55ca234e3595aa086ff6a7d',1,'less_equal::operator()()'],['../structdocument__order__comparator.html#a11e471cbfa426bc9e48844c1db1a190e',1,'document_order_comparator::operator()()'],['../structduplicate__comparator.html#afa36b2cf7af3e0bc7e41b03995bd99d3',1,'duplicate_comparator::operator()()'],['../structnamespace__uri__predicate.html#ab4580e45d603d3eedfe75fec74210ce1',1,'namespace_uri_predicate::operator()()'],['../struct_test_group_comparer.html#af1d4d79824e65c08f7e063f6d09eb755',1,'TestGroupComparer::operator()()']]],
+  ['operator_3d',['operator=',['../classxml__buffered__writer.html#a0aab8cdf0db6269840a0b16319bdb985',1,'xml_buffered_writer::operator=()'],['../classxpath__ast__node.html#a60fddea92b095c2b8705f12f7309e6aa',1,'xpath_ast_node::operator=()']]],
+  ['operator_3d_3d',['operator==',['../classxpath__string.html#a42fc30d8b2434d89e724436f99458abd',1,'xpath_string::operator==()'],['../structxpath__lexer__string.html#ac19adfd75832be8eff3f430aa3cb3c14',1,'xpath_lexer_string::operator==()']]],
+  ['opt_5ffalse',['opt_false',['../structopt__false.html',1,'']]],
+  ['opt_5ftrue',['opt_true',['../structopt__true.html',1,'']]]
 ];

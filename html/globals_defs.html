@@ -72,6 +72,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="globals.html"><span>All</span></a></li>
       <li><a href="globals_func.html"><span>Functions</span></a></li>
+      <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li class="current"><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
@@ -95,6 +99,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_u"><span>u</span></a></li>
       <li><a href="#index_v"><span>v</span></a></li>
       <li><a href="#index_w"><span>w</span></a></li>
+      <li><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -103,7 +108,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -333,6 +338,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>ENABLE_FE1_CBC9
 : <a class="el" href="_definition_8h.html#a3d710db3abf22fac46e52b3645670616">Definition.h</a>
 </li>
+<li>ENDSWITH
+: <a class="el" href="pugixml_8cpp.html#a3a72d0b2c0e7f99940ce8fbcc69e532f">pugixml.cpp</a>
+</li>
 <li>EVENT_NUMBER
 : <a class="el" href="_definition_8h.html#aaa08b81a680d7b782f1709b09969346b">Definition.h</a>
 </li>
@@ -364,8 +372,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>FE_EXPECTED
 : <a class="el" href="_definition_8h.html#abec4b50692225e50c27448e9a5bee66a">Definition.h</a>
 </li>
-<li>FE_NCHAR
-: <a class="el" href="_definition_8h.html#a48e38123a19c8946d3f3d43e397aac44">Definition.h</a>
+<li>FE_NCHAR_2CBC
+: <a class="el" href="_definition_8h.html#a6cdb3fdd29d07c50c96280f4a9c820d7">Definition.h</a>
+</li>
+<li>FE_NCHAR_8CBC
+: <a class="el" href="_definition_8h.html#a302e0bf402d3879c25ec9777cd8a4930">Definition.h</a>
 </li>
 <li>FMC1_PRESENT
 : <a class="el" href="_definition_8h.html#ace8447cf1974d876d5655fb2fb48f7a9">Definition.h</a>
@@ -504,21 +515,84 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>OFFSET_PIPELINE_ADDRESS
 : <a class="el" href="_definition_8h.html#a5868314549e40a5df9050c0aefdd28d5">Definition.h</a>
 </li>
-<li>OFFSET_TDC
-: <a class="el" href="_definition_8h.html#ab92be247eb48959138e31f51abdb4595">Definition.h</a>
+<li>OFFSET_TDC_2CBC
+: <a class="el" href="_definition_8h.html#a855e3284919fca919a615f239330790e">Definition.h</a>
+</li>
+<li>OFFSET_TDC_8CBC
+: <a class="el" href="_definition_8h.html#a2a10581af425cc172c02de8583b27faa">Definition.h</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
-<li>PACKET_SIZE
-: <a class="el" href="_definition_8h.html#aebdc7d8ca8e25ed8efc90bb88ef7ef5b">Definition.h</a>
-</li>
 <li>PC_CONFIG_OK
 : <a class="el" href="_definition_8h.html#a1489698bb660d3265c22ac35ab990bdc">Definition.h</a>
 </li>
 <li>POLARITY
 : <a class="el" href="_definition_8h.html#a94a72e10ee4b5a41ce4221a48ffe5f06">Definition.h</a>
+</li>
+<li>PUGI__CHECK_ERROR
+: <a class="el" href="pugixml_8cpp.html#a03531d9b3c74f0843567257537edfd53">pugixml.cpp</a>
+</li>
+<li>PUGI__DMC_VOLATILE
+: <a class="el" href="pugixml_8cpp.html#a88b7ffa81185df00606d7f2f1dad938b">pugixml.cpp</a>
+</li>
+<li>PUGI__ENDSEG
+: <a class="el" href="pugixml_8cpp.html#a39554337dd1d0fef32ddf9926ee4e4ae">pugixml.cpp</a>
+</li>
+<li>PUGI__FN
+: <a class="el" href="pugixml_8cpp.html#a82c335af3ca48cdb209c506bf8dd6ad2">pugixml.cpp</a>
+</li>
+<li>PUGI__FN_NO_INLINE
+: <a class="el" href="pugixml_8cpp.html#a7c7ac48a50c2216e26d1c089d42b0b86">pugixml.cpp</a>
+</li>
+<li>PUGI__IS_CHARTYPE
+: <a class="el" href="pugixml_8cpp.html#a2adf5ae9b7505408a18e9f3bb1b3d332">pugixml.cpp</a>
+</li>
+<li>PUGI__IS_CHARTYPE_IMPL
+: <a class="el" href="pugixml_8cpp.html#abc4e05b3f9f04b44e6bd3ba6a7f1b24d">pugixml.cpp</a>
+</li>
+<li>PUGI__IS_CHARTYPEX
+: <a class="el" href="pugixml_8cpp.html#a4ce684b35edc78e6fda91e836f29a46c">pugixml.cpp</a>
+</li>
+<li>PUGI__NO_INLINE
+: <a class="el" href="pugixml_8cpp.html#afd532a3c78b5b7c68f199a24fbc4adb5">pugixml.cpp</a>
+</li>
+<li>PUGI__NS_BEGIN
+: <a class="el" href="pugixml_8cpp.html#a7e613f6e5b9aa563d9d2d1f079d9be29">pugixml.cpp</a>
+</li>
+<li>PUGI__NS_END
+: <a class="el" href="pugixml_8cpp.html#aa426d55daea96845bc154f5a7a71ecc4">pugixml.cpp</a>
+</li>
+<li>PUGI__OPTSET
+: <a class="el" href="pugixml_8cpp.html#a06966692c7864407ceffff065b4d7da2">pugixml.cpp</a>
+</li>
+<li>PUGI__POPNODE
+: <a class="el" href="pugixml_8cpp.html#ab82f13ed99cc2d22c5ecb6e18b5dfe17">pugixml.cpp</a>
+</li>
+<li>PUGI__PUSHNODE
+: <a class="el" href="pugixml_8cpp.html#accdd212cd2831662c3c2dda668246f8a">pugixml.cpp</a>
+</li>
+<li>PUGI__SCANFOR
+: <a class="el" href="pugixml_8cpp.html#a98386e86f2c7e7e477939d209a5bbf7e">pugixml.cpp</a>
+</li>
+<li>PUGI__SCANWHILE
+: <a class="el" href="pugixml_8cpp.html#adfcdc54e9f7e0f2d3927b4a7690abf2a">pugixml.cpp</a>
+</li>
+<li>PUGI__SKIPWS
+: <a class="el" href="pugixml_8cpp.html#a87d9805caf644d370bb8e8faa2a1f887">pugixml.cpp</a>
+</li>
+<li>PUGI__STATIC_ASSERT
+: <a class="el" href="pugixml_8cpp.html#a7d1280c499f3355965242c431435a695">pugixml.cpp</a>
+</li>
+<li>PUGI__THROW_ERROR
+: <a class="el" href="pugixml_8cpp.html#a8af02d87a10272f03f96ab93a96d7202">pugixml.cpp</a>
+</li>
+<li>PUGIXML_HEADER_ONLY
+: <a class="el" href="pugiconfig_8hpp.html#a50b0860df1126fa0e883a42c43a9c789">pugiconfig.hpp</a>
+</li>
+<li>PUGIXML_VERSION
+: <a class="el" href="pugixml_8hpp.html#a8780f48a99ee220810217d06d2148363">pugixml.hpp</a>
 </li>
 </ul>
 
@@ -531,6 +605,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>SOURCE_PUGIXML_CPP
+: <a class="el" href="pugixml_8cpp.html#af68359a5202c930fd4beb740e86b6e96">pugixml.cpp</a>
+</li>
 <li>SPURIOUS_FRAME
 : <a class="el" href="_definition_8h.html#ab207427d943afb5b5fc19364720a69a7">Definition.h</a>
 </li>
@@ -604,8 +681,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>WIDTH_EVENT_COUNT_CBC
 : <a class="el" href="_definition_8h.html#a8a9f30d30ccc6d269a97f1a7fd278a0a">Definition.h</a>
 </li>
-<li>WIDTH_FE_EVENT
-: <a class="el" href="_definition_8h.html#a472dc6061c390a709875f8aff275b224">Definition.h</a>
+<li>WIDTH_FE_EVENT_2CBC
+: <a class="el" href="_definition_8h.html#aa19772c3acd3384f28c118fd5b34a473">Definition.h</a>
+</li>
+<li>WIDTH_FE_EVENT_8CBC
+: <a class="el" href="_definition_8h.html#a23b0fbe62e118b3ed19d693f817eab1e">Definition.h</a>
 </li>
 <li>WIDTH_GLIBFLAG
 : <a class="el" href="_definition_8h.html#a1ce95bad2fed3f0ae933f08daa0961e6">Definition.h</a>
@@ -623,10 +703,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="_definition_8h.html#a35a886560b7c229138c6d0cf9d49bb8d">Definition.h</a>
 </li>
 </ul>
+
+
+<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
+<li>XML_DESCRIPTION_FILE
+: <a class="el" href="_definition_8h.html#a25211a9da6505b86ff965cf57a7fd6e1">Definition.h</a>
+</li>
+</ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 6 2014 21:03:54 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 17 2014 16:02:24 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

@@ -1,12 +1,12 @@
-/*!
-*
-* \file CBCInterface.cc
-* \brief CBCInterface.cc User interface for the cbc's
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 30/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
-*
+/*
+
+	FileName :                     CbcInterface.cc
+	Content :                      User Interface to the Cbcs
+	Programmer :                   Lorenzo BIDEGAIN, Nicolas PIERRE
+	Version :                      1.0
+	Date of creation :             10/07/14
+	Support :                      mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+
 */
 
 #include "CbcInterface.h"

@@ -1,12 +1,12 @@
 /*!
-*
-* \file Shelve.cc
-* \brief Shelve Description class, handles a vector of Board
-* \author Lorenzo BIDEGAIN
-* \date 11/08/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	Filename : 				Shelve.cc
+	Content : 				Shelve Description class, handles a vector of Board
+	Programmer : 			Lorenzo BIDEGAIN
+	Version :				1.0
+	Date of Creation : 		11/08/14
+	Support : 				mail to : lorenzo.bidegain@cern.ch
+
 */
 
 #include "Shelve.h"

@@ -1,14 +1,13 @@
 /*!
-*
-* \file Cbc.cc
-* \brief Cbc Description class, config of the Cbcs
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
-*/
 
+	Filename : 				Cbc.cc
+	Content : 				Cbc Description class, config of the Cbcs
+	Programmer : 			Lorenzo BIDEGAIN
+	Version :				1.0
+	Date of Creation : 		25/06/14
+	Support : 				mail to : lorenzo.bidegain@cern.ch
+
+*/
 
 #include "Cbc.h"
 #include <fstream>
@@ -203,7 +202,7 @@ namespace Ph2_HwDescription{
 
 	bool RegItemComparer::operator() (CbcRegPair pRegItem1, CbcRegPair pRegItem2)
 	{
-		if (pRegItem1.second.fPage != pRegItem2.second.fPage) 
+		if (pRegItem1.second.fPage != pRegItem2.second.fPage)
 			return pRegItem1.second.fPage < pRegItem2.second.fPage;
 		else return pRegItem1.second.fAddress < pRegItem2.second.fAddress;
 	}

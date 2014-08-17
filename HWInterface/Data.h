@@ -1,10 +1,10 @@
 /*
 
-    FileName :                     Data.h
-    Content :                      Data handling from DAQ
-    Programmer :                   Nicolas PIERRE
-    Version :                      0.4
-    Date of creation :             10/07/14
+    \file                          Data.h
+    \brief                         Data handling from DAQ
+    \author                        Nicolas PIERRE
+    \version                       1.0
+    \date                          10/07/14
     Support :                      mail to : nicolas.pierre@icloud.com
 
 */

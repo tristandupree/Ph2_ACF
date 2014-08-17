@@ -1,12 +1,12 @@
 /*!
-*
-* \file Shelve.h
-* \brief Shelve Description class, handles a vector of Board
-* \author Lorenzo BIDEGAIN
-* \date 11/08/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file 				Shelve.h
+	\brief 				Shelve Description class, handles a vector of Board
+	\author 			Lorenzo BIDEGAIN
+	\version			1.0
+	\date 				11/08/14
+	Support : 			mail to : lorenzo.bidegain@cern.ch
+
 */
 
 #ifndef Shelve_h__
@@ -29,7 +29,7 @@ namespace Ph2_HwDescription{
 	public:
 
 		//C'tor which takes the ShelveId
-		Shelve( uint8_t pShelveId);		
+		Shelve( uint8_t pShelveId);
 
 		// Default C'tor
 		Shelve();

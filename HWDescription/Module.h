@@ -1,12 +1,12 @@
 /*!
-*
-* \file Module.h
-* \brief Module Description class
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file 				Module.h
+	\brief 				Module Description class
+	\author 			Lorenzo BIDEGAIN
+	\version 			1.0
+	\date 				25/06/14
+	Support : 			mail to : lorenzo.bidegain@cern.ch
+
 */
 
 #ifndef Module_h__

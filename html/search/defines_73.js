@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['source_5fpugixml_5fcpp',['SOURCE_PUGIXML_CPP',['../pugixml_8cpp.html#af68359a5202c930fd4beb740e86b6e96',1,'pugixml.cpp']]],
   ['spurious_5fframe',['SPURIOUS_FRAME',['../_definition_8h.html#ab207427d943afb5b5fc19364720a69a7',1,'Definition.h']]],
   ['sram1',['SRAM1',['../_definition_8h.html#a6a7f90395054dfa1a2f6521213aad848',1,'Definition.h']]],
   ['sram1_5fend_5freadout',['SRAM1_END_READOUT',['../_definition_8h.html#a96bfb08d3abc89fde1c50f2db0b640de',1,'Definition.h']]],

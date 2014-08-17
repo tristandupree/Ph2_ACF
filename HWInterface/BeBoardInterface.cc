@@ -2,8 +2,8 @@
 
 	FileName :                    BeBoardInterface.cc
 	Content :                     User Interface to the Boards
-	Programmer :                  Lorenzo BIDEGAIN, Nicolas Pierre
-	Version :                     0.3
+	Programmer :                  Lorenzo BIDEGAIN, Nicolas PIERRE
+	Version :                     1.0
 	Date of creation :            31/07/14
 	Support :                     mail to : nico.pierre@icloud.com
 

@@ -35,8 +35,12 @@ void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a05d7f790e0316b5
 \begin{DoxyCompactList}\small\item\em Pause a D\-A\-Q. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_aedd3abfb576016701da27fabc975ac13}{Resume} ()
 \begin{DoxyCompactList}\small\item\em Unpause a D\-A\-Q. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_afec88a0a2036c99d84bc1895c3f173eb}{Read\-Data} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$c\-Module, uint32\-\_\-t p\-Nth\-Acq, bool p\-Break\-Trigger)
+void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a26c35fec3518f40d09ebc7f0114be19b}{Read\-Data} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board, uint32\-\_\-t p\-Nth\-Acq, bool p\-Break\-Trigger)
 \begin{DoxyCompactList}\small\item\em Read data from D\-A\-Q. \end{DoxyCompactList}\item 
+const \hyperlink{class_ph2___hw_interface_1_1_event}{Event} $\ast$ \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_afebeee20cd186f919189e5f349c6a49f}{Get\-Next\-Event} ()
+\begin{DoxyCompactList}\small\item\em Get next event from data buffer. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_abd15e45762db510cdc41e039dabaab6c}{Get\-Buffer} (uint32\-\_\-t \&p\-Buf\-Size)
+\begin{DoxyCompactList}\small\item\em Get the data buffer. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a1a43546404b9097fafa83302cd326e4c}{Write\-Cbc\-Block\-Reg} (uint8\-\_\-t \&p\-Fe\-Id, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
 \begin{DoxyCompactList}\small\item\em Write register blocks of a Cbc. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_af1fc5669e98ae17f235c47f08ac256c0}{Read\-Cbc\-Block\-Reg} (uint8\-\_\-t \&p\-Fe\-Id, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
@@ -159,6 +163,47 @@ Enable I2\-C communications.
 {\em p\-Enable} & \-: 1/0 -\/$>$ Enable/\-Disable \\
 \hline
 \end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_abd15e45762db510cdc41e039dabaab6c}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Get\-Buffer@{Get\-Buffer}}
+\index{Get\-Buffer@{Get\-Buffer}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
+\subsubsection[{Get\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-Get\-Buffer (
+\begin{DoxyParamCaption}
+\item[{uint32\-\_\-t \&}]{p\-Buf\-Size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_abd15e45762db510cdc41e039dabaab6c}
+
+
+Get the data buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Buf\-Size} & \-: recovers the data buffer size \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_ph2___hw_interface_1_1_data}{Data} buffer 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_aa298116ba4220d37f3eabfd57b0310c7}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
+
+\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_afebeee20cd186f919189e5f349c6a49f}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Get\-Next\-Event@{Get\-Next\-Event}}
+\index{Get\-Next\-Event@{Get\-Next\-Event}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
+\subsubsection[{Get\-Next\-Event}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Event} $\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-Get\-Next\-Event (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_afebeee20cd186f919189e5f349c6a49f}
+
+
+Get next event from data buffer. 
+
+\begin{DoxyReturn}{Returns}
+Next event 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_a5f524d2a377db09667de71563e0fab3d}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
+
 \hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_aa43ddde3db1e03ed001bda27a2acf7e1}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!I2c\-Cmd\-Ack\-Wait@{I2c\-Cmd\-Ack\-Wait}}
 \index{I2c\-Cmd\-Ack\-Wait@{I2c\-Cmd\-Ack\-Wait}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
 \subsubsection[{I2c\-Cmd\-Ack\-Wait}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-I2c\-Cmd\-Ack\-Wait (
@@ -217,15 +262,15 @@ Read register blocks of a Cbc.
 
 Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_aef5cfbb0b5adceff7ccc6babd3d01642}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
 
-\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_afec88a0a2036c99d84bc1895c3f173eb}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Read\-Data@{Read\-Data}}
+\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_a26c35fec3518f40d09ebc7f0114be19b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Read\-Data@{Read\-Data}}
 \index{Read\-Data@{Read\-Data}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
 \subsubsection[{Read\-Data}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-Read\-Data (
 \begin{DoxyParamCaption}
-\item[{{\bf Module} $\ast$}]{c\-Module, }
+\item[{{\bf Be\-Board} $\ast$}]{p\-Board, }
 \item[{uint32\-\_\-t}]{p\-Nth\-Acq, }
 \item[{bool}]{p\-Break\-Trigger}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_afec88a0a2036c99d84bc1895c3f173eb}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_a26c35fec3518f40d09ebc7f0114be19b}
 
 
 Read data from D\-A\-Q. 
@@ -239,7 +284,7 @@ Read data from D\-A\-Q.
 \end{DoxyParams}
 
 
-Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_a75c534cace8f5984c588824cae6d2371}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
+Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_af27f2a01b7625d2b144760413128acf2}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
 
 \hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_ae067b85741fbb52c30a946d5f4f2691b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Read\-I2c\-Block\-Values\-In\-S\-R\-A\-M@{Read\-I2c\-Block\-Values\-In\-S\-R\-A\-M}}
 \index{Read\-I2c\-Block\-Values\-In\-S\-R\-A\-M@{Read\-I2c\-Block\-Values\-In\-S\-R\-A\-M}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}

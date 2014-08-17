@@ -1,3 +1,15 @@
+/*!
+
+	\file					 SystemController.h
+	\brief 				 	 Controller of the System, overall wrapper of the framework
+	\author 				 Nicolas PIERRE
+	\version				 1.0
+	\date 				 	 10/08/14
+	Support : 				 mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+
+*/
+
+
 #ifndef __SYSTEMCONTROLLER_H__
 #define __SYSTEMCONTROLLER_H__
 
@@ -15,30 +27,52 @@
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 
+/*!
+* \namespace Ph2_System
+* \brief Namespace regrouping the framework wrapper
+*/
 namespace Ph2_System
 {
 
-	typedef std::vector<Shelve*> ShelveVec;
+	typedef std::vector<Shelve*> ShelveVec; /*!< Vector of Shelve pointers */
 
+	/*!
+	* \class SystemController
+	* \brief Create, initialise, configure a predefined HW structure
+	*/
 	class SystemController
 	{
 		public:
+			BeBoardInterface*	fBeBoardInterface; /*!< Interface to the BeBoard */
+			CbcInterface*		fCbcInterface; /*!< Interface to the Cbc */
+			ShelveVec		 	fShelveVec; /*!< Vector of Shelve pointers */
+			BeBoardFWMap   		fBeBoardFWMap; /*!< Map of connections to the BeBoard */
+
+		public:
+			/*!
+			* \brief Constructor of the SystemController class
+			*/
 			SystemController();
+			/*!
+			* \brief Destructor of the SystemController class
+			*/
 			~SystemController();
-			// Public methods
+
+			/*!
+			* \brief Initialize the Hardware via an XML file
+			* \param pFilename : XML HW Description file
+			*/
 			void InitializeHw(std::string pFilename);
+			/*!
+			* \brief Configure the Hardware with XML file indicated values
+			*/
 			void ConfigureHw();
+			/*!
+			* \brief Run a DAQ
+			* \param pBeBoard
+			* \param pNthAcq
+			*/
 			void Run(BeBoard* pBeBoard, uint32_t pNthAcq);
-
-			// Public members: user interfaces
-			BeBoardInterface*	fBeBoardInterface;
-			CbcInterface*		fCbcInterface;
-
-			// BeBoardObjects contains all HW Description
-			ShelveVec		 	fShelveVec;
-
-			// BeBoardFWInterface Map
-			BeBoardFWMap   		fBoardFWMap;
 	};
 }
 

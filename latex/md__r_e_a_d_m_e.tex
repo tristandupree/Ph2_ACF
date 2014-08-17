@@ -1,12 +1,31 @@
-Supposed to contain\-:
+~~~~~~{\bfseries Supposed to contain}
 
 
 \begin{DoxyItemize}
-\item A middleware A\-P\-I layer, implemented in C++, which will basically wrap to abstracted functions the firmware calls and handshakes currently hardcoded into D\-A\-Q systems software.
+\item A middleware A\-P\-I layer, implemented in C++, which will basically wrap to abstracted functions the firmware calls and handshakes currently hardcoded into D\-A\-Q systems software
 \item A C++ object-\/based library describing the system components (C\-B\-Cs, Hybrids, Boards) and their properties(values, status)
+\item The M\-C\-P test program which is the wrapping the previous two.
 \end{DoxyItemize}
 
-\subsection*{M\-C\-P Test Interface }
+\subsection*{Different versions for different setups }
+
+On this Git\-Hub, you can find different version of the software \-:
+\begin{DoxyItemize}
+\item An agnostic (to the number of C\-B\-Cs) version with the new structure in the Master branch
+\item A 2\-C\-B\-C version on the 2\-C\-B\-C branch with the previous structure
+\item A 8\-C\-B\-C version on the 8\-C\-B\-C branch with the previous structure
+\item An in-\/progress version in the dev branch \par
+ \par
+ {\bfseries What are the differences between the 2\-C\-B\-C/8\-C\-B\-C versions ?}
+\end{DoxyItemize}
+
+The differences mainly resides in the size of the data buffer for the D\-A\-Q, when all the access to both Board and Cbc registers is done the same way. Also, some functions are present in 8\-C\-B\-C and not in 2\-C\-B\-C due to the fact that the firmware of the 8\-C\-B\-C is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)
+
+\subsection*{The Test Software itself \-: the M\-C\-P Test Interface }
+
+You'll find an install step by step and a How To. \par
+ \par
+ ~~~~~~{\bfseries Install the M\-C\-P Test Interface step by step...}
 
 Here are the step to make the program functional
 
@@ -20,15 +39,17 @@ Here are the step to make the program functional
 \end{DoxyItemize}
 \item Change in settings/connections.\-xml the path to the adress table
 \begin{DoxyItemize}
-\item It's per default set to \-: \href{file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table.xml}{\tt file\-:///afs/cern.\-ch/user/n/npierre/dev/settings/adress\-\_\-table.\-xml}
-\item You have to change it to \-: \href{file://$(BUILD)/settings/adress_table.xml}{\tt file\-://\$(\-B\-U\-I\-L\-D)/settings/adress\-\_\-table.\-xml} (where  is the path to the root of the Git\-Hub repo you recovered)
+\item It's per default set to \-: \href{file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table}{\tt file\-:///afs/cern.\-ch/user/n/npierre/dev/settings/adress\-\_\-table}(2\-C\-B\-C or 8\-C\-B\-C).xml
+\item You have to change it to \-: \href{file://$(BUILD)/settings/adress_table}{\tt file\-://\$(\-B\-U\-I\-L\-D)/settings/adress\-\_\-table}(2\-C\-B\-C or 8\-C\-B\-C).xml (where  is the path to the root of the Git\-Hub repo you recovered)
 \end{DoxyItemize}
+\item Create /lib, /bin and /output directories in the root of the repo.
 \item Do a make in the root the repo (make sure you have all u\-Hal, root, boost... libraries on your computer)
-\item Launch testpgrm command if you want to test if everything is working good
-\item Launch mcp to play with the Test Interface
+\item Launch testpgrm command if you want to test if everything is working good.
+\item You can test the data acquisition by lauching datatest2cbc or datatest8cbc.
+\item Launch mcp to play with the Test Interface \par
+ \par
+ {\bfseries What can you do with the software ?}
 \end{DoxyEnumerate}
-
-\subsection*{What can you do with the software ? }
 
 A Glib is created per default (maybe in the future you will be able to play with more than one Glib)
 
@@ -39,7 +60,7 @@ After this creation round, you can do anything you want \-:
 \item Configure the Glib or the Cbcs
 \item Manipulate the registers in the Glib
 \item Manipulate the registers in the Cbcs
-\item Do the manipulation to Start/\-Stop an acquisition, but not actually acquiring something relevant
+\item Perform a D\-A\-Q and tracing diagrams counting the number of hits
 \item Have a configuration recap of all the objects you created
 \end{DoxyItemize}
 
@@ -49,28 +70,32 @@ When you write a register in the Glib or the Cbc, the writing is updated to the 
 
 For writing value in register, we invite you to put in the following format \-: 0x\-\_\-\-\_\-. You must thus type '0x\-F\-F' for exemple and not just 'F\-F' in the command line. That might change in the future..
 
-At the end of the program, the register maps are saved into output\-\_\-\-X\-\_\-\-X.\-txt files you can find in the settings directory. For example, output\-\_\-1\-\_\-2.\-txt contains the register map of the Cbc 2 of the Module 1.
+You can also run D\-A\-Q and recover the Hit Histogram for each Cbc and each Event in the output file.
+
+At the end of the program, the register maps are saved into output\-\_\-\-X\-\_\-\-X.\-txt files you can find in the settings directory. For example, output\-\_\-1\-\_\-2.\-txt contains the register map of the Cbc 2 of the Module 1. You can also find different .pdf files containing the histograms of the D\-A\-Q.
+
+For debugging purpose, you can activate D\-E\-V\-\_\-\-F\-L\-A\-G in files or in Makefile and also activate the u\-Hal log in \hyperlink{_reg_manager_8cc}{Reg\-Manager.\-cc}.
 
 More features will be implemented later, so make sure to have the last release locally to benefit from them.
 
 Warning ! \-: be careful with options choice in the program menus, some mistypes can leed to unexpected hazards \-:-\/(.
 
-\subsection*{Last Updates }
+\subsection*{On the go... }
+
+~~~~~~{\bfseries Last Updates}
 
 
 \begin{DoxyItemize}
 \item 09/07/14 \-: Added threading for stack writing registers
 \item 10/07/14 \-: Read Data from acquisition in a rubbish format
-\item 25/07/14 \-: Fully functional for 2\-C\-B\-C (safe from Broadcast obviously), pending for 8\-C\-B\-C
-\end{DoxyItemize}
-
-\subsection*{Future Improvements }
-
-
-\begin{DoxyItemize}
-\item Implementation of generic Be\-Board and Be\-Board\-Interface Class which will help us dealing with multiple board type (Glib, F\-C7).
-\item Work on the Cbc class to make it recognize if the Cbc is from a Glib or a F\-C7.
-\item Implement the new Strasbourg firmware as soon as it comes out.
+\item $\sim$$\sim$25/07/14 \-: Fully functional for 2\-C\-B\-C (safe from Broadcast obviously), pending for 8\-C\-B\-C$\sim$$\sim$
+\item $\sim$$\sim$28/07/14 \-: Found a bug in the reading of C\-B\-C1 of 2\-C\-B\-C, trying to see if coming from soft or hard$\sim$$\sim$
+\item 30/07/14 \-: Working 2\-C\-B\-C version, find a 8\-C\-B\-C working version in the 8\-C\-B\-C branch
+\item 12/08/14 \-: Working agnostic version of the new structure on Master
+\item 15/08/14 \-: System Controller Class working \par
+ \par
+ {\bfseries Future Improvements}
+\item Wrap the project nicely
 \end{DoxyItemize}
 
 \subsection*{Support, Suggestions ? }

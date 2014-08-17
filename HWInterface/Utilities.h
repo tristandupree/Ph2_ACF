@@ -1,10 +1,10 @@
 /*
 
-    FileName :                     Utilities.h
-    Content :                      Some objects that might come in handy
-    Programmer :                   Nicolas PIERRE
-    Version :                      0.4
-    Date of creation :             10/06/14
+    \file                          Utilities.h
+    \brief                         Some objects that might come in handy
+    \author                        Nicolas PIERRE
+    \version                       1.0
+    \date                          10/06/14
     Support :                      mail to : nicolas.pierre@icloud.com
 
 */

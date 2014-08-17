@@ -1,3 +1,14 @@
+/*
+
+	FileName :                    SystemController.cc
+	Content :                     Controller of the System, overall wrapper of the framework
+	Programmer :                  Nicolas PIERRE
+	Version :                     1.0
+	Date of creation :            10/08/14
+	Support :                     mail to : nicolas.pierre@cern.ch
+
+*/
+
 #include "SystemController.h"
 
 using namespace Ph2_HwDescription;
@@ -12,7 +23,7 @@ namespace Ph2_System
 	}
 
 	SystemController::~SystemController()
-        {
+    {
 
 	}
 
@@ -52,7 +63,7 @@ namespace Ph2_System
 				if(std::string(nb.attribute("boardType").value()).compare(std::string("Glib")))
 				{
 					cBeBoardFWInterface = new GlibFWInterface(UHAL_CONNECTION_FILE,cBeId);
-					fBoardFWMap[cBeId] = cBeBoardFWInterface;
+					fBeBoardFWMap[cBeId] = cBeBoardFWInterface;
 				}
 				/*else
 					cBeBoardFWInterface = new OtherFWInterface();*/
@@ -84,8 +95,8 @@ namespace Ph2_System
 			cNShelve++;
 		}
 
-		fBeBoardInterface = new BeBoardInterface(fBoardFWMap);
-		fCbcInterface = new CbcInterface(fBoardFWMap);
+		fBeBoardInterface = new BeBoardInterface(fBeBoardFWMap);
+		fCbcInterface = new CbcInterface(fBeBoardFWMap);
 
 	}
 

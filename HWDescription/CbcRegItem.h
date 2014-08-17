@@ -1,12 +1,12 @@
 /*!
-*
-* \file CbcRegItem.h
-* \brief CbcRegItem description, contents of the structure CbcRegItem with is the value of the CbcRegMap
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file			 CbcRegItem.h
+	\brief 			 CbcRegItem description, contents of the structure CbcRegItem with is the value of the CbcRegMap
+	\author 		 Lorenzo BIDEGAIN
+	\version 		 1.0
+	\date 			 25/06/14
+	Support : 		 mail to : lorenzo.bidegain@cern.ch
+
 */
 
 #ifndef _CbcRegItem_h__

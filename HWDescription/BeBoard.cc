@@ -1,14 +1,13 @@
 /*!
-*
-* \file BeBoard.cc
-* \brief BeBoard Description class, configs of the BeBoard
-* \author Lorenzo BIDEGAIN
-* \date 14/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
-*/
 
+	Filename : 				BeBoard.cc
+	Content : 				BeBoard Description class, configs of the BeBoard
+	Programmer : 			Lorenzo BIDEGAIN
+	Version :				1.0
+	Date of Creation : 		14/07/14
+	Support : 				mail to : lorenzo.bidegain@cern.ch
+
+*/
 
 #include "BeBoard.h"
 #include <iostream>

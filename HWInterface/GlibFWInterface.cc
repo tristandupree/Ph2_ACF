@@ -1,12 +1,12 @@
-/*!
-*
-* \file GlibFWInterface.cc
-* \brief GlibFWInterface init/config of the Glib
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 28/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
-*
+/*
+
+	FileName :                    GlibFWInterface.h
+	Content :                     GlibFWInterface init/config of the Glib and its Cbc's
+	Programmer :                  Lorenzo BIDEGAIN, Nicolas PIERRE
+	Version :                     1.0
+	Date of creation :            28/07/14
+	Support :                     mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+
 */
 
 #include <uhal/uhal.hpp>
@@ -410,6 +410,12 @@ namespace Ph2_HwInterface
 	const Event* GlibFWInterface::GetNextEvent()
 	{
 		return fData->GetNextEvent();
+	}
+
+
+	const char * GetBuffer( uint32_t &pBufSize )
+	{
+		return fData->GetBuffer( uint32_t &pBufSize );
 	}
 
 

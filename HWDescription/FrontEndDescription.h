@@ -1,12 +1,12 @@
 /*!
-*
-* \file FrontEndDescription.h
-* \brief FrontEndDescription base class to describe all parameters common to all FE Components in the DAQ chain 
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file 				FrontEndDescription.h
+	\brief 				FrontEndDescription base class to describe all parameters common to all FE Components in the DAQ chain
+	\author 			Lorenzo BIDEGAIN
+	\version 			1.0
+	\date 				25/06/14
+	Support : 			mail to : lorenzo.bidegain@cern.ch
+
 */
 
 
@@ -92,7 +92,7 @@ namespace Ph2_HwDescription{
 		{ return fStatus ;};
 
 		// Setter methods
-		
+
 		/*!
 		* \brief Set the Shelve ID
 		* \param pShelveId

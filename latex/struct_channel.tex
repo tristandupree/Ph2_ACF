@@ -1,0 +1,160 @@
+\hypertarget{struct_channel}{\section{Channel Struct Reference}
+\label{struct_channel}\index{Channel@{Channel}}
+}
+
+
+{\ttfamily \#include $<$Channel.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_channel_a9020dabc51a3a2bc7ba558cc3b5c8c45}{Channel} (uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint8\-\_\-t p\-Channel\-Id)
+\item 
+\hyperlink{struct_channel_a5f15ebd302464069f1a9e3f0ded14482}{$\sim$\-Channel} ()
+\item 
+double \hyperlink{struct_channel_ae76c0ccc6dc03c5e016cdec79a3df739}{get\-Pedestal} ()
+\item 
+double \hyperlink{struct_channel_a570a341791f9709d3fca63ffa9ec8e16}{get\-Noise} ()
+\item 
+uint8\-\_\-t \hyperlink{struct_channel_acb087e09d25e9de182a6d97d8c3dcd6e}{get\-Offset} ()
+\item 
+void \hyperlink{struct_channel_aa88adf1f3058e04b8763ffffe6e9b1d8}{set\-Offset} (uint8\-\_\-t p\-Offset)
+\item 
+void \hyperlink{struct_channel_a98159cb5895898ecce638aee007a99e9}{initialize\-Hist} (uint8\-\_\-t p\-Value, bool p\-Vplus\-Scan)
+\item 
+void \hyperlink{struct_channel_adb1b3676dac071110ef0df05a9ac8611}{fill\-Hist} (uint8\-\_\-t p\-Vcth)
+\item 
+void \hyperlink{struct_channel_a001020513f2f0f64fb8b68a31644b847}{fit\-Hist} (uint8\-\_\-t p\-Eventsper\-Vcth, bool p\-Hole, uint8\-\_\-t p\-Vplus, T\-File $\ast$p\-Resultfile)
+\item 
+void \hyperlink{struct_channel_ae97d073ff9a992d141eb8350f6c504ff}{reset\-Hist} ()
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint8\-\_\-t \hyperlink{struct_channel_a8b456db0ac7206afd7062c7fc6ea1015}{f\-Be\-Id}
+\item 
+uint8\-\_\-t \hyperlink{struct_channel_a05c28fbcfbe6afc306791e57c14ee90f}{f\-Fe\-Id}
+\item 
+uint8\-\_\-t \hyperlink{struct_channel_a434b0806f9c242aa903f8be8e5849d7b}{f\-Cbc\-Id}
+\item 
+uint8\-\_\-t \hyperlink{struct_channel_a6bf2beaaef75ac318efdda6c63fd14d4}{f\-Channel\-Id}
+\item 
+uint8\-\_\-t \hyperlink{struct_channel_a40a902cc52cb9d00f537094d3944a121}{f\-Offset}
+\item 
+T\-H1\-F $\ast$ \hyperlink{struct_channel_acc4d3eaf08d6c4951f3ae678000ff684}{f\-Scurve}
+\item 
+T\-F1 $\ast$ \hyperlink{struct_channel_a5ca62453f01642d2b85ab4d24acf5783}{f\-Fit}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{struct_channel_a9020dabc51a3a2bc7ba558cc3b5c8c45}{\index{Channel@{Channel}!Channel@{Channel}}
+\index{Channel@{Channel}!Channel@{Channel}}
+\subsubsection[{Channel}]{\setlength{\rightskip}{0pt plus 5cm}Channel\-::\-Channel (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Be\-Id, }
+\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
+\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
+\item[{uint8\-\_\-t}]{p\-Channel\-Id}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_a9020dabc51a3a2bc7ba558cc3b5c8c45}
+\hypertarget{struct_channel_a5f15ebd302464069f1a9e3f0ded14482}{\index{Channel@{Channel}!$\sim$\-Channel@{$\sim$\-Channel}}
+\index{$\sim$\-Channel@{$\sim$\-Channel}!Channel@{Channel}}
+\subsubsection[{$\sim$\-Channel}]{\setlength{\rightskip}{0pt plus 5cm}Channel\-::$\sim$\-Channel (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_a5f15ebd302464069f1a9e3f0ded14482}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{struct_channel_adb1b3676dac071110ef0df05a9ac8611}{\index{Channel@{Channel}!fill\-Hist@{fill\-Hist}}
+\index{fill\-Hist@{fill\-Hist}!Channel@{Channel}}
+\subsubsection[{fill\-Hist}]{\setlength{\rightskip}{0pt plus 5cm}void Channel\-::fill\-Hist (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Vcth}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_adb1b3676dac071110ef0df05a9ac8611}
+\hypertarget{struct_channel_a001020513f2f0f64fb8b68a31644b847}{\index{Channel@{Channel}!fit\-Hist@{fit\-Hist}}
+\index{fit\-Hist@{fit\-Hist}!Channel@{Channel}}
+\subsubsection[{fit\-Hist}]{\setlength{\rightskip}{0pt plus 5cm}void Channel\-::fit\-Hist (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Eventsper\-Vcth, }
+\item[{bool}]{p\-Hole, }
+\item[{uint8\-\_\-t}]{p\-Vplus, }
+\item[{T\-File $\ast$}]{p\-Resultfile}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_a001020513f2f0f64fb8b68a31644b847}
+\hypertarget{struct_channel_a570a341791f9709d3fca63ffa9ec8e16}{\index{Channel@{Channel}!get\-Noise@{get\-Noise}}
+\index{get\-Noise@{get\-Noise}!Channel@{Channel}}
+\subsubsection[{get\-Noise}]{\setlength{\rightskip}{0pt plus 5cm}double Channel\-::get\-Noise (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_a570a341791f9709d3fca63ffa9ec8e16}
+\hypertarget{struct_channel_acb087e09d25e9de182a6d97d8c3dcd6e}{\index{Channel@{Channel}!get\-Offset@{get\-Offset}}
+\index{get\-Offset@{get\-Offset}!Channel@{Channel}}
+\subsubsection[{get\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Channel\-::get\-Offset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{struct_channel_acb087e09d25e9de182a6d97d8c3dcd6e}
+\hypertarget{struct_channel_ae76c0ccc6dc03c5e016cdec79a3df739}{\index{Channel@{Channel}!get\-Pedestal@{get\-Pedestal}}
+\index{get\-Pedestal@{get\-Pedestal}!Channel@{Channel}}
+\subsubsection[{get\-Pedestal}]{\setlength{\rightskip}{0pt plus 5cm}double Channel\-::get\-Pedestal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_ae76c0ccc6dc03c5e016cdec79a3df739}
+\hypertarget{struct_channel_a98159cb5895898ecce638aee007a99e9}{\index{Channel@{Channel}!initialize\-Hist@{initialize\-Hist}}
+\index{initialize\-Hist@{initialize\-Hist}!Channel@{Channel}}
+\subsubsection[{initialize\-Hist}]{\setlength{\rightskip}{0pt plus 5cm}void Channel\-::initialize\-Hist (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Value, }
+\item[{bool}]{p\-Vplus\-Scan}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_a98159cb5895898ecce638aee007a99e9}
+\hypertarget{struct_channel_ae97d073ff9a992d141eb8350f6c504ff}{\index{Channel@{Channel}!reset\-Hist@{reset\-Hist}}
+\index{reset\-Hist@{reset\-Hist}!Channel@{Channel}}
+\subsubsection[{reset\-Hist}]{\setlength{\rightskip}{0pt plus 5cm}void Channel\-::reset\-Hist (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_ae97d073ff9a992d141eb8350f6c504ff}
+\hypertarget{struct_channel_aa88adf1f3058e04b8763ffffe6e9b1d8}{\index{Channel@{Channel}!set\-Offset@{set\-Offset}}
+\index{set\-Offset@{set\-Offset}!Channel@{Channel}}
+\subsubsection[{set\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}void Channel\-::set\-Offset (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Offset}
+\end{DoxyParamCaption}
+)}}\label{struct_channel_aa88adf1f3058e04b8763ffffe6e9b1d8}
+
+
+\subsection{Field Documentation}
+\hypertarget{struct_channel_a8b456db0ac7206afd7062c7fc6ea1015}{\index{Channel@{Channel}!f\-Be\-Id@{f\-Be\-Id}}
+\index{f\-Be\-Id@{f\-Be\-Id}!Channel@{Channel}}
+\subsubsection[{f\-Be\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Channel\-::f\-Be\-Id}}\label{struct_channel_a8b456db0ac7206afd7062c7fc6ea1015}
+\hypertarget{struct_channel_a434b0806f9c242aa903f8be8e5849d7b}{\index{Channel@{Channel}!f\-Cbc\-Id@{f\-Cbc\-Id}}
+\index{f\-Cbc\-Id@{f\-Cbc\-Id}!Channel@{Channel}}
+\subsubsection[{f\-Cbc\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Channel\-::f\-Cbc\-Id}}\label{struct_channel_a434b0806f9c242aa903f8be8e5849d7b}
+\hypertarget{struct_channel_a6bf2beaaef75ac318efdda6c63fd14d4}{\index{Channel@{Channel}!f\-Channel\-Id@{f\-Channel\-Id}}
+\index{f\-Channel\-Id@{f\-Channel\-Id}!Channel@{Channel}}
+\subsubsection[{f\-Channel\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Channel\-::f\-Channel\-Id}}\label{struct_channel_a6bf2beaaef75ac318efdda6c63fd14d4}
+\hypertarget{struct_channel_a05c28fbcfbe6afc306791e57c14ee90f}{\index{Channel@{Channel}!f\-Fe\-Id@{f\-Fe\-Id}}
+\index{f\-Fe\-Id@{f\-Fe\-Id}!Channel@{Channel}}
+\subsubsection[{f\-Fe\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Channel\-::f\-Fe\-Id}}\label{struct_channel_a05c28fbcfbe6afc306791e57c14ee90f}
+\hypertarget{struct_channel_a5ca62453f01642d2b85ab4d24acf5783}{\index{Channel@{Channel}!f\-Fit@{f\-Fit}}
+\index{f\-Fit@{f\-Fit}!Channel@{Channel}}
+\subsubsection[{f\-Fit}]{\setlength{\rightskip}{0pt plus 5cm}T\-F1$\ast$ Channel\-::f\-Fit}}\label{struct_channel_a5ca62453f01642d2b85ab4d24acf5783}
+\hypertarget{struct_channel_a40a902cc52cb9d00f537094d3944a121}{\index{Channel@{Channel}!f\-Offset@{f\-Offset}}
+\index{f\-Offset@{f\-Offset}!Channel@{Channel}}
+\subsubsection[{f\-Offset}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Channel\-::f\-Offset}}\label{struct_channel_a40a902cc52cb9d00f537094d3944a121}
+\hypertarget{struct_channel_acc4d3eaf08d6c4951f3ae678000ff684}{\index{Channel@{Channel}!f\-Scurve@{f\-Scurve}}
+\index{f\-Scurve@{f\-Scurve}!Channel@{Channel}}
+\subsubsection[{f\-Scurve}]{\setlength{\rightskip}{0pt plus 5cm}T\-H1\-F$\ast$ Channel\-::f\-Scurve}}\label{struct_channel_acc4d3eaf08d6c4951f3ae678000ff684}
+
+
+The documentation for this struct was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+tools/\hyperlink{_channel_8h}{Channel.\-h}\item 
+tools/\hyperlink{_channel_8cc}{Channel.\-cc}\end{DoxyCompactItemize}

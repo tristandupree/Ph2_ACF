@@ -3,13 +3,22 @@ var searchData=
   ['_7ebeboard',['~BeBoard',['../class_ph2___hw_description_1_1_be_board.html#a9e763718213e7106b7a6ba1ccb5d23e2',1,'Ph2_HwDescription::BeBoard']]],
   ['_7ebeboardfwinterface',['~BeBoardFWInterface',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a22077ee1db6eb5ae149165bff88b5fa0',1,'Ph2_HwInterface::BeBoardFWInterface']]],
   ['_7ebeboardinterface',['~BeBoardInterface',['../class_ph2___hw_interface_1_1_be_board_interface.html#ad67b2d931b904565cf6e5881fa0d140e',1,'Ph2_HwInterface::BeBoardInterface']]],
+  ['_7ebuffer_5fholder',['~buffer_holder',['../structbuffer__holder.html#a43e10af0ca501bfa9bd1c2a012937876',1,'buffer_holder']]],
+  ['_7ecalibration',['~Calibration',['../class_calibration.html#a108efb6ccd8c98e5cac950be4bf0ac26',1,'Calibration']]],
   ['_7ecbc',['~Cbc',['../class_ph2___hw_description_1_1_cbc.html#a4e641d292073978e6e1b34fa91c13067',1,'Ph2_HwDescription::Cbc']]],
   ['_7ecbcinterface',['~CbcInterface',['../class_ph2___hw_interface_1_1_cbc_interface.html#a1f0ab7d7cf7783a0fe275e8e1d7e5a49',1,'Ph2_HwInterface::CbcInterface']]],
+  ['_7echannel',['~Channel',['../struct_channel.html#a5f15ebd302464069f1a9e3f0ded14482',1,'Channel']]],
   ['_7edata',['~Data',['../class_ph2___hw_interface_1_1_data.html#a889228098e5c0b4eb5d06ad7850cdd7e',1,'Ph2_HwInterface::Data']]],
   ['_7eevent',['~Event',['../class_ph2___hw_interface_1_1_event.html#a2698d395adfcd65d0853676a899127fc',1,'Ph2_HwInterface::Event']]],
   ['_7eexception',['~Exception',['../class_ph2___hw_interface_1_1_exception.html#a667217cdbe920cb69842a3d3afb69d35',1,'Ph2_HwInterface::Exception']]],
   ['_7efrontenddescription',['~FrontEndDescription',['../class_ph2___hw_description_1_1_front_end_description.html#a8ff5e1dc9dc09e6db9c105a362000e89',1,'Ph2_HwDescription::FrontEndDescription']]],
   ['_7eglibfwinterface',['~GlibFWInterface',['../class_ph2___hw_interface_1_1_glib_f_w_interface.html#a8cd8fec61b8e8327b142beddcd512b34',1,'Ph2_HwInterface::GlibFWInterface']]],
   ['_7emodule',['~Module',['../class_ph2___hw_description_1_1_module.html#a8142f34ea2308ed78e8d0dbb042bc5f3',1,'Ph2_HwDescription::Module']]],
-  ['_7eregmanager',['~RegManager',['../class_ph2___hw_interface_1_1_reg_manager.html#a5d650c4e6467153f98f999abbbfc354c',1,'Ph2_HwInterface::RegManager']]]
+  ['_7eregmanager',['~RegManager',['../class_ph2___hw_interface_1_1_reg_manager.html#a5d650c4e6467153f98f999abbbfc354c',1,'Ph2_HwInterface::RegManager']]],
+  ['_7eshelve',['~Shelve',['../class_ph2___hw_description_1_1_shelve.html#acbdc580d3ff8f4efe2df84d19ef6ef55',1,'Ph2_HwDescription::Shelve']]],
+  ['_7esystemcontroller',['~SystemController',['../class_ph2___system_1_1_system_controller.html#abd794b0a85d9d83ec553d707875efcf1',1,'Ph2_System::SystemController']]],
+  ['_7exml_5fbuffered_5fwriter',['~xml_buffered_writer',['../classxml__buffered__writer.html#aa0aaa7ca5b9b61fb0e9dd79502e8d728',1,'xml_buffered_writer']]],
+  ['_7expath_5fallocator_5fcapture',['~xpath_allocator_capture',['../structxpath__allocator__capture.html#a09d4f62de6a543483b94eec405667101',1,'xpath_allocator_capture']]],
+  ['_7expath_5fstack_5fdata',['~xpath_stack_data',['../structxpath__stack__data.html#a1df4e020ecc629b398336969c8490d98',1,'xpath_stack_data']]],
+  ['_7expath_5fvariable_5fstring',['~xpath_variable_string',['../structxpath__variable__string.html#a8e5e421f2e963e6196d2812a623ee912',1,'xpath_variable_string']]]
 ];

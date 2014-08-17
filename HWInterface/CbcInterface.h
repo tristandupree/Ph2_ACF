@@ -2,9 +2,9 @@
 
 	\file 						 CBCInterface.h
 	\brief 						 User Interface to the Cbcs
-	\author 					 Lorenzo BIDEGAIN, Nicolas Pierre
-	\version 					 0.3
-	Date of creation :           31/07/14
+	\author 					 Lorenzo BIDEGAIN, Nicolas PIERRE
+	\version 					 1.0
+	\date			             31/07/14
 	Support :                    mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
 
 */

@@ -14,6 +14,11 @@
 
 #define UHAL_CONNECTION_FILE "file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml"
 
+//-----------------------------------------------------------------------------
+//Glib Config Files
+
+#define XML_DESCRIPTION_FILE "file:///afs/cern.ch/user/n/npierre/dev/System/HWDescription.xml"
+
 
 //-----------------------------------------------------------------------------
 //Glib Config Files

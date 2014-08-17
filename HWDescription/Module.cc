@@ -1,14 +1,13 @@
 /*!
-*
-* \file Module.cc
-* \brief Module Description class
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
-*/
 
+	Filename : 				Module.cc
+	Content : 				Module Description class
+	Programmer : 			Lorenzo BIDEGAIN
+	Version :				1.0
+	Date of Creation : 		25/06/14
+	Support : 				mail to : lorenzo.bidegain@cern.ch
+
+*/
 
 #include "Module.h"
 

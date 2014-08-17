@@ -3,8 +3,8 @@
 	\file                          Event.h
 	\brief                         Event handling from DAQ
 	\author                        Nicolas PIERRE
-	\version                       0.4
-	Date of creation :             10/07/14
+	\version                       1.0
+	\date 			               10/07/14
 	Support :                      mail to : nicolas.pierre@icloud.com
 
 */
