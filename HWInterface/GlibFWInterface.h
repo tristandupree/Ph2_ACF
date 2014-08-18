@@ -5,7 +5,7 @@
 	\author 			Lorenzo BIDEGAIN, Nicolas PIERRE
 	\version			1.0
 	\date 				28/07/14
-	Support : 			mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+	Support : 			mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
 
 */
 
@@ -31,7 +31,7 @@ namespace Ph2_HwInterface
 {
 	/*!
 	* \class GlibFWInterface
-	* \brief Permit r/w given registers in the Glib you specify
+	* \brief init/config of the Glib and its Cbc's
 	*/
 	class GlibFWInterface : public BeBoardFWInterface {
 
@@ -141,14 +141,15 @@ namespace Ph2_HwInterface
 
 		//r/w the Cbc registers
 		/*!
-		* \brief Write register blocks of a Cbc
-		* \param pVecReq : Block of words to write
-		*/
+	    	* \brief Read register blocks of a Cbc
+	    	* \param pFeId : FrontEnd to work with
+	    	* \param pVecReq : Vector to stack the read words
+	    	*/
 		void WriteCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq );
-		/*!
-		* \brief Read register blocks of a Cbc
-		* \param pVecReq : Vector to stack the read words
-		*/
+	    	/* \brief Read register blocks of a Cbc
+	    	* \param pFeId : FrontEnd to work with
+	    	* \param pVecReq : Vector to stack the read words
+	    	*/
 		void ReadCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq );
 
     };

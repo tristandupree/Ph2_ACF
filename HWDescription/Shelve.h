@@ -5,7 +5,7 @@
 	\author 			Lorenzo BIDEGAIN
 	\version			1.0
 	\date 				11/08/14
-	Support : 			mail to : lorenzo.bidegain@cern.ch
+	Support : 			mail to : lorenzo.bidegain@gmail.com
 
 */
 
@@ -22,7 +22,7 @@ namespace Ph2_HwDescription{
 
 	/*!
 	* \class Shelve
-	* \brief contains a vector of Board which are connected to the Shelve
+	* \brief handles a vector of Board which are connected to the Shelve
 	*/
 	class Shelve{
 

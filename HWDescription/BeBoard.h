@@ -5,7 +5,7 @@
 	\author 			 Lorenzo BIDEGAIN
 	\date 				 14/07/14
 	\version 			 1.0
-	Support : 			 mail to : lorenzo.bidegain@cern.ch
+	Support : 			 mail to : lorenzo.bidegain@gmail.com
 
 */
 
@@ -28,13 +28,13 @@ namespace Ph2_HwDescription{
 
 	/*!
 	* \class BeBoard
-	* \brief Read/Write BeBoard's registers on a file, contains a register map and contains a vector of Module which are connected to the BeBoard
+	* \brief Read/Write BeBoard's registers on a file, handles a register map and handles a vector of Module which are connected to the BeBoard
 	*/
 	class BeBoard{
 
 	public:
 
-		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is + the # of FEs connected
+		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is
 		// Default C'tor
 		BeBoard();
 		// C'tor for a standard BeBoard
@@ -94,7 +94,11 @@ namespace Ph2_HwDescription{
 		*/
 		Module* getModule( uint8_t pModuleId );
 
-		std::map< std::string, uint16_t > getBeBoardRegMap (){return fRegMap;};
+		/*!
+		* \brief Get the Map of the registers
+		* \return The map of register
+		*/
+		BeBoardRegMap getBeBoardRegMap (){return fRegMap;};
 
 	public:
 		//Connection Members

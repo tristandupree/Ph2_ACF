@@ -5,7 +5,7 @@
 	\author 					 Lorenzo BIDEGAIN, Nicolas PIERRE
 	\version 					 1.0
 	\date			             31/07/14
-	Support :                    mail to : lorenzo.bidegain@cern.ch, nicolas.pierre@cern.ch
+	Support :                    mail to : lorenzo.bidegain@gmail.com, nicolas.pierre@cern.ch
 
 */
 
@@ -97,7 +97,7 @@ namespace Ph2_HwInterface
         	*/
         	void Pause(BeBoard* pBoard);
         	/*!
-        	* \brief Unpause a DAQ
+        	* \brief Resume a DAQ
         	* \param pBoard
         	*/
         	void Resume(BeBoard* pBoard);

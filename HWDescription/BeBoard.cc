@@ -5,7 +5,7 @@
 	Programmer : 			Lorenzo BIDEGAIN
 	Version :				1.0
 	Date of Creation : 		14/07/14
-	Support : 				mail to : lorenzo.bidegain@cern.ch
+	Support : 				mail to : lorenzo.bidegain@gmail.com
 
 */
 

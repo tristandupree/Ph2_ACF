@@ -5,7 +5,7 @@
 	\author 		Lorenzo BIDEGAIN
 	\version 		1.0
 	\date 			25/06/14
-	Support : 		mail to : lorenzo.bidegain@cern.ch
+	Support : 		mail to : lorenzo.bidegain@gmail.com
 
 */
 
@@ -35,7 +35,7 @@ namespace Ph2_HwDescription{
 
 	/*!
 	* \class Cbc
-	* \brief Read/Write Cbc's registers on a file
+	* \brief Read/Write Cbc's registers on a file, contains a register map
 	*/
 	class Cbc : public FrontEndDescription{
 
@@ -58,7 +58,7 @@ namespace Ph2_HwDescription{
 		// D'Tor
 		~Cbc();
 
-		 /*!
+		/*!
 		* \brief Load RegMap from a file
 		* \param filename
 		*/
@@ -118,6 +118,10 @@ namespace Ph2_HwDescription{
 
 		};
 
+	/*!
+	* \struct RegItemComparer
+	* \brief Compare two pair of Register Name Versus CbcRegItem by the Page and Adress of the CbcRegItem
+	*/
 	struct RegItemComparer{
 
 		bool operator() (CbcRegPair pRegItem1, CbcRegPair pRegItem2);

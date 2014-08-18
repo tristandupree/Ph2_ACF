@@ -5,7 +5,7 @@
 	\author 			Lorenzo BIDEGAIN
 	\version 			1.0
 	\date 				25/06/14
-	Support : 			mail to : lorenzo.bidegain@cern.ch
+	Support : 			mail to : lorenzo.bidegain@gmail.com
 
 */
 
@@ -27,7 +27,7 @@ namespace Ph2_HwDescription{
 
 	/*!
 	* \class Module
-	* \brief contains a vector of Cbc which are connected to the Module
+	* \brief handles a vector of Cbc which are connected to the Module
 	*/
 	class Module : public FrontEndDescription{
 
@@ -65,6 +65,8 @@ namespace Ph2_HwDescription{
 		* \return a pointer of Cbc, so we can manipulate directly the Cbc contained in the vector
 		*/
 		Cbc*   getCbc( uint8_t pCbcId );
+
+	public:
 
 		//moduleID
 		uint8_t fModuleId;

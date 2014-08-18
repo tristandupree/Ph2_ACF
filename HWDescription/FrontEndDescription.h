@@ -5,7 +5,7 @@
 	\author 			Lorenzo BIDEGAIN
 	\version 			1.0
 	\date 				25/06/14
-	Support : 			mail to : lorenzo.bidegain@cern.ch
+	Support : 			mail to : lorenzo.bidegain@gmail.com
 
 */
 
@@ -40,6 +40,8 @@ namespace Ph2_HwDescription{
 		uint8_t fFeId;
 		// status (true=active, false=disabled)
 		bool fStatus;
+
+	public:
 
 		// METHODS
 

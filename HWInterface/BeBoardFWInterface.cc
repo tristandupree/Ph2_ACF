@@ -5,7 +5,7 @@
 	Programmer :                  Lorenzo BIDEGAIN, Nicolas PIERRE
 	Version :                     1.0
 	Date of creation :            31/07/14
-	Support :                     mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+	Support :                     mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
 
 */
 
