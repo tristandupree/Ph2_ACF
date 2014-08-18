@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding = 'UTF-8' ?>
   <Shelf Id="0" >
     <BeBoard Id="0" connectionId="board0" boardType="GLIB">
-
-	<Register name="COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"> 1 </Register>
+		
+	<Register name="COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"> 1 </Register> 
 	<Register name="COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET"> 50 </Register>
 	<Register name="COMMISSIONNING_MODE_DELAY_AFTER_L1A"> 400 </Register>
 	<Register name="COMMISSIONNING_MODE_DELAY_AFTER_TEST_PULSE"> 201 </Register>
@@ -18,26 +18,25 @@
 	<Register name="user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC"> 1 </Register>
 	<Register name="user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS"> 0 </Register>
 	<Register name="user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"> 0 </Register>
-
+		
 	<Module FeId="0" FMCId="0" ModuleId="3" Status="1">
 		<Global_CBC_Register name="VCth"> 0x78 </Global_CBC_Register>
-                <Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register>
-
-		<CBC Id="0" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC0.txt">
-			<Register name="VCth"> 0xFF </Register>
+		<Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register>
+		<CBC Id="0" configfile="settings/FE0CBC0.txt">
+			
 		</CBC>
-		<CBC Id="1" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC1.txt"/>
-		<CBC Id="2" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC2.txt"/>
-		<CBC Id="3" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC3.txt"/>
-		<CBC Id="4" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC4.txt"/>
-		<CBC Id="5" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC5.txt"/>
-		<CBC Id="6" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC6.txt"/>
-		<CBC Id="7" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC7.txt"/>
+		<CBC Id="1" configfile="settings/FE0CBC1.txt"/>
+		<CBC Id="2" configfile="settings/FE0CBC2.txt"/>	
+		<CBC Id="3" configfile="settings/FE0CBC3.txt"/>
+		<CBC Id="4" configfile="settings/FE0CBC4.txt"/>
+		<CBC Id="5" configfile="settings/FE0CBC5.txt"/>
+		<CBC Id="6" configfile="settings/FE0CBC6.txt"/>
+		<CBC Id="7" configfile="settings/FE0CBC7.txt"/>
 	</Module>
    </BeBoard>
 
-<!--BeBoard Id="1" connectionId="board1" boardType="GLIB">
-
+<!--BeBoard Id="1" connectionId="board1"> 
+			
 			<Register name="COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"> 1 </Register>
 			<Register name="COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET"> 50 </Register>
 			<Register name="COMMISSIONNING_MODE_DELAY_AFTER_L1A"> 400 </Register>
@@ -59,20 +58,36 @@
 			<Register name="user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"> 0 </Register>
 
 			<Module FeId="0" FMCId="0" ModuleId="1" Status="1">
-				<Global_CBC_Register name="VCth"> 0x78 </Global_CBC_Register>
-                                <Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register>
 
-				<CBC Id="0" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC0.txt"/>
-				<CBC Id="1" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC1.txt"/>
+				<Global_CBC_Register name="VCth"> 0x78 </Global_CBC_Register>
+				<Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register>
+
+				<CBC Id="0" configfile="FE0CBC0.txt"/>
+				<CBC Id="1" configfile="FE0CBC1.txt"/>
+
 			</Module>
 
 			<Module FeId="1" FMCId="0" ModuleId="2" Status="1">
-				<Global_CBC_Register name="VCth"> 0x78 </Global_CBC_Register>
-                                <Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register>
 
-				<CBC Id="0" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC0.txt"/>
-				<CBC Id="1" configfile="/afs/cern.ch/user/n/npierre/dev/settings/FE0CBC1.txt"/>
+				<Global_CBC_Register name="VCth"> 0x78 </Global_CBC_Register>
+				<Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register>
+
+				<CBC Id="0" configfile="FE0CBC0.txt"/>
+				<CBC Id="1" configfile="FE0CBC1.txt"/>
+
 			</Module>
 
 		</BeBoard-->
   </Shelf>
+
+
+<Settings>
+         <Setting name="TragetVcth"> 0x78 </Setting>
+       	 <Setting name="RunNumber"> 1 </Setting>
+	 <Setting name="BeamIntensity"> 0 </Setting>
+	 <Setting name="Nevents"> 0</Setting>
+	 <Setting name="SaveData"> 0 </Setting>
+	 <Setting name="EnableTestPulse"> 0 </Setting>
+	 <Setting name="TestGroup"> 0 </Setting>
+	 <Setting name="TestPulsePotentiometer">0xF1 </Setting>
+</Settings>

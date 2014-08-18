@@ -47,6 +47,7 @@ namespace Ph2_System
 			CbcInterface*		fCbcInterface; /*!< Interface to the Cbc */
 			ShelveVec		 	fShelveVec; /*!< Vector of Shelve pointers */
 			BeBoardFWMap   		fBeBoardFWMap; /*!< Map of connections to the BeBoard */
+			std::map < std::string, uint8_t > fSettingsMap;
 
 		public:
 			/*!
@@ -63,6 +64,7 @@ namespace Ph2_System
 			* \param pFilename : XML HW Description file
 			*/
 			void InitializeHw(std::string pFilename);
+            void InitializeSettings(std::string pFilename);
 			/*!
 			* \brief Configure the Hardware with XML file indicated values
 			*/
