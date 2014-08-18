@@ -42,7 +42,7 @@ namespace Ph2_HwDescription{
 		BeBoard( uint8_t pShelveId, uint8_t pBeId );
 
 		// C'tor for a standard BeBoard reading a config file
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename = DEFAULT_GLIB_FILE );
+		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename );
 
 		// D'tor
 		~BeBoard(){};
