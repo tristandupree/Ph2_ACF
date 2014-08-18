@@ -32,56 +32,34 @@ int main(int argc, char* argv[])
 
     TApplication cApp("Root Application", &argc, argv);
 
-    //Two Cbc
-    Cbc cCbc_00(0,0,0,0,0,"settings/FE0CBC0Hole.txt");
-    Cbc cCbc_01(0,0,0,0,1,"settings/FE0CBC1Hole.txt");
+    SystemController cSystemController;
 
-    //One Module
-    Module cModule_00;
-    cModule_00.fModuleId=0;
-    cModule_00.addCbc(cCbc_00);
-    cModule_00.addCbc(cCbc_01);
-
-    //One Glib
-    BeBoard* cGlib_00 = new BeBoard(0,0);
-    cGlib_00->addModule(cModule_00);
-
-    BeBoardFWInterface* cBeBoardFW;
-    std::map<int8_t,BeBoardFWInterface*> cBeBoardFWMap;
-
-    CbcInterface cCbcInterface(cBeBoardFWMap);
-    BeBoardInterface cBeBoardInterface(cBeBoardFWMap);
-    cBeBoardFW= new GlibFWInterface(UHAL_CONNECTION_FILE,0);
-    cBeBoardFWMap[0]=cBeBoardFW;
-
-    cBeBoardInterface.ConfigureBoard(cGlib_00);
-
-    cCbcInterface.ConfigureCbc(cGlib_00->getModule(0)->getCbc(0));
-    cCbcInterface.ConfigureCbc(cGlib_00->getModule(0)->getCbc(1));
+    cSystemController.InitializeHw(XML_DESCRIPTION_FILE);
+    cSystemController.ConfigureHw();
 
     TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 1000, 800);
     cCanvas->Divide(2,1);
 
     std::vector<TH1F*> cHistVec;
-    for(uint8_t m=0; m<cGlib_00->getModule(0)->getNCbc(); m++)
+    for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getNCbc(); cNCbc++)
     {
-        cHistVec.push_back(new TH1F(Form("Histo_Hits_CBC%d",m), Form("Occupancy_CBC%d",m), 255, -0.5, 254.5));
+        cHistVec.push_back(new TH1F(Form("Histo_Hits_CBC%d",cNCbc), Form("Occupancy_CBC%d",cNCbc), 255, -0.5, 254.5));
     }
 
     uint32_t cNthAcq = 0;
 
     for(uint32_t p=100; p<140; p+=2)
     {
-        cCbcInterface.WriteCbcReg(cGlib_00->getModule(0)->getCbc(0),"VCth",p);
-        cCbcInterface.WriteCbcReg(cGlib_00->getModule(0)->getCbc(1),"VCth",p);
+        cCbcInterface.WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0),"VCth",p);
+        cCbcInterface.WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",p);
 
         uint32_t cNevents = 200;
         uint32_t cN = 0;
 
-        for(uint8_t m=0; m<cGlib_00->getModule(0)->getNCbc(); m++)
+        for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getNCbc(); cNCbc++)
         {
-            delete cHistVec[m];
-            cHistVec[m] = new TH1F(Form("Histo_Hits_CBC%d",m), Form("Occupancy_CBC%d",m), 255, -0.5, 254.5);
+            delete cHistVec[cNCbc];
+            cHistVec[cNCbc] = new TH1F(Form("Histo_Hits_CBC%d",cNCbc), Form("Occupancy_CBC%d",cNCbc), 255, -0.5, 254.5);
         }
 
         gStyle->SetOptStat(0);
@@ -93,9 +71,9 @@ int main(int argc, char* argv[])
         while(!(cBeBoardFWMap[0]->fStop))
         {
 
-            cBeBoardInterface.Start(cGlib_00);
-            cBeBoardInterface.ReadData(cGlib_00, cNthAcq, true );
-            cBeBoardInterface.Stop(cGlib_00, cNthAcq );
+            cBeBoardInterface.Start(cSystemController.fShelveVec[0]->getBoard(0));
+            cBeBoardInterface.ReadData(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq, true );
+            cBeBoardInterface.Stop(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq );
 
             const Event *cEvent = cBeBoardFWMap[0]->fData->GetNextEvent();
 
@@ -108,15 +86,15 @@ int main(int argc, char* argv[])
                     break;
                 }
 
-                for(uint8_t i=0; i<cGlib_00->getNFe(); i++)
+                for(uint8_t cNFe=0; cNFe<cSystemController.fShelveVec[0]->getBoard(0)->getNFe(); cNFe++)
                 {
 
-                    for(uint8_t m=0; m<cGlib_00->getModule(i)->getNCbc(); m++)
+                    for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[0]->getBoard(0)->getModule(cNFe)->getNCbc(); cNCbc++)
                     {
                         uint32_t cNHits = 0;
-                        std::vector<bool> cDataBitVector = cEvent->DataBitVector(i,m);
+                        std::vector<bool> cDataBitVector = cEvent->DataBitVector(cNFe,cNCbc);
 
-                        for(uint8_t n=0; n<cDataBitVector.size(); n++)
+                        for(uint8_t cDBVec=0; n<cDataBitVector.size(); n++)
                         {
                             if(cDataBitVector[n])
                             {
