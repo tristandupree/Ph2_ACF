@@ -37,31 +37,32 @@ namespace Ph2_HwDescription{
 		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is
 		// Default C'tor
 		BeBoard();
-		// C'tor for a standard BeBoard
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename = DEFAULT_GLIB_FILE );
-		// Parameters that define system for us
-		//Modify with new param
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, /*uint8_t pNFe, uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData = false , std::string filename = DEFAULT_GLIB_FILE );
+
+		// Standard C'tor
+		BeBoard( uint8_t pShelveId, uint8_t pBeId );
+
+		// C'tor for a standard BeBoard reading a config file
+		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename );
+
 		// D'tor
 		~BeBoard(){};
 
 		// Public Methods
-
 		/*!
 		* \brief Get the number of modules connected to the BeBoard
 		* \return The size of the vector
 		*/
-		uint8_t getNFe(){return fModuleVector.size();};
+		uint8_t getNFe(){return fModuleVector.size();}
 		/*!
 		* \brief Get the Be Id of the BeBoard
 		* \return the Be Id
 		*/
-		uint8_t getBeId(){return fBeId;};
+		uint8_t getBeId(){return fBeId;}
 		/*!
 		* \brief Get the Shelve Id of the BeBoard
 		* \return the Be Id
 		*/
-		uint8_t getShelveId(){return fShelveId;};
+		uint8_t getShelveId(){return fShelveId;}
 
 		/*!
 		* \brief Get any register from the Map
@@ -100,7 +101,7 @@ namespace Ph2_HwDescription{
 		*/
 		BeBoardRegMap getBeBoardRegMap (){return fRegMap;};
 
-	public:
+	private:
 		//Connection Members
 		uint8_t fBeId;
 		uint8_t fShelveId;
