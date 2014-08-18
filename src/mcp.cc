@@ -88,10 +88,28 @@ int main(int argc, char* argv[])
                 std::cout << "***         Load your xml Hw Description         ***" << std::endl;
                 std::cout << "****************************************************\n" << std::endl;
 
-                cSystemController.InitializeHw(XML_DESCRIPTION_FILE);
-                cSystemController.ConfigureHw();
+                std::cout << "1: 2 CBC XML file" << std::endl;
+                std::cout << "2: 8 CBC XML file\n" << std::endl;
 
-                std::cout << "*** Xml file loaded ***" << std::endl;
+                std::cin >> i;
+
+                switch(i)
+                {
+                    case 1:
+                        cSystemController.InitializeHw(XML_DESCRIPTION_FILE_2CBC);
+                        cSystemController.ConfigureHw();
+
+                        std::cout << "*** 2CBC Xml file loaded ***" << std::endl;
+                    break;
+
+
+                    case 2:
+                        cSystemController.InitializeHw(XML_DESCRIPTION_FILE_8CBC);
+                        cSystemController.ConfigureHw();
+
+                        std::cout << "*** 8CBC Xml file loaded ***" << std::endl;
+                    break;
+                }
             break;
 
 
@@ -1558,26 +1576,22 @@ int main(int argc, char* argv[])
                                         for(uint32_t cNCbc=0; cNCbc<cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(0)->getNCbc(); cNCbc++)
                                             cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(0)->getCbc(cNCbc),"VCth",cVCth);
 
-                                        cSystemController.fBeBoardFWMap[cBoardId]->fStop = false;
                                         uint32_t cN = 0;
 
-                                        while(!(cSystemController.fBeBoardFWMap[cBoardId]->fStop))
+                                        while(!(cNevents != 0 && cN == cNevents))
                                         {
 
                                             cSystemController.fBeBoardInterface->Start(cSystemController.fShelveVec[cSId]->getBoard(cBoardId));
                                             cSystemController.fBeBoardInterface->ReadData(cSystemController.fShelveVec[cSId]->getBoard(cBoardId), cNthAcq, true );
                                             cSystemController.fBeBoardInterface->Stop(cSystemController.fShelveVec[cSId]->getBoard(cBoardId), cNthAcq );
 
-                                            bool cFillDataStream( false );
-
-                                            const Event *cEvent = cSystemController.fBeBoardFWMap[cBoardId]->fData->GetNextEvent();
+                                            const Event *cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[cSId]->getBoard(cBoardId));
 
                                             while( cEvent )
                                             {
 
                                                 if( cNevents != 0 && cN == cNevents )
                                                 {
-                                                    cSystemController.fBeBoardFWMap[cBoardId]->fStop = true;
                                                     break;
                                                 }
 
@@ -1600,12 +1614,8 @@ int main(int argc, char* argv[])
                                                     }
                                                 }
 
+                                                cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[cSId]->getBoard(cBoardId));
 
-                                                //cCanvas->Print(((boost::format("output/Histogram_Event_%d.pdf") %(cN)).str()).c_str());
-
-                                                cEvent = cSystemController.fBeBoardFWMap[cBoardId]->fData->GetNextEvent();
-
-                                                cFillDataStream = false;
                                                 cN++;
                                             }
 
@@ -1619,7 +1629,6 @@ int main(int argc, char* argv[])
 
                                             if( cN == cNevents )
                                             {
-                                                cSystemController.fBeBoardFWMap[cBoardId]->fStop = true;
                                                 break;
                                             }
 

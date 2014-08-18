@@ -15,9 +15,10 @@
 #define UHAL_CONNECTION_FILE "file://./settings/connections.xml"
 
 //-----------------------------------------------------------------------------
-//Glib Config Files
+//XML description files
 
-#define XML_DESCRIPTION_FILE "./settings/HWDescription.xml"
+#define XML_DESCRIPTION_FILE_2CBC "./settings/HWDescription_2CBC.xml"
+#define XML_DESCRIPTION_FILE_8CBC "./settings/HWDescription_8CBC.xml"
 
 
 //-----------------------------------------------------------------------------

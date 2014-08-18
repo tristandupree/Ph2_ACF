@@ -114,6 +114,12 @@ namespace Ph2_HwInterface
 			* \return Next event
 			*/
 			const Event* GetNextEvent(BeBoard* pBoard);
+			/*!
+			* \brief Get the data buffer
+			* \param pBufSize : recovers the data buffer size
+			* \return Data buffer
+			*/
+			const char * GetBuffer( BeBoard* pBeBoard, uint32_t &pBufSize );
 
 	};
 }

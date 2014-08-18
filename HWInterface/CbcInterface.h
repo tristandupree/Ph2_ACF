@@ -59,20 +59,20 @@ namespace Ph2_HwInterface
 	        * \brief Configure the Cbc with the Cbc Config File
 	        * \param pCbc
 	        */
-	        void ConfigureCbc(Cbc* pCbc);
+	        void ConfigureCbc(Cbc* pCbc, bool pVerifLoop = true);
 	        /*!
 	        * \brief Write the designated register in both Cbc and Cbc Config File
 	        * \param pCbc
 	        * \param pRegNode : Node of the register to write
 	        * \param pValue : Value to write
 	        */
-	        void WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue);
+	        void WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue, bool pVerifLoop = true);
 			/*!
 			* \brief Write several registers in both Cbc and Cbc Config File
 			* \param pCbc
 			* \param pVecReq : Vector of pair: Node of the register to write versus value to write
 			*/
-			void WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint32_t> > pVecReq);
+			void WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint32_t> > pVecReq, bool pVerifLoop = true );
 			/*!
 			* \brief Write same register in all Cbcs and then UpdateCbc (not working with current Firmware)
 			* \param pModule : Module containing vector of Cbcs

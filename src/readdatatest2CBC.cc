@@ -16,6 +16,7 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "../HWInterface/Utilities.h"
+#include "../System/SystemController.h"
 #include <boost/format.hpp>
 #include <TH1F.h>
 #include <TCanvas.h>
@@ -25,6 +26,7 @@
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
+using namespace Ph2_System;
 
 
 int main(int argc, char* argv[])
@@ -34,7 +36,7 @@ int main(int argc, char* argv[])
 
     SystemController cSystemController;
 
-    cSystemController.InitializeHw(XML_DESCRIPTION_FILE);
+    cSystemController.InitializeHw(XML_DESCRIPTION_FILE_2CBC);
     cSystemController.ConfigureHw();
 
     TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 1000, 800);
@@ -48,10 +50,10 @@ int main(int argc, char* argv[])
 
     uint32_t cNthAcq = 0;
 
-    for(uint32_t p=100; p<140; p+=2)
+    for(uint32_t cVCth=100; cVCth<140; cVCth+=2)
     {
-        cCbcInterface.WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0),"VCth",p);
-        cCbcInterface.WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",p);
+        cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0),"VCth",cVCth);
+        cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",cVCth);
 
         uint32_t cNevents = 200;
         uint32_t cN = 0;
@@ -66,23 +68,20 @@ int main(int argc, char* argv[])
 
         usleep( 100 );
 
-        cBeBoardFWMap[0]->fStop = false;
-
-        while(!(cBeBoardFWMap[0]->fStop))
+        while(!(cNevents != 0 && cN == cNevents))
         {
 
-            cBeBoardInterface.Start(cSystemController.fShelveVec[0]->getBoard(0));
-            cBeBoardInterface.ReadData(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq, true );
-            cBeBoardInterface.Stop(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq );
+            cSystemController.fBeBoardInterface->Start(cSystemController.fShelveVec[0]->getBoard(0));
+            cSystemController.fBeBoardInterface->ReadData(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq, true );
+            cSystemController.fBeBoardInterface->Stop(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq );
 
-            const Event *cEvent = cBeBoardFWMap[0]->fData->GetNextEvent();
+            const Event *cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[0]->getBoard(0));
 
             while( cEvent )
             {
 
                 if( cNevents != 0 && cN == cNevents )
                 {
-                    cBeBoardFWMap[0]->fStop = true;
                     break;
                 }
 
@@ -94,34 +93,31 @@ int main(int argc, char* argv[])
                         uint32_t cNHits = 0;
                         std::vector<bool> cDataBitVector = cEvent->DataBitVector(cNFe,cNCbc);
 
-                        for(uint8_t cDBVec=0; n<cDataBitVector.size(); n++)
+                        for(uint8_t cDBVec=0; cDBVec<cDataBitVector.size(); cDBVec++)
                         {
-                            if(cDataBitVector[n])
+                            if(cDataBitVector[cDBVec])
                             {
                                 cNHits++;
                             }
                         }
-                        cHistVec[m]->Fill(cNHits);
+                        cHistVec[cNCbc]->Fill(cNHits);
                     }
                 }
 
-                //cCanvas->Print(((boost::format("output/Histogram_Event_%d.pdf") %(cN)).str()).c_str());
-
-                cEvent = cBeBoardFWMap[0]->fData->GetNextEvent();
+                cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[0]->getBoard(0));
                 cN++;
             }
 
-            for(uint8_t m=0; m<cHistVec.size(); m++)
+            for(uint8_t cNCbc=0; cNCbc<cHistVec.size(); cNCbc++)
             {
-                cCanvas->cd(uint32_t(m)+1);
-                cHistVec[m]->Draw();
+                cCanvas->cd(uint32_t(cNCbc)+1);
+                cHistVec[cNCbc]->Draw();
             }
 
             cCanvas->Update();
 
             if( cN == cNevents )
             {
-                cBeBoardFWMap[0]->fStop = true;
                 break;
             }
 
@@ -129,11 +125,13 @@ int main(int argc, char* argv[])
 
         }
 
-        cCanvas->Print(((boost::format("output/Histogram_Vcth_%d.pdf") %(p)).str()).c_str());
+        cCanvas->Print(((boost::format("output/Histogram_Vcth_%d.pdf") %(cVCth)).str()).c_str());
 
     }
 
     cApp.Run();
+
+    std::cout << "*** End of the test programm" << std::endl;
 
     return 0;
 }

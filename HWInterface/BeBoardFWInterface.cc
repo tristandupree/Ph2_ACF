@@ -22,9 +22,8 @@ namespace Ph2_HwInterface
 	BeBoardFWInterface::BeBoardFWInterface(const char *puHalConfigFileName, uint32_t pBoardId):
         RegManager(puHalConfigFileName,pBoardId),
         fNTotalAcq(0),
-        fDataFile(0),
 		//fNegativeLogicCBC(true),
-		fStop(false)
+		fDataFile(0)
 	{
 		fData = new Data(0);
 	}

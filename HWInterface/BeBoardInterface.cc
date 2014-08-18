@@ -113,4 +113,10 @@ namespace Ph2_HwInterface{
 		fBoardFW->GetNextEvent();
 	}
 
+	const char * BeBoardInterface::GetBuffer( BeBoard* pBoard, uint32_t &pBufSize )
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->GetBuffer(pBufSize);
+	}
+
 }

@@ -43,7 +43,6 @@ namespace Ph2_HwInterface
 
 		public:
 			unsigned int fNTotalAcq;
-	        bool fStop;
 
 			std::ofstream *fDataFile; /*!< File storing data*/
 	        Data *fData; /*!< Data read storage*/
