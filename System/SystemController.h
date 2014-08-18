@@ -35,6 +35,7 @@ namespace Ph2_System
 {
 
 	typedef std::vector<Shelve*> ShelveVec; /*!< Vector of Shelve pointers */
+	typedef std::map<std::string,uint8_t> SettingsMap; /*!< Maps the settings */
 
 	/*!
 	* \class SystemController
@@ -47,6 +48,7 @@ namespace Ph2_System
 			CbcInterface*		fCbcInterface; /*!< Interface to the Cbc */
 			ShelveVec		 	fShelveVec; /*!< Vector of Shelve pointers */
 			BeBoardFWMap   		fBeBoardFWMap; /*!< Map of connections to the BeBoard */
+			SettingsMap			fSettingsMap; /*!< Maps the settings */
 
 		public:
 			/*!
@@ -63,6 +65,11 @@ namespace Ph2_System
 			* \param pFilename : XML HW Description file
 			*/
 			void InitializeHw(const char* pFilename);
+			/*!
+			* \brief Initialize the settings
+			* \param pFilename : XML HW Description file
+			*/
+			void InitializeSettings(const char* pFilename);
 			/*!
 			* \brief Configure the Hardware with XML file indicated values
 			*/

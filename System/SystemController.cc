@@ -103,6 +103,27 @@ namespace Ph2_System
 
 	}
 
+	void SystemController::InitializeSettings(const char* pFilename)
+	{
+		pugi::xml_document doc;
+		pugi::xml_parse_result result = doc.load_file(pFilename);
+
+		if(!result)
+		{
+			std::cout << "ERROR :\n Unable to open the file : " << pFilename << std::endl;
+			std::cout << "Error description : " << result.description() << std::endl;
+			return;
+		}
+
+		for(pugi::xml_node nSettings = doc.child("Settings"); nSettings; nSettings=nSettings.next_sibling())
+		{
+			for(pugi::xml_node nSetting = nSettings.child("Setting"); nSetting; nSetting=nSetting.next_sibling())
+			{
+				fSettingsMap[nSetting.attribute("name").value()] = atoi(nSetting.first_child().value());
+			}
+		}
+	}
+
 	void SystemController::ConfigureHw()
 	{
 		uint32_t cMissedBoard, cMissedModule, cMissedCbc;
