@@ -5,7 +5,7 @@
 	\author 					 Lorenzo BIDEGAIN, Nicolas PIERRE
 	\version 					 1.0
 	\date			             31/07/14
-	Support :                    mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+	Support :                    mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
 
 */
 
@@ -68,10 +68,9 @@ namespace Ph2_HwInterface
 	        */
 	        void WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue);
 			/*!
-			* \brief Write the designated register in both Cbc and Cbc Config File
+			* \brief Write several registers in both Cbc and Cbc Config File
 			* \param pCbc
-			* \param pRegNode : Node of the register to write
-			* \param pValue : Value to write
+			* \param pVecReq : Vector of pair: Node of the register to write versus value to write
 			*/
 			void WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint32_t> > pVecReq);
 			/*!
@@ -88,9 +87,9 @@ namespace Ph2_HwInterface
 	        */
 	        void ReadCbcReg(Cbc* pCbc,const std::string& pRegNode);
 			/*!
-			* \brief Read the designated register in the Cbc
+			* \brief Read several register in the Cbc
 			* \param pCbc
-			* \param pRegNode : Node of the register to read
+			* \param pVecReg : Vector of the nodes of the register to read
 			*/
 			void ReadCbcMultReg(Cbc* pCbc,std::vector<std::string> pVecReg);
 	        /*!

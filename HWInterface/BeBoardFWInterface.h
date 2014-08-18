@@ -5,7 +5,7 @@
 	\author 			 Lorenzo BIDEGAIN, Nicolas PIERRE
 	\version			 1.0
 	\date 				 28/07/14
-	Support : 			 mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+	Support : 			 mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
 
 */
 
@@ -61,18 +61,16 @@ namespace Ph2_HwInterface
 			virtual ~BeBoardFWInterface();
 
 			/*!
-			* \brief Get the board infos
-			* \param pBoard
+			* \brief Define the size of Event
+			* \param pNbCbc Number of Cbc's
 			*/
 			virtual	void defineEventSize(uint32_t pNbCbc);
 			/*!
 			* \brief Get the board type
-			* \param pBoard
 			*/
 			virtual	std::string getBoardType();
 			/*!
 			* \brief Get the board infos
-			* \param pBoard
 			*/
 			virtual	void getBoardInfo();
 
@@ -101,13 +99,13 @@ namespace Ph2_HwInterface
 			//r/w the Cbc registers
 	    	/*!
 	    	* \brief Write register blocks of a Cbc
-	    	* \param pCbc : Cbc to work with
+	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Block of words to write
 	    	*/
 	    	virtual void WriteCbcBlockReg( uint8_t& pFeId, std::vector<uint32_t>& pVecReq ) {};
 	    	/*!
 	    	* \brief Read register blocks of a Cbc
-	    	* \param pCbc : Cbc to work with
+	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Vector to stack the read words
 	    	*/
 	    	virtual void ReadCbcBlockReg( uint8_t& pFeId, std::vector<uint32_t>& pVecReq ) {};
@@ -118,23 +116,19 @@ namespace Ph2_HwInterface
 			virtual void ConfigureBoard(BeBoard* pBoard) {};
 			/*!
 			* \brief Start a DAQ
-			* \param pBoard
 			*/
 			virtual void Start() {};
 			/*!
 			* \brief Stop a DAQ
-			* \param pBoard
 			* \param pNthAcq : actual number of acquisitions
 			*/
 			virtual void Stop(uint32_t pNthAcq) {};
 			/*!
 			* \brief Pause a DAQ
-			* \param pBoard
 			*/
 			virtual void Pause() {};
 			/*!
-			* \brief Unpause a DAQ
-			* \param pBoard
+			* \brief Resume a DAQ
 			*/
 			virtual void Resume() {};
 			/*!
