@@ -1530,10 +1530,18 @@ int main(int argc, char* argv[])
                                     std::cin >> cNevents;
 
                                     uint32_t cNthAcq = 0;
+                                    TCanvas *cCanvas;
 
-                                    TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 600, 400);
-                                    //cCanvas->Divide(uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(0)->getNCbc()),1);
-                                    cCanvas->Divide(2,1);
+                                    if(uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(0)->getNCbc()) == 2)
+                                    {
+                                        cCanvas = new TCanvas("Data Acq", "Different hits counters", 1000, 800);
+                                        cCanvas->Divide(2,1);
+                                    }
+                                    else
+                                    {
+                                        cCanvas = new TCanvas("Data Acq", "Different hits counters", 1200, 700);
+                                        cCanvas->Divide(4,2);
+                                    }
 
                                     std::vector<TH1F*> cHistVec;
                                     gStyle->SetOptStat(kFALSE);
@@ -1576,7 +1584,7 @@ int main(int argc, char* argv[])
                                                 for(uint8_t cNFe=0; cNFe<cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getNFe(); cNFe++)
                                                 {
 
-                                                    for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(i)->getNCbc(); cNCbc++)
+                                                    for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cNFe)->getNCbc(); cNCbc++)
                                                     {
                                                         uint32_t cNHits = 0;
                                                         std::vector<bool> cDataBitVector = cEvent->DataBitVector(cNFe,cNCbc);
@@ -1603,7 +1611,7 @@ int main(int argc, char* argv[])
 
                                             for(uint8_t m=0; m<cHistVec.size(); m++)
                                             {
-                                                cCanvas->cd(uint32_t(m));
+                                                cCanvas->cd(uint32_t(m+1));
                                                 cHistVec[m]->Draw();
                                             }
 

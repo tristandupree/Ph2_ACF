@@ -27,20 +27,23 @@ namespace Ph2_System
 
 	}
 
-	void SystemController::InitializeHw(std::string pFilename)
+	void SystemController::InitializeHw(const char* pFilename)
 	{
 
 		pugi::xml_document doc;
 		uint32_t cShelveId, cBeId, cModuleId, cCbcId;
 		uint32_t cNShelve = 0;
 
-		if (!doc.load_file(pFilename.c_str()))
+		pugi::xml_parse_result result = doc.load_file(pFilename);
+
+		if(!result)
 		{
-			std::cout << "ERROR : Unable to open the file : " << pFilename << std::endl;
+			std::cout << "ERROR :\n Unable to open the file : " << pFilename << std::endl;
+			std::cout << "Error description : " << result.description() << std::endl;
 			return;
 		}
 
-		for(pugi::xml_node ns = doc.child("Shelf");ns;ns=ns.next_sibling())
+		for(pugi::xml_node ns = doc.child("Shelve");ns;ns=ns.next_sibling())
 		{
 			cShelveId = ns.attribute("Id0").as_int();
 			fShelveVec.push_back(new Shelve(cShelveId));
@@ -78,13 +81,13 @@ namespace Ph2_System
 					for(pugi::xml_node nc = nm.child("CBC");nc;nc=nc.next_sibling())
 					{
 						Cbc cCbc(cShelveId,cBeId,nm.attribute("FMCId").as_int(),nm.attribute("FeId").as_int(),nc.attribute("Id").as_int(),nc.attribute("configfile").value());
-						for(pugi::xml_node ng = nm.child("Global_CBC_Register");ng!=nm.child("CBC");ng=ng.next_sibling())
-						{
-							cCbc.setReg(std::string(ng.attribute("name").value()),atoi(ng.first_child().value()));
-						}
 						for(pugi::xml_node ngr = nc.child("Register");ngr;ngr=ngr.next_sibling())
 						{
 							cCbc.setReg(std::string(ngr.attribute("name").value()),atoi(ngr.first_child().value()));
+						}
+						for(pugi::xml_node ng = nm.child("Global_CBC_Register");ng!=nm.child("CBC");ng=ng.next_sibling())
+						{
+							cCbc.setReg(std::string(ng.attribute("name").value()),atoi(ng.first_child().value()));
 						}
 						fShelveVec[cNShelve]->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);
 					}

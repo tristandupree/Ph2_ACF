@@ -154,7 +154,7 @@ namespace Ph2_HwInterface
 			* \param pBufSize : recovers the data buffer size
 			* \return Data buffer
 			*/
-			virtual const char * GetBuffer( uint32_t &pBufSize ) {};
+			virtual const char * GetBuffer( uint32_t &pBufSize ) const {};
 
 
 	};

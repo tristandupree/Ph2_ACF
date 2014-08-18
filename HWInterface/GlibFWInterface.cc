@@ -413,9 +413,9 @@ namespace Ph2_HwInterface
 	}
 
 
-	const char * GetBuffer( uint32_t &pBufSize )
+	const char * GlibFWInterface::GetBuffer( uint32_t &pBufSize )
 	{
-		return fData->GetBuffer( uint32_t &pBufSize );
+		return fData->GetBuffer( pBufSize );
 	}
 
 

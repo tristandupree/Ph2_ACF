@@ -103,6 +103,7 @@ namespace Ph2_HwInterface
 				{
 					std::cout << "\nERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
 					std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
+					std::cout << "Cbc Id : " << uint32_t(pCbc->fCbcId) << std::endl;
 					mypause();
 				}
 				else
