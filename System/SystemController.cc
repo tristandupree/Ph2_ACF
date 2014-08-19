@@ -43,7 +43,7 @@ namespace Ph2_System
 			return;
 		}
 
-		for(pugi::xml_node ns = doc.child("Shelve");ns;ns=ns.next_sibling())
+		for(pugi::xml_node ns = doc.child("HwDescription").child("Shelve");ns;ns=ns.next_sibling())
 		{
 			cShelveId = ns.attribute("Id0").as_int();
 			fShelveVec.push_back(new Shelve(cShelveId));
@@ -65,7 +65,7 @@ namespace Ph2_System
 
 				if(std::string(nb.attribute("boardType").value()).compare(std::string("Glib")))
 				{
-					cBeBoardFWInterface = new GlibFWInterface(UHAL_CONNECTION_FILE,cBeId);
+					cBeBoardFWInterface = new GlibFWInterface(doc.child("HwDescription").child("Connections").attribute("name").value(),cBeId);
 					fBeBoardFWMap[cBeId] = cBeBoardFWInterface;
 				}
 				/*else

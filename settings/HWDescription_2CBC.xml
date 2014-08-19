@@ -1,4 +1,7 @@
 <?xml version='1.0' encoding = 'UTF-8' ?>
+<HwDescription>
+    <Connections name="file://settings/connections_2CBC.xml"/>
+
     <Shelve Id="0" >
         <BeBoard Id="0" connectionId="board0" boardType="GLIB">
 
@@ -28,15 +31,15 @@
             </Module>
         </BeBoard>
     </Shelve>
+</HwDescription>
 
-
-    <Settings>
-        <Setting name="TargetVcth"> 0x78 </Setting>
-        <Setting name="RunNumber"> 1 </Setting>
-        <Setting name="BeamIntensity"> 0 </Setting>
-        <Setting name="Nevents"> 0 </Setting>
-        <Setting name="SaveData"> 0 </Setting>
-        <Setting name="EnableTestPulse"> 0 </Setting>
-        <Setting name="TestGroup"> 0 </Setting>
-        <Setting name="TestPulsePotentiometer"> 0xF1 </Setting>
-    </Settings>
+<Settings>
+    <Setting name="TargetVcth"> 0x78 </Setting>
+    <Setting name="RunNumber"> 1 </Setting>
+    <Setting name="BeamIntensity"> 0 </Setting>
+    <Setting name="Nevents"> 0 </Setting>
+    <Setting name="SaveData"> 0 </Setting>
+    <Setting name="EnableTestPulse"> 0 </Setting>
+    <Setting name="TestGroup"> 0 </Setting>
+    <Setting name="TestPulsePotentiometer"> 0xF1 </Setting>
+</Settings>
