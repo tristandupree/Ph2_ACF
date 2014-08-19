@@ -39,7 +39,7 @@ You'll find an install step by step and a How To.
 Here are the step to make the program functional
 (Tested with the latest version of gcc, µHal, boost)
 
-1. Recover the GitHub repo with the latest tested version of the MCP.
+1. Recover the GitHub repo.
 
 2. Create /lib, /bin and /output directories in the root of the repo.
 
