@@ -23,8 +23,10 @@ Inheritance diagram for Calibration\-:\begin{figure}[H]
 \item 
 \hyperlink{class_calibration_a108efb6ccd8c98e5cac950be4bf0ac26}{$\sim$\-Calibration} ()
 \item 
-void \hyperlink{class_calibration_aaa47b4d1bca9ab0b0255a323183d4f8d}{Initialise} ()
-\begin{DoxyCompactList}\small\item\em Initialise calibration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \hyperlink{class_calibration_afaec4580879bba485d8d174f6c4d415e}{Vplus\-Scan} (std\-::vector$<$ uint8\-\_\-t $>$ p\-Vplus\-Values)
+\item 
+uint8\-\_\-t \hyperlink{class_calibration_ad4f21740b432091ac2789944c26f861d}{Fit\-Vplus\-Vcth} (bool p\-Do\-Draw, uint8\-\_\-t p\-Target\-Vcth)
+\end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -33,7 +35,9 @@ void \hyperlink{class_calibration_a9b2de26014e8ecaa48b99d39bd1d5446}{Construct\-
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-std\-::map$<$ std\-::string, uint8\-\_\-t $>$ \hyperlink{class_calibration_a37b07f82cd185ea60bcbcf7cf602af49}{f\-Settings\-Map}
+T\-File $\ast$ \hyperlink{class_calibration_a2eb24fa3646d79398c13d36e6a312a60}{f\-Result\-File}
+\item 
+bool \hyperlink{class_calibration_a669c7e7de313d082ec526a01f1dfa99f}{f\-Hole}
 \item 
 \hyperlink{_channel_8h_a4ea9798fb754a2f5910c0b01959c2256}{Test\-Group\-Map} \hyperlink{class_calibration_ac79d5ebc2766ebc9c5faf384a05581b0}{f\-Test\-Group\-Map}
 \end{DoxyCompactItemize}
@@ -70,23 +74,30 @@ Read/\-Write Cbc's registers on a file.
 \item[{uint8\-\_\-t}]{Cbc\-Id}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_a9b2de26014e8ecaa48b99d39bd1d5446}
-\hypertarget{class_calibration_aaa47b4d1bca9ab0b0255a323183d4f8d}{\index{Calibration@{Calibration}!Initialise@{Initialise}}
-\index{Initialise@{Initialise}!Calibration@{Calibration}}
-\subsubsection[{Initialise}]{\setlength{\rightskip}{0pt plus 5cm}void Calibration\-::\-Initialise (
+\hypertarget{class_calibration_ad4f21740b432091ac2789944c26f861d}{\index{Calibration@{Calibration}!Fit\-Vplus\-Vcth@{Fit\-Vplus\-Vcth}}
+\index{Fit\-Vplus\-Vcth@{Fit\-Vplus\-Vcth}!Calibration@{Calibration}}
+\subsubsection[{Fit\-Vplus\-Vcth}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Calibration\-::\-Fit\-Vplus\-Vcth (
 \begin{DoxyParamCaption}
-{}
+\item[{bool}]{p\-Do\-Draw, }
+\item[{uint8\-\_\-t}]{p\-Target\-Vcth}
 \end{DoxyParamCaption}
-)}}\label{class_calibration_aaa47b4d1bca9ab0b0255a323183d4f8d}
-
-
-Initialise calibration. 
-
+)}}\label{class_calibration_ad4f21740b432091ac2789944c26f861d}
+\hypertarget{class_calibration_afaec4580879bba485d8d174f6c4d415e}{\index{Calibration@{Calibration}!Vplus\-Scan@{Vplus\-Scan}}
+\index{Vplus\-Scan@{Vplus\-Scan}!Calibration@{Calibration}}
+\subsubsection[{Vplus\-Scan}]{\setlength{\rightskip}{0pt plus 5cm}void Calibration\-::\-Vplus\-Scan (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ uint8\-\_\-t $>$}]{p\-Vplus\-Values}
+\end{DoxyParamCaption}
+)}}\label{class_calibration_afaec4580879bba485d8d174f6c4d415e}
 
 
 \subsection{Field Documentation}
-\hypertarget{class_calibration_a37b07f82cd185ea60bcbcf7cf602af49}{\index{Calibration@{Calibration}!f\-Settings\-Map@{f\-Settings\-Map}}
-\index{f\-Settings\-Map@{f\-Settings\-Map}!Calibration@{Calibration}}
-\subsubsection[{f\-Settings\-Map}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$ std\-::string, uint8\-\_\-t $>$ Calibration\-::f\-Settings\-Map\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_a37b07f82cd185ea60bcbcf7cf602af49}
+\hypertarget{class_calibration_a669c7e7de313d082ec526a01f1dfa99f}{\index{Calibration@{Calibration}!f\-Hole@{f\-Hole}}
+\index{f\-Hole@{f\-Hole}!Calibration@{Calibration}}
+\subsubsection[{f\-Hole}]{\setlength{\rightskip}{0pt plus 5cm}bool Calibration\-::f\-Hole\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_a669c7e7de313d082ec526a01f1dfa99f}
+\hypertarget{class_calibration_a2eb24fa3646d79398c13d36e6a312a60}{\index{Calibration@{Calibration}!f\-Result\-File@{f\-Result\-File}}
+\index{f\-Result\-File@{f\-Result\-File}!Calibration@{Calibration}}
+\subsubsection[{f\-Result\-File}]{\setlength{\rightskip}{0pt plus 5cm}T\-File$\ast$ Calibration\-::f\-Result\-File\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_a2eb24fa3646d79398c13d36e6a312a60}
 \hypertarget{class_calibration_ac79d5ebc2766ebc9c5faf384a05581b0}{\index{Calibration@{Calibration}!f\-Test\-Group\-Map@{f\-Test\-Group\-Map}}
 \index{f\-Test\-Group\-Map@{f\-Test\-Group\-Map}!Calibration@{Calibration}}
 \subsubsection[{f\-Test\-Group\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Test\-Group\-Map} Calibration\-::f\-Test\-Group\-Map\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_ac79d5ebc2766ebc9c5faf384a05581b0}

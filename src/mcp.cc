@@ -69,12 +69,11 @@ int main(int argc, char* argv[])
         std::cout << "****************************************************\n" << std::endl;
         std::cout << "\n\n\n\nWhat do you want to do ?\n" << std::endl;
         std::cout << "1: Load your xml description of the Hardware" << std::endl;
-        std::cout << "2: Add/Remove Board/Module/Cbc" << std::endl;
-        std::cout << "3: Configure" << std::endl;
-        std::cout << "4: Glib Manipulation" << std::endl;
-        std::cout << "5: Cbc Manipulation" << std::endl;
-        std::cout << "6: Acquisition-ish" << std::endl;
-        std::cout << "7: Configuration Recap" << std::endl;
+        std::cout << "2: Configure" << std::endl;
+        std::cout << "3: Glib Manipulation" << std::endl;
+        std::cout << "4: Cbc Manipulation" << std::endl;
+        std::cout << "5: Acquisition-ish" << std::endl;
+        std::cout << "6: Configuration Recap" << std::endl;
         std::cout << "0: Quit\n" << std::endl;
 
         std::cin >> i;
@@ -112,8 +111,13 @@ int main(int argc, char* argv[])
                 }
             break;
 
+            /*
 
-            case 2:
+                Legacy stuff for adding/removing Cbcs on the fly.
+                If someone find it useful someday, here it is.
+
+            */
+            /*case ?:
 
                 std::cout << "\n\n\n\n"<< std::endl;
                 std::cout << "****************************************************" << std::endl;
@@ -705,9 +709,10 @@ int main(int argc, char* argv[])
                 }
 
             break;
+            */
 
 
-            case 3:
+            case 2:
 
                 std::cout << "\n\n\n\n"<< std::endl;
                 std::cout << "****************************************************" << std::endl;
@@ -951,7 +956,7 @@ int main(int argc, char* argv[])
             break;
 
 
-            case 4:
+            case 3:
 
                 std::cout << "\n\n\n\n"<< std::endl;
                 std::cout << "****************************************************" << std::endl;
@@ -1100,7 +1105,7 @@ int main(int argc, char* argv[])
             break;
 
 
-            case 5:
+            case 4:
 
                 std::cout << "\n\n\n\n"<< std::endl;
                 std::cout << "****************************************************" << std::endl;
@@ -1502,7 +1507,7 @@ int main(int argc, char* argv[])
             break;
 
 
-            case 6:
+            case 5:
 
                 std::cout << "\n\n\n\n"<< std::endl;
                 std::cout << "****************************************************" << std::endl;
@@ -1587,9 +1592,7 @@ int main(int argc, char* argv[])
                                         while(!(cNevents != 0 && cN == cNevents))
                                         {
 
-                                            cSystemController.fBeBoardInterface->Start(cSystemController.fShelveVec[cSId]->getBoard(cBoardId));
-                                            cSystemController.fBeBoardInterface->ReadData(cSystemController.fShelveVec[cSId]->getBoard(cBoardId), cNthAcq, true );
-                                            cSystemController.fBeBoardInterface->Stop(cSystemController.fShelveVec[cSId]->getBoard(cBoardId), cNthAcq );
+                                            cSystemController.Run(cSystemController.fShelveVec[0]->getBoard(cBoardId),cNthAcq);
 
                                             const Event *cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[cSId]->getBoard(cBoardId));
 
@@ -1671,7 +1674,7 @@ int main(int argc, char* argv[])
             break;
 
 
-            case 7:
+            case 6:
                 {
 
                     std::cout << "\n\n"<< std::endl;

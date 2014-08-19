@@ -3,8 +3,8 @@
     \file                          Definition.h
     \brief                         Definition File, listing the registers
     \author                        Nicolas PIERRE
-    \version                       0.3
-    Date of creation :             07/06/14
+    \version                       1.0
+    \date                          07/06/14
     Support :                      mail to : nico.pierre@icloud.com
 
 */

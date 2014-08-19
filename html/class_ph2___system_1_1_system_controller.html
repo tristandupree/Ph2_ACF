@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: Ph2_System::SystemController Class Reference</title>
+<title>ACF : Acquisition &amp; Control Framework: Ph2_System::SystemController Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,10 +23,10 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="CMSlogoDoxyfile.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Ph2_DAQ
-   &#160;<span id="projectnumber">0.3</span>
+   <div id="projectname">ACF : Acquisition &amp; Control Framework
+   &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Software for DAQ of Ph2 CMSTrackerUpdate</div>
+   <div id="projectbrief">CMS Tracker Upgrade Software Framework for DAQ &amp; Hardware Control</div>
   </td>
  </tr>
  </tbody>
@@ -120,9 +120,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abd794b0a85d9d83ec553d707875efcf1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___system_1_1_system_controller.html#abd794b0a85d9d83ec553d707875efcf1">~SystemController</a> ()</td></tr>
 <tr class="memdesc:abd794b0a85d9d83ec553d707875efcf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor of the <a class="el" href="class_ph2___system_1_1_system_controller.html" title="Create, initialise, configure a predefined HW structure. ">SystemController</a> class.  <a href="#abd794b0a85d9d83ec553d707875efcf1">More...</a><br/></td></tr>
 <tr class="separator:abd794b0a85d9d83ec553d707875efcf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9ca1c3f04938c5bc1396fa74c3c7bec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___system_1_1_system_controller.html#ac9ca1c3f04938c5bc1396fa74c3c7bec">InitializeHw</a> (std::string pFilename)</td></tr>
-<tr class="memdesc:ac9ca1c3f04938c5bc1396fa74c3c7bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the Hardware via an XML file.  <a href="#ac9ca1c3f04938c5bc1396fa74c3c7bec">More...</a><br/></td></tr>
-<tr class="separator:ac9ca1c3f04938c5bc1396fa74c3c7bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6db20a430b09bd7888d7af0fb3b9511"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___system_1_1_system_controller.html#ab6db20a430b09bd7888d7af0fb3b9511">InitializeHw</a> (const char *pFilename)</td></tr>
+<tr class="memdesc:ab6db20a430b09bd7888d7af0fb3b9511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the Hardware via an XML file.  <a href="#ab6db20a430b09bd7888d7af0fb3b9511">More...</a><br/></td></tr>
+<tr class="separator:ab6db20a430b09bd7888d7af0fb3b9511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f1a7ff3ebeafde5f6e608842a139edb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___system_1_1_system_controller.html#a9f1a7ff3ebeafde5f6e608842a139edb">InitializeSettings</a> (const char *pFilename)</td></tr>
+<tr class="memdesc:a9f1a7ff3ebeafde5f6e608842a139edb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the settings.  <a href="#a9f1a7ff3ebeafde5f6e608842a139edb">More...</a><br/></td></tr>
+<tr class="separator:a9f1a7ff3ebeafde5f6e608842a139edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0bb978523eb3a6436650d9e4f112432"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___system_1_1_system_controller.html#af0bb978523eb3a6436650d9e4f112432">ConfigureHw</a> ()</td></tr>
 <tr class="memdesc:af0bb978523eb3a6436650d9e4f112432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the Hardware with XML file indicated values.  <a href="#af0bb978523eb3a6436650d9e4f112432">More...</a><br/></td></tr>
 <tr class="separator:af0bb978523eb3a6436650d9e4f112432"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,6 +143,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:ad98d8c88b5d4138921591ea2c971f714"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84042bff8bf08490a04e82bdeea9c7d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_ph2___hw_interface.html#ac35d341eb47fa7cbe4d28ccbc6ab4875">BeBoardFWMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___system_1_1_system_controller.html#a84042bff8bf08490a04e82bdeea9c7d6">fBeBoardFWMap</a></td></tr>
 <tr class="separator:a84042bff8bf08490a04e82bdeea9c7d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18fd8d1b9c57b411097430646e1dda9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_ph2___system.html#a0ea674c0ee02ac6834ac9a1335111980">SettingsMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___system_1_1_system_controller.html#a18fd8d1b9c57b411097430646e1dda9a">fSettingsMap</a></td></tr>
+<tr class="separator:a18fd8d1b9c57b411097430646e1dda9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Create, initialise, configure a predefined HW structure. </p>
@@ -196,14 +201,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac9ca1c3f04938c5bc1396fa74c3c7bec"></a>
+<a class="anchor" id="ab6db20a430b09bd7888d7af0fb3b9511"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Ph2_System::SystemController::InitializeHw </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>pFilename</em></td><td>)</td>
           <td></td>
         </tr>
@@ -211,6 +216,30 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the Hardware via an XML file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pFilename</td><td>: XML HW Description file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9f1a7ff3ebeafde5f6e608842a139edb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ph2_System::SystemController::InitializeSettings </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>pFilename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the settings. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pFilename</td><td>: XML HW Description file </td></tr>
@@ -295,6 +324,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a18fd8d1b9c57b411097430646e1dda9a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_ph2___system.html#a0ea674c0ee02ac6834ac9a1335111980">SettingsMap</a> Ph2_System::SystemController::fSettingsMap</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Maps the settings </p>
+
+</div>
+</div>
 <a class="anchor" id="ad98d8c88b5d4138921591ea2c971f714"></a>
 <div class="memitem">
 <div class="memproto">
@@ -315,7 +357,7 @@ Data Fields</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 17 2014 16:02:24 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 19 2014 15:16:33 for ACF : Acquisition &amp; Control Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

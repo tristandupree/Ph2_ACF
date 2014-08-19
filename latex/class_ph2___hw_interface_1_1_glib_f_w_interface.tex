@@ -3,7 +3,7 @@
 }
 
 
-Permit r/w given registers in the Glib you specify.  
+init/config of the Glib and its Cbc's  
 
 
 
@@ -39,11 +39,11 @@ void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a26c35fec3518f40
 \begin{DoxyCompactList}\small\item\em Read data from D\-A\-Q. \end{DoxyCompactList}\item 
 const \hyperlink{class_ph2___hw_interface_1_1_event}{Event} $\ast$ \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_afebeee20cd186f919189e5f349c6a49f}{Get\-Next\-Event} ()
 \begin{DoxyCompactList}\small\item\em Get next event from data buffer. \end{DoxyCompactList}\item 
-const char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_abd15e45762db510cdc41e039dabaab6c}{Get\-Buffer} (uint32\-\_\-t \&p\-Buf\-Size)
+const char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a123de5dea8083175ddf299b62861e782}{Get\-Buffer} (uint32\-\_\-t \&p\-Buf\-Size)
 \begin{DoxyCompactList}\small\item\em Get the data buffer. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a1a43546404b9097fafa83302cd326e4c}{Write\-Cbc\-Block\-Reg} (uint8\-\_\-t \&p\-Fe\-Id, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
-\begin{DoxyCompactList}\small\item\em Write register blocks of a Cbc. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_af1fc5669e98ae17f235c47f08ac256c0}{Read\-Cbc\-Block\-Reg} (uint8\-\_\-t \&p\-Fe\-Id, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
+void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a2bc165eebeab754425dcbffb21aa2717}{Write\-Cbc\-Block\-Reg} (uint8\-\_\-t p\-Fe\-Id, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
+\begin{DoxyCompactList}\small\item\em Read register blocks of a Cbc. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a9dbc3cf2a991126aed53d834d4d152ce}{Read\-Cbc\-Block\-Reg} (uint8\-\_\-t p\-Fe\-Id, std\-::vector$<$ uint32\-\_\-t $>$ \&p\-Vec\-Req)
 \begin{DoxyCompactList}\small\item\em Read register blocks of a Cbc. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -91,7 +91,7 @@ std\-::string \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface_a16633b
 
 
 \subsection{Detailed Description}
-Permit r/w given registers in the Glib you specify. 
+init/config of the Glib and its Cbc's 
 
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_aef1044c390e934afa17cdf9566ac71c3}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Glib\-F\-W\-Interface@{Glib\-F\-W\-Interface}}
@@ -163,13 +163,13 @@ Enable I2\-C communications.
 {\em p\-Enable} & \-: 1/0 -\/$>$ Enable/\-Disable \\
 \hline
 \end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_abd15e45762db510cdc41e039dabaab6c}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Get\-Buffer@{Get\-Buffer}}
+\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_a123de5dea8083175ddf299b62861e782}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Get\-Buffer@{Get\-Buffer}}
 \index{Get\-Buffer@{Get\-Buffer}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
-\subsubsection[{Get\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-Get\-Buffer (
+\subsubsection[{Get\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-Get\-Buffer (
 \begin{DoxyParamCaption}
 \item[{uint32\-\_\-t \&}]{p\-Buf\-Size}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_abd15e45762db510cdc41e039dabaab6c}
+)}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_a123de5dea8083175ddf299b62861e782}
 
 
 Get the data buffer. 
@@ -182,10 +182,6 @@ Get the data buffer.
 \begin{DoxyReturn}{Returns}
 \hyperlink{class_ph2___hw_interface_1_1_data}{Data} buffer 
 \end{DoxyReturn}
-
-
-Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_aa298116ba4220d37f3eabfd57b0310c7}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
-
 \hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_afebeee20cd186f919189e5f349c6a49f}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Get\-Next\-Event@{Get\-Next\-Event}}
 \index{Get\-Next\-Event@{Get\-Next\-Event}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
 \subsubsection[{Get\-Next\-Event}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Event} $\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-Get\-Next\-Event (
@@ -241,26 +237,28 @@ Pause a D\-A\-Q.
 
 Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_afb21d1663b328272c12cab6970114ecd}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
 
-\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_af1fc5669e98ae17f235c47f08ac256c0}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Read\-Cbc\-Block\-Reg@{Read\-Cbc\-Block\-Reg}}
+\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_a9dbc3cf2a991126aed53d834d4d152ce}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Read\-Cbc\-Block\-Reg@{Read\-Cbc\-Block\-Reg}}
 \index{Read\-Cbc\-Block\-Reg@{Read\-Cbc\-Block\-Reg}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
 \subsubsection[{Read\-Cbc\-Block\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-Read\-Cbc\-Block\-Reg (
 \begin{DoxyParamCaption}
-\item[{uint8\-\_\-t \&}]{p\-Fe\-Id, }
+\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
 \item[{std\-::vector$<$ uint32\-\_\-t $>$ \&}]{p\-Vec\-Req}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_af1fc5669e98ae17f235c47f08ac256c0}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_a9dbc3cf2a991126aed53d834d4d152ce}
 
 
 Read register blocks of a Cbc. 
 
 
 \begin{DoxyParams}{Parameters}
+{\em p\-Fe\-Id} & \-: Front\-End to work with \\
+\hline
 {\em p\-Vec\-Req} & \-: Vector to stack the read words \\
 \hline
 \end{DoxyParams}
 
 
-Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_aef5cfbb0b5adceff7ccc6babd3d01642}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
+Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_a624e0ef864d5bdef907041270d04bffb}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
 
 \hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_a26c35fec3518f40d09ebc7f0114be19b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Read\-Data@{Read\-Data}}
 \index{Read\-Data@{Read\-Data}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
@@ -405,26 +403,28 @@ Stop a D\-A\-Q.
 
 Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_af7825e291796f7c8c498a92365583e08}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
 
-\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_a1a43546404b9097fafa83302cd326e4c}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Write\-Cbc\-Block\-Reg@{Write\-Cbc\-Block\-Reg}}
+\hypertarget{class_ph2___hw_interface_1_1_glib_f_w_interface_a2bc165eebeab754425dcbffb21aa2717}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}!Write\-Cbc\-Block\-Reg@{Write\-Cbc\-Block\-Reg}}
 \index{Write\-Cbc\-Block\-Reg@{Write\-Cbc\-Block\-Reg}!Ph2_HwInterface::GlibFWInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface}}
 \subsubsection[{Write\-Cbc\-Block\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Glib\-F\-W\-Interface\-::\-Write\-Cbc\-Block\-Reg (
 \begin{DoxyParamCaption}
-\item[{uint8\-\_\-t \&}]{p\-Fe\-Id, }
+\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
 \item[{std\-::vector$<$ uint32\-\_\-t $>$ \&}]{p\-Vec\-Req}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_a1a43546404b9097fafa83302cd326e4c}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_ph2___hw_interface_1_1_glib_f_w_interface_a2bc165eebeab754425dcbffb21aa2717}
 
 
-Write register blocks of a Cbc. 
+Read register blocks of a Cbc. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\-Vec\-Req} & \-: Block of words to write \\
+{\em p\-Fe\-Id} & \-: Front\-End to work with \\
+\hline
+{\em p\-Vec\-Req} & \-: Vector to stack the read words \\
 \hline
 \end{DoxyParams}
 
 
-Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_abfda233c55aaa85fcd3773fa424764d5}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
+Reimplemented from \hyperlink{class_ph2___hw_interface_1_1_be_board_f_w_interface_aea9e44d8b6de6bd204b74eeafba00f7c}{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-F\-W\-Interface}.
 
 
 

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: tools/Calibration.h Source File</title>
+<title>ACF : Acquisition &amp; Control Framework: tools/Calibration.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,10 +23,10 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="CMSlogoDoxyfile.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Ph2_DAQ
-   &#160;<span id="projectnumber">0.3</span>
+   <div id="projectname">ACF : Acquisition &amp; Control Framework
+   &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Software for DAQ of Ph2 CMSTrackerUpdate</div>
+   <div id="projectbrief">CMS Tracker Upgrade Software Framework for DAQ &amp; Hardware Control</div>
   </td>
  </tr>
  </tbody>
@@ -116,35 +116,38 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// D&#39;Tor</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_calibration.html#a108efb6ccd8c98e5cac950be4bf0ac26">   37</a></span>&#160;    <a class="code" href="class_calibration.html#a108efb6ccd8c98e5cac950be4bf0ac26">~Calibration</a>(){};</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> Initialise();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_calibration.html#a37b07f82cd185ea60bcbcf7cf602af49">   47</a></span>&#160;    std::map &lt; std::string, uint8_t &gt; <a class="code" href="class_calibration.html#a37b07f82cd185ea60bcbcf7cf602af49">fSettingsMap</a>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_calibration.html#ac79d5ebc2766ebc9c5faf384a05581b0">   49</a></span>&#160;    <a class="code" href="_channel_8h.html#a4ea9798fb754a2f5910c0b01959c2256">TestGroupMap</a> <a class="code" href="class_calibration.html#ac79d5ebc2766ebc9c5faf384a05581b0">fTestGroupMap</a>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> VplusScan(std::vector&lt;uint8_t&gt; pVplusValues);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    uint8_t FitVplusVcth(<span class="keywordtype">bool</span> pDoDraw, uint8_t pTargetVcth);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_calibration.html#a2eb24fa3646d79398c13d36e6a312a60">   45</a></span>&#160;    TFile* <a class="code" href="class_calibration.html#a2eb24fa3646d79398c13d36e6a312a60">fResultFile</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_calibration.html#a669c7e7de313d082ec526a01f1dfa99f">   46</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_calibration.html#a669c7e7de313d082ec526a01f1dfa99f">fHole</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_calibration.html#ac79d5ebc2766ebc9c5faf384a05581b0">   48</a></span>&#160;    <a class="code" href="_channel_8h.html#a4ea9798fb754a2f5910c0b01959c2256">TestGroupMap</a> <a class="code" href="class_calibration.html#ac79d5ebc2766ebc9c5faf384a05581b0">fTestGroupMap</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_calibration_html"><div class="ttname"><a href="class_calibration.html">Calibration</a></div><div class="ttdoc">Read/Write Cbc&amp;#39;s registers on a file. </div><div class="ttdef"><b>Definition:</b> Calibration.h:29</div></div>
-<div class="ttc" id="class_calibration_html_a37b07f82cd185ea60bcbcf7cf602af49"><div class="ttname"><a href="class_calibration.html#a37b07f82cd185ea60bcbcf7cf602af49">Calibration::fSettingsMap</a></div><div class="ttdeci">std::map&lt; std::string, uint8_t &gt; fSettingsMap</div><div class="ttdef"><b>Definition:</b> Calibration.h:47</div></div>
 <div class="ttc" id="_channel_8h_html"><div class="ttname"><a href="_channel_8h.html">Channel.h</a></div></div>
 <div class="ttc" id="_channel_8h_html_a4ea9798fb754a2f5910c0b01959c2256"><div class="ttname"><a href="_channel_8h.html#a4ea9798fb754a2f5910c0b01959c2256">TestGroupMap</a></div><div class="ttdeci">std::map&lt; TestGroup, std::vector&lt; Channel &gt;, TestGroupComparer &gt; TestGroupMap</div><div class="ttdef"><b>Definition:</b> Channel.h:64</div></div>
 <div class="ttc" id="class_calibration_html_a108efb6ccd8c98e5cac950be4bf0ac26"><div class="ttname"><a href="class_calibration.html#a108efb6ccd8c98e5cac950be4bf0ac26">Calibration::~Calibration</a></div><div class="ttdeci">~Calibration()</div><div class="ttdef"><b>Definition:</b> Calibration.h:37</div></div>
-<div class="ttc" id="class_ph2___system_1_1_system_controller_html"><div class="ttname"><a href="class_ph2___system_1_1_system_controller.html">Ph2_System::SystemController</a></div><div class="ttdoc">Create, initialise, configure a predefined HW structure. </div><div class="ttdef"><b>Definition:</b> SystemController.h:43</div></div>
+<div class="ttc" id="class_calibration_html_a669c7e7de313d082ec526a01f1dfa99f"><div class="ttname"><a href="class_calibration.html#a669c7e7de313d082ec526a01f1dfa99f">Calibration::fHole</a></div><div class="ttdeci">bool fHole</div><div class="ttdef"><b>Definition:</b> Calibration.h:46</div></div>
+<div class="ttc" id="class_ph2___system_1_1_system_controller_html"><div class="ttname"><a href="class_ph2___system_1_1_system_controller.html">Ph2_System::SystemController</a></div><div class="ttdoc">Create, initialise, configure a predefined HW structure. </div><div class="ttdef"><b>Definition:</b> SystemController.h:44</div></div>
 <div class="ttc" id="class_calibration_html_a80f51a5ff7ec0f44d5388c9a61d1f20b"><div class="ttname"><a href="class_calibration.html#a80f51a5ff7ec0f44d5388c9a61d1f20b">Calibration::Calibration</a></div><div class="ttdeci">Calibration()</div><div class="ttdef"><b>Definition:</b> Calibration.h:34</div></div>
-<div class="ttc" id="class_calibration_html_ac79d5ebc2766ebc9c5faf384a05581b0"><div class="ttname"><a href="class_calibration.html#ac79d5ebc2766ebc9c5faf384a05581b0">Calibration::fTestGroupMap</a></div><div class="ttdeci">TestGroupMap fTestGroupMap</div><div class="ttdef"><b>Definition:</b> Calibration.h:49</div></div>
+<div class="ttc" id="class_calibration_html_ac79d5ebc2766ebc9c5faf384a05581b0"><div class="ttname"><a href="class_calibration.html#ac79d5ebc2766ebc9c5faf384a05581b0">Calibration::fTestGroupMap</a></div><div class="ttdeci">TestGroupMap fTestGroupMap</div><div class="ttdef"><b>Definition:</b> Calibration.h:48</div></div>
+<div class="ttc" id="class_calibration_html_a2eb24fa3646d79398c13d36e6a312a60"><div class="ttname"><a href="class_calibration.html#a2eb24fa3646d79398c13d36e6a312a60">Calibration::fResultFile</a></div><div class="ttdeci">TFile * fResultFile</div><div class="ttdef"><b>Definition:</b> Calibration.h:45</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 17 2014 16:02:21 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 19 2014 15:16:32 for ACF : Acquisition &amp; Control Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

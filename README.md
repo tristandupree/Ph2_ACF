@@ -1,5 +1,5 @@
-Git Repository for PH2_DAQ Software
-===================================
+Git Repository for the ACF (Acquisition & Control Framework)
+============================================================
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
 
@@ -37,43 +37,25 @@ You'll find an install step by step and a How To.
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Install the MCP Test Interface step by step...__
 
 Here are the step to make the program functional
+(Tested with the latest version of gcc, µHal, boost)
 
 1. Recover the GitHub repo with the latest tested version of the MCP.
 
-2. Change in HWDescription/Definition.h the path to the uHal connection file.
-   - It's per default set to :
-   file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml
-   - You have to change it to :
-   file://$(BUILD)/settings/connections.xml (where $(BUILD) is the path to the
-   root of the GitHub repo you recovered)
+2. Create /lib, /bin and /output directories in the root of the repo.
 
-3. Change in settings/connections.xml the path to the adress table
-   - It's per default set to :
-   file:///afs/cern.ch/user/n/npierre/dev/settings/adress_table(2CBC or 8CBC).xml
-   - You have to change it to :
-   file://$(BUILD)/settings/adress_table(2CBC or 8CBC).xml (where $(BUILD) is the path to the
-   root of the GitHub repo you recovered)
+3. Do a make in the root the repo (make sure you have all µHal, root, boost... libraries on your computer)
 
-4. Create /lib, /bin and /output directories in the root of the repo.
+4. Launch testpgrm command if you want to test if everything is working good.
 
-5. Do a make in the root the repo (make sure you have all uHal, root, boost... libraries on your computer)
+5. You can test the data acquisition by lauching datatest2cbc or datatest8cbc.
 
-6. Launch testpgrm command if you want to test if everything is working good.
-
-7. You can test the data acquisition by lauching datatest2cbc or datatest8cbc.
-
-8. Launch mcp to play with the Test Interface
+6. Launch mcp to play with the Test Interface
 <br>
 <br>
 __What can you do with the software ?__
 
-A Glib is created per default (maybe in the future you will be able to play with more than one Glib)
-
-You can then add Modules to the Glib and Cbcs to the Modules you created.
-When creating a Cbc, you can choose the config file you will load to its
-register map.
-If you want to add your personal config file, please make sure to add it in #define
-in the HWDescription/Description.h and then to add an option in the MCP code.
+You can choose to load your Hardware description XML file and it will create the
+ software counterpart of your existing hardware.
 
 After this creation round, you can do anything you want :
 - Configure the Glib or the Cbcs
@@ -82,22 +64,18 @@ After this creation round, you can do anything you want :
 - Perform a DAQ and tracing diagrams counting the number of hits
 - Have a configuration recap of all the objects you created
 
-Concerning the manipulation of the Cbcs, you have the opportunity to modify all the
-Cbcs of a same Module at once with the Broadcast feature of the Cbc.
-
 When you write a register in the Glib or the Cbc, the writing is updated to the
 map contained in Glib/Cbc objects so that you're always fully aware of what is
 in the Glib/Cbc register.
 
 For writing value in register, we invite you to put in the following format : 0x__.
-You must thus type '0xFF' for exemple and not just 'FF' in the command line. That
-might change in the future..
+You must thus type '0xFF' for exemple and not just 'FF' in the command line.
 
-You can also run DAQ and recover the Hit Histogram for each Cbc and each Event in the output file.
+You can also run a DAQ round and recover the Histogram for each Cbc in the output folder.
 
-At the end of the program, the register maps are saved into output_X_X.txt files
-you can find in the settings directory. For example, output_1_2.txt contains the
-register map of the Cbc 2 of the Module 1.
+At the end of the program, the register maps are saved into output_X_X_X.txt files
+you can find in the settings directory. For example, output_0_1_2.txt contains the
+register map of the Cbc 2 of the Module 1 of the Board 0
 You can also find different .pdf files containing the histograms of the DAQ.
 
 For debugging purpose, you can activate DEV_FLAG in files or in Makefile and also activate the uHal log in RegManager.cc.
@@ -121,11 +99,9 @@ On the go...
 - 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
 - 12/08/14 : Working agnostic version of the new structure on Master
 - 15/08/14 : System Controller Class working
+- 19/08/14 : Project wrapped, called ACF for Acquisition & Control Framework
 <br>
 <br>
-__Future Improvements__
-
-- Wrap the project nicely
 
 
 Support, Suggestions ?

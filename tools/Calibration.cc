@@ -12,7 +12,7 @@
 #include "Calibration.h"
 
 
-void Calibration::Initialise()
+/*void Calibration::Initialise()
 {
 
 	//Initialise the Map
@@ -71,7 +71,7 @@ void Calibration::Initialise()
 		  {
 
 		  	std::cout<<"Cbc: "<<int(lcbc)<<"created!"<<std::endl;
-			ConstructTestGroup(lBoard, lFe, lcbc);	
+			ConstructTestGroup(lBoard, lFe, lcbc);
 
 		  }
 
@@ -80,22 +80,22 @@ void Calibration::Initialise()
 	      }
 	    }
 	  }
-	}	
+	}
 }
-
+*/
 
 void Calibration::ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId)
 {
 	for(uint8_t lgroup=0; lgroup<8; lgroup++)
 	{
 		TestGroup fTestgroup(pBeId,FeId,CbcId,lgroup);
-				
+
 		std::cout<<"	Group: "<<int(lgroup)<<"created!"<<std::endl;
 
 		std::vector<Channel> cChannelVect;
 		for(uint8_t lchannel=0; lchannel<16; lchannel++)
 		{
-					
+
 			if (lchannel*16+lgroup*2 < 254)
 			{
 				Channel cChannel(pBeId,FeId,CbcId, lchannel*16+lgroup*2 );
@@ -115,8 +115,4 @@ void Calibration::ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId)
 		fTestGroupMap[fTestgroup]=cChannelVect;
 	}
 
-}	
-	
-
-
-
+}

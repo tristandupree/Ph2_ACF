@@ -128,15 +128,15 @@ namespace Ph2_System
 	{
 		uint32_t cMissedBoard, cMissedModule, cMissedCbc;
 
-		for(uint32_t i=0; i<fShelveVec.size(); i++)
+		for(uint32_t cSId=0; cSId<fShelveVec.size(); cSId++)
 		{
 			cMissedBoard = 0;
 
-			for(uint32_t j=0; j<fShelveVec[i]->getNBoard(); j++)
+			for(uint32_t cNBe=0; cNBe<fShelveVec[cSId]->getNBoard(); cNBe++)
 			{
-				if(fShelveVec[i]->getBoard(j+cMissedBoard) == NULL)
+				if(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard) == NULL)
 				{
-					j--;
+					cNBe--;
 					cMissedBoard++;
 				}
 
@@ -144,13 +144,13 @@ namespace Ph2_System
 				{
 					cMissedModule = 0;
 
-					fBeBoardInterface->ConfigureBoard(fShelveVec[i]->getBoard(j+cMissedBoard));
+					fBeBoardInterface->ConfigureBoard(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard));
 
-					for(uint32_t k=0; k<fShelveVec[i]->getBoard(j+cMissedBoard)->getNFe(); k++)
+					for(uint32_t cNFe=0; cNFe<fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getNFe(); cNFe++)
 					{
-						if(fShelveVec[i]->getBoard(j+cMissedBoard)->getModule(k+cMissedModule) == NULL)
+						if(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule) == NULL)
 						{
-							k--;
+							cNFe--;
 							cMissedModule++;
 						}
 
@@ -158,17 +158,17 @@ namespace Ph2_System
 						{
 							cMissedCbc = 0;
 
-							for(uint32_t m=0; m<fShelveVec[i]->getBoard(j+cMissedBoard)->getModule(k+cMissedModule)->getNCbc(); m++)
+							for(uint32_t cNCbc=0; cNCbc<fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getNCbc(); cNCbc++)
 							{
-								if(fShelveVec[i]->getBoard(j+cMissedBoard)->getModule(k+cMissedModule)->getCbc(m+cMissedCbc) == NULL)
+								if(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc) == NULL)
 								{
-									m--;
+									cNCbc--;
 									cMissedCbc++;
 								}
 
 								else
 								{
-									fCbcInterface->ConfigureCbc(fShelveVec[i]->getBoard(j+cMissedBoard)->getModule(k+cMissedModule)->getCbc(m+cMissedCbc),false);
+									fCbcInterface->ConfigureCbc(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc),false);
 								}
 							}
 						}
