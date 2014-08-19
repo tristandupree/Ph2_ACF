@@ -20,8 +20,8 @@ namespace Ph2_HwDescription{
 	// Constructors
 
 	BeBoard::BeBoard():
-		fBeId(0),
-		fShelveId(0)
+	fShelveId(0),
+	fBeId(0)		
 	{
 		loadConfigFile( DEFAULT_GLIB_FILE );
 	}
@@ -31,13 +31,10 @@ namespace Ph2_HwDescription{
 	fBeId( pBeId ){}
 
 	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename ):
-		fBeId( pBeId ),
-		fShelveId( pShelveId )
+	fShelveId( pShelveId ),
+	fBeId( pBeId )
 	{
-
-		// fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
-
 	}
 
 	// Public Members:
@@ -49,7 +46,7 @@ namespace Ph2_HwDescription{
 		i = fRegMap.find( pReg );
 		if( i == fRegMap.end() )
 		{
-			std::cout << "Register " << pReg << " not found in BeBoard Register Map!" << std::endl;
+			std::cout<<"The Board object: "<<uint32_t(fBeId)<<" doesn't have "<<pReg<<std::endl;
 			return 0;
 		}
 		else return i->second;
@@ -59,7 +56,10 @@ namespace Ph2_HwDescription{
 	{
 		BeBoardRegMap::iterator i;
 		i = fRegMap.find( pReg );
-		if( i == fRegMap.end() ) std::cout << "Register " << pReg << " not found in BeBoard Register Map!" << std::endl;
+		if( i == fRegMap.end() )
+		{ 
+			std::cout<<"The Board object: "<<uint32_t(fBeId)<<" doesn't have "<<pReg<<std::endl;
+		}
 		else i->second = psetValue;
 	}
 
@@ -85,7 +85,7 @@ namespace Ph2_HwDescription{
 		return true;
 		else
 		{
-			std::cout<<"Error:The BeBoard doesn't have the module "<<pModuleId<<std::endl;
+			std::cout<<"Error:The BeBoard: "<<uint32_t (fBeId)<<" doesn't have the module "<<uint32_t(pModuleId)<<std::endl;
 			return false;
 		}
 	}

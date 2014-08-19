@@ -60,10 +60,21 @@ namespace Ph2_HwDescription{
 		*/
 		BeBoard*   getBoard( uint8_t pBeId );
 
-	public:
+		/*!
+		* \brief Get the Shelve Id
+		* \return The Shelve ID
+		*/
+		uint8_t getShelveId() {return fShelveId;};
+		/*!
+		* \brief Set the Shelve Id
+		* \param pShelveId
+		*/
+		void setShelveId(uint8_t pShelveId) {fShelveId=pShelveId;};
+
+	protected:
+
 		uint8_t fShelveId;
 
-	private:
 		// Vector of Board
 		std::vector< BeBoard > fBoardVector;
 

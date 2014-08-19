@@ -43,7 +43,7 @@ namespace Ph2_HwDescription{
 		return true;
 		else
 		{
-			std::cout<<"Error:This Module doesn't have the cbc"<<std::endl;
+			std::cout<<"Error:The Module "<<uint32_t(fModuleId)<<" doesn't have the cbc " <<uint32_t(pCbcId)<<std::endl;
 			return false;
 		}
 	}

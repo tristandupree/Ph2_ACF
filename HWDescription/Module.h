@@ -66,12 +66,22 @@ namespace Ph2_HwDescription{
 		*/
 		Cbc*   getCbc( uint8_t pCbcId );
 
-	public:
+		/*!
+		* \brief Get the Module Id
+		* \return The Module ID
+		*/
+		uint8_t getModuleId() {return fModuleId;};
+		/*!
+		* \brief Set the Module Id
+		* \param pModuleId
+		*/
+		void setModuleId(uint8_t pModuleId) {fModuleId=pModuleId;};
+
+
+	protected:
 
 		//moduleID
 		uint8_t fModuleId;
-
-	protected:
 
 		std::vector < Cbc > fCbcVector;
 

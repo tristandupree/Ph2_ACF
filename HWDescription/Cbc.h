@@ -84,24 +84,27 @@ namespace Ph2_HwDescription{
 		void saveRegMap( std::string filename );
 
 		/*!
-		* \brief Get the Cbc Id
-		* \return The Cbc ID
-		*/
-		uint8_t getCbcId() {return fCbcId;};
-
-		/*!
 		* \brief Get the Map of the registers
 		* \return The map of register
 		*/
 		CbcRegMap getRegMap() {return fRegMap;};
+
+		/*!
+		* \brief Get the Cbc Id
+		* \return The Cbc ID
+		*/
+		uint8_t getCbcId() {return fCbcId;};
+		/*!
+		* \brief Set the Cbc Id
+		* \param pCbcId
+		*/
+		void setCbcId(uint8_t pCbcId) {fCbcId=pCbcId;};
 
 
 	protected:
 
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
 		CbcRegMap fRegMap;
-
-	public:
 
 		uint8_t fCbcId;
 

@@ -50,33 +50,28 @@ namespace Ph2_HwDescription{
 	// SetterMethods
 
 	// Shelve Id
-	uint8_t FrontEndDescription::setShelveId( uint8_t pShelveId ){
+	void FrontEndDescription::setShelveId( uint8_t pShelveId ){
 		fShelveId = pShelveId;
-		return fShelveId;
 	}
 
 	// BIO Board Id
-	uint8_t FrontEndDescription::setBeId( uint8_t pBeId ){
+	void FrontEndDescription::setBeId( uint8_t pBeId ){
 		fBeId = pBeId;
-		return fBeId;
 	}
 
 	// BIO Board FMC Connector Id
-	uint8_t FrontEndDescription::setFMCId( uint8_t pFMCId ){
+	void FrontEndDescription::setFMCId( uint8_t pFMCId ){
 		fFMCId = pFMCId;
-		return fFMCId;
 	}
 
 	// Fe Id
-	uint8_t FrontEndDescription::setFeId( uint8_t pFeId ){
+	void FrontEndDescription::setFeId( uint8_t pFeId ){
 		fFeId = pFeId;
-		return fFeId;
 	}
 
 	// Status
-	bool FrontEndDescription::setStatus( bool pStatus ){
+	void FrontEndDescription::setStatus( bool pStatus ){
 		fStatus = pStatus;
-		return fStatus;
 	}
 
 }

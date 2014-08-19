@@ -47,7 +47,7 @@ namespace Ph2_HwDescription{
 		return true;
 		else
 		{
-			std::cout<<"Error:This Shelve doesn't have the Board"<<std::endl;
+			std::cout<<"Error:The Shelve :"<< uint32_t(fShelveId) <<"doesn't have the Board "<< uint32_t(pBeId) <<std::endl;
 			return false;
 		}
 	}
