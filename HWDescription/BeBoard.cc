@@ -21,14 +21,17 @@ namespace Ph2_HwDescription{
 
 	BeBoard::BeBoard():
 	fShelveId(0),
-	fBeId(0)		
+	fBeId(0)
 	{
 		loadConfigFile( DEFAULT_GLIB_FILE );
 	}
 
 	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId ):
 	fShelveId( pShelveId ),
-	fBeId( pBeId ){}
+	fBeId( pBeId )
+	{
+		loadConfigFile( DEFAULT_GLIB_FILE );
+	}
 
 	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename ):
 	fShelveId( pShelveId ),
@@ -57,7 +60,7 @@ namespace Ph2_HwDescription{
 		BeBoardRegMap::iterator i;
 		i = fRegMap.find( pReg );
 		if( i == fRegMap.end() )
-		{ 
+		{
 			std::cout<<"The Board object: "<<uint32_t(fBeId)<<" doesn't have "<<pReg<<std::endl;
 		}
 		else i->second = psetValue;
@@ -74,7 +77,7 @@ namespace Ph2_HwDescription{
 		bool j=false;
 		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
 		{
-			if (i->fModuleId==pModuleId)
+			if (i->getModuleId()==pModuleId)
 			{
 				fModuleVector.erase(i);
 				j=true;
@@ -95,7 +98,7 @@ namespace Ph2_HwDescription{
 		std::vector < Module > :: iterator i;
 		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
 		{
-			if (i->fModuleId==pModuleId)
+			if (i->getModuleId()==pModuleId)
 				{
 					return &*i;
 				}

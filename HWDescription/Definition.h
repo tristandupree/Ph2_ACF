@@ -12,12 +12,13 @@
 //------------------------------------------------------------------------------
 //uHal Connection File
 
-#define UHAL_CONNECTION_FILE "file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml"
+#define UHAL_CONNECTION_FILE "file://settings/connections.xml"
 
 //-----------------------------------------------------------------------------
 //Glib Config Files
 
-#define XML_DESCRIPTION_FILE "file:///afs/cern.ch/user/n/npierre/dev/System/HWDescription.xml"
+#define XML_DESCRIPTION_FILE_2CBC "settings/HWDescription_2CBC.xml"
+#define XML_DESCRIPTION_FILE_8CBC "settings/HWDescription_8CBC.xml"
 
 
 //-----------------------------------------------------------------------------

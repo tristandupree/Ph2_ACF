@@ -171,46 +171,6 @@ namespace Ph2_HwInterface
 
 		cVecReg.clear();
 
-		/*boost::posix_time::milliseconds cWait(500);
-
-
-		cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-
-		WriteStackReg(cVecReg);
-
-		cVecReg.clear();
-
-		cPairReg.first = CBC_TEST_PULSE_VALID; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = DELAY_AF_FAST_RESET; cPairReg.second = 30000;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = DELAY_AF_L1A; cPairReg.second = 30000;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = DELAY_AF_TEST_PULSE; cPairReg.second = 30000;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = RQ; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = ACQ_MODE; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-
-		WriteStackReg(cVecReg);
-
-		cVecReg.clear();*/
-
-
     }
 
 	void GlibFWInterface::Stop(uint32_t pNthAcq)
@@ -534,7 +494,7 @@ namespace Ph2_HwInterface
            	usleep(100000);
 	}
 
-	void GlibFWInterface::WriteCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq )
+	void GlibFWInterface::WriteCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq )
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -576,7 +536,7 @@ namespace Ph2_HwInterface
 		EnableI2c(0);
 	}
 
-	void GlibFWInterface::ReadCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq )
+	void GlibFWInterface::ReadCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq )
 	{
 
 #ifdef __CBCDAQ_DEV__

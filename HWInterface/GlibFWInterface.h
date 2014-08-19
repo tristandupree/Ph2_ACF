@@ -145,12 +145,12 @@ namespace Ph2_HwInterface
 	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Vector to stack the read words
 	    	*/
-		void WriteCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq );
+		void WriteCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq );
 	    	/* \brief Read register blocks of a Cbc
 	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Vector to stack the read words
 	    	*/
-		void ReadCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq );
+		void ReadCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq );
 
     };
 }

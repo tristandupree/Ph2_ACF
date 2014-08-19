@@ -123,7 +123,7 @@ namespace Ph2_HwDescription{
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
 		{
-			std::cout<<"The Cbc object: "<<uint32_t(fCbcId)<<" doesn't have "<<pReg<<std::endl;
+			std::cout<<"The Cbc object: "<<uint32_t(getCbcId())<<" doesn't have "<<pReg<<std::endl;
 			return 0;
 		}
 		else
@@ -136,7 +136,7 @@ namespace Ph2_HwDescription{
 		CbcRegMap::iterator i;
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<uint32_t(fCbcId)<<" doesn't have "<<pReg<<std::endl;}
+		{std::cout<<"The Cbc object: "<<uint32_t(getCbcId())<<" doesn't have "<<pReg<<std::endl;}
 		else
 		{
 			i->second.fValue=psetValue;
@@ -190,13 +190,13 @@ namespace Ph2_HwDescription{
 
 
 
-	bool CbcComparer::operator() (const Cbc& cbc1,const Cbc& cbc2)
+	bool CbcComparer::operator() (Cbc& cbc1,Cbc& cbc2)
 	{
-		if (cbc1.fShelveId != cbc2.fShelveId) return cbc1.fShelveId < cbc2.fShelveId;
-		else if(cbc1.fBeId != cbc2.fBeId) return cbc1.fBeId < cbc2.fBeId;
-		else if(cbc1.fFMCId != cbc2.fFMCId) return cbc1.fFMCId < cbc2.fFMCId;
-		else if(cbc1.fFeId != cbc2.fFeId) return cbc1.fFeId < cbc2.fFeId;
-		else return cbc1.fCbcId < cbc2.fCbcId ;
+		if (cbc1.getShelveId() != cbc2.getShelveId()) return cbc1.getShelveId() < cbc2.getShelveId();
+		else if(cbc1.getBeId() != cbc2.getBeId()) return cbc1.getBeId() < cbc2.getBeId();
+		else if(cbc1.getFMCId() != cbc2.getFMCId()) return cbc1.getFMCId() < cbc2.getFMCId();
+		else if(cbc1.getFeId() != cbc2.getFeId()) return cbc1.getFeId() < cbc2.getFeId();
+		else return cbc1.getCbcId() < cbc2.getCbcId() ;
 	}
 
 

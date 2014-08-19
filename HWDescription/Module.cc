@@ -32,7 +32,7 @@ namespace Ph2_HwDescription{
 		bool j=false;
 		for (i=fCbcVector.begin();i!=fCbcVector.end();++i)
 		{
-			if (i->fCbcId==pCbcId)
+			if (i->getCbcId()==pCbcId)
 			{
 				fCbcVector.erase(i);
 				j=true;
@@ -53,7 +53,7 @@ namespace Ph2_HwDescription{
 		std::vector < Cbc > :: iterator i;
 		for (i=fCbcVector.begin();i!=fCbcVector.end();++i)
 		{
-			if (i->fCbcId==pCbcId)
+			if (i->getCbcId()==pCbcId)
 				{
 					return &*i ;
 				}

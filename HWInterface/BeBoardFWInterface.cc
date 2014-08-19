@@ -118,13 +118,13 @@ namespace Ph2_HwInterface
 	}
 
 
-	void BeBoardFWInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq)
+	void BeBoardFWInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq)
 	{
 		pVecReq.push_back(pCbcId<<17 | pRegItem.fPage<<16 | pRegItem.fAddress<<8 | pRegItem.fValue);
 	}
 
 
-	void BeBoardFWInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
+	void BeBoardFWInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, uint32_t pWord)
 	{
 		uint32_t cMask(0x00000000);
 		unsigned int i(0);

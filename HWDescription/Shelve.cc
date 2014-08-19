@@ -36,7 +36,7 @@ namespace Ph2_HwDescription{
 		bool j=false;
 		for (i=fBoardVector.begin();i!=fBoardVector.end();++i)
 		{
-			if (i->fBeId==pBeId)
+			if (i->getBeId()==pBeId)
 			{
 				fBoardVector.erase(i);
 				j=true;
@@ -58,7 +58,7 @@ namespace Ph2_HwDescription{
 		std::vector < BeBoard > :: iterator i;
 		for (i=fBoardVector.begin();i!=fBoardVector.end();++i)
 		{
-			if (i->fBeId==pBeId)
+			if (i->getBeId()==pBeId)
 				{
 					return &*i ;
 				}

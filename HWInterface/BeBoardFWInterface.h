@@ -84,14 +84,14 @@ namespace Ph2_HwInterface
 			* \param pCbcId : Id of the Cbc to work with
 			* \param pVecReq : Vector to stack the encoded words
 			*/
-			virtual void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq); /*!< Encode a/several word(s) readable for a Cbc*/
+			virtual void EncodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq); /*!< Encode a/several word(s) readable for a Cbc*/
 			/*!
 			* \brief Decode a word from a read of a register of the Cbc
 	    	* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
 	    	* \param pCbcId : Id of the Cbc to work with
 	    	* \param pWord : variable to put the decoded word
 	    	*/
-	    	virtual void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord); /*!< Decode a word from a read of a register of the Cbc*/
+	    	virtual void DecodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, uint32_t pWord); /*!< Decode a word from a read of a register of the Cbc*/
 
 
 			//virtual pure methods which are defined in the proper BoardFWInterface class
@@ -101,13 +101,13 @@ namespace Ph2_HwInterface
 	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Block of words to write
 	    	*/
-	    	virtual void WriteCbcBlockReg( uint8_t& pFeId, std::vector<uint32_t>& pVecReq ) {};
+	    	virtual void WriteCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq ) {};
 	    	/*!
 	    	* \brief Read register blocks of a Cbc
 	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Vector to stack the read words
 	    	*/
-	    	virtual void ReadCbcBlockReg( uint8_t& pFeId, std::vector<uint32_t>& pVecReq ) {};
+	    	virtual void ReadCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq ) {};
 			/*!
 	    	* \brief Configure the board with its Config File
 	    	* \param pBoard

@@ -141,7 +141,7 @@ int main(int argc, char* argv[])
 
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
                                 if(cSystemController.fBeBoardFWMap.find(cBoardId) == cSystemController.fBeBoardFWMap.end())
                                 {
@@ -186,9 +186,9 @@ int main(int argc, char* argv[])
 
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
-                                if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->fBeId == NULL)
+                                if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getBeId() == NULL)
                                 {
                                     std::cout << "ERROR : This board does not exist !" << std::endl;
                                     myflush( std::cin );
@@ -206,7 +206,7 @@ int main(int argc, char* argv[])
                                         std::cout << "--> Which FeId ?" << std::endl;
                                         std::cin >> cFeId;
 
-                                        cModule = new Module(cSystemController.fShelveVec[cSId]->fShelveId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->fBeId,cFMCId,cFeId,cModuleId);
+                                        cModule = new Module(cSystemController.fShelveVec[cSId]->getShelveId(),cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getBeId(),cFMCId,cFeId,cModuleId);
 
                                         cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->addModule(*cModule);
                                         std::cout << "*** Module Added ***" << std::endl;
@@ -251,9 +251,9 @@ int main(int argc, char* argv[])
                                 for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                                 {
 
-                                    if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                                    if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                                     {
-                                        if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->fBeId == NULL)
+                                        if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getBeId() == NULL)
                                         {
                                             std::cout << "ERROR : This board does not exist !" << std::endl;
                                             myflush( std::cin );
@@ -310,9 +310,9 @@ int main(int argc, char* argv[])
                                 for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                                 {
 
-                                    if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                                    if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                                     {
-                                        if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->fBeId == NULL)
+                                        if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getBeId() == NULL)
                                         {
                                             std::cout << "ERROR : This board does not exist !" << std::endl;
                                             myflush( std::cin );
@@ -352,7 +352,7 @@ int main(int argc, char* argv[])
 
                                                         case 1:
                                                             {
-                                                                Cbc cCbcPers(cShelveId,cBeId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->fFMCId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->fFeId,cCbcId,FE0CBC0HOLE);
+                                                                Cbc cCbcPers(cShelveId,cBeId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getFMCId(),cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getFeId(),cCbcId,FE0CBC0HOLE);
                                                                 cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->addCbc(cCbcPers);
                                                                 cSystemController.fCbcInterface->ConfigureCbc(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getCbc(cCbcId));
                                                                 std::cout << "*** Cbc Added ***" << std::endl;
@@ -362,7 +362,7 @@ int main(int argc, char* argv[])
 
                                                         case 2:
                                                             {
-                                                                Cbc cCbcPers(cShelveId,cBeId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->fFMCId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->fFeId,cCbcId,FE0CBC1);
+                                                                Cbc cCbcPers(cShelveId,cBeId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getFMCId(),cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getFeId(),cCbcId,FE0CBC1);
                                                                 cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->addCbc(cCbcPers);
                                                                 cSystemController.fCbcInterface->ConfigureCbc(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getCbc(cCbcId));
                                                                 std::cout << "*** Cbc Added ***" << std::endl;
@@ -372,7 +372,7 @@ int main(int argc, char* argv[])
 
                                                         case 3:
                                                             {
-                                                                Cbc cCbcPers(cShelveId,cBeId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->fFMCId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->fFeId,cCbcId,FE0CBC1HOLE);
+                                                                Cbc cCbcPers(cShelveId,cBeId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getFMCId(),cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getFeId(),cCbcId,FE0CBC1HOLE);
                                                                 cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->addCbc(cCbcPers);
                                                                 cSystemController.fCbcInterface->ConfigureCbc(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getCbc(cCbcId));
                                                                 std::cout << "*** Cbc Added ***" << std::endl;
@@ -385,7 +385,7 @@ int main(int argc, char* argv[])
                                                                 std::cout << "--> Enter your File Path " << std::endl;
                                                                 std::cout << "(Absolute path please) " << std::endl;
                                                                 std::cin >> cFilePath;
-                                                                Cbc cCbcPers(cShelveId,cBeId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->fFMCId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->fFeId,cCbcId,cFilePath);
+                                                                Cbc cCbcPers(cShelveId,cBeId,cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getFMCId(),cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getFeId(),cCbcId,cFilePath);
                                                                 cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->addCbc(cCbcPers);
                                                                 cSystemController.fCbcInterface->ConfigureCbc(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(cModuleId)->getCbc(cCbcId));
                                                                 std::cout << "*** Cbc Added ***" << std::endl;
@@ -428,9 +428,9 @@ int main(int argc, char* argv[])
                                 for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                                 {
 
-                                    if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                                    if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                                     {
-                                        if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->fBeId == NULL)
+                                        if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getBeId() == NULL)
                                         {
                                             std::cout << "ERROR : This board does not exist !" << std::endl;
                                             myflush( std::cin );
@@ -487,9 +487,9 @@ int main(int argc, char* argv[])
                                 for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                                 {
 
-                                    if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                                    if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                                     {
-                                        if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->fBeId == NULL)
+                                        if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getBeId() == NULL)
                                         {
                                             std::cout << "ERROR : This board does not exist !" << std::endl;
                                             myflush( std::cin );
@@ -554,7 +554,7 @@ int main(int argc, char* argv[])
 
                         for(cIt=cSystemController.fShelveVec.begin(); cIt!=cSystemController.fShelveVec.end(); cIt++)
                         {
-                            if((*cIt)->fShelveId == cShelveId)
+                            if((*cIt)->getShelveId() == cShelveId)
                             {
                                 if((*cIt)->getBoard(cBoardId) == NULL)
                                 {
@@ -594,7 +594,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
                                 {
@@ -642,7 +642,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
                                 {
@@ -734,7 +734,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
                                 {
@@ -768,7 +768,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
                                 {
@@ -828,7 +828,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
                                 {
@@ -889,7 +889,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -977,7 +977,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1026,7 +1026,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1064,7 +1064,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1129,7 +1129,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1205,7 +1205,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1268,7 +1268,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1331,7 +1331,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1379,7 +1379,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1440,7 +1440,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1527,7 +1527,7 @@ int main(int argc, char* argv[])
                         for(uint32_t cSId=0; cSId<cSystemController.fShelveVec.size(); cSId++)
                         {
 
-                            if(cSystemController.fShelveVec[cSId]->fShelveId == cShelveId)
+                            if(cSystemController.fShelveVec[cSId]->getShelveId() == cShelveId)
                             {
 
                                 if(cSystemController.fShelveVec[cSId]->getBoard(cBoardId) == NULL)
@@ -1577,6 +1577,12 @@ int main(int argc, char* argv[])
                                             cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[cSId]->getBoard(cBoardId)->getModule(0)->getCbc(cNCbc),"VCth",cVCth);
 
                                         uint32_t cN = 0;
+
+                                        for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[0]->getBoard(cBoardId)->getModule(0)->getNCbc(); cNCbc++)
+                                        {
+                                            delete cHistVec[cNCbc];
+                                            cHistVec[cNCbc] = new TH1F(Form("Histo_Hits_CBC%d",cNCbc), Form("Occupancy_CBC%d",cNCbc), 255, -0.5, 254.5);
+                                        }
 
                                         while(!(cNevents != 0 && cN == cNevents))
                                         {
@@ -1641,6 +1647,7 @@ int main(int argc, char* argv[])
 
                                     std::cout << "*** Acquisition Run ***" << std::endl;
                                 }
+                                break;
                             }
                             else if(cSId == cSystemController.fShelveVec.size())
                             {
@@ -1743,7 +1750,7 @@ int main(int argc, char* argv[])
 
                                                 std::cout << " \n\n*** Module *** " << std::endl;
                                                 std::cout << " --------------------- " << std::endl;
-                                                std::cout << "| Module Id : "<< uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cIt->first)->getModule(cNFe+cMissedModule)->fModuleId) << std::endl;
+                                                std::cout << "| Module Id : "<< uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cIt->first)->getModule(cNFe+cMissedModule)->getModuleId()) << std::endl;
                                                 std::cout << "| Number of Cbc : " << uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cIt->first)->getModule(cNFe+cMissedModule)->getNCbc()) << std::endl;
                                                 std::cout << " --------------------- \n" << std::endl;
 
@@ -1840,7 +1847,7 @@ int main(int argc, char* argv[])
 
                                                 std::cout << " \n\n*** Module *** " << std::endl;
                                                 std::cout << " --------------------- " << std::endl;
-                                                std::cout << "| Module Id : "<< uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cIt->first)->getModule(cNFe+cMissedModule)->fModuleId) << std::endl;
+                                                std::cout << "| Module Id : "<< uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cIt->first)->getModule(cNFe+cMissedModule)->getModuleId()) << std::endl;
                                                 std::cout << "| Number of Cbc : " << uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cIt->first)->getModule(cNFe+cMissedModule)->getNCbc()) << std::endl;
                                                 std::cout << " --------------------- \n" << std::endl;
 
@@ -1938,7 +1945,7 @@ int main(int argc, char* argv[])
 
                             else
                             {
-                                cSystemController.fShelveVec[cSId]->getBoard(cBId+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc)->saveRegMap((boost::format("output/output_%d_%d_%d.txt") %(uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cBId+cMissedBoard)->fBeId)) %(uint32_t(cNFe+cMissedModule)) %(uint32_t(cNCbc+cMissedCbc))).str());
+                                cSystemController.fShelveVec[cSId]->getBoard(cBId+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc)->saveRegMap((boost::format("output/output_%d_%d_%d.txt") %(uint32_t(cSystemController.fShelveVec[cSId]->getBoard(cBId+cMissedBoard)->getBeId())) %(uint32_t(cNFe+cMissedModule)) %(uint32_t(cNCbc+cMissedCbc))).str());
                             }
                         }
 

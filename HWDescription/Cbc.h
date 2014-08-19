@@ -117,7 +117,7 @@ namespace Ph2_HwDescription{
 	*/
 	struct CbcComparer{
 
-		bool operator() (const Cbc& cbc1,const Cbc& cbc2);
+		bool operator() (Cbc& cbc1,Cbc& cbc2);
 
 		};
 
