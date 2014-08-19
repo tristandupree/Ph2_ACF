@@ -68,12 +68,10 @@ int main(int argc, char* argv[])
 
         usleep( 100 );
 
-        while(!(cNevents != 0 && cN == cNevents))
+        while(!(cN == cNevents))
         {
 
-            cSystemController.fBeBoardInterface->Start(cSystemController.fShelveVec[0]->getBoard(0));
-            cSystemController.fBeBoardInterface->ReadData(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq, true );
-            cSystemController.fBeBoardInterface->Stop(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq );
+            cSystemController.Run(cSystemController.fShelveVec[0]->getBoard(0),cNthAcq);
 
             const Event *cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[0]->getBoard(0));
 
@@ -95,11 +93,13 @@ int main(int argc, char* argv[])
 
                         for(uint8_t cDBVec=0; cDBVec<cDataBitVector.size(); cDBVec++)
                         {
+                            std::cout << cDataBitVector[cDBVec];
                             if(cDataBitVector[cDBVec])
                             {
                                 cNHits++;
                             }
                         }
+                        std::cout << "\n";
                         cHistVec[cNCbc]->Fill(cNHits);
                     }
                 }
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
                 break;
             }
 
-            cNthAcq++;
+            //cNthAcq++;
 
         }
 
