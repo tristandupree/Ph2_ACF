@@ -54,20 +54,21 @@ void Channel::initializeHist(uint8_t pValue, bool pVplusScan){
 		fitname = Form("Fit_Be%d_Fe%d_Cbc%d_Channel%d_Vplus%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
 
 	}
-	else {
+
+	else{
+
 		histname = Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d_Offset%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
 		fitname = Form("Fit_Be%d_Fe%d_Cbc%d_Channel%d_Offset%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
 
-	
-	fScurve = (TH1F*) gROOT->FindObject(histname);
-	if( fScurve ) delete fScurve;
-	else fScurve = new TH1F(histname,Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId),256, -0.5, 255.5);
+		
+		fScurve = (TH1F*) gROOT->FindObject(histname);
+		if( fScurve ) delete fScurve;
+		else fScurve = new TH1F(histname,Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId),256, -0.5, 255.5);
 
-	TF1* fFit = (TF1*) gROOT->FindObject(fitname);
-	if( fFit ) delete fFit;
-	fFit = new TF1(fitname, MyErf, 0x00, 0xFF, 2 );
-
-		}
+		TF1* fFit = (TF1*) gROOT->FindObject(fitname);
+		if( fFit ) delete fFit;
+		fFit = new TF1(fitname, MyErf, 0x00, 0xFF, 2 );
+	}
 }
 
 void Channel::fillHist(uint8_t pVcth){

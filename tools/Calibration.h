@@ -36,7 +36,7 @@ public:
 	// D'Tor
 	~Calibration(){};
 
-	void VplusScan(std::vector<uint8_t> pVplusValues);
+	void VplusScan();
 	uint8_t FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
     
     
@@ -44,11 +44,14 @@ private:
 		
 	TFile* fResultFile;
 	TestGroupMap fTestGroupMap;
+	std::vector<uint8_t> fVplusValues;
 
 private:
     
-    void Initialise();
+    void InitialiseTestGroup();
 	void ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId);
+
+	uint8_t hextoint(char* pHexValue);
 
 
 };
