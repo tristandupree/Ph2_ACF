@@ -43,13 +43,15 @@ Here are the step to make the program functional
 
 2. Create /lib, /bin and /output directories in the root of the repo.
 
-3. Do a make in the root the repo (make sure you have all µHal, root, boost... libraries on your computer)
+3. Do a make in the root the repo (make sure you have all µHal, root, boost... libraries on your computer).
 
-4. Launch testpgrm command if you want to test if everything is working good.
+4. Launch system command if you want to test the reading of your hardware describing XML file.
 
-5. You can test the data acquisition by lauching datatest2cbc or datatest8cbc.
+5. Launch testpgrm command if you want to test if everything is working good.
 
-6. Launch mcp to play with the Test Interface
+6. You can test the data acquisition by lauching datatest2cbc or datatest8cbc.
+
+7. Launch mcp to play with the Test Interface
 <br>
 <br>
 __What can you do with the software ?__
