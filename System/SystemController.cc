@@ -168,7 +168,7 @@ namespace Ph2_System
 
 								else
 								{
-									fCbcInterface->ConfigureCbc(fShelveVec[i]->getBoard(j+cMissedBoard)->getModule(k+cMissedModule)->getCbc(m+cMissedCbc));
+									fCbcInterface->ConfigureCbc(fShelveVec[i]->getBoard(j+cMissedBoard)->getModule(k+cMissedModule)->getCbc(m+cMissedCbc),false);
 								}
 							}
 						}

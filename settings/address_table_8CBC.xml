@@ -156,7 +156,7 @@
 		</node>
 		<node id ="cbc_reg_i2c_settings"	address="0x18"	permission="rw"	mode="single" description="I2C value zone (CBC I2C bus requests)"/>
 		<node id ="cbc_reg_i2c_command"	address="0x19"	permission="rw"	mode="single" description="I2C command (CBC I2C bus requests)"/>
-		<node id ="cbc_reg_i2c_reply"	address="0x1A"	permission="r"	mode="single" description="I2C reply zone (CBC I2C bus requests)"/-->
+		<node id ="cbc_reg_i2c_reply"	address="0x1A"	permission="r"	mode="single" description="I2C reply zone (CBC I2C bus requests)"/>
 		<node id ="cbc_acquisition"	address="0x1B"	permission="rw" mode="single">
 			<node id="CBC_RESET_SEL"	mask="0x00000003" description="deprecated"/>
 			<node id="CBC_TRIGGER_MODE"	mask="0x0000000C" description="deprecated"/>
