@@ -71,12 +71,13 @@ namespace Ph2_HwDescription{
 		*/
 		void setShelveId(uint8_t pShelveId) {fShelveId=pShelveId;};
 
+		// Vector of Boards
+		std::vector< BeBoard > fBoardVector;
+
 	protected:
 
 		uint8_t fShelveId;
 
-		// Vector of Board
-		std::vector< BeBoard > fBoardVector;
 
 	};
 }
