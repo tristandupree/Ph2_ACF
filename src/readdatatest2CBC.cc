@@ -93,13 +93,11 @@ int main(int argc, char* argv[])
 
                         for(uint8_t cDBVec=0; cDBVec<cDataBitVector.size(); cDBVec++)
                         {
-                            std::cout << cDataBitVector[cDBVec];
                             if(cDataBitVector[cDBVec])
                             {
                                 cNHits++;
                             }
                         }
-                        std::cout << "\n";
                         cHistVec[cNCbc]->Fill(cNHits);
                     }
                 }
