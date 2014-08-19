@@ -23,8 +23,10 @@ Inheritance diagram for Ph2\-\_\-\-System\-:\-:System\-Controller\-:\begin{figur
 \begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___system_1_1_system_controller}{System\-Controller} class. \end{DoxyCompactList}\item 
 \hyperlink{class_ph2___system_1_1_system_controller_abd794b0a85d9d83ec553d707875efcf1}{$\sim$\-System\-Controller} ()
 \begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___system_1_1_system_controller}{System\-Controller} class. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___system_1_1_system_controller_ac9ca1c3f04938c5bc1396fa74c3c7bec}{Initialize\-Hw} (std\-::string p\-Filename)
+void \hyperlink{class_ph2___system_1_1_system_controller_ab6db20a430b09bd7888d7af0fb3b9511}{Initialize\-Hw} (const char $\ast$p\-Filename)
 \begin{DoxyCompactList}\small\item\em Initialize the Hardware via an X\-M\-L file. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___system_1_1_system_controller_a9f1a7ff3ebeafde5f6e608842a139edb}{Initialize\-Settings} (const char $\ast$p\-Filename)
+\begin{DoxyCompactList}\small\item\em Initialize the settings. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___system_1_1_system_controller_af0bb978523eb3a6436650d9e4f112432}{Configure\-Hw} ()
 \begin{DoxyCompactList}\small\item\em Configure the Hardware with X\-M\-L file indicated values. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___system_1_1_system_controller_a566a9fd32ddb038dc935de263a0032f8}{Run} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Be\-Board, uint32\-\_\-t p\-Nth\-Acq)
@@ -39,6 +41,8 @@ void \hyperlink{class_ph2___system_1_1_system_controller_a566a9fd32ddb038dc935de
 \hyperlink{namespace_ph2___system_a1c21eed494ab8a888694adf3de379dcf}{Shelve\-Vec} \hyperlink{class_ph2___system_1_1_system_controller_ad98d8c88b5d4138921591ea2c971f714}{f\-Shelve\-Vec}
 \item 
 \hyperlink{namespace_ph2___hw_interface_ac35d341eb47fa7cbe4d28ccbc6ab4875}{Be\-Board\-F\-W\-Map} \hyperlink{class_ph2___system_1_1_system_controller_a84042bff8bf08490a04e82bdeea9c7d6}{f\-Be\-Board\-F\-W\-Map}
+\item 
+\hyperlink{namespace_ph2___system_a0ea674c0ee02ac6834ac9a1335111980}{Settings\-Map} \hyperlink{class_ph2___system_1_1_system_controller_a18fd8d1b9c57b411097430646e1dda9a}{f\-Settings\-Map}
 \end{DoxyCompactItemize}
 
 
@@ -82,16 +86,32 @@ Destructor of the \hyperlink{class_ph2___system_1_1_system_controller}{System\-C
 
 Configure the Hardware with X\-M\-L file indicated values. 
 
-\hypertarget{class_ph2___system_1_1_system_controller_ac9ca1c3f04938c5bc1396fa74c3c7bec}{\index{Ph2\-\_\-\-System\-::\-System\-Controller@{Ph2\-\_\-\-System\-::\-System\-Controller}!Initialize\-Hw@{Initialize\-Hw}}
+\hypertarget{class_ph2___system_1_1_system_controller_ab6db20a430b09bd7888d7af0fb3b9511}{\index{Ph2\-\_\-\-System\-::\-System\-Controller@{Ph2\-\_\-\-System\-::\-System\-Controller}!Initialize\-Hw@{Initialize\-Hw}}
 \index{Initialize\-Hw@{Initialize\-Hw}!Ph2_System::SystemController@{Ph2\-\_\-\-System\-::\-System\-Controller}}
 \subsubsection[{Initialize\-Hw}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-System\-::\-System\-Controller\-::\-Initialize\-Hw (
 \begin{DoxyParamCaption}
-\item[{std\-::string}]{p\-Filename}
+\item[{const char $\ast$}]{p\-Filename}
 \end{DoxyParamCaption}
-)}}\label{class_ph2___system_1_1_system_controller_ac9ca1c3f04938c5bc1396fa74c3c7bec}
+)}}\label{class_ph2___system_1_1_system_controller_ab6db20a430b09bd7888d7af0fb3b9511}
 
 
 Initialize the Hardware via an X\-M\-L file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Filename} & \-: X\-M\-L H\-W Description file \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___system_1_1_system_controller_a9f1a7ff3ebeafde5f6e608842a139edb}{\index{Ph2\-\_\-\-System\-::\-System\-Controller@{Ph2\-\_\-\-System\-::\-System\-Controller}!Initialize\-Settings@{Initialize\-Settings}}
+\index{Initialize\-Settings@{Initialize\-Settings}!Ph2_System::SystemController@{Ph2\-\_\-\-System\-::\-System\-Controller}}
+\subsubsection[{Initialize\-Settings}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-System\-::\-System\-Controller\-::\-Initialize\-Settings (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{p\-Filename}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___system_1_1_system_controller_a9f1a7ff3ebeafde5f6e608842a139edb}
+
+
+Initialize the settings. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -129,7 +149,10 @@ Map of connections to the Be\-Board \hypertarget{class_ph2___system_1_1_system_c
 Interface to the Be\-Board \hypertarget{class_ph2___system_1_1_system_controller_ae38e8bcea2b76c5981d2b0e49559ad16}{\index{Ph2\-\_\-\-System\-::\-System\-Controller@{Ph2\-\_\-\-System\-::\-System\-Controller}!f\-Cbc\-Interface@{f\-Cbc\-Interface}}
 \index{f\-Cbc\-Interface@{f\-Cbc\-Interface}!Ph2_System::SystemController@{Ph2\-\_\-\-System\-::\-System\-Controller}}
 \subsubsection[{f\-Cbc\-Interface}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Cbc\-Interface}$\ast$ Ph2\-\_\-\-System\-::\-System\-Controller\-::f\-Cbc\-Interface}}\label{class_ph2___system_1_1_system_controller_ae38e8bcea2b76c5981d2b0e49559ad16}
-Interface to the Cbc \hypertarget{class_ph2___system_1_1_system_controller_ad98d8c88b5d4138921591ea2c971f714}{\index{Ph2\-\_\-\-System\-::\-System\-Controller@{Ph2\-\_\-\-System\-::\-System\-Controller}!f\-Shelve\-Vec@{f\-Shelve\-Vec}}
+Interface to the Cbc \hypertarget{class_ph2___system_1_1_system_controller_a18fd8d1b9c57b411097430646e1dda9a}{\index{Ph2\-\_\-\-System\-::\-System\-Controller@{Ph2\-\_\-\-System\-::\-System\-Controller}!f\-Settings\-Map@{f\-Settings\-Map}}
+\index{f\-Settings\-Map@{f\-Settings\-Map}!Ph2_System::SystemController@{Ph2\-\_\-\-System\-::\-System\-Controller}}
+\subsubsection[{f\-Settings\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Settings\-Map} Ph2\-\_\-\-System\-::\-System\-Controller\-::f\-Settings\-Map}}\label{class_ph2___system_1_1_system_controller_a18fd8d1b9c57b411097430646e1dda9a}
+Maps the settings \hypertarget{class_ph2___system_1_1_system_controller_ad98d8c88b5d4138921591ea2c971f714}{\index{Ph2\-\_\-\-System\-::\-System\-Controller@{Ph2\-\_\-\-System\-::\-System\-Controller}!f\-Shelve\-Vec@{f\-Shelve\-Vec}}
 \index{f\-Shelve\-Vec@{f\-Shelve\-Vec}!Ph2_System::SystemController@{Ph2\-\_\-\-System\-::\-System\-Controller}}
 \subsubsection[{f\-Shelve\-Vec}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Shelve\-Vec} Ph2\-\_\-\-System\-::\-System\-Controller\-::f\-Shelve\-Vec}}\label{class_ph2___system_1_1_system_controller_ad98d8c88b5d4138921591ea2c971f714}
 Vector of Shelve pointers 

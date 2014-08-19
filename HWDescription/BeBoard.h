@@ -24,7 +24,7 @@
 */
 namespace Ph2_HwDescription{
 
-	typedef std::map< std::string, uint16_t > BeBoardRegMap;
+	typedef std::map< std::string, uint16_t > BeBoardRegMap; /*!< Map containing the registers of a board */
 
 	/*!
 	* \class BeBoard
@@ -35,16 +35,29 @@ namespace Ph2_HwDescription{
 	public:
 
 		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is
-		// Default C'tor
+		/*!
+		* \brief Default C'tor
+		*/
 		BeBoard();
 
-		// Standard C'tor
+		/*!
+		* \brief Standard C'tor
+		* \param pShelveId
+		* \param pBeId
+		*/
 		BeBoard( uint8_t pShelveId, uint8_t pBeId );
 
-		// C'tor for a standard BeBoard reading a config file
+		/*!
+		* \brief C'tor for a standard BeBoard reading a config file
+		* \param pShelveId
+		* \param pBeId
+		* \param filename of the configuration file
+		*/
 		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename );
 
-		// D'tor
+		/*!
+		* \brief Destructor
+		*/
 		~BeBoard(){};
 
 		// Public Methods
@@ -121,9 +134,9 @@ namespace Ph2_HwDescription{
 		uint8_t fShelveId;
 		uint8_t fBeId;
 
+		std::vector< Module > fModuleVector; /*!< Vector of FEModules, each module is supposed to know which FMC slot it is connected to... */
 
-		// Map of BeBoard Register Names vs. Register Values
-		BeBoardRegMap fRegMap;
+		BeBoardRegMap fRegMap; /*!< Map of BeBoard Register Names vs. Register Values */
 
 	private:
 

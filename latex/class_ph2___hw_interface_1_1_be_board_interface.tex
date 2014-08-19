@@ -32,11 +32,13 @@ void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a08d0374efe31d80
 void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a2b9692f018d7756fbfd720224da542da}{Pause} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
 \begin{DoxyCompactList}\small\item\em Pause a D\-A\-Q. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_ad21d2651379571889a7a2ebc55ee3223}{Resume} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
-\begin{DoxyCompactList}\small\item\em Unpause a D\-A\-Q. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Resume a D\-A\-Q. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a3e5106285fa795c21cb9d20fbf753759}{Read\-Data} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board, uint32\-\_\-t p\-Nth\-Acq, bool p\-Break\-Trigger)
 \begin{DoxyCompactList}\small\item\em Read data from D\-A\-Q. \end{DoxyCompactList}\item 
 const \hyperlink{class_ph2___hw_interface_1_1_event}{Event} $\ast$ \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a8dadf0d6aba310d1476b5c50aae98742}{Get\-Next\-Event} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
-\begin{DoxyCompactList}\small\item\em Get next event from data buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get next event from data buffer. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_be_board_interface_a09475ae1eaaf7a7ca50c5b426c93152f}{Get\-Buffer} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Be\-Board, uint32\-\_\-t \&p\-Buf\-Size)
+\begin{DoxyCompactList}\small\item\em Get the data buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -119,6 +121,26 @@ Get the board infos.
 {\em p\-Board} & \\
 \hline
 \end{DoxyParams}
+\hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a09475ae1eaaf7a7ca50c5b426c93152f}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Get\-Buffer@{Get\-Buffer}}
+\index{Get\-Buffer@{Get\-Buffer}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
+\subsubsection[{Get\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Get\-Buffer (
+\begin{DoxyParamCaption}
+\item[{{\bf Be\-Board} $\ast$}]{p\-Be\-Board, }
+\item[{uint32\-\_\-t \&}]{p\-Buf\-Size}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_interface_1_1_be_board_interface_a09475ae1eaaf7a7ca50c5b426c93152f}
+
+
+Get the data buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Buf\-Size} & \-: recovers the data buffer size \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_ph2___hw_interface_1_1_data}{Data} buffer 
+\end{DoxyReturn}
 \hypertarget{class_ph2___hw_interface_1_1_be_board_interface_a8dadf0d6aba310d1476b5c50aae98742}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}!Get\-Next\-Event@{Get\-Next\-Event}}
 \index{Get\-Next\-Event@{Get\-Next\-Event}!Ph2_HwInterface::BeBoardInterface@{Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface}}
 \subsubsection[{Get\-Next\-Event}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Event} $\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Be\-Board\-Interface\-::\-Get\-Next\-Event (
@@ -204,7 +226,7 @@ Read data from D\-A\-Q.
 )}}\label{class_ph2___hw_interface_1_1_be_board_interface_ad21d2651379571889a7a2ebc55ee3223}
 
 
-Unpause a D\-A\-Q. 
+Resume a D\-A\-Q. 
 
 
 \begin{DoxyParams}{Parameters}

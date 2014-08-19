@@ -1,7 +1,7 @@
 var searchData=
 [
   ['beboard',['BeBoard',['../class_ph2___hw_description_1_1_be_board.html',1,'Ph2_HwDescription']]],
-  ['beboard',['BeBoard',['../class_ph2___hw_description_1_1_be_board.html#a3bd1302a3dbf6ff0ba59dab710cfa537',1,'Ph2_HwDescription::BeBoard::BeBoard()'],['../class_ph2___hw_description_1_1_be_board.html#a62264acdf687d188214a8cded8e022db',1,'Ph2_HwDescription::BeBoard::BeBoard(uint8_t pShelveId, uint8_t pBeId, std::string filename=DEFAULT_GLIB_FILE)'],['../class_ph2___hw_description_1_1_be_board.html#a23bb0b31d566ba70544d9a45e2bdcfa6',1,'Ph2_HwDescription::BeBoard::BeBoard(uint8_t pShelveId, uint8_t pBeId, bool pExtTrg, bool pFakeData=false, std::string filename=DEFAULT_GLIB_FILE)']]],
+  ['beboard',['BeBoard',['../class_ph2___hw_description_1_1_be_board.html#a3bd1302a3dbf6ff0ba59dab710cfa537',1,'Ph2_HwDescription::BeBoard::BeBoard()'],['../class_ph2___hw_description_1_1_be_board.html#a4aca8e709e5ae58d4d12ea544dff9a9e',1,'Ph2_HwDescription::BeBoard::BeBoard(uint8_t pShelveId, uint8_t pBeId)'],['../class_ph2___hw_description_1_1_be_board.html#a88b73bd7d4be8e447ac14abcb9fe734d',1,'Ph2_HwDescription::BeBoard::BeBoard(uint8_t pShelveId, uint8_t pBeId, std::string filename)']]],
   ['beboard_2ecc',['BeBoard.cc',['../_be_board_8cc.html',1,'']]],
   ['beboard_2eh',['BeBoard.h',['../_be_board_8h.html',1,'']]],
   ['beboardfwinterface',['BeBoardFWInterface',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html',1,'Ph2_HwInterface']]],

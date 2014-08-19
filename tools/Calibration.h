@@ -38,15 +38,16 @@ public:
 
 	void VplusScan(std::vector<uint8_t> pVplusValues);
 	uint8_t FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
-
-
+    
+    
 private:
 		
 	TFile* fResultFile;
 	TestGroupMap fTestGroupMap;
 
 private:
-
+    
+    void Initialise();
 	void ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId);
 
 

@@ -42,4 +42,6 @@
     <Setting name="EnableTestPulse"> 0 </Setting>
     <Setting name="TestGroup"> 0 </Setting>
     <Setting name="TestPulsePotentiometer"> 0xF1 </Setting>
+    <Setting name="HoleMode"> 1 </Setting>
+    <Setting name="TargetVcth"> 0x78 </Setting>
 </Settings>

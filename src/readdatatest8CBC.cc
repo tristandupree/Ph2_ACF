@@ -71,9 +71,7 @@ int main(int argc, char* argv[])
         while(!(cNevents != 0 && cN == cNevents))
         {
 
-            cSystemController.fBeBoardInterface->Start(cSystemController.fShelveVec[0]->getBoard(0));
-            cSystemController.fBeBoardInterface->ReadData(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq, true );
-            cSystemController.fBeBoardInterface->Stop(cSystemController.fShelveVec[0]->getBoard(0), cNthAcq );
+            cSystemController.Run(cSystemController.fShelveVec[0]->getBoard(0),cNthAcq);
 
             const Event *cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[0]->getBoard(0));
 

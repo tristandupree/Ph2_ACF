@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: Ph2_HwInterface::BeBoardInterface Class Reference</title>
+<title>ACF : Acquisition &amp; Control Framework: Ph2_HwInterface::BeBoardInterface Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,10 +23,10 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="CMSlogoDoxyfile.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Ph2_DAQ
-   &#160;<span id="projectnumber">0.3</span>
+   <div id="projectname">ACF : Acquisition &amp; Control Framework
+   &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Software for DAQ of Ph2 CMSTrackerUpdate</div>
+   <div id="projectbrief">CMS Tracker Upgrade Software Framework for DAQ &amp; Hardware Control</div>
   </td>
  </tr>
  </tbody>
@@ -134,7 +134,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2b9692f018d7756fbfd720224da542da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pause a DAQ.  <a href="#a2b9692f018d7756fbfd720224da542da">More...</a><br/></td></tr>
 <tr class="separator:a2b9692f018d7756fbfd720224da542da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad21d2651379571889a7a2ebc55ee3223"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_interface.html#ad21d2651379571889a7a2ebc55ee3223">Resume</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> *pBoard)</td></tr>
-<tr class="memdesc:ad21d2651379571889a7a2ebc55ee3223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unpause a DAQ.  <a href="#ad21d2651379571889a7a2ebc55ee3223">More...</a><br/></td></tr>
+<tr class="memdesc:ad21d2651379571889a7a2ebc55ee3223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resume a DAQ.  <a href="#ad21d2651379571889a7a2ebc55ee3223">More...</a><br/></td></tr>
 <tr class="separator:ad21d2651379571889a7a2ebc55ee3223"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e5106285fa795c21cb9d20fbf753759"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_interface.html#a3e5106285fa795c21cb9d20fbf753759">ReadData</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> *pBoard, uint32_t pNthAcq, bool pBreakTrigger)</td></tr>
 <tr class="memdesc:a3e5106285fa795c21cb9d20fbf753759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read data from DAQ.  <a href="#a3e5106285fa795c21cb9d20fbf753759">More...</a><br/></td></tr>
@@ -142,6 +142,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8dadf0d6aba310d1476b5c50aae98742"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_ph2___hw_interface_1_1_event.html">Event</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_interface.html#a8dadf0d6aba310d1476b5c50aae98742">GetNextEvent</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> *pBoard)</td></tr>
 <tr class="memdesc:a8dadf0d6aba310d1476b5c50aae98742"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get next event from data buffer.  <a href="#a8dadf0d6aba310d1476b5c50aae98742">More...</a><br/></td></tr>
 <tr class="separator:a8dadf0d6aba310d1476b5c50aae98742"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09475ae1eaaf7a7ca50c5b426c93152f"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_interface.html#a09475ae1eaaf7a7ca50c5b426c93152f">GetBuffer</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> *pBeBoard, uint32_t &amp;pBufSize)</td></tr>
+<tr class="memdesc:a09475ae1eaaf7a7ca50c5b426c93152f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the data buffer.  <a href="#a09475ae1eaaf7a7ca50c5b426c93152f">More...</a><br/></td></tr>
+<tr class="separator:a09475ae1eaaf7a7ca50c5b426c93152f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -248,6 +251,41 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a09475ae1eaaf7a7ca50c5b426c93152f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * Ph2_HwInterface::BeBoardInterface::GetBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> *&#160;</td>
+          <td class="paramname"><em>pBeBoard</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t &amp;&#160;</td>
+          <td class="paramname"><em>pBufSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the data buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pBufSize</td><td>: recovers the data buffer size </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_ph2___hw_interface_1_1_data.html" title="Data container to manipulate data flux from the Cbc. ">Data</a> buffer </dd></dl>
 
 </div>
 </div>
@@ -391,7 +429,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Unpause a DAQ. </p>
+<p>Resume a DAQ. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pBoard</td><td></td></tr>
@@ -605,7 +643,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 17 2014 16:02:24 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 19 2014 15:16:33 for ACF : Acquisition &amp; Control Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

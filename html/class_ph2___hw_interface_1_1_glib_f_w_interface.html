@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: Ph2_HwInterface::GlibFWInterface Class Reference</title>
+<title>ACF : Acquisition &amp; Control Framework: Ph2_HwInterface::GlibFWInterface Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,10 +23,10 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="CMSlogoDoxyfile.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Ph2_DAQ
-   &#160;<span id="projectnumber">0.3</span>
+   <div id="projectname">ACF : Acquisition &amp; Control Framework
+   &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Software for DAQ of Ph2 CMSTrackerUpdate</div>
+   <div id="projectbrief">CMS Tracker Upgrade Software Framework for DAQ &amp; Hardware Control</div>
   </td>
  </tr>
  </tbody>
@@ -99,7 +99,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Permit r/w given registers in the Glib you specify.  
+<p>init/config of the Glib and its Cbc's  
  <a href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_glib_f_w_interface_8h_source.html">GlibFWInterface.h</a>&gt;</code></p>
@@ -117,10 +117,10 @@ Inheritance diagram for Ph2_HwInterface::GlibFWInterface:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aef1044c390e934afa17cdf9566ac71c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#aef1044c390e934afa17cdf9566ac71c3">GlibFWInterface</a> (const char *puHalConfigFileName, uint32_t pBoardId)</td></tr>
-<tr class="memdesc:aef1044c390e934afa17cdf9566ac71c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html" title="Permit r/w given registers in the Glib you specify. ">GlibFWInterface</a> class.  <a href="#aef1044c390e934afa17cdf9566ac71c3">More...</a><br/></td></tr>
+<tr class="memdesc:aef1044c390e934afa17cdf9566ac71c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html" title="init/config of the Glib and its Cbc&#39;s ">GlibFWInterface</a> class.  <a href="#aef1044c390e934afa17cdf9566ac71c3">More...</a><br/></td></tr>
 <tr class="separator:aef1044c390e934afa17cdf9566ac71c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cd8fec61b8e8327b142beddcd512b34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#a8cd8fec61b8e8327b142beddcd512b34">~GlibFWInterface</a> ()</td></tr>
-<tr class="memdesc:a8cd8fec61b8e8327b142beddcd512b34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html" title="Permit r/w given registers in the Glib you specify. ">GlibFWInterface</a> class.  <a href="#a8cd8fec61b8e8327b142beddcd512b34">More...</a><br/></td></tr>
+<tr class="memdesc:a8cd8fec61b8e8327b142beddcd512b34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html" title="init/config of the Glib and its Cbc&#39;s ">GlibFWInterface</a> class.  <a href="#a8cd8fec61b8e8327b142beddcd512b34">More...</a><br/></td></tr>
 <tr class="separator:a8cd8fec61b8e8327b142beddcd512b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52658cd813658d4fae48a79bdabaa5cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#a52658cd813658d4fae48a79bdabaa5cc">ConfigureBoard</a> (<a class="el" href="class_ph2___hw_description_1_1_be_board.html">BeBoard</a> *pBoard)</td></tr>
 <tr class="memdesc:a52658cd813658d4fae48a79bdabaa5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure the board with its Config File.  <a href="#a52658cd813658d4fae48a79bdabaa5cc">More...</a><br/></td></tr>
@@ -146,15 +146,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afebeee20cd186f919189e5f349c6a49f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_ph2___hw_interface_1_1_event.html">Event</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#afebeee20cd186f919189e5f349c6a49f">GetNextEvent</a> ()</td></tr>
 <tr class="memdesc:afebeee20cd186f919189e5f349c6a49f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get next event from data buffer.  <a href="#afebeee20cd186f919189e5f349c6a49f">More...</a><br/></td></tr>
 <tr class="separator:afebeee20cd186f919189e5f349c6a49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd15e45762db510cdc41e039dabaab6c"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#abd15e45762db510cdc41e039dabaab6c">GetBuffer</a> (uint32_t &amp;pBufSize)</td></tr>
-<tr class="memdesc:abd15e45762db510cdc41e039dabaab6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the data buffer.  <a href="#abd15e45762db510cdc41e039dabaab6c">More...</a><br/></td></tr>
-<tr class="separator:abd15e45762db510cdc41e039dabaab6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a43546404b9097fafa83302cd326e4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#a1a43546404b9097fafa83302cd326e4c">WriteCbcBlockReg</a> (uint8_t &amp;pFeId, std::vector&lt; uint32_t &gt; &amp;pVecReq)</td></tr>
-<tr class="memdesc:a1a43546404b9097fafa83302cd326e4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write register blocks of a Cbc.  <a href="#a1a43546404b9097fafa83302cd326e4c">More...</a><br/></td></tr>
-<tr class="separator:a1a43546404b9097fafa83302cd326e4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1fc5669e98ae17f235c47f08ac256c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#af1fc5669e98ae17f235c47f08ac256c0">ReadCbcBlockReg</a> (uint8_t &amp;pFeId, std::vector&lt; uint32_t &gt; &amp;pVecReq)</td></tr>
-<tr class="memdesc:af1fc5669e98ae17f235c47f08ac256c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read register blocks of a Cbc.  <a href="#af1fc5669e98ae17f235c47f08ac256c0">More...</a><br/></td></tr>
-<tr class="separator:af1fc5669e98ae17f235c47f08ac256c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a123de5dea8083175ddf299b62861e782"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#a123de5dea8083175ddf299b62861e782">GetBuffer</a> (uint32_t &amp;pBufSize)</td></tr>
+<tr class="memdesc:a123de5dea8083175ddf299b62861e782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the data buffer.  <a href="#a123de5dea8083175ddf299b62861e782">More...</a><br/></td></tr>
+<tr class="separator:a123de5dea8083175ddf299b62861e782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bc165eebeab754425dcbffb21aa2717"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#a2bc165eebeab754425dcbffb21aa2717">WriteCbcBlockReg</a> (uint8_t pFeId, std::vector&lt; uint32_t &gt; &amp;pVecReq)</td></tr>
+<tr class="memdesc:a2bc165eebeab754425dcbffb21aa2717"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read register blocks of a Cbc.  <a href="#a2bc165eebeab754425dcbffb21aa2717">More...</a><br/></td></tr>
+<tr class="separator:a2bc165eebeab754425dcbffb21aa2717"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dbc3cf2a991126aed53d834d4d152ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html#a9dbc3cf2a991126aed53d834d4d152ce">ReadCbcBlockReg</a> (uint8_t pFeId, std::vector&lt; uint32_t &gt; &amp;pVecReq)</td></tr>
+<tr class="memdesc:a9dbc3cf2a991126aed53d834d4d152ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read register blocks of a Cbc.  <a href="#a9dbc3cf2a991126aed53d834d4d152ce">More...</a><br/></td></tr>
+<tr class="separator:a9dbc3cf2a991126aed53d834d4d152ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html">Ph2_HwInterface::BeBoardFWInterface</a></td></tr>
 <tr class="memitem:a6a6be2907a3f6494422abb3ae2b35bd1 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a6a6be2907a3f6494422abb3ae2b35bd1">BeBoardFWInterface</a> (const char *puHalConfigFileName, uint32_t pBoardId)</td></tr>
 <tr class="memdesc:a6a6be2907a3f6494422abb3ae2b35bd1 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html" title="Class separating board system FW interface from uHal wrapper. ">BeBoardFWInterface</a> class.  <a href="#a6a6be2907a3f6494422abb3ae2b35bd1">More...</a><br/></td></tr>
@@ -163,7 +163,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a22077ee1db6eb5ae149165bff88b5fa0 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor of the <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html" title="Class separating board system FW interface from uHal wrapper. ">BeBoardFWInterface</a> class.  <a href="#a22077ee1db6eb5ae149165bff88b5fa0">More...</a><br/></td></tr>
 <tr class="separator:a22077ee1db6eb5ae149165bff88b5fa0 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa93b2f84ca29ea20053fb42e5c8f3bb0 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#aa93b2f84ca29ea20053fb42e5c8f3bb0">defineEventSize</a> (uint32_t pNbCbc)</td></tr>
-<tr class="memdesc:aa93b2f84ca29ea20053fb42e5c8f3bb0 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the board infos.  <a href="#aa93b2f84ca29ea20053fb42e5c8f3bb0">More...</a><br/></td></tr>
+<tr class="memdesc:aa93b2f84ca29ea20053fb42e5c8f3bb0 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define the size of <a class="el" href="class_ph2___hw_interface_1_1_event.html" title="Event container to manipulate event flux from the Cbc. ">Event</a>.  <a href="#aa93b2f84ca29ea20053fb42e5c8f3bb0">More...</a><br/></td></tr>
 <tr class="separator:aa93b2f84ca29ea20053fb42e5c8f3bb0 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a895bb5ac8dfb81a00a047a6d8f5281b2 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a895bb5ac8dfb81a00a047a6d8f5281b2">getBoardType</a> ()</td></tr>
 <tr class="memdesc:a895bb5ac8dfb81a00a047a6d8f5281b2 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the board type.  <a href="#a895bb5ac8dfb81a00a047a6d8f5281b2">More...</a><br/></td></tr>
@@ -175,12 +175,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad19ee1309003c559db472046af4620d5 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9575de192b6dd5613857ce255ec6947b inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a9575de192b6dd5613857ce255ec6947b">ProgramCdce</a> ()</td></tr>
 <tr class="separator:a9575de192b6dd5613857ce255ec6947b inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11f16d760d3e3df44daec200ac8d4275 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a11f16d760d3e3df44daec200ac8d4275">EncodeReg</a> (<a class="el" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a> &amp;pRegItem, uint8_t &amp;pCbcId, std::vector&lt; uint32_t &gt; &amp;pVecReq)</td></tr>
-<tr class="memdesc:a11f16d760d3e3df44daec200ac8d4275 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode a/several word(s) readable for a Cbc.  <a href="#a11f16d760d3e3df44daec200ac8d4275">More...</a><br/></td></tr>
-<tr class="separator:a11f16d760d3e3df44daec200ac8d4275 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31041cc7eee33af5663c035b88f5749c inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a31041cc7eee33af5663c035b88f5749c">DecodeReg</a> (<a class="el" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a> &amp;pRegItem, uint8_t &amp;pCbcId, uint32_t pWord)</td></tr>
-<tr class="memdesc:a31041cc7eee33af5663c035b88f5749c inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode a word from a read of a register of the Cbc.  <a href="#a31041cc7eee33af5663c035b88f5749c">More...</a><br/></td></tr>
-<tr class="separator:a31041cc7eee33af5663c035b88f5749c inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a094deaa5b40e98e2ea8f21c8e74c9431 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a094deaa5b40e98e2ea8f21c8e74c9431">EncodeReg</a> (<a class="el" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a> &amp;pRegItem, uint8_t pCbcId, std::vector&lt; uint32_t &gt; &amp;pVecReq)</td></tr>
+<tr class="memdesc:a094deaa5b40e98e2ea8f21c8e74c9431 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode a/several word(s) readable for a Cbc.  <a href="#a094deaa5b40e98e2ea8f21c8e74c9431">More...</a><br/></td></tr>
+<tr class="separator:a094deaa5b40e98e2ea8f21c8e74c9431 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0bd156b59bcc266949b08ed87a35a00 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#ad0bd156b59bcc266949b08ed87a35a00">DecodeReg</a> (<a class="el" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a> &amp;pRegItem, uint8_t pCbcId, uint32_t pWord)</td></tr>
+<tr class="memdesc:ad0bd156b59bcc266949b08ed87a35a00 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode a word from a read of a register of the Cbc.  <a href="#ad0bd156b59bcc266949b08ed87a35a00">More...</a><br/></td></tr>
+<tr class="separator:ad0bd156b59bcc266949b08ed87a35a00 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a69e40bd11c9fb08a2accba2a5bed82 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a6a69e40bd11c9fb08a2accba2a5bed82">GetBuffer</a> (uint32_t &amp;pBufSize) const </td></tr>
+<tr class="memdesc:a6a69e40bd11c9fb08a2accba2a5bed82 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the data buffer.  <a href="#a6a69e40bd11c9fb08a2accba2a5bed82">More...</a><br/></td></tr>
+<tr class="separator:a6a69e40bd11c9fb08a2accba2a5bed82 inherit pub_methods_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_ph2___hw_interface_1_1_reg_manager')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html">Ph2_HwInterface::RegManager</a></td></tr>
 <tr class="memitem:a31174516fef6706c88c3f59dd93e4fdf inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_reg_manager.html#a31174516fef6706c88c3f59dd93e4fdf">WriteReg</a> (const std::string &amp;pRegNode, const uint32_t &amp;pVal)</td></tr>
 <tr class="memdesc:a31174516fef6706c88c3f59dd93e4fdf inherit pub_methods_class_ph2___hw_interface_1_1_reg_manager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a register.  <a href="#a31174516fef6706c88c3f59dd93e4fdf">More...</a><br/></td></tr>
@@ -262,8 +265,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface')"><img src="closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html">Ph2_HwInterface::BeBoardFWInterface</a></td></tr>
 <tr class="memitem:a9cc80365ec331732245553a8bc0024ab inherit pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a9cc80365ec331732245553a8bc0024ab">fNTotalAcq</a></td></tr>
 <tr class="separator:a9cc80365ec331732245553a8bc0024ab inherit pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2eae0dd93411d8acec67a41bcc09339b inherit pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a2eae0dd93411d8acec67a41bcc09339b">fStop</a></td></tr>
-<tr class="separator:a2eae0dd93411d8acec67a41bcc09339b inherit pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa2f1748f8a2d527961766449cd91386 inherit pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top">std::ofstream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#afa2f1748f8a2d527961766449cd91386">fDataFile</a></td></tr>
 <tr class="separator:afa2f1748f8a2d527961766449cd91386 inherit pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b315d4b61df34d093ed35cfef755a0f inherit pub_attribs_class_ph2___hw_interface_1_1_be_board_f_w_interface"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_ph2___hw_interface_1_1_data.html">Data</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a9b315d4b61df34d093ed35cfef755a0f">fData</a></td></tr>
@@ -284,7 +285,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:ab5fdbe722820897d3a1344f300cc4a92 inherit pro_attribs_class_ph2___hw_interface_1_1_reg_manager"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Permit r/w given registers in the Glib you specify. </p>
+<div class="textblock"><p>init/config of the Glib and its Cbc's </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aef1044c390e934afa17cdf9566ac71c3"></a>
 <div class="memitem">
@@ -310,7 +311,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html" title="Permit r/w given registers in the Glib you specify. ">GlibFWInterface</a> class. </p>
+<p>Constructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html" title="init/config of the Glib and its Cbc&#39;s ">GlibFWInterface</a> class. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">puHalConfigFileName</td><td>: path of the uHal Config File </td></tr>
@@ -342,7 +343,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html" title="Permit r/w given registers in the Glib you specify. ">GlibFWInterface</a> class. </p>
+<p>Destructor of the <a class="el" href="class_ph2___hw_interface_1_1_glib_f_w_interface.html" title="init/config of the Glib and its Cbc&#39;s ">GlibFWInterface</a> class. </p>
 
 </div>
 </div>
@@ -413,26 +414,18 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abd15e45762db510cdc41e039dabaab6c"></a>
+<a class="anchor" id="a123de5dea8083175ddf299b62861e782"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char* Ph2_HwInterface::GlibFWInterface::GetBuffer </td>
+          <td class="memname">const char * Ph2_HwInterface::GlibFWInterface::GetBuffer </td>
           <td>(</td>
           <td class="paramtype">uint32_t &amp;&#160;</td>
           <td class="paramname"><em>pBufSize</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Get the data buffer. </p>
@@ -443,8 +436,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_ph2___hw_interface_1_1_data.html" title="Data container to manipulate data flux from the Cbc. ">Data</a> buffer </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#aa298116ba4220d37f3eabfd57b0310c7">Ph2_HwInterface::BeBoardFWInterface</a>.</p>
 
 </div>
 </div>
@@ -547,7 +538,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af1fc5669e98ae17f235c47f08ac256c0"></a>
+<a class="anchor" id="a9dbc3cf2a991126aed53d834d4d152ce"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -557,7 +548,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void Ph2_HwInterface::GlibFWInterface::ReadCbcBlockReg </td>
           <td>(</td>
-          <td class="paramtype">uint8_t &amp;&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pFeId</em>, </td>
         </tr>
         <tr>
@@ -582,12 +573,13 @@ Additional Inherited Members</h2></td></tr>
 <p>Read register blocks of a Cbc. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">pFeId</td><td>: FrontEnd to work with </td></tr>
     <tr><td class="paramname">pVecReq</td><td>: Vector to stack the read words </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#aef5cfbb0b5adceff7ccc6babd3d01642">Ph2_HwInterface::BeBoardFWInterface</a>.</p>
+<p>Reimplemented from <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a624e0ef864d5bdef907041270d04bffb">Ph2_HwInterface::BeBoardFWInterface</a>.</p>
 
 </div>
 </div>
@@ -878,7 +870,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a1a43546404b9097fafa83302cd326e4c"></a>
+<a class="anchor" id="a2bc165eebeab754425dcbffb21aa2717"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -888,7 +880,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void Ph2_HwInterface::GlibFWInterface::WriteCbcBlockReg </td>
           <td>(</td>
-          <td class="paramtype">uint8_t &amp;&#160;</td>
+          <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>pFeId</em>, </td>
         </tr>
         <tr>
@@ -910,15 +902,16 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Write register blocks of a Cbc. </p>
+<p>Read register blocks of a Cbc. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pVecReq</td><td>: Block of words to write </td></tr>
+    <tr><td class="paramname">pFeId</td><td>: FrontEnd to work with </td></tr>
+    <tr><td class="paramname">pVecReq</td><td>: Vector to stack the read words </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#abfda233c55aaa85fcd3773fa424764d5">Ph2_HwInterface::BeBoardFWInterface</a>.</p>
+<p>Reimplemented from <a class="el" href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html#aea9e44d8b6de6bd204b74eeafba00f7c">Ph2_HwInterface::BeBoardFWInterface</a>.</p>
 
 </div>
 </div>
@@ -1170,7 +1163,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 17 2014 16:02:24 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 19 2014 15:16:33 for ACF : Acquisition &amp; Control Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: HWInterface/CbcInterface.h Source File</title>
+<title>ACF : Acquisition &amp; Control Framework: HWInterface/CbcInterface.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,10 +23,10 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="CMSlogoDoxyfile.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Ph2_DAQ
-   &#160;<span id="projectnumber">0.3</span>
+   <div id="projectname">ACF : Acquisition &amp; Control Framework
+   &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Software for DAQ of Ph2 CMSTrackerUpdate</div>
+   <div id="projectbrief">CMS Tracker Upgrade Software Framework for DAQ &amp; Hardware Control</div>
   </td>
  </tr>
  </tbody>
@@ -118,30 +118,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="class_ph2___hw_interface_1_1_cbc_interface.html">CbcInterface</a>(<a class="code" href="namespace_ph2___hw_interface.html#ac35d341eb47fa7cbe4d28ccbc6ab4875">BeBoardFWMap</a>&amp; pBoardMap);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            ~<a class="code" href="class_ph2___hw_interface_1_1_cbc_interface.html">CbcInterface</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordtype">void</span> ConfigureCbc(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordtype">void</span> WriteCbcReg(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, <span class="keyword">const</span> std::string&amp; pRegNode, uint32_t pValue);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordtype">void</span> WriteCbcMultReg(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, std::vector&lt; std::pair&lt;std::string,uint32_t&gt; &gt; pVecReq);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordtype">void</span> WriteBroadcast(<a class="code" href="class_ph2___hw_description_1_1_module.html">Module</a>* pModule,<span class="keyword">const</span> std::string&amp; pRegNode,uint32_t pValue);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordtype">void</span> ReadCbcReg(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc,<span class="keyword">const</span> std::string&amp; pRegNode);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordtype">void</span> ReadCbcMultReg(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc,std::vector&lt;std::string&gt; pVecReg);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordtype">void</span> ReadAllCbc(<a class="code" href="class_ph2___hw_description_1_1_module.html">Module</a>* pModule);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordtype">void</span> CbcHardReset(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordtype">void</span> CbcFastReset(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="comment">//Encode/Decode Cbc values</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment"></span>            <span class="keywordtype">void</span> EncodeReg(<a class="code" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a>&amp; pRegItem, uint8_t&amp; pCbcId, std::vector&lt;uint32_t&gt;&amp; pVecReq);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordtype">void</span> DecodeReg(<a class="code" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a>&amp; pRegItem, uint8_t&amp; pCbcId, uint32_t pWord);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    };</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordtype">void</span> ConfigureCbc(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, <span class="keywordtype">bool</span> pVerifLoop = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordtype">void</span> WriteCbcReg(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, <span class="keyword">const</span> std::string&amp; pRegNode, uint32_t pValue, <span class="keywordtype">bool</span> pVerifLoop = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordtype">void</span> WriteCbcMultReg(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc, std::vector&lt; std::pair&lt;std::string,uint32_t&gt; &gt; pVecReq, <span class="keywordtype">bool</span> pVerifLoop = <span class="keyword">true</span> );</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordtype">void</span> WriteBroadcast(<a class="code" href="class_ph2___hw_description_1_1_module.html">Module</a>* pModule,<span class="keyword">const</span> std::string&amp; pRegNode,uint32_t pValue);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordtype">void</span> ReadCbcReg(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc,<span class="keyword">const</span> std::string&amp; pRegNode);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordtype">void</span> ReadCbcMultReg(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc,std::vector&lt;std::string&gt; pVecReg);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordtype">void</span> ReadAllCbc(<a class="code" href="class_ph2___hw_description_1_1_module.html">Module</a>* pModule);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordtype">void</span> CbcHardReset(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordtype">void</span> CbcFastReset(<a class="code" href="class_ph2___hw_description_1_1_cbc.html">Cbc</a>* pCbc);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="comment">//Encode/Decode Cbc values</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"></span>            <span class="keywordtype">void</span> EncodeReg(<a class="code" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a>&amp; pRegItem, uint8_t pCbcId, std::vector&lt;uint32_t&gt;&amp; pVecReq);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordtype">void</span> DecodeReg(<a class="code" href="struct_ph2___hw_description_1_1_cbc_reg_item.html">CbcRegItem</a>&amp; pRegItem, uint8_t pCbcId, uint32_t pWord);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    };</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_cbc_interface_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_cbc_interface.html">Ph2_HwInterface::CbcInterface</a></div><div class="ttdoc">Class representing the User Interface to the Cbc on different boards. </div><div class="ttdef"><b>Definition:</b> CbcInterface.h:33</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_be_board_f_w_interface_html"><div class="ttname"><a href="class_ph2___hw_interface_1_1_be_board_f_w_interface.html">Ph2_HwInterface::BeBoardFWInterface</a></div><div class="ttdoc">Class separating board system FW interface from uHal wrapper. </div><div class="ttdef"><b>Definition:</b> BeBoardFWInterface.h:41</div></div>
-<div class="ttc" id="class_ph2___hw_description_1_1_module_html"><div class="ttname"><a href="class_ph2___hw_description_1_1_module.html">Ph2_HwDescription::Module</a></div><div class="ttdoc">contains a vector of Cbc which are connected to the Module </div><div class="ttdef"><b>Definition:</b> Module.h:32</div></div>
+<div class="ttc" id="class_ph2___hw_description_1_1_module_html"><div class="ttname"><a href="class_ph2___hw_description_1_1_module.html">Ph2_HwDescription::Module</a></div><div class="ttdoc">handles a vector of Cbc which are connected to the Module </div><div class="ttdef"><b>Definition:</b> Module.h:32</div></div>
 <div class="ttc" id="namespace_ph2___hw_interface_html_ac35d341eb47fa7cbe4d28ccbc6ab4875"><div class="ttname"><a href="namespace_ph2___hw_interface.html#ac35d341eb47fa7cbe4d28ccbc6ab4875">Ph2_HwInterface::BeBoardFWMap</a></div><div class="ttdeci">std::map&lt; int8_t, BeBoardFWInterface * &gt; BeBoardFWMap</div><div class="ttdef"><b>Definition:</b> BeBoardInterface.h:26</div></div>
 <div class="ttc" id="struct_ph2___hw_description_1_1_cbc_reg_item_html"><div class="ttname"><a href="struct_ph2___hw_description_1_1_cbc_reg_item.html">Ph2_HwDescription::CbcRegItem</a></div><div class="ttdoc">Struct for CbcRegisterItem that is identified by Page, Address, DefaultValue, Value. </div><div class="ttdef"><b>Definition:</b> CbcRegItem.h:23</div></div>
-<div class="ttc" id="class_ph2___hw_description_1_1_cbc_html"><div class="ttname"><a href="class_ph2___hw_description_1_1_cbc.html">Ph2_HwDescription::Cbc</a></div><div class="ttdoc">Read/Write Cbc&amp;#39;s registers on a file. </div><div class="ttdef"><b>Definition:</b> Cbc.h:40</div></div>
+<div class="ttc" id="class_ph2___hw_description_1_1_cbc_html"><div class="ttname"><a href="class_ph2___hw_description_1_1_cbc.html">Ph2_HwDescription::Cbc</a></div><div class="ttdoc">Read/Write Cbc&amp;#39;s registers on a file, contains a register map. </div><div class="ttdef"><b>Definition:</b> Cbc.h:40</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_cbc_interface_html_ad4c28eff1e453e9954445f9fe02c16b6"><div class="ttname"><a href="class_ph2___hw_interface_1_1_cbc_interface.html#ad4c28eff1e453e9954445f9fe02c16b6">Ph2_HwInterface::CbcInterface::prevBoardId</a></div><div class="ttdeci">uint8_t prevBoardId</div><div class="ttdef"><b>Definition:</b> CbcInterface.h:39</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_cbc_interface_html_a0e34094468be36ee2c65e15f72178303"><div class="ttname"><a href="class_ph2___hw_interface_1_1_cbc_interface.html#a0e34094468be36ee2c65e15f72178303">Ph2_HwInterface::CbcInterface::fBoardMap</a></div><div class="ttdeci">BeBoardFWMap &amp; fBoardMap</div><div class="ttdef"><b>Definition:</b> CbcInterface.h:37</div></div>
 <div class="ttc" id="class_ph2___hw_interface_1_1_cbc_interface_html_a8c37c0f580a1918fc11a207aff085a72"><div class="ttname"><a href="class_ph2___hw_interface_1_1_cbc_interface.html#a8c37c0f580a1918fc11a207aff085a72">Ph2_HwInterface::CbcInterface::fBoardFW</a></div><div class="ttdeci">BeBoardFWInterface * fBoardFW</div><div class="ttdef"><b>Definition:</b> CbcInterface.h:38</div></div>
@@ -149,7 +149,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 17 2014 16:02:21 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 19 2014 15:16:32 for ACF : Acquisition &amp; Control Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

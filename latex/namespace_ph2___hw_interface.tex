@@ -22,7 +22,7 @@ class \hyperlink{class_ph2___hw_interface_1_1_event}{Event}
 class \hyperlink{class_ph2___hw_interface_1_1_exception}{Exception}
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_ph2___hw_interface_1_1_exception}{Exception} handling class, inheriting from std\-::exception. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_glib_f_w_interface}{Glib\-F\-W\-Interface}
-\begin{DoxyCompactList}\small\item\em Permit r/w given registers in the Glib you specify. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em init/config of the Glib and its Cbc's \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_interface_1_1_reg_manager}{Reg\-Manager}
 \begin{DoxyCompactList}\small\item\em Permit connection to given boards and r/w given registers. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
@@ -41,8 +41,6 @@ typedef std\-::map$<$ uint32\-\_\-t, \\*
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{namespace_ph2___hw_interface_ad58bc815dfbb93c57791f3aecc84a1ea}{swap\-\_\-byte\-\_\-order} (const void $\ast$org, void $\ast$swapped, unsigned int nbyte)
-\item 
-const char $\ast$ \hyperlink{namespace_ph2___hw_interface_ac8fb2ee28c5a7f6e417125775dcb0fd7}{Get\-Buffer} (uint32\-\_\-t \&p\-Buf\-Size)
 \item 
 \hyperlink{namespace_ph2___hw_interface_a45c84dee08a5b37d565bbcd5eeab2b4d}{f\-Deactive\-Thread} (false)
 \item 
@@ -77,13 +75,6 @@ Map of Board connected \hypertarget{namespace_ph2___hw_interface_acf9f41d647e7a3
 \item[{false}]{}
 \end{DoxyParamCaption}
 )}}\label{namespace_ph2___hw_interface_a45c84dee08a5b37d565bbcd5eeab2b4d}
-\hypertarget{namespace_ph2___hw_interface_ac8fb2ee28c5a7f6e417125775dcb0fd7}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!Get\-Buffer@{Get\-Buffer}}
-\index{Get\-Buffer@{Get\-Buffer}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
-\subsubsection[{Get\-Buffer}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Get\-Buffer (
-\begin{DoxyParamCaption}
-\item[{uint32\-\_\-t \&}]{p\-Buf\-Size}
-\end{DoxyParamCaption}
-)}}\label{namespace_ph2___hw_interface_ac8fb2ee28c5a7f6e417125775dcb0fd7}
 \hypertarget{namespace_ph2___hw_interface_a033a07cbe28368de19d534ef7cd3325d}{\index{Ph2\-\_\-\-Hw\-Interface@{Ph2\-\_\-\-Hw\-Interface}!get\-Time\-Took@{get\-Time\-Took}}
 \index{get\-Time\-Took@{get\-Time\-Took}!Ph2_HwInterface@{Ph2\-\_\-\-Hw\-Interface}}
 \subsubsection[{get\-Time\-Took}]{\setlength{\rightskip}{0pt plus 5cm}long Ph2\-\_\-\-Hw\-Interface\-::get\-Time\-Took (

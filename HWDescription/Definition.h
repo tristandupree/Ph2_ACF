@@ -3,8 +3,8 @@
     \file                          Definition.h
     \brief                         Definition File, listing the registers
     \author                        Nicolas PIERRE
-    \version                       0.3
-    Date of creation :             07/06/14
+    \version                       1.0
+    \date                          07/06/14
     Support :                      mail to : nico.pierre@icloud.com
 
 */
@@ -214,7 +214,7 @@
 //Events
 
     //Event number
-#define EVENT_NUMBER     10
+#define EVENT_NUMBER     50
 
     //Event Size
 #define EVENT_SIZE_32_2CBC    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1

@@ -3,7 +3,7 @@
 }
 
 
-Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on a file.  
+Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on a file, contains a register map.  
 
 
 
@@ -41,24 +41,23 @@ void \hyperlink{class_ph2___hw_description_1_1_cbc_aa24292fe56d6b19ec08ba67f9790
 \begin{DoxyCompactList}\small\item\em Set any register of the Map. \end{DoxyCompactList}\item 
 void \hyperlink{class_ph2___hw_description_1_1_cbc_a89ca4609c24b4186a8e2080abb4b016b}{save\-Reg\-Map} (std\-::string filename)
 \begin{DoxyCompactList}\small\item\em Write the registers of the Map in a file. \end{DoxyCompactList}\item 
+\hyperlink{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{Cbc\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_cbc_ad2bae647b2474b4737d7f2ede5a73ed3}{get\-Reg\-Map} ()
+\begin{DoxyCompactList}\small\item\em Get the Map of the registers. \end{DoxyCompactList}\item 
 uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_cbc_a14a78f27fb0e6c74622b6bc49259a2f3}{get\-Cbc\-Id} ()
 \begin{DoxyCompactList}\small\item\em Get the \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} Id. \end{DoxyCompactList}\item 
-\hyperlink{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{Cbc\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_cbc_ad2bae647b2474b4737d7f2ede5a73ed3}{get\-Reg\-Map} ()
-\begin{DoxyCompactList}\small\item\em Get the Map of the registers. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Data Fields}
-\begin{DoxyCompactItemize}
-\item 
-uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_cbc_a99b392306d4cdb7ffa7f956fc553011c}{f\-Cbc\-Id}
-\end{DoxyCompactItemize}
+void \hyperlink{class_ph2___hw_description_1_1_cbc_a79864207a65830f49996220e612b00ae}{set\-Cbc\-Id} (uint8\-\_\-t p\-Cbc\-Id)
+\begin{DoxyCompactList}\small\item\em Set the \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} Id. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{Cbc\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_cbc_ab4dbf1af172e821d95f77acb7e4fb962}{f\-Reg\-Map}
+\item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_cbc_a99b392306d4cdb7ffa7f956fc553011c}{f\-Cbc\-Id}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on a file. 
+Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on a file, contains a register map. 
 
 \subsection{Constructor \& Destructor Documentation}
 \hypertarget{class_ph2___hw_description_1_1_cbc_a88c9c022e04628b60495b94df2ab0825}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!Cbc@{Cbc}}
@@ -204,6 +203,22 @@ Write the registers of the Map in a file.
 {\em filename} & \\
 \hline
 \end{DoxyParams}
+\hypertarget{class_ph2___hw_description_1_1_cbc_a79864207a65830f49996220e612b00ae}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!set\-Cbc\-Id@{set\-Cbc\-Id}}
+\index{set\-Cbc\-Id@{set\-Cbc\-Id}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
+\subsubsection[{set\-Cbc\-Id}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::set\-Cbc\-Id (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_cbc_a79864207a65830f49996220e612b00ae}
+
+
+Set the \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} Id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Cbc\-Id} & \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_ph2___hw_description_1_1_cbc_aa24292fe56d6b19ec08ba67f9790b5c7}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!set\-Reg@{set\-Reg}}
 \index{set\-Reg@{set\-Reg}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
 \subsubsection[{set\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::set\-Reg (
@@ -228,7 +243,7 @@ Set any register of the Map.
 \subsection{Field Documentation}
 \hypertarget{class_ph2___hw_description_1_1_cbc_a99b392306d4cdb7ffa7f956fc553011c}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!f\-Cbc\-Id@{f\-Cbc\-Id}}
 \index{f\-Cbc\-Id@{f\-Cbc\-Id}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
-\subsubsection[{f\-Cbc\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::f\-Cbc\-Id}}\label{class_ph2___hw_description_1_1_cbc_a99b392306d4cdb7ffa7f956fc553011c}
+\subsubsection[{f\-Cbc\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::f\-Cbc\-Id\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_cbc_a99b392306d4cdb7ffa7f956fc553011c}
 \hypertarget{class_ph2___hw_description_1_1_cbc_ab4dbf1af172e821d95f77acb7e4fb962}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}!f\-Reg\-Map@{f\-Reg\-Map}}
 \index{f\-Reg\-Map@{f\-Reg\-Map}!Ph2_HwDescription::Cbc@{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}}
 \subsubsection[{f\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Cbc\-Reg\-Map} Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-::f\-Reg\-Map\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_cbc_ab4dbf1af172e821d95f77acb7e4fb962}

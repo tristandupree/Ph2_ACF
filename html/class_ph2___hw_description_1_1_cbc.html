@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.5"/>
-<title>Ph2_DAQ: Ph2_HwDescription::Cbc Class Reference</title>
+<title>ACF : Acquisition &amp; Control Framework: Ph2_HwDescription::Cbc Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,10 +23,10 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="CMSlogoDoxyfile.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Ph2_DAQ
-   &#160;<span id="projectnumber">0.3</span>
+   <div id="projectname">ACF : Acquisition &amp; Control Framework
+   &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Software for DAQ of Ph2 CMSTrackerUpdate</div>
+   <div id="projectbrief">CMS Tracker Upgrade Software Framework for DAQ &amp; Hardware Control</div>
   </td>
  </tr>
  </tbody>
@@ -92,14 +92,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Ph2_HwDescription::Cbc Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Read/Write <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file. ">Cbc</a>'s registers on a file.  
+<p>Read/Write <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file, contains a register map. ">Cbc</a>'s registers on a file, contains a register map.  
  <a href="class_ph2___hw_description_1_1_cbc.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_cbc_8h_source.html">Cbc.h</a>&gt;</code></p>
@@ -141,12 +140,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a89ca4609c24b4186a8e2080abb4b016b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_cbc.html#a89ca4609c24b4186a8e2080abb4b016b">saveRegMap</a> (std::string filename)</td></tr>
 <tr class="memdesc:a89ca4609c24b4186a8e2080abb4b016b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the registers of the Map in a file.  <a href="#a89ca4609c24b4186a8e2080abb4b016b">More...</a><br/></td></tr>
 <tr class="separator:a89ca4609c24b4186a8e2080abb4b016b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14a78f27fb0e6c74622b6bc49259a2f3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_cbc.html#a14a78f27fb0e6c74622b6bc49259a2f3">getCbcId</a> ()</td></tr>
-<tr class="memdesc:a14a78f27fb0e6c74622b6bc49259a2f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file. ">Cbc</a> Id.  <a href="#a14a78f27fb0e6c74622b6bc49259a2f3">More...</a><br/></td></tr>
-<tr class="separator:a14a78f27fb0e6c74622b6bc49259a2f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2bae647b2474b4737d7f2ede5a73ed3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_ph2___hw_description.html#a9a23b373068f169aa67ca1d22c9a6001">CbcRegMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_cbc.html#ad2bae647b2474b4737d7f2ede5a73ed3">getRegMap</a> ()</td></tr>
 <tr class="memdesc:ad2bae647b2474b4737d7f2ede5a73ed3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Map of the registers.  <a href="#ad2bae647b2474b4737d7f2ede5a73ed3">More...</a><br/></td></tr>
 <tr class="separator:ad2bae647b2474b4737d7f2ede5a73ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14a78f27fb0e6c74622b6bc49259a2f3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_cbc.html#a14a78f27fb0e6c74622b6bc49259a2f3">getCbcId</a> ()</td></tr>
+<tr class="memdesc:a14a78f27fb0e6c74622b6bc49259a2f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file, contains a register map. ">Cbc</a> Id.  <a href="#a14a78f27fb0e6c74622b6bc49259a2f3">More...</a><br/></td></tr>
+<tr class="separator:a14a78f27fb0e6c74622b6bc49259a2f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79864207a65830f49996220e612b00ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_cbc.html#a79864207a65830f49996220e612b00ae">setCbcId</a> (uint8_t pCbcId)</td></tr>
+<tr class="memdesc:a79864207a65830f49996220e612b00ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file, contains a register map. ">Cbc</a> Id.  <a href="#a79864207a65830f49996220e612b00ae">More...</a><br/></td></tr>
+<tr class="separator:a79864207a65830f49996220e612b00ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_ph2___hw_description_1_1_front_end_description"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_ph2___hw_description_1_1_front_end_description')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_ph2___hw_description_1_1_front_end_description.html">Ph2_HwDescription::FrontEndDescription</a></td></tr>
 <tr class="memitem:a9605f28b75ce29cba767fe6efb9d9d19 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a9605f28b75ce29cba767fe6efb9d9d19">FrontEndDescription</a> (uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, bool pStatus=true)</td></tr>
 <tr class="separator:a9605f28b75ce29cba767fe6efb9d9d19 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,7 +161,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8ff5e1dc9dc09e6db9c105a362000e89 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a8ff5e1dc9dc09e6db9c105a362000e89">~FrontEndDescription</a> ()</td></tr>
 <tr class="separator:a8ff5e1dc9dc09e6db9c105a362000e89 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2599816f65ecea30824cd3d8fe1fcadc inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a2599816f65ecea30824cd3d8fe1fcadc">getShelveId</a> ()</td></tr>
-<tr class="memdesc:a2599816f65ecea30824cd3d8fe1fcadc inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_ph2___hw_description_1_1_shelve.html" title="contains a vector of Board which are connected to the Shelve ">Shelve</a> ID.  <a href="#a2599816f65ecea30824cd3d8fe1fcadc">More...</a><br/></td></tr>
+<tr class="memdesc:a2599816f65ecea30824cd3d8fe1fcadc inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="class_ph2___hw_description_1_1_shelve.html" title="handles a vector of Board which are connected to the Shelve ">Shelve</a> ID.  <a href="#a2599816f65ecea30824cd3d8fe1fcadc">More...</a><br/></td></tr>
 <tr class="separator:a2599816f65ecea30824cd3d8fe1fcadc inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2d759253890ec653dbe1b5c3141887a inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#ae2d759253890ec653dbe1b5c3141887a">getBeId</a> ()</td></tr>
 <tr class="memdesc:ae2d759253890ec653dbe1b5c3141887a inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Be ID.  <a href="#ae2d759253890ec653dbe1b5c3141887a">More...</a><br/></td></tr>
@@ -173,45 +175,42 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad5b25135c78f750c36673a8861395426 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#ad5b25135c78f750c36673a8861395426">getStatus</a> ()</td></tr>
 <tr class="memdesc:ad5b25135c78f750c36673a8861395426 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Status.  <a href="#ad5b25135c78f750c36673a8861395426">More...</a><br/></td></tr>
 <tr class="separator:ad5b25135c78f750c36673a8861395426 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97a696025936be0a15120568bfc2b7f4 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a97a696025936be0a15120568bfc2b7f4">setShelveId</a> (uint8_t pShelveId)</td></tr>
-<tr class="memdesc:a97a696025936be0a15120568bfc2b7f4 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="class_ph2___hw_description_1_1_shelve.html" title="contains a vector of Board which are connected to the Shelve ">Shelve</a> ID.  <a href="#a97a696025936be0a15120568bfc2b7f4">More...</a><br/></td></tr>
-<tr class="separator:a97a696025936be0a15120568bfc2b7f4 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25f69174ff9235506ba724a9d3a73258 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a25f69174ff9235506ba724a9d3a73258">setBeId</a> (uint8_t pBeId)</td></tr>
-<tr class="memdesc:a25f69174ff9235506ba724a9d3a73258 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Be ID.  <a href="#a25f69174ff9235506ba724a9d3a73258">More...</a><br/></td></tr>
-<tr class="separator:a25f69174ff9235506ba724a9d3a73258 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55bea01460c40941b418f8cf45b50866 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a55bea01460c40941b418f8cf45b50866">setFMCId</a> (uint8_t pFMCId)</td></tr>
-<tr class="memdesc:a55bea01460c40941b418f8cf45b50866 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FMC ID.  <a href="#a55bea01460c40941b418f8cf45b50866">More...</a><br/></td></tr>
-<tr class="separator:a55bea01460c40941b418f8cf45b50866 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef118ad340a54c824da417c9f36816d7 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#aef118ad340a54c824da417c9f36816d7">setFeId</a> (uint8_t pFeId)</td></tr>
-<tr class="memdesc:aef118ad340a54c824da417c9f36816d7 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FE ID.  <a href="#aef118ad340a54c824da417c9f36816d7">More...</a><br/></td></tr>
-<tr class="separator:aef118ad340a54c824da417c9f36816d7 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52c109ef30172eef0e74bf6a2370ca71 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a52c109ef30172eef0e74bf6a2370ca71">setStatus</a> (bool pStatus)</td></tr>
-<tr class="memdesc:a52c109ef30172eef0e74bf6a2370ca71 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the status.  <a href="#a52c109ef30172eef0e74bf6a2370ca71">More...</a><br/></td></tr>
-<tr class="separator:a52c109ef30172eef0e74bf6a2370ca71 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Data Fields</h2></td></tr>
-<tr class="memitem:a99b392306d4cdb7ffa7f956fc553011c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_cbc.html#a99b392306d4cdb7ffa7f956fc553011c">fCbcId</a></td></tr>
-<tr class="separator:a99b392306d4cdb7ffa7f956fc553011c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_ph2___hw_description_1_1_front_end_description')"><img src="closed.png" alt="-"/>&#160;Data Fields inherited from <a class="el" href="class_ph2___hw_description_1_1_front_end_description.html">Ph2_HwDescription::FrontEndDescription</a></td></tr>
-<tr class="memitem:a7ce5e0acdcb5647bb94f09ec480e8155 inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a7ce5e0acdcb5647bb94f09ec480e8155">fShelveId</a></td></tr>
-<tr class="separator:a7ce5e0acdcb5647bb94f09ec480e8155 inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ad4c11d4b00f0e1325843cfceac2e7c inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a9ad4c11d4b00f0e1325843cfceac2e7c">fBeId</a></td></tr>
-<tr class="separator:a9ad4c11d4b00f0e1325843cfceac2e7c inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f17ee7ee9d0d395c9f7da5ab3c8f424 inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a4f17ee7ee9d0d395c9f7da5ab3c8f424">fFMCId</a></td></tr>
-<tr class="separator:a4f17ee7ee9d0d395c9f7da5ab3c8f424 inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11b388f8d0f3259e5355779b36e75d9f inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a11b388f8d0f3259e5355779b36e75d9f">fFeId</a></td></tr>
-<tr class="separator:a11b388f8d0f3259e5355779b36e75d9f inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a719dce1ef5c6656fd71ae91f6f404053 inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a719dce1ef5c6656fd71ae91f6f404053">fStatus</a></td></tr>
-<tr class="separator:a719dce1ef5c6656fd71ae91f6f404053 inherit pub_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8522840adcba97f71d87b315607ef87 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#ad8522840adcba97f71d87b315607ef87">setShelveId</a> (uint8_t pShelveId)</td></tr>
+<tr class="memdesc:ad8522840adcba97f71d87b315607ef87 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <a class="el" href="class_ph2___hw_description_1_1_shelve.html" title="handles a vector of Board which are connected to the Shelve ">Shelve</a> ID.  <a href="#ad8522840adcba97f71d87b315607ef87">More...</a><br/></td></tr>
+<tr class="separator:ad8522840adcba97f71d87b315607ef87 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d19378baeda5d0d8642ef2a5a816063 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a6d19378baeda5d0d8642ef2a5a816063">setBeId</a> (uint8_t pBeId)</td></tr>
+<tr class="memdesc:a6d19378baeda5d0d8642ef2a5a816063 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Be ID.  <a href="#a6d19378baeda5d0d8642ef2a5a816063">More...</a><br/></td></tr>
+<tr class="separator:a6d19378baeda5d0d8642ef2a5a816063 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e448dce16bc4cb2ae190c8317ed6051 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a4e448dce16bc4cb2ae190c8317ed6051">setFMCId</a> (uint8_t pFMCId)</td></tr>
+<tr class="memdesc:a4e448dce16bc4cb2ae190c8317ed6051 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FMC ID.  <a href="#a4e448dce16bc4cb2ae190c8317ed6051">More...</a><br/></td></tr>
+<tr class="separator:a4e448dce16bc4cb2ae190c8317ed6051 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1634e0a0210f38fb1fa38a5ed999665c inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a1634e0a0210f38fb1fa38a5ed999665c">setFeId</a> (uint8_t pFeId)</td></tr>
+<tr class="memdesc:a1634e0a0210f38fb1fa38a5ed999665c inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the FE ID.  <a href="#a1634e0a0210f38fb1fa38a5ed999665c">More...</a><br/></td></tr>
+<tr class="separator:a1634e0a0210f38fb1fa38a5ed999665c inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c0059cd716aac39f3fa6ee4acae09d9 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a6c0059cd716aac39f3fa6ee4acae09d9">setStatus</a> (bool pStatus)</td></tr>
+<tr class="memdesc:a6c0059cd716aac39f3fa6ee4acae09d9 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the status.  <a href="#a6c0059cd716aac39f3fa6ee4acae09d9">More...</a><br/></td></tr>
+<tr class="separator:a6c0059cd716aac39f3fa6ee4acae09d9 inherit pub_methods_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:ab4dbf1af172e821d95f77acb7e4fb962"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_ph2___hw_description.html#a9a23b373068f169aa67ca1d22c9a6001">CbcRegMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_cbc.html#ab4dbf1af172e821d95f77acb7e4fb962">fRegMap</a></td></tr>
 <tr class="separator:ab4dbf1af172e821d95f77acb7e4fb962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99b392306d4cdb7ffa7f956fc553011c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_cbc.html#a99b392306d4cdb7ffa7f956fc553011c">fCbcId</a></td></tr>
+<tr class="separator:a99b392306d4cdb7ffa7f956fc553011c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_ph2___hw_description_1_1_front_end_description')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_ph2___hw_description_1_1_front_end_description.html">Ph2_HwDescription::FrontEndDescription</a></td></tr>
+<tr class="memitem:a7ce5e0acdcb5647bb94f09ec480e8155 inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a7ce5e0acdcb5647bb94f09ec480e8155">fShelveId</a></td></tr>
+<tr class="separator:a7ce5e0acdcb5647bb94f09ec480e8155 inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ad4c11d4b00f0e1325843cfceac2e7c inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a9ad4c11d4b00f0e1325843cfceac2e7c">fBeId</a></td></tr>
+<tr class="separator:a9ad4c11d4b00f0e1325843cfceac2e7c inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f17ee7ee9d0d395c9f7da5ab3c8f424 inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a4f17ee7ee9d0d395c9f7da5ab3c8f424">fFMCId</a></td></tr>
+<tr class="separator:a4f17ee7ee9d0d395c9f7da5ab3c8f424 inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11b388f8d0f3259e5355779b36e75d9f inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a11b388f8d0f3259e5355779b36e75d9f">fFeId</a></td></tr>
+<tr class="separator:a11b388f8d0f3259e5355779b36e75d9f inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a719dce1ef5c6656fd71ae91f6f404053 inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_ph2___hw_description_1_1_front_end_description.html#a719dce1ef5c6656fd71ae91f6f404053">fStatus</a></td></tr>
+<tr class="separator:a719dce1ef5c6656fd71ae91f6f404053 inherit pro_attribs_class_ph2___hw_description_1_1_front_end_description"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Read/Write <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file. ">Cbc</a>'s registers on a file. </p>
+<div class="textblock"><p>Read/Write <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file, contains a register map. ">Cbc</a>'s registers on a file, contains a register map. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a88c9c022e04628b60495b94df2ab0825"></a>
 <div class="memitem">
@@ -433,8 +432,8 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get the <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file. ">Cbc</a> Id. </p>
-<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file. ">Cbc</a> ID </dd></dl>
+<p>Get the <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file, contains a register map. ">Cbc</a> Id. </p>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file, contains a register map. ">Cbc</a> ID </dd></dl>
 
 </div>
 </div>
@@ -537,6 +536,38 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a79864207a65830f49996220e612b00ae"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Ph2_HwDescription::Cbc::setCbcId </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pCbcId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the <a class="el" href="class_ph2___hw_description_1_1_cbc.html" title="Read/Write Cbc&#39;s registers on a file, contains a register map. ">Cbc</a> Id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pCbcId</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="aa24292fe56d6b19ec08ba67f9790b5c7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -576,11 +607,19 @@ Protected Attributes</h2></td></tr>
 <a class="anchor" id="a99b392306d4cdb7ffa7f956fc553011c"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint8_t Ph2_HwDescription::Cbc::fCbcId</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -612,7 +651,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 17 2014 16:02:24 for Ph2_DAQ by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 19 2014 15:16:33 for ACF : Acquisition &amp; Control Framework by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
