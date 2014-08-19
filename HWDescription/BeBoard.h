@@ -62,7 +62,7 @@ namespace Ph2_HwDescription{
 		*/
 		uint16_t getReg( std::string pReg );
 		/*!
-		* \brief Set any register of the Map
+		* \brief Set any register of the Map, if the register is not on the map, it adds it.
 		* \param pReg
 		* \param psetValue
 		*/

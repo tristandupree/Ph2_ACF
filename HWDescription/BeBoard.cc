@@ -29,9 +29,7 @@ namespace Ph2_HwDescription{
 	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId ):
 	fShelveId( pShelveId ),
 	fBeId( pBeId )
-	{
-		loadConfigFile( DEFAULT_GLIB_FILE );
-	}
+	{}
 
 	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename ):
 	fShelveId( pShelveId ),
@@ -61,7 +59,7 @@ namespace Ph2_HwDescription{
 		i = fRegMap.find( pReg );
 		if( i == fRegMap.end() )
 		{
-			std::cout<<"The Board object: "<<uint32_t(fBeId)<<" doesn't have "<<pReg<<std::endl;
+			fRegMap.insert ( std::make_pair(pReg,psetValue) );
 		}
 		else i->second = psetValue;
 	}

@@ -123,7 +123,7 @@ namespace Ph2_HwDescription{
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
 		{
-			std::cout<<"The Cbc object: "<<uint32_t(getCbcId())<<" doesn't have "<<pReg<<std::endl;
+			std::cout<<"The Cbc object: "<<uint32_t(fCbcId)<<" doesn't have "<<pReg<<std::endl;
 			return 0;
 		}
 		else
@@ -136,7 +136,7 @@ namespace Ph2_HwDescription{
 		CbcRegMap::iterator i;
 		i=fRegMap.find(pReg);
 		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<uint32_t(getCbcId())<<" doesn't have "<<pReg<<std::endl;}
+		{std::cout<<"The Cbc object: "<<uint32_t(fCbcId)<<" doesn't have "<<pReg<<std::endl;}
 		else
 		{
 			i->second.fValue=psetValue;
