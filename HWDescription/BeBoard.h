@@ -134,7 +134,6 @@ namespace Ph2_HwDescription{
 		uint8_t fShelveId;
 		uint8_t fBeId;
 
-		std::vector< Module > fModuleVector; /*!< Vector of FEModules, each module is supposed to know which FMC slot it is connected to... */
 
 		BeBoardRegMap fRegMap; /*!< Map of BeBoard Register Names vs. Register Values */
 
