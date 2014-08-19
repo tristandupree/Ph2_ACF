@@ -36,15 +36,14 @@ public:
 	// D'Tor
 	~Calibration(){};
 
-	/*!
-	* \brief Initialise calibration
-	*/
-	void Initialise();
+	void VplusScan(std::vector<uint8_t> pVplusValues);
+	uint8_t FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
 
 
 private:
 		
-	std::map < std::string, uint8_t > fSettingsMap;
+	TFile* fResultFile;
+	bool fHole;
 
 	TestGroupMap fTestGroupMap;
 
