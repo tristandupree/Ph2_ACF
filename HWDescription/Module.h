@@ -78,15 +78,13 @@ namespace Ph2_HwDescription{
 		void setModuleId(uint8_t pModuleId) {fModuleId=pModuleId;};
 
 
+		std::vector < Cbc > fCbcVector;
+
+
 	protected:
 
 		//moduleID
 		uint8_t fModuleId;
-
-		std::vector < Cbc > fCbcVector;
-
-		// This is really all this class needs at the moment, connection and status are already included in the FrontEndDescription parent class!
-
 	};
 }
 

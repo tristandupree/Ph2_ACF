@@ -43,8 +43,6 @@ public:
 private:
 		
 	TFile* fResultFile;
-	bool fHole;
-
 	TestGroupMap fTestGroupMap;
 
 private:

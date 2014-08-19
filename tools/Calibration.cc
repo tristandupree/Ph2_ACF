@@ -23,6 +23,8 @@ void Calibration::Initialise()
 	fSettingsMap["EnableTestPulse"]=0;
 	fSettingsMap["TestGroup"]=0;
 	fSettingsMap["TestPulsePotentiometer"]=0xF1;
+	fSettingsMap["HoleMode"]=1;
+	fSettingsMap["TargetVcth"]=0x78;
 
 	InitializeHw("/afs/cern.ch/user/l/lbidegai/public/new_archi/System/HWDescription.xml");
 
