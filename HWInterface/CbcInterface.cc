@@ -126,7 +126,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue, bool pVerifLoop)
+	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -199,7 +199,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint32_t> > pVecReq, bool pVerifLoop)
+	void CbcInterface::WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint8_t> > pVecReq, bool pVerifLoop)
 	{
 
 #ifdef __CBCDAQ_DEV__
