@@ -1,4 +1,4 @@
-all: refman.pdf
+all: refman.pdf FirmwareHardware
 
 pdf: refman.pdf
 
@@ -16,6 +16,11 @@ refman.pdf: clean refman.tex
 	makeindex refman.idx
 	pdflatex refman
 
+FirmwareHardware: FirmwareHardware.tex
+	pdflatex -shell-escape $@ 
+	pdflatex -shell-escape $@ 
+	pdflatex -shell-escape $@ 
+	pdflatex -shell-escape $@ 
 
 clean:
-	rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.out *.brf *.blg *.bbl refman.pdf
+	rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.out *.brf *.blg *.bbl refman.pdf FirmwareHardware.pdf

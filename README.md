@@ -30,7 +30,7 @@ Also, some functions are present in 8CBC and not in 2CBC due to the fact that th
 Preliminary Setup
 -----------------
 
-Firmware for the GLIB can be found [here] (http://sbgcmstrackerupgrade.in2p3.fr/).
+Firmware for the GLIB can be found in /firmware. To check you are using the correct firmware with the correct FMC, please read /latex/FirmwareHardware.pdf.
 
 NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] (http://sbgcmstrackerupgrade.in2p3.fr/) then follow the preliminary setup, otherwise you can skip this.
 
