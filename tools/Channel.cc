@@ -148,7 +148,8 @@ void Channel::resetHist(){
 }
 
 
-TestGroup::TestGroup(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId):
+TestGroup::TestGroup(uint8_t pShelveId, uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId):
+fShelveId( pShelveId ),
 fBeId( pBeId ),
 fFeId(pFeId),
 fCbcId(pCbcId),

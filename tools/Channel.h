@@ -42,8 +42,9 @@ struct Channel{
 };
 
 struct TestGroup{
-	TestGroup(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
+	TestGroup(uint8_t pShelveId, uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
 
+	uint8_t fShelveId;
 	uint8_t fBeId;
 	uint8_t fFeId;
 	uint8_t fCbcId;
@@ -54,15 +55,16 @@ struct TestGroupGraph{
 	TestGroupGraph(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
 	void FillVplusVcthGraph(uint8_t& pVplus, double pPedestal, double pNoise);
 	TGraphErrors* fVplusVcthGraph;
-	
+
 };
 
 struct TestGroupComparer{
 	bool operator() (const TestGroup &g1, const TestGroup &g2) const {
-		if (g1.fBeId == g2.fBeId) return g1.fFeId < g2.fFeId;
+		if (g1.fShelveId == g2.fShelveId) return g1.fBeId < g2.fBeId; 
+		else if (g1.fBeId == g2.fBeId) return g1.fFeId < g2.fFeId;
 		else if (g1.fFeId == g2.fFeId) return g1.fCbcId < g2.fCbcId;
 		else if (g1.fCbcId == g2.fCbcId) return g1.fGroupId < g2.fGroupId;
-		else return g1.fBeId < g2.fBeId;
+		else return g1.fShelveId < g2.fShelveId;
 	}
 };
 

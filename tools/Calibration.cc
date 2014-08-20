@@ -74,11 +74,11 @@ void Calibration::InitialiseTestGroup()
 	}	
 }
 
-void Calibration::ConstructTestGroup(uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId)
+void Calibration::ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId)
 {
 	for(uint8_t lgroup=0; lgroup<8; lgroup++)
 	{
-		TestGroup fTestgroup(pBeId,pFeId,pCbcId,lgroup);
+		TestGroup fTestgroup(pShelveId, pBeId, pFeId, pCbcId, lgroup);
 				
 		std::cout<<"	Group: "<<int(lgroup)<<"created!"<<std::endl;
 
