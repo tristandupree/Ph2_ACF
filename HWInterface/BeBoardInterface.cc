@@ -2,10 +2,10 @@
 
 	FileName :                    BeBoardInterface.cc
 	Content :                     User Interface to the Boards
-	Programmer :                  Lorenzo BIDEGAIN, Nicolas Pierre
-	Version :                     0.3
+	Programmer :                  Lorenzo BIDEGAIN, Nicolas PIERRE
+	Version :                     1.0
 	Date of creation :            31/07/14
-	Support :                     mail to : nico.pierre@icloud.com
+	Support :                     mail to : lorenzo.bidegain@gmail.com nico.pierre@icloud.com
 
 */
 
@@ -33,7 +33,7 @@ namespace Ph2_HwInterface{
 			i=fBoardMap.find(pBoardId);
 			if (i==fBoardMap.end())
 			{
-				std::cout<<"The Board: "<<pBoardId<<"doesn't exist"<<std::endl;
+				std::cout<<"The Board: "<< uint32_t(pBoardId) <<" doesn't exist"<<std::endl;
 			}
 			else
 			{
@@ -80,7 +80,7 @@ namespace Ph2_HwInterface{
 	}
 
 
-	void BeBoardInterface::Stop(BeBoard* pBoard,uint32_t pNthAcq)
+	void BeBoardInterface::Stop(BeBoard* pBoard, uint32_t pNthAcq)
 	{
 		setBoard(pBoard->getBeId());
 		fBoardFW->Stop(pNthAcq);
@@ -105,6 +105,18 @@ namespace Ph2_HwInterface{
 	{
 		setBoard(pBoard->getBeId());
 		fBoardFW->ReadData(pBoard, pNthAcq, pBreakTrigger);
+	}
+
+	const Event* BeBoardInterface::GetNextEvent(BeBoard* pBoard)
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->GetNextEvent();
+	}
+
+	const char * BeBoardInterface::GetBuffer( BeBoard* pBoard, uint32_t &pBufSize )
+	{
+		setBoard(pBoard->getBeId());
+		fBoardFW->GetBuffer(pBufSize);
 	}
 
 }

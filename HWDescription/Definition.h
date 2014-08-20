@@ -3,8 +3,8 @@
     \file                          Definition.h
     \brief                         Definition File, listing the registers
     \author                        Nicolas PIERRE
-    \version                       0.3
-    Date of creation :             07/06/14
+    \version                       1.0
+    \date                          07/06/14
     Support :                      mail to : nico.pierre@icloud.com
 
 */
@@ -12,7 +12,13 @@
 //------------------------------------------------------------------------------
 //uHal Connection File
 
-#define UHAL_CONNECTION_FILE "file:///afs/cern.ch/user/n/npierre/dev/settings/connections.xml"
+#define UHAL_CONNECTION_FILE "file://settings/connections.xml"
+
+//-----------------------------------------------------------------------------
+//Glib Config Files
+
+#define XML_DESCRIPTION_FILE_2CBC "settings/HWDescription_2CBC.xml"
+#define XML_DESCRIPTION_FILE_8CBC "settings/HWDescription_8CBC.xml"
 
 
 //-----------------------------------------------------------------------------
@@ -24,7 +30,7 @@
 //------------------------------------------------------------------------------
 //Cbc Config Files
 
-#define DEFAULT_FILE   "settings/default_file.txt"
+#define DEFAULT_FILE   "settings/default_file_Hole.txt"
 #define FE0CBC0HOLE    "settings/FE0CBC0Hole.txt"
 #define FE0CBC1        "settings/FE0CBC1.txt"
 #define FE0CBC1HOLE    "settings/FE0CBC1Hole.txt"
@@ -208,7 +214,7 @@
 //Events
 
     //Event number
-#define EVENT_NUMBER     100
+#define EVENT_NUMBER     50
 
     //Event Size
 #define EVENT_SIZE_32_2CBC    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1

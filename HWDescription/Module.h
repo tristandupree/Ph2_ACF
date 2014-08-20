@@ -1,12 +1,12 @@
 /*!
-*
-* \file Module.h
-* \brief Module Description class
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file 				Module.h
+	\brief 				Module Description class
+	\author 			Lorenzo BIDEGAIN
+	\version 			1.0
+	\date 				25/06/14
+	Support : 			mail to : lorenzo.bidegain@gmail.com
+
 */
 
 #ifndef Module_h__
@@ -27,7 +27,7 @@ namespace Ph2_HwDescription{
 
 	/*!
 	* \class Module
-	* \brief contains a vector of Cbc which are connected to the Module
+	* \brief handles a vector of Cbc which are connected to the Module
 	*/
 	class Module : public FrontEndDescription{
 
@@ -66,15 +66,25 @@ namespace Ph2_HwDescription{
 		*/
 		Cbc*   getCbc( uint8_t pCbcId );
 
-		//moduleID
-		uint8_t fModuleId;
+		/*!
+		* \brief Get the Module Id
+		* \return The Module ID
+		*/
+		uint8_t getModuleId() {return fModuleId;};
+		/*!
+		* \brief Set the Module Id
+		* \param pModuleId
+		*/
+		void setModuleId(uint8_t pModuleId) {fModuleId=pModuleId;};
 
-	protected:
 
 		std::vector < Cbc > fCbcVector;
 
-		// This is really all this class needs at the moment, connection and status are already included in the FrontEndDescription parent class!
 
+	protected:
+
+		//moduleID
+		uint8_t fModuleId;
 	};
 }
 

@@ -1,12 +1,12 @@
 /*!
-*
-* \file Shelve.cc
-* \brief Shelve Description class, handles a vector of Board
-* \author Lorenzo BIDEGAIN
-* \date 11/08/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	Filename : 				Shelve.cc
+	Content : 				Shelve Description class, handles a vector of Board
+	Programmer : 			Lorenzo BIDEGAIN
+	Version :				1.0
+	Date of Creation : 		11/08/14
+	Support : 				mail to : lorenzo.bidegain@gmail.com
+
 */
 
 #include "Shelve.h"
@@ -36,7 +36,7 @@ namespace Ph2_HwDescription{
 		bool j=false;
 		for (i=fBoardVector.begin();i!=fBoardVector.end();++i)
 		{
-			if (i->fBeId==pBeId)
+			if (i->getBeId()==pBeId)
 			{
 				fBoardVector.erase(i);
 				j=true;
@@ -47,7 +47,7 @@ namespace Ph2_HwDescription{
 		return true;
 		else
 		{
-			std::cout<<"Error:This Shelve doesn't have the Board"<<std::endl;
+			std::cout<<"Error:The Shelve :"<< uint32_t(fShelveId) <<"doesn't have the Board "<< uint32_t(pBeId) <<std::endl;
 			return false;
 		}
 	}
@@ -58,7 +58,7 @@ namespace Ph2_HwDescription{
 		std::vector < BeBoard > :: iterator i;
 		for (i=fBoardVector.begin();i!=fBoardVector.end();++i)
 		{
-			if (i->fBeId==pBeId)
+			if (i->getBeId()==pBeId)
 				{
 					return &*i ;
 				}

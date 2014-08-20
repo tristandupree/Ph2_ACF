@@ -1,10 +1,27 @@
 var searchData=
 [
-  ['data',['Data',['../class_ph2___hw_interface_1_1_data.html#a4cbcbfc2a023f0e826253fc7308ebb17',1,'Ph2_HwInterface::Data::Data(uint32_t pNbCbc)'],['../class_ph2___hw_interface_1_1_data.html#a6b19ec929731107ee1bf288493b2ee7a',1,'Ph2_HwInterface::Data::Data(BeBoard &amp;pBoard, uint32_t pNbCbc)'],['../class_ph2___hw_interface_1_1_data.html#aefcb0c450523abe1c4397189f64a3aff',1,'Ph2_HwInterface::Data::Data(Data &amp;pData)']]],
+  ['data',['data',['../classxpath__string.html#ade42a938746bcba171b70bfb88c3c568',1,'xpath_string::data()'],['../class_ph2___hw_interface_1_1_data.html#a4cbcbfc2a023f0e826253fc7308ebb17',1,'Ph2_HwInterface::Data::Data(uint32_t pNbCbc)'],['../class_ph2___hw_interface_1_1_data.html#a6b19ec929731107ee1bf288493b2ee7a',1,'Ph2_HwInterface::Data::Data(BeBoard &amp;pBoard, uint32_t pNbCbc)'],['../class_ph2___hw_interface_1_1_data.html#aefcb0c450523abe1c4397189f64a3aff',1,'Ph2_HwInterface::Data::Data(Data &amp;pData)']]],
   ['databit',['DataBit',['../class_ph2___hw_interface_1_1_event.html#a3e93e6f16944f443caffd2df81262fbe',1,'Ph2_HwInterface::Event']]],
   ['databitstring',['DataBitString',['../class_ph2___hw_interface_1_1_event.html#adb005c7fbcd56f6cb66a4b83b185886b',1,'Ph2_HwInterface::Event']]],
   ['databitvector',['DataBitVector',['../class_ph2___hw_interface_1_1_event.html#a54db44c9de8f4ca816d8cadcaa733260',1,'Ph2_HwInterface::Event']]],
   ['datahexstring',['DataHexString',['../class_ph2___hw_interface_1_1_event.html#ab7a41db929dba07f724a0b0f3e5ba626',1,'Ph2_HwInterface::Event']]],
-  ['decodereg',['DecodeReg',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a31041cc7eee33af5663c035b88f5749c',1,'Ph2_HwInterface::BeBoardFWInterface::DecodeReg()'],['../class_ph2___hw_interface_1_1_cbc_interface.html#acf2c23c04d1f48b3d1ad875d63e6b98e',1,'Ph2_HwInterface::CbcInterface::DecodeReg()']]],
-  ['defineeventsize',['defineEventSize',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html#a3532be4560a6c84d8c69fcc3b86e7678',1,'Ph2_HwInterface::BeBoardFWInterface']]]
+  ['deallocate_5fmemory',['deallocate_memory',['../structxml__allocator.html#a5df417155487cce4e0460b123ac33dc6',1,'xml_allocator']]],
+  ['deallocate_5fpage',['deallocate_page',['../structxml__allocator.html#a1c6bfe15a257a094f55659f8d71c209e',1,'xml_allocator']]],
+  ['deallocate_5fstring',['deallocate_string',['../structxml__allocator.html#af32c538db4d562c2d0bfe15f7c0aa879',1,'xml_allocator']]],
+  ['decode_5flatin1_5fblock',['decode_latin1_block',['../structutf__decoder.html#a3f728755fa7cc552e30e8d8776cad1ce',1,'utf_decoder']]],
+  ['decode_5futf16_5fblock',['decode_utf16_block',['../structutf__decoder.html#ac22afd983ac79318f0e7d07669bda8d1',1,'utf_decoder']]],
+  ['decode_5futf32_5fblock',['decode_utf32_block',['../structutf__decoder.html#a8bed41cc707328e8d8ab91fd7c3c943e',1,'utf_decoder']]],
+  ['decode_5futf8_5fblock',['decode_utf8_block',['../structutf__decoder.html#a671829bbdba1eac5c8bd2bf781eae498',1,'utf_decoder']]],
+  ['decode_5fwchar_5fblock',['decode_wchar_block',['../structutf__decoder.html#a5953fd0661c64408e08161342e4c538d',1,'utf_decoder']]],
+  ['decode_5fwchar_5fblock_5fimpl',['decode_wchar_block_impl',['../structutf__decoder.html#a56b161067860fde1ed534ac3b7399e36',1,'utf_decoder::decode_wchar_block_impl(const uint16_t *data, size_t size, typename Traits::value_type result)'],['../structutf__decoder.html#a3bd423d3ce99b245c76be8a0796d951b',1,'utf_decoder::decode_wchar_block_impl(const uint32_t *data, size_t size, typename Traits::value_type result)']]],
+  ['decodereg',['DecodeReg',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html#ad0bd156b59bcc266949b08ed87a35a00',1,'Ph2_HwInterface::BeBoardFWInterface::DecodeReg()'],['../class_ph2___hw_interface_1_1_cbc_interface.html#af9f86fa0a60d5f2be2de715f97fd169d',1,'Ph2_HwInterface::CbcInterface::DecodeReg()']]],
+  ['default_5fallocate',['default_allocate',['../pugixml_8cpp.html#a5c5a3cf417e46e0b3f5207fb9c6a5c18',1,'pugixml.cpp']]],
+  ['default_5fdeallocate',['default_deallocate',['../pugixml_8cpp.html#a04da64bb4806c0b7491d5d9d73d50100',1,'pugixml.cpp']]],
+  ['defineeventsize',['defineEventSize',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html#aa93b2f84ca29ea20053fb42e5c8f3bb0',1,'Ph2_HwInterface::BeBoardFWInterface']]],
+  ['delete_5fxpath_5fvariable',['delete_xpath_variable',['../pugixml_8cpp.html#aa9eac4e01f2efcc207d5c31cc308cad3',1,'delete_xpath_variable(T *var):&#160;pugixml.cpp'],['../pugixml_8cpp.html#a7849f92cf1fb611f65e35760fe040998',1,'delete_xpath_variable(xpath_value_type type, xpath_variable *var):&#160;pugixml.cpp']]],
+  ['destroy',['destroy',['../structxml__stream__chunk.html#a4b812901d59950d48d539e5c8726a0e8',1,'xml_stream_chunk::destroy()'],['../structxpath__query__impl.html#a9b7194b1356cca3f3b62f4cdb8d8960f',1,'xpath_query_impl::destroy()']]],
+  ['destroy_5fattribute',['destroy_attribute',['../pugixml_8cpp.html#a451a69801ffa96a6389bb7d4c8099bd9',1,'pugixml.cpp']]],
+  ['destroy_5fnode',['destroy_node',['../pugixml_8cpp.html#a00ae2c226db329ac858206e646251867',1,'pugixml.cpp']]],
+  ['document_5forder',['document_order',['../pugixml_8cpp.html#af28012d575e412e524d54e911266d548',1,'pugixml.cpp']]],
+  ['duplicate_5fstring',['duplicate_string',['../classxpath__string.html#a57c53a0b67fecb1845c31215d8ee206b',1,'xpath_string::duplicate_string(const char_t *string, size_t length, xpath_allocator *alloc)'],['../classxpath__string.html#a8e1458ed23ff94c0c27f8eb96fb26b11',1,'xpath_string::duplicate_string(const char_t *string, xpath_allocator *alloc)']]]
 ];

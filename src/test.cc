@@ -15,64 +15,41 @@ Support :                      mail to : nico.pierre@cern.ch, lorenzo.bidegain@c
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
+#include "../System/SystemController.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
+using namespace Ph2_System;
 
 int main()
 {
-	//std::cout<<std::hex<<106<<std::endl;
 
-	//Two Cbc
-	Cbc cCbc_00(0,0,0,0,0,FE0CBC0HOLE);
-	Cbc cCbc_01(0,0,0,0,1,FE0CBC1HOLE);
+	SystemController cSystemController;
 
-	//One Module
-	Module cModule_00;
-	cModule_00.fModuleId=0;
-	cModule_00.addCbc(cCbc_00);
-	cModule_00.addCbc(cCbc_01);
+	cSystemController.InitializeHw(XML_DESCRIPTION_FILE_2CBC);
+	cSystemController.ConfigureHw();
 
-	//One Glib
-	BeBoard cGlib_00;
-	cGlib_00.addModule(cModule_00);
+	std::cout << "\n*** Changing Value of VCth... ***\n" << std::endl;
 
-	BeBoardFWInterface* cBeBoardFW;
-	std::map<int8_t,BeBoardFWInterface*> cBeBoardMap;
+    cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0),"VCth",0x03);
+	cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",0x10);
+	cSystemController.fCbcInterface->ReadAllCbc(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0));
 
-	CbcInterface cCbcInterface(cBeBoardMap);
-	BeBoardInterface cBeBoardInterface(cBeBoardMap);
-	cBeBoardFW= new GlibFWInterface(UHAL_CONNECTION_FILE,0);
-	cBeBoardMap[0]=cBeBoardFW;
+    std::cout << "\n*** Value of VCth Changed ! ***\n" << std::endl;
 
-	cBeBoardInterface.ConfigureBoard(&cGlib_00);
+	cSystemController.fBeBoardInterface->ReadBoardReg(cSystemController.fShelveVec[0]->getBoard(0),EXT_TRG);
+	cSystemController.fBeBoardInterface->ReadBoardReg(cSystemController.fShelveVec[0]->getBoard(0),FAKE_DATA);
 
-	cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(0));
-	cCbcInterface.ConfigureCbc(cGlib_00.getModule(0)->getCbc(1));
-
-	std::cout << "\nChanging Value of VCth...\n" << std::endl;
-
-    cCbcInterface.WriteCbcReg(cGlib_00.getModule(0)->getCbc(0),"VCth",0x03);
-	cCbcInterface.WriteCbcReg(cGlib_00.getModule(0)->getCbc(1),"VCth",0x10);
-	cCbcInterface.ReadAllCbc(cGlib_00.getModule(0));
-
-    std::cout << "\nValue of VCth Changed !\n" << std::endl;
-
-	cBeBoardInterface.ReadBoardReg(&cGlib_00,EXT_TRG);
-	cBeBoardInterface.ReadBoardReg(&cGlib_00,FAKE_DATA);
-
-	uint32_t dump1 = cGlib_00.getReg(EXT_TRG);
-	uint32_t dump2 = cGlib_00.getReg(FAKE_DATA);
+	uint32_t dump1 = cSystemController.fShelveVec[0]->getBoard(0)->getReg(EXT_TRG);
+	uint32_t dump2 = cSystemController.fShelveVec[0]->getBoard(0)->getReg(FAKE_DATA);
 
 	std::cout << "\nThe value for EXT_TRG is " << dump1 << std::endl;
 	std::cout << "\nThe value for FAKE_DATA is " << dump2 << std::endl;
 
-    cGlib_00.getModule(0)->getCbc(0)->saveRegMap("/output/output_00.txt");
-	cGlib_00.getModule(0)->getCbc(1)->saveRegMap("/output/output_01.txt");
+    cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0)->saveRegMap("output/output_00.txt");
+	cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1)->saveRegMap("output/output_01.txt");
 
-	std::cout << "\nHurray, it works !!" << std::endl;
-
-	delete cBeBoardFW;
+	std::cout << "*** End of the test programm" << std::endl;
 
 	return 0;
 }

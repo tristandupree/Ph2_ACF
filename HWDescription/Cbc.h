@@ -1,12 +1,12 @@
 /*!
-*
-* \file Cbc.h
-* \brief Cbc Description class, config of the Cbcs
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file 			Cbc.h
+	\brief 			Cbc Description class, config of the Cbcs
+	\author 		Lorenzo BIDEGAIN
+	\version 		1.0
+	\date 			25/06/14
+	Support : 		mail to : lorenzo.bidegain@gmail.com
+
 */
 
 
@@ -35,7 +35,7 @@ namespace Ph2_HwDescription{
 
 	/*!
 	* \class Cbc
-	* \brief Read/Write Cbc's registers on a file
+	* \brief Read/Write Cbc's registers on a file, contains a register map
 	*/
 	class Cbc : public FrontEndDescription{
 
@@ -58,7 +58,7 @@ namespace Ph2_HwDescription{
 		// D'Tor
 		~Cbc();
 
-		 /*!
+		/*!
 		* \brief Load RegMap from a file
 		* \param filename
 		*/
@@ -84,24 +84,27 @@ namespace Ph2_HwDescription{
 		void saveRegMap( std::string filename );
 
 		/*!
-		* \brief Get the Cbc Id
-		* \return The Cbc ID
-		*/
-		uint8_t getCbcId() {return fCbcId;};
-
-		/*!
 		* \brief Get the Map of the registers
 		* \return The map of register
 		*/
 		CbcRegMap getRegMap() {return fRegMap;};
+
+		/*!
+		* \brief Get the Cbc Id
+		* \return The Cbc ID
+		*/
+		uint8_t getCbcId() {return fCbcId;};
+		/*!
+		* \brief Set the Cbc Id
+		* \param pCbcId
+		*/
+		void setCbcId(uint8_t pCbcId) {fCbcId=pCbcId;};
 
 
 	protected:
 
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
 		CbcRegMap fRegMap;
-
-	public:
 
 		uint8_t fCbcId;
 
@@ -114,14 +117,18 @@ namespace Ph2_HwDescription{
 	*/
 	struct CbcComparer{
 
-		bool operator() (const Cbc& cbc1,const Cbc& cbc2);
+		bool operator() (Cbc& cbc1,Cbc& cbc2);
 
 		};
 
+	/*!
+	* \struct RegItemComparer
+	* \brief Compare two pair of Register Name Versus CbcRegItem by the Page and Adress of the CbcRegItem
+	*/
 	struct RegItemComparer{
 
 		bool operator() (CbcRegPair pRegItem1, CbcRegPair pRegItem2);
-	
+
 		};
 
 }

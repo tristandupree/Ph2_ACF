@@ -3,8 +3,8 @@
     \file                         RegManager.h
     \brief                        RegManager class, permit connection & r/w registers
     \author                       Nicolas PIERRE
-    \version                      0.3
-    Date of creation :            06/06/14
+    \version                      1.0
+    \date                         06/06/14
     Support :                     mail to : nico.pierre@icloud.com
 
 */

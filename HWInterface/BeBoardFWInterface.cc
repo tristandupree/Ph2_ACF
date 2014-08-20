@@ -1,12 +1,12 @@
-/*!
-*
-* \file BeBoardFWInterface.cc
-* \brief BeBoardFWInterface base class of all type of boards
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 28/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
-*
+/*
+
+	FileName :                    BeBoardFWInterface.cc
+	Content :                     BeBoardFWInterface base class of all type of boards
+	Programmer :                  Lorenzo BIDEGAIN, Nicolas PIERRE
+	Version :                     1.0
+	Date of creation :            31/07/14
+	Support :                     mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
+
 */
 
 
@@ -22,9 +22,8 @@ namespace Ph2_HwInterface
 	BeBoardFWInterface::BeBoardFWInterface(const char *puHalConfigFileName, uint32_t pBoardId):
         RegManager(puHalConfigFileName,pBoardId),
         fNTotalAcq(0),
-        fDataFile(0),
 		//fNegativeLogicCBC(true),
-		fStop(false)
+		fDataFile(0)
 	{
 		fData = new Data(0);
 	}
@@ -119,13 +118,13 @@ namespace Ph2_HwInterface
 	}
 
 
-	void BeBoardFWInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq)
+	void BeBoardFWInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq)
 	{
 		pVecReq.push_back(pCbcId<<17 | pRegItem.fPage<<16 | pRegItem.fAddress<<8 | pRegItem.fValue);
 	}
 
 
-	void BeBoardFWInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
+	void BeBoardFWInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, uint32_t pWord)
 	{
 		uint32_t cMask(0x00000000);
 		unsigned int i(0);

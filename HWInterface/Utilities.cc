@@ -3,7 +3,7 @@
     FileName :                     Utilities.cc
     Content :                      Some objects that might come in handy
     Programmer :                   Nicolas PIERRE
-    Version :                      0.4
+    Version :                      1.0
     Date of creation :             10/06/14
     Support :                      mail to : nicolas.pierre@icloud.com
 

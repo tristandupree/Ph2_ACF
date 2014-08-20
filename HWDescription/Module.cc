@@ -1,14 +1,13 @@
 /*!
-*
-* \file Module.cc
-* \brief Module Description class
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
-*/
 
+	Filename : 				Module.cc
+	Content : 				Module Description class
+	Programmer : 			Lorenzo BIDEGAIN
+	Version :				1.0
+	Date of Creation : 		25/06/14
+	Support : 				mail to : lorenzo.bidegain@gmail.com
+
+*/
 
 #include "Module.h"
 
@@ -33,7 +32,7 @@ namespace Ph2_HwDescription{
 		bool j=false;
 		for (i=fCbcVector.begin();i!=fCbcVector.end();++i)
 		{
-			if (i->fCbcId==pCbcId)
+			if (i->getCbcId()==pCbcId)
 			{
 				fCbcVector.erase(i);
 				j=true;
@@ -44,7 +43,7 @@ namespace Ph2_HwDescription{
 		return true;
 		else
 		{
-			std::cout<<"Error:This Module doesn't have the cbc"<<std::endl;
+			std::cout<<"Error:The Module "<<uint32_t(fModuleId)<<" doesn't have the cbc " <<uint32_t(pCbcId)<<std::endl;
 			return false;
 		}
 	}
@@ -54,7 +53,7 @@ namespace Ph2_HwDescription{
 		std::vector < Cbc > :: iterator i;
 		for (i=fCbcVector.begin();i!=fCbcVector.end();++i)
 		{
-			if (i->fCbcId==pCbcId)
+			if (i->getCbcId()==pCbcId)
 				{
 					return &*i ;
 				}

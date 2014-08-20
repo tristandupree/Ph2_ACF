@@ -3,7 +3,7 @@
 	FileName :                     Event.cc
 	Content :                      Event handling from DAQ
 	Programmer :                   Nicolas PIERRE
-	Version :                      0.4
+	Version :                      1.0
 	Date of creation :             10/07/14
 	Support :                      mail to : nicolas.pierre@icloud.com
 
@@ -68,7 +68,7 @@ namespace Ph2_HwInterface
 			fFeNChar = pNbCbc*CBC_NCHAR;
 			fOffsetTDC = 5*32+9*4*pNbCbc;
 		}
-		
+
 		AddBoard(pBoard);
 	}
 

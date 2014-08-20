@@ -1,12 +1,12 @@
 /*!
-*
-* \file Shelve.h
-* \brief Shelve Description class, handles a vector of Board
-* \author Lorenzo BIDEGAIN
-* \date 11/08/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file 				Shelve.h
+	\brief 				Shelve Description class, handles a vector of Board
+	\author 			Lorenzo BIDEGAIN
+	\version			1.0
+	\date 				11/08/14
+	Support : 			mail to : lorenzo.bidegain@gmail.com
+
 */
 
 #ifndef Shelve_h__
@@ -22,14 +22,14 @@ namespace Ph2_HwDescription{
 
 	/*!
 	* \class Shelve
-	* \brief contains a vector of Board which are connected to the Shelve
+	* \brief handles a vector of Board which are connected to the Shelve
 	*/
 	class Shelve{
 
 	public:
 
 		//C'tor which takes the ShelveId
-		Shelve( uint8_t pShelveId);		
+		Shelve( uint8_t pShelveId);
 
 		// Default C'tor
 		Shelve();
@@ -60,12 +60,24 @@ namespace Ph2_HwDescription{
 		*/
 		BeBoard*   getBoard( uint8_t pBeId );
 
-	public:
+		/*!
+		* \brief Get the Shelve Id
+		* \return The Shelve ID
+		*/
+		uint8_t getShelveId() {return fShelveId;};
+		/*!
+		* \brief Set the Shelve Id
+		* \param pShelveId
+		*/
+		void setShelveId(uint8_t pShelveId) {fShelveId=pShelveId;};
+
+		// Vector of Boards
+		std::vector< BeBoard > fBoardVector;
+
+	protected:
+
 		uint8_t fShelveId;
 
-	private:
-		// Vector of Board
-		std::vector< BeBoard > fBoardVector;
 
 	};
 }

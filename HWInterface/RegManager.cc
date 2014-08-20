@@ -3,7 +3,7 @@
     FileName :                    RegManager.cc
     Content :                     RegManager class, permit connection & r/w registers
     Programmer :                  Nicolas PIERRE
-    Version :                     1.3
+    Version :                     1.0
     Date of creation :            06/06/14
     Support :                     mail to : nico.pierre@icloud.com
 

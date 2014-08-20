@@ -11,5 +11,6 @@ var searchData=
   ['offset_5flumi',['OFFSET_LUMI',['../_definition_8h.html#aa726e7f33789f31d51f8e23c8027331f',1,'Definition.h']]],
   ['offset_5forbit',['OFFSET_ORBIT',['../_definition_8h.html#a7e3f5dcd64e350b19cfe6ac8d8b9de55',1,'Definition.h']]],
   ['offset_5fpipeline_5faddress',['OFFSET_PIPELINE_ADDRESS',['../_definition_8h.html#a5868314549e40a5df9050c0aefdd28d5',1,'Definition.h']]],
-  ['offset_5ftdc',['OFFSET_TDC',['../_definition_8h.html#ab92be247eb48959138e31f51abdb4595',1,'Definition.h']]]
+  ['offset_5ftdc_5f2cbc',['OFFSET_TDC_2CBC',['../_definition_8h.html#a855e3284919fca919a615f239330790e',1,'Definition.h']]],
+  ['offset_5ftdc_5f8cbc',['OFFSET_TDC_8CBC',['../_definition_8h.html#a2a10581af425cc172c02de8583b27faa',1,'Definition.h']]]
 ];

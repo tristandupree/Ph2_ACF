@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['unpause',['Unpause',['../class_ph2___hw_interface_1_1_be_board_interface.html#a2e038a82ddb613a85be7491f553bd31f',1,'Ph2_HwInterface::BeBoardInterface::Unpause()'],['../class_ph2___hw_interface_1_1_glib_interface.html#a4d6568c22d8e3777ee909db37b3b01d6',1,'Ph2_HwInterface::GlibInterface::Unpause()']]],
-  ['updatecbcread',['UpdateCbcRead',['../class_ph2___hw_interface_1_1_cbc_interface.html#a6f9082c399255d69036e97f2ede63754',1,'Ph2_HwInterface::CbcInterface']]],
-  ['updatecbcwrite',['UpdateCbcWrite',['../class_ph2___hw_interface_1_1_cbc_interface.html#aa4daecdb7c91b835dee7520b9e6664f9',1,'Ph2_HwInterface::CbcInterface']]],
-  ['updateglibread',['UpdateGlibRead',['../class_ph2___hw_interface_1_1_glib_interface.html#a1ab42500cf3f6369a8eb2404ef8cd85b',1,'Ph2_HwInterface::GlibInterface']]],
-  ['updateglibwrite',['UpdateGlibWrite',['../class_ph2___hw_interface_1_1_glib_interface.html#afeda624fe12657712e9f10cd60603d8a',1,'Ph2_HwInterface::GlibInterface']]]
+  ['unique',['unique',['../pugixml_8cpp.html#a50d3fa6d38fd850cdc7842683e656a11',1,'pugixml.cpp']]],
+  ['unspecified_5fbool_5fxml_5fattribute',['unspecified_bool_xml_attribute',['../namespacepugi.html#a8effe3a6fc7cc9c1cf2550739dbdc438',1,'pugi']]],
+  ['unspecified_5fbool_5fxml_5fnode',['unspecified_bool_xml_node',['../namespacepugi.html#a487b2e720a3808d6fd5730d7c97bcdac',1,'pugi']]],
+  ['unspecified_5fbool_5fxml_5ftext',['unspecified_bool_xml_text',['../namespacepugi.html#acfae514de3abac05ed155e531a401c15',1,'pugi']]],
+  ['unspecified_5fbool_5fxpath_5fnode',['unspecified_bool_xpath_node',['../namespacepugi.html#abca519e72b848d2ebadf5250727da6c5',1,'pugi']]],
+  ['unspecified_5fbool_5fxpath_5fquery',['unspecified_bool_xpath_query',['../namespacepugi.html#a41b925609dde7657664cf68c6506838b',1,'pugi']]],
+  ['uses_5fheap',['uses_heap',['../classxpath__string.html#ac8cab48475690223df758e5ab2368533',1,'xpath_string']]]
 ];

@@ -1,14 +1,13 @@
 /*!
-*
-* \file BeBoard.cc
-* \brief BeBoard Description class, configs of the BeBoard
-* \author Lorenzo BIDEGAIN
-* \date 14/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
-*/
 
+	Filename : 				BeBoard.cc
+	Content : 				BeBoard Description class, configs of the BeBoard
+	Programmer : 			Lorenzo BIDEGAIN
+	Version :				1.0
+	Date of Creation : 		14/07/14
+	Support : 				mail to : lorenzo.bidegain@gmail.com
+
+*/
 
 #include "BeBoard.h"
 #include <iostream>
@@ -21,34 +20,22 @@ namespace Ph2_HwDescription{
 	// Constructors
 
 	BeBoard::BeBoard():
-		fBeId(0),
-		fShelveId(0)
+	fShelveId(0),
+	fBeId(0)
 	{
 		loadConfigFile( DEFAULT_GLIB_FILE );
 	}
 
+	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId ):
+	fShelveId( pShelveId ),
+	fBeId( pBeId )
+	{}
+
 	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename ):
-		fBeId( pBeId ),
-		fShelveId( pShelveId )
+	fShelveId( pShelveId ),
+	fBeId( pBeId )
 	{
-
-		// fModuleVector.reserve(pNFe);
 		loadConfigFile( filename );
-
-	}
-
-	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, /*uint8_t pNFe, uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData, std::string filename):
-		fBeId( pBeId ),
-		fShelveId( pShelveId )
-	{
-
-		//FMCConfiguration are not yet in the registers of the firmware
-		//fRegMap["FMCConfiguration"]=pFMCConfiguration;
-		// fModuleVector.reserve(pNFe);
-		loadConfigFile( filename );
-		fRegMap[EXT_TRG]=pExtTrg;
-		fRegMap[FAKE_DATA]=pFakeData;
-
 	}
 
 	// Public Members:
@@ -60,7 +47,7 @@ namespace Ph2_HwDescription{
 		i = fRegMap.find( pReg );
 		if( i == fRegMap.end() )
 		{
-			std::cout << "Register " << pReg << " not found in BeBoard Register Map!" << std::endl;
+			std::cout<<"The Board object: "<<uint32_t(fBeId)<<" doesn't have "<<pReg<<std::endl;
 			return 0;
 		}
 		else return i->second;
@@ -70,7 +57,10 @@ namespace Ph2_HwDescription{
 	{
 		BeBoardRegMap::iterator i;
 		i = fRegMap.find( pReg );
-		if( i == fRegMap.end() ) std::cout << "Register " << pReg << " not found in BeBoard Register Map!" << std::endl;
+		if( i == fRegMap.end() )
+		{
+			fRegMap.insert ( std::make_pair(pReg,psetValue) );
+		}
 		else i->second = psetValue;
 	}
 
@@ -85,7 +75,7 @@ namespace Ph2_HwDescription{
 		bool j=false;
 		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
 		{
-			if (i->fModuleId==pModuleId)
+			if (i->getModuleId()==pModuleId)
 			{
 				fModuleVector.erase(i);
 				j=true;
@@ -96,7 +86,7 @@ namespace Ph2_HwDescription{
 		return true;
 		else
 		{
-			std::cout<<"Error:The BeBoard doesn't have the module "<<pModuleId<<std::endl;
+			std::cout<<"Error:The BeBoard: "<<uint32_t (fBeId)<<" doesn't have the module "<<uint32_t(pModuleId)<<std::endl;
 			return false;
 		}
 	}
@@ -106,7 +96,7 @@ namespace Ph2_HwDescription{
 		std::vector < Module > :: iterator i;
 		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
 		{
-			if (i->fModuleId==pModuleId)
+			if (i->getModuleId()==pModuleId)
 				{
 					return &*i;
 				}

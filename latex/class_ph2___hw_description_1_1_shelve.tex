@@ -1,0 +1,183 @@
+\hypertarget{class_ph2___hw_description_1_1_shelve}{\section{Ph2\-\_\-\-Hw\-Description\-:\-:Shelve Class Reference}
+\label{class_ph2___hw_description_1_1_shelve}\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+}
+
+
+handles a vector of Board which are connected to the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve}  
+
+
+
+
+{\ttfamily \#include $<$Shelve.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ph2___hw_description_1_1_shelve_a7e0361665ca7e4de8ce3fd1138ad1d86}{Shelve} (uint8\-\_\-t p\-Shelve\-Id)
+\item 
+\hyperlink{class_ph2___hw_description_1_1_shelve_ab989c28364f9f94029dd02b3eb1d8241}{Shelve} ()
+\item 
+\hyperlink{class_ph2___hw_description_1_1_shelve_acbdc580d3ff8f4efe2df84d19ef6ef55}{$\sim$\-Shelve} ()
+\item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_shelve_a9d8f1abe782fb206e11aae187cbc44c2}{get\-N\-Board} ()
+\begin{DoxyCompactList}\small\item\em Get the number of Board connected to the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve}. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_description_1_1_shelve_aa6ab700f126822c6da156760f130aba6}{add\-Board} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board)
+\begin{DoxyCompactList}\small\item\em Adding a Board to the vector. \end{DoxyCompactList}\item 
+bool \hyperlink{class_ph2___hw_description_1_1_shelve_ad0d5bb55bdf8e6629cdc919685ffb8f9}{remove\-Board} (uint8\-\_\-t p\-Be\-Id)
+\begin{DoxyCompactList}\small\item\em Remove a Board from the vector. \end{DoxyCompactList}\item 
+\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$ \hyperlink{class_ph2___hw_description_1_1_shelve_a4b3d05cdf618b323e37fffdc3872476e}{get\-Board} (uint8\-\_\-t p\-Be\-Id)
+\begin{DoxyCompactList}\small\item\em Get a Board from the vector. \end{DoxyCompactList}\item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_shelve_afaa80359d8619ba00d432004a928136e}{get\-Shelve\-Id} ()
+\begin{DoxyCompactList}\small\item\em Get the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id. \end{DoxyCompactList}\item 
+void \hyperlink{class_ph2___hw_description_1_1_shelve_a7f333a3851b7605ea7b5e87441eb6640}{set\-Shelve\-Id} (uint8\-\_\-t p\-Shelve\-Id)
+\begin{DoxyCompactList}\small\item\em Set the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_shelve_ad6a771be1946db28ff6418ac419ef543}{f\-Shelve\-Id}
+\item 
+std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $>$ \hyperlink{class_ph2___hw_description_1_1_shelve_a5b87ee50bb6046acadaeb8226395da52}{f\-Board\-Vector}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+handles a vector of Board which are connected to the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_ph2___hw_description_1_1_shelve_a7e0361665ca7e4de8ce3fd1138ad1d86}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!Shelve@{Shelve}}
+\index{Shelve@{Shelve}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{Shelve}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::\-Shelve (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Shelve\-Id}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_shelve_a7e0361665ca7e4de8ce3fd1138ad1d86}
+\hypertarget{class_ph2___hw_description_1_1_shelve_ab989c28364f9f94029dd02b3eb1d8241}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!Shelve@{Shelve}}
+\index{Shelve@{Shelve}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{Shelve}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::\-Shelve (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_shelve_ab989c28364f9f94029dd02b3eb1d8241}
+\hypertarget{class_ph2___hw_description_1_1_shelve_acbdc580d3ff8f4efe2df84d19ef6ef55}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!$\sim$\-Shelve@{$\sim$\-Shelve}}
+\index{$\sim$\-Shelve@{$\sim$\-Shelve}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{$\sim$\-Shelve}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::$\sim$\-Shelve (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_shelve_acbdc580d3ff8f4efe2df84d19ef6ef55}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_ph2___hw_description_1_1_shelve_aa6ab700f126822c6da156760f130aba6}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!add\-Board@{add\-Board}}
+\index{add\-Board@{add\-Board}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{add\-Board}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::add\-Board (
+\begin{DoxyParamCaption}
+\item[{{\bf Be\-Board} \&}]{p\-Board}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_shelve_aa6ab700f126822c6da156760f130aba6}
+
+
+Adding a Board to the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Board} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ph2___hw_description_1_1_shelve_a4b3d05cdf618b323e37fffdc3872476e}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!get\-Board@{get\-Board}}
+\index{get\-Board@{get\-Board}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{get\-Board}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Be\-Board} $\ast$ Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::get\-Board (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Be\-Id}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_shelve_a4b3d05cdf618b323e37fffdc3872476e}
+
+
+Get a Board from the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Be\-Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer of Board, so we can manipulate directly the Board contained in the vector 
+\end{DoxyReturn}
+\hypertarget{class_ph2___hw_description_1_1_shelve_a9d8f1abe782fb206e11aae187cbc44c2}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!get\-N\-Board@{get\-N\-Board}}
+\index{get\-N\-Board@{get\-N\-Board}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{get\-N\-Board}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::get\-N\-Board (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_shelve_a9d8f1abe782fb206e11aae187cbc44c2}
+
+
+Get the number of Board connected to the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve}. 
+
+\begin{DoxyReturn}{Returns}
+The size of the vector 
+\end{DoxyReturn}
+\hypertarget{class_ph2___hw_description_1_1_shelve_afaa80359d8619ba00d432004a928136e}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!get\-Shelve\-Id@{get\-Shelve\-Id}}
+\index{get\-Shelve\-Id@{get\-Shelve\-Id}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{get\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::get\-Shelve\-Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_shelve_afaa80359d8619ba00d432004a928136e}
+
+
+Get the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id. 
+
+\begin{DoxyReturn}{Returns}
+The \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} I\-D 
+\end{DoxyReturn}
+\hypertarget{class_ph2___hw_description_1_1_shelve_ad0d5bb55bdf8e6629cdc919685ffb8f9}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!remove\-Board@{remove\-Board}}
+\index{remove\-Board@{remove\-Board}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{remove\-Board}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::remove\-Board (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Be\-Id}
+\end{DoxyParamCaption}
+)}}\label{class_ph2___hw_description_1_1_shelve_ad0d5bb55bdf8e6629cdc919685ffb8f9}
+
+
+Remove a Board from the vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Be\-Id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a bool which indicate if the removing was successful 
+\end{DoxyReturn}
+\hypertarget{class_ph2___hw_description_1_1_shelve_a7f333a3851b7605ea7b5e87441eb6640}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!set\-Shelve\-Id@{set\-Shelve\-Id}}
+\index{set\-Shelve\-Id@{set\-Shelve\-Id}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{set\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::set\-Shelve\-Id (
+\begin{DoxyParamCaption}
+\item[{uint8\-\_\-t}]{p\-Shelve\-Id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_shelve_a7f333a3851b7605ea7b5e87441eb6640}
+
+
+Set the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\-Shelve\-Id} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Field Documentation}
+\hypertarget{class_ph2___hw_description_1_1_shelve_a5b87ee50bb6046acadaeb8226395da52}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!f\-Board\-Vector@{f\-Board\-Vector}}
+\index{f\-Board\-Vector@{f\-Board\-Vector}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{f\-Board\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf Be\-Board} $>$ Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::f\-Board\-Vector\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_shelve_a5b87ee50bb6046acadaeb8226395da52}
+\hypertarget{class_ph2___hw_description_1_1_shelve_ad6a771be1946db28ff6418ac419ef543}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}!f\-Shelve\-Id@{f\-Shelve\-Id}}
+\index{f\-Shelve\-Id@{f\-Shelve\-Id}!Ph2_HwDescription::Shelve@{Ph2\-\_\-\-Hw\-Description\-::\-Shelve}}
+\subsubsection[{f\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Shelve\-::f\-Shelve\-Id\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_shelve_ad6a771be1946db28ff6418ac419ef543}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+H\-W\-Description/\hyperlink{_shelve_8h}{Shelve.\-h}\item 
+H\-W\-Description/\hyperlink{_shelve_8cc}{Shelve.\-cc}\end{DoxyCompactItemize}

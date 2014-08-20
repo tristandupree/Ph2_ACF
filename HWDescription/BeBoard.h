@@ -1,12 +1,12 @@
 /*!
-*
-* \file BeBoard.h
-* \brief BeBoard Description class, configs of the BeBoard
-* \author Lorenzo BIDEGAIN
-* \date 14/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file				 BeBoard.h
+	\brief 				 BeBoard Description class, configs of the BeBoard
+	\author 			 Lorenzo BIDEGAIN
+	\date 				 14/07/14
+	\version 			 1.0
+	Support : 			 mail to : lorenzo.bidegain@gmail.com
+
 */
 
 #ifndef _BeBoard_h__
@@ -24,25 +24,40 @@
 */
 namespace Ph2_HwDescription{
 
-	typedef std::map< std::string, uint16_t > BeBoardRegMap;
+	typedef std::map< std::string, uint16_t > BeBoardRegMap; /*!< Map containing the registers of a board */
 
 	/*!
 	* \class BeBoard
-	* \brief Read/Write BeBoard's registers on a file, contains a register map and contains a vector of Module which are connected to the BeBoard
+	* \brief Read/Write BeBoard's registers on a file, handles a register map and handles a vector of Module which are connected to the BeBoard
 	*/
 	class BeBoard{
 
 	public:
 
-		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is + the # of FEs connected
-		// Default C'tor
+		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is
+		/*!
+		* \brief Default C'tor
+		*/
 		BeBoard();
-		// C'tor for a standard BeBoard
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename = DEFAULT_GLIB_FILE );
-		// Parameters that define system for us
-		//Modify with new param
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, /*uint8_t pNFe, uint8_t pFMCConfiguration,*/ bool pExtTrg, bool pFakeData = false , std::string filename = DEFAULT_GLIB_FILE );
-		// D'tor
+
+		/*!
+		* \brief Standard C'tor
+		* \param pShelveId
+		* \param pBeId
+		*/
+		BeBoard( uint8_t pShelveId, uint8_t pBeId );
+
+		/*!
+		* \brief C'tor for a standard BeBoard reading a config file
+		* \param pShelveId
+		* \param pBeId
+		* \param filename of the configuration file
+		*/
+		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename );
+
+		/*!
+		* \brief Destructor
+		*/
 		~BeBoard(){};
 
 		// Public Methods
@@ -52,16 +67,6 @@ namespace Ph2_HwDescription{
 		* \return The size of the vector
 		*/
 		uint8_t getNFe(){return fModuleVector.size();};
-		/*!
-		* \brief Get the Be Id of the BeBoard
-		* \return the Be Id
-		*/
-		uint8_t getBeId(){return fBeId;};
-		/*!
-		* \brief Get the Shelve Id of the BeBoard
-		* \return the Be Id
-		*/
-		uint8_t getShelveId(){return fShelveId;};
 
 		/*!
 		* \brief Get any register from the Map
@@ -70,7 +75,7 @@ namespace Ph2_HwDescription{
 		*/
 		uint16_t getReg( std::string pReg );
 		/*!
-		* \brief Set any register of the Map
+		* \brief Set any register of the Map, if the register is not on the map, it adds it.
 		* \param pReg
 		* \param psetValue
 		*/
@@ -94,19 +99,43 @@ namespace Ph2_HwDescription{
 		*/
 		Module* getModule( uint8_t pModuleId );
 
-		std::map< std::string, uint16_t > getBeBoardRegMap (){return fRegMap;};
+		/*!
+		* \brief Get the Map of the registers
+		* \return The map of register
+		*/
+		BeBoardRegMap getBeBoardRegMap (){return fRegMap;};
 
-	public:
-		//Connection Members
-		uint8_t fBeId;
-		uint8_t fShelveId;
+		/*!
+		* \brief Get the BeBoardId of the BeBoard
+		* \return the BeBoard Id
+		*/
+		uint8_t getBeId(){return fBeId;};
+		/*!
+		* \brief Get the Shelve Id of the BeBoard
+		* \return the ShelveId
+		*/
+		uint8_t getShelveId(){return fShelveId;};
+		/*!
+		* \brief Set the Be Id of the BeBoard
+		* \param pBeId
+		*/
+		void setBeId(uint8_t pBeId){fBeId=pBeId;};
+		/*!
+		* \brief Set the Shelve Id of the BeBoard
+		* \param pShelveId
+		*/
+		void setShelveId(uint8_t pShelveId){fShelveId=pShelveId;};
 
-	protected:
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
 		std::vector< Module > fModuleVector;
 
-		// Map of BeBoard Register Names vs. Register Values
-		BeBoardRegMap fRegMap;
+	protected:
+		//Connection Members
+		uint8_t fShelveId;
+		uint8_t fBeId;
+
+
+		BeBoardRegMap fRegMap; /*!< Map of BeBoard Register Names vs. Register Values */
 
 	private:
 

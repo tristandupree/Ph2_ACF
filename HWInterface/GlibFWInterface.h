@@ -1,12 +1,12 @@
 /*!
-*
-* \file GlibFWInterface.h
-* \brief GlibFWInterface init/config of the Glib and its Cbc's
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 28/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
-*
+
+	\file 				GlibFWInterface.h
+	\brief 				GlibFWInterface init/config of the Glib and its Cbc's
+	\author 			Lorenzo BIDEGAIN, Nicolas PIERRE
+	\version			1.0
+	\date 				28/07/14
+	Support : 			mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
+
 */
 
 #ifndef __GLIBFWINTERFACE_H__
@@ -31,7 +31,7 @@ namespace Ph2_HwInterface
 {
 	/*!
 	* \class GlibFWInterface
-	* \brief Permit r/w given registers in the Glib you specify
+	* \brief init/config of the Glib and its Cbc's
 	*/
 	class GlibFWInterface : public BeBoardFWInterface {
 
@@ -92,6 +92,17 @@ namespace Ph2_HwInterface
 		* \param pBreakTrigger : if true, enable the break trigger
 		*/
 		void ReadData( BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger);
+		/*!
+		* \brief Get next event from data buffer
+		* \return Next event
+		*/
+		const Event* GetNextEvent();
+		/*!
+		* \brief Get the data buffer
+		* \param pBufSize : recovers the data buffer size
+		* \return Data buffer
+		*/
+		const char * GetBuffer( uint32_t &pBufSize );
 
 
 	//Methods for the Cbc's:
@@ -130,15 +141,16 @@ namespace Ph2_HwInterface
 
 		//r/w the Cbc registers
 		/*!
-		* \brief Write register blocks of a Cbc
-		* \param pVecReq : Block of words to write
-		*/
-		void WriteCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq );
-		/*!
-		* \brief Read register blocks of a Cbc
-		* \param pVecReq : Vector to stack the read words
-		*/
-		void ReadCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq );
+	    	* \brief Read register blocks of a Cbc
+	    	* \param pFeId : FrontEnd to work with
+	    	* \param pVecReq : Vector to stack the read words
+	    	*/
+		void WriteCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq );
+	    	/* \brief Read register blocks of a Cbc
+	    	* \param pFeId : FrontEnd to work with
+	    	* \param pVecReq : Vector to stack the read words
+	    	*/
+		void ReadCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq );
 
     };
 }

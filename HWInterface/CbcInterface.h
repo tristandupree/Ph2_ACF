@@ -2,10 +2,10 @@
 
 	\file 						 CBCInterface.h
 	\brief 						 User Interface to the Cbcs
-	\author 					 Lorenzo BIDEGAIN, Nicolas Pierre
-	\version 					 0.3
-	Date of creation :           31/07/14
-	Support :                    mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
+	\author 					 Lorenzo BIDEGAIN, Nicolas PIERRE
+	\version 					 1.0
+	\date			             31/07/14
+	Support :                    mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
 
 */
 
@@ -59,21 +59,20 @@ namespace Ph2_HwInterface
 	        * \brief Configure the Cbc with the Cbc Config File
 	        * \param pCbc
 	        */
-	        void ConfigureCbc(Cbc* pCbc);
+	        void ConfigureCbc(Cbc* pCbc, bool pVerifLoop = true);
 	        /*!
 	        * \brief Write the designated register in both Cbc and Cbc Config File
 	        * \param pCbc
 	        * \param pRegNode : Node of the register to write
 	        * \param pValue : Value to write
 	        */
-	        void WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue);
+	        void WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop = true);
 			/*!
-			* \brief Write the designated register in both Cbc and Cbc Config File
+			* \brief Write several registers in both Cbc and Cbc Config File
 			* \param pCbc
-			* \param pRegNode : Node of the register to write
-			* \param pValue : Value to write
+			* \param pVecReq : Vector of pair: Node of the register to write versus value to write
 			*/
-			void WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint32_t> > pVecReq);
+			void WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint8_t> > pVecReq, bool pVerifLoop = true );
 			/*!
 			* \brief Write same register in all Cbcs and then UpdateCbc (not working with current Firmware)
 			* \param pModule : Module containing vector of Cbcs
@@ -88,9 +87,9 @@ namespace Ph2_HwInterface
 	        */
 	        void ReadCbcReg(Cbc* pCbc,const std::string& pRegNode);
 			/*!
-			* \brief Read the designated register in the Cbc
+			* \brief Read several register in the Cbc
 			* \param pCbc
-			* \param pRegNode : Node of the register to read
+			* \param pVecReg : Vector of the nodes of the register to read
 			*/
 			void ReadCbcMultReg(Cbc* pCbc,std::vector<std::string> pVecReg);
 	        /*!
@@ -116,14 +115,14 @@ namespace Ph2_HwInterface
 			* \param pCbcId : Id of the Cbc to work with
 			* \param pVecReq : Vector to stack the encoded words
 			*/
-			void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq);
+			void EncodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq);
 			/*!
 			* \brief Decode a word from a read of a register of the Cbc
 	    	* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
 	    	* \param pCbcId : Id of the Cbc to work with
 	    	* \param pWord : variable to put the decoded word
 	    	*/
-	    	void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord);
+	    	void DecodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, uint32_t pWord);
 
     };
 }

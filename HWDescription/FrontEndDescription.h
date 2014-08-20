@@ -1,12 +1,12 @@
 /*!
-*
-* \file FrontEndDescription.h
-* \brief FrontEndDescription base class to describe all parameters common to all FE Components in the DAQ chain 
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	\file 				FrontEndDescription.h
+	\brief 				FrontEndDescription base class to describe all parameters common to all FE Components in the DAQ chain
+	\author 			Lorenzo BIDEGAIN
+	\version 			1.0
+	\date 				25/06/14
+	Support : 			mail to : lorenzo.bidegain@gmail.com
+
 */
 
 
@@ -28,18 +28,6 @@ namespace Ph2_HwDescription{
 	class FrontEndDescription {
 
 	public:
-		// MEMBERS
-
-		// Crate (uTCA) that the FE is connected to
-		uint8_t fShelveId;
-		// BIO Board Id that the FE is connected to
-		uint8_t fBeId;
-		// Id of the FMC Slot on the BIO Board, all FEs need to know so the right FW registers can be written
-		uint8_t fFMCId;
-		// Id of the FE (module/hybrid, etc...)
-		uint8_t fFeId;
-		// status (true=active, false=disabled)
-		bool fStatus;
 
 		// METHODS
 
@@ -92,37 +80,47 @@ namespace Ph2_HwDescription{
 		{ return fStatus ;};
 
 		// Setter methods
-		
+
 		/*!
 		* \brief Set the Shelve ID
 		* \param pShelveId
-		* \return the Shelve ID
 		*/
-		 virtual uint8_t setShelveId( uint8_t pShelveId );
+		 virtual void setShelveId( uint8_t pShelveId );
 		/*!
 		* \brief Set the Be ID
 		* \param pBeId
-		* \return the Be ID
 		*/
-		 virtual uint8_t setBeId( uint8_t pBeId );
+		 virtual void setBeId( uint8_t pBeId );
 		/*!
 		* \brief Set the FMC ID
 		* \param pFMCId
-		* \return the FMC ID
 		*/
-		 virtual uint8_t setFMCId(uint8_t pFMCId);
+		 virtual void setFMCId(uint8_t pFMCId);
 		/*!
 		* \brief Set the FE ID
 		* \param pFeId
-		* \return the Fe ID
 		*/
-		 virtual uint8_t setFeId( uint8_t pFeId );
+		 virtual void setFeId( uint8_t pFeId );
 		/*!
 		* \brief Set the status
 		* \param pStatus
-		* \return the Status
 		*/
-		 virtual bool setStatus (bool pStatus );
+		 virtual void setStatus (bool pStatus );
+
+	protected:
+		// MEMBERS
+
+		// Crate (uTCA) that the FE is connected to
+		uint8_t fShelveId;
+		// BIO Board Id that the FE is connected to
+		uint8_t fBeId;
+		// Id of the FMC Slot on the BIO Board, all FEs need to know so the right FW registers can be written
+		uint8_t fFMCId;
+		// Id of the FE (module/hybrid, etc...)
+		uint8_t fFeId;
+		// status (true=active, false=disabled)
+		bool fStatus;
+
 	};
 
 }

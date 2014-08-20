@@ -1,12 +1,12 @@
 /*!
-*
-* \file FrontEndDescription.cc
-* \brief FrontEndDescription base class to describe all parameters common to all FE Components in the DAQ chain 
-* \author Lorenzo BIDEGAIN
-* \date 25/06/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch
-*
+
+	Filename : 				FrontEndDescription.cc
+	Content : 				FrontEndDescription base class to describe all parameters common to all FE Components in the DAQ chain
+	Programmer : 			Lorenzo BIDEGAIN
+	Version :				1.0
+	Date of Creation : 		25/06/14
+	Support : 				mail to : lorenzo.bidegain@gmail.com
+
 */
 
 #include "FrontEndDescription.h"
@@ -15,21 +15,21 @@
 
 namespace Ph2_HwDescription{
 
-	FrontEndDescription::FrontEndDescription( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, bool pStatus ) : 
+	FrontEndDescription::FrontEndDescription( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, bool pStatus ) :
 	fShelveId( pShelveId ),
 	fBeId( pBeId ),
 	fFMCId( pFMCId ),
 	fFeId( pFeId ),
 	fStatus( pStatus ){};
 
-	FrontEndDescription::FrontEndDescription( uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId ) : 
+	FrontEndDescription::FrontEndDescription( uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId ) :
 	fShelveId( 0 ),
 	fBeId( pBeId ),
 	fFMCId( pFMCId ),
 	fFeId( pFeId ),
 	fStatus( true ){};
 
-	FrontEndDescription::FrontEndDescription( ) : 
+	FrontEndDescription::FrontEndDescription( ) :
 	fShelveId( 0 ),
 	fBeId( 0 ),
 	fFMCId( 0 ),
@@ -50,33 +50,28 @@ namespace Ph2_HwDescription{
 	// SetterMethods
 
 	// Shelve Id
-	uint8_t FrontEndDescription::setShelveId( uint8_t pShelveId ){
+	void FrontEndDescription::setShelveId( uint8_t pShelveId ){
 		fShelveId = pShelveId;
-		return fShelveId;
 	}
 
 	// BIO Board Id
-	uint8_t FrontEndDescription::setBeId( uint8_t pBeId ){
+	void FrontEndDescription::setBeId( uint8_t pBeId ){
 		fBeId = pBeId;
-		return fBeId;
 	}
 
 	// BIO Board FMC Connector Id
-	uint8_t FrontEndDescription::setFMCId( uint8_t pFMCId ){
+	void FrontEndDescription::setFMCId( uint8_t pFMCId ){
 		fFMCId = pFMCId;
-		return fFMCId;
 	}
 
 	// Fe Id
-	uint8_t FrontEndDescription::setFeId( uint8_t pFeId ){
+	void FrontEndDescription::setFeId( uint8_t pFeId ){
 		fFeId = pFeId;
-		return fFeId;
 	}
 
 	// Status
-	bool FrontEndDescription::setStatus( bool pStatus ){
+	void FrontEndDescription::setStatus( bool pStatus ){
 		fStatus = pStatus;
-		return fStatus;
 	}
 
 }

@@ -1,12 +1,12 @@
-/*!
-*
-* \file GlibFWInterface.cc
-* \brief GlibFWInterface init/config of the Glib
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 28/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
-*
+/*
+
+	FileName :                    GlibFWInterface.h
+	Content :                     GlibFWInterface init/config of the Glib and its Cbc's
+	Programmer :                  Lorenzo BIDEGAIN, Nicolas PIERRE
+	Version :                     1.0
+	Date of creation :            28/07/14
+	Support :                     mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
+
 */
 
 #include <uhal/uhal.hpp>
@@ -39,7 +39,9 @@ namespace Ph2_HwInterface
     	boost::posix_time::milliseconds cPause(200);
 
     	//Primary Configuration
-    	cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
+    	cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
+		cVecReg.push_back(cPairReg);
+		cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
 		cVecReg.push_back(cPairReg);
     	cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
     	cVecReg.push_back(cPairReg);
@@ -169,49 +171,6 @@ namespace Ph2_HwInterface
 
 		cVecReg.clear();
 
-		/*
-		cPairReg.first = PC_CONFIG_OK; cPairReg.second = 0;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SRAM1_END_READOUT; cPairReg.second = 0;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SRAM2_END_READOUT; cPairReg.second = 0;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SRAM1_USR_LOGIC; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = SRAM2_USR_LOGIC; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-
-		WriteStackReg(cVecReg);
-
-		cVecReg.clear();
-
-		boost::this_thread::sleep(cWait);
-		WriteReg(CBC_HARD_RESET,0);
-		boost::this_thread::sleep(cWait);
-		WriteReg(CBC_HARD_RESET,0);
-
-		cPairReg.first = CBC_TEST_PULSE_VALID; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = DELAY_AF_FAST_RESET; cPairReg.second = 30000;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = DELAY_AF_L1A; cPairReg.second = 30000;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = DELAY_AF_TEST_PULSE; cPairReg.second = 30000;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = RQ; cPairReg.second = 1;
-		cPairReg.first = SPURIOUS_FRAME; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = ACQ_MODE; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-		cPairReg.first = PC_CONFIG_OK; cPairReg.second = 1;
-		cVecReg.push_back(cPairReg);
-
-		WriteStackReg(cVecReg);
-
-		cVecReg.clear();
-		*/
-
     }
 
 	void GlibFWInterface::Stop(uint32_t pNthAcq)
@@ -340,7 +299,7 @@ namespace Ph2_HwInterface
 
 		//break trigger
 		if( pBreakTrigger )
-        	{
+        {
 			WriteReg(BREAK_TRIGGER,1);
 		}
 
@@ -405,6 +364,18 @@ namespace Ph2_HwInterface
     	fStrSramUserLogic =  ((pNthAcq%2+1)==1 ? SRAM1_USR_LOGIC : SRAM2_USR_LOGIC);
     	fStrFull = ((pNthAcq%2+1)==1 ? SRAM1_FULL : SRAM2_FULL);
     	fStrReadout= ((pNthAcq%2+1)==1 ? SRAM1_END_READOUT : SRAM2_END_READOUT);
+	}
+
+
+	const Event* GlibFWInterface::GetNextEvent()
+	{
+		return fData->GetNextEvent();
+	}
+
+
+	const char * GlibFWInterface::GetBuffer( uint32_t &pBufSize )
+	{
+		return fData->GetBuffer( pBufSize );
 	}
 
 
@@ -523,7 +494,7 @@ namespace Ph2_HwInterface
            	usleep(100000);
 	}
 
-	void GlibFWInterface::WriteCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq )
+	void GlibFWInterface::WriteCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq )
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -565,7 +536,7 @@ namespace Ph2_HwInterface
 		EnableI2c(0);
 	}
 
-	void GlibFWInterface::ReadCbcBlockReg( uint8_t& pFeId,std::vector<uint32_t>& pVecReq )
+	void GlibFWInterface::ReadCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq )
 	{
 
 #ifdef __CBCDAQ_DEV__

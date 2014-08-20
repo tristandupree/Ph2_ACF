@@ -1,12 +1,12 @@
 /*!
-*
-* \file BeBoardFWInterface.h
-* \brief BeBoardFWInterface base class of all type of boards
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 28/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
-*
+
+	\file				 BeBoardFWInterface.h
+	\brief 				 BeBoardFWInterface base class of all type of boards
+	\author 			 Lorenzo BIDEGAIN, Nicolas PIERRE
+	\version			 1.0
+	\date 				 28/07/14
+	Support : 			 mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
+
 */
 
 #ifndef __BEBOARDFWINTERFACE_H__
@@ -43,7 +43,6 @@ namespace Ph2_HwInterface
 
 		public:
 			unsigned int fNTotalAcq;
-	        bool fStop;
 
 			std::ofstream *fDataFile; /*!< File storing data*/
 	        Data *fData; /*!< Data read storage*/
@@ -61,18 +60,16 @@ namespace Ph2_HwInterface
 			virtual ~BeBoardFWInterface();
 
 			/*!
-			* \brief Get the board infos
-			* \param pBoard
+			* \brief Define the size of Event
+			* \param pNbCbc Number of Cbc's
 			*/
 			virtual	void defineEventSize(uint32_t pNbCbc);
 			/*!
 			* \brief Get the board type
-			* \param pBoard
 			*/
 			virtual	std::string getBoardType();
 			/*!
 			* \brief Get the board infos
-			* \param pBoard
 			*/
 			virtual	void getBoardInfo();
 
@@ -87,30 +84,30 @@ namespace Ph2_HwInterface
 			* \param pCbcId : Id of the Cbc to work with
 			* \param pVecReq : Vector to stack the encoded words
 			*/
-			virtual void EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq); /*!< Encode a/several word(s) readable for a Cbc*/
+			virtual void EncodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq); /*!< Encode a/several word(s) readable for a Cbc*/
 			/*!
 			* \brief Decode a word from a read of a register of the Cbc
 	    	* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
 	    	* \param pCbcId : Id of the Cbc to work with
 	    	* \param pWord : variable to put the decoded word
 	    	*/
-	    	virtual void DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord); /*!< Decode a word from a read of a register of the Cbc*/
+	    	virtual void DecodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, uint32_t pWord); /*!< Decode a word from a read of a register of the Cbc*/
 
 
 			//virtual pure methods which are defined in the proper BoardFWInterface class
 			//r/w the Cbc registers
 	    	/*!
 	    	* \brief Write register blocks of a Cbc
-	    	* \param pCbc : Cbc to work with
+	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Block of words to write
 	    	*/
-	    	virtual void WriteCbcBlockReg( uint8_t& pFeId, std::vector<uint32_t>& pVecReq ) {};
+	    	virtual void WriteCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq ) {};
 	    	/*!
 	    	* \brief Read register blocks of a Cbc
-	    	* \param pCbc : Cbc to work with
+	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Vector to stack the read words
 	    	*/
-	    	virtual void ReadCbcBlockReg( uint8_t& pFeId, std::vector<uint32_t>& pVecReq ) {};
+	    	virtual void ReadCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq ) {};
 			/*!
 	    	* \brief Configure the board with its Config File
 	    	* \param pBoard
@@ -118,23 +115,19 @@ namespace Ph2_HwInterface
 			virtual void ConfigureBoard(BeBoard* pBoard) {};
 			/*!
 			* \brief Start a DAQ
-			* \param pBoard
 			*/
 			virtual void Start() {};
 			/*!
 			* \brief Stop a DAQ
-			* \param pBoard
 			* \param pNthAcq : actual number of acquisitions
 			*/
 			virtual void Stop(uint32_t pNthAcq) {};
 			/*!
 			* \brief Pause a DAQ
-			* \param pBoard
 			*/
 			virtual void Pause() {};
 			/*!
-			* \brief Unpause a DAQ
-			* \param pBoard
+			* \brief Resume a DAQ
 			*/
 			virtual void Resume() {};
 			/*!
@@ -144,6 +137,17 @@ namespace Ph2_HwInterface
 			* \param pBreakTrigger : if true, enable the break trigger
 			*/
 			virtual void ReadData(	BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger) {};
+			/*!
+			* \brief Get next event from data buffer
+			* \return Next event
+			*/
+			virtual const Event* GetNextEvent() {};
+			/*!
+			* \brief Get the data buffer
+			* \param pBufSize : recovers the data buffer size
+			* \return Data buffer
+			*/
+			virtual const char * GetBuffer( uint32_t &pBufSize ) const {};
 
 
 	};

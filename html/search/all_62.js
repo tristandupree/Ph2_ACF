@@ -1,7 +1,7 @@
 var searchData=
 [
   ['beboard',['BeBoard',['../class_ph2___hw_description_1_1_be_board.html',1,'Ph2_HwDescription']]],
-  ['beboard',['BeBoard',['../class_ph2___hw_description_1_1_be_board.html#a3bd1302a3dbf6ff0ba59dab710cfa537',1,'Ph2_HwDescription::BeBoard::BeBoard()'],['../class_ph2___hw_description_1_1_be_board.html#a3d36a1d2b408a2030618a06fa27c77d5',1,'Ph2_HwDescription::BeBoard::BeBoard(uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, std::string filename=DEFAULT_GLIB_FILE)'],['../class_ph2___hw_description_1_1_be_board.html#ae6ffc11657e275575114eb916b706c40',1,'Ph2_HwDescription::BeBoard::BeBoard(uint8_t pShelveId, uint8_t pBeId, uint8_t pNFe, bool pExtTrg, bool pFakeData=false, std::string filename=DEFAULT_GLIB_FILE)']]],
+  ['beboard',['BeBoard',['../class_ph2___hw_description_1_1_be_board.html#a3bd1302a3dbf6ff0ba59dab710cfa537',1,'Ph2_HwDescription::BeBoard::BeBoard()'],['../class_ph2___hw_description_1_1_be_board.html#a4aca8e709e5ae58d4d12ea544dff9a9e',1,'Ph2_HwDescription::BeBoard::BeBoard(uint8_t pShelveId, uint8_t pBeId)'],['../class_ph2___hw_description_1_1_be_board.html#a88b73bd7d4be8e447ac14abcb9fe734d',1,'Ph2_HwDescription::BeBoard::BeBoard(uint8_t pShelveId, uint8_t pBeId, std::string filename)']]],
   ['beboard_2ecc',['BeBoard.cc',['../_be_board_8cc.html',1,'']]],
   ['beboard_2eh',['BeBoard.h',['../_be_board_8h.html',1,'']]],
   ['beboardfwinterface',['BeBoardFWInterface',['../class_ph2___hw_interface_1_1_be_board_f_w_interface.html',1,'Ph2_HwInterface']]],
@@ -14,9 +14,20 @@ var searchData=
   ['beboardinterface_2ecc',['BeBoardInterface.cc',['../_be_board_interface_8cc.html',1,'']]],
   ['beboardinterface_2eh',['BeBoardInterface.h',['../_be_board_interface_8h.html',1,'']]],
   ['beboardregmap',['BeBoardRegMap',['../namespace_ph2___hw_description.html#a2e13fb82c8ed98154c60f9d0f8467d72',1,'Ph2_HwDescription']]],
+  ['begin',['begin',['../structxpath__lexer__string.html#a0b985863d7363a75d4fdd0a7ece1fca0',1,'xpath_lexer_string::begin()'],['../classxpath__node__set__raw.html#a8d08142ac662315aa23395a44f301b66',1,'xpath_node_set_raw::begin()']]],
+  ['binary_5fop_5ft',['binary_op_t',['../structxpath__parser_1_1binary__op__t.html',1,'xpath_parser']]],
+  ['binary_5fop_5ft',['binary_op_t',['../structxpath__parser_1_1binary__op__t.html#a18cac63911120c27f5ee842b1e6afe35',1,'xpath_parser::binary_op_t::binary_op_t()'],['../structxpath__parser_1_1binary__op__t.html#a6b8a545436af8aa0c74c91e181a2b865',1,'xpath_parser::binary_op_t::binary_op_t(ast_type_t asttype_, xpath_value_type rettype_, int precedence_)']]],
   ['bit',['Bit',['../class_ph2___hw_interface_1_1_event.html#a5b542b0d98a413feef14cc57cff250bf',1,'Ph2_HwInterface::Event']]],
   ['bitstring',['BitString',['../class_ph2___hw_interface_1_1_event.html#a67261ba2ea976e1c265c8aa7fe1a4b2d',1,'Ph2_HwInterface::Event']]],
   ['bitvector',['BitVector',['../class_ph2___hw_interface_1_1_event.html#ab83e11f21873bd5beebd1049671ce3da',1,'Ph2_HwInterface::Event']]],
+  ['block',['block',['../structxpath__query__impl.html#a3a8af3ceed6a504567656ec6d1b62641',1,'xpath_query_impl']]],
+  ['blocks',['blocks',['../structxpath__stack__data.html#a6821cc444dd65d997467fd3f757f4aff',1,'xpath_stack_data']]],
   ['board_5ftype',['BOARD_TYPE',['../_definition_8h.html#a9b229c5fa667622ae84c26cbbfca2c4a',1,'Definition.h']]],
-  ['break_5ftrigger',['BREAK_TRIGGER',['../_definition_8h.html#a001a688d4bf711101d3b626ba6ae8726',1,'Definition.h']]]
+  ['break_5ftrigger',['BREAK_TRIGGER',['../_definition_8h.html#a001a688d4bf711101d3b626ba6ae8726',1,'Definition.h']]],
+  ['bufcapacity',['bufcapacity',['../classxml__buffered__writer.html#a684aec07739ea6e60d47440eee97b4f6ab8b49b73105796783607f1f1ddd382cd',1,'xml_buffered_writer']]],
+  ['bufcapacitybytes',['bufcapacitybytes',['../classxml__buffered__writer.html#a684aec07739ea6e60d47440eee97b4f6a9021e7b22ef17fba93b80380f0ffbbc8',1,'xml_buffered_writer']]],
+  ['buffer',['buffer',['../structxml__extra__buffer.html#ab24b191b25f92ad4d48009978ebee38c',1,'xml_extra_buffer::buffer()'],['../structxml__document__struct.html#a120451f29b8cc2a82a3ecc926449ea0e',1,'xml_document_struct::buffer()'],['../classxml__buffered__writer.html#a84c87765fbdf444d981ffb0f67899dd4',1,'xml_buffered_writer::buffer()']]],
+  ['buffer_5fholder',['buffer_holder',['../structbuffer__holder.html',1,'buffer_holder'],['../structbuffer__holder.html#aec91ad4dabc8db2a6cacac601b317857',1,'buffer_holder::buffer_holder()']]],
+  ['bufsize',['bufsize',['../classxml__buffered__writer.html#a6bad6a93035d796939d84bee30e74ce7',1,'xml_buffered_writer']]],
+  ['busy_5fsize',['busy_size',['../structxml__memory__page.html#a04780ddabc14b45baba3d1ded79d355a',1,'xml_memory_page']]]
 ];

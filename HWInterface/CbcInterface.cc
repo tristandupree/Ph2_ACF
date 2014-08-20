@@ -1,19 +1,18 @@
-/*!
-*
-* \file CBCInterface.cc
-* \brief CBCInterface.cc User interface for the cbc's
-* \author Lorenzo BIDEGAIN, Nicolas Pierre
-* \date 30/07/14
-*
-* Support : mail to : lorenzo.bidegain@cern.ch, nico.pierre@icloud.com
-*
+/*
+
+	FileName :                     CbcInterface.cc
+	Content :                      User Interface to the Cbcs
+	Programmer :                   Lorenzo BIDEGAIN, Nicolas PIERRE
+	Version :                      1.0
+	Date of creation :             10/07/14
+	Support :                      mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
+
 */
 
 #include "CbcInterface.h"
 
 
 #define DEV_FLAG 0
-#define VERIFICATION_LOOP 0
 
 namespace Ph2_HwInterface
 {
@@ -49,7 +48,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::ConfigureCbc(Cbc* pCbc)
+	void CbcInterface::ConfigureCbc(Cbc* pCbc, bool pVerifLoop)
 	{
 		setBoard(pCbc->getBeId());
 
@@ -69,12 +68,12 @@ namespace Ph2_HwInterface
 
 		for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
 		{
-			EncodeReg(cIt->second,pCbc->fCbcId,cVecReq);
+			EncodeReg(cIt->second,pCbc->getCbcId(),cVecReq);
 		}
 
-		fBoardFW->WriteCbcBlockReg(pCbc->fFeId,cVecReq);
+		fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecReq);
 
-		if(VERIFICATION_LOOP)
+		if(pVerifLoop)
 		{
 			std::vector<uint32_t> cWriteValue, cReadValue, cVecReqBis;
 			uint8_t cCbcId = pCbc->getCbcId();
@@ -87,9 +86,9 @@ namespace Ph2_HwInterface
 				cWriteValue.push_back(cRegItem.fValue);
 				cRegItem.fValue = 0;
 
-				EncodeReg(cRegItem,pCbc->fCbcId,cVecReqBis);
+				EncodeReg(cRegItem,pCbc->getCbcId(),cVecReqBis);
 
-				fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReqBis);
+				fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReqBis);
 
 				DecodeReg(cRegItem,cCbcId,cVecReqBis[0]);
 
@@ -101,6 +100,7 @@ namespace Ph2_HwInterface
 				{
 					std::cout << "\nERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
 					std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
+					std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
 					mypause();
 				}
 				else
@@ -126,7 +126,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint32_t pValue)
+	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -146,11 +146,11 @@ namespace Ph2_HwInterface
 
         setBoard(pCbc->getBeId());
 
-        EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+        EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
 
-        fBoardFW->WriteCbcBlockReg(pCbc->fFeId,cVecReq);
+        fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecReq);
 
-        if(VERIFICATION_LOOP)
+        if(pVerifLoop)
         {
             uint32_t cWriteValue, cReadValue;
             uint8_t cCbcId = pCbc->getCbcId();
@@ -160,9 +160,9 @@ namespace Ph2_HwInterface
             cWriteValue = cRegItem.fValue;
             cRegItem.fValue = 0;
 
-            EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+            EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
 
-            fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReq);
+            fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReq);
 
             DecodeReg(cRegItem,cCbcId,cVecReq[0]);
 
@@ -171,6 +171,9 @@ namespace Ph2_HwInterface
             if(cReadValue != cWriteValue)
             {
                 std::cout << "ERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+				std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
+				std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
+				mypause();
             }
             else
             {
@@ -196,7 +199,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint32_t> > pVecReq)
+	void CbcInterface::WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint8_t> > pVecReq, bool pVerifLoop)
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -219,20 +222,18 @@ namespace Ph2_HwInterface
 			cRegItem.fValue = pVecReq[i].second;
 			cRegItem = (pCbc->getRegMap())[pVecReq[i].first];
 
-			EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+			EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
 
 			pCbc->setReg(pVecReq[i].first,cRegItem.fValue);
 		}
 
-		fBoardFW->WriteCbcBlockReg(pCbc->fFeId,cVecReq);
+		fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecReq);
 
-		if(VERIFICATION_LOOP)
+		if(pVerifLoop)
 		{
 			std::vector<uint32_t> cWriteValue, cReadValue, cVecReqBis;
 			uint8_t cCbcId = pCbc->getCbcId();
 			CbcRegItem cRegItem;
-
-			myflush( std::cin );
 
 			for(int32_t i=0;i<cVecReq.size();i++)
 			{
@@ -241,9 +242,9 @@ namespace Ph2_HwInterface
 				cWriteValue.push_back(cRegItem.fValue);
 				cRegItem.fValue = 0;
 
-				EncodeReg(cRegItem,pCbc->fCbcId,cVecReqBis);
+				EncodeReg(cRegItem,pCbc->getCbcId(),cVecReqBis);
 
-				fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReq);
+				fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReq);
 
 				DecodeReg(cRegItem,cCbcId,cVecReqBis[0]);
 
@@ -255,6 +256,7 @@ namespace Ph2_HwInterface
 				{
 					std::cout << "\nERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
 					std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
+					std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
 					mypause();
 				}
 				else
@@ -300,9 +302,9 @@ namespace Ph2_HwInterface
 
 		setBoard(pCbc->getBeId());
 
-		EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+		EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
 
-		fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReq);
+		fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReq);
 
 		DecodeReg(cRegItem,cCbcId,cVecReq[0]);
 
@@ -351,9 +353,9 @@ namespace Ph2_HwInterface
 		{
 			cRegItem = (pCbc->getRegMap())[pVecReg[i]];
 
-			EncodeReg(cRegItem,pCbc->fCbcId,cVecReq);
+			EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
 
-			fBoardFW->ReadCbcBlockReg(pCbc->fFeId,cVecReq);
+			fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReq);
 
 			DecodeReg(cRegItem,cCbcId,cVecReq[0]);
 
@@ -419,11 +421,11 @@ namespace Ph2_HwInterface
 
                 for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
                 {
-                   EncodeReg(cIt->second,cCbc->fCbcId,cVecReq);
+                   EncodeReg(cIt->second,cCbc->getCbcId(),cVecReq);
                    cVecRegNode.push_back(cIt->first);
                 }
 
-                fBoardFW->ReadCbcBlockReg(cCbc->fFeId,cVecReq);
+                fBoardFW->ReadCbcBlockReg(cCbc->getFeId(),cVecReq);
 
                 for(uint32_t j=0;j<cVecReq.size();j++)
                 {
@@ -481,10 +483,10 @@ namespace Ph2_HwInterface
 				cMissed++;
 			}
 
-            	/*
-                It makes the broadcast only the first time it finds an
-                existing Cbc and then update all the other Cbcs.
-            	*/
+        	/*
+            It makes the broadcast only the first time it finds an
+            existing Cbc and then update all the other Cbcs.
+        	*/
 			else if(i == 0 && pModule->getCbc(i+cMissed) != NULL)
 			{
 				cCbc = pModule->getCbc(i+cMissed);
@@ -493,7 +495,7 @@ namespace Ph2_HwInterface
 
 				EncodeReg(cRegItem,cCbcId,cVecReq);
 
-				fBoardFW->WriteCbcBlockReg(cCbc->fFeId,cVecReq);
+				fBoardFW->WriteCbcBlockReg(cCbc->getFeId(),cVecReq);
 
 				ReadCbcReg(pModule->getCbc(i+cMissed),pRegNode);
 			}
@@ -543,13 +545,13 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, std::vector<uint32_t>& pVecReq)
+	void CbcInterface::EncodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq)
 	{
 		fBoardFW->EncodeReg(pRegItem, pCbcId, pVecReq);
 	}
 
 
-	void CbcInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t& pCbcId, uint32_t pWord)
+	void CbcInterface::DecodeReg(CbcRegItem& pRegItem, uint8_t pCbcId, uint32_t pWord)
 	{
 		fBoardFW->DecodeReg(pRegItem, pCbcId, pWord);
 	}

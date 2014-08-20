@@ -10,17 +10,21 @@ Namespace regrouping all the hardware description.
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}
-\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}'s registers on a file, contains a register map and contains a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}'s registers on a file, handles a register map and handles a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}
-\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on a file. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on a file, contains a register map. \end{DoxyCompactList}\item 
 struct \hyperlink{struct_ph2___hw_description_1_1_cbc_comparer}{Cbc\-Comparer}
 \begin{DoxyCompactList}\small\item\em Compare two \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} by their I\-D. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_ph2___hw_description_1_1_reg_item_comparer}{Reg\-Item\-Comparer}
+\begin{DoxyCompactList}\small\item\em Compare two pair of Register Name Versus \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} by the Page and Adress of the \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item}. \end{DoxyCompactList}\item 
 struct \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item}
 \begin{DoxyCompactList}\small\item\em Struct for Cbc\-Register\-Item that is identified by Page, Address, Default\-Value, Value. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_description_1_1_front_end_description}{Front\-End\-Description}
 \begin{DoxyCompactList}\small\item\em Describe all parameters common to all F\-E Components in the D\-A\-Q chain. \end{DoxyCompactList}\item 
 class \hyperlink{class_ph2___hw_description_1_1_module}{Module}
-\begin{DoxyCompactList}\small\item\em contains a vector of \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} which are connected to the \hyperlink{class_ph2___hw_description_1_1_module}{Module} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em handles a vector of \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} which are connected to the \hyperlink{class_ph2___hw_description_1_1_module}{Module} \end{DoxyCompactList}\item 
+class \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve}
+\begin{DoxyCompactList}\small\item\em handles a vector of Board which are connected to the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
@@ -29,16 +33,30 @@ uint16\-\_\-t $>$ \hyperlink{namespace_ph2___hw_description_a2e13fb82c8ed98154c6
 \item 
 typedef std\-::map$<$ std\-::string, \\*
 \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} $>$ \hyperlink{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{Cbc\-Reg\-Map}
+\item 
+typedef std\-::pair$<$ std\-::string, \\*
+\hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} $>$ \hyperlink{namespace_ph2___hw_description_a78856413327152e693dceca249188d11}{Cbc\-Reg\-Pair}
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Namespace regrouping all the hardware description. 
+Namespace regrouping all the hardware description. Filename \-: \hyperlink{_be_board_8cc}{Be\-Board.\-cc} Content \-: \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} Description class, configs of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} Programmer \-: Lorenzo B\-I\-D\-E\-G\-A\-I\-N Version \-: 1.\-0 Date of Creation \-: 14/07/14 Support \-: mail to \-: \href{mailto:lorenzo.bidegain@gmail.com}{\tt lorenzo.\-bidegain@gmail.\-com}
+
+Filename \-: \hyperlink{_cbc_8cc}{Cbc.\-cc} Content \-: \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} Description class, config of the Cbcs Programmer \-: Lorenzo B\-I\-D\-E\-G\-A\-I\-N Version \-: 1.\-0 Date of Creation \-: 25/06/14 Support \-: mail to \-: \href{mailto:lorenzo.bidegain@gmail.com}{\tt lorenzo.\-bidegain@gmail.\-com}
+
+Filename \-: \hyperlink{_front_end_description_8cc}{Front\-End\-Description.\-cc} Content \-: \hyperlink{class_ph2___hw_description_1_1_front_end_description}{Front\-End\-Description} base class to describe all parameters common to all F\-E Components in the D\-A\-Q chain Programmer \-: Lorenzo B\-I\-D\-E\-G\-A\-I\-N Version \-: 1.\-0 Date of Creation \-: 25/06/14 Support \-: mail to \-: \href{mailto:lorenzo.bidegain@gmail.com}{\tt lorenzo.\-bidegain@gmail.\-com}
+
+Filename \-: \hyperlink{_module_8cc}{Module.\-cc} Content \-: \hyperlink{class_ph2___hw_description_1_1_module}{Module} Description class Programmer \-: Lorenzo B\-I\-D\-E\-G\-A\-I\-N Version \-: 1.\-0 Date of Creation \-: 25/06/14 Support \-: mail to \-: \href{mailto:lorenzo.bidegain@gmail.com}{\tt lorenzo.\-bidegain@gmail.\-com}
+
+Filename \-: \hyperlink{_shelve_8cc}{Shelve.\-cc} Content \-: \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Description class, handles a vector of Board Programmer \-: Lorenzo B\-I\-D\-E\-G\-A\-I\-N Version \-: 1.\-0 Date of Creation \-: 11/08/14 Support \-: mail to \-: \href{mailto:lorenzo.bidegain@gmail.com}{\tt lorenzo.\-bidegain@gmail.\-com} 
 
 \subsection{Typedef Documentation}
 \hypertarget{namespace_ph2___hw_description_a2e13fb82c8ed98154c60f9d0f8467d72}{\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!Be\-Board\-Reg\-Map@{Be\-Board\-Reg\-Map}}
 \index{Be\-Board\-Reg\-Map@{Be\-Board\-Reg\-Map}!Ph2_HwDescription@{Ph2\-\_\-\-Hw\-Description}}
 \subsubsection[{Be\-Board\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$ std\-::string, uint16\-\_\-t $>$ {\bf Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-Reg\-Map}}}\label{namespace_ph2___hw_description_a2e13fb82c8ed98154c60f9d0f8467d72}
-\hypertarget{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!Cbc\-Reg\-Map@{Cbc\-Reg\-Map}}
+Map containing the registers of a board \hypertarget{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!Cbc\-Reg\-Map@{Cbc\-Reg\-Map}}
 \index{Cbc\-Reg\-Map@{Cbc\-Reg\-Map}!Ph2_HwDescription@{Ph2\-\_\-\-Hw\-Description}}
 \subsubsection[{Cbc\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::map$<$ std\-::string, {\bf Cbc\-Reg\-Item} $>$ {\bf Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-Reg\-Map}}}\label{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}
+\hypertarget{namespace_ph2___hw_description_a78856413327152e693dceca249188d11}{\index{Ph2\-\_\-\-Hw\-Description@{Ph2\-\_\-\-Hw\-Description}!Cbc\-Reg\-Pair@{Cbc\-Reg\-Pair}}
+\index{Cbc\-Reg\-Pair@{Cbc\-Reg\-Pair}!Ph2_HwDescription@{Ph2\-\_\-\-Hw\-Description}}
+\subsubsection[{Cbc\-Reg\-Pair}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\-::pair$<$std\-::string, {\bf Cbc\-Reg\-Item}$>$ {\bf Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-Reg\-Pair}}}\label{namespace_ph2___hw_description_a78856413327152e693dceca249188d11}

@@ -2,10 +2,10 @@
 
 	\file 						 BeBoardInterface.h
 	\brief 						 User Interface to the Boards
-	\author 					 Lorenzo BIDEGAIN, Nicolas Pierre
-	\version 					 0.3
-	Date of creation :           31/07/14
-	Support :                    mail to : lorenzo.bidegain@cern.ch, nicolas.pierre@cern.ch
+	\author 					 Lorenzo BIDEGAIN, Nicolas PIERRE
+	\version 					 1.0
+	\date			             31/07/14
+	Support :                    mail to : lorenzo.bidegain@gmail.com, nicolas.pierre@cern.ch
 
 */
 
@@ -97,7 +97,7 @@ namespace Ph2_HwInterface
         	*/
         	void Pause(BeBoard* pBoard);
         	/*!
-        	* \brief Unpause a DAQ
+        	* \brief Resume a DAQ
         	* \param pBoard
         	*/
         	void Resume(BeBoard* pBoard);
@@ -108,6 +108,18 @@ namespace Ph2_HwInterface
         	* \param pBreakTrigger : if true, enable the break trigger
         	*/
         	void ReadData(BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger);
+			/*!
+			* \brief Get next event from data buffer
+			* \param pBoard
+			* \return Next event
+			*/
+			const Event* GetNextEvent(BeBoard* pBoard);
+			/*!
+			* \brief Get the data buffer
+			* \param pBufSize : recovers the data buffer size
+			* \return Data buffer
+			*/
+			const char * GetBuffer( BeBoard* pBeBoard, uint32_t &pBufSize );
 
 	};
 }
