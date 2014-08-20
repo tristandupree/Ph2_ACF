@@ -156,9 +156,14 @@ fCbcId(pCbcId),
 fGroupId(pGroupId){}
 
 
+TestGroupGraph::TestGroupGraph(){ 
+	fVplusVcthGraph = NULL;
+}
+
+
 TestGroupGraph::TestGroupGraph(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId)
 {
-	TString graphname = Form("VplusVcthGraph_Fe%d_Cbc%d_Group%d",fFeId,fCbcId,fGroupId);
+	TString graphname = Form("VplusVcthGraph_Fe%d_Cbc%d_Group%d",pFeId,pCbcId,pGroupId);
 	fVplusVcthGraph = (TGraphErrors*) gROOT->FindObject(graphname);
 	if (fVplusVcthGraph) delete fVplusVcthGraph;
 	fVplusVcthGraph = new TGraphErrors();

@@ -20,7 +20,9 @@
 
 #include "TMultiGraph.h"
 #include "TCanvas.h"
-#include "TFitResultPointer.h"
+#include "TFitResultPtr.h"
+
+#include <map>
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -42,7 +44,10 @@ public:
 
 	void VplusScan();
 	void FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
-    
+    void setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRegName, uint8_t pRegValue);
+    void EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVplus);
+    void FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent);
+    void processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pVplus, bool pHoleMode);
     
 private:
 		
@@ -54,7 +59,7 @@ private:
 private:
     
     void InitialiseTestGroup();
-	void ConstructTestGroup(uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId);
+	void ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId);
 
 };
 

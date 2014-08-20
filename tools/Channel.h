@@ -52,6 +52,7 @@ struct TestGroup{
 };
 
 struct TestGroupGraph{
+	TestGroupGraph();
 	TestGroupGraph(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
 	void FillVplusVcthGraph(uint8_t& pVplus, double pPedestal, double pNoise);
 	TGraphErrors* fVplusVcthGraph;
