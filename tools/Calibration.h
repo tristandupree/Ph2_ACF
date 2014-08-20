@@ -18,6 +18,10 @@
 #include "../System/SystemController.h"
 #include "Channel.h"
 
+#include "TMultiGraph.h"
+#include "TCanvas.h"
+#include "TFitResultPointer.h"
+
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 using namespace Ph2_System;
@@ -37,22 +41,20 @@ public:
 	~Calibration(){};
 
 	void VplusScan();
-	uint8_t FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
+	void FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
     
     
 private:
 		
 	TFile* fResultFile;
 	TestGroupMap fTestGroupMap;
+	TestGroupGraphMap fTestGroupGraphMap;
 	std::vector<uint8_t> fVplusValues;
 
 private:
     
     void InitialiseTestGroup();
-	void ConstructTestGroup(uint8_t pBeId, uint8_t FeId, uint8_t CbcId);
-
-	uint8_t hextoint(char* pHexValue);
-
+	void ConstructTestGroup(uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId);
 
 };
 

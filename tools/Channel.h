@@ -44,11 +44,15 @@ struct Channel{
 struct TestGroup{
 	TestGroup(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
 
-	void FillVplusVcthGraph(uint8_t pVplus, double pPedestal, double pNoise);
 	uint8_t fBeId;
 	uint8_t fFeId;
 	uint8_t fCbcId;
 	uint8_t fGroupId;
+};
+
+struct TestGroupGraph{
+	TestGroupGraph(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
+	void FillVplusVcthGraph(uint8_t& pVplus, double pPedestal, double pNoise);
 	TGraphErrors* fVplusVcthGraph;
 };
 
@@ -62,5 +66,6 @@ struct TestGroupComparer{
 };
 
 typedef std::map< TestGroup , std::vector<Channel>, TestGroupComparer > TestGroupMap;
+typedef std::map< TestGroup, TestGroupGraph, TestGroupComparer > TestGroupGraphMap;
 
 #endif

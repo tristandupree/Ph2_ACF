@@ -152,7 +152,11 @@ TestGroup::TestGroup(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId
 fBeId( pBeId ),
 fFeId(pFeId),
 fCbcId(pCbcId),
-fGroupId(pGroupId){
+fGroupId(pGroupId){}
+
+
+TestGroupGraph::TestGroupGraph(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId)
+{
 	TString graphname = Form("VplusVcthGraph_Fe%d_Cbc%d_Group%d",fFeId,fCbcId,fGroupId);
 	fVplusVcthGraph = (TGraphErrors*) gROOT->FindObject(graphname);
 	if (fVplusVcthGraph) delete fVplusVcthGraph;
@@ -160,7 +164,7 @@ fGroupId(pGroupId){
 	fVplusVcthGraph->SetName(graphname);
 }
 
-void TestGroup::FillVplusVcthGraph(uint8_t pVplus, double pPedestal, double pNoise){
+void TestGroupGraph::FillVplusVcthGraph(uint8_t& pVplus, double pPedestal, double pNoise){
 
 	if (fVplusVcthGraph != NULL){
 		fVplusVcthGraph->SetPoint(fVplusVcthGraph->GetN(),pPedestal,pVplus);
