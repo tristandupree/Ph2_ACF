@@ -27,6 +27,52 @@ __What are the differences between the 2CBC/8CBC versions ?__
 The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
 Also, some functions are present in 8CBC and not in 2CBC due to the fact that the firmware of the 8CBC is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)
 
+Preliminary Setup
+-----------------
+
+Firmware for the GLIB can be found [here] (http://sbgcmstrackerupgrade.in2p3.fr/).
+
+NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] (http://sbgcmstrackerupgrade.in2p3.fr/) then follow the preliminary setup, otherwise you can skip this.
+
+i. Remove the current gcc and old boost libraries:
+
+        sudo yum remove devtoolset-1.1-gcc-debuginfo
+        sudo yum remove boost
+
+ii. Install the latest gcc compiler:
+
+        sudo yum install devtoolset-2
+        sudo ln -s /opt/rh/devtoolset-2/root/usr/bin* /usr/local/bin/
+        hash -r
+
+   This should give you gcc 4.8.1:
+
+        /usr/bin/gcc --version
+
+iii. Download [boost] (http://www.boost.org/users/history/version_1_55_0.html), then install:
+
+        tar --bzip2 -xf boost_1_55_0.tar.bz2
+	cd boost_1_55_0
+	./bootstrap.sh --prefix=/usr/
+	./b2 install
+
+   Then check Boost v1.55 is correctly installed using:
+
+        cat /usr/include/boost/version.hpp | grep "BOOST_LIB_VERSION"
+
+iv) Finally, update uHAL to version 2.3:
+
+	sudo yum groupremove uhal 
+	wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo
+	sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
+	sudo yum clean all
+	sudo yum groupinstall uhal
+
+Note: You may also need to set the environment variables:
+	
+  	export LD_LIBRARY_PATH=/opt/cactus/lib:$LD_LIBRARY_PATH
+   	export PATH=/opt/cactus/bin:$PATH
+
 
 The Test Software itself : the MCP Test Interface
 -------------------------------------------------
