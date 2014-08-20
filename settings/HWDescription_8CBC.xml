@@ -18,7 +18,6 @@
         	<Register name="user_wb_ttc_fmc_regs.pc_commands.INT_TRIGGER_FREQ"> 8 </Register>
         	<Register name="user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"> 0 </Register>
         	<Register name="user_wb_ttc_fmc_regs.pc_commands2.clock_shift"> 0 </Register>
-        	<Register name="user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC"> 1 </Register>
         	<Register name="user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS"> 0 </Register>
         	<Register name="user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"> 0 </Register>
 
