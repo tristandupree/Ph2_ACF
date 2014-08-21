@@ -3,7 +3,7 @@
 FileName :                     test.cpp
 Content :                      Little test program to see if everything is working fine
 Programmer :                   Nicolas PIERRE, Lorenzo Bidegain
-Version :                      0.3
+Version :                      1.0
 Date of creation :             24/06/14
 Support :                      mail to : nico.pierre@cern.ch, lorenzo.bidegain@cern.ch
 
