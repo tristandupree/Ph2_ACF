@@ -3,7 +3,7 @@
   FileName :                     readdatatest.cpp
   Content :
   Programmer :                   Nicolas PIERRE, Lorenzo Bidegain
-  Version :                      0.3
+  Version :                      1.0
   Date of creation :             11/08/14
   Support :                      mail to : nico.pierre@icloud.com, lorenzo.bidegain@cern.ch
 
