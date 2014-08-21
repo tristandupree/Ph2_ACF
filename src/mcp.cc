@@ -3,7 +3,7 @@
   FileName :                     mcp.cpp
   Content :                      MCP Test Interface program, test the software
   Programmer :                   Nicolas PIERRE, Lorenzo Bidegain
-  Version :                      0.3
+  Version :                      1.0
   Date of creation :             24/06/14
   Support :                      mail to : nico.pierre@icloud.com, lorenzo.bidegain@cern.ch
 
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "***          MCP Test Program for Ph2 Base Software          ***" << std::endl;
-    std::cout << "***                N. Pierre, L. Bidegain v0.3               ***" << std::endl;
+    std::cout << "***                N. Pierre, L. Bidegain v1.0               ***" << std::endl;
     std::cout << "****************************************************************" << std::endl;
     std::cout << "****************************************************************" << std::endl;
 
