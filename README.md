@@ -67,11 +67,11 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
 
 4. Finally, update uHAL to version 2.3:
 
-        	sudo yum groupremove uhal
-	        wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo
-	        sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
-	        sudo yum clean all
-	        sudo yum groupinstall uhal
+        sudo yum groupremove uhal
+        wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo
+        sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
+        sudo yum clean all
+        sudo yum groupinstall uhal
 
 Note: You may also need to set the environment variables:
 
