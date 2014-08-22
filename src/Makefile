@@ -17,7 +17,7 @@ ExternalObjects = $(LibraryPaths) -lpthread -lboost_thread -lboost_filesystem -l
 	$(CXX) -std=c++11 $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
 
-all: testpgrm datatest2cbc datatest8cbc mcp system
+all: testpgrm datatest2cbc datatest8cbc mcp system calibrationtest
 
 testpgrm: test.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
@@ -38,5 +38,10 @@ system: systemtest.cc
 mcp: mcp.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	mv $@ ../bin
+
+calibrationtest: calibrationtest.cc
+	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
+	mv $@ ../bin
+
 
 clean:
