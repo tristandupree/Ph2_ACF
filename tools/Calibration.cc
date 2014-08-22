@@ -235,7 +235,7 @@ void Calibration::setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRe
 
 	for(auto cFe : cBoard->fModuleVector)
 	{
-		for(auto cCbc : cFe.fCbcVector)
+		for(Cbc& cCbc : cFe.fCbcVector)
 		{
 			fCbcInterface->WriteCbcReg(&cCbc, pRegName,pRegValue);
 			std::cout << "Setting " << pRegName << " to " << pRegValue << " on Board " << pBeId << " Fe " << cFe.getFeId() << " Cbc " << cCbc.getCbcId() << std::endl;
@@ -245,7 +245,7 @@ void Calibration::setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRe
 
 void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVplus){
 
-	for(auto cGroupIt : fTestGroupMap)					
+	for(const auto& cGroupIt : fTestGroupMap)					
 	{
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
@@ -257,7 +257,7 @@ void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 			// Vector of pairs for the write MultiReg
 			std::vector< std::pair< std::string, uint8_t > > cRegVec;
 
-			for(auto cChannel : cGroupIt.second)
+			for(const Channel& cChannel : cGroupIt.second)
 			{
 				// Initialize the Histogram & fit for the current Vplus Settings
 				cChannel.initializeHist(pVplus, true);
@@ -282,7 +282,7 @@ void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 
 void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent){
 	// Here Loop over all FE's Cbc's, Test Groups & Channels to fill Histograms
-	for(auto cGroupIt : fTestGroupMap)					
+	for(const auto& cGroupIt : fTestGroupMap)					
 	{
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
@@ -291,7 +291,7 @@ void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 	        std::vector<bool> cDataBitVector = pEvent->DataBitVector(cGroupIt.first.fBeId, cGroupIt.first.fCbcId);
 
 	        // Now loop over all channels in the TestGroup
-			for(auto cChannel : cGroupIt.second)
+			for(Channel& cChannel : cGroupIt.second)
 			{
 	            if(cDataBitVector[cChannel.fChannelId])
 	            {
@@ -306,7 +306,7 @@ void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 void Calibration::processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pVplus, bool pHoleMode){
 	// Here Loop over all FE's Cbc's, Test Groups & Channels to fill Histograms
     
-    for(auto cGroupIt : fTestGroupMap)					
+    for(const auto& cGroupIt : fTestGroupMap)					
     {
     	// check if the Group belongs to the right Shelve, BE and if it is the right group
     	if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
@@ -318,7 +318,7 @@ void Calibration::processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGrou
     		// Vector of pairs for the write MultiReg
     		std::vector< std::pair< std::string, uint8_t > > cRegVec;
 
-    		for(auto cChannel : cGroupIt.second)
+    		for(Channel& cChannel : cGroupIt.second)
     		{
 				cChannel.fitHist(pEventsperVcth, pHoleMode, pVplus, fResultFile);
 
