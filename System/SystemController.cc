@@ -24,7 +24,13 @@ namespace Ph2_System
 
 	SystemController::~SystemController()
     {
-
+		/*
+		if(fShelveVec.size()!=0)
+		{
+			delete fBeBoardInterface;
+			delete fCbcInterface;
+		}
+		*/
 	}
 
 	void SystemController::InitializeHw(const char* pFilename)
