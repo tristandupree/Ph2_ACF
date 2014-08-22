@@ -1,7 +1,7 @@
 Git Repository for the ACF (Acquisition & Control Framework)
 ============================================================
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Contains__
 
 - A middleware API layer, implemented in C++, which will basically wrap
 to abstracted functions the firmware calls and handshakes currently
@@ -10,27 +10,31 @@ hardcoded into DAQ systems software
 - A C++ object-based library describing the system components (CBCs,
 Hybrids, Boards) and their properties(values, status)
 
-- The MCP test program which is the wrapping the previous two.
+- An .xml parser to read configuration files that describe the HW & connection.
+
+- The MCP test program / system / data-acqisition tests
 
 Different versions for different setups
 ---------------------------------------
 
 On this GitHub, you can find different version of the software :
 - An agnostic (to the number of CBCs) version with the new structure in the Master branch
-- A 2CBC version on the 2CBC branch with the previous structure
-- A 8CBC version on the 8CBC branch with the previous structure
+- A 2CBC version on the 2CBC branch with the previous structure (old -- do not use!)
+- A 8CBC version on the 8CBC branch with the previous structure (old -- do not use!)
 - An in-progress version in the dev branch
 <br>
 <br>
 __What are the differences between the 2CBC/8CBC versions ?__
 
-The differences mainly resides in the size of the data buffer for the DAQ, when all the access to both Board and Cbc registers is done the same way.
-Also, some functions are present in 8CBC and not in 2CBC due to the fact that the firmware of the 8CBC is offering more possibilities of recovering infos from the Hardware (as the type of hardware for example)
+The differences in the two versions are located in the data format (event buffer size) & the presence of two registers in the FW (see HWdescription.xml for both versions!)
 
 
-Preliminary Setup
------------------
+Installation Guide
+==================
 
+
+Prerequisites
+-------------
 Firmware for the GLIB can be found in /firmware. To check you are using the correct firmware with the correct FMC, please read /latex/FirmwareHardware.pdf.
 
 NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] (http://sbgcmstrackerupgrade.in2p3.fr/) then follow the preliminary setup, otherwise you can skip this.
@@ -75,13 +79,8 @@ Note: You may also need to set the environment variables:
     export PATH=/opt/cactus/bin:$PATH
 
 
-The Test Software itself : the MCP Test Interface
+Installing the Software
 -------------------------------------------------
-
-You'll find an install step by step and a How To.
-<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Install the MCP Test Interface step by step...__
 
 Here are the step to make the program functional
 (Tested with the latest version of gcc, µHal, boost)
@@ -101,7 +100,7 @@ Here are the step to make the program functional
 7. Launch mcp to play with the Test Interface
 <br>
 <br>
-__What can you do with the software ?__
+__Functionality__
 
 You can choose to load your Hardware description XML file and it will create the
  software counterpart of your existing hardware.
@@ -111,7 +110,7 @@ After this creation round, you can do anything you want :
 - Manipulate the registers in the Glib
 - Manipulate the registers in the Cbcs
 - Perform a DAQ and tracing diagrams counting the number of hits
-- Have a configuration recap of all the objects you created
+- Have a configuration summary of all the objects you created
 
 When you write a register in the Glib or the Cbc, the writing is updated to the
 map contained in Glib/Cbc objects so that you're always fully aware of what is
@@ -120,7 +119,7 @@ in the Glib/Cbc register.
 For writing value in register, we invite you to put in the following format : 0x__.
 You must thus type '0xFF' for exemple and not just 'FF' in the command line.
 
-You can also run a DAQ round and recover the Histogram for each Cbc in the output folder.
+You can also read data and some test-histograms will be saved to the output folder.
 
 At the end of the program, the register maps are saved into output_X_X_X.txt files
 you can find in the settings directory. For example, output_0_1_2.txt contains the
