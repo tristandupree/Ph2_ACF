@@ -12,26 +12,25 @@
 #include "Calibration.h"
 
 
-void Calibration::InitialiseTestGroup()
-{
-	for(std::vector<Shelve*>::iterator cShelve = fShelveVec.begin(); cShelve != fShelveVec.end(); cShelve++)
-		{
-			// Iterating over the Shelves
-
-			for(std::vector<BeBoard>::iterator cBoard = (*cShelve)->fBoardVector.begin(); cBoard != (*cShelve)->fBoardVector.end(); cBoard++ )
-			{
-				// Loop over all BeBoards, Fes, Cbcs
-			    for(std::vector<Module>::iterator cFe = cBoard->fModuleVector.begin(); cFe != cBoard->fModuleVector.end(); cFe++)
-				{
-                   for(std::vector<Cbc>::iterator cCbc = cFe->fCbcVector.begin(); cCbc != cFe->fCbcVector.end(); cCbc++)
-				    {
-                          // std::cout<<"Cbc: "<<cCbc<<"created!"<<std::endl;
-                           ConstructTestGroup((*cShelve)->getShelveId(),cBoard->getBeId(), cFe->getFeId(), cCbc->getCbcId());	
-                  			}
-               }
-           }
-       }
+void Calibration::InitialiseTestGroup() 
+{ 
+    // Iterating over the Shelves
+    for (auto cShelve:fShelveVec)
+    {    
+        for(auto cBoard:(cShelve)->fBoardVector)
+        {
+            for(auto cFe : cBoard.fModuleVector) 
+            { 
+                for(auto cCbc : cFe.fCbcVector) 
+                {             
+                  // std::cout<<"Cbc: "<<cCbc<<"created!"<<std::endl; 
+                   ConstructTestGroup((cShelve)->getShelveId(),cBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId()); 
+                } 
+            } 
+        } 
+    } 
 }
+
 
 void Calibration::ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId)
 {
@@ -168,23 +167,23 @@ void Calibration::VplusScan(){
 
 void Calibration::FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth){
 
-	for(std::vector<Shelve*>::iterator cShelve = fShelveVec.begin(); cShelve != fShelveVec.end(); cShelve++)
+	for(auto& cShelve : fShelveVec)
 	{
 		// Iterating over the Shelves
-		for(uint8_t cBeId = 0; cBeId < (*cShelve)->getNBoard(); cBeId++)
+		for(BeBoard& cBoard : cShelve->fBoardVector)
 		{
 			// Loop over all BeBoards, Fes, Cbcs
-			BeBoard* board = (*cShelve)->getBoard(cBeId);
+			// BeBoard* board = (*cShelve)->getBoard(cBeId);
 
-		    for(uint8_t cFeId = 0; cFeId < board->getNFe(); cFeId++)
+		    for(Module& cModule : cBoard.fModuleVector)
 			{
-				for(uint8_t cCbcId = 0; cCbcId < board->getModule(cFeId)->getNCbc(); cCbcId++)
+				for(Cbc& cCbc : cModule.fCbcVector)
 				{
-					TString multigraphname = Form("VplusVcth_Be%d_Fe%d_Cbc%d", cBeId, cFeId, cCbcId);
+					TString multigraphname = Form("VplusVcth_Be%d_Fe%d_Cbc%d", cBoard.getBeId(), cModule.getFeId(), cCbc.getCbcId());
 					TMultiGraph* cVplusVcthMultiGraph = new TMultiGraph(multigraphname,Form("Vplus vs. Vcth; Vcth; Vplus"));
 
 					if (pDoDraw){
-						TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", cBeId, cFeId, cCbcId);
+						TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", cBoard.getBeId(), cModule.getFeId(), cCbc.getCbcId());
 						TCanvas* cVplusVcthCanvas = (TCanvas*) gROOT->FindObject(canvasname);
 						if (cVplusVcthCanvas != NULL) delete cVplusVcthCanvas;
 						else cVplusVcthCanvas = new TCanvas(canvasname, canvasname);
@@ -195,7 +194,7 @@ void Calibration::FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth){
 					{
 
 						// Create a test Group to find the corresponding in the map
-						TestGroup cTempTestGroup((*cShelve)->getShelveId(),cBeId, cFeId, cCbcId, cGroupId);
+						TestGroup cTempTestGroup(cShelve->getShelveId(), cBoard.getBeId(), cModule.getFeId(), cCbc.getCbcId(), cGroupId);
 
 						// Find it!
 						TestGroupGraphMap::iterator cGroup = fTestGroupGraphMap.find(cTempTestGroup);
@@ -205,7 +204,7 @@ void Calibration::FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth){
 							cGroup->second.fVplusVcthGraph->SetMarkerColor(cGroupId+1);
 							cVplusVcthMultiGraph->Add(cGroup->second.fVplusVcthGraph);
 						}
-						else std::cout << "This test group (BE" << cBeId << " FE" << cFeId << " CBC" << cCbcId << " Group" << cGroupId << ") was not found!" << std::endl; 
+						else std::cout << "This test group (BE" << cBoard.getBeId() << " FE" << cModule.getFeId() << " CBC" << cCbc.getCbcId() << " Group" << cGroupId << ") was not found!" << std::endl; 
 					}
 
 					// All Points in the Multigraph; Fit it per Cbc, draw it Per Cbc
@@ -219,8 +218,8 @@ void Calibration::FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth){
 					// Get the right Vplus setting & write to the Cbc
 					uint8_t cVplusResult = (uint8_t) ((int) cVplusVcthFit->Eval(pTargetVcth));
 
-					fCbcInterface->WriteCbcReg(board->getModule(cFeId)->getCbc(cCbcId),"Vplus",cVplusResult);
-					std::cout << "Vplus Setting for Be " << cBeId << " Fe " << cFeId << " Cbc " << cCbcId << " : " << std::hex << cVplusResult << std::endl;
+					fCbcInterface->WriteCbcReg(cModule.getCbc(cCbc.getCbcId()),"Vplus",cVplusResult);
+					std::cout << "Vplus Setting for Be " << cBoard.getBeId() << " Fe " << cModule.getFeId() << " Cbc " << cCbc.getCbcId() << " : " << std::hex << cVplusResult << std::endl;
 
 				} // End of Cbc Loop
 			} // End of Fe Loop
@@ -245,7 +244,7 @@ void Calibration::setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRe
 
 void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVplus){
 
-	for(const auto& cGroupIt : fTestGroupMap)					
+	for(auto& cGroupIt : fTestGroupMap)					
 	{
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
@@ -257,7 +256,7 @@ void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 			// Vector of pairs for the write MultiReg
 			std::vector< std::pair< std::string, uint8_t > > cRegVec;
 
-			for(const Channel& cChannel : cGroupIt.second)
+			for(Channel& cChannel : cGroupIt.second)
 			{
 				// Initialize the Histogram & fit for the current Vplus Settings
 				cChannel.initializeHist(pVplus, true);
@@ -282,7 +281,7 @@ void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 
 void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent){
 	// Here Loop over all FE's Cbc's, Test Groups & Channels to fill Histograms
-	for(const auto& cGroupIt : fTestGroupMap)					
+	for(auto& cGroupIt : fTestGroupMap)					
 	{
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
@@ -306,7 +305,7 @@ void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 void Calibration::processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pVplus, bool pHoleMode){
 	// Here Loop over all FE's Cbc's, Test Groups & Channels to fill Histograms
     
-    for(const auto& cGroupIt : fTestGroupMap)					
+    for(auto& cGroupIt : fTestGroupMap)					
     {
     	// check if the Group belongs to the right Shelve, BE and if it is the right group
     	if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
