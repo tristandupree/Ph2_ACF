@@ -13,12 +13,15 @@ using namespace Ph2_System;
 
 int main(int argc, char* argv[])
 {
-    Calibration cCalibration;
+    Calibration cCalibration("testfile.root");
     TApplication cApp("Root Application", &argc, argv);
 
-	cCalibration.InitializeHw(XML_DESCRIPTION_FILE_8CBC);
+	cCalibration.InitializeHw("settings/HWDescription_2CBC.xml");
+	cCalibration.InitializeSettings("settings/HWDescription_2CBC.xml");
+	cCalibration.InitialiseTestGroup();
     cCalibration.ConfigureHw();
     cCalibration.VplusScan();
+    cCalibration.FitVplusVcth(true,0x78);
 
     cApp.Run();
 }

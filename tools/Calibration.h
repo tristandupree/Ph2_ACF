@@ -37,10 +37,10 @@ class Calibration : public SystemController {
 public:
 			
 	// Default C'tor
-	Calibration(){};
+	Calibration(std::string pResultfilepath);
 
 	// D'Tor
-	~Calibration(){};
+	~Calibration();
 
 	void VplusScan();
 	void FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
