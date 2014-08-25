@@ -126,7 +126,8 @@ namespace Ph2_System
 			for(pugi::xml_node nSetting = nSettings.child("Setting"); nSetting; nSetting=nSetting.next_sibling())
 			{
 				fSettingsMap[nSetting.attribute("name").value()] = atoi(nSetting.first_child().value());
-			}
+                std:: cout << "Setting --" << nSetting.attribute("name").value() << ":" << atoi(nSetting.first_child().value())<<std:: endl;
+            }
 		}
 	}
 
