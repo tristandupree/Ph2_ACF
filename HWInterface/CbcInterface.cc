@@ -177,7 +177,7 @@ namespace Ph2_HwInterface
             }
             else
             {
-                std::cout << "Writing correctly done :\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+                std::cout << "Writing "<< uint32_t(cRegItem.fAddress) <<" correctly done on CBC Id " << uint32_t(pCbc->getCbcId()) <<":\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
             }
 		}
 
