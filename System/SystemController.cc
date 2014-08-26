@@ -121,12 +121,29 @@ namespace Ph2_System
 			return;
 		}
 
+           /*if ( cValue.find("0x") != std::string::npos ) fCMNParameter[cName] = strtoul( cValue.c_str(), 0, 16 );
+		else fCMNParameter[cName] = strtoul( cValue.c_str(), 0, 10 );
+std::string str(s);*/
+
+
 		for(pugi::xml_node nSettings = doc.child("Settings"); nSettings; nSettings=nSettings.next_sibling())
 		{
 			for(pugi::xml_node nSetting = nSettings.child("Setting"); nSetting; nSetting=nSetting.next_sibling())
-			{
-				fSettingsMap[nSetting.attribute("name").value()] = atoi(nSetting.first_child().value());
-                std:: cout << "Setting --" << nSetting.attribute("name").value() << ":" << atoi(nSetting.first_child().value())<<std:: endl;
+			{	
+//std::string str = nSetting.first_child().value()
+				if ( std::string(nSetting.first_child().value()).find("0x") != std::string::npos ) 
+					{
+					  fSettingsMap[nSetting.attribute("name").value()] = strtoul(std::string (nSetting.first_child().value()).c_str(), 0, 16 );
+					  std:: cout << "Setting --" << nSetting.attribute("name").value() << ":" << strtoul(std::string(nSetting.first_child().value()).c_str(),0,16)<<std:: endl;
+					}
+				else 
+					{
+					  fSettingsMap[nSetting.attribute("name").value()] = strtoul(std::string( nSetting.first_child().value()).c_str(), 0, 10 );			
+                                	  std:: cout << "Setting --" << nSetting.attribute("name").value() << ":" << strtoul	(std::string(nSetting.first_child().value()).c_str(),0,10)<<std:: endl;
+					}
+				
+				//fSettingsMap[nSetting.attribute("name").value()] = atoi(nSetting.first_child().value());
+                
             }
 		}
 	}
