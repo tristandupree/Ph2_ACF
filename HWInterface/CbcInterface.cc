@@ -10,7 +10,7 @@
 */
 
 #include "CbcInterface.h"
-
+# include "../System/ConsoleColor.h"
 
 #define DEV_FLAG 0
 
@@ -177,7 +177,7 @@ namespace Ph2_HwInterface
             }
             else
             {
-                std::cout << "Writing Register  "<<"\033[1;32m"<<pRegNode<<"\033[0m  correctly done on CBC Id " <<"\033[1;31m"<<uint32_t(pCbc->getCbcId()) <<"\033[0m "<<":\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+                std::cout << "Writing Register  "<<RED<<pRegNode<<RESET<<" correctly done on CBC Id " <<GREEN<<uint32_t(pCbc->getCbcId()) <<RESET<<":\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
             }
 		}
 
@@ -261,7 +261,7 @@ namespace Ph2_HwInterface
 				}
 				else
 				{
-					std::cout << "Writing correctly done on Register "<<"\033[1;31m"<<pVecReq[i].first<<"\033[0m"<<":\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
+					std::cout << "Writing correctly done on Register "<<RED<<pVecReq[i].first<<RESET<<":\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
 				}
 			}
 
