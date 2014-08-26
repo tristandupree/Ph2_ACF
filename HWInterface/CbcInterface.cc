@@ -170,14 +170,14 @@ namespace Ph2_HwInterface
 
             if(cReadValue != cWriteValue)
             {
-                std::cout << "ERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+                std::cout << "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
 				std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
 				std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
 				mypause();
             }
             else
             {
-                std::cout << "Writing "<< uint32_t(cRegItem.fAddress) <<" correctly done on CBC Id " << uint32_t(pCbc->getCbcId()) <<":\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+                std::cout << "Writing Register  "<<"\033[1;32m"<<pRegNode<<"\033[0m  correctly done on CBC Id " <<"\033[1;31m"<<uint32_t(pCbc->getCbcId()) <<"\033[0m "<<":\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
             }
 		}
 
@@ -219,8 +219,8 @@ namespace Ph2_HwInterface
 
 		for(uint32_t i=0; i<pVecReq.size(); i++)
 		{
-			cRegItem.fValue = pVecReq[i].second;
 			cRegItem = (pCbc->getRegMap())[pVecReq[i].first];
+			cRegItem.fValue = pVecReq[i].second;
 
 			EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
 
@@ -244,7 +244,7 @@ namespace Ph2_HwInterface
 
 				EncodeReg(cRegItem,pCbc->getCbcId(),cVecReqBis);
 
-				fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReq);
+				fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReqBis);
 
 				DecodeReg(cRegItem,cCbcId,cVecReqBis[0]);
 
@@ -254,14 +254,14 @@ namespace Ph2_HwInterface
 
 				if(cReadValue[i] != cWriteValue[i])
 				{
-					std::cout << "\nERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
+					std::cout << "\nERROR !!!\nReadback value not the same for Register :" << pVecReq[i].first << "\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
 					std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
 					std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
 					mypause();
 				}
 				else
 				{
-					std::cout << "Writing correctly done :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
+					std::cout << "Writing correctly done on Register "<<"\033[1;31m"<<pVecReq[i].first<<"\033[0m"<<":\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
 				}
 			}
 
