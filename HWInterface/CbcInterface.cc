@@ -175,10 +175,10 @@ namespace Ph2_HwInterface
 				std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
 				mypause();
             }
-            else
+           /* else
             {
                 std::cout << "Writing Register  "<<RED<<pRegNode<<RESET<<" correctly done on CBC Id " <<GREEN<<uint32_t(pCbc->getCbcId()) <<RESET<<":\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
-            }
+            }*/
 		}
 
 		pCbc->setReg(pRegNode,cRegItem.fValue);
@@ -259,10 +259,10 @@ namespace Ph2_HwInterface
 					std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
 					mypause();
 				}
-				else
+				/*else
 				{
 					std::cout << "Writing correctly done on Register "<<RED<<pVecReq[i].first<<RESET<<":\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
-				}
+				}*/
 			}
 
 		}
