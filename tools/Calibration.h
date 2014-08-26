@@ -16,6 +16,7 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../System/SystemController.h"
+#include "../System/ConsoleColor.h"
 #include "Channel.h"
 
 #include "TMultiGraph.h"

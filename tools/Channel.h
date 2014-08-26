@@ -38,7 +38,7 @@ struct Channel{
 
 	void initializeHist(uint8_t pValue, bool pVplusScan);
 	void fillHist(uint8_t pVcth);
-	void fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile);
+	void fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile);
 	void resetHist();
 };
 

@@ -134,14 +134,14 @@ void Calibration::VplusScan(){
 
 					// Sanity check for Vcth Range
 					uint8_t cVcthMin, cVcthMax;
-					if(cTargetVcth <= 0x50) cVcthMin = 0x00;
-					else cVcthMin = cTargetVcth - 0x50;
+					if(cTargetVcth <= 40) cVcthMin = 0x00;
+					else cVcthMin = cTargetVcth - 40;
 
-					if(cTargetVcth >= 0xAF) cVcthMax = 0xFF;
-					else cVcthMax = cTargetVcth + 0x50;
+					if(cTargetVcth >= 215) cVcthMax = 0xFF;
+					else cVcthMax = cTargetVcth + 40;
 
 					std::cout << int(cTargetVcth) << " " << (int)cVcthMin << " " << (int)cVcthMax << std::endl;
-					for(uint8_t cVcth = cVcthMin; cVcth < cVcthMax; cVcth+=0x0A)
+					for(uint8_t cVcth = cVcthMin; cVcth < cVcthMax; cVcth+=0x02)
 					{
 
 						// Set current Vcth value on all Cbc's of the current board
@@ -262,6 +262,7 @@ void Calibration::setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRe
 			fCbcInterface->WriteCbcReg(&cCbc, pRegName,pRegValue);
 		}
 	}
+	std::cout << "Setting " << RED << pRegName << RESET << " to Value " << GREEN << (int)pRegValue << RESET << " on all CBCs connected to Be " << int(pBeId) << std::endl;
 }
 
 void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVplus){
@@ -294,9 +295,8 @@ void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 			fCbcInterface->WriteCbcMultReg(fShelveVec.at(pShelveId)->getBoard(pBeId)->getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
 
 		}
-		else std::cout << "Not matching CBC " << int(cGroupIt.first.fCbcId) << " Group " << int(cGroupIt.first.fGroupId) << std::endl;
 	}
-	std::cout << "Enabled Test group " << uint32_t(pGroupId) << " on all Cbc's connected to BeBoard " << uint32_t(pBeId) << std::endl;
+	std::cout << "Enabled Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to BeBoard " << RED <<  uint32_t(pBeId) << RESET << std::endl;
 }
 
 void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent){
@@ -369,5 +369,4 @@ void Calibration::processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGrou
 			fCbcInterface->WriteCbcMultReg(fShelveVec.at(pShelveId)->getBoard(pBeId)->getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
 		}
 	}
-	std::cout << "Disabled Test group " << uint32_t(pGroupId) << " on all Cbc's connected to BeBoard " << uint32_t(pBeId) << std::endl;
-}
+	std::cout << "Disabled Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to BeBoard " << RED <<  uint32_t(pBeId) << RESET << std::endl;}

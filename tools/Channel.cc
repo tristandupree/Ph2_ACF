@@ -71,47 +71,49 @@ void Channel::fillHist(uint8_t pVcth){
 		fScurve->Fill(float(pVcth));
 }
 
-void Channel::fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile){
+void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile){
 	if ( fFit != NULL ){
 		// Normalize first
 		fScurve->Sumw2();
-		fScurve->Scale(1/pEventsperVcth);
+		fScurve->Scale(1/double_t(pEventsperVcth));
 
-		// // Get first non 0 and first 1
-		// double cFirstNon0(0);
-		// double cFirst1(0); 
+		// Get first non 0 and first 1
+		double cFirstNon0(0);
+		double cFirst1(0); 
 
-		// // Not Hole Mode
-		// if( !pHole ){
-		// 	for( Int_t cBin = 1; cBin <= fScurve->GetNbinsX(); cBin++ ){
-		// 		double cContent = fScurve->GetBinContent( cBin );
-		// 		if( !cFirstNon0	){
-		// 			if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
-		// 		}
-		// 		else if( cContent == 1 ) {
-		// 			cFirst1 = fScurve->GetBinCenter(cBin); 
-		// 			break;
-		// 		}
-		// 	}
-		// }
-		// // Hole mode
-		// else{
-		// 	for( Int_t cBin = fScurve->GetNbinsX(); cBin >=1; cBin-- ){
-		// 		double cContent = fScurve->GetBinContent( cBin );
-		// 		if( !cFirstNon0	){
-		// 			if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
-		// 		}
-		// 		else if( cContent == 1 ) {
-		// 			cFirst1 = fScurve->GetBinCenter(cBin); 
-		// 			break;
-		// 		}
-		// 	}
-		// }
+		// Not Hole Mode
+		if( !pHole ){
+			for( Int_t cBin = 1; cBin <= fScurve->GetNbinsX(); cBin++ ){
+				double cContent = fScurve->GetBinContent( cBin );
+				if( !cFirstNon0	){
+					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
+				}
+				else if( cContent == 1 ) {
+					cFirst1 = fScurve->GetBinCenter(cBin); 
+					break;
+				}
+			}
+		}
+		// Hole mode
+		else{
+			for( Int_t cBin = fScurve->GetNbinsX(); cBin >=1; cBin-- ){
+				double cContent = fScurve->GetBinContent( cBin );
+				if (cContent != 0)std::cout << "Bin " << cBin << " content  " << cContent << std::endl;
+				if( !cFirstNon0	){
+					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
+				}
+				else if( cContent == 1 ) {
+					cFirst1 = fScurve->GetBinCenter(cBin); 
+					break;
+				}
+			}
+		}
 
-		// // Get rough midpoint & width
-		// double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
-		// double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
-		// std::cout << "I get here! " << cMid << " " << cWidth << std::endl;
+		// Get rough midpoint & width
+		double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
+		double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
+		std::cout << &fFit <<  std::endl;
+		std::cout << "I get here! " << cFirstNon0 << " " << cFirst1 << std::endl;
 		// fFit->SetParameters(cMid, cWidth);
 
 		// // Fit
@@ -128,6 +130,8 @@ void Channel::fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile*
 		// fFit->Write(fFit->GetName(), TObject::kOverwrite);
 
 		pResultfile->cd();
+		pResultfile->Flush();
+		// pResultfile->Write();
 	}
 	else std::cout << "Historgram Empty for Fe " << fFeId << " Cbc " << fCbcId << " Channel " << fChannelId << std::endl;
 
@@ -136,8 +140,8 @@ void Channel::fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile*
 
 void Channel::resetHist(){
 
-	fScurve = NULL;
-	fFit = NULL;
+	// fScurve = NULL;
+	// fFit = NULL;
 
 }
 
