@@ -9,6 +9,7 @@
 #include "TFile.h"
 #include "TString.h"
 #include "TROOT.h"
+#include "TCanvas.h"
 
 struct Channel{
 
@@ -61,11 +62,19 @@ struct TestGroupGraph{
 
 struct TestGroupComparer{
 	bool operator() (const TestGroup &g1, const TestGroup &g2) const {
-		if (g1.fShelveId == g2.fShelveId) return g1.fBeId < g2.fBeId; 
-		else if (g1.fBeId == g2.fBeId) return g1.fFeId < g2.fFeId;
-		else if (g1.fFeId == g2.fFeId) return g1.fCbcId < g2.fCbcId;
-		else if (g1.fCbcId == g2.fCbcId) return g1.fGroupId < g2.fGroupId;
-		else return g1.fShelveId < g2.fShelveId;
+		if (g1.fShelveId == g2.fShelveId){
+			if(g1.fBeId == g2.fBeId){
+				if (g1.fFeId == g2.fFeId){
+					if (g1.fCbcId == g2.fCbcId){
+						return g1.fGroupId < g2.fGroupId;
+					}
+					else return g1.fCbcId < g2.fCbcId;
+				}
+				else return g1.fFeId < g2.fFeId;
+			}
+			else return g1.fBeId < g2.fBeId; 
+		}
+		else g1.fShelveId < g2.fShelveId;
 	}
 };
 

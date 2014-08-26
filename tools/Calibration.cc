@@ -16,7 +16,7 @@ Calibration::Calibration(std::string pResultfilepath){
 	// else{
 		fResultFile = new TFile(pResultfilepath.c_str(),"RECREATE");
 	// }
-		InitialiseTestGroup();
+		// InitialiseTestGroup();
 }
 
 Calibration::~Calibration(){
@@ -37,6 +37,7 @@ void Calibration::InitialiseTestGroup()
                 for(auto cCbc : cFe.fCbcVector)
                 {
                   // std::cout<<"Cbc: "<<cCbc<<"created!"<<std::endl;
+                	// std::cout << uint32_t((cShelve)->getShelveId()) << " " << uint32_t(cBoard.getBeId()) << " " << uint32_t(cFe.getFeId()) << " " << uint32_t(cCbc.getCbcId()) << std::endl;
                    ConstructTestGroup((cShelve)->getShelveId(),cBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
                 }
             }
@@ -51,35 +52,38 @@ void Calibration::ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t p
 	{
 		TestGroup fTestgroup(pShelveId, pBeId, pFeId, pCbcId, lgroup);
 
-		std::cout<<"	Group: "<<int(lgroup)<<"created!"<<std::endl;
-
 		std::vector<Channel> cChannelVect;
 
+        // In the CBC Registers, Channels start with 1
 		for(uint8_t lchannel=0; lchannel<16; lchannel++)
 		{
 
 			if (lchannel*16+lgroup*2 < 254)
 			{
-				Channel cChannel(pBeId,pFeId,pCbcId, lchannel*16+lgroup*2 );
+				Channel cChannel(pBeId,pFeId,pCbcId, lchannel*16+lgroup*2 +1 );
 				// std::cout<<"		Channel: "<<int(lchannel*16+lgroup*2)<<"created!"<<std::endl;
 				cChannelVect.push_back(cChannel);
 			}
 
 			if ((lchannel*16+lgroup*2) +1 < 254)
 			{
-				Channel cChannel(pBeId,pFeId,pCbcId, (lchannel*16+lgroup*2) +1 );
+				Channel cChannel(pBeId,pFeId,pCbcId, (lchannel*16+lgroup*2) +2 );
 				// std::cout<<"		Channel: "<<int( (lchannel*16+lgroup*2) +1)<<"created!"<<std::endl;
 				cChannelVect.push_back(cChannel);
 			}
 
 		}
 
+		// std::cout << "Shelve " << uint32_t(fTestgroup.fShelveId) << " Be " << uint32_t(fTestgroup.fBeId) << " FE " << uint32_t(fTestgroup.fFeId) << " Cbc " << uint32_t(fTestgroup.fCbcId) << " Group " << uint32_t(fTestgroup.fGroupId) << std::endl;
+
 		TestGroupGraph cTestGroupGraph(pBeId, pFeId, pCbcId, lgroup);
+
 
 		fTestGroupMap[fTestgroup]=cChannelVect;
 		fTestGroupGraphMap[fTestgroup]=cTestGroupGraph;
-	}
+		// std::cout<<"	Group: "<<int(lgroup)<<" created @ " << &fTestGroupMap[fTestgroup] <<std::endl;
 
+	}
 }
 
 
@@ -102,7 +106,7 @@ void Calibration::VplusScan(){
 	// bool cHoleMode = fSettingsMap.find("HoleMode")->second;
 	bool cHoleMode = true;
 
-	uint8_t cTargetVcth = fSettingsMap.find("TargetVcth")->second;
+	uint8_t cTargetVcth = 0x78;
 
 	// Loop over 4 values of Vplus for the Vplus vs. Pedestal (Vcth) graph
 	// for(std::vector<uint8_t>::iterator cVplus = fVplusValues.begin(); cVplus != fVplusValues.end(); cVplus++)
@@ -130,14 +134,16 @@ void Calibration::VplusScan(){
 
 					// Sanity check for Vcth Range
 					uint8_t cVcthMin, cVcthMax;
-					if(cTargetVcth <= 80) cVcthMin = 0x00;
-					else cVcthMin = cTargetVcth - 80;
+					if(cTargetVcth <= 0x50) cVcthMin = 0x00;
+					else cVcthMin = cTargetVcth - 0x50;
 
-					if(cTargetVcth >= 175) cVcthMax = 0xFF;
-					else cVcthMax = cTargetVcth + 80;
+					if(cTargetVcth >= 0xAF) cVcthMax = 0xFF;
+					else cVcthMax = cTargetVcth + 0x50;
 
-					for(uint8_t cVcth = cVcthMin; cVcth < cVcthMax; cVcth+=10)
+					std::cout << int(cTargetVcth) << " " << (int)cVcthMin << " " << (int)cVcthMax << std::endl;
+					for(uint8_t cVcth = cVcthMin; cVcth < cVcthMax; cVcth+=0x0A)
 					{
+
 						// Set current Vcth value on all Cbc's of the current board
 				    	setGlobalReg((*cShelve)->getShelveId(), board->getBeId(), "VCth", cVcth);
 
@@ -254,22 +260,18 @@ void Calibration::setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRe
 		for(Cbc& cCbc : cFe.fCbcVector)
 		{
 			fCbcInterface->WriteCbcReg(&cCbc, pRegName,pRegValue);
-			std::cout << "Setting " << pRegName << " to " << uint32_t(pRegValue) << " on Board " << uint32_t(pBeId) << " Fe " << uint32_t(cFe.getFeId()) << " Cbc " << uint32_t(cCbc.getCbcId()) << std::endl;
 		}
 	}
 }
 
 void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVplus){
 
-
 	for(auto& cGroupIt : fTestGroupMap)
 	{
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
 		{
-			// Iterator for the Channels in the TestGroup
-			// std::vector<Channel>::iterator cChannel = cGroup->second.begin();
-
+			
 			// Iterate through the channels and set Offset to 0x50
 			// Vector of pairs for the write MultiReg
 			std::vector< std::pair< std::string, uint8_t > > cRegVec;
@@ -289,10 +291,10 @@ void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 				cChannel.setOffset(0x50);
 			}
 
-			// fCbcInterface->WriteCbcMultReg(board->getModule(cFeId)->getCbc(cCbcId),cRegVec);
 			fCbcInterface->WriteCbcMultReg(fShelveVec.at(pShelveId)->getBoard(pBeId)->getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
 
 		}
+		else std::cout << "Not matching CBC " << int(cGroupIt.first.fCbcId) << " Group " << int(cGroupIt.first.fGroupId) << std::endl;
 	}
 	std::cout << "Enabled Test group " << uint32_t(pGroupId) << " on all Cbc's connected to BeBoard " << uint32_t(pBeId) << std::endl;
 }
@@ -302,18 +304,17 @@ void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 
 	for(auto& cGroupIt : fTestGroupMap)
 	{
-		std::cout << "entering for loop" << std::endl;
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
 		{
-			std::cout << "Test Group " << uint32_t(pGroupId) << " Cbc " << uint32_t(cGroupIt.first.fCbcId) << std::endl;
 	        uint32_t cNHits = 0;
 	        std::vector<bool> cDataBitVector = pEvent->DataBitVector(cGroupIt.first.fBeId, cGroupIt.first.fCbcId);
 
 	        // Now loop over all channels in the TestGroup
 			for(Channel& cChannel : cGroupIt.second)
 			{
-	            if(cDataBitVector[cChannel.fChannelId])
+				// In the CBC, Channels start with 1, so decrement by 1 to have the right element from the data bit vector
+	            if(cDataBitVector[cChannel.fChannelId-1])
 	            {
 	            	cChannel.fillHist(pVcth);
 	                cNHits++;
@@ -343,14 +344,14 @@ void Calibration::processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGrou
 				cChannel.fitHist(pEventsperVcth, pHoleMode, pVplus, fResultFile);
 
 				// fill test Group TGraphErrors here
-				TestGroupGraphMap::iterator cGraphIt = fTestGroupGraphMap.find(cGroupIt.first);
-				if(cGraphIt != fTestGroupGraphMap.end())
-					cGraphIt->second.FillVplusVcthGraph(pVplus, cChannel.getPedestal(), cChannel.getNoise());
-				else std::cout << "The Graph for this test Group could not be found! There is a problem!" << std::endl;
+				// TestGroupGraphMap::iterator cGraphIt = fTestGroupGraphMap.find(cGroupIt.first);
+				// if(cGraphIt != fTestGroupGraphMap.end())
+				// 	cGraphIt->second.FillVplusVcthGraph(pVplus, cChannel.getPedestal(), cChannel.getNoise());
+				// else std::cout << "The Graph for this test Group could not be found! There is a problem!" << std::endl;
 
 
 				// Reset the Histogram for the next value of Vplus
-				cChannel.resetHist();
+				// cChannel.resetHist();
 
 				// set offsets back to 0x00 or 0xFF
 				TString cRegName = Form("Channel%03d",cChannel.fChannelId);
@@ -361,7 +362,8 @@ void Calibration::processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGrou
 				cRegVec.push_back(cRegPair);
 
 				// Update the Channel Object
-				cChannel.setOffset(0x00);
+				if (pHoleMode) cChannel.setOffset(0x00);
+				else cChannel.setOffset(0xFF);
 			}
 
 			fCbcInterface->WriteCbcMultReg(fShelveVec.at(pShelveId)->getBoard(pBeId)->getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);

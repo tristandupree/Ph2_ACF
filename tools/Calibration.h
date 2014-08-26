@@ -42,6 +42,8 @@ public:
 	// D'Tor
 	~Calibration();
 
+	void InitialiseTestGroup();
+
 	void VplusScan();
 	void FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
     void setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRegName, uint8_t pRegValue);
@@ -58,7 +60,6 @@ private:
 
 private:
     
-    void InitialiseTestGroup();
 	void ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId);
 
 };

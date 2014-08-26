@@ -15,11 +15,7 @@ Channel::Channel(uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, uint8_t pChannelI
 fBeId( pBeId ),
 fFeId( pFeId ),
 fCbcId( pCbcId ),
-fChannelId( pChannelId ){
-
-	fScurve = NULL;
-	fFit = NULL;
-}
+fChannelId( pChannelId ){}
 
 
 Channel::~Channel(){}
@@ -60,68 +56,66 @@ void Channel::initializeHist(uint8_t pValue, bool pVplusScan){
 		histname = Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d_Offset%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
 		fitname = Form("Fit_Be%d_Fe%d_Cbc%d_Channel%d_Offset%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
 
-		
+	}
 		fScurve = (TH1F*) gROOT->FindObject(histname);
 		if( fScurve ) delete fScurve;
 		else fScurve = new TH1F(histname,Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId),256, -0.5, 255.5);
 
 		TF1* fFit = (TF1*) gROOT->FindObject(fitname);
 		if( fFit ) delete fFit;
-		fFit = new TF1(fitname, MyErf, 0x00, 0xFF, 2 );
-	}
+		// TF1 *f1=gROOT->GetFunction("myfunc");
+		else fFit = new TF1(fitname, MyErf, 0, 255, 2 );
 }
 
 void Channel::fillHist(uint8_t pVcth){
-		fScurve->Fill(pVcth);
+		fScurve->Fill(float(pVcth));
 }
 
 void Channel::fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile){
-
-	if ( fFit == NULL ){
-
+	if ( fFit != NULL ){
 		// Normalize first
 		fScurve->Sumw2();
 		fScurve->Scale(1/pEventsperVcth);
 
-		// Get first non 0 and first 1
-		double cFirstNon0(0);
-		double cFirst1(0); 
+		// // Get first non 0 and first 1
+		// double cFirstNon0(0);
+		// double cFirst1(0); 
 
-		// Not Hole Mode
-		if( !pHole ){
-			for( Int_t cBin = 1; cBin <= fScurve->GetNbinsX(); cBin++ ){
-				double cContent = fScurve->GetBinContent( cBin );
-				if( !cFirstNon0	){
-					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
-				}
-				else if( cContent == 1 ) {
-					cFirst1 = fScurve->GetBinCenter(cBin); 
-					break;
-				}
-			}
-		}
-		// Hole mode
-		else{
-			for( Int_t cBin = fScurve->GetNbinsX(); cBin >=1; cBin-- ){
-				double cContent = fScurve->GetBinContent( cBin );
-				if( !cFirstNon0	){
-					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
-				}
-				else if( cContent == 1 ) {
-					cFirst1 = fScurve->GetBinCenter(cBin); 
-					break;
-				}
-			}
-		}
+		// // Not Hole Mode
+		// if( !pHole ){
+		// 	for( Int_t cBin = 1; cBin <= fScurve->GetNbinsX(); cBin++ ){
+		// 		double cContent = fScurve->GetBinContent( cBin );
+		// 		if( !cFirstNon0	){
+		// 			if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
+		// 		}
+		// 		else if( cContent == 1 ) {
+		// 			cFirst1 = fScurve->GetBinCenter(cBin); 
+		// 			break;
+		// 		}
+		// 	}
+		// }
+		// // Hole mode
+		// else{
+		// 	for( Int_t cBin = fScurve->GetNbinsX(); cBin >=1; cBin-- ){
+		// 		double cContent = fScurve->GetBinContent( cBin );
+		// 		if( !cFirstNon0	){
+		// 			if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
+		// 		}
+		// 		else if( cContent == 1 ) {
+		// 			cFirst1 = fScurve->GetBinCenter(cBin); 
+		// 			break;
+		// 		}
+		// 	}
+		// }
 
-		// Get rough midpoint & width
-		double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
-		double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
+		// // Get rough midpoint & width
+		// double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
+		// double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
+		// std::cout << "I get here! " << cMid << " " << cWidth << std::endl;
+		// fFit->SetParameters(cMid, cWidth);
 
-		fFit->SetParameters(cMid, cWidth);
-
-		// Fit
-		fScurve->Fit(fFit,"RSLQ");
+		// // Fit
+		// fScurve->Fit(fFit,"RSLQ");
 
 		// Eventually add TFitResultPointer
 		// create a Directory in the file for the current Offset and save the channel Data
@@ -131,7 +125,7 @@ void Channel::fitHist(uint8_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile*
 		pResultfile->cd(cDirName);
 
 		fScurve->Write(fScurve->GetName(), TObject::kOverwrite);
-		fFit->Write(fFit->GetName(), TObject::kOverwrite);
+		// fFit->Write(fFit->GetName(), TObject::kOverwrite);
 
 		pResultfile->cd();
 	}
