@@ -95,7 +95,7 @@ void Calibration::VplusScan(){
 	// 3. Run and Take Data for all Cbc's on 1 FE
 	// 4. Get Event and again loop over all Cbc's on 1 FE and analyze the data
 
-	// fVplusValues.push_back(0x40);
+	fVplusValues.push_back(0x40);
 	fVplusValues.push_back(0x50);
 	// fVplusValues.push_back(0x60);
 	// fVplusValues.push_back(0x70);
@@ -110,6 +110,8 @@ void Calibration::VplusScan(){
 
 	// Loop over 4 values of Vplus for the Vplus vs. Pedestal (Vcth) graph
 	// for(std::vector<uint8_t>::iterator cVplus = fVplusValues.begin(); cVplus != fVplusValues.end(); cVplus++)
+	std::cout << BOLDYELLOW << "Scanning Vplus ... " << RESET << std::endl;
+
 	for(uint cVplusindex = 0; cVplusindex < fVplusValues.size(); cVplusindex++)
 	{
 		uint8_t cVplus = fVplusValues.at(cVplusindex);
@@ -130,33 +132,43 @@ void Calibration::VplusScan(){
 				// Now loop over test groups, enable them, loop over Vcth, read & analyze data, fill histograms & disable test groups again
 				for(uint8_t cGroupId = 0; cGroupId < 8; cGroupId++)
 				{
-					EnableTestGroup((*cShelve)->getShelveId(), board->getBeId(), cGroupId, cVplus);
+					uint32_t cTotalChannels = EnableTestGroup((*cShelve)->getShelveId(), board->getBeId(), cGroupId, cVplus);
 
 					// Sanity check for Vcth Range
-					uint8_t cVcthMin, cVcthMax;
-					if(cTargetVcth <= 40) cVcthMin = 0x00;
-					else cVcthMin = cTargetVcth - 40;
+					// uint8_t cVcthMin, cVcthMax;
+					// if(cTargetVcth <= 40) cVcthMin = 0x00;
+					// else cVcthMin = cTargetVcth - 40;
 
-					if(cTargetVcth >= 215) cVcthMax = 0xFF;
-					else cVcthMax = cTargetVcth + 40;
+					// if(cTargetVcth >= 215) cVcthMax = 0xFF;
+					// else cVcthMax = cTargetVcth + 40;
 
-					std::cout << int(cTargetVcth) << " " << (int)cVcthMin << " " << (int)cVcthMax << std::endl;
-					// for(uint8_t cVcth = cVcthMin; cVcth < cVcthMax; cVcth+=0x02)
-					for(uint8_t cVcth = 100; cVcth < 120; cVcth+=0x01)
+					int cVcthMin(0x00), cVcthMax(0xFF);
+					int cDoubleVcth = 0;
+					int cVcth = cHoleMode ? cVcthMax : cVcthMin;
+					int cStep = cHoleMode ? -10 : 10;
+					bool cNonZero = false;
+					uint32_t cAllOne = 0;
+
+					std::cout << BOLDYELLOW << "Scanning VCth ... " << RESET << std::endl;
+					while(0x00 <= cVcth && cVcth <= 0xFF)
 					{
-
+						if(cVcth == cDoubleVcth){
+							cVcth +=  cStep;
+						    continue;
+						}
+						
 						// Set current Vcth value on all Cbc's of the current board
 				    	setGlobalReg((*cShelve)->getShelveId(), board->getBeId(), "VCth", cVcth);
 
 						uint32_t cN = 0;
 						uint32_t cNthAcq = 0;
+						uint32_t cTotalHits = 0;
 
-						while( cN < cEventsperVcth )
+						while( cN < cEventsperVcth)
 						{
 							Run(board, cNthAcq);
 
 							const Event *cEvent = fBeBoardInterface->GetNextEvent(board);
-							// std::cout << "processing events from " << cNthAcq << " th Acquisition" << std::endl;
 
 							// Loop over Events from this Acquisition
 						    while( cEvent )
@@ -167,20 +179,31 @@ void Calibration::VplusScan(){
 						            break;
 						        }
 
-						        FillScurveHists((*cShelve)->getShelveId(), board->getBeId(), cGroupId, cVcth, cEvent);
-
+						        uint32_t cNHits = FillScurveHists((*cShelve)->getShelveId(), board->getBeId(), cGroupId, cVcth, cEvent);
+						       	cTotalHits += cNHits;
 						        cN++;
 
-						        //
 						        if(cN < cEventsperVcth ) cEvent = fBeBoardInterface->GetNextEvent(board);
 						        else break;
 							}
 							cNthAcq++;
 						} // End of Analyze Events of last Acquistion loop
+
+						// This is the condition for some channels being different from 0
+						if( cNonZero == false && cTotalHits != 0){
+							cDoubleVcth = cVcth;
+							cNonZero = true;
+							cVcth -= 2 * cStep;
+							cStep /= 10;
+							continue;
+						}
+						// This is the condition for all of the S-curves having reached 1
+						if(cTotalHits == cEventsperVcth * cTotalChannels) cAllOne++;
+						if(cAllOne == 3) break;
+						cVcth += cStep;
 					}  // done looping over Vcth, Scurves created
 
 					// Now Fit the hists & fill the VplusVcth Graph & set the TestGroup Offset back to 0x00 or 0xFF
-
 					processSCurves((*cShelve)->getShelveId(), board->getBeId(), cGroupId, cEventsperVcth, cVplus, cHoleMode);
 				}
 			} // End of Be Loop
@@ -248,16 +271,12 @@ void Calibration::FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth){
 					uint8_t cVplusResult = (uint8_t) ((int) cVplusVcthFit->Eval(pTargetVcth));
 
 					fCbcInterface->WriteCbcReg(cModule.getCbc(cCbc.getCbcId()),"Vplus",cVplusResult);
-					std::cout << "Vplus Setting for Be " << (int)cBoard.getBeId() << " Fe " << (int)cModule.getFeId() << " Cbc " << (int)cCbc.getCbcId() << " : " << std::hex << cVplusResult << std::endl;
+					std::cout << "Vplus Setting for Be " << (int)cBoard.getBeId() << " Fe " << (int)cModule.getFeId() << " Cbc " << (int)cCbc.getCbcId() << " : " << int(cVplusResult) << std::endl;
 
 				} // End of Cbc Loop
 			} // End of Fe Loop
 		} // End of Be Loop
 	} // End of Shelve Loop
-
-	// temporarily close the Result File here
-	// fResultFile->Write();
-	// fResultFile->Close();
 }
 
 
@@ -275,8 +294,9 @@ void Calibration::setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRe
 	std::cout << "Setting " << RED << pRegName << RESET << " to Value " << GREEN << (int)pRegValue << RESET << " on all CBCs connected to Be " << int(pBeId) << std::endl;
 }
 
-void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVplus){
+uint32_t Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVplus){
 
+	uint32_t cTotalNChannels = 0;
 	for(auto& cGroupIt : fTestGroupMap)
 	{
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
@@ -300,6 +320,7 @@ void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 
 				// Update the Channel Object
 				cChannel.setOffset(0x50);
+				cTotalNChannels++;
 			}
 
 			fCbcInterface->WriteCbcMultReg(fShelveVec.at(pShelveId)->getBoard(pBeId)->getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
@@ -307,17 +328,18 @@ void Calibration::EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 		}
 	}
 	std::cout << "Enabled Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to BeBoard " << RED <<  uint32_t(pBeId) << RESET << std::endl;
+	return cTotalNChannels;
 }
 
-void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent){
+uint32_t Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent){
 	// Here Loop over all FE's Cbc's, Test Groups & Channels to fill Histograms
+	uint32_t cNHits = 0;
 
 	for(auto& cGroupIt : fTestGroupMap)
 	{
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pShelveId && cGroupIt.first.fBeId == pBeId && cGroupIt.first.fGroupId == pGroupId)
 		{
-	        uint32_t cNHits = 0;
 	        std::vector<bool> cDataBitVector = pEvent->DataBitVector(cGroupIt.first.fBeId, cGroupIt.first.fCbcId);
 
 	        // Now loop over all channels in the TestGroup
@@ -332,6 +354,8 @@ void Calibration::FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGro
 	        } // Channel Loop
 		} // If Statement
 	}
+	
+	return cNHits;
 }
 
 void Calibration::processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pVplus, bool pHoleMode){

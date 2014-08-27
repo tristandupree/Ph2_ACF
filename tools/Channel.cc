@@ -117,7 +117,7 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile
 		fFit->SetParameter(1,cWidth);
 
 		// // Fit
-		fScurve->Fit(fFit,"RQO");
+		fScurve->Fit(fFit,"RQN+");
 
 		// Eventually add TFitResultPointer
 		// create a Directory in the file for the current Offset and save the channel Data
@@ -127,12 +127,10 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile
 		pResultfile->cd(Form("Vplus%d",pVplus));
 
 		fScurve->Write(fScurve->GetName(), TObject::kOverwrite);
-		// Not necessary to write the Fit to file since it is automatically added to the list of functions!
-		// fFit->Write(fFit->GetName(), TObject::kOverwrite);
+		fFit->Write(fFit->GetName(), TObject::kOverwrite);
 
 		pResultfile->cd();
 		pResultfile->Flush();
-		// pResultfile->Write();
 	}
 	else std::cout << "Historgram Empty for Fe " << fFeId << " Cbc " << fCbcId << " Channel " << fChannelId << std::endl;
 
