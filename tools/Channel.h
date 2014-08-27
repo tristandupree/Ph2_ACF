@@ -10,6 +10,7 @@
 #include "TString.h"
 #include "TROOT.h"
 #include "TCanvas.h"
+#include "../System/ConsoleColor.h"
 
 struct Channel{
 

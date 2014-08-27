@@ -15,6 +15,7 @@ int main(int argc, char* argv[])
 {
     Calibration cCalibration("testfile.root");
     TApplication cApp("Root Application", &argc, argv);
+    TQObject::Connect("TCanvas", "Closed()", "TApplication", &cApp, "Terminate()");
 
 	cCalibration.InitializeHw("settings/HWDescription_2CBC.xml");
 	cCalibration.InitializeSettings("settings/HWDescription_2CBC.xml");

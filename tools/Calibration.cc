@@ -14,14 +14,14 @@
 Calibration::Calibration(std::string pResultfilepath){
 	// if(fResultFile != NULL) delete fResultFile;
 	// else{
-		fResultFile = new TFile(pResultfilepath.c_str(),"RECREATE");
+		fResultFile = TFile::Open(pResultfilepath.c_str(),"RECREATE");
 	// }
 		// InitialiseTestGroup();
 }
 
 Calibration::~Calibration(){
 
-			fResultFile->Write();
+			// fResultFile->Write();
 			fResultFile->Close();
 }
 
@@ -95,10 +95,10 @@ void Calibration::VplusScan(){
 	// 3. Run and Take Data for all Cbc's on 1 FE
 	// 4. Get Event and again loop over all Cbc's on 1 FE and analyze the data
 
-	fVplusValues.push_back(0x40);
+	// fVplusValues.push_back(0x40);
 	fVplusValues.push_back(0x50);
-	fVplusValues.push_back(0x60);
-	fVplusValues.push_back(0x70);
+	// fVplusValues.push_back(0x60);
+	// fVplusValues.push_back(0x70);
 
 	// uint32_t cEventsperVcth = fSettingsMap.find("Nevents")->second;
 	uint32_t cEventsperVcth = 10;
@@ -141,7 +141,8 @@ void Calibration::VplusScan(){
 					else cVcthMax = cTargetVcth + 40;
 
 					std::cout << int(cTargetVcth) << " " << (int)cVcthMin << " " << (int)cVcthMax << std::endl;
-					for(uint8_t cVcth = cVcthMin; cVcth < cVcthMax; cVcth+=0x02)
+					// for(uint8_t cVcth = cVcthMin; cVcth < cVcthMax; cVcth+=0x02)
+					for(uint8_t cVcth = 100; cVcth < 120; cVcth+=0x01)
 					{
 
 						// Set current Vcth value on all Cbc's of the current board
@@ -204,12 +205,13 @@ void Calibration::FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth){
 				{
 					TString multigraphname = Form("VplusVcth_Be%d_Fe%d_Cbc%d", cBoard.getBeId(), cModule.getFeId(), cCbc.getCbcId());
 					TMultiGraph* cVplusVcthMultiGraph = new TMultiGraph(multigraphname,Form("Vplus vs. Vcth; Vcth; Vplus"));
+					TCanvas* cVplusVcthCanvas;
 
 					if (pDoDraw){
 						TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", cBoard.getBeId(), cModule.getFeId(), cCbc.getCbcId());
-						TCanvas* cVplusVcthCanvas = (TCanvas*) gROOT->FindObject(canvasname);
+						cVplusVcthCanvas = (TCanvas*) gROOT->FindObject(canvasname);
 						if (cVplusVcthCanvas != NULL) delete cVplusVcthCanvas;
-						else cVplusVcthCanvas = new TCanvas(canvasname, canvasname);
+						cVplusVcthCanvas = new TCanvas(canvasname, canvasname);
 						cVplusVcthCanvas->cd();
 					}
 
@@ -237,17 +239,25 @@ void Calibration::FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth){
 					if (pDoDraw){
 						cVplusVcthMultiGraph->Draw("AP");
 						cVplusVcthFit->Draw("same");
+						cVplusVcthMultiGraph->GetXaxis()->SetRangeUser(0,255);
+						cVplusVcthMultiGraph->SetMinimum(0);
+						cVplusVcthMultiGraph->SetMaximum(255);
+						cVplusVcthCanvas->Update();
 					}
 					// Get the right Vplus setting & write to the Cbc
 					uint8_t cVplusResult = (uint8_t) ((int) cVplusVcthFit->Eval(pTargetVcth));
 
 					fCbcInterface->WriteCbcReg(cModule.getCbc(cCbc.getCbcId()),"Vplus",cVplusResult);
-					std::cout << "Vplus Setting for Be " << cBoard.getBeId() << " Fe " << cModule.getFeId() << " Cbc " << cCbc.getCbcId() << " : " << std::hex << cVplusResult << std::endl;
+					std::cout << "Vplus Setting for Be " << (int)cBoard.getBeId() << " Fe " << (int)cModule.getFeId() << " Cbc " << (int)cCbc.getCbcId() << " : " << std::hex << cVplusResult << std::endl;
 
 				} // End of Cbc Loop
 			} // End of Fe Loop
 		} // End of Be Loop
 	} // End of Shelve Loop
+
+	// temporarily close the Result File here
+	// fResultFile->Write();
+	// fResultFile->Close();
 }
 
 
@@ -344,10 +354,12 @@ void Calibration::processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGrou
 				cChannel.fitHist(pEventsperVcth, pHoleMode, pVplus, fResultFile);
 
 				// fill test Group TGraphErrors here
-				// TestGroupGraphMap::iterator cGraphIt = fTestGroupGraphMap.find(cGroupIt.first);
-				// if(cGraphIt != fTestGroupGraphMap.end())
-				// 	cGraphIt->second.FillVplusVcthGraph(pVplus, cChannel.getPedestal(), cChannel.getNoise());
-				// else std::cout << "The Graph for this test Group could not be found! There is a problem!" << std::endl;
+				TestGroupGraphMap::iterator cGraphIt = fTestGroupGraphMap.find(cGroupIt.first);
+				if(cGraphIt != fTestGroupGraphMap.end()){
+					cGraphIt->second.FillVplusVcthGraph(pVplus, cChannel.getPedestal(), cChannel.getNoise());
+					if(cChannel.getPedestal() == 0) std::cout << RED << "ERROR " << RESET << "The fit for Channel " << int(cChannel.fChannelId) << " CBC " << int(cChannel.fCbcId) << " FE " << int(cChannel.fFeId) << " did not work correctly!" << std::endl;
+				}
+				else std::cout << "The Graph for this test Group could not be found! There is a problem!" << std::endl;
 
 
 				// Reset the Histogram for the next value of Vplus
