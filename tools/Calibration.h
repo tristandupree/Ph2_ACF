@@ -47,10 +47,12 @@ public:
 
 	void VplusScan();
 	void FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
-    void setGlobalReg(uint8_t pShelveId, uint8_t pBeId, std::string pRegName, uint8_t pRegValue);
-    uint32_t EnableTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVplus);
-    uint32_t FillScurveHists(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent);
-    void processSCurves(uint8_t pShelveId, uint8_t pBeId, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pVplus, bool pHoleMode);
+	void measureSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode);
+    void setGlobalReg(BeBoard& pBoard, std::string pRegName, uint8_t pRegValue);
+    void initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVplus);
+    void processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pVplus, bool pHoleMode);
+    uint32_t ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable);
+    uint32_t fillScurveHists(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent);
     
 private:
 		
