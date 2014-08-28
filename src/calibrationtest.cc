@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 	cCalibration.InitialiseTestGroup();
     cCalibration.ConfigureHw();
     cCalibration.VplusScan();
-    cCalibration.FitVplusVcth(true,0x78);
+    // cCalibration.FitVplusVcth(true,0x78);
 
     cApp.Run();
 }
