@@ -40,38 +40,33 @@ void Channel::setOffset( uint8_t pOffset ){
 	fOffset = pOffset;
 }
 
-void Channel::initializeHist(uint8_t pValue, bool pVplusScan){
+void Channel::initializeHist(uint8_t pValue, TString pParameter){
 
 	TString histname;
 	TString fitname;
 
-	if(pVplusScan){
-		histname = Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d_Vplus%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
-		fitname = Form("Fit_Be%d_Fe%d_Cbc%d_Channel%d_Vplus%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
+	pParameter += Form("%d",pValue);
+	histname = Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId);
+	histname += pParameter;
+	fitname = Form("Fit_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId);
+	fitname += pParameter;
 
-	}
 
-	else{
+	fScurve = (TH1F*) gROOT->FindObject(histname);
+	if( fScurve ) delete fScurve;
+	fScurve = new TH1F(histname,Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId),256, -0.5, 255.5);
 
-		histname = Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d_Offset%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
-		fitname = Form("Fit_Be%d_Fe%d_Cbc%d_Channel%d_Offset%d", fBeId, fFeId, fCbcId, fChannelId, pValue);
-
-	}
-		fScurve = (TH1F*) gROOT->FindObject(histname);
-		if( fScurve ) delete fScurve;
-		fScurve = new TH1F(histname,Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId),256, -0.5, 255.5);
-
-		fFit = (TF1*) gROOT->FindObject(fitname);
-		if( fFit ) delete fFit;
-		// TF1 *f1=gROOT->GetFunction("myfunc");
-		fFit = new TF1(fitname, MyErf, 0, 255, 2 );
+	fFit = (TF1*) gROOT->FindObject(fitname);
+	if( fFit ) delete fFit;
+	// TF1 *f1=gROOT->GetFunction("myfunc");
+	fFit = new TF1(fitname, MyErf, 0, 255, 2 );
 }
 
 void Channel::fillHist(uint8_t pVcth){
 		fScurve->Fill(float(pVcth));
 }
 
-void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, bool pVplus, TFile* pResultfile){
+void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TString pParameter, TFile* pResultfile){
 
 	if ( fScurve != NULL && fFit != NULL ){
 
@@ -119,7 +114,7 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, bool 
 
 		fScurve->SetMarkerStyle(7);
 		fScurve->SetMarkerSize(1.2);
-		fScurve->SetOptStat(00000000);
+		// fScurve->SetOptStat(00000000);
 		
 		// Fit
 		fScurve->Fit(fFit,"RNQ+");
@@ -127,8 +122,7 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, bool 
 		// Eventually add TFitResultPointer
 		// create a Directory in the file for the current Offset and save the channel Data
 		TString cDirName;
-		if(pVplus) cDirName = Form("Vplus%d",pValue);
-		else cDirName = Form("Offset%d",pValue);
+		cDirName = pParameter + Form("%d",pValue);
 		TObject* cObj = gROOT->FindObject(cDirName);
 		if (!cObj) pResultfile->mkdir(cDirName);
 		pResultfile->cd(cDirName);

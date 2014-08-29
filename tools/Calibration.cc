@@ -124,11 +124,11 @@ void Calibration::VplusScan(){
 					// Now set Vplus to the correct value for all Cbc's connected to the current board
 					setGlobalReg(board, "Vplus", cVplus);
 
-					initializeSCurves(board, cGroupId, cVplus, true);
+					initializeSCurves(board, cGroupId, cVplus, "Vplus");
 
 					measureSCurves(board, cGroupId, cEventsperVcth, cTotalChannels, cHoleMode);
 					// Now Fit the hists & fill the VplusVcth Graph & set the TestGroup Offset back to 0x00 or 0xFF
-					processSCurves(board, cGroupId, cEventsperVcth, cVplus, true, cHoleMode, true);
+					processSCurves(board, cGroupId, cEventsperVcth, cVplus, "Vplus", cHoleMode, true);
 
 				} // End of Vplus Loop
 
@@ -219,17 +219,17 @@ void Calibration::setGlobalReg(BeBoard& pBoard, std::string pRegName, uint8_t pR
 	if(pRegName != "VCth") std::cout << "Setting " << RED << pRegName << RESET << " to Value " << GREEN << (int)pRegValue << RESET << " on all CBCs connected to Be " << YELLOW << int(pBoard.getBeId()) << RESET << std::endl;
 }
 
-void Calibration::initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, bool pVplus){
+void Calibration::initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, TString pParameter){
 
 	for(auto& cGroupIt : fTestGroupMap)
 	{
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
 		{
-			for(Channel& cChannel : cGroupIt.second) cChannel.initializeHist(pValue, pVplus);
+			for(Channel& cChannel : cGroupIt.second) cChannel.initializeHist(pValue, pParameter);
 		}
 	}
-	std::cout << "Initialized SCurves for Vplus " << int(pVplus) << " and Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
+	std::cout << "Initialized SCurves for Vplus " << int(pValue) << " and Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
 }
 
 void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode){
@@ -303,7 +303,7 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 
 
 
-void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, bool pVplus, bool pHoleMode, bool pDoDraw){
+void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, TString pParameter, bool pHoleMode, bool pDoDraw){
 	// Here Loop over all FE's Cbc's, Test Groups & Channels to fill Histograms
     for(auto& cGroupIt : fTestGroupMap)
     {
@@ -315,7 +315,7 @@ void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEv
     		TCanvas* cSCurveCanvas;
 
     		if(pDoDraw){
-	    		TString cSCurveCanvasName = Form("SCurves_FE%d_CBC%d", cGroupIt.first.fFeId, cGroupIt.first.fCbcId);
+	    		TString cSCurveCanvasName = Form("SCurves_FE%d_CBC%d_TestGroup%d", cGroupIt.first.fFeId, cGroupIt.first.fCbcId, pGroupId);
 	    		cSCurveCanvas = (TCanvas*) gROOT->FindObject(cSCurveCanvasName);
 	    		if(cSCurveCanvas) delete cSCurveCanvas;
 	    		cSCurveCanvas = new TCanvas(cSCurveCanvasName,cSCurveCanvasName);
@@ -328,9 +328,10 @@ void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEv
 			
     		for(Channel& cChannel : cGroupIt.second)
     		{
-				cChannel.fitHist(pEventsperVcth, pHoleMode, pValue, pVplus, fResultFile);
+				cChannel.fitHist(pEventsperVcth, pHoleMode, pValue, pParameter, fResultFile);
 
 				if(pDoDraw){
+					gStyle->SetOptStat(00000000000);
 					// Drawing SCurves of current test Group
 					if(cFirst) {
 						cOption = "P0";

@@ -38,9 +38,9 @@ struct Channel{
 	uint8_t getOffset(){ return fOffset; };
 	void setOffset(uint8_t pOffset);
 
-	void initializeHist(uint8_t pValue, bool pVplusScan);
+	void initializeHist(uint8_t pValue, TString pParameter);
 	void fillHist(uint8_t pVcth);
-	void fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, bool pVplus, TFile* pResultfile);
+	void fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TString pParameter, TFile* pResultfile);
 	void resetHist();
 };
 

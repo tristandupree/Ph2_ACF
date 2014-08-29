@@ -5,7 +5,7 @@
 * \author Lorenzo BIDEGAIN
 * \date 13/08/14
 *
-* Support : mail to : lorenzo.bidegain@cern.ch
+* Support : no support!
 *
 */
 
@@ -22,6 +22,7 @@
 #include "TMultiGraph.h"
 #include "TCanvas.h"
 #include "TFitResultPtr.h"
+#include "TStyle.h"
 
 #include <map>
 
@@ -46,14 +47,6 @@ public:
 	void InitialiseTestGroup();
 
 	void VplusScan();
-	void FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDraw);
-	// void FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
-	void setGlobalReg(BeBoard& pBoard, std::string pRegName, uint8_t pRegValue);
-    void initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, bool pVplus);
-    void measureSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode);
-	void processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, bool pVplus, bool pHoleMode, bool pDoDraw);
-    uint32_t fillScurveHists(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent);
-	uint32_t ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable);
     
 private:
 		
@@ -66,6 +59,13 @@ private:
     
 	void ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId);
 
+	void FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDraw);
+	void setGlobalReg(BeBoard& pBoard, std::string pRegName, uint8_t pRegValue);
+    void initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, TString pParameter);
+    void measureSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode);
+	void processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, TString pParameter, bool pHoleMode, bool pDoDraw);
+    uint32_t fillScurveHists(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent);
+	uint32_t ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable);
 };
 
 #endif
