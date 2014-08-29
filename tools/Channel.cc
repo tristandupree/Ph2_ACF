@@ -113,7 +113,7 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStri
 		fFit->SetParameter(1,cWidth);
 
 		fScurve->SetMarkerStyle(7);
-		fScurve->SetMarkerSize(1.2);
+		fScurve->SetMarkerSize(2);
 		// fScurve->SetOptStat(00000000);
 		
 		// Fit
@@ -129,9 +129,9 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStri
 
 		fScurve->Write(fScurve->GetName(), TObject::kOverwrite);
 		// fFit->Write(fFit->GetName(), TObject::kOverwrite);
+		// pResultfile->Flush();
 
 		pResultfile->cd();
-		pResultfile->Flush();
 	}
 	else std::cout << "Historgram Empty for Fe " << fFeId << " Cbc " << fCbcId << " Channel " << fChannelId << std::endl;
 

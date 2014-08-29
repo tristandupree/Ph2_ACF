@@ -21,7 +21,7 @@ Calibration::Calibration(std::string pResultfilepath){
 
 Calibration::~Calibration(){
 
-			// fResultFile->Write();
+			fResultFile->Write();
 			fResultFile->Close();
 }
 
@@ -85,6 +85,7 @@ void Calibration::ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t p
 
 	}
 }
+
 
 
 void Calibration::VplusScan(){
@@ -355,6 +356,7 @@ void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEv
 				cChannelCounter++;
 			}
 
+			fResultFile->Flush();
 			cSCurveCanvas->Update();
 		}
 	}
