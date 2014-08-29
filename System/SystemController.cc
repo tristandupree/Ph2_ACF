@@ -60,7 +60,7 @@ namespace Ph2_System
 		}
 		std::cout<<"\n";
 		std::cout<<"\n";
-		for(pugi::xml_node ns = doc.child("HwDescription").child("Shelve");ns;ns=ns.next_sibling())
+		for(pugi::xml_node ns = doc.child("HwDescription").child("Shelve");ns;ns=ns.next_sibling())
 		{
 			cShelveId = ns.attribute("Id0").as_int();
 			fShelveVec.push_back(new Shelve(cShelveId));
@@ -71,14 +71,14 @@ namespace Ph2_System
 			for(pugi::xml_node nb = ns.child("BeBoard");nb;nb=nb.next_sibling())
 			{
 				
-			std::cout<<BOLDCYAN<<"|"<<"_____"<<nb.name()<<"  "<<nb.first_attribute().name()<<" :"<<nb.attribute("Id").value() <<RESET<<std:: endl;
+			std::cout<<BOLDCYAN<<"|"<<"----"<<nb.name()<<"  "<<nb.first_attribute().name()<<" :"<<nb.attribute("Id").value() <<RESET<<std:: endl;
 			
 				cBeId = nb.attribute("Id").as_int();
 				BeBoard cBeBoard(cShelveId,cBeId);
 
 				for (pugi::xml_node nr = nb.child("Register"); nr!=nb.child("Module"); nr = nr.next_sibling())
 				{
-					std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"_____"<<nr.name()<<"  "<<nr.first_attribute().name()<<" :"<<nr.attribute("name").value() <<RESET<<std:: endl;
+					// std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"_____"<<nr.name()<<"  "<<nr.first_attribute().name()<<" :"<<nr.attribute("name").value() <<RESET<<std:: endl;
 					cBeBoard.setReg(std::string(nr.attribute("name").value()),atoi(nr.first_child().value()));
 				}
 
@@ -96,14 +96,14 @@ namespace Ph2_System
 
 				for(pugi::xml_node nm = nb.child("Module");nm;nm=nm.next_sibling())
 				{
-					std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"_____"<<nm.name()<<"  "<<nm.first_attribute().name()<<" :"<<nm.attribute("ModuleId").value() <<RESET<<std:: endl;
+					std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"----"<<nm.name()<<"  "<<nm.first_attribute().name()<<" :"<<nm.attribute("ModuleId").value() <<RESET<<std:: endl;
 					cModuleId = nm.attribute("ModuleId").as_int();
 					Module cModule(cShelveId,cBeId,nm.attribute("FMCId").as_int(),nm.attribute("FeId").as_int(),cModuleId);
 					fShelveVec[cNShelve]->getBoard(cBeId)->addModule(cModule);
 
 					for(pugi::xml_node nc = nm.child("CBC");nc;nc=nc.next_sibling())
 					{
-						std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"	"<<"|"<<"_____"<<nc.name()<<"  "<<nc.first_attribute().name()<<" :"<<nc.attribute("Id").value() <<RESET<<std:: endl;
+						std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"	"<<"|"<<"----"<<nc.name()<<"  "<<nc.first_attribute().name()<<" :"<<nc.attribute("Id").value() <<RESET<<std:: endl;
 						Cbc cCbc(cShelveId,cBeId,nm.attribute("FMCId").as_int(),nm.attribute("FeId").as_int(),nc.attribute("Id").as_int(),nc.attribute("configfile").value());
 						for(pugi::xml_node ngr = nc.child("Register");ngr;ngr=ngr.next_sibling())
 						{
@@ -111,7 +111,7 @@ namespace Ph2_System
 						}
 						for(pugi::xml_node ng = nm.child("Global_CBC_Register");ng!=nm.child("CBC");ng=ng.next_sibling())
 						{
-													std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"	"<<"|"<<"_____"<<ng.name()<<"  "<<ng.first_attribute().name()<<" :"<<ng.attribute("name").value() <<RESET<<std:: endl;
+													// std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"	"<<"|"<<"_____"<<ng.name()<<"  "<<ng.first_attribute().name()<<" :"<<ng.attribute("name").value() <<RESET<<std:: endl;
 							cCbc.setReg(std::string(ng.attribute("name").value()),atoi(ng.first_child().value()));
 						}
 						fShelveVec[cNShelve]->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);

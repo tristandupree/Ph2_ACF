@@ -19,11 +19,13 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "pugixml.hpp"
+#include "ConsoleColor.h"
 #include <iostream>
 #include <vector>
 #include <map>
 #include <stdlib.h>
 # include <string.h>
+
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;

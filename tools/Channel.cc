@@ -76,7 +76,7 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, bool 
 	if ( fScurve != NULL && fFit != NULL ){
 
 		// Normalize first
-		fScurve->Sumw2();
+		// fScurve->Sumw2();
 		fScurve->Scale(1/double_t(pEventsperVcth));
 
 		// Get first non 0 and first 1
@@ -117,8 +117,12 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, bool 
 		fFit->SetParameter(0,cMid);
 		fFit->SetParameter(1,cWidth);
 
-		// // Fit
-		fScurve->Fit(fFit,"RQ+");
+		fScurve->SetMarkerStyle(7);
+		fScurve->SetMarkerSize(1.2);
+		fScurve->SetOptStat(00000000);
+		
+		// Fit
+		fScurve->Fit(fFit,"RNQ+");
 
 		// Eventually add TFitResultPointer
 		// create a Directory in the file for the current Offset and save the channel Data
