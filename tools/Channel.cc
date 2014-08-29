@@ -71,9 +71,10 @@ void Channel::fillHist(uint8_t pVcth){
 		fScurve->Fill(float(pVcth));
 }
 
-void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile* pResultfile){
+void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, bool pVplus, TFile* pResultfile){
 
-	if ( fScurve != NULL /*&& fFit != NULL */){
+	if ( fScurve != NULL && fFit != NULL ){
+
 		// Normalize first
 		fScurve->Sumw2();
 		fScurve->Scale(1/double_t(pEventsperVcth));
@@ -99,7 +100,7 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile
 		else{
 			for( Int_t cBin = fScurve->GetNbinsX(); cBin >=1; cBin-- ){
 				double cContent = fScurve->GetBinContent( cBin );
-				if( !cFirstNon0	){
+ 				if( !cFirstNon0	){
 					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
 				}
 				else if( cContent == 1 ) {
@@ -117,17 +118,19 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pVplus, TFile
 		fFit->SetParameter(1,cWidth);
 
 		// // Fit
-		fScurve->Fit(fFit,"RQN+");
+		fScurve->Fit(fFit,"RQ+");
 
 		// Eventually add TFitResultPointer
 		// create a Directory in the file for the current Offset and save the channel Data
-		TString cDirName = Form("Vplus%d",pVplus);
+		TString cDirName;
+		if(pVplus) cDirName = Form("Vplus%d",pValue);
+		else cDirName = Form("Offset%d",pValue);
 		TObject* cObj = gROOT->FindObject(cDirName);
 		if (!cObj) pResultfile->mkdir(cDirName);
-		pResultfile->cd(Form("Vplus%d",pVplus));
+		pResultfile->cd(cDirName);
 
 		fScurve->Write(fScurve->GetName(), TObject::kOverwrite);
-		fFit->Write(fFit->GetName(), TObject::kOverwrite);
+		// fFit->Write(fFit->GetName(), TObject::kOverwrite);
 
 		pResultfile->cd();
 		pResultfile->Flush();

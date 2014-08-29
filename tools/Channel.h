@@ -6,6 +6,7 @@
 #include "TH1F.h"
 #include "TF1.h"
 #include "TGraphErrors.h"
+#include "THStack.h"
 #include "TFile.h"
 #include "TString.h"
 #include "TROOT.h"

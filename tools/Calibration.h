@@ -49,9 +49,9 @@ public:
 	void FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDraw);
 	// void FitVplusVcth(bool pDoDraw, uint8_t pTargetVcth);
 	void setGlobalReg(BeBoard& pBoard, std::string pRegName, uint8_t pRegValue);
-    void initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVplus);
+    void initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, bool pVplus);
     void measureSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode);
-	void processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pVplus, bool pHoleMode);
+	void processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, bool pVplus, bool pHoleMode);
     uint32_t fillScurveHists(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent);
 	uint32_t ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable);
     
