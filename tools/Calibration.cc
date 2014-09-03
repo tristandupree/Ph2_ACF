@@ -150,21 +150,21 @@ uint32_t Calibration::SetOffsetTargetBitTestGroup(BeBoard& pBoard, uint8_t pGrou
 			for(Channel& cChannel : cGroupIt.second)
 			{
 				// if hole mode, all the bits are 0
-				if(uint8_t(cChannel.getPedestal()) != pTargetVcth){
+				if(fabs(uint8_t(cChannel.getPedestal()) - pTargetVcth) > 1){
 
 					TString cRegName = Form("Channel%03d",cChannel.fChannelId);
 					uint8_t cOffset = cChannel.getOffset(); 
 					// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
 
-					// if(pHoleMode){
-					// 	cOffset = 0x00;
+					if(pHoleMode){
+						// cOffset = 0x00;
 					// independently of the CBC logic, just toggle the bit
-						cOffset ^= (1<<pTargetBit);
-					// }
-					// else{
-					// // 	cOffset = 0xFF;
-					// 	cOffset &= ~(1<<pTargetBit);
-					// }
+						cOffset |= (1<<pTargetBit);
+					}
+					else{
+					// 	cOffset = 0xFF;
+						cOffset &= ~(1<<pTargetBit);
+					}
 					
 					std::pair<std::string, uint8_t> cRegPair = std::make_pair(cRegName.Data(), cOffset);
 					cRegVec.push_back(cRegPair);
@@ -229,14 +229,26 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
 
 				// here we need to check if the SCurve midpoint(cChannel.getPedestal()) with this offset target bit is > or < than pTargetVcth and then leave the bit up or flip it back down
 
-				std::cout << int(pTargetVcth) << " " << int(cChannel.getPedestal()) << std::endl;
+				std::cout << int(pTargetVcth) << " " << cChannel.getPedestal() << std::endl;
 
-				if(cChannel.getPedestal() > pTargetVcth){
+				if(pHoleMode && int(cChannel.getPedestal()) > pTargetVcth){
 					uint8_t cOffset = cChannel.getOffset();
 					// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
 
-					// unset bit
 					cOffset &= ~(1<<pTargetBit);
+					// toggle bit 
+					// cOffset ^= (1<<pTargetBit);
+
+					TString cRegName = Form("Channel%03d",cChannel.fChannelId);
+					std::pair<std::string, uint8_t> cRegPair = std::make_pair(cRegName.Data(), cOffset);
+					cRegVec.push_back(cRegPair);
+					cChannel.setOffset(cOffset);
+				}
+				else if(!pHoleMode && int(cChannel.getPedestal()) < pTargetVcth){
+					uint8_t cOffset = cChannel.getOffset();
+					// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
+
+					cOffset |= (1<<pTargetBit);
 					// toggle bit 
 					// cOffset ^= (1<<pTargetBit);
 
