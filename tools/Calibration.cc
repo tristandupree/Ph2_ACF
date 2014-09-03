@@ -149,29 +149,27 @@ uint32_t Calibration::SetOffsetTargetBitTestGroup(BeBoard& pBoard, uint8_t pGrou
 
 			for(Channel& cChannel : cGroupIt.second)
 			{
-				// if hole mode, all the bits are 0
-				if(fabs(uint8_t(cChannel.getPedestal()) - pTargetVcth) > 1){
 
-					TString cRegName = Form("Channel%03d",cChannel.fChannelId);
-					uint8_t cOffset = cChannel.getOffset(); 
-					// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
+				TString cRegName = Form("Channel%03d",cChannel.fChannelId);
+				uint8_t cOffset = cChannel.getOffset(); 
+				// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
 
-					if(pHoleMode){
-						// cOffset = 0x00;
-					// independently of the CBC logic, just toggle the bit
-						cOffset |= (1<<pTargetBit);
-					}
-					else{
-					// 	cOffset = 0xFF;
-						cOffset &= ~(1<<pTargetBit);
-					}
-					
-					std::pair<std::string, uint8_t> cRegPair = std::make_pair(cRegName.Data(), cOffset);
-					cRegVec.push_back(cRegPair);
-
-					// Update the Channel Object
-					cChannel.setOffset(cOffset);
+				if(pHoleMode){
+					// cOffset = 0x00;
+				// independently of the CBC logic, just toggle the bit
+					cOffset |= (1<<pTargetBit);
 				}
+				else{
+				// 	cOffset = 0xFF;
+					cOffset &= ~(1<<pTargetBit);
+				}
+				
+				std::pair<std::string, uint8_t> cRegPair = std::make_pair(cRegName.Data(), cOffset);
+				cRegVec.push_back(cRegPair);
+
+				// Update the Channel Object
+				cChannel.setOffset(cOffset);
+
 				cTotalNChannels++;
 			}
 
@@ -236,8 +234,6 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
 					// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
 
 					cOffset &= ~(1<<pTargetBit);
-					// toggle bit 
-					// cOffset ^= (1<<pTargetBit);
 
 					TString cRegName = Form("Channel%03d",cChannel.fChannelId);
 					std::pair<std::string, uint8_t> cRegPair = std::make_pair(cRegName.Data(), cOffset);
@@ -257,15 +253,11 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
 					cRegVec.push_back(cRegPair);
 					cChannel.setOffset(cOffset);
 				}
-
-				// else cRegPair = std::make_pair(cRegName.Data(), cOffset);
-
-				// eventually distinguish between electron & hole mode?
-
 			}
 
 			if(!cRegVec.empty()) fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
 			cSCurveCanvas->Update();
+			cChannelCounter++;
 		}
 	}
 	std::cout << "Processed SCurves for Target Bit " << GREEN <<  uint32_t(pTargetBit) << RESET << std::endl;

@@ -56,6 +56,9 @@ void Channel::initializeHist(uint8_t pValue, TString pParameter){
 	if( fScurve ) delete fScurve;
 	fScurve = new TH1F(histname,Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId),256, -0.5, 255.5);
 
+	fScurve->SetMarkerStyle(7);
+	fScurve->SetMarkerSize(2);
+	
 	fFit = (TF1*) gROOT->FindObject(fitname);
 	if( fFit ) delete fFit;
 	// TF1 *f1=gROOT->GetFunction("myfunc");
@@ -112,10 +115,6 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStri
 		fFit->SetParameter(0,cMid);
 		fFit->SetParameter(1,cWidth);
 
-		fScurve->SetMarkerStyle(7);
-		fScurve->SetMarkerSize(2);
-		// fScurve->SetOptStat(00000000);
-		
 		// Fit
 		fScurve->Fit(fFit,"RNQ+");
 
