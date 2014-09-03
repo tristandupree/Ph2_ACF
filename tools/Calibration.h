@@ -47,6 +47,7 @@ public:
 	void InitialiseTestGroup();
 
 	void VplusScan();
+	void OffsetScan();
     
 private:
 		
@@ -66,6 +67,8 @@ private:
 	void processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, TString pParameter, bool pHoleMode, bool pDoDraw);
     uint32_t fillScurveHists(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent);
 	uint32_t ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable);
+	uint32_t SetOffsetTargetBitTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, uint8_t pTargetBit, uint8_t pTargetVcth);
+	void processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pTargetVcth, uint8_t pTargetBit, TString pParameter, bool pHoleMode, bool pDoDraw);
 };
 
 #endif

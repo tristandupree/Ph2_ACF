@@ -87,6 +87,178 @@ void Calibration::ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t p
 }
 
 
+void Calibration::OffsetScan(){
+
+	// Read values from Settings
+	uint32_t cEventsperVcth = fSettingsMap.find("Nevents")->second;
+	bool cHoleMode = fSettingsMap.find("HoleMode")->second;
+	uint8_t cTargetVcth = fSettingsMap.find("TargetVcth")->second;
+
+	for(auto& cShelve : fShelveVec)
+	{
+		// Iterating over the Boards
+		for(BeBoard& board : cShelve->fBoardVector)
+		{
+
+			setGlobalReg(board, "Vplus", 110);
+
+			// Now loop over test groups, enable them, loop over Vcth, read & analyze data, fill histograms & disable test groups again
+			for(uint8_t cGroupId = 0; cGroupId < 8; cGroupId++)
+			{
+				// set Offsets to 0 initially
+				ToggleTestGroup(board, cGroupId, cHoleMode, false);
+
+				std::cout << BOLDYELLOW << "Looping over OffsetBits ... " << RESET << std::endl;
+
+				// loop over offsets bitwise
+				// for(int cTargetBit = 0x07; cTargetBit >= 0x00; cTargetBit-- ){
+				uint8_t cTargetBit = 0x07;
+				do{
+					//Set Offset Target bit
+					uint32_t cTotalChannels = SetOffsetTargetBitTestGroup(board, cGroupId, cHoleMode, cTargetBit, cTargetVcth);
+				
+					// Now set Vplus to the correct value for all Cbc's connected to the current board
+					initializeSCurves(board, cGroupId, cTargetBit, "Offset_TargetBit");
+
+					measureSCurves(board, cGroupId, cEventsperVcth, cTotalChannels, cHoleMode);
+
+					// the bool at the end toggles the printing of the SCurves
+					processSCurvesOffset(board, cGroupId, cEventsperVcth, cTargetVcth, cTargetBit, "Offset_TargetBit", cHoleMode, true);
+
+				} while(cTargetBit--);// End of TargetBitLoop
+
+				// Disbale the current TestGroup
+				ToggleTestGroup(board, cGroupId, cHoleMode, false);
+
+			} // End of TestGroup Loop
+		} // End of Be Loop
+	} // End of the Shelve Loop
+}
+
+uint32_t Calibration::SetOffsetTargetBitTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, uint8_t pTargetBit, uint8_t pTargetVcth){
+
+	uint32_t cTotalNChannels = 0;
+	for(auto& cGroupIt : fTestGroupMap)
+	{
+		// check if the Group belongs to the right Shelve, BE and if it is the right group
+		if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
+		{
+			// Iterate through the channels and set Offset to 0x50
+			// Vector of pairs for the write MultiReg
+			std::vector< std::pair< std::string, uint8_t > > cRegVec;
+
+			for(Channel& cChannel : cGroupIt.second)
+			{
+				// if hole mode, all the bits are 0
+				if(uint8_t(cChannel.getPedestal()) != pTargetVcth){
+
+					TString cRegName = Form("Channel%03d",cChannel.fChannelId);
+					uint8_t cOffset = cChannel.getOffset(); 
+					// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
+
+					// if(pHoleMode){
+					// 	cOffset = 0x00;
+					// independently of the CBC logic, just toggle the bit
+						cOffset ^= (1<<pTargetBit);
+					// }
+					// else{
+					// // 	cOffset = 0xFF;
+					// 	cOffset &= ~(1<<pTargetBit);
+					// }
+					
+					std::pair<std::string, uint8_t> cRegPair = std::make_pair(cRegName.Data(), cOffset);
+					cRegVec.push_back(cRegPair);
+
+					// Update the Channel Object
+					cChannel.setOffset(cOffset);
+				}
+				cTotalNChannels++;
+			}
+
+			if(!cRegVec.empty()) fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
+		}
+	}
+	std::cout << GREEN << "Flipping Bit  " << YELLOW <<  uint32_t(pTargetBit) << GREEN << " on Test Group " << YELLOW <<  uint32_t(pGroupId) << RESET << std::endl;
+	return cTotalNChannels;
+}
+
+
+
+void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pTargetVcth, uint8_t pTargetBit, TString pParameter, bool pHoleMode, bool pDoDraw){
+	// Here Loop over all FE's Cbc's, Test Groups & Channels to fill Histograms
+   for(auto& cGroupIt : fTestGroupMap)
+   {
+
+   	// check if the Group belongs to the right Shelve, BE and if it is the right group
+   	if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
+   	{
+
+   		TCanvas* cSCurveCanvas;
+
+   		if(pDoDraw){
+	    		TString cSCurveCanvasName = Form("SCurves_FE%d_CBC%d_TestGroup%d", cGroupIt.first.fFeId, cGroupIt.first.fCbcId, pGroupId);
+	    		cSCurveCanvas = (TCanvas*) gROOT->FindObject(cSCurveCanvasName);
+	    		if(cSCurveCanvas) delete cSCurveCanvas;
+	    		cSCurveCanvas = new TCanvas(cSCurveCanvasName,cSCurveCanvasName);
+	    		cSCurveCanvas->cd();
+	    	}
+
+	    std::vector< std::pair< std::string, uint8_t > > cRegVec;
+
+   		bool cFirst = true;
+   		TString cOption;
+   		uint32_t cChannelCounter = 1;
+			
+   		for(Channel& cChannel : cGroupIt.second)
+   		{
+				cChannel.fitHist(pEventsperVcth, pHoleMode, pTargetBit, pParameter, fResultFile);
+
+				if(pDoDraw){
+					gStyle->SetOptStat(00000000000);
+					// Drawing SCurves of current test Group
+					if(cFirst) {
+						cOption = "P0";
+						cFirst = false;
+					}
+					else cOption = "P0 same";
+
+					cChannel.fScurve->SetMarkerColor(cChannelCounter);
+					cChannel.fScurve->Draw(cOption);
+					cChannel.fFit->Draw("same");
+				}
+
+				// here we need to check if the SCurve midpoint(cChannel.getPedestal()) with this offset target bit is > or < than pTargetVcth and then leave the bit up or flip it back down
+
+				std::cout << int(pTargetVcth) << " " << int(cChannel.getPedestal()) << std::endl;
+
+				if(cChannel.getPedestal() > pTargetVcth){
+					uint8_t cOffset = cChannel.getOffset();
+					// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
+
+					// unset bit
+					cOffset &= ~(1<<pTargetBit);
+					// toggle bit 
+					// cOffset ^= (1<<pTargetBit);
+
+					TString cRegName = Form("Channel%03d",cChannel.fChannelId);
+					std::pair<std::string, uint8_t> cRegPair = std::make_pair(cRegName.Data(), cOffset);
+					cRegVec.push_back(cRegPair);
+					cChannel.setOffset(cOffset);
+				}
+
+				// else cRegPair = std::make_pair(cRegName.Data(), cOffset);
+
+				// eventually distinguish between electron & hole mode?
+
+			}
+
+			if(!cRegVec.empty()) fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
+			cSCurveCanvas->Update();
+		}
+	}
+	std::cout << "Processed SCurves for Target Bit " << GREEN <<  uint32_t(pTargetBit) << RESET << std::endl;
+}
+
 
 void Calibration::VplusScan(){
 
@@ -230,7 +402,7 @@ void Calibration::initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t p
 			for(Channel& cChannel : cGroupIt.second) cChannel.initializeHist(pValue, pParameter);
 		}
 	}
-	std::cout << "Initialized SCurves for Vplus " << int(pValue) << " and Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
+	std::cout << "Initialized SCurves for " << pParameter << " = " << int(pValue) << " and Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
 }
 
 void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode){
