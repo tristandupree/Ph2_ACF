@@ -55,7 +55,8 @@ private:
 	TestGroupMap fTestGroupMap;
 	TestGroupGraphMap fTestGroupGraphMap;
 	std::vector<uint8_t> fVplusValues;
-
+	std::map<Cbc*, TCanvas*> fCbcCanvasMap;
+	
 private:
     
 	void ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId);

@@ -39,6 +39,11 @@ void Calibration::InitialiseTestGroup()
                   // std::cout<<"Cbc: "<<cCbc<<"created!"<<std::endl;
                 	// std::cout << uint32_t((cShelve)->getShelveId()) << " " << uint32_t(cBoard.getBeId()) << " " << uint32_t(cFe.getFeId()) << " " << uint32_t(cCbc.getCbcId()) << std::endl;
                    ConstructTestGroup((cShelve)->getShelveId(),cBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
+
+                   TCanvas* cTmpCanvas = new TCanvas(Form("BE%d_FE%d_CBC%d", cBoard.getBeId(),cFe.getFeId(),cCbc.getCbcId()), Form("BE%d_FE%d_CBC%d", cBoard.getBeId(),cFe.getFeId(),cCbc.getCbcId()));
+                   cTmpCanvas->Divide(3,3);
+                   fCbcCanvasMap[(cShelve)->fBoardVector.getBoard(cBoard.getBeId())->getModule(cFe.getFeId())->getCbc(cCbc.getCbcId())] = cTmpCanvas;
+
                 }
             }
         }
@@ -190,15 +195,18 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
    	// check if the Group belongs to the right Shelve, BE and if it is the right group
    	if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
    	{
+   		// TCanvas* cSCurveCanvas;
 
-   		TCanvas* cSCurveCanvas;
+   		TCanvas* currentCanvas;
 
    		if(pDoDraw){
-	    		TString cSCurveCanvasName = Form("SCurves_FE%d_CBC%d_TestGroup%d", cGroupIt.first.fFeId, cGroupIt.first.fCbcId, pGroupId);
-	    		cSCurveCanvas = (TCanvas*) gROOT->FindObject(cSCurveCanvasName);
-	    		if(cSCurveCanvas) delete cSCurveCanvas;
-	    		cSCurveCanvas = new TCanvas(cSCurveCanvasName,cSCurveCanvasName);
-	    		cSCurveCanvas->cd();
+	    		// TString cSCurveCanvasName = Form("SCurves_FE%d_CBC%d_TestGroup%d", cGroupIt.first.fFeId, cGroupIt.first.fCbcId, pGroupId);
+	    		// cSCurveCanvas = (TCanvas*) gROOT->FindObject(cSCurveCanvasName);
+	    		// if(cSCurveCanvas) delete cSCurveCanvas;
+	    		// cSCurveCanvas = new TCanvas(cSCurveCanvasName,cSCurveCanvasName);
+	    		// cSCurveCanvas->cd();
+   			currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
+   			currentCanvas->cd(pGroupId+1);
 	    	}
 
 	    std::vector< std::pair< std::string, uint8_t > > cRegVec;
