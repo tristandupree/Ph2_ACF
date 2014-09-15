@@ -54,12 +54,16 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
 
         /usr/bin/gcc --version
 
+    Don't forget to put /usr/local/bin in you $PATH variable
+
+
+
 3. Download [boost] (http://www.boost.org/users/history/version_1_55_0.html), then install:
 
         tar --bzip2 -xf boost_1_55_0.tar.bz2
 	    cd boost_1_55_0
 	    ./bootstrap.sh --prefix=/usr/
-	    ./b2 install
+	    sudo ./b2 install
 
    Then check Boost v1.55 is correctly installed using:
 
@@ -69,6 +73,11 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
 
         sudo yum groupremove uhal
         wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo
+
+        or using https: (for SLC5 64 bits)
+
+        https://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo
+
         sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
         sudo yum clean all
         sudo yum groupinstall uhal
