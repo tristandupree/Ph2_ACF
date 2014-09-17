@@ -21,7 +21,8 @@ int main(int argc, char* argv[])
 	cCalibration.InitializeSettings("settings/HWDescription_2CBC.xml");
 	cCalibration.InitialiseTestGroup();
     cCalibration.ConfigureHw();
-    // cCalibration.VplusScan();
-    cCalibration.OffsetScan();
+    cCalibration.VplusScan();
+    // cCalibration.OffsetScan();
+    cCalibration.SaveResults("Calibration");
     cApp.Run();
 }

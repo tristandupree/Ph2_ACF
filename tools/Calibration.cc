@@ -105,7 +105,7 @@ void Calibration::OffsetScan(){
 		for(BeBoard& board : cShelve->fBoardVector)
 		{
 
-			setGlobalReg(board, "Vplus", 110);
+			// setGlobalReg(board, "Vplus", 110);
 
 			// Now loop over test groups, enable them, loop over Vcth, read & analyze data, fill histograms & disable test groups again
 			for(uint8_t cGroupId = 0; cGroupId < 8; cGroupId++)
@@ -199,9 +199,20 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
    		TCanvas* currentCanvas;
 
    		if(pDoDraw){
-			currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
-   			currentCanvas->cd(pGroupId+1);
-	    	}
+			
+			std::map<Cbc*, TCanvas*>::iterator cCanvasMapIt = fCbcCanvasMap.find(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId));
+
+			if(cCanvasMapIt != fCbcCanvasMap.end()){
+				currentCanvas = cCanvasMapIt->second;
+				currentCanvas->cd(pGroupId+1);
+			}
+			else pDoDraw = false;
+	    }
+
+   // 		if(pDoDraw){
+			// currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
+   // 			currentCanvas->cd(pGroupId+1);
+	  //   }
 
 	    std::vector< std::pair< std::string, uint8_t > > cRegVec;
 
@@ -277,7 +288,7 @@ void Calibration::VplusScan(){
 	fVplusValues.push_back(0x40);
 	fVplusValues.push_back(0x50);
 	// fVplusValues.push_back(0x60);
-	// fVplusValues.push_back(0x70);
+	fVplusValues.push_back(0x70);
 
 	// Read values from Settings
 	uint32_t cEventsperVcth = fSettingsMap.find("Nevents")->second;
@@ -297,6 +308,7 @@ void Calibration::VplusScan(){
 				uint32_t cTotalChannels = ToggleTestGroup(board, cGroupId, cHoleMode, true);
 
 				std::cout << BOLDYELLOW << "Scanning Vplus ... " << RESET << std::endl;
+
 				for(uint8_t& cVplus : fVplusValues)
 				{
 
@@ -336,11 +348,15 @@ void Calibration::FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDr
 	   		TCanvas* currentCanvas;
 
 	   		if(pDoDraw){
-				// currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
-				currentCanvas = fCbcCanvasMap[&cCbc];
+				
+				std::map<Cbc*, TCanvas*>::iterator cCanvasMapIt = fCbcCanvasMap.find(&cCbc);
 
-	   			currentCanvas->cd(9);
-		    	}
+				if(cCanvasMapIt != fCbcCanvasMap.end()){
+					currentCanvas = cCanvasMapIt->second;
+					currentCanvas->cd(9);
+				}
+				else pDoDraw = false;
+		    }
 
 			// if (pDoDraw){
 			// 	TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
@@ -499,12 +515,23 @@ void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEv
     	if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
     	{
 
-   		TCanvas* currentCanvas;
+	   		TCanvas* currentCanvas;
 
-   		if(pDoDraw){
+	   		if(pDoDraw){
+				
+				std::map<Cbc*, TCanvas*>::iterator cCanvasMapIt = fCbcCanvasMap.find(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId));
+
+				if(cCanvasMapIt != fCbcCanvasMap.end()){
+					currentCanvas = cCanvasMapIt->second;
+					currentCanvas->cd(pGroupId+1);
+				}
+				else pDoDraw = false;
+		    }
+
+   // 		if(pDoDraw){
 			currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
-   			currentCanvas->cd(pGroupId+1);
-	    	}
+   // 			currentCanvas->cd(pGroupId+1);
+	  //   }
 
     		bool cFirst = true;
     		TString cOption;
@@ -609,4 +636,52 @@ uint32_t Calibration::ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pH
 	if(pEnable) std::cout << GREEN << "Enabled Test group " << YELLOW <<  uint32_t(pGroupId) << GREEN << " on all Cbc's connected to Be " << YELLOW <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
 	else std::cout << RED << "Disabled Test group " << YELLOW <<  uint32_t(pGroupId) << RED << " on all Cbc's connected to Be " << YELLOW <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
 	return cTotalNChannels;
+}
+
+void Calibration::SaveResults(std::string pDirname){
+
+	bool cHoleMode = fSettingsMap.find("HoleMode")->second;
+
+	std::string cMode;
+	if(cHoleMode) cMode = "_Hole";
+	else cMode = "_Electron";
+
+	pDirname = pDirname + cMode +  currentDateTime();
+	std::cout << "Creating directory: " << pDirname << std::endl;   
+	std::string cCommand = "mkdir -p " + pDirname;
+	
+	system(cCommand.c_str());
+
+	for (auto cShelve:fShelveVec)
+  	{
+       for(auto cBoard:(cShelve)->fBoardVector)
+       {
+           for(auto cFe : cBoard.fModuleVector)
+           {
+               for(auto cCbc : cFe.fCbcVector)
+               {
+					TString cFilename = Form("/FE%dCBC%d.txt", cFe.getFeId(), cCbc.getCbcId());
+
+					std::string cPathname = pDirname + cFilename.Data();
+
+					std::cout << "Dumping Calibration Results to file: " << cPathname << std::endl;
+
+					cCbc.saveRegMap(cPathname);
+				}
+			}
+		}
+	}
+}
+
+
+const std::string Calibration::currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
+    // for more information about date/time format
+    strftime(buf, sizeof(buf), "_%d-%m-%y_%H:%M", &tstruct);
+
+    return buf;
 }
