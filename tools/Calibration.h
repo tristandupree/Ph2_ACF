@@ -26,6 +26,8 @@
 
 #include <map>
 
+#define READBACK true
+
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 using namespace Ph2_System;

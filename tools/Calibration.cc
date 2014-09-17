@@ -40,9 +40,9 @@ void Calibration::InitialiseTestGroup()
                 	// std::cout << uint32_t((cShelve)->getShelveId()) << " " << uint32_t(cBoard.getBeId()) << " " << uint32_t(cFe.getFeId()) << " " << uint32_t(cCbc.getCbcId()) << std::endl;
                    ConstructTestGroup((cShelve)->getShelveId(),cBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
 
-                   TCanvas* cTmpCanvas = new TCanvas(Form("BE%d_FE%d_CBC%d", cBoard.getBeId(),cFe.getFeId(),cCbc.getCbcId()), Form("BE%d_FE%d_CBC%d", cBoard.getBeId(),cFe.getFeId(),cCbc.getCbcId()));
+                   TCanvas* cTmpCanvas = new TCanvas(Form("BE%d_FE%d_CBC%d", cBoard.getBeId(),cFe.getFeId(),cCbc.getCbcId()), Form("BE%d_FE%d_CBC%d", cBoard.getBeId(),cFe.getFeId(),cCbc.getCbcId()), 850, 850 );
                    cTmpCanvas->Divide(3,3);
-                   fCbcCanvasMap[(cShelve)->fBoardVector.getBoard(cBoard.getBeId())->getModule(cFe.getFeId())->getCbc(cCbc.getCbcId())] = cTmpCanvas;
+                   fCbcCanvasMap[(cShelve)->getBoard(cBoard.getBeId())->getModule(cFe.getFeId())->getCbc(cCbc.getCbcId())] = cTmpCanvas;
 
                 }
             }
@@ -178,7 +178,7 @@ uint32_t Calibration::SetOffsetTargetBitTestGroup(BeBoard& pBoard, uint8_t pGrou
 				cTotalNChannels++;
 			}
 
-			if(!cRegVec.empty()) fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
+			if(!cRegVec.empty()) fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec, READBACK);
 		}
 	}
 	std::cout << GREEN << "Flipping Bit  " << YELLOW <<  uint32_t(pTargetBit) << GREEN << " on Test Group " << YELLOW <<  uint32_t(pGroupId) << RESET << std::endl;
@@ -195,17 +195,11 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
    	// check if the Group belongs to the right Shelve, BE and if it is the right group
    	if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
    	{
-   		// TCanvas* cSCurveCanvas;
 
    		TCanvas* currentCanvas;
 
    		if(pDoDraw){
-	    		// TString cSCurveCanvasName = Form("SCurves_FE%d_CBC%d_TestGroup%d", cGroupIt.first.fFeId, cGroupIt.first.fCbcId, pGroupId);
-	    		// cSCurveCanvas = (TCanvas*) gROOT->FindObject(cSCurveCanvasName);
-	    		// if(cSCurveCanvas) delete cSCurveCanvas;
-	    		// cSCurveCanvas = new TCanvas(cSCurveCanvasName,cSCurveCanvasName);
-	    		// cSCurveCanvas->cd();
-   			currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
+			currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
    			currentCanvas->cd(pGroupId+1);
 	    	}
 
@@ -231,11 +225,12 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
 					cChannel.fScurve->SetMarkerColor(cChannelCounter);
 					cChannel.fScurve->Draw(cOption);
 					cChannel.fFit->Draw("same");
+					cChannelCounter++;
 				}
 
 				// here we need to check if the SCurve midpoint(cChannel.getPedestal()) with this offset target bit is > or < than pTargetVcth and then leave the bit up or flip it back down
 
-				std::cout << int(pTargetVcth) << " " << cChannel.getPedestal() << std::endl;
+				// std::cout << int(pTargetVcth) << " " << cChannel.getPedestal() << std::endl;
 
 				if(pHoleMode && int(cChannel.getPedestal()) > pTargetVcth){
 					uint8_t cOffset = cChannel.getOffset();
@@ -263,9 +258,8 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
 				}
 			}
 
-			if(!cRegVec.empty()) fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
-			cSCurveCanvas->Update();
-			cChannelCounter++;
+			if(!cRegVec.empty()) fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec, READBACK);
+			currentCanvas->Update();
 		}
 	}
 	std::cout << "Processed SCurves for Target Bit " << GREEN <<  uint32_t(pTargetBit) << RESET << std::endl;
@@ -338,15 +332,23 @@ void Calibration::FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDr
 		{
 			TString multigraphname = Form("VplusVcth_Be%d_Fe%d_Cbc%d", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
 			TMultiGraph* cVplusVcthMultiGraph = new TMultiGraph(multigraphname,Form("Vplus vs. Vcth; Vcth; Vplus"));
-			TCanvas* cVplusVcthCanvas;
 
-			if (pDoDraw){
-				TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
-				cVplusVcthCanvas = (TCanvas*) gROOT->FindObject(canvasname);
-				if (cVplusVcthCanvas != NULL) delete cVplusVcthCanvas;
-				cVplusVcthCanvas = new TCanvas(canvasname, canvasname);
-				cVplusVcthCanvas->cd();
-			}
+	   		TCanvas* currentCanvas;
+
+	   		if(pDoDraw){
+				// currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
+				currentCanvas = fCbcCanvasMap[&cCbc];
+
+	   			currentCanvas->cd(9);
+		    	}
+
+			// if (pDoDraw){
+			// 	TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
+			// 	cVplusVcthCanvas = (TCanvas*) gROOT->FindObject(canvasname);
+			// 	if (cVplusVcthCanvas != NULL) delete cVplusVcthCanvas;
+			// 	cVplusVcthCanvas = new TCanvas(canvasname, canvasname);
+			// 	cVplusVcthCanvas->cd();
+			// }
 
 			for(uint8_t cGroupId = 0; cGroupId < 8; cGroupId++)
 			{
@@ -366,8 +368,8 @@ void Calibration::FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDr
 			}
 
 			// All Points in the Multigraph; Fit it per Cbc, draw it Per Cbc
-			// TF1* cVplusVcthFit = new TF1("VplusVcthFit","pol1",0,0xFF);
-			TFitResultPtr cVplusVcthFitResult = cVplusVcthMultiGraph->Fit("pol1", "Q+");
+			TF1* cVplusVcthFit = new TF1("VplusVcthFit","pol1");
+			TFitResultPtr cVplusVcthFitResult = cVplusVcthMultiGraph->Fit(cVplusVcthFit, "Q+");
 
 			if (pDoDraw){
 				cVplusVcthMultiGraph->Draw("AP");
@@ -376,15 +378,15 @@ void Calibration::FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDr
 				cVplusVcthMultiGraph->GetXaxis()->SetLimits(0,255);
 				cVplusVcthMultiGraph->SetMinimum(0);
 				cVplusVcthMultiGraph->SetMaximum(255);
-				cVplusVcthCanvas->Update();
+				currentCanvas->Update();
 				cVplusVcthMultiGraph->Write(cVplusVcthMultiGraph->GetName(),TObject::kOverwrite);
 				fResultFile->Flush();
 			}
 			// Get the right Vplus setting & write to the Cbc
-			// uint8_t cVplusResult = (uint8_t) ((int) cVplusVcthFit->Eval(pTargetVcth));
+			uint8_t cVplusResult = (uint8_t) ((int) cVplusVcthFit->Eval(pTargetVcth));
 
-			// fCbcInterface->WriteCbcReg(cModule.getCbc(cCbc.getCbcId()),"Vplus",cVplusResult);
-			// std::cout << "Vplus Setting for Be " << (int)cBoard.getBeId() << " Fe " << (int)cModule.getFeId() << " Cbc " << (int)cCbc.getCbcId() << " : " << int(cVplusResult) << std::endl;
+			fCbcInterface->WriteCbcReg(&cCbc,"Vplus",cVplusResult);
+			std::cout << "Vplus Setting for Be " << int(pBoard.getBeId()) << " Fe " << int(cFe.getFeId()) << " Cbc " << int(cCbc.getCbcId()) << " : " << int(cVplusResult) << std::endl;
 
 		} // End of Cbc Loop
 	} // End of Fe Loop
@@ -497,14 +499,11 @@ void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEv
     	if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
     	{
 
-    		TCanvas* cSCurveCanvas;
+   		TCanvas* currentCanvas;
 
-    		if(pDoDraw){
-	    		TString cSCurveCanvasName = Form("SCurves_FE%d_CBC%d_TestGroup%d", cGroupIt.first.fFeId, cGroupIt.first.fCbcId, pGroupId);
-	    		cSCurveCanvas = (TCanvas*) gROOT->FindObject(cSCurveCanvasName);
-	    		if(cSCurveCanvas) delete cSCurveCanvas;
-	    		cSCurveCanvas = new TCanvas(cSCurveCanvasName,cSCurveCanvasName);
-	    		cSCurveCanvas->cd();
+   		if(pDoDraw){
+			currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
+   			currentCanvas->cd(pGroupId+1);
 	    	}
 
     		bool cFirst = true;
@@ -527,6 +526,7 @@ void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEv
 					cChannel.fScurve->SetMarkerColor(cChannelCounter);
 					cChannel.fScurve->Draw(cOption);
 					cChannel.fFit->Draw("same");
+					cChannelCounter++;
 				}
 
 				// fill test Group TGraphErrors here
@@ -537,11 +537,10 @@ void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEv
 					if(cChannel.getPedestal() == 0) std::cout << RED << "ERROR " << RESET << "The fit for Channel " << int(cChannel.fChannelId) << " CBC " << int(cChannel.fCbcId) << " FE " << int(cChannel.fFeId) << " did not work correctly!" << std::endl;
 				}
 				else std::cout << "The Graph for this test Group could not be found! There is a problem!" << std::endl;
-				cChannelCounter++;
 			}
 
 			fResultFile->Flush();
-			cSCurveCanvas->Update();
+			currentCanvas->Update();
 		}
 	}
 	std::cout << "Processed SCurves for Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
@@ -604,7 +603,7 @@ uint32_t Calibration::ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pH
 				cTotalNChannels++;
 			}
 
-			fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec);
+			fCbcInterface->WriteCbcMultReg(pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId),cRegVec, READBACK);
 		}
 	}
 	if(pEnable) std::cout << GREEN << "Enabled Test group " << YELLOW <<  uint32_t(pGroupId) << GREEN << " on all Cbc's connected to Be " << YELLOW <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
