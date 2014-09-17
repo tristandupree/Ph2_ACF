@@ -345,26 +345,30 @@ void Calibration::FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDr
 			TString multigraphname = Form("VplusVcth_Be%d_Fe%d_Cbc%d", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
 			TMultiGraph* cVplusVcthMultiGraph = new TMultiGraph(multigraphname,Form("Vplus vs. Vcth; Vcth; Vplus"));
 
-	   		TCanvas* currentCanvas;
+	   // 		TCanvas* currentCanvas;
 
-	   		if(pDoDraw){
+	   // 		if(pDoDraw){
 				
-				std::map<Cbc*, TCanvas*>::iterator cCanvasMapIt = fCbcCanvasMap.find(&cCbc);
+				// Cbc* cCbcPtr = &cCbc;	
 
-				if(cCanvasMapIt != fCbcCanvasMap.end()){
-					currentCanvas = cCanvasMapIt->second;
-					currentCanvas->cd(9);
-				}
-				else pDoDraw = false;
-		    }
+				// std::map<Cbc*, TCanvas*>::iterator cCanvasMapIt = fCbcCanvasMap.find(cCbcPtr);
 
-			// if (pDoDraw){
-			// 	TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
-			// 	cVplusVcthCanvas = (TCanvas*) gROOT->FindObject(canvasname);
-			// 	if (cVplusVcthCanvas != NULL) delete cVplusVcthCanvas;
-			// 	cVplusVcthCanvas = new TCanvas(canvasname, canvasname);
-			// 	cVplusVcthCanvas->cd();
-			// }
+				// if(cCanvasMapIt != fCbcCanvasMap.end()){
+				// 	currentCanvas = cCanvasMapIt->second;
+				// 	currentCanvas->cd(9);
+				// }
+				// else pDoDraw = false;
+		  //   }
+
+			TCanvas* cVplusVcthCanvas;
+
+			if (pDoDraw){
+				TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
+				cVplusVcthCanvas = (TCanvas*) gROOT->FindObject(canvasname);
+				if (cVplusVcthCanvas != NULL) delete cVplusVcthCanvas;
+				cVplusVcthCanvas = new TCanvas(canvasname, canvasname);
+				cVplusVcthCanvas->cd();
+			}
 
 			for(uint8_t cGroupId = 0; cGroupId < 8; cGroupId++)
 			{
@@ -389,17 +393,16 @@ void Calibration::FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDr
 
 			if (pDoDraw){
 				cVplusVcthMultiGraph->Draw("AP");
-				// cVplusVcthFit->Draw("same");
 				gPad->Modified();
 				cVplusVcthMultiGraph->GetXaxis()->SetLimits(0,255);
 				cVplusVcthMultiGraph->SetMinimum(0);
 				cVplusVcthMultiGraph->SetMaximum(255);
-				currentCanvas->Update();
+				cVplusVcthCanvas->Update();
 				cVplusVcthMultiGraph->Write(cVplusVcthMultiGraph->GetName(),TObject::kOverwrite);
 				fResultFile->Flush();
 			}
 			// Get the right Vplus setting & write to the Cbc
-			uint8_t cVplusResult = (uint8_t) ((int) cVplusVcthFit->Eval(pTargetVcth));
+			uint8_t cVplusResult = (uint8_t)cVplusVcthFit->Eval(pTargetVcth));
 
 			fCbcInterface->WriteCbcReg(&cCbc,"Vplus",cVplusResult);
 			std::cout << "Vplus Setting for Be " << int(pBoard.getBeId()) << " Fe " << int(cFe.getFeId()) << " Cbc " << int(cCbc.getCbcId()) << " : " << int(cVplusResult) << std::endl;

@@ -178,7 +178,7 @@ namespace Ph2_HwDescription{
 			file.seekp(-i->first.size(),std::ios_base::cur);
 
 
-                	file<<"0x" << std::setfill ('0') << std::setw (2) << std::hex<< uint32_t(i->second.fPage) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fAddress) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fDefValue) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex<< uint32_t(i->second.fValue) <<std::endl;
+                	file<<"0x" << std::setfill ('0') << std::setw (2) << std::hex << std::uppercase << uint32_t(i->second.fPage) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex << std::uppercase << uint32_t(i->second.fAddress) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex << std::uppercase << uint32_t(i->second.fDefValue) <<"\t0x" << std::setfill ('0') << std::setw (2)<< std::hex << std::uppercase << uint32_t(i->second.fValue) <<std::endl;
 
        			}
 			file.close();
