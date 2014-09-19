@@ -63,49 +63,53 @@ namespace Ph2_HwInterface
 			}
 		#endif
 
-		std::vector<uint32_t> cVecReq;
-		CbcRegMap cCbcRegMap = pCbc->getRegMap();
+			std::vector<uint32_t> cVecWrite;
+			std::vector<uint32_t> cVecRead;
+
+			// CbcRegItem cRegItemWrite;
+			// CbcRegItem cRegItemRead;
+
+			CbcRegMap cCbcRegMap = pCbc->getRegMap();
 
 		for(CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++)
 		{
-			EncodeReg(cIt->second,pCbc->getCbcId(),cVecReq);
+			EncodeReg(cIt->second,pCbc->getCbcId(),cVecWrite);
+
+			if(pVerifLoop)
+			{
+				CbcRegItem cItem = cIt->second;
+				cItem.fValue = 0;
+
+				EncodeReg(cItem,pCbc->getCbcId(),cVecRead);
+			}
 		}
 
-		fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecReq);
+		fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecWrite);
 
 		if(pVerifLoop)
 		{
-			std::vector<uint32_t> cWriteValue, cReadValue, cVecReqBis;
 			uint8_t cCbcId = pCbc->getCbcId();
-			CbcRegItem cRegItem;
 
-			for(int32_t i=0;i<cVecReq.size();i++)
+			fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecRead);
+
+			// only if I have a mismatch will i decode word by word and compare
+			if(cVecWrite != cVecRead)
 			{
-				DecodeReg(cRegItem,cCbcId,cVecReq[i]);
 
-				cWriteValue.push_back(cRegItem.fValue);
-				cRegItem.fValue = 0;
-
-				EncodeReg(cRegItem,pCbc->getCbcId(),cVecReqBis);
-
-				fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReqBis);
-
-				DecodeReg(cRegItem,cCbcId,cVecReqBis[0]);
-
-				cReadValue.push_back(cRegItem.fValue);
-
-				cVecReqBis.clear();
-
-				if(cReadValue[i] != cWriteValue[i])
+				auto cMismatchWord = std::mismatch(cVecWrite.begin(), cVecWrite.end(), cVecRead.begin());
+				while(cMismatchWord.first != cVecWrite.end())
 				{
-					std::cout << "\nERROR !!!\nValues are not coinciding :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
-					std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
+					CbcRegItem cRegItemWrite;
+					DecodeReg(cRegItemWrite,cCbcId, *cMismatchWord.first);
+					CbcRegItem cRegItemRead;
+					DecodeReg(cRegItemRead, cCbcId, *cMismatchWord.second);
+
+					// uint32_t index = std::distance(cVecWrite.begin(),cMismatchWord.first);
+					// std::string cMismatchName = pVecReq.at(index).first;
+
+					std::cout << "\nERROR !!!\nReadback value not the same for Register @ Page: " << cRegItemWrite.fPage << " Address: " << cRegItemWrite.fAddress << "\n" << "Written Value : " << cRegItemWrite.fValue << "\nReadback Value : " << cRegItemRead.fValue << std::endl;
 					std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
 					mypause();
-				}
-				else
-				{
-					std::cout << "Writing correctly done :\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
 				}
 			}
 
@@ -125,163 +129,151 @@ namespace Ph2_HwInterface
 
 	}
 
-
 	void CbcInterface::WriteCbcReg(Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop)
 	{
 
-#ifdef __CBCDAQ_DEV__
-		static long min(0), sec(0);
-		struct timeval start0, end;
-		long seconds(0), useconds(0);
+	#ifdef __CBCDAQ_DEV__
+			static long min(0), sec(0);
+			struct timeval start0, end;
+			long seconds(0), useconds(0);
 
-		if(  DEV_FLAG ){
-			gettimeofday(&start0, 0);
-		}
-#endif
+			if(  DEV_FLAG ){
+				gettimeofday(&start0, 0);
+			}
+	#endif
 
         CbcRegItem cRegItem = (pCbc->getRegMap())[pRegNode];
-        std::vector<uint32_t> cVecReq;
+        std::vector<uint32_t> cVecWrite;
+        std::vector<uint32_t> cVecRead;
 
         cRegItem.fValue = pValue;
 
         setBoard(pCbc->getBeId());
 
-        EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
+        EncodeReg(cRegItem,pCbc->getCbcId(),cVecWrite);
 
-        fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecReq);
+        fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecWrite);
 
         if(pVerifLoop)
         {
-            uint32_t cWriteValue, cReadValue;
             uint8_t cCbcId = pCbc->getCbcId();
 
-            DecodeReg(cRegItem,cCbcId,cVecReq[0]);
-
-            cWriteValue = cRegItem.fValue;
             cRegItem.fValue = 0;
 
-            EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
+            EncodeReg(cRegItem,pCbc->getCbcId(),cVecRead);
 
-            fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReq);
+            fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecRead);
 
-            DecodeReg(cRegItem,cCbcId,cVecReq[0]);
-
-            cReadValue = cRegItem.fValue;
-
-            if(cReadValue != cWriteValue)
+            if(cVecWrite != cVecRead)
             {
-                std::cout << "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
+
+            	DecodeReg(cRegItem,cCbcId,cVecRead[0]);
+
+                std::cout << "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << "Written Value : " << pValue << "\nReadback Value : " << cRegItem.fValue << std::endl;
 				std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
-				std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
+				std::cout << "Cbc Id : " << uint32_t(cCbcId) << std::endl;
 				mypause();
             }
-           /* else
-            {
-                std::cout << "Writing Register  "<<RED<<pRegNode<<RESET<<" correctly done on CBC Id " <<GREEN<<uint32_t(pCbc->getCbcId()) <<RESET<<":\n" << "Written Value : " << cWriteValue << "\nReadback Value : " << cReadValue << std::endl;
-            }*/
 		}
 
 		pCbc->setReg(pRegNode,cRegItem.fValue);
 
-#ifdef __CBCDAQ_DEV__
-		if(  DEV_FLAG )
-		{
-			gettimeofday( &end, 0 );
-			seconds = end.tv_sec - start0.tv_sec;
-			useconds = end.tv_usec - start0.tv_usec;
-			min += ( seconds + useconds / 1000000 ) /60;
-			sec += ( seconds + useconds / 1000000 ) %60;
-			std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
-		}
-#endif
-
-
-	}
-
-
-	void CbcInterface::WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint8_t> > pVecReq, bool pVerifLoop)
-	{
-
-#ifdef __CBCDAQ_DEV__
-		static long min(0), sec(0);
-		struct timeval start0, end;
-		long seconds(0), useconds(0);
-
-		if(  DEV_FLAG ){
-			gettimeofday(&start0, 0);
-		}
-#endif
-
-		setBoard(pCbc->getBeId());
-
-		std::vector<uint32_t> cVecReq;
-		CbcRegItem cRegItem;
-
-		for(uint32_t i=0; i<pVecReq.size(); i++)
-		{
-			cRegItem = (pCbc->getRegMap())[pVecReq[i].first];
-			cRegItem.fValue = pVecReq[i].second;
-
-			EncodeReg(cRegItem,pCbc->getCbcId(),cVecReq);
-
-			pCbc->setReg(pVecReq[i].first,cRegItem.fValue);
-		}
-
-		fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecReq);
-
-		if(pVerifLoop)
-		{
-			std::vector<uint32_t> cWriteValue, cReadValue, cVecReqBis;
-			uint8_t cCbcId = pCbc->getCbcId();
-			CbcRegItem cRegItem;
-
-			for(int32_t i=0;i<cVecReq.size();i++)
+	#ifdef __CBCDAQ_DEV__
+			if(  DEV_FLAG )
 			{
-				DecodeReg(cRegItem,cCbcId,cVecReq[i]);
-
-				cWriteValue.push_back(cRegItem.fValue);
-				cRegItem.fValue = 0;
-
-				EncodeReg(cRegItem,pCbc->getCbcId(),cVecReqBis);
-
-				fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecReqBis);
-
-				DecodeReg(cRegItem,cCbcId,cVecReqBis[0]);
-
-				cReadValue.push_back(cRegItem.fValue);
-
-				cVecReqBis.clear();
-
-				if(cReadValue[i] != cWriteValue[i])
-				{
-					std::cout << "\nERROR !!!\nReadback value not the same for Register :" << pVecReq[i].first << "\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
-					std::cout << "Register Adress : " << uint32_t(cRegItem.fAddress) << std::endl;
-					std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
-					mypause();
-				}
-				/*else
-				{
-					std::cout << "Writing correctly done on Register "<<RED<<pVecReq[i].first<<RESET<<":\n" << "Written Value : " << cWriteValue[i] << "\nReadback Value : " << cReadValue[i] << std::endl;
-				}*/
+				gettimeofday( &end, 0 );
+				seconds = end.tv_sec - start0.tv_sec;
+				useconds = end.tv_usec - start0.tv_usec;
+				min += ( seconds + useconds / 1000000 ) /60;
+				sec += ( seconds + useconds / 1000000 ) %60;
+				std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
 			}
-
-		}
-
-#ifdef __CBCDAQ_DEV__
-		if(  DEV_FLAG )
-		{
-			gettimeofday( &end, 0 );
-			seconds = end.tv_sec - start0.tv_sec;
-			useconds = end.tv_usec - start0.tv_usec;
-			min += ( seconds + useconds / 1000000 ) /60;
-			sec += ( seconds + useconds / 1000000 ) %60;
-			std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
-		}
-#endif
-
-
+	#endif
 	}
 
+			void CbcInterface::WriteCbcMultReg(Cbc* pCbc, std::vector< std::pair<std::string,uint8_t> > pVecReq, bool pVerifLoop)
+			{
+
+		#ifdef __CBCDAQ_DEV__
+				static long min(0), sec(0);
+				struct timeval start0, end;
+				long seconds(0), useconds(0);
+
+				if(  DEV_FLAG ){
+					gettimeofday(&start0, 0);
+				}
+		#endif
+
+				setBoard(pCbc->getBeId());
+
+				std::vector<uint32_t> cVecWrite;
+				std::vector<uint32_t> cVecRead;
+
+				CbcRegItem cRegItemWrite;
+				CbcRegItem cRegItemRead;
+
+				for(uint32_t i=0; i<pVecReq.size(); i++)
+				{
+					cRegItemWrite = (pCbc->getRegMap())[pVecReq[i].first];
+					cRegItemWrite.fValue = pVecReq[i].second;
+
+					EncodeReg(cRegItemWrite,pCbc->getCbcId(),cVecWrite);
+
+					pCbc->setReg(pVecReq[i].first,cRegItemWrite.fValue);
+
+					if(pVerifLoop)
+					{
+						cRegItemRead = (pCbc->getRegMap())[pVecReq[i].first];
+						cRegItemRead.fValue = 0;
+
+						EncodeReg(cRegItemRead,pCbc->getCbcId(),cVecRead);
+					}
+				}
+
+				fBoardFW->WriteCbcBlockReg(pCbc->getFeId(),cVecWrite);
+
+				if(pVerifLoop)
+				{
+					uint8_t cCbcId = pCbc->getCbcId();
+
+					fBoardFW->ReadCbcBlockReg(pCbc->getFeId(),cVecRead);
+
+					// only if I have a mismatch will i decode word by word and compare
+					if(cVecWrite != cVecRead)
+					{
+
+						auto cMismatchWord = std::mismatch(cVecWrite.begin(), cVecWrite.end(), cVecRead.begin());
+						while(cMismatchWord.first != cVecWrite.end())
+						{
+							CbcRegItem cRegItemWrite;
+							DecodeReg(cRegItemWrite,cCbcId, *cMismatchWord.first);
+							CbcRegItem cRegItemRead;
+							DecodeReg(cRegItemRead, cCbcId, *cMismatchWord.second);
+
+							uint32_t index = std::distance(cVecWrite.begin(),cMismatchWord.first);
+							std::string cMismatchName = pVecReq.at(index).first;
+
+							std::cout << "\nERROR !!!\nReadback value not the same for Register : " << cMismatchName << " @ Page: " << cRegItemWrite.fPage << " Address: " << cRegItemWrite.fAddress << "\n" << "Written Value : " << cRegItemWrite.fValue << "\nReadback Value : " << cRegItemRead.fValue << std::endl;
+							std::cout << "Cbc Id : " << uint32_t(pCbc->getCbcId()) << std::endl;
+							mypause();
+						}
+					}
+				}
+
+		#ifdef __CBCDAQ_DEV__
+				if(  DEV_FLAG )
+				{
+					gettimeofday( &end, 0 );
+					seconds = end.tv_sec - start0.tv_sec;
+					useconds = end.tv_usec - start0.tv_usec;
+					min += ( seconds + useconds / 1000000 ) /60;
+					sec += ( seconds + useconds / 1000000 ) %60;
+					std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
+				}
+		#endif
+
+
+			}
 
 	void CbcInterface::ReadCbcReg(Cbc* pCbc,const std::string& pRegNode)
 	{
