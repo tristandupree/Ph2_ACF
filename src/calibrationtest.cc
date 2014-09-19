@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     Calibration cCalibration;
 	cCalibration.InitializeHw(cHWFile);
 	cCalibration.InitializeSettings(cHWFile);
-    cCalibration.CreateResultDirectory("Calibration");
+    cCalibration.CreateResultDirectory("Results/Calibration");
     cCalibration.InitResultFile();
 	cCalibration.InitialiseTestGroup();
     cCalibration.ConfigureHw();
