@@ -2,22 +2,16 @@
 *
 * \file Calibration.cc
 * \brief Calibration class, calibration of the hardware
-* \author Lorenzo BIDEGAIN
+* \author Georg Auzinger
 * \date 13/08/14
 *
-* Support : mail to : lorenzo.bidegain@cern.ch
+* Support : mail to : georg.auzinger@cern.ch
 *
 */
 
 #include "Calibration.h"
 
-Calibration::Calibration(std::string pResultfilepath){
-	// if(fResultFile != NULL) delete fResultFile;
-	// else{
-		fResultFile = TFile::Open(pResultfilepath.c_str(),"RECREATE");
-	// }
-		// InitialiseTestGroup();
-}
+Calibration::Calibration(){}
 
 Calibration::~Calibration(){
 
@@ -36,8 +30,6 @@ void Calibration::InitialiseTestGroup()
             {
                 for(auto cCbc : cFe.fCbcVector)
                 {
-                  // std::cout<<"Cbc: "<<cCbc<<"created!"<<std::endl;
-                	// std::cout << uint32_t((cShelve)->getShelveId()) << " " << uint32_t(cBoard.getBeId()) << " " << uint32_t(cFe.getFeId()) << " " << uint32_t(cCbc.getCbcId()) << std::endl;
                    ConstructTestGroup((cShelve)->getShelveId(),cBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
 
                    TCanvas* cTmpCanvas = new TCanvas(Form("BE%d_FE%d_CBC%d", cBoard.getBeId(),cFe.getFeId(),cCbc.getCbcId()), Form("BE%d_FE%d_CBC%d", cBoard.getBeId(),cFe.getFeId(),cCbc.getCbcId()), 850, 850 );
@@ -79,8 +71,6 @@ void Calibration::ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t p
 
 		}
 
-		// std::cout << "Shelve " << uint32_t(fTestgroup.fShelveId) << " Be " << uint32_t(fTestgroup.fBeId) << " FE " << uint32_t(fTestgroup.fFeId) << " Cbc " << uint32_t(fTestgroup.fCbcId) << " Group " << uint32_t(fTestgroup.fGroupId) << std::endl;
-
 		TestGroupGraph cTestGroupGraph(pBeId, pFeId, pCbcId, lgroup);
 
 
@@ -104,9 +94,6 @@ void Calibration::OffsetScan(){
 		// Iterating over the Boards
 		for(BeBoard& board : cShelve->fBoardVector)
 		{
-
-			// setGlobalReg(board, "Vplus", 110);
-
 			// Now loop over test groups, enable them, loop over Vcth, read & analyze data, fill histograms & disable test groups again
 			for(uint8_t cGroupId = 0; cGroupId < 8; cGroupId++)
 			{
@@ -135,6 +122,9 @@ void Calibration::OffsetScan(){
 				// Disbale the current TestGroup
 				ToggleTestGroup(board, cGroupId, cHoleMode, false);
 
+				// Here I am deliberately creating a discrepancy between memory object and HW in order to keep the final offset values
+				UpdateCbcObject(board, cGroupId);
+
 			} // End of TestGroup Loop
 		} // End of Be Loop
 	} // End of the Shelve Loop
@@ -156,8 +146,8 @@ uint32_t Calibration::SetOffsetTargetBitTestGroup(BeBoard& pBoard, uint8_t pGrou
 			{
 
 				TString cRegName = Form("Channel%03d",cChannel.fChannelId);
-				uint8_t cOffset = cChannel.getOffset(); 
-				// uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
+				// uint8_t cOffset = cChannel.getOffset(); 
+				uint8_t cOffset = pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->getReg(cRegName.Data());
 
 				if(pHoleMode){
 					// cOffset = 0x00;
@@ -208,11 +198,6 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
 			}
 			else pDoDraw = false;
 	    }
-
-   // 		if(pDoDraw){
-			// currentCanvas = fCbcCanvasMap[pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)];
-   // 			currentCanvas->cd(pGroupId+1);
-	  //   }
 
 	    std::vector< std::pair< std::string, uint8_t > > cRegVec;
 
@@ -276,19 +261,34 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
 	std::cout << "Processed SCurves for Target Bit " << GREEN <<  uint32_t(pTargetBit) << RESET << std::endl;
 }
 
+void Calibration::UpdateCbcObject(BeBoard& pBoard, uint8_t pGroupId){
+
+	for(auto& cGroupIt : fTestGroupMap)
+	{
+		// check if the Group belongs to the right Shelve, BE and if it is the right group
+		if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
+		{
+
+			for(Channel& cChannel : cGroupIt.second)
+			{
+
+				TString cRegName = Form("Channel%03d",cChannel.fChannelId);
+				uint8_t cOffset = cChannel.getOffset(); 
+
+				pBoard.getModule(cGroupIt.first.fFeId)->getCbc(cGroupIt.first.fCbcId)->setReg(cRegName.Data(), cOffset);
+
+			}
+		}
+	}
+}
+
+
 
 void Calibration::VplusScan(){
 
-	// for 4 different values of Vplus, loop over all Test Groups on all Cbc's simultaniously:
-	// 1. enable test groups on all Cbc's on 1 FE
-	// 2. Loop over Vcth Range and set Vcth on all Cbc's
-	// 3. Run and Take Data for all Cbc's on 1 FE
-	// 4. Get Event and again loop over all Cbc's on 1 FE and analyze the data
-
 	fVplusValues.push_back(0x40);
-	fVplusValues.push_back(0x50);
-	// fVplusValues.push_back(0x60);
-	fVplusValues.push_back(0x70);
+	fVplusValues.push_back(0x80);
+	fVplusValues.push_back(0xB0);
 
 	// Read values from Settings
 	uint32_t cEventsperVcth = fSettingsMap.find("Nevents")->second;
@@ -345,29 +345,16 @@ void Calibration::FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDr
 			TString multigraphname = Form("VplusVcth_Be%d_Fe%d_Cbc%d", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
 			TMultiGraph* cVplusVcthMultiGraph = new TMultiGraph(multigraphname,Form("Vplus vs. Vcth; Vcth; Vplus"));
 
-	   // 		TCanvas* currentCanvas;
-
-	   // 		if(pDoDraw){
-				
-				// Cbc* cCbcPtr = &cCbc;	
-
-				// std::map<Cbc*, TCanvas*>::iterator cCanvasMapIt = fCbcCanvasMap.find(cCbcPtr);
-
-				// if(cCanvasMapIt != fCbcCanvasMap.end()){
-				// 	currentCanvas = cCanvasMapIt->second;
-				// 	currentCanvas->cd(9);
-				// }
-				// else pDoDraw = false;
-		  //   }
-
-			TCanvas* cVplusVcthCanvas;
+	   		TCanvas* currentCanvas;
 
 			if (pDoDraw){
-				TString canvasname = Form("Be%d_Fe%d_Cbc%d_VplusVcth", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
-				cVplusVcthCanvas = (TCanvas*) gROOT->FindObject(canvasname);
-				if (cVplusVcthCanvas != NULL) delete cVplusVcthCanvas;
-				cVplusVcthCanvas = new TCanvas(canvasname, canvasname);
-				cVplusVcthCanvas->cd();
+				TString canvasname = Form("BE%d_FE%d_CBC%d", pBoard.getBeId(), cFe.getFeId(), cCbc.getCbcId());
+				currentCanvas = (TCanvas*) gROOT->FindObject(canvasname);
+				if(currentCanvas == NULL) {
+					pDoDraw = false;
+					std::cout << "No Canvas Found to display Result!" << std::endl;
+				}
+				else currentCanvas->cd(9);
 			}
 
 			for(uint8_t cGroupId = 0; cGroupId < 8; cGroupId++)
@@ -388,21 +375,23 @@ void Calibration::FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDr
 			}
 
 			// All Points in the Multigraph; Fit it per Cbc, draw it Per Cbc
-			TF1* cVplusVcthFit = new TF1("VplusVcthFit","pol1");
-			TFitResultPtr cVplusVcthFitResult = cVplusVcthMultiGraph->Fit(cVplusVcthFit, "Q+");
+			cVplusVcthMultiGraph->Fit("pol1", "Q+");
+			TF1* cFit = cVplusVcthMultiGraph->GetFunction("pol1");
 
 			if (pDoDraw){
 				cVplusVcthMultiGraph->Draw("AP");
+				cFit->Draw("same");
 				gPad->Modified();
 				cVplusVcthMultiGraph->GetXaxis()->SetLimits(0,255);
 				cVplusVcthMultiGraph->SetMinimum(0);
 				cVplusVcthMultiGraph->SetMaximum(255);
-				cVplusVcthCanvas->Update();
+				currentCanvas->Update();
 				cVplusVcthMultiGraph->Write(cVplusVcthMultiGraph->GetName(),TObject::kOverwrite);
+				cFit->Write(Form("Fit_Fe%d_Cbc%d",int(cFe.getFeId()), int(cCbc.getCbcId())), TObject::kOverwrite);
 				fResultFile->Flush();
 			}
 			// Get the right Vplus setting & write to the Cbc
-			uint8_t cVplusResult = (uint8_t)cVplusVcthFit->Eval(pTargetVcth));
+			uint8_t cVplusResult = (uint8_t)(cFit->GetParameter(1) * pTargetVcth + cFit->GetParameter(0));
 
 			fCbcInterface->WriteCbcReg(&cCbc,"Vplus",cVplusResult);
 			std::cout << "Vplus Setting for Be " << int(pBoard.getBeId()) << " Fe " << int(cFe.getFeId()) << " Cbc " << int(cCbc.getCbcId()) << " : " << int(cVplusResult) << std::endl;
@@ -585,7 +574,7 @@ uint32_t Calibration::fillScurveHists(BeBoard& pBoard, uint8_t pGroupId, uint8_t
 		// check if the Group belongs to the right Shelve, BE and if it is the right group
 		if(cGroupIt.first.fShelveId == pBoard.getShelveId() && cGroupIt.first.fBeId == pBoard.getBeId() && cGroupIt.first.fGroupId == pGroupId)
 		{
-	        std::vector<bool> cDataBitVector = pEvent->DataBitVector(cGroupIt.first.fBeId, cGroupIt.first.fCbcId);
+	        std::vector<bool> cDataBitVector = pEvent->DataBitVector(cGroupIt.first.fFeId, cGroupIt.first.fCbcId);
 
 	        // Now loop over all channels in the TestGroup
 			for(Channel& cChannel : cGroupIt.second)
@@ -627,9 +616,9 @@ uint32_t Calibration::ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pH
 				cRegVec.push_back(cRegPair);
 
 				// Update the Channel Object
-				if(pEnable) cChannel.setOffset(0x50);
-				else if (!pEnable && pHoleMode) cChannel.setOffset(0x00);
-				else cChannel.setOffset(0xFF);
+				// if(pEnable) cChannel.setOffset(0x50);
+				// else if (!pEnable && pHoleMode) cChannel.setOffset(0x00);
+				// else cChannel.setOffset(0xFF);
 				cTotalNChannels++;
 			}
 
@@ -641,7 +630,7 @@ uint32_t Calibration::ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pH
 	return cTotalNChannels;
 }
 
-void Calibration::SaveResults(std::string pDirname){
+void Calibration::CreateResultDirectory(std::string pDirname){
 
 	bool cHoleMode = fSettingsMap.find("HoleMode")->second;
 
@@ -655,25 +644,43 @@ void Calibration::SaveResults(std::string pDirname){
 	
 	system(cCommand.c_str());
 
-	for (auto cShelve:fShelveVec)
-  	{
-       for(auto cBoard:(cShelve)->fBoardVector)
-       {
-           for(auto cFe : cBoard.fModuleVector)
-           {
-               for(auto cCbc : cFe.fCbcVector)
-               {
-					TString cFilename = Form("/FE%dCBC%d.txt", cFe.getFeId(), cCbc.getCbcId());
+	fDirName = pDirname;
+}
 
-					std::string cPathname = pDirname + cFilename.Data();
+void Calibration::InitResultFile(){
 
-					std::cout << "Dumping Calibration Results to file: " << cPathname << std::endl;
+	if(!fDirName.empty()){
+		std::string cFilename = fDirName + "/CalibrationResult.root"; 
+		fResultFile = TFile::Open(cFilename.c_str(),"RECREATE");
+	}
+	else std::cout << RED << "ERROR: " << RESET << "No Result Directory initialized - not saving results!" << std::endl; 
+}
 
-					cCbc.saveRegMap(cPathname);
+void Calibration::SaveResults(){
+
+	if(!fDirName.empty())
+	{
+		for (auto cShelve:fShelveVec)
+	  	{
+	       for(auto cBoard:(cShelve)->fBoardVector)
+	       {
+	           for(auto cFe : cBoard.fModuleVector)
+	           {
+	               for(auto cCbc : cFe.fCbcVector)
+	               {
+						TString cFilename = Form("/FE%dCBC%d.txt", cFe.getFeId(), cCbc.getCbcId());
+
+						std::string cPathname = fDirName + cFilename.Data();
+
+						std::cout << "Dumping Calibration Results to file: " << cPathname << std::endl;
+
+						cCbc.saveRegMap(cPathname);
+					}
 				}
 			}
 		}
 	}
+	else std::cout << RED << "ERROR: " << RESET << "No Result Directory initialized - not saving results!" << std::endl; 
 }
 
 

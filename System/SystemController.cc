@@ -26,7 +26,7 @@ namespace Ph2_System
     	{
 	}
 
-	void SystemController::InitializeHw(const char* pFilename)
+	void SystemController::InitializeHw(const std::string pFilename)
 	{
 
 		pugi::xml_document doc;
@@ -34,7 +34,7 @@ namespace Ph2_System
 		uint32_t cNShelve = 0;
 		int i,j;
 
-		pugi::xml_parse_result result = doc.load_file(pFilename);
+		pugi::xml_parse_result result = doc.load_file(pFilename.c_str());
 
 		if(!result)
 		{
@@ -145,10 +145,10 @@ std::cout<<"\n";
 std::cout<<"\n";
 	}
 
-	void SystemController::InitializeSettings(const char* pFilename)
+	void SystemController::InitializeSettings(const std::string pFilename)
 	{
 		pugi::xml_document doc;
-		pugi::xml_parse_result result = doc.load_file(pFilename);
+		pugi::xml_parse_result result = doc.load_file(pFilename.c_str());
 
 		if(!result)
 		{

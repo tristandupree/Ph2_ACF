@@ -67,12 +67,12 @@ namespace Ph2_System
 			* \brief Initialize the Hardware via an XML file
 			* \param pFilename : XML HW Description file
 			*/
-			void InitializeHw(const char* pFilename);
+			void InitializeHw(const std::string pFilename);
 			/*!
 			* \brief Initialize the settings
 			* \param pFilename : XML HW Description file
 			*/
-			void InitializeSettings(const char* pFilename);
+			void InitializeSettings(const std::string pFilename);
 			/*!
 			* \brief Configure the Hardware with XML file indicated values
 			*/
