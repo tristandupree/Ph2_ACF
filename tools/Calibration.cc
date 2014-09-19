@@ -258,7 +258,7 @@ void Calibration::processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32
 			currentCanvas->Update();
 		}
 	}
-	std::cout << "Processed SCurves for Target Bit " << GREEN <<  uint32_t(pTargetBit) << RESET << std::endl;
+	// std::cout << "Processed SCurves for Target Bit " << GREEN <<  uint32_t(pTargetBit) << RESET << std::endl;
 }
 
 void Calibration::UpdateCbcObject(BeBoard& pBoard, uint8_t pGroupId){
@@ -424,7 +424,7 @@ void Calibration::initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t p
 			for(Channel& cChannel : cGroupIt.second) cChannel.initializeHist(pValue, pParameter);
 		}
 	}
-	std::cout << "Initialized SCurves for " << pParameter << " = " << int(pValue) << " and Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
+	// std::cout << "Initialized SCurves for " << pParameter << " = " << int(pValue) << " and Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
 }
 
 void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode){
@@ -438,7 +438,7 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 	bool cNonZero = false;
 	uint32_t cAllOne = 0;
 
-	std::cout << BOLDYELLOW << "Scanning VCth ... " << RESET << std::endl;
+	// std::cout << BOLDYELLOW << "Scanning VCth ... " << RESET << std::endl;
 	while(0x00 <= cVcth && cVcth <= 0xFF)
 	{
 		if(cVcth == cDoubleVcth){
@@ -562,7 +562,7 @@ void Calibration::processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEv
 			currentCanvas->Update();
 		}
 	}
-	std::cout << "Processed SCurves for Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
+	// std::cout << "Processed SCurves for Test group " << GREEN <<  uint32_t(pGroupId) << RESET << " on all Cbc's connected to Be " << RED <<  uint32_t(pBoard.getBeId()) << RESET << std::endl;
 }
 
 uint32_t Calibration::fillScurveHists(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent){
