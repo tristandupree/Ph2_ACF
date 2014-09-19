@@ -396,7 +396,7 @@ namespace Ph2_HwInterface
 
     	if( pAckVal )
     	{
-			cWait = pNcount * 500;
+			cWait = pNcount * 500; // was 500
 		}
 
 		usleep( cWait );
