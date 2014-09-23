@@ -19,13 +19,25 @@ namespace Ph2_HwInterface
     //--------------------------------------------------------------------------
     // Swapping
 
+    // void swap_byte_order( const void *org, void *swapped, unsigned int nbyte )
+    // {
+    //     for( unsigned int i=0; i<nbyte; i++ ){
+    //         ((char *)swapped)[i] = ((char *)org)[nbyte-1-i];
+    //     }
+    // }
+
+    // Have to see if this actually works
     void swap_byte_order( const void *org, void *swapped, unsigned int nbyte )
     {
-        for( unsigned int i=0; i<nbyte; i++ ){
-            ((char *)swapped)[i] = ((char *)org)[nbyte-1-i];
-        }
+       // swapped = ((org >> 24) & 0xFF) | ((org >> 8) & 0x0000FF00) | ((org << 8) & 0x00FF0000) | ((org << 24) & 0xFF000000);
+        static const unsigned char t[16] =
+        {
+          0x0, 0x8, 0x4, 0xC, 0x2, 0xA, 0x6, 0xE,
+          0x1, 0x9, 0x5, 0xD, 0x3, 0xB, 0x7, 0xF
+        };
+        t[*(char*)org >> nbyte] | (t[*(char*)org & 0xF] << nbyte);
+        (char*) swapped = &t;
     }
-
 
     //--------------------------------------------------------------------------
     //Data Class
