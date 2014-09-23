@@ -18,8 +18,16 @@
 #include "Event.h"
 #include "../HWDescription/BeBoard.h"
 
-using namespace Ph2_HwDescription;
 
+#define SWAP_4(x) ( ((x) << 24) | \
+         (((x) << 8) & 0x00ff0000) | \
+         (((x) >> 8) & 0x0000ff00) | \
+         ((x) >> 24) )
+
+#define SWAP_2(x) ( (((x) & 0xff) << 8) | ((unsigned short)(x) >> 8) )
+
+
+using namespace Ph2_HwDescription;
 namespace Ph2_HwInterface
 {
 
