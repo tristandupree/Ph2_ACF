@@ -13,12 +13,14 @@
 
 using namespace Ph2_HwDescription;
 
-void swap_byte_order( const void *org, void *swapped, unsigned int nbyte )
+
+uint32_t swap_bytes( char* pOrg )
 {
-	for( unsigned int i=0; i<nbyte; i++ )
-    {
-		((char *)swapped)[i] = ((char *)org)[nbyte-1-i];
-	}
+	uint32_t ui32 = pOrg[0] | (pOrg[1] << 8) | (pOrg[2] << 16) | (pOrg[3] << 24);
+	return ((ui32 >> 24) & 0xFF) |
+         ((ui32 >>  8) & 0x0000FF00) |
+         ((ui32 <<  8) & 0x00FF0000) |
+         ((ui32 << 24) & 0xFF000000);
 }
 
 namespace Ph2_HwInterface
@@ -27,6 +29,30 @@ namespace Ph2_HwInterface
 	//Event implementation
 	Event::Event(uint32_t pNbCbc)
 	{
+		SetSize(pNbCbc);
+	}
+
+
+	Event::Event( BeBoard& pBoard, uint32_t pNbCbc )
+	{
+		SetSize(pNbCbc);
+		AddBoard(pBoard);
+	}
+
+	Event::Event(Event &pEvent):
+		fBuf(0),
+		fBunch(pEvent.fBunch),
+		fOrbit(pEvent.fOrbit),
+		fLumi(pEvent.fLumi),
+		fEventCount(pEvent.fEventCount),
+		fEventCountCBC(pEvent.fEventCountCBC),
+		fTDC(pEvent.fTDC),
+		fEventMap(pEvent.fEventMap)
+	{
+
+	}
+
+	void Event::SetSize(uint32_t pNbCbc){
 		if(pNbCbc == 2)
 		{
 			fEventSize = EVENT_SIZE_32_2CBC;
@@ -46,45 +72,6 @@ namespace Ph2_HwInterface
 			fOffsetTDC = 5*32+9*2*pNbCbc*32;
 		}
 	}
-
-
-	Event::Event( BeBoard& pBoard, uint32_t pNbCbc )
-	{
-		if(pNbCbc == 2)
-		{
-			fEventSize = EVENT_SIZE_32_2CBC;
-			fFeNChar = FE_NCHAR_2CBC;
-			fOffsetTDC = OFFSET_TDC_2CBC;
-		}
-		else if(pNbCbc == 8)
-		{
-			fEventSize = EVENT_SIZE_32_8CBC;
-			fFeNChar = FE_NCHAR_8CBC;
-			fOffsetTDC = OFFSET_TDC_8CBC;
-		}
-		else
-		{
-			fEventSize = pNbCbc*2*9+6;
-			fFeNChar = pNbCbc*CBC_NCHAR;
-			fOffsetTDC = 5*32+9*4*pNbCbc;
-		}
-
-		AddBoard(pBoard);
-	}
-
-	Event::Event(Event &pEvent):
-		fBuf(0),
-		fBunch(pEvent.fBunch),
-		fOrbit(pEvent.fOrbit),
-		fLumi(pEvent.fLumi),
-		fEventCount(pEvent.fEventCount),
-		fEventCountCBC(pEvent.fEventCountCBC),
-		fTDC(pEvent.fTDC),
-		fEventMap(pEvent.fEventMap)
-	{
-
-	}
-
 
 	void Event::AddBoard( BeBoard& pBoard )
     {
@@ -109,27 +96,20 @@ namespace Ph2_HwInterface
 	int Event::SetEvent( char *pEvent )
     {
 		int vsize = sizeof(uint32_t);
-        uint32_t swapped(0);
 
         fBuf = pEvent;
 
-		swap_byte_order( &pEvent[0*vsize], &swapped, vsize );
-		fBunch = swapped & 0xFFFFFF ;
+		fBunch = swap_bytes(&pEvent[0*vsize]);
 
-        swap_byte_order( &pEvent[1*vsize], &swapped, vsize );
-		fOrbit = swapped & 0xFFFFFF ;
+		fOrbit = swap_bytes(&pEvent[1*vsize]);
 
-        swap_byte_order( &pEvent[2*vsize], &swapped, vsize );
-		fLumi = swapped & 0xFFFFFF ;
+		fLumi = swap_bytes(&pEvent[2*vsize]);
 
-        swap_byte_order( &pEvent[3*vsize], &swapped, vsize );
-		fEventCount = swapped & 0xFFFFFF ;
+		fEventCount = swap_bytes(&pEvent[3*vsize]);
 
-        swap_byte_order( &pEvent[4*vsize], &swapped, vsize );
-		fEventCountCBC = swapped & 0xFFFFFF ;
+		fEventCountCBC = swap_bytes(&pEvent[4*vsize]);
 
-        swap_byte_order( &pEvent[fOffsetTDC], &swapped, vsize );
-		fTDC = swapped & 0xFFFFFF ;
+		fTDC = swap_bytes(&pEvent[fOffsetTDC]);
 
 
 		for(EventMap::iterator cIt = fEventMap.begin() ; cIt != fEventMap.end(); cIt++ )

@@ -27,17 +27,22 @@ namespace Ph2_HwInterface
     // }
 
     // Have to see if this actually works
-    void swap_byte_order( const void *org, void *swapped, unsigned int nbyte )
-    {
-       // swapped = ((org >> 24) & 0xFF) | ((org >> 8) & 0x0000FF00) | ((org << 8) & 0x00FF0000) | ((org << 24) & 0xFF000000);
-        static const unsigned char t[16] =
-        {
-          0x0, 0x8, 0x4, 0xC, 0x2, 0xA, 0x6, 0xE,
-          0x1, 0x9, 0x5, 0xD, 0x3, 0xB, 0x7, 0xF
-        };
-        t[*(char*)org >> nbyte] | (t[*(char*)org & 0xF] << nbyte);
-        (char*) swapped = &t;
-    }
+    // void swap_byte_order( const void *org, void *swapped, unsigned int nbyte )
+    // {
+    //    // swapped = ((org >> 24) & 0xFF) | ((org >> 8) & 0x0000FF00) | ((org << 8) & 0x00FF0000) | ((org << 24) & 0xFF000000);
+    //     // static const unsigned char t[16] =
+    //     // {
+    //     //   0x0, 0x8, 0x4, 0xC, 0x2, 0xA, 0x6, 0xE,
+    //     //   0x1, 0x9, 0x5, 0xD, 0x3, 0xB, 0x7, 0xF
+    //     // };
+    //     // t[*(char*)org >> nbyte] | (t[*(char*)org & 0xF] << nbyte);
+    //     // (char*) swapped = &t;
+    //     (char*) swapped[0] = (char*)org[3];
+    //     (char*) swapped[1] = (char*)org[2];
+    //     (char*) swapped[2] = (char*)org[1];
+    //     (char*) swapped[3] = (char*)org[0];
+
+    // }
 
     //--------------------------------------------------------------------------
     //Data Class
@@ -137,12 +142,20 @@ namespace Ph2_HwInterface
     }
 
 
+    // void Data::swapByteOrder( const char *org, char *swapped, unsigned int nbyte )
+    // {
+    //     for( unsigned int i=0; i<nbyte; i++ )
+    //     {
+    //         swapped[i] = org[nbyte-1-i];
+    //     }
+    // }
+
     void Data::swapByteOrder( const char *org, char *swapped, unsigned int nbyte )
     {
-        for( unsigned int i=0; i<nbyte; i++ )
-        {
-            swapped[i] = org[nbyte-1-i];
-        }
+        swapped[0] = org[3];
+        swapped[1] = org[2];
+        swapped[2] = org[1];
+        swapped[3] = org[0];
     }
 
 

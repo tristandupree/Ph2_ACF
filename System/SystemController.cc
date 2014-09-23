@@ -109,10 +109,15 @@ namespace Ph2_System
 						{
 							cCbc.setReg(std::string(ngr.attribute("name").value()),atoi(ngr.first_child().value()));
 						}
-						for(pugi::xml_node ng = nm.child("Global_CBC_Register");ng!=nm.child("CBC");ng=ng.next_sibling())
+						for(pugi::xml_node ng = nm.child("Global_CBC_Register");ng!=nm.child("CBC") && ng!=NULL;ng=ng.next_sibling())
 						{
 													// std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"	"<<"|"<<"_____"<<ng.name()<<"  "<<ng.first_attribute().name()<<" :"<<ng.attribute("name").value() <<RESET<<std:: endl;
-							cCbc.setReg(std::string(ng.attribute("name").value()),atoi(ng.first_child().value()));
+							if(ng != NULL){
+								std::string regname = std::string(ng.attribute("name").value());
+								uint32_t regvalue = atoi(ng.first_child().value());
+								cCbc.setReg(regname,regvalue);
+								std::cout<<BOLDCYAN<<"|"<<"	"<<"|"<<"	"<<"|"<<"----"<<ng.name()<<"  "<<ng.first_attribute().name()<<" :"<<ng.attribute("name").value() <<RESET<<std:: endl;
+							}
 						}
 						fShelveVec[cNShelve]->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);
 					}

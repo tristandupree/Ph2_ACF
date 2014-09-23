@@ -20,6 +20,7 @@
 #include "../HWDescription/Definition.h"
 #include "../HWDescription/BeBoard.h"
 
+
 using namespace Ph2_HwDescription;
 
 namespace Ph2_HwInterface
@@ -53,6 +54,13 @@ namespace Ph2_HwInterface
 			uint32_t fEventSize; /*!< Size of an Event */
 			uint32_t fFeNChar; /*!< Size of a Fe Event */
 			uint32_t fOffsetTDC; /*!< Offset of TDC */
+
+		private:
+        	/*!
+			* \brief Method to set the size of the Event according to the number of CBCs
+			* \param pNbCbc: Number of CBCs connected
+			*/
+			void SetSize(uint32_t pNbCbc);
 
         public:
         	/*!
