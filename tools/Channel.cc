@@ -12,17 +12,19 @@ Double_t MyErf( Double_t *x, Double_t *par ){
 }
 
 Channel::Channel(uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, uint8_t pChannelId) :
-fBeId( pBeId ),
-fFeId( pFeId ),
-fCbcId( pCbcId ),
-fChannelId( pChannelId ){}
+	fBeId( pBeId ),
+	fFeId( pFeId ),
+	fCbcId( pCbcId ),
+	fChannelId( pChannelId ){
+}
 
 
-Channel::~Channel(){}
+Channel::~Channel(){
+}
 
 double Channel::getPedestal(){
 
-	if( fFit !=NULL ){
+	if( fFit !=NULL ) {
 		return fabs(fFit->GetParameter(0));
 	}
 	else return -1;
@@ -30,7 +32,7 @@ double Channel::getPedestal(){
 
 double Channel::getNoise(){
 
-	if( fFit !=NULL ){
+	if( fFit !=NULL ) {
 		return fabs(fFit->GetParError(0));
 	}
 	else return -1;
@@ -58,7 +60,7 @@ void Channel::initializeHist(uint8_t pValue, TString pParameter){
 
 	fScurve->SetMarkerStyle(7);
 	fScurve->SetMarkerSize(2);
-	
+
 	fFit = (TF1*) gROOT->FindObject(fitname);
 	if( fFit ) delete fFit;
 	// TF1 *f1=gROOT->GetFunction("myfunc");
@@ -66,12 +68,12 @@ void Channel::initializeHist(uint8_t pValue, TString pParameter){
 }
 
 void Channel::fillHist(uint8_t pVcth){
-		fScurve->Fill(float(pVcth));
+	fScurve->Fill(float(pVcth));
 }
 
 void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TString pParameter, TFile* pResultfile){
 
-	if ( fScurve != NULL && fFit != NULL ){
+	if ( fScurve != NULL && fFit != NULL ) {
 
 		// Normalize first
 		// fScurve->Sumw2();
@@ -79,30 +81,30 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStri
 
 		// Get first non 0 and first 1
 		double cFirstNon0(0);
-		double cFirst1(0); 
+		double cFirst1(0);
 
 		// Not Hole Mode
-		if( !pHole ){
-			for( Int_t cBin = 1; cBin <= fScurve->GetNbinsX(); cBin++ ){
+		if( !pHole ) {
+			for( Int_t cBin = 1; cBin <= fScurve->GetNbinsX(); cBin++ ) {
 				double cContent = fScurve->GetBinContent( cBin );
-				if( !cFirstNon0	){
+				if( !cFirstNon0 ) {
 					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
 				}
 				else if( cContent == 1 ) {
-					cFirst1 = fScurve->GetBinCenter(cBin); 
+					cFirst1 = fScurve->GetBinCenter(cBin);
 					break;
 				}
 			}
 		}
 		// Hole mode
 		else{
-			for( Int_t cBin = fScurve->GetNbinsX(); cBin >=1; cBin-- ){
+			for( Int_t cBin = fScurve->GetNbinsX(); cBin >=1; cBin-- ) {
 				double cContent = fScurve->GetBinContent( cBin );
- 				if( !cFirstNon0	){
+				if( !cFirstNon0 ) {
 					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
 				}
 				else if( cContent == 1 ) {
-					cFirst1 = fScurve->GetBinCenter(cBin); 
+					cFirst1 = fScurve->GetBinCenter(cBin);
 					break;
 				}
 			}
@@ -145,15 +147,16 @@ void Channel::resetHist(){
 }
 
 
-TestGroup::TestGroup(uint8_t pShelveId, uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId):
-fShelveId( pShelveId ),
-fBeId( pBeId ),
-fFeId(pFeId),
-fCbcId(pCbcId),
-fGroupId(pGroupId){}
+TestGroup::TestGroup(uint8_t pShelveId, uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId) :
+	fShelveId( pShelveId ),
+	fBeId( pBeId ),
+	fFeId(pFeId),
+	fCbcId(pCbcId),
+	fGroupId(pGroupId){
+}
 
 
-TestGroupGraph::TestGroupGraph(){ 
+TestGroupGraph::TestGroupGraph(){
 	fVplusVcthGraph = NULL;
 }
 
@@ -169,11 +172,11 @@ TestGroupGraph::TestGroupGraph(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_
 
 void TestGroupGraph::FillVplusVcthGraph(uint8_t& pVplus, double pPedestal, double pNoise){
 
-	if (fVplusVcthGraph != NULL){
+	if (fVplusVcthGraph != NULL) {
 		fVplusVcthGraph->SetPoint(fVplusVcthGraph->GetN(),pPedestal,pVplus);
 		fVplusVcthGraph->SetPointError(fVplusVcthGraph->GetN()-1,pNoise,0);
 	}
 }
 
 
-	
+

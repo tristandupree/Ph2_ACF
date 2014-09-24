@@ -13,7 +13,7 @@
 #include "TCanvas.h"
 #include "../System/ConsoleColor.h"
 
-struct Channel{
+struct Channel {
 
 	Channel(uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, uint8_t pChannelId);
 	~Channel();
@@ -35,7 +35,9 @@ struct Channel{
 	// Methods
 	double getPedestal();
 	double getNoise();
-	uint8_t getOffset(){ return fOffset; };
+	uint8_t getOffset(){
+		return fOffset;
+	};
 	void setOffset(uint8_t pOffset);
 
 	void initializeHist(uint8_t pValue, TString pParameter);
@@ -44,7 +46,7 @@ struct Channel{
 	void resetHist();
 };
 
-struct TestGroup{
+struct TestGroup {
 	TestGroup(uint8_t pShelveId, uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
 
 	uint8_t fShelveId;
@@ -54,7 +56,7 @@ struct TestGroup{
 	uint8_t fGroupId;
 };
 
-struct TestGroupGraph{
+struct TestGroupGraph {
 	TestGroupGraph();
 	TestGroupGraph(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId);
 	void FillVplusVcthGraph(uint8_t& pVplus, double pPedestal, double pNoise);
@@ -62,25 +64,25 @@ struct TestGroupGraph{
 
 };
 
-struct TestGroupComparer{
+struct TestGroupComparer {
 	bool operator() (const TestGroup &g1, const TestGroup &g2) const {
-		if (g1.fShelveId == g2.fShelveId){
-			if(g1.fBeId == g2.fBeId){
-				if (g1.fFeId == g2.fFeId){
-					if (g1.fCbcId == g2.fCbcId){
+		if (g1.fShelveId == g2.fShelveId) {
+			if(g1.fBeId == g2.fBeId) {
+				if (g1.fFeId == g2.fFeId) {
+					if (g1.fCbcId == g2.fCbcId) {
 						return g1.fGroupId < g2.fGroupId;
 					}
 					else return g1.fCbcId < g2.fCbcId;
 				}
 				else return g1.fFeId < g2.fFeId;
 			}
-			else return g1.fBeId < g2.fBeId; 
+			else return g1.fBeId < g2.fBeId;
 		}
 		else g1.fShelveId < g2.fShelveId;
 	}
 };
 
-typedef std::map< TestGroup , std::vector<Channel>, TestGroupComparer > TestGroupMap;
+typedef std::map< TestGroup, std::vector<Channel>, TestGroupComparer > TestGroupMap;
 typedef std::map< TestGroup, TestGroupGraph, TestGroupComparer > TestGroupGraphMap;
 
 #endif

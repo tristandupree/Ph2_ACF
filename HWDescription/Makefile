@@ -10,7 +10,7 @@ IncludeDirs     =  /opt/cactus/include ../
 IncludePaths            = $(IncludeDirs:%=-I%)
 
 %.o: %.cc %.h
-	$(CXX) $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
+	$(CXX) -std=c++11 $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
 
 all: $(Objs)
