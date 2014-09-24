@@ -1,13 +1,13 @@
 /*
 
-FileName :                     test.cpp
-Content :                      Little test program to see if everything is working fine
-Programmer :                   Nicolas PIERRE, Lorenzo Bidegain
-Version :                      1.0
-Date of creation :             24/06/14
-Support :                      mail to : nico.pierre@cern.ch, lorenzo.bidegain@cern.ch
+   FileName :                     test.cpp
+   Content :                      Little test program to see if everything is working fine
+   Programmer :                   Nicolas PIERRE, Lorenzo Bidegain
+   Version :                      1.0
+   Date of creation :             24/06/14
+   Support :                      mail to : nico.pierre@cern.ch, lorenzo.bidegain@cern.ch
 
-*/
+ */
 
 #include "../HWDescription/Cbc.h"
 #include "../HWDescription/Module.h"
@@ -31,11 +31,11 @@ int main()
 
 	std::cout << "\n*** Changing Value of VCth... ***\n" << std::endl;
 
-    cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0),"VCth",0x03);
+	cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0),"VCth",0x03);
 	cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",0x10);
 	cSystemController.fCbcInterface->ReadAllCbc(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0));
 
-    std::cout << "\n*** Value of VCth Changed ! ***\n" << std::endl;
+	std::cout << "\n*** Value of VCth Changed ! ***\n" << std::endl;
 
 	cSystemController.fBeBoardInterface->ReadBoardReg(cSystemController.fShelveVec[0]->getBoard(0),EXT_TRG);
 	cSystemController.fBeBoardInterface->ReadBoardReg(cSystemController.fShelveVec[0]->getBoard(0),FAKE_DATA);
@@ -46,7 +46,7 @@ int main()
 	std::cout << "\nThe value for EXT_TRG is " << dump1 << std::endl;
 	std::cout << "\nThe value for FAKE_DATA is " << dump2 << std::endl;
 
-    cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0)->saveRegMap("output/output_00.txt");
+	cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0)->saveRegMap("output/output_00.txt");
 	cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1)->saveRegMap("output/output_01.txt");
 
 	std::cout << "*** End of the test programm" << std::endl;

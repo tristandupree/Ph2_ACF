@@ -7,7 +7,7 @@
     Date of creation :             10/07/14
     Support :                      mail to : nicolas.pierre@icloud.com
 
-*/
+ */
 
 #include "Data.h"
 #include "../HWDescription/Definition.h"
@@ -47,61 +47,61 @@ namespace Ph2_HwInterface
     //--------------------------------------------------------------------------
     //Data Class
 
-    Data::Data(BeBoard& pBoard, uint32_t pNbCbc):
-        fBuf(0),
-        fCurrentEvent(0),
-        fEvent(pNbCbc)
+    Data::Data(BeBoard& pBoard, uint32_t pNbCbc) :
+	    fBuf(0),
+	    fCurrentEvent(0),
+	    fEvent(pNbCbc)
     {
-        fEvent.AddBoard(pBoard);
+	    fEvent.AddBoard(pBoard);
     }
 
-    Data::Data( Data &pD ):
-        fEvent(0)
+    Data::Data( Data &pD ) :
+	    fEvent(0)
     {
-        fBuf = 0;
-        Initialise( pD.fNevents);
-        fEvent = pD.fEvent;
-        fBufSize = pD.fBufSize;
-        fNevents = pD.fNevents;
-        fCurrentEvent = pD.fCurrentEvent;
+	    fBuf = 0;
+	    Initialise( pD.fNevents);
+	    fEvent = pD.fEvent;
+	    fBufSize = pD.fBufSize;
+	    fNevents = pD.fNevents;
+	    fCurrentEvent = pD.fCurrentEvent;
     }
 
 
     void Data::Set( void *pData )
     {
 
-        Reset();
+	    Reset();
 
-        uhal::ValVector<uint32_t> *cUhalData = (uhal::ValVector<uint32_t>*)pData;
+	    uhal::ValVector<uint32_t> *cUhalData = (uhal::ValVector<uint32_t>*)pData;
 
-        for( unsigned int i=0; i<cUhalData->size(); i++ )
-        {
+	    for( unsigned int i=0; i<cUhalData->size(); i++ )
+	    {
 
-            char cSwapped[4];
-            uint32_t cVal = cUhalData->at(i);
+		    char cSwapped[4];
+		    uint32_t cVal = cUhalData->at(i);
 
-            swapByteOrder( (const char *) &cVal, cSwapped, 4 );
+		    swapByteOrder( (const char *) &cVal, cSwapped, 4 );
 
-            for( int j=0; j < 4; j++ ){
-                fBuf[i*4+j] = cSwapped[j];
-            }
-        }
+		    for( int j=0; j < 4; j++ ) {
+			    fBuf[i*4+j] = cSwapped[j];
+		    }
+	    }
     }
 
 
     void Data::Initialise( uint32_t pNevents )
     {
 
-        fNevents = pNevents;
-        fBufSize = ( fNevents + 1 ) * fEvent.fEventSize * 4;
-        if( fBuf )
-            free( fBuf );
-        fBuf = (char *) malloc( fBufSize );
+	    fNevents = pNevents;
+	    fBufSize = ( fNevents + 1 ) * fEvent.fEventSize * 4;
+	    if( fBuf )
+		    free( fBuf );
+	    fBuf = (char *) malloc( fBufSize );
 
-        fEvent.Clear();
+	    fEvent.Clear();
 
 #ifdef __CBCDAQ_DEV__
-        std::cout << "Data::Initialise done." << std::endl;
+	    std::cout << "Data::Initialise done." << std::endl;
 #endif
 
     }
@@ -110,18 +110,18 @@ namespace Ph2_HwInterface
     void Data::Initialise( uint32_t pNevents, BeBoard& pBoard )
     {
 
-        fNevents = pNevents;
-        fBufSize = ( fNevents + 1 ) * fEvent.fEventSize * 4;
-        if( fBuf )
-            free( fBuf );
-        fBuf = (char *) malloc( fBufSize );
+	    fNevents = pNevents;
+	    fBufSize = ( fNevents + 1 ) * fEvent.fEventSize * 4;
+	    if( fBuf )
+		    free( fBuf );
+	    fBuf = (char *) malloc( fBufSize );
 
-        fEvent.Clear();
+	    fEvent.Clear();
 
-        fEvent.AddBoard(pBoard);
+	    fEvent.AddBoard(pBoard);
 
 #ifdef __CBCDAQ_DEV__
-        std::cout << "Data::Initialise done." << std::endl;
+	    std::cout << "Data::Initialise done." << std::endl;
 #endif
 
     }
@@ -129,16 +129,16 @@ namespace Ph2_HwInterface
 
     void Data::Reset()
     {
-        fCurrentEvent = 0;
+	    fCurrentEvent = 0;
 
-        for( uint32_t i=0; i<fBufSize; i++ )
-            fBuf[i]=0;
+	    for( uint32_t i=0; i<fBufSize; i++ )
+		    fBuf[i]=0;
     }
 
 
     void Data::CopyBuffer( Data &pData )
     {
-        memcpy(fBuf,pData.fBuf,pData.fBufSize);
+	    memcpy(fBuf,pData.fBuf,pData.fBufSize);
     }
 
 
@@ -152,26 +152,26 @@ namespace Ph2_HwInterface
 
     void Data::swapByteOrder( const char *org, char *swapped, unsigned int nbyte )
     {
-        swapped[0] = org[3];
-        swapped[1] = org[2];
-        swapped[2] = org[1];
-        swapped[3] = org[0];
+	    swapped[0] = org[3];
+	    swapped[1] = org[2];
+	    swapped[2] = org[1];
+	    swapped[3] = org[0];
     }
 
 
     const char * Data::GetBuffer( uint32_t &pBufSize ) const
     {
-        pBufSize = fBufSize;
-        return fBuf;
+	    pBufSize = fBufSize;
+	    return fBuf;
     }
 
 
     const Event *Data::GetNextEvent()
     {
-        if( fCurrentEvent >= fNevents ) return 0;
-        fEvent.SetEvent( &fBuf[ fCurrentEvent * fEvent.fEventSize * 4 ] );
-        fCurrentEvent++;
-        return &fEvent;
+	    if( fCurrentEvent >= fNevents ) return 0;
+	    fEvent.SetEvent( &fBuf[ fCurrentEvent * fEvent.fEventSize * 4 ] );
+	    fCurrentEvent++;
+	    return &fEvent;
     }
 
 }

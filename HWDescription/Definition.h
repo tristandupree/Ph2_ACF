@@ -7,7 +7,7 @@
     \date                          07/06/14
     Support :                      mail to : nico.pierre@icloud.com
 
-*/
+ */
 
 //------------------------------------------------------------------------------
 //uHal Connection File
@@ -64,7 +64,7 @@
 #define FMC1_PRESENT        "status.fmc1_present"
 #define FMC2_PRESENT        "status.fmc2_present"
 
-    //FMC infos
+//FMC infos
 #define FMC_USER_BOARD_ID "user_wb_ttc_fmc_regs.user_board_id"
 #define FMC_USER_SYS_ID   "user_wb_ttc_fmc_regs.user_sys_id"
 #define FMC_USER_VERSION  "user_wb_ttc_fmc_regs.user_version"
@@ -74,81 +74,81 @@
 
 //SRAM
 
-    //SRAM IDs
+//SRAM IDs
 #define SRAM1             "sram1"
 #define SRAM2             "sram2"
 
-    //SRAM user logic
+//SRAM user logic
 #define SRAM1_USR_LOGIC   "ctrl_sram.sram1_user_logic"
 #define SRAM2_USR_LOGIC   "ctrl_sram.sram2_user_logic"
 
-    //SRAM End Readout
+//SRAM End Readout
 #define SRAM1_END_READOUT "user_wb_ttc_fmc_regs.pc_commands.SRAM1_end_readout"
 #define SRAM2_END_READOUT "user_wb_ttc_fmc_regs.pc_commands.SRAM2_end_readout"
 
-    //SRAM Full flags, reset when their end readout is 1
+//SRAM Full flags, reset when their end readout is 1
 #define SRAM1_FULL        "user_wb_ttc_fmc_regs.flags.SRAM1_full"
 #define SRAM2_FULL        "user_wb_ttc_fmc_regs.flags.SRAM2_full"
 
 //GLIB
 
-    //GLIBS settings
-#define FAKE_DATA	  "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"
-#define EXT_TRG		  "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
+//GLIBS settings
+#define FAKE_DATA         "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"
+#define EXT_TRG           "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
 
-    //Hybrid
+//Hybrid
 #define HYBRID_TYPE      "hybrid_type"
 #define HYBRID_VERSION   "user_wb_ttc_fmc_regs.new.hybrid_version"
 
-    //NB FE
+//NB FE
 #define NB_FE         "nb_FE"
 
 //------------------------------------------------------------------------------
 //CBC
 
-    //CBC expectation
+//CBC expectation
 #define CBC_EXPECTED         "CBC_expected"
 
-    //CBC DATA PACKET NUMBER
+//CBC DATA PACKET NUMBER
 #define CBC_PACKET_NB        "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER"
 
-    //CBC TEST PULSE VALID
+//CBC TEST PULSE VALID
 #define CBC_TEST_PULSE_VALID "COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"
 
-    //CBC Data generator
+//CBC Data generator
 #define CBC_DATA_GENE        "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"
 
-    //CBC_TRIGGER_ONE_SHOT
+//CBC_TRIGGER_ONE_SHOT
 #define CBC_TRIGGER_1SHOT    "user_wb_ttc_fmc_regs.cbc_acquisition.CBC_TRIGGER_ONE_SHOT"
 
-    //CBC stubdata latency adjustement
+//CBC stubdata latency adjustement
 #define CBC_STUB_LATENCY     "cbc_stubdata_latency_adjust"
 #define CBC_STUB_LATENCY_FE1 "cbc_stubdata_latency_adjust_fe1"
 #define CBC_STUB_LATENCY_FE2 "cbc_stubdata_latency_adjust_fe2"
 
-    //CBC I2C command acknoledgement
+//CBC I2C command acknoledgement
 #define CBC_I2C_CMD_ACK      "cbc_i2c_cmd_ack"
 #define CBC_I2C_CMD_ACK_FE1  "cbc_i2c_cmd_ack_fe1"
 #define CBC_I2C_CMD_ACK_FE2  "cbc_i2c_cmd_ack_fe2"
 
-    //CBC I2C command request
+//CBC I2C command request
 #define CBC_I2C_CMD_RQ       "cbc_i2c_cmd_rq"
 #define CBC_I2C_CMD_RQ_FE1   "cbc_i2c_cmd_rq_fe1"
 #define CBC_I2C_CMD_RQ_FE2   "cbc_i2c_cmd_rq_fe2"
 
-    //CBC Hard Reset
+//CBC Hard Reset
 #define CBC_HARD_RESET       "cbc_hard_reset"
 #define CBC_HARD_RESET_FE1   "cbc_hard_reset_fe1"
 #define CBC_HARD_RESET_FE2   "cbc_hard_reset_fe2"
 
-    //CBC Fast Reset
+//CBC Fast Reset
 #define CBC_FAST_RESET       "cbc_fast_reset"
 #define CBC_FAST_RESET_FE1   "cbc_fast_reset_fe1"
 #define CBC_FAST_RESET_FE2   "cbc_fast_reset_fe2"
 
-    //Enable Cbc
+//Enable Cbc
 
-        //FE0
+//FE0
 #define ENABLE_FE0_CBC0          "user_wb_ttc_fmc_regs.FE0.CBC0"
 #define ENABLE_FE0_CBC1          "user_wb_ttc_fmc_regs.FE0.CBC1"
 #define ENABLE_FE0_CBC2          "user_wb_ttc_fmc_regs.FE0.CBC2"
@@ -167,7 +167,7 @@
 #define ENABLE_FE0_CBC15         "user_wb_ttc_fmc_regs.FE0.CBC15"
 #define CBC_FE0_ENABLED          "user_wb_ttc_fmc_regs.FE0.enabled"
 
-        //FE1
+//FE1
 #define ENABLE_FE1_CBC0          "user_wb_ttc_fmc_regs.FE1.CBC0"
 #define ENABLE_FE1_CBC1          "user_wb_ttc_fmc_regs.FE1.CBC1"
 #define ENABLE_FE1_CBC2          "user_wb_ttc_fmc_regs.FE1.CBC2"
@@ -189,38 +189,38 @@
 //------------------------------------------------------------------------------
 //Delays
 
-    //Delay after fast reset
+//Delay after fast reset
 #define DELAY_AF_FAST_RESET "COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET"
 
-    //Delay after L1A
+//Delay after L1A
 #define DELAY_AF_L1A        "COMMISSIONNING_MODE_DELAY_AFTER_L1A"
 
-    //Delay after test pulse
+//Delay after test pulse
 #define DELAY_AF_TEST_PULSE "COMMISSIONNING_MODE_DELAY_AFTER_TEST_PULSE"
 
 //------------------------------------------------------------------------------
 //Triggers
 
-    //Break Trigger
+//Break Trigger
 #define BREAK_TRIGGER    "break_trigger"
 
-    //Internal Trigger freq
+//Internal Trigger freq
 #define INT_TRIGGER_FREQ "user_wb_ttc_fmc_regs.pc_commands.INT_TRIGGER_FREQ"
 
-    //Trigger Select
+//Trigger Select
 #define TRIGGER_SELECT   "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
 
 //------------------------------------------------------------------------------
 //Events
 
-    //Event number
+//Event number
 #define EVENT_NUMBER     50
 
-    //Event Size
+//Event Size
 #define EVENT_SIZE_32_2CBC    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1
 #define EVENT_SIZE_32_8CBC    16*9+6            //2 FE(FMC) x 8CBC (16*9) and  header (5) + 1
 
-    //Event
+//Event
 #define OFFSET_BUNCH               8
 #define WIDTH_BUNCH                24
 #define OFFSET_ORBIT               1*32+8
@@ -241,7 +241,7 @@
 #define FE_NCHAR_8CBC              9*4*8            //CBC_NCHAR*8
 
 
-    //Cbc Event
+//Cbc Event
 #define NSENSOR                   254
 #define OFFSET_ERROR              0
 #define WIDTH_ERROR               2
@@ -258,38 +258,38 @@
 //------------------------------------------------------------------------------
 //Others
 
-    //PC Config OK
+//PC Config OK
 #define PC_CONFIG_OK    "user_wb_ttc_fmc_regs.pc_commands.PC_config_ok"
 
-    //Spurious frame
+//Spurious frame
 #define SPURIOUS_FRAME  "user_wb_ttc_fmc_regs.pc_commands.SPURIOUS_FRAME"
 
-    //Force BG0 Start
+//Force BG0 Start
 #define FORCE_BG0_START "user_wb_ttc_fmc_regs.pc_commands2.force_BG0_start"
 
-    //CMD_START_VALID Flag
+//CMD_START_VALID Flag
 #define CMD_START_VALID "user_wb_ttc_fmc_regs.status_flags.CMD_START_VALID"
 
-    //FE expectation
+//FE expectation
 #define FE_EXPECTED     "FE_expected"
 
-    //RQ
+//RQ
 #define RQ              "COMMISSIONNING_MODE_RQ"
 
-    //Acquisition mode
+//Acquisition mode
 #define ACQ_MODE        "user_wb_ttc_fmc_regs.pc_commands.ACQ_MODE"
 
-    //Clock shift
+//Clock shift
 #define CLOCK_SHIFT     "user_wb_ttc_fmc_regs.pc_commands2.clock_shift"
 
-    //Negative logic
+//Negative logic
 #define NEG_LOGIC_CBC   "user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC"
 #define NEG_LOGIC_STTS  "user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS"
 
-    //Polarity
+//Polarity
 #define POLARITY        "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"
 
-    //Time out for stack writing
+//Time out for stack writing
 #define TIME_OUT         5
 
 //------------------------------------------------------------------------------

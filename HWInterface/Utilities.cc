@@ -7,7 +7,7 @@
     Date of creation :             10/06/14
     Support :                      mail to : nicolas.pierre@icloud.com
 
-*/
+ */
 
 #include "Utilities.h"
 #include "../HWDescription/Definition.h"
@@ -20,22 +20,22 @@ namespace Ph2_HwInterface
 
     long getTimeTook( struct timeval &pStart, bool pMili )
     {
-        struct timeval end;
-        long seconds(0), useconds(0);
+	    struct timeval end;
+	    long seconds(0), useconds(0);
 
-        gettimeofday( &end, 0 );
-        seconds = end.tv_sec - pStart.tv_sec;
-        useconds = end.tv_usec - pStart.tv_usec;
+	    gettimeofday( &end, 0 );
+	    seconds = end.tv_sec - pStart.tv_sec;
+	    useconds = end.tv_usec - pStart.tv_usec;
 
-        if( pMili )
-        {
-                return (long) ( seconds * 1e3 + useconds/1000 );
-        }
+	    if( pMili )
+	    {
+		    return (long) ( seconds * 1e3 + useconds/1000 );
+	    }
 
-        else
-        {
-                return (long) (seconds * 1e6 + useconds );
-        }
+	    else
+	    {
+		    return (long) (seconds * 1e6 + useconds );
+	    }
     }
 
     //--------------------------------------------------------------------------
@@ -43,14 +43,14 @@ namespace Ph2_HwInterface
 
     void myflush ( std::istream& in )
     {
-        in.ignore ( std::numeric_limits<std::streamsize>::max(), '\n' );
-        in.clear();
+	    in.ignore ( std::numeric_limits<std::streamsize>::max(), '\n' );
+	    in.clear();
     }
 
     void mypause()
     {
-        std::cout<<"Press [Enter] to continue ...";
-        std::cin.get();
+	    std::cout<<"Press [Enter] to continue ...";
+	    std::cin.get();
     }
 
 }
