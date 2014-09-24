@@ -38,49 +38,50 @@ using namespace Ph2_System;
  * \class Calibration
  * \brief Read/Write Cbc's registers on a file
  */
-class Calibration : public SystemController {
+class Calibration : public SystemController
+{
 
-public:
+  public:
 
-// Default C'tor
-Calibration();
+	// Default C'tor
+	Calibration();
 
-// D'Tor
-~Calibration();
+	// D'Tor
+	~Calibration();
 
-void InitialiseTestGroup();
+	void InitialiseTestGroup();
 
-void VplusScan();
-void OffsetScan();
+	void VplusScan();
+	void OffsetScan();
 
-void InitResultFile();
-void CreateResultDirectory(std::string pDirname);
-void SaveResults();
+	void InitResultFile();
+	void CreateResultDirectory( std::string pDirname );
+	void SaveResults();
 
-private:
+  private:
 
-std::string fDirName;
-TFile* fResultFile;
-TestGroupMap fTestGroupMap;
-TestGroupGraphMap fTestGroupGraphMap;
-std::vector<uint8_t> fVplusValues;
-std::map<Cbc*, TCanvas*> fCbcCanvasMap;
+	std::string fDirName;
+	TFile* fResultFile;
+	TestGroupMap fTestGroupMap;
+	TestGroupGraphMap fTestGroupGraphMap;
+	std::vector<uint8_t> fVplusValues;
+	std::map<Cbc*, TCanvas*> fCbcCanvasMap;
 
-private:
+  private:
 
-void ConstructTestGroup(uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId);
+	void ConstructTestGroup( uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId );
 
-void FitVplusVcth(BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDraw);
-void setGlobalReg(BeBoard& pBoard, std::string pRegName, uint8_t pRegValue);
-void initializeSCurves(BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, TString pParameter);
-void measureSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode);
-void processSCurves(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, TString pParameter, bool pHoleMode, bool pDoDraw);
-uint32_t fillScurveHists(BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent);
-uint32_t ToggleTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable);
-uint32_t SetOffsetTargetBitTestGroup(BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, uint8_t pTargetBit, uint8_t pTargetVcth);
-void processSCurvesOffset(BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pTargetVcth, uint8_t pTargetBit, TString pParameter, bool pHoleMode, bool pDoDraw);
-void UpdateCbcObject(BeBoard& pBoard, uint8_t pGroupId);
-const std::string currentDateTime();
+	void FitVplusVcth( BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDraw );
+	void setGlobalReg( BeBoard& pBoard, std::string pRegName, uint8_t pRegValue );
+	void initializeSCurves( BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, TString pParameter );
+	void measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode );
+	void processSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, TString pParameter, bool pHoleMode, bool pDoDraw );
+	uint32_t fillScurveHists( BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent );
+	uint32_t ToggleTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable );
+	uint32_t SetOffsetTargetBitTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, uint8_t pTargetBit, uint8_t pTargetVcth );
+	void processSCurvesOffset( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pTargetVcth, uint8_t pTargetBit, TString pParameter, bool pHoleMode, bool pDoDraw );
+	void UpdateCbcObject( BeBoard& pBoard, uint8_t pGroupId );
+	const std::string currentDateTime();
 };
 
 #endif

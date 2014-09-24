@@ -2,109 +2,125 @@
 #include "TMath.h"
 #include <cmath>
 
-Double_t MyErf( Double_t *x, Double_t *par ){
+Double_t MyErf( Double_t* x, Double_t* par )
+{
 	Double_t x0 = par[0];
 	Double_t width = par[1];
-	Double_t fitval(0);
-	if( x[0] < x0 ) fitval = 0.5 * TMath::Erfc( ( x0 - x[0] )/width );
-	else fitval = 0.5 + 0.5 * TMath::Erf( ( x[0] - x0 )/width );
+	Double_t fitval( 0 );
+	if ( x[0] < x0 ) fitval = 0.5 * TMath::Erfc( ( x0 - x[0] ) / width );
+	else fitval = 0.5 + 0.5 * TMath::Erf( ( x[0] - x0 ) / width );
 	return fitval;
 }
 
-Channel::Channel(uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, uint8_t pChannelId) :
+Channel::Channel( uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, uint8_t pChannelId ) :
 	fBeId( pBeId ),
 	fFeId( pFeId ),
 	fCbcId( pCbcId ),
-	fChannelId( pChannelId ){
+	fChannelId( pChannelId )
+{
 }
 
 
-Channel::~Channel(){
+Channel::~Channel()
+{
 }
 
-double Channel::getPedestal(){
+double Channel::getPedestal()
+{
 
-	if( fFit !=NULL ) {
-		return fabs(fFit->GetParameter(0));
-	}
+	if ( fFit != NULL )
+		return fabs( fFit->GetParameter( 0 ) );
 	else return -1;
 }
 
-double Channel::getNoise(){
+double Channel::getNoise()
+{
 
-	if( fFit !=NULL ) {
-		return fabs(fFit->GetParError(0));
-	}
+	if ( fFit != NULL )
+		return fabs( fFit->GetParError( 0 ) );
 	else return -1;
 }
 
-void Channel::setOffset( uint8_t pOffset ){
+void Channel::setOffset( uint8_t pOffset )
+{
 	fOffset = pOffset;
 }
 
-void Channel::initializeHist(uint8_t pValue, TString pParameter){
+void Channel::initializeHist( uint8_t pValue, TString pParameter )
+{
 
 	TString histname;
 	TString fitname;
 
-	pParameter += Form("%d",pValue);
-	histname = Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId);
+	pParameter += Form( "%d", pValue );
+	histname = Form( "Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId );
 	histname += pParameter;
-	fitname = Form("Fit_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId);
+	fitname = Form( "Fit_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId );
 	fitname += pParameter;
 
 
-	fScurve = (TH1F*) gROOT->FindObject(histname);
-	if( fScurve ) delete fScurve;
-	fScurve = new TH1F(histname,Form("Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId),256, -0.5, 255.5);
+	fScurve = ( TH1F* ) gROOT->FindObject( histname );
+	if ( fScurve ) delete fScurve;
+	fScurve = new TH1F( histname, Form( "Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId ), 256, -0.5, 255.5 );
 
-	fScurve->SetMarkerStyle(7);
-	fScurve->SetMarkerSize(2);
+	fScurve->SetMarkerStyle( 7 );
+	fScurve->SetMarkerSize( 2 );
 
-	fFit = (TF1*) gROOT->FindObject(fitname);
-	if( fFit ) delete fFit;
+	fFit = ( TF1* ) gROOT->FindObject( fitname );
+	if ( fFit ) delete fFit;
 	// TF1 *f1=gROOT->GetFunction("myfunc");
-	fFit = new TF1(fitname, MyErf, 0, 255, 2 );
+	fFit = new TF1( fitname, MyErf, 0, 255, 2 );
 }
 
-void Channel::fillHist(uint8_t pVcth){
-	fScurve->Fill(float(pVcth));
+void Channel::fillHist( uint8_t pVcth )
+{
+	fScurve->Fill( float( pVcth ) );
 }
 
-void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TString pParameter, TFile* pResultfile){
+void Channel::fitHist( uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TString pParameter, TFile* pResultfile )
+{
 
-	if ( fScurve != NULL && fFit != NULL ) {
+	if ( fScurve != NULL && fFit != NULL )
+	{
 
 		// Normalize first
 		// fScurve->Sumw2();
-		fScurve->Scale(1/double_t(pEventsperVcth));
+		fScurve->Scale( 1 / double_t( pEventsperVcth ) );
 
 		// Get first non 0 and first 1
-		double cFirstNon0(0);
-		double cFirst1(0);
+		double cFirstNon0( 0 );
+		double cFirst1( 0 );
 
 		// Not Hole Mode
-		if( !pHole ) {
-			for( Int_t cBin = 1; cBin <= fScurve->GetNbinsX(); cBin++ ) {
+		if ( !pHole )
+		{
+			for ( Int_t cBin = 1; cBin <= fScurve->GetNbinsX(); cBin++ )
+			{
 				double cContent = fScurve->GetBinContent( cBin );
-				if( !cFirstNon0 ) {
-					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
+				if ( !cFirstNon0 )
+				{
+					if ( cContent ) cFirstNon0 = fScurve->GetBinCenter( cBin );
 				}
-				else if( cContent == 1 ) {
-					cFirst1 = fScurve->GetBinCenter(cBin);
+				else if ( cContent == 1 )
+				{
+					cFirst1 = fScurve->GetBinCenter( cBin );
 					break;
 				}
 			}
 		}
 		// Hole mode
-		else{
-			for( Int_t cBin = fScurve->GetNbinsX(); cBin >=1; cBin-- ) {
+		else
+		{
+			for ( Int_t cBin = fScurve->GetNbinsX(); cBin >= 1; cBin-- )
+			{
 				double cContent = fScurve->GetBinContent( cBin );
-				if( !cFirstNon0 ) {
-					if( cContent ) cFirstNon0 = fScurve->GetBinCenter(cBin);
+				if ( !cFirstNon0 )
+				{
+					if ( cContent ) cFirstNon0 = fScurve->GetBinCenter( cBin );
 				}
-				else if( cContent == 1 ) {
-					cFirst1 = fScurve->GetBinCenter(cBin);
+				else if ( cContent == 1 )
+				{
+					cFirst1 = fScurve->GetBinCenter( cBin );
 					break;
 				}
 			}
@@ -114,21 +130,21 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStri
 		double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
 		double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
 
-		fFit->SetParameter(0,cMid);
-		fFit->SetParameter(1,cWidth);
+		fFit->SetParameter( 0, cMid );
+		fFit->SetParameter( 1, cWidth );
 
 		// Fit
-		fScurve->Fit(fFit,"RNQ+");
+		fScurve->Fit( fFit, "RNQ+" );
 
 		// Eventually add TFitResultPointer
 		// create a Directory in the file for the current Offset and save the channel Data
 		TString cDirName;
-		cDirName = pParameter + Form("%d",pValue);
-		TObject* cObj = gROOT->FindObject(cDirName);
-		if (!cObj) pResultfile->mkdir(cDirName);
-		pResultfile->cd(cDirName);
+		cDirName = pParameter + Form( "%d", pValue );
+		TObject* cObj = gROOT->FindObject( cDirName );
+		if ( !cObj ) pResultfile->mkdir( cDirName );
+		pResultfile->cd( cDirName );
 
-		fScurve->Write(fScurve->GetName(), TObject::kOverwrite);
+		fScurve->Write( fScurve->GetName(), TObject::kOverwrite );
 		// fFit->Write(fFit->GetName(), TObject::kOverwrite);
 		// pResultfile->Flush();
 
@@ -139,7 +155,8 @@ void Channel::fitHist(uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStri
 
 }
 
-void Channel::resetHist(){
+void Channel::resetHist()
+{
 
 	// fScurve = NULL;
 	// fFit = NULL;
@@ -147,34 +164,38 @@ void Channel::resetHist(){
 }
 
 
-TestGroup::TestGroup(uint8_t pShelveId, uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId) :
+TestGroup::TestGroup( uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, uint8_t pGroupId ) :
 	fShelveId( pShelveId ),
 	fBeId( pBeId ),
-	fFeId(pFeId),
-	fCbcId(pCbcId),
-	fGroupId(pGroupId){
+	fFeId( pFeId ),
+	fCbcId( pCbcId ),
+	fGroupId( pGroupId )
+{
 }
 
 
-TestGroupGraph::TestGroupGraph(){
+TestGroupGraph::TestGroupGraph()
+{
 	fVplusVcthGraph = NULL;
 }
 
 
-TestGroupGraph::TestGroupGraph(uint8_t pBeId,uint8_t pFeId,uint8_t pCbcId,uint8_t pGroupId)
+TestGroupGraph::TestGroupGraph( uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, uint8_t pGroupId )
 {
-	TString graphname = Form("VplusVcthGraph_Fe%d_Cbc%d_Group%d",pFeId,pCbcId,pGroupId);
-	fVplusVcthGraph = (TGraphErrors*) gROOT->FindObject(graphname);
-	if (fVplusVcthGraph) delete fVplusVcthGraph;
+	TString graphname = Form( "VplusVcthGraph_Fe%d_Cbc%d_Group%d", pFeId, pCbcId, pGroupId );
+	fVplusVcthGraph = ( TGraphErrors* ) gROOT->FindObject( graphname );
+	if ( fVplusVcthGraph ) delete fVplusVcthGraph;
 	fVplusVcthGraph = new TGraphErrors();
-	fVplusVcthGraph->SetName(graphname);
+	fVplusVcthGraph->SetName( graphname );
 }
 
-void TestGroupGraph::FillVplusVcthGraph(uint8_t& pVplus, double pPedestal, double pNoise){
+void TestGroupGraph::FillVplusVcthGraph( uint8_t& pVplus, double pPedestal, double pNoise )
+{
 
-	if (fVplusVcthGraph != NULL) {
-		fVplusVcthGraph->SetPoint(fVplusVcthGraph->GetN(),pPedestal,pVplus);
-		fVplusVcthGraph->SetPointError(fVplusVcthGraph->GetN()-1,pNoise,0);
+	if ( fVplusVcthGraph != NULL )
+	{
+		fVplusVcthGraph->SetPoint( fVplusVcthGraph->GetN(), pPedestal, pVplus );
+		fVplusVcthGraph->SetPointError( fVplusVcthGraph->GetN() - 1, pNoise, 0 );
 	}
 }
 
