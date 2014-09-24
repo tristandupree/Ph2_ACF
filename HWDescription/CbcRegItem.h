@@ -1,6 +1,6 @@
 /*!
 
-        \file			 CbcRegItem.h
+        \file            CbcRegItem.h
         \brief                   CbcRegItem description, contents of the structure CbcRegItem with is the value of the CbcRegMap
         \author                  Lorenzo BIDEGAIN
         \version                 1.0
@@ -14,20 +14,22 @@
 
 #include <boost/cstdint.hpp>
 
-namespace Ph2_HwDescription {
+namespace Ph2_HwDescription
+{
 
-    /*!
-     * \struct CbcRegItem
-     * \brief Struct for CbcRegisterItem that is identified by Page, Address, DefaultValue, Value
-     */
-    struct CbcRegItem {
+	/*!
+	 * \struct CbcRegItem
+	 * \brief Struct for CbcRegisterItem that is identified by Page, Address, DefaultValue, Value
+	 */
+	struct CbcRegItem
+	{
 
-	    uint8_t fPage;
-	    uint8_t fAddress;
-	    uint8_t fDefValue;
-	    uint8_t fValue;
+		uint8_t fPage;
+		uint8_t fAddress;
+		uint8_t fDefValue;
+		uint8_t fValue;
 
-    };
+	};
 }
 
 #endif

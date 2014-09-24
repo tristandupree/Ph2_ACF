@@ -29,101 +29,93 @@ using namespace Ph2_HwInterface;
 using namespace Ph2_System;
 
 
-int main(int argc, char* argv[])
+int main( int argc, char* argv[] )
 {
 
-	TApplication cApp("Root Application", &argc, argv);
+	TApplication cApp( "Root Application", &argc, argv );
 
 	SystemController cSystemController;
 
-	cSystemController.InitializeHw(XML_DESCRIPTION_FILE_2CBC);
+	cSystemController.InitializeHw( XML_DESCRIPTION_FILE_2CBC );
 	cSystemController.ConfigureHw();
 
-	TCanvas *cCanvas = new TCanvas("Data Acq", "Different hits counters", 1000, 800);
-	cCanvas->Divide(2,1);
+	TCanvas* cCanvas = new TCanvas( "Data Acq", "Different hits counters", 1000, 800 );
+	cCanvas->Divide( 2, 1 );
 
 	std::vector<TH1F*> cHistVec;
-	for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getNCbc(); cNCbc++)
-	{
-		cHistVec.push_back(new TH1F(Form("Histo_Hits_CBC%d",cNCbc), Form("Occupancy_CBC%d",cNCbc), 255, -0.5, 254.5));
-	}
+	for ( uint8_t cNCbc = 0; cNCbc < cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+		cHistVec.push_back( new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 ) );
 
 	uint32_t cNthAcq = 0;
 
-	for(uint32_t cVCth=100; cVCth<140; cVCth+=2)
+	for ( uint32_t cVCth = 100; cVCth < 140; cVCth += 2 )
 	{
-		cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(0),"VCth",cVCth);
-		cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",cVCth);
+		cSystemController.fCbcInterface->WriteCbcReg( cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), "VCth", cVCth );
+		cSystemController.fCbcInterface->WriteCbcReg( cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ), "VCth", cVCth );
 
 		uint32_t cNevents = 200;
 		uint32_t cN = 0;
 
-		for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getNCbc(); cNCbc++)
+		for ( uint8_t cNCbc = 0; cNCbc < cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
 		{
 			delete cHistVec[cNCbc];
-			cHistVec[cNCbc] = new TH1F(Form("Histo_Hits_CBC%d",cNCbc), Form("Occupancy_CBC%d",cNCbc), 255, -0.5, 254.5);
+			cHistVec[cNCbc] = new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 );
 		}
 
-		gStyle->SetOptStat(0);
+		gStyle->SetOptStat( 0 );
 
 		usleep( 100 );
 
-		while(!(cN == cNevents))
+		while ( !( cN == cNevents ) )
 		{
 
-			cSystemController.Run(cSystemController.fShelveVec[0]->getBoard(0),cNthAcq);
+			cSystemController.Run( cSystemController.fShelveVec[0]->getBoard( 0 ), cNthAcq );
 
-			const Event *cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[0]->getBoard(0));
+			const Event* cEvent = cSystemController.fBeBoardInterface->GetNextEvent( cSystemController.fShelveVec[0]->getBoard( 0 ) );
 
-			while( cEvent )
+			while ( cEvent )
 			{
 
-				if( cNevents != 0 && cN == cNevents )
-				{
+				if ( cNevents != 0 && cN == cNevents )
 					break;
-				}
 
-				for(uint8_t cNFe=0; cNFe<cSystemController.fShelveVec[0]->getBoard(0)->getNFe(); cNFe++)
+				for ( uint8_t cNFe = 0; cNFe < cSystemController.fShelveVec[0]->getBoard( 0 )->getNFe(); cNFe++ )
 				{
 
-					for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[0]->getBoard(0)->getModule(cNFe)->getNCbc(); cNCbc++)
+					for ( uint8_t cNCbc = 0; cNCbc < cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( cNFe )->getNCbc(); cNCbc++ )
 					{
 						uint32_t cNHits = 0;
-						std::vector<bool> cDataBitVector = cEvent->DataBitVector(cNFe,cNCbc);
+						std::vector<bool> cDataBitVector = cEvent->DataBitVector( cNFe, cNCbc );
 
-						for(uint8_t cDBVec=0; cDBVec<cDataBitVector.size(); cDBVec++)
+						for ( uint8_t cDBVec = 0; cDBVec < cDataBitVector.size(); cDBVec++ )
 						{
-							if(cDataBitVector[cDBVec])
-							{
+							if ( cDataBitVector[cDBVec] )
 								cNHits++;
-							}
 						}
-						cHistVec[cNCbc]->Fill(cNHits);
+						cHistVec[cNCbc]->Fill( cNHits );
 					}
 				}
 
-				cEvent = cSystemController.fBeBoardInterface->GetNextEvent(cSystemController.fShelveVec[0]->getBoard(0));
+				cEvent = cSystemController.fBeBoardInterface->GetNextEvent( cSystemController.fShelveVec[0]->getBoard( 0 ) );
 				cN++;
 			}
 
-			for(uint8_t cNCbc=0; cNCbc<cHistVec.size(); cNCbc++)
+			for ( uint8_t cNCbc = 0; cNCbc < cHistVec.size(); cNCbc++ )
 			{
-				cCanvas->cd(uint32_t(cNCbc)+1);
+				cCanvas->cd( uint32_t( cNCbc ) + 1 );
 				cHistVec[cNCbc]->Draw();
 			}
 
 			cCanvas->Update();
 
-			if( cN == cNevents )
-			{
+			if ( cN == cNevents )
 				break;
-			}
 
 			cNthAcq++;
 
 		}
 
-		cCanvas->Print(((boost::format("output/Histogram_Vcth_%d.pdf") %(cVCth)).str()).c_str());
+		cCanvas->Print( ( ( boost::format( "output/Histogram_Vcth_%d.pdf" ) % ( cVCth ) ).str() ).c_str() );
 
 	}
 
