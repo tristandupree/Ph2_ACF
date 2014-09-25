@@ -2,6 +2,9 @@
 #include "View/setuptab.h"
 #include "View/cbcregisterstab.h"
 #include "View/datatesttab.h"
+
+#include "Macros/macrotesttab.h"
+
 #include "View/mainview.h"
 #include "Model/settings.h"
 #include "Model/systemcontroller.h"
@@ -22,10 +25,14 @@ namespace GUI
         m_setupTab(*new SetupTab(nullptr)),
         m_regTab(*new CbcRegistersTab(nullptr)),
         m_dataTab(*new DataTestTab(nullptr)),
+
+        m_macroTestTab(*new MacroTestTab(nullptr)), //cheap quick macro tab
+
         m_mainView(*new MainView(nullptr,
                                  m_setupTab,
                                  m_regTab,
-                                 m_dataTab)),
+                                 m_dataTab,
+                                 m_macroTestTab)),
 
         m_systemController(new SystemController(this,
                                                  Provider::getSettingsAsSingleton())),

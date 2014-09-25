@@ -25,7 +25,7 @@ LIBS += $(LibraryPaths:%=-L%) -uhal `root-config --glibs`
 LIBS += -L/usr/lib/ -lqjson
 INCLUDEPATH += /usr/include/qjson/
 
-INCLUDEPATH += /opt/cactus/include /home/xtaldaq/Ph2DAQ_dev/
+INCLUDEPATH += /opt/cactus/include /../../Ph2DAQ_dev/
 
 
 
@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     lib/qcustomplot.cpp \
     View/datatesttab.cpp \
     Model/datatest.cpp \
-    ViewMgr/datatestviewmanager.cpp
+    ViewMgr/datatestviewmanager.cpp \
+    Macros/macrotesttab.cpp
 
 HEADERS  += View/mainview.h \
     startup.h \
@@ -57,12 +58,14 @@ HEADERS  += View/mainview.h \
     lib/qcustomplot.h \
     View/datatesttab.h \
     Model/datatest.h \
-    ViewMgr/datatestviewmanager.h
+    ViewMgr/datatestviewmanager.h \
+    Macros/macrotesttab.h
 
 FORMS    += View/mainview.ui \
     View/setuptab.ui \
     View/cbcregisterstab.ui \
-    View/datatesttab.ui
+    View/datatesttab.ui \
+    Macros/macrotesttab.ui
 
 OTHER_FILES +=
 

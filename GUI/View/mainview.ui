@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>603</width>
+    <height>481</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainView</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QTabWidget" name="tabMainView">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tabSetup">
        <attribute name="title">
@@ -50,6 +50,16 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tabMacroTest">
+       <attribute name="title">
+        <string>Macro Tests</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QVBoxLayout" name="loMacroTest"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -59,7 +69,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>603</width>
      <height>22</height>
     </rect>
    </property>

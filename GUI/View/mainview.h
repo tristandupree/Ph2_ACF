@@ -13,6 +13,8 @@ namespace GUI{
     class CbcRegistersTab;
     class DataTestTab;
 
+    class MacroTestTab; //cheap tab
+
     class MainView : public QMainWindow
     {
         Q_OBJECT
@@ -21,7 +23,8 @@ namespace GUI{
         explicit MainView(QWidget *parent,
                           GUI::SetupTab &setup,
                           GUI::CbcRegistersTab &reg,
-                          GUI::DataTestTab &data);
+                          GUI::DataTestTab &data,
+                          GUI::MacroTestTab &macroTest);
         ~MainView();
 
     private:

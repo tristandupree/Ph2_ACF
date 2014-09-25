@@ -4,6 +4,8 @@
 #include "View/cbcregisterstab.h"
 #include "View/datatesttab.h"
 
+#include "Macros/macrotesttab.h"
+
 #include <QDebug>
 
 namespace GUI{
@@ -11,7 +13,8 @@ namespace GUI{
     MainView::MainView(QWidget *parent,
                        SetupTab& setup,
                        CbcRegistersTab& regTab,
-                       DataTestTab& data) :
+                       DataTestTab& data,
+                       MacroTestTab& macroTest) :
         QMainWindow(parent),
         ui(new Ui::MainView)
     {
@@ -19,6 +22,7 @@ namespace GUI{
         ui->loSetup->addWidget(&setup);
         ui->loRegisters->addWidget(&regTab);
         ui->loDataTest->addWidget(&data);
+        ui->loMacroTest->addWidget(&macroTest);
         //ui->loGraphs->addWidget(&vcth);
     }
 
