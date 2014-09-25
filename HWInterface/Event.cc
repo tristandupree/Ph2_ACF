@@ -97,7 +97,7 @@ namespace Ph2_HwInterface
     {
 		int vsize = sizeof(uint32_t);
 
-        fBuf = pEvent;
+		fBuf = pEvent;
 
 		fBunch = swap_bytes(&pEvent[0*vsize]);
 
@@ -322,4 +322,33 @@ namespace Ph2_HwInterface
 		return BitString(pFeId, pCbcId, OFFSET_CBCSTABDATA, WIDTH_CBCSTABDATA );
 	}
 
+  std::ostream& operator<<(std::ostream& os, const Event& ev) {
+    os << "Bunch Counter: " << ev.GetBunch() << std::endl;
+    os << "Orbit Counter: " << ev.GetOrbit() << std::endl;
+    os << " Lumi Section: " << ev.GetLumi() << std::endl;
+    os << "  L1A Counter: " << ev.GetEventCount() << std::endl;
+    os << "  CBC Counter: " << ev.GetEventCountCBC() << std::endl;
+    os << "  TDC Counter: " << ev.GetTDC() << std::endl;
+
+    os << "CBC Data:" << std::endl; 
+    const EventMap& evmap = ev.GetEventMap();
+    const int FIRST_LINE_WIDTH = 22;
+    const int LINE_WIDTH = 32;
+    const int LAST_LINE_WIDTH = 8;
+    for (EventMap::const_iterator it = evmap.begin(); it != evmap.end(); ++it) {
+      uint32_t feId = it->first;
+      for (FeEventMap::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt) {
+        uint32_t cbcId = jt->first;
+        std::string data(ev.DataBitString(feId, cbcId));
+        os << "FEId = " << feId << " CBCId = " << cbcId << " len(data) = " << data.size() << std::endl;
+        os << std::setw(32) << data.substr(0,FIRST_LINE_WIDTH) << std::endl; 
+        for (int i = 0; i < 7; ++i) {
+          os << data.substr(FIRST_LINE_WIDTH+LINE_WIDTH*i,LINE_WIDTH) << std::endl; 
+        }
+        os << data.substr(FIRST_LINE_WIDTH+LINE_WIDTH*7,LAST_LINE_WIDTH) << std::endl; 
+      }
+      os << std::endl;
+    }
+    return os;
+  }
 }

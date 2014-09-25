@@ -53,12 +53,12 @@ namespace Ph2_HwDescription{
 		* \param pBeId
 		* \param filename of the configuration file
 		*/
-		BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename );
+		BeBoard( uint8_t pShelveId, uint8_t pBeId, const std::string& filename );
 
 		/*!
 		* \brief Destructor
 		*/
-		~BeBoard(){};
+		~BeBoard(){}
 
 		// Public Methods
 
@@ -66,20 +66,20 @@ namespace Ph2_HwDescription{
 		* \brief Get the number of modules connected to the BeBoard
 		* \return The size of the vector
 		*/
-		uint8_t getNFe(){return fModuleVector.size();};
+		uint8_t getNFe() const {return fModuleVector.size();}
 
 		/*!
 		* \brief Get any register from the Map
 		* \param pReg
 		* \return The value of the register
 		*/
-		uint16_t getReg( std::string pReg );
+		uint16_t getReg( const std::string& pReg );
 		/*!
 		* \brief Set any register of the Map, if the register is not on the map, it adds it.
 		* \param pReg
 		* \param psetValue
 		*/
-		void setReg( std::string pReg, uint16_t psetValue );
+		void setReg( const std::string& pReg, uint16_t psetValue );
 
 		/*!
 		* \brief Adding a module to the vector
@@ -103,18 +103,18 @@ namespace Ph2_HwDescription{
 		* \brief Get the Map of the registers
 		* \return The map of register
 		*/
-		BeBoardRegMap getBeBoardRegMap (){return fRegMap;};
+		BeBoardRegMap getBeBoardRegMap () const {return fRegMap;}
 
 		/*!
 		* \brief Get the BeBoardId of the BeBoard
 		* \return the BeBoard Id
 		*/
-		uint8_t getBeId(){return fBeId;};
+		uint8_t getBeId() const {return fBeId;}
 		/*!
 		* \brief Get the Shelve Id of the BeBoard
 		* \return the ShelveId
 		*/
-		uint8_t getShelveId(){return fShelveId;};
+		uint8_t getShelveId() const {return fShelveId;}
 		/*!
 		* \brief Set the Be Id of the BeBoard
 		* \param pBeId
@@ -143,7 +143,7 @@ namespace Ph2_HwDescription{
 		* \brief Load RegMap from a file
 		* \param filename
 		*/
-		void loadConfigFile( std::string filename );
+		void loadConfigFile( const std::string& filename );
 
 	};
 }

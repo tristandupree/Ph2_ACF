@@ -53,7 +53,7 @@ namespace Ph2_HwInterface
             * \param pVecReg : vector containing the registers and the associated values to write
             * \return boolean confirming the writing
             */
-            virtual bool WriteStackReg(std::vector<std::pair<std::string,uint32_t> >& pVecReg);
+            virtual bool WriteStackReg(const std::vector<std::pair<std::string,uint32_t> >& pVecReg);
             /*!
             * \brief Write a block of values in a register
             * \param pRegNode : Node of the register to write

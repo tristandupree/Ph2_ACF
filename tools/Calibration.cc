@@ -458,6 +458,11 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 			Run(&pBoard, cNthAcq);
 
 			const Event *cEvent = fBeBoardInterface->GetNextEvent(&pBoard);
+#if 1
+			std::cout << ">>> pGroupId = " << uint32_t(pGroupId) << " cVcth = " << cVcth << std::endl;
+                        std::cout << ">>> Event #" << cN << " Limit = " << pEventsperVcth << std::endl;
+                        std::cout << *cEvent << std::endl;
+#endif
 
 			// Loop over Events from this Acquisition
 		    while( cEvent )
@@ -472,15 +477,22 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 		       	cTotalHits += cNHits;
 		        cN++;
 
-		        if(cN < pEventsperVcth ) cEvent = fBeBoardInterface->GetNextEvent(&pBoard);
+		        if(cN < pEventsperVcth ) {
+                          cEvent = fBeBoardInterface->GetNextEvent(&pBoard);
+#if 1
+  			  std::cout << ">>> pGroupId = " << uint32_t(pGroupId) << " cVcth = " << cVcth << std::endl;
+			  std::cout << ">>> Event #" << cN << std::endl;
+			  std::cout << *cEvent << std::endl;
+#endif
+                        }
 		        else break;
 			}
 			cNthAcq++;
 		} // End of Analyze Events of last Acquistion loop
 
 		// This is the condition for some channels being different from 0
-		if( cNonZero == false && cTotalHits != 0){
-		// if( cNonZero == false && cTotalHits > 0.3 * pEventsperVcth * pTotalChannels){
+		//if( cNonZero == false && cTotalHits != 0){
+		if( cNonZero == false && cTotalHits > 0.3 * pEventsperVcth * pTotalChannels){
 			cDoubleVcth = cVcth;
 			cNonZero = true;
 			cVcth -= 2 * cStep;
@@ -488,8 +500,8 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 			continue;
 		}
 		// This is the condition for all of the S-curves having reached 1
-		if(cTotalHits == pEventsperVcth * pTotalChannels) cAllOne++;
-		// if(cTotalHits >= 0.85 * pEventsperVcth * pTotalChannels) cAllOne++;
+		//if(cTotalHits == pEventsperVcth * pTotalChannels) cAllOne++;
+		if(cTotalHits >= 0.85 * pEventsperVcth * pTotalChannels) cAllOne++;
 		if(cAllOne == 8) break;
 		cVcth += cStep;
 	}  // done looping over Vcth, Scurves created

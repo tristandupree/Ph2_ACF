@@ -101,18 +101,18 @@ namespace Ph2_HwInterface
 	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Block of words to write
 	    	*/
-	    	virtual void WriteCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq ) {};
+	    	virtual void WriteCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq ) = 0;
 	    	/*!
 	    	* \brief Read register blocks of a Cbc
 	    	* \param pFeId : FrontEnd to work with
 	    	* \param pVecReq : Vector to stack the read words
 	    	*/
-	    	virtual void ReadCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq ) {};
+	    	virtual void ReadCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq ) = 0;
 			/*!
 	    	* \brief Configure the board with its Config File
 	    	* \param pBoard
 	    	*/
-			virtual void ConfigureBoard(BeBoard* pBoard) {};
+			virtual void ConfigureBoard(BeBoard* pBoard) = 0;
 			/*!
 			* \brief Start a DAQ
 			*/
@@ -121,33 +121,33 @@ namespace Ph2_HwInterface
 			* \brief Stop a DAQ
 			* \param pNthAcq : actual number of acquisitions
 			*/
-			virtual void Stop(uint32_t pNthAcq) {};
+			virtual void Stop(uint32_t pNthAcq) = 0;
 			/*!
 			* \brief Pause a DAQ
 			*/
-			virtual void Pause() {};
+			virtual void Pause() = 0;
 			/*!
 			* \brief Resume a DAQ
 			*/
-			virtual void Resume() {};
+			virtual void Resume() = 0;
 			/*!
 			* \brief Read data from DAQ
 			* \param pBoard
 			* \param pNthAcq : actual number of acquisitions
 			* \param pBreakTrigger : if true, enable the break trigger
 			*/
-			virtual void ReadData(	BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger) {};
+			virtual void ReadData(	BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger) = 0;
 			/*!
 			* \brief Get next event from data buffer
 			* \return Next event
 			*/
-			virtual const Event* GetNextEvent() {};
+			virtual const Event* GetNextEvent() = 0;
 			/*!
 			* \brief Get the data buffer
 			* \param pBufSize : recovers the data buffer size
 			* \return Data buffer
 			*/
-			virtual const char * GetBuffer( uint32_t &pBufSize ) const {};
+			virtual const char * GetBuffer( uint32_t &pBufSize ) const = 0;
 
 
 	};

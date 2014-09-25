@@ -48,35 +48,35 @@ namespace Ph2_HwDescription{
 		* \brief Get the Shelve ID
 		* \return The Shelve ID
 		*/
-		 virtual uint8_t getShelveId()
+		 virtual uint8_t getShelveId() const
 		{return fShelveId;};
 
 		/*!
 		* \brief Get the Be ID
 		* \return The Be ID
 		*/
-		 virtual uint8_t getBeId()
+		 virtual uint8_t getBeId() const
 		{ return fBeId ;};
 
 		/*!
 		* \brief Get the FMC ID
 		* \return The FMC ID
 		*/
-		 virtual uint8_t getFMCId()
+		 virtual uint8_t getFMCId() const
 		{ return fFMCId;};
 
 		/*!
 		* \brief Get the FE ID
 		* \return The FE ID
 		*/
-		 virtual uint8_t getFeId()
+		 virtual uint8_t getFeId() const
 		{ return fFeId ;};
 
 		/*!
 		* \brief Get the Status
 		* \return The Status
 		*/
-		 virtual bool getStatus()
+		 virtual bool getStatus() const
 		{ return fStatus ;};
 
 		// Setter methods
@@ -85,27 +85,27 @@ namespace Ph2_HwDescription{
 		* \brief Set the Shelve ID
 		* \param pShelveId
 		*/
-		 virtual void setShelveId( uint8_t pShelveId );
+		 virtual void setShelveId( uint8_t pShelveId ) {fShelveId = pShelveId;}
 		/*!
 		* \brief Set the Be ID
 		* \param pBeId
 		*/
-		 virtual void setBeId( uint8_t pBeId );
+		 virtual void setBeId( uint8_t pBeId ) {fBeId = pBeId;}
 		/*!
 		* \brief Set the FMC ID
 		* \param pFMCId
 		*/
-		 virtual void setFMCId(uint8_t pFMCId);
+		 virtual void setFMCId(uint8_t pFMCId) {fFMCId = pFMCId;}
 		/*!
 		* \brief Set the FE ID
 		* \param pFeId
 		*/
-		 virtual void setFeId( uint8_t pFeId );
+		 virtual void setFeId( uint8_t pFeId ) {fFeId = pFeId;}
 		/*!
 		* \brief Set the status
 		* \param pStatus
 		*/
-		 virtual void setStatus (bool pStatus );
+		 virtual void setStatus (bool pStatus ) {fStatus = pStatus;}
 
 	protected:
 		// MEMBERS

@@ -34,7 +34,7 @@ namespace Ph2_HwDescription{
 
 	// C'tors with object FE Description
 
-	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, std::string filename ):FrontEndDescription(pFeDesc)
+	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename ):FrontEndDescription(pFeDesc)
 	{
 
 		fCbcId=pCbcId;
@@ -51,7 +51,7 @@ namespace Ph2_HwDescription{
 
 	// C'tors which take ShelveID, BeId, FMCId, FeID, CbcId
 
-	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, std::string filename ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
+	Cbc::Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, const std::string& filename ):FrontEndDescription(pShelveId,pBeId,pFMCId,pFeId)
 	{
 
 		fCbcId=pCbcId;
@@ -86,7 +86,7 @@ namespace Ph2_HwDescription{
 
 	//load fRegMap from file
 
-	void Cbc::loadfRegMap(std::string filename)
+	void Cbc::loadfRegMap(const std::string& filename)
 	{
 		std::ifstream file(filename.c_str(),std::ios::in);
 
@@ -117,10 +117,9 @@ namespace Ph2_HwDescription{
 	}
 
 
-	uint8_t Cbc::getReg(std::string pReg)
+	uint8_t Cbc::getReg(const std::string& pReg)
 	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find(pReg);
+		CbcRegMap::iterator i = fRegMap.find(pReg);
 		if (i==fRegMap.end())
 		{
 			std::cout<<"The Cbc object: "<<uint32_t(fCbcId)<<" doesn't have "<<pReg<<std::endl;
@@ -131,10 +130,9 @@ namespace Ph2_HwDescription{
 	}
 
 
-	void Cbc::setReg(std::string pReg, uint8_t psetValue)
+	void Cbc::setReg(const std::string& pReg, uint8_t psetValue)
 	{
-		CbcRegMap::iterator i;
-		i=fRegMap.find(pReg);
+		CbcRegMap::iterator i = fRegMap.find(pReg);
 		if (i==fRegMap.end())
 		{std::cout<<"The Cbc object: "<<uint32_t(fCbcId)<<" doesn't have "<<pReg<<std::endl;}
 		else
@@ -147,7 +145,7 @@ namespace Ph2_HwDescription{
 
 	//Write RegValues in a file
 
-	void Cbc::saveRegMap( std::string filename )
+	void Cbc::saveRegMap( const std::string& filename )
 	{
 
 		std::ofstream file(filename.c_str(), std::ios::out | std::ios::trunc);

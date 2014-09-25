@@ -47,7 +47,7 @@ namespace Ph2_HwDescription{
 		* \brief Get the number of Cbc connected to the Module
 		* \return The size of the vector
 		*/
-		uint8_t getNCbc(){return fCbcVector.size();};
+		uint8_t getNCbc() const {return fCbcVector.size();};
 		/*!
 		* \brief Adding a Cbc to the vector
 		* \param pCbc
@@ -70,7 +70,7 @@ namespace Ph2_HwDescription{
 		* \brief Get the Module Id
 		* \return The Module ID
 		*/
-		uint8_t getModuleId() {return fModuleId;};
+		uint8_t getModuleId() const {return fModuleId;};
 		/*!
 		* \brief Set the Module Id
 		* \param pModuleId
