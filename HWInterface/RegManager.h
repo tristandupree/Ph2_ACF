@@ -7,7 +7,7 @@
     \date                         06/06/14
     Support :                     mail to : nico.pierre@icloud.com
 
-*/
+ */
 #ifndef __REGMANAGER_H__
 #define __REGMANAGER_H__
 
@@ -21,24 +21,24 @@
 #include <uhal/uhal.hpp>
 
 /*!
-* \namespace Ph2_HwInterface
-* \brief Namespace regrouping all the interfaces to the hardware
-*/
+ * \namespace Ph2_HwInterface
+ * \brief Namespace regrouping all the interfaces to the hardware
+ */
 namespace Ph2_HwInterface
 {
-    /*!
-    * \class RegManager
-    * \brief Permit connection to given boards and r/w given registers
-    */
-    class RegManager
-    {
-        protected:
-            uhal::HwInterface *fBoard; /*!< Board in use*/
-            const char *fUHalConfigFileName; /*!< path of the uHal Config File*/
-            std::vector< std::pair<std::string,uint32_t> > fStackReg; /*!< Stack of registers*/
-            std::thread fThread; /*!< Thread for timeout stack writing*/
-            bool fDeactiveThread; /*!< Bool to terminate the thread in the destructor*/
-            std::mutex fBoardMutex; /*!< Mutex to avoid conflict btw threads on shared resources*/
+	/*!
+	 * \class RegManager
+	 * \brief Permit connection to given boards and r/w given registers
+	 */
+	class RegManager
+	{
+	  protected:
+		uhal::HwInterface* fBoard;         /*!< Board in use*/
+		const char* fUHalConfigFileName;         /*!< path of the uHal Config File*/
+		std::vector< std::pair<std::string, uint32_t> > fStackReg;        /*!< Stack of registers*/
+		std::thread fThread;         /*!< Thread for timeout stack writing*/
+		bool fDeactiveThread;         /*!< Bool to terminate the thread in the destructor*/
+		std::mutex fBoardMutex;         /*!< Mutex to avoid conflict btw threads on shared resources*/
 
         public:
             /*!
@@ -80,26 +80,26 @@ namespace Ph2_HwInterface
             */
             void StackWriteTimeOut();
 
-        public:
-            // Connection w uHal
-            /*!
-            * \brief Constructor of the RegManager class
-            * \param puHalConfigFileName : path of the uHal Config File
-            */
-            RegManager(const char *puHalConfigFileName, uint32_t pBoardId);
-            /*!
-            * \brief Destructor of the RegManager class
-            */
-            virtual ~RegManager();
-            /*!
-            * \brief Stack the commands, deliver when full or timeout
-            * \param pRegNode : Register to write
-            * \param pVal : Value to write
-            * \param pSend : Send the stack to write or nor (1/0)
-            */
-            virtual void StackReg(const std::string& pRegNode, const uint32_t& pVal, bool pSend=false);
+	  public:
+		// Connection w uHal
+		/*!
+		 * \brief Constructor of the RegManager class
+		 * \param puHalConfigFileName : path of the uHal Config File
+		 */
+		RegManager( const char* puHalConfigFileName, uint32_t pBoardId );
+		/*!
+		 * \brief Destructor of the RegManager class
+		 */
+		virtual ~RegManager();
+		/*!
+		 * \brief Stack the commands, deliver when full or timeout
+		 * \param pRegNode : Register to write
+		 * \param pVal : Value to write
+		 * \param pSend : Send the stack to write or nor (1/0)
+		 */
+		virtual void StackReg( const std::string& pRegNode, const uint32_t& pVal, bool pSend = false );
 
-    };
+	};
 }
 
 #endif

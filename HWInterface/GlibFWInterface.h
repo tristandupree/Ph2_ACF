@@ -1,13 +1,13 @@
 /*!
 
-	\file 				GlibFWInterface.h
-	\brief 				GlibFWInterface init/config of the Glib and its Cbc's
-	\author 			Lorenzo BIDEGAIN, Nicolas PIERRE
-	\version			1.0
-	\date 				28/07/14
-	Support : 			mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
+        \file                           GlibFWInterface.h
+        \brief                          GlibFWInterface init/config of the Glib and its Cbc's
+        \author                         Lorenzo BIDEGAIN, Nicolas PIERRE
+        \version            1.0
+        \date                           28/07/14
+        Support :                       mail to : lorenzo.bidegain@gmail.com, nico.pierre@icloud.com
 
-*/
+ */
 
 #ifndef __GLIBFWINTERFACE_H__
 #define __GLIBFWINTERFACE_H__
@@ -24,78 +24,80 @@
 using namespace Ph2_HwDescription;
 
 /*!
-* \namespace Ph2_HwInterface
-* \brief Namespace regrouping all the interfaces to the hardware
-*/
+ * \namespace Ph2_HwInterface
+ * \brief Namespace regrouping all the interfaces to the hardware
+ */
 namespace Ph2_HwInterface
 {
 	/*!
-	* \class GlibFWInterface
-	* \brief init/config of the Glib and its Cbc's
-	*/
-	class GlibFWInterface : public BeBoardFWInterface {
+	 * \class GlibFWInterface
+	 * \brief init/config of the Glib and its Cbc's
+	 */
+	class GlibFWInterface : public BeBoardFWInterface
+	{
 
-	private:
+	  private:
 		struct timeval fStartVeto;
-    	std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout, fStrOtherSram, fStrOtherSramUserLogic;
-    	std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
+		std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout, fStrOtherSram, fStrOtherSramUserLogic;
+		std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
 
 
-	private:
+	  private:
 		/*!
-		* \brief SRAM selection for DAQ
-		* \param pNthAcq : actual number of acquisitions
-		*/
-		void SelectDaqSRAM(uint32_t pNthAcq);
+		 * \brief SRAM selection for DAQ
+		 * \param pNthAcq : actual number of acquisitions
+		 */
+		void SelectDaqSRAM( uint32_t pNthAcq );
 
-	public:
+	  public:
 		/*!
-		* \brief Constructor of the GlibFWInterface class
-		* \param puHalConfigFileName : path of the uHal Config File
-		* \param pBoardId
-		*/
-		GlibFWInterface(const char *puHalConfigFileName, uint32_t pBoardId);
+		 * \brief Constructor of the GlibFWInterface class
+		 * \param puHalConfigFileName : path of the uHal Config File
+		 * \param pBoardId
+		 */
+		GlibFWInterface( const char* puHalConfigFileName, uint32_t pBoardId );
 		/*!
-		* \brief Destructor of the GlibFWInterface class
-		*/
-		~GlibFWInterface(){};
+		 * \brief Destructor of the GlibFWInterface class
+		 */
+		~GlibFWInterface() {
+		};
 
 		/*!
-    	* \brief Configure the board with its Config File
-    	* \param pBoard
-    	*/
-    	void ConfigureBoard(BeBoard* pBoard);
+		 * \brief Configure the board with its Config File
+		 * \param pBoard
+		 */
+		void ConfigureBoard( BeBoard* pBoard );
 		/*!
-    	* \brief Detect the right FE Id to write the right registers (not working with the latest Firmware)
-    	*/
+		 * \brief Detect the right FE Id to write the right registers (not working with the latest Firmware)
+		 */
 		void SelectFEId();
 		/*!
-		* \brief Start a DAQ
-		*/
+		 * \brief Start a DAQ
+		 */
 		void Start();
 		/*!
-		* \brief Stop a DAQ
-		* \param pNthAcq : actual number of acquisitions
-		*/
-		void Stop(uint32_t pNthAcq);
+		 * \brief Stop a DAQ
+		 * \param pNthAcq : actual number of acquisitions
+		 */
+		void Stop( uint32_t pNthAcq );
 		/*!
-		* \brief Pause a DAQ
-		*/
+		 * \brief Pause a DAQ
+		 */
 		void Pause();
 		/*!
-		* \brief Unpause a DAQ
-		*/
+		 * \brief Unpause a DAQ
+		 */
 		void Resume();
 		/*!
-		* \brief Read data from DAQ
-		* \param pNthAcq : actual number of acquisitions
-		* \param pBreakTrigger : if true, enable the break trigger
-		*/
-		void ReadData( BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger);
+		 * \brief Read data from DAQ
+		 * \param pNthAcq : actual number of acquisitions
+		 * \param pBreakTrigger : if true, enable the break trigger
+		 */
+		void ReadData( BeBoard* pBoard, uint32_t pNthAcq, bool pBreakTrigger );
 		/*!
-		* \brief Get next event from data buffer
-		* \return Next event
-		*/
+		 * \brief Get next event from data buffer
+		 * \return Next event
+		 */
 		const Event* GetNextEvent();
 		/*!
 		* \brief Get the data buffer
@@ -104,55 +106,54 @@ namespace Ph2_HwInterface
 		*/
 		const char * GetBuffer( uint32_t &pBufSize ) const;
 
+		//Methods for the Cbc's:
 
-	//Methods for the Cbc's:
-
-	private:
+	  private:
 
 		//I2C Methods
 
 		/*!
-		* \brief Wait for the I2C command acknowledgement
-		* \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false
-		* \param pNcount : Number of registers at stake
-		* \return boolean confirming the acknowledgement
-		*/
-		bool I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount=1 );
+		 * \brief Wait for the I2C command acknowledgement
+		 * \param pAckVal : Expected status of acknowledgement, 1/0 -> true/false
+		 * \param pNcount : Number of registers at stake
+		 * \return boolean confirming the acknowledgement
+		 */
+		bool I2cCmdAckWait( uint32_t pAckVal, uint8_t pNcount = 1 );
 		/*!
-		* \brief Send request to r/w blocks via I2C
-		* \param pVecReq : Block of words to send
-		* \param pWrite : 1/0 -> Write/Read
-		*/
-		void SendBlockCbcI2cRequest(std::vector<uint32_t>& pVecReq, bool pWrite);
+		 * \brief Send request to r/w blocks via I2C
+		 * \param pVecReq : Block of words to send
+		 * \param pWrite : 1/0 -> Write/Read
+		 */
+		void SendBlockCbcI2cRequest( std::vector<uint32_t>& pVecReq, bool pWrite );
 		/*!
-		* \brief Read blocks from SRAM via I2C
-		* \param pVecReq : Vector to stack the read words
-		*/
-		void ReadI2cBlockValuesInSRAM(std::vector<uint32_t> &pVecReq );
+		 * \brief Read blocks from SRAM via I2C
+		 * \param pVecReq : Vector to stack the read words
+		 */
+		void ReadI2cBlockValuesInSRAM( std::vector<uint32_t>& pVecReq );
 		/*!
-		* \brief Enable I2C communications
-		* \param pEnable : 1/0 -> Enable/Disable
-		*/
+		 * \brief Enable I2C communications
+		 * \param pEnable : 1/0 -> Enable/Disable
+		 */
 		void EnableI2c( bool pEnable );
 
-		void SelectFeSRAM(uint32_t pFe);
+		void SelectFeSRAM( uint32_t pFe );
 
-	public:
+	  public:
 
 		//r/w the Cbc registers
 		/*!
-	    	* \brief Read register blocks of a Cbc
-	    	* \param pFeId : FrontEnd to work with
-	    	* \param pVecReq : Vector to stack the read words
-	    	*/
-		void WriteCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq );
-	    	/* \brief Read register blocks of a Cbc
-	    	* \param pFeId : FrontEnd to work with
-	    	* \param pVecReq : Vector to stack the read words
-	    	*/
-		void ReadCbcBlockReg( uint8_t pFeId,std::vector<uint32_t>& pVecReq );
+		 * \brief Read register blocks of a Cbc
+		 * \param pFeId : FrontEnd to work with
+		 * \param pVecReq : Vector to stack the read words
+		 */
+		void WriteCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq );
+		/* \brief Read register blocks of a Cbc
+		 * \param pFeId : FrontEnd to work with
+		 * \param pVecReq : Vector to stack the read words
+		 */
+		void ReadCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq );
 
-    };
+	};
 }
 
 #endif

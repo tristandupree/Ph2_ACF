@@ -1,13 +1,13 @@
 /*!
 
-	Filename : 				BeBoard.cc
-	Content : 				BeBoard Description class, configs of the BeBoard
-	Programmer : 			Lorenzo BIDEGAIN
-	Version :				1.0
-	Date of Creation : 		14/07/14
-	Support : 				mail to : lorenzo.bidegain@gmail.com
+        Filename :                              BeBoard.cc
+        Content :                               BeBoard Description class, configs of the BeBoard
+        Programmer :                    Lorenzo BIDEGAIN
+        Version :               1.0
+        Date of Creation :              14/07/14
+        Support :                               mail to : lorenzo.bidegain@gmail.com
 
-*/
+ */
 
 #include "BeBoard.h"
 #include <iostream>
@@ -15,25 +15,27 @@
 #include <sstream>
 #include <fstream>
 
-namespace Ph2_HwDescription{
+namespace Ph2_HwDescription
+{
 
 	// Constructors
 
-	BeBoard::BeBoard():
-	fShelveId(0),
-	fBeId(0)
+	BeBoard::BeBoard() :
+		fShelveId( 0 ),
+		fBeId( 0 )
 	{
 		loadConfigFile( DEFAULT_GLIB_FILE );
 	}
 
-	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId ):
-	fShelveId( pShelveId ),
-	fBeId( pBeId )
-	{}
+	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId ) :
+		fShelveId( pShelveId ),
+		fBeId( pBeId )
+	{
+	}
 
-	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, const std::string& filename ):
-	fShelveId( pShelveId ),
-	fBeId( pBeId )
+	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, const std::string& filename ) :
+		fShelveId( pShelveId ),
+		fBeId( pBeId )
 	{
 		loadConfigFile( filename );
 	}
@@ -46,7 +48,7 @@ namespace Ph2_HwDescription{
 		BeBoardRegMap::iterator i = fRegMap.find( pReg );
 		if( i == fRegMap.end() )
 		{
-			std::cout<<"The Board object: "<<uint32_t(fBeId)<<" doesn't have "<<pReg<<std::endl;
+			std::cout << "The Board object: " << uint32_t( fBeId ) << " doesn't have " << pReg << std::endl;
 			return 0;
 		}
 		else return i->second;
@@ -64,27 +66,27 @@ namespace Ph2_HwDescription{
 
 	void BeBoard::addModule( Module& pModule )
 	{
-		fModuleVector.push_back(pModule);
+		fModuleVector.push_back( pModule );
 	}
 
 	bool BeBoard::removeModule( uint8_t pModuleId )
 	{
 		std::vector < Module > :: iterator i;
-		bool j=false;
-		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
+		bool j = false;
+		for ( i = fModuleVector.begin(); i != fModuleVector.end(); ++i )
 		{
-			if (i->getModuleId()==pModuleId)
+			if ( i->getModuleId() == pModuleId )
 			{
-				fModuleVector.erase(i);
-				j=true;
-				i--;   //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator
+				fModuleVector.erase( i );
+				j = true;
+				i--;       //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator
 			}
 		}
-		if (j==true)
-		return true;
+		if ( j == true )
+			return true;
 		else
 		{
-			std::cout<<"Error:The BeBoard: "<<uint32_t (fBeId)<<" doesn't have the module "<<uint32_t(pModuleId)<<std::endl;
+			std::cout << "Error:The BeBoard: " << uint32_t ( fBeId ) << " doesn't have the module " << uint32_t( pModuleId ) << std::endl;
 			return false;
 		}
 	}
@@ -92,12 +94,10 @@ namespace Ph2_HwDescription{
 	Module* BeBoard::getModule( uint8_t pModuleId )
 	{
 		std::vector < Module > :: iterator i;
-		for (i=fModuleVector.begin();i!=fModuleVector.end();++i)
+		for ( i = fModuleVector.begin(); i != fModuleVector.end(); ++i )
 		{
-			if (i->getModuleId()==pModuleId)
-				{
-					return &*i;
-				}
+			if ( i->getModuleId() == pModuleId )
+				return &*i;
 		}
 		return NULL;
 	}
@@ -108,34 +108,30 @@ namespace Ph2_HwDescription{
 
 	{
 
-		std::ifstream cFile( filename.c_str(),std::ios::in );
-		if( ! cFile ) std::cerr << "The BeBoard Settings File " << filename << " could not be opened!" << std::endl;
+		std::ifstream cFile( filename.c_str(), std::ios::in );
+		if ( !cFile ) std::cerr << "The BeBoard Settings File " << filename << " could not be opened!" << std::endl;
 		else
 		{
 
 			fRegMap.clear();
 			std::string cLine, cName, cValue, cFound;
 
-			while ( ! ( getline( cFile, cLine ).eof() ) )
+			while ( !( getline( cFile, cLine ).eof() ) )
 			{
 
-				if( cLine.find_first_not_of( " \t" ) == std::string::npos ) continue;
-				if( cLine.at(0) == '#' || cLine.at(0) =='*' ) continue;
-				if( cLine.find( ":" ) == std::string::npos ) continue;
+				if ( cLine.find_first_not_of( " \t" ) == std::string::npos ) continue;
+				if ( cLine.at( 0 ) == '#' || cLine.at( 0 ) == '*' ) continue;
+				if ( cLine.find( ":" ) == std::string::npos ) continue;
 
-				std::istringstream input(cLine);
-				input>> cName >> cFound>> cValue;
+				std::istringstream input( cLine );
+				input >> cName >> cFound >> cValue;
 
 
 				// Here the Reg name sits in cName and the Reg value sits in cValue
-				if( cValue.find("0x") != std::string::npos )
-				{
+				if ( cValue.find( "0x" ) != std::string::npos )
 					fRegMap[cName] = strtol( cValue.c_str(), 0, 16 );
-				}
 				else
-				{
 					fRegMap[cName] = strtol( cValue.c_str(), 0, 10 );
-				}
 			}
 
 			cFile.close();

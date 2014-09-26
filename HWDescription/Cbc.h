@@ -1,13 +1,13 @@
 /*!
 
-	\file 			Cbc.h
-	\brief 			Cbc Description class, config of the Cbcs
-	\author 		Lorenzo BIDEGAIN
-	\version 		1.0
-	\date 			25/06/14
-	Support : 		mail to : lorenzo.bidegain@gmail.com
+        \file                   Cbc.h
+        \brief                  Cbc Description class, config of the Cbcs
+        \author                 Lorenzo BIDEGAIN
+        \version                1.0
+        \date                   25/06/14
+        Support :               mail to : lorenzo.bidegain@gmail.com
 
-*/
+ */
 
 
 #ifndef Cbc_h__
@@ -25,21 +25,23 @@
 // Cbc2 Chip HW Description Class
 
 /*!
-* \namespace Ph2_HwDescription
-* \brief Namespace regrouping all the hardware description
-*/
-namespace Ph2_HwDescription{
+ * \namespace Ph2_HwDescription
+ * \brief Namespace regrouping all the hardware description
+ */
+namespace Ph2_HwDescription
+{
 
 	typedef std::map < std::string, CbcRegItem > CbcRegMap;
 	typedef std::pair <std::string, CbcRegItem> CbcRegPair;
 
 	/*!
-	* \class Cbc
-	* \brief Read/Write Cbc's registers on a file, contains a register map
-	*/
-	class Cbc : public FrontEndDescription{
+	 * \class Cbc
+	 * \brief Read/Write Cbc's registers on a file, contains a register map
+	 */
+	class Cbc : public FrontEndDescription
+	{
 
-	public:
+	  public:
 
 		// C'tors with object FE Description
 		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename );
@@ -53,7 +55,7 @@ namespace Ph2_HwDescription{
 		Cbc();
 
 		// Copy C'tor
-		Cbc(const Cbc& cbcobj);
+		Cbc( const Cbc& cbcobj );
 
 		// D'Tor
 		~Cbc();
@@ -95,13 +97,15 @@ namespace Ph2_HwDescription{
 		*/
 		uint8_t getCbcId() const {return fCbcId;};
 		/*!
-		* \brief Set the Cbc Id
-		* \param pCbcId
-		*/
-		void setCbcId(uint8_t pCbcId) {fCbcId=pCbcId;};
+		 * \brief Set the Cbc Id
+		 * \param pCbcId
+		 */
+		void setCbcId( uint8_t pCbcId ) {
+			fCbcId = pCbcId;
+		};
 
 
-	protected:
+	  protected:
 
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
 		CbcRegMap fRegMap;
@@ -112,24 +116,26 @@ namespace Ph2_HwDescription{
 
 
 	/*!
-	* \struct CbcComparer
-	* \brief Compare two Cbc by their ID
-	*/
-	struct CbcComparer{
+	 * \struct CbcComparer
+	 * \brief Compare two Cbc by their ID
+	 */
+	struct CbcComparer
+	{
 
-		bool operator() (Cbc& cbc1,Cbc& cbc2);
+		bool operator()( Cbc& cbc1, Cbc& cbc2 );
 
-		};
+	};
 
 	/*!
-	* \struct RegItemComparer
-	* \brief Compare two pair of Register Name Versus CbcRegItem by the Page and Adress of the CbcRegItem
-	*/
-	struct RegItemComparer{
+	 * \struct RegItemComparer
+	 * \brief Compare two pair of Register Name Versus CbcRegItem by the Page and Adress of the CbcRegItem
+	 */
+	struct RegItemComparer
+	{
 
-		bool operator() (CbcRegPair pRegItem1, CbcRegPair pRegItem2);
+		bool operator()( CbcRegPair pRegItem1, CbcRegPair pRegItem2 );
 
-		};
+	};
 
 }
 

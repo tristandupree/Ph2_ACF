@@ -1,13 +1,13 @@
 /*!
 
-	\file 				FrontEndDescription.h
-	\brief 				FrontEndDescription base class to describe all parameters common to all FE Components in the DAQ chain
-	\author 			Lorenzo BIDEGAIN
-	\version 			1.0
-	\date 				25/06/14
-	Support : 			mail to : lorenzo.bidegain@gmail.com
+        \file                           FrontEndDescription.h
+        \brief                          FrontEndDescription base class to describe all parameters common to all FE Components in the DAQ chain
+        \author                         Lorenzo BIDEGAIN
+        \version                        1.0
+        \date                           25/06/14
+        Support :                       mail to : lorenzo.bidegain@gmail.com
 
-*/
+ */
 
 
 #ifndef FrontEndDescription_h__
@@ -16,28 +16,30 @@
 #include <boost/cstdint.hpp>
 
 /*!
-* \namespace Ph2_HwDescription
-* \brief Namespace regrouping all the hardware description
-*/
-namespace Ph2_HwDescription{
+ * \namespace Ph2_HwDescription
+ * \brief Namespace regrouping all the hardware description
+ */
+namespace Ph2_HwDescription
+{
 
 	/*!
-	* \class FrontEndDescription
-	* \brief Describe all parameters common to all FE Components in the DAQ chain
-	*/
-	class FrontEndDescription {
+	 * \class FrontEndDescription
+	 * \brief Describe all parameters common to all FE Components in the DAQ chain
+	 */
+	class FrontEndDescription
+	{
 
-	public:
+	  public:
 
 		// METHODS
 
 		// 3 C'tors with different parameter sets
-		FrontEndDescription( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, bool pStatus=true );
+		FrontEndDescription( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, bool pStatus = true );
 		FrontEndDescription( uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId );
 		FrontEndDescription( );
 
 		//Copy C'tors
-		FrontEndDescription(const FrontEndDescription& pFeDesc);
+		FrontEndDescription( const FrontEndDescription& pFeDesc );
 
 		// Default D'tor
 		virtual ~FrontEndDescription( );
@@ -49,35 +51,35 @@ namespace Ph2_HwDescription{
 		* \return The Shelve ID
 		*/
 		 virtual uint8_t getShelveId() const
-		{return fShelveId;};
+		{return fShelveId;}
 
 		/*!
 		* \brief Get the Be ID
 		* \return The Be ID
 		*/
 		 virtual uint8_t getBeId() const
-		{ return fBeId ;};
+		{ return fBeId ;}
 
 		/*!
 		* \brief Get the FMC ID
 		* \return The FMC ID
 		*/
 		 virtual uint8_t getFMCId() const
-		{ return fFMCId;};
+		{ return fFMCId;}
 
 		/*!
 		* \brief Get the FE ID
 		* \return The FE ID
 		*/
 		 virtual uint8_t getFeId() const
-		{ return fFeId ;};
+		{ return fFeId ;}
 
 		/*!
 		* \brief Get the Status
 		* \return The Status
 		*/
 		 virtual bool getStatus() const
-		{ return fStatus ;};
+		{ return fStatus ;}
 
 		// Setter methods
 
@@ -107,7 +109,7 @@ namespace Ph2_HwDescription{
 		*/
 		 virtual void setStatus (bool pStatus ) {fStatus = pStatus;}
 
-	protected:
+	  protected:
 		// MEMBERS
 
 		// Crate (uTCA) that the FE is connected to

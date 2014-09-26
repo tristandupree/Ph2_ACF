@@ -1,13 +1,13 @@
 /*!
 
-	\file				 BeBoard.h
-	\brief 				 BeBoard Description class, configs of the BeBoard
-	\author 			 Lorenzo BIDEGAIN
-	\date 				 14/07/14
-	\version 			 1.0
-	Support : 			 mail to : lorenzo.bidegain@gmail.com
+        \file                BeBoard.h
+        \brief                           BeBoard Description class, configs of the BeBoard
+        \author                          Lorenzo BIDEGAIN
+        \date                            14/07/14
+        \version                         1.0
+        Support :                        mail to : lorenzo.bidegain@gmail.com
 
-*/
+ */
 
 #ifndef _BeBoard_h__
 #define _BeBoard_h__
@@ -19,32 +19,34 @@
 #include <boost/cstdint.hpp>
 
 /*!
-* \namespace Ph2_HwDescription
-* \brief Namespace regrouping all the hardware description
-*/
-namespace Ph2_HwDescription{
+ * \namespace Ph2_HwDescription
+ * \brief Namespace regrouping all the hardware description
+ */
+namespace Ph2_HwDescription
+{
 
-	typedef std::map< std::string, uint16_t > BeBoardRegMap; /*!< Map containing the registers of a board */
+	typedef std::map< std::string, uint16_t > BeBoardRegMap;     /*!< Map containing the registers of a board */
 
 	/*!
-	* \class BeBoard
-	* \brief Read/Write BeBoard's registers on a file, handles a register map and handles a vector of Module which are connected to the BeBoard
-	*/
-	class BeBoard{
+	 * \class BeBoard
+	 * \brief Read/Write BeBoard's registers on a file, handles a register map and handles a vector of Module which are connected to the BeBoard
+	 */
+	class BeBoard
+	{
 
-	public:
+	  public:
 
 		// C'tors: the BeBoard only needs to know about it's shelf and which BE it is
 		/*!
-		* \brief Default C'tor
-		*/
+		 * \brief Default C'tor
+		 */
 		BeBoard();
 
 		/*!
-		* \brief Standard C'tor
-		* \param pShelveId
-		* \param pBeId
-		*/
+		 * \brief Standard C'tor
+		 * \param pShelveId
+		 * \param pBeId
+		 */
 		BeBoard( uint8_t pShelveId, uint8_t pBeId );
 
 		/*!
@@ -82,21 +84,21 @@ namespace Ph2_HwDescription{
 		void setReg( const std::string& pReg, uint16_t psetValue );
 
 		/*!
-		* \brief Adding a module to the vector
-		* \param pModule
-		*/
+		 * \brief Adding a module to the vector
+		 * \param pModule
+		 */
 		void addModule( Module& pModule );
 		/*!
-		* \brief Remove a Module from the vector
-		* \param pModuleId
-		* \return a bool which indicate if the removing was successful
-		*/
+		 * \brief Remove a Module from the vector
+		 * \param pModuleId
+		 * \return a bool which indicate if the removing was successful
+		 */
 		bool removeModule( uint8_t pModuleId );
 		/*!
-		* \brief Get a module from the vector
-		* \param pModuleId
-		* \return a pointer of module, so we can manipulate directly the module contained in the vector
-		*/
+		 * \brief Get a module from the vector
+		 * \param pModuleId
+		 * \return a pointer of module, so we can manipulate directly the module contained in the vector
+		 */
 		Module* getModule( uint8_t pModuleId );
 
 		/*!
@@ -129,22 +131,21 @@ namespace Ph2_HwDescription{
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
 		std::vector< Module > fModuleVector;
 
-	protected:
+	  protected:
 		//Connection Members
 		uint8_t fShelveId;
 		uint8_t fBeId;
 
 
-		BeBoardRegMap fRegMap; /*!< Map of BeBoard Register Names vs. Register Values */
+		BeBoardRegMap fRegMap;             /*!< Map of BeBoard Register Names vs. Register Values */
 
-	private:
+	  private:
 
 		/*!
 		* \brief Load RegMap from a file
 		* \param filename
 		*/
 		void loadConfigFile( const std::string& filename );
-
 	};
 }
 
