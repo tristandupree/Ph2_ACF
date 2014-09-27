@@ -2,6 +2,8 @@
 #include <QObject>
 #include <QVariantMap>
 
+#include <QDebug>
+
 class QString;
 class QStringListModel;
 class QFile;
@@ -17,7 +19,7 @@ namespace GUI{
         explicit Settings(QObject *parent, QString filename);
         void ParseJsondata();
 
-        QVariantMap getshelveIdMap() const {return map_ShelveId;} //QVariantMaps are implicitly shared
+        QVariantMap getshelveIdMap() const {return *map_ShelveId;} //QVariantMaps are implicitly shared
     ~Settings();
 
     signals:
@@ -33,9 +35,9 @@ namespace GUI{
         QStandardItemModel *CreateItemModel();
         QStandardItemModel *getHwStandardItems() {return CreateItemModel();}
 
-        QVariantMap map_HwDescription;
-        QVariantMap map_ShelveId;
-        QVariantMap map_BeBoardId;
+        QVariantMap* map_HwDescription;
+        QVariantMap* map_ShelveId;
+        QVariantMap* map_BeBoardId;
 
         QList <QString> list_ShelveId;
         QList <QString> list_BeId;

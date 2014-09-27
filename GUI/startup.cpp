@@ -15,6 +15,7 @@
 
 #include "utils.h"
 #include <QDebug>
+#include <QThread>
 
 
 
@@ -22,7 +23,9 @@ namespace GUI
 {
     Startup::Startup() :
         QObject(nullptr),
-        m_setupTab(*new SetupTab(nullptr)),
+        //m_threadDataTest(new QThread()),
+
+        m_setupTab(*new SetupTab(nullptr)), //nullptr as widget is added to a layout - transferring ownership
         m_regTab(*new CbcRegistersTab(nullptr)),
         m_dataTab(*new DataTestTab(nullptr)),
 
@@ -49,10 +52,15 @@ namespace GUI
                                             *m_dataTest))
 
     {
+        //auto thread = new QThread();
+        //m_dataTest->moveToThread(thread);
 
     }
 
     Startup::~Startup(){
+        //m_threadDataTest->wait();
+        //delete m_threadDataTest;
+        //qDebug()<<"Deleting thread "<<this->QObject::thread()->currentThreadId();
         qDebug() << "Destructing " << this;
         delete &m_mainView;
     }

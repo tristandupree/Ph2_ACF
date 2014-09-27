@@ -18,7 +18,9 @@ namespace GUI
     static auto RESOURCE_PREFIX = QString(":/json").toLatin1();
     Settings::Settings(QObject *parent, QString filename) :
         QObject(parent),
-        m_filename (filename)
+        m_filename (filename),
+        map_ShelveId(new QVariantMap),
+        map_BeBoardId(new QVariantMap)
     {
     }
 
@@ -37,10 +39,11 @@ namespace GUI
             SendStatusMessage(tr("Json file empty or not formatted correctly"));
             return;
         }
+        //map_HwDescription=this;
 
         auto result = GetJsonObject(raw_json);
-
-        map_HwDescription = result["HwDescription"].toMap();
+        map_HwDescription = new QVariantMap;
+        *map_HwDescription = (result["HwDescription"].toMap());
 
     }
 
@@ -48,10 +51,11 @@ namespace GUI
     {
         if (cbc2)
         {
-            m_filename = QString("HwDescription.json").toLatin1();
-            ParseJsondata();
 
-            emit setHwTree(getHwStandardItems());
+            m_filename = QString("HwDescription.json").toLatin1();
+
+            ParseJsondata();
+            emit setHwTree(getHwStandardItems()); //TODO - add debug
 
             SendStatusMessage(tr("Settings for 2CBC2 loaded"));
 
@@ -92,32 +96,31 @@ namespace GUI
     QStandardItemModel* Settings::CreateItemModel() { //yes I am aware there are faster ways with refelections but I'm pressed for time
 
         QStandardItemModel* standardModel = new QStandardItemModel;
+        *map_ShelveId = map_HwDescription->value("ShelveId").toMap();
 
-        map_ShelveId = map_HwDescription.value("ShelveId").toMap();
-
-        for(auto& sh_kv : map_ShelveId.keys())
+        for(auto& sh_kv : map_ShelveId->keys())
         {
             QList<QStandardItem *> preparedRow = prepareRow("Shelve Id " + sh_kv);
             QStandardItem *item = standardModel->invisibleRootItem();
             item->appendRow(preparedRow);
 
-            map_BeBoardId = map_ShelveId.value(sh_kv).toMap().value("BeBoardId").toMap();
+            *map_BeBoardId = map_ShelveId->value(sh_kv).toMap().value("BeBoardId").toMap();
 
-            for (auto& be_kv: map_BeBoardId.keys())
+            for (auto& be_kv: map_BeBoardId->keys())
             {
                 QList<QStandardItem *> secondRow = prepareRow("Be Board Id " + be_kv);
 
                 preparedRow.first()->appendRow(secondRow);
 
-                for(auto& be_v : map_BeBoardId.value(be_kv).toMap().keys())
+                for(auto& be_v : map_BeBoardId->value(be_kv).toMap().keys())
                 {
-                    auto be_values = map_BeBoardId.value(be_kv).toMap().value(be_v);
+                    auto be_values = map_BeBoardId->value(be_kv).toMap().value(be_v);
 
                     if(be_v == "RegisterName")
                     {
                         QList<QStandardItem *> thirdRow = prepareRow(be_v + " : " + be_values.toString());
                         secondRow.first()->appendRow(thirdRow);
-                        auto regvalues = map_BeBoardId.value(be_kv).toMap().value(be_v);
+                        auto regvalues = map_BeBoardId->value(be_kv).toMap().value(be_v);
 
                         for (auto& reg_kv: regvalues.toMap().keys())
                         {
@@ -130,7 +133,7 @@ namespace GUI
                     {
                         QList<QStandardItem *> thirdRow = prepareRow(be_v + " : " + be_values.toString());
                         secondRow.first()->appendRow(thirdRow);
-                        auto regvalues = map_BeBoardId.value(be_kv).toMap().value(be_v);
+                        auto regvalues = map_BeBoardId->value(be_kv).toMap().value(be_v);
                         for (auto& reg_kv: regvalues.toMap().keys())
                         {
                             if(reg_kv == "CbcRegisters")

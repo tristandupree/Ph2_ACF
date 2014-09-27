@@ -1,5 +1,6 @@
 #pragma once
 #include <QObject>
+#include <QThread>
 
 namespace GUI{
 
@@ -20,7 +21,10 @@ namespace GUI{
         DataTestTab& m_dataTestTab;
         DataTest& m_dataTest;
 
+        //QThread *thread;
+
         void WireButtons();
+        void WireThreads();
 
         explicit DataTestViewManager(const DataTestViewManager& rhs) = delete;
         DataTestViewManager& operator= (const DataTestViewManager& rhs) = delete;

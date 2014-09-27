@@ -4,66 +4,65 @@
 
 #include "lib/qcustomplot.h"
 #include <QVector>
+#include <QThread>
 
-#include "../HWDescription/Cbc.h"
-#include "../HWDescription/Module.h"
-#include "../HWDescription/BeBoard.h"
-#include "../HWInterface/CbcInterface.h"
-#include "../HWInterface/BeBoardInterface.h"
-#include "../HWDescription/Definition.h"
-#include "../HWInterface/Utilities.h"
+#include "datatestworker.h"
 
-using namespace Ph2_HwDescription;
-using namespace Ph2_HwInterface;
+
 
 namespace GUI
 {
     DataTest::DataTest(QObject *parent,
-                       SystemController& sysCtrl) :
+                       SystemController &sysCtrl) :
         QObject(parent),
-        m_systemController(sysCtrl)
+        m_systemController(sysCtrl),
+        m_thread(new QThread()),
+        m_worker(new DataTestWorker)
     {
+        //qRegisterMetaType<QVector<double> >();
+        qRegisterMetaType<QVector<double> >("QVector<double>");
+        m_worker->moveToThread(m_thread);
+        WireThreadConnections();
     }
 
     DataTest::~DataTest()
     {
-
+        m_worker->abort();
+        m_thread->wait();
+        delete m_thread;
+        qDebug() << "Deleting DataTest worker thread " <<this->QObject::thread()->currentThreadId();
+        //wait();
         qDebug() << "Destructing " << this;
+    }
 
+    void DataTest::WireThreadConnections()
+    {
+        connect(m_worker, SIGNAL(workRequested()),
+                m_thread, SLOT(start()));
+        connect(m_thread, SIGNAL(started()),
+                m_worker, SLOT(doWork()));
+        connect(m_worker, SIGNAL(finished()),
+                m_thread, SLOT(quit()), Qt::DirectConnection);
+
+
+        connect(m_worker, SIGNAL(sendGraphData(QVector<double>,QVector<double>)),
+                this, SLOT(relaySendGraphData(QVector<double>,QVector<double>)));
     }
 
     void DataTest::createGraph()
     {
-        qDebug() << "Button clicked";
 
-        emit sendGraph(runTest());
+        m_worker->abort();
+        m_thread->wait(); // If the thread is not running, this will immediately return.
+
+        m_worker->requestWork();
+
     }
 
-    QCPBars* DataTest::runTest()
+    void DataTest::relaySendGraphData(const QVector<double> &valueX, const QVector<double> &valueY)
     {
-
-        QCustomPlot *customPlot = new QCustomPlot();
-
-        QVector<QCPBars*> cHistVec;
-
-        customPlot->plotLayout()->clear();
-        QCPAxis *x = customPlot->axisRect()->axis(QCPAxis::atBottom);
-        QCPAxis *y = customPlot->axisRect()->axis(QCPAxis::atRight);
-        //cHistVec.push_back(new QCPBars(x, y));
-
-        QCPBars *a = new QCPBars(x,y);
-
-
-
-        return a;
-
-        //for(uint8_t cNCbc=0; cNCbc<cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getNCbc(); cNCbc++)
-        //{
-        //   cHistVec.push_back(new TH1F(Form("Histo_Hits_CBC%d",cNCbc), Form("Occupancy_CBC%d",cNCbc), 255, -0.5, 254.5));
-        //}
-
-
+        //qDebug() << valueX;
+        emit sendGraphData(valueX, valueY);
     }
-
 
 }

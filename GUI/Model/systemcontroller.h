@@ -13,8 +13,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <map> //TODO add f/w declare
 #include <QVariantMap>
+
+#include "settings.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -44,6 +45,9 @@ namespace GUI{
 
     ~SystemController();
 
+        void InitialiseHw();
+        void ConfigureHw();
+
 
     signals:
         void notifyStatusMessage(QString msg);
@@ -56,8 +60,8 @@ namespace GUI{
 
     private:
 
-        void InitialiseHw();
-        void ConfigureHw();
+        //void InitialiseHw();
+        //void ConfigureHw();
 
         uint32_t cShelveId;
         uint32_t cBeId;
@@ -67,14 +71,16 @@ namespace GUI{
         uint32_t cFmcId;
         uint32_t cNShelve;
 
+        Settings& m_Settings;
 
-        QVariantMap map_ShelveId; //TODO don't pass in like this
 
+        QVariantMap* map_ShelveId; //TODO don't pass in like this
         void SendStatusMessage(QString msg);
 
         explicit SystemController(const SystemController& rhs) = delete;
         SystemController& operator= (const SystemController& rhs) = delete;
 
+        void DataTest();
     };
 }
 

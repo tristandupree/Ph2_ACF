@@ -8,7 +8,6 @@
 #include "../HWDescription/Definition.h"
 #include <iostream>
 #include <vector>
-#include <map>
 #include <stdlib.h>
 #include <string.h>
 
@@ -34,8 +33,8 @@ namespace GUI
         cNShelve(0),
         cFeId(0),
         cFmcId(0),
-        map_ShelveId(config.getshelveIdMap())
-
+        m_Settings(config),
+        map_ShelveId(new QVariantMap)
     {
     }
 
@@ -58,14 +57,22 @@ namespace GUI
 
     void SystemController::InitialiseHw()
     {
+        *map_ShelveId = m_Settings.getshelveIdMap();
 
-        for (auto& sh_kv: map_ShelveId.keys())
+        /*if (map_ShelveId->isEmpty())
         {
+            SendStatusMessage(tr("Initialise HW failed, error in settings contents: ") + map_ShelveId->keys());
+            return; //TODO - disable config button
+        }*/
+
+
+        for (auto& sh_kv: map_ShelveId->keys())
+        {
+
 
             cShelveId=sh_kv.toUInt();
             fShelveVec.push_back((new Shelve(cShelveId)));
-
-            QVariantMap map_BeBoardId = map_ShelveId.value(sh_kv).toMap().value("BeBoardId").toMap();
+            QVariantMap map_BeBoardId = map_ShelveId->value(sh_kv).toMap().value("BeBoardId").toMap();
 
             for(auto& be_kv: map_BeBoardId.keys())
             {
@@ -173,6 +180,12 @@ namespace GUI
                 }
             }
         }
+        //DataTest();
+    }
+
+    void SystemController::DataTest()
+    {
+        qDebug() << fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 )->getCbcId() ;
     }
 
     void SystemController::Run(BeBoard* pBeBoard, uint32_t pNthAcq)

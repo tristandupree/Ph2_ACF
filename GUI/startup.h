@@ -43,6 +43,8 @@ namespace GUI{
 
         SystemController* m_systemController;
 
+        //QThread *m_threadDataTest;
+
         DataTest* m_dataTest;
 
         SetupTabViewManager* m_setupTabVm;

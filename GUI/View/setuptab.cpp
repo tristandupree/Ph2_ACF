@@ -56,9 +56,9 @@ namespace GUI{
 
     void SetupTab::on_btnConfig_clicked()
     {
-        emit onBtnCfgClicked();
         ui->btnConfig->setEnabled(false);
         ui->btnInit->setEnabled(false);
+        emit onBtnCfgClicked();
     }
 
     void SetupTab::on_btnLoad_clicked()

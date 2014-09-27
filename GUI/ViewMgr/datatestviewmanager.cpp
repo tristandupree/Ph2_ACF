@@ -2,6 +2,7 @@
 #include "View/datatesttab.h"
 #include "Model/datatest.h"
 #include <QDebug>
+#include <QThread>
 
 namespace GUI
 {
@@ -13,20 +14,25 @@ namespace GUI
         m_dataTest(dataTest)
     {
         WireButtons();
+        WireThreads();
     }
 
     DataTestViewManager::~DataTestViewManager()
     {
         qDebug() << "Destructing " << this;
+
     }
 
     void DataTestViewManager::WireButtons()
     {
         connect(&m_dataTestTab, SIGNAL(notifyAddGraph()),
                 &m_dataTest, SLOT(createGraph()));
+    }
 
-        connect(&m_dataTest, SIGNAL(sendGraph(QCPBars*)),
-                &m_dataTestTab, SLOT(setGraphs(QCPBars*)));
+    void DataTestViewManager::WireThreads()
+    {
+        connect(&m_dataTest, SIGNAL(sendGraphData(QVector<double>,QVector<double>)),
+                &m_dataTestTab, SLOT(drawGraph(QVector<double>,QVector<double>)));
     }
 
 

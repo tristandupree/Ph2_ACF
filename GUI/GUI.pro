@@ -43,7 +43,8 @@ SOURCES += main.cpp\
     View/datatesttab.cpp \
     Model/datatest.cpp \
     ViewMgr/datatestviewmanager.cpp \
-    Macros/macrotesttab.cpp
+    Macros/macrotesttab.cpp \
+    datatestworker.cpp
 
 HEADERS  += View/mainview.h \
     startup.h \
@@ -59,7 +60,8 @@ HEADERS  += View/mainview.h \
     View/datatesttab.h \
     Model/datatest.h \
     ViewMgr/datatestviewmanager.h \
-    Macros/macrotesttab.h
+    Macros/macrotesttab.h \
+    datatestworker.h
 
 FORMS    += View/mainview.ui \
     View/setuptab.ui \

@@ -24,7 +24,7 @@ namespace GUI{
         void notifyAddGraph();
 
     public slots:
-        void setGraphs(QCPBars *plot);
+        void drawGraph(const QVector<double> &x, const QVector<double> &y);
 
 
     private slots:
@@ -32,6 +32,9 @@ namespace GUI{
 
     private:
         Ui::DataTestTab *ui;
+
+        QCPBars *m_dataTestHist;
+        void setupCanvas();
     };
 
 }
