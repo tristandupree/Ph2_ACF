@@ -345,6 +345,16 @@ namespace Ph2_HwInterface
 		//Read SRAM
 		uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, cBlockSize );
 
+		// To avoid the IPBUS bug
+		// need to convert uHal::ValVector to vector<uint32_t> so we can replace the 256th word
+		std::vector<uint32_t> cDataAlt = cData.value();
+		if ( cBlockSize > 255 )
+		{
+			std::string fSram_256 = fStrSram + "_256";
+			uhal::ValWord<uint32_t> cWord = ReadReg( fSram_256 );
+			cDataAlt[255] = cWord.value();
+		}
+
 #ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( cStartBlockRead, 1 );
 		std::cout << "Time took for block read: " << std::dec << mtime << " ms." << std::endl;
@@ -381,7 +391,7 @@ namespace Ph2_HwInterface
 		std::cout << "Time took for ReadDataInSRAM: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
-		fData->Set( &cData );
+		fData->Set( &cDataAlt );
 
 	}
 

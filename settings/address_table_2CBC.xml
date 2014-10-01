@@ -63,7 +63,10 @@
 	</node>
 	<!--SRAM memory space -->
 	<node id="sram1" address="0x02000000" permission="rw" mode="block" size="0x02000000"/>
-    <node id="sram2" address="0x04000000" permission="rw" mode="block" size="0x02000000"/>
+	<node id="sram1_256" address="0x020000ff" permission="rw" mode="single" description="SRAM1 256th word"/>
+   	 <node id="sram2" address="0x04000000" permission="rw" mode="block" size="0x02000000"/>
+    	<node id="sram2_256" address="0x040000ff" permission="rw" mode="single" description="SRAM2 256th word"/>
+
 
 	<!--node id="freq_ttc_fmc"			address="0x40000001"    permission="r" mode="single"/-->
 

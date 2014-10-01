@@ -78,9 +78,10 @@ int main( int argc, char* argv[] )
 
 	t0 = get_time();
 
+	while(1){
 	cSystemController.fCbcInterface->WriteCbcMultReg( cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), cRegVec, true );
 	// cSystemController.fCbcInterface->WriteCbcMultReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),cRegVec, false);
-
+	}
 	t1 = get_time();
 
 	std::cout << "Time for writing " << int( nChannels ) << " registers to 1 CBC: " << t1 - t0 << " milliseconds!" << std::endl;

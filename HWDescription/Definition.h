@@ -77,6 +77,9 @@
 //SRAM IDs
 #define SRAM1             "sram1"
 #define SRAM2             "sram2"
+// needed to avoid IPBUS bug
+#define SRAM1_256         "sram1_256"
+#define SRAM2_256         "sram2_256"
 
 //SRAM user logic
 #define SRAM1_USR_LOGIC   "ctrl_sram.sram1_user_logic"
