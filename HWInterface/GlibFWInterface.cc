@@ -277,13 +277,19 @@ namespace Ph2_HwInterface
 		boost::posix_time::milliseconds cWait( 1 );
 
 		uhal::ValWord<uint32_t> cVal;
-		uint32_t cNPackets = EVENT_NUMBER + 1;
+
+		// Since the Number of  Packets is a FW register, it should be read from the Settings Table, add 10 as safety
+		// uint32_t cNPackets = EVENT_NUMBER + 1;
+		uint32_t cNPackets = pBoard->getReg( "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER" ) + 10;
+
 
 		// number of CBC's * number of Modules * 9 32 bit words (CBC data) + 6  32 bit words (header + TDC)
-		uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * pBoard->fModuleVector.size() * 9 + 6 );
+		uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * pBoard->getNFe() * 9 + 6 );
 
 		defineEventSize( pBoard->getModule( 0 )->getNCbc() );
-		fData->Initialise( EVENT_NUMBER, *pBoard );
+
+		// fData->Initialise( EVENT_NUMBER, *pBoard );
+		fData->Initialise( cNPackets , *pBoard );
 
 		//Wait for start acknowledge
 		do
