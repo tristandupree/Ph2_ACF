@@ -279,7 +279,8 @@ namespace Ph2_HwInterface
 		uhal::ValWord<uint32_t> cVal;
 		uint32_t cNPackets = EVENT_NUMBER + 1;
 
-		uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * 2 * 9 + 6 );
+		// number of CBC's * number of Modules * 9 32 bit words (CBC data) + 6  32 bit words (header + TDC)
+		uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * pBoard->fModuleVector.size() * 9 + 6 );
 
 		defineEventSize( pBoard->getModule( 0 )->getNCbc() );
 		fData->Initialise( EVENT_NUMBER, *pBoard );
@@ -410,7 +411,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	const char * GlibFWInterface::GetBuffer( uint32_t &pBufSize ) const
+	const char* GlibFWInterface::GetBuffer( uint32_t& pBufSize ) const
 	{
 		return fData->GetBuffer( pBufSize );
 	}
