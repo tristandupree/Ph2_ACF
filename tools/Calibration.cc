@@ -482,7 +482,7 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 			Run( &pBoard, cNthAcq );
 
 			const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
-
+			std::cout << cEvent << std::endl;
 			// Loop over Events from this Acquisition
 			while ( cEvent )
 			{
@@ -494,7 +494,11 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 				cTotalHits += cNHits;
 				cN++;
 
-				if ( cN < pEventsperVcth ) cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+				if ( cN < pEventsperVcth )
+				{
+					cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+					std::cout << cEvent << std::endl;
+				}
 				else break;
 			}
 			cNthAcq++;

@@ -21,16 +21,19 @@ int main( int argc, char* argv[] )
 {
 	syntax( argc );
 
-	std::string cHWFile;
-	if ( argv[1] == "8CBC" ) cHWFile = "settings/HWDescription_8CBC.xml";
-	else cHWFile = "settings/HWDescription_2CBC.xml";
+	// std::string cHWFile;
+	// if ( argv[1] == "8CBC" ) cHWFile = "settings/HWDescription_8CBC.xml";
+	// else cHWFile = "settings/HWDescription_2CBC.xml";
 
 	TApplication cApp( "Root Application", &argc, argv );
 	TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
 	Calibration cCalibration;
-	cCalibration.InitializeHw( cHWFile );
-	cCalibration.InitializeSettings( cHWFile );
+	// cCalibration.InitializeHw( cHWFile );
+	cCalibration.InitializeHw( "settings/HWDescription_8CBC.xml" );
+	// cCalibration.InitializeSettings( cHWFile );
+	cCalibration.InitializeSettings( "settings/HWDescription_8CBC.xml" );
+
 	cCalibration.CreateResultDirectory( "Results/Calibration" );
 	cCalibration.InitResultFile();
 	cCalibration.InitialiseTestGroup();
