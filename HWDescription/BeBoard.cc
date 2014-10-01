@@ -33,7 +33,7 @@ namespace Ph2_HwDescription
 	{
 	}
 
-	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, std::string filename ) :
+	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId, const std::string& filename ) :
 		fShelveId( pShelveId ),
 		fBeId( pBeId )
 	{
@@ -43,11 +43,10 @@ namespace Ph2_HwDescription
 	// Public Members:
 
 
-	uint16_t BeBoard::getReg( std::string pReg )
+	uint16_t BeBoard::getReg( const std::string& pReg )
 	{
-		BeBoardRegMap::iterator i;
-		i = fRegMap.find( pReg );
-		if ( i == fRegMap.end() )
+		BeBoardRegMap::iterator i = fRegMap.find( pReg );
+		if( i == fRegMap.end() )
 		{
 			std::cout << "The Board object: " << uint32_t( fBeId ) << " doesn't have " << pReg << std::endl;
 			return 0;
@@ -55,12 +54,13 @@ namespace Ph2_HwDescription
 		else return i->second;
 	}
 
-	void BeBoard::setReg( std::string pReg, uint16_t psetValue )
+	void BeBoard::setReg( const std::string& pReg, uint16_t psetValue )
 	{
-		BeBoardRegMap::iterator i;
-		i = fRegMap.find( pReg );
-		if ( i == fRegMap.end() )
-			fRegMap.insert( std::make_pair( pReg, psetValue ) );
+		BeBoardRegMap::iterator i = fRegMap.find( pReg );
+		if( i == fRegMap.end() )
+		{
+			fRegMap.insert ( std::make_pair(pReg,psetValue) );
+		}
 		else i->second = psetValue;
 	}
 
@@ -104,7 +104,7 @@ namespace Ph2_HwDescription
 
 	// Private Members:
 
-	void BeBoard::loadConfigFile( std::string filename )
+	void BeBoard::loadConfigFile( const std::string& filename )
 
 	{
 

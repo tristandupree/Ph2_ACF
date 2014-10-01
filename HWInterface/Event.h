@@ -259,6 +259,8 @@ namespace Ph2_HwInterface
 			return GetCbcEvent( pFeId, pCbcId )[pBytePosition];
 		}
 
+          const EventMap& GetEventMap() const {return fEventMap;}
+          friend ostream& operator<< (ostream &out, const Event& ev);
 	};
 }
 #endif

@@ -37,16 +37,13 @@ namespace Ph2_HwDescription
 		Shelve();
 
 		// D'tor
-		~Shelve() {
-		};
+		~Shelve() {}
 
 		/*!
-		 * \brief Get the number of Board connected to the Shelve
-		 * \return The size of the vector
-		 */
-		uint8_t getNBoard() {
-			return fBoardVector.size();
-		};
+		* \brief Get the number of Board connected to the Shelve
+		* \return The size of the vector
+		*/
+		uint8_t getNBoard() const {return fBoardVector.size();}
 		/*!
 		 * \brief Adding a Board to the vector
 		 * \param pBoard
@@ -66,12 +63,10 @@ namespace Ph2_HwDescription
 		BeBoard*   getBoard( uint8_t pBeId );
 
 		/*!
-		 * \brief Get the Shelve Id
-		 * \return The Shelve ID
-		 */
-		uint8_t getShelveId() {
-			return fShelveId;
-		};
+		* \brief Get the Shelve Id
+		* \return The Shelve ID
+		*/
+		uint8_t getShelveId() const {return fShelveId;}
 		/*!
 		 * \brief Set the Shelve Id
 		 * \param pShelveId
