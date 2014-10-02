@@ -7,6 +7,7 @@
 #include "../HWDescription/Definition.h"
 #include "../tools/Calibration.h"
 #include <TApplication.h>
+#include <inttypes.h>
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -14,7 +15,8 @@ using namespace Ph2_System;
 
 void syntax( int argc )
 {
-	if ( argc > 2 ) std::cerr << RED << "ERROR: Syntax: calibrationtest HWDescriptionFile" << std::endl;
+	if ( argc > 4 ) std::cerr << RED << "ERROR: Syntax: calibrationtest VCth NEvents (HWDescriptionFile)" << std::endl;
+	else if ( argc < 3 ) std::cerr << RED << "ERROR: Syntax: calibrationtest VCth NEvents (HWDescriptionFile)" << std::endl;
 	else return;
 }
 
@@ -37,12 +39,16 @@ uint64_t get_time()
 
 int main( int argc, char* argv[] )
 {
-	int pEventsperVcth = 10;
+	int pEventsperVcth;
+	int cVcth;
+
+	if (sscanf (argv[1],"%i", &cVcth)!=1) { printf ("ERROR: not an integer"); }
+	if (sscanf (argv[2],"%xu", &pEventsperVcth)!=1) { printf ("ERROR: not an integer"); }
 
 	syntax( argc );
 
 	std::string cHWFile;
-	if ( argc > 1 && !strcmp( argv[1], "8CBC" ) ) cHWFile = "settings/HWDescription_8CBC.xml";
+	if ( argc > 1 && !strcmp( argv[3], "8CBC" ) ) cHWFile = "settings/HWDescription_8CBC.xml";
 	else cHWFile = "settings/HWDescription_2CBC.xml";
 
 	std::cout << "cHWFile = " << cHWFile << std::endl;
@@ -55,8 +61,6 @@ int main( int argc, char* argv[] )
 	cSystemController.InitializeHw( cHWFile );
 	cSystemController.ConfigureHw();
 
-	uint8_t cVcth = 0x78;
-
 	uint64_t t0 = get_time();
 
 	for ( auto cShelve : cSystemController.fShelveVec )
@@ -66,7 +70,7 @@ int main( int argc, char* argv[] )
 			for ( auto cFe : cBoard.fModuleVector )
 			{
 				for ( auto cCbc : cFe.fCbcVector )
-					cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", cVcth );
+					cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t(cVcth) );
 			}
 		}
 	}
