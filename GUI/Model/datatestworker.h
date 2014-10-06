@@ -3,6 +3,8 @@
 #include <QVector>
 #include <QMutex>
 #include <QVariantMap>
+#include <TH1.h>
+#include <vector>
 
 #include "Model/systemcontrollersettings.h"
 
@@ -26,7 +28,8 @@ namespace GUI{
         void valueChanged(const QString &value);
         void finished();
 
-        void sendGraphData(const QVariantMap &mapGraph);
+        //void sendGraphData(const QVariantMap &mapGraph);
+        void sendGraphData(const std::vector<TH1F*> &value);
 
     public slots:
 
@@ -38,6 +41,8 @@ namespace GUI{
         bool _working;
         QMutex mutex;
         SystemControllerSettings& m_systemSettings;
+
+        std::vector<TH1F*> cHistVec;
 
         void ReadDataTest();
         void Run(BeBoard *pBeBoard, uint32_t pNthAcq);

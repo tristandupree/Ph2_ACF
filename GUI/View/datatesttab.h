@@ -2,7 +2,10 @@
 #define DATATESTTAB_H
 
 #include <QWidget>
-#include "lib/qcustomplot.h"
+#include "TH1.h"
+//#include "lib/qcustomplot.h"
+//#include "lib/CustomTQtWidget.h"
+//#include "lib/TQtWidget.h"
 
 namespace Ui {
     class DataTestTab;
@@ -24,7 +27,7 @@ namespace GUI{
         void notifyAddGraph();
 
     public slots:
-        void drawGraph(const QVector<double> &x, const QVector<double> &y);
+        void drawGraph(const std::vector<TH1F*> &value);
 
 
     private slots:
@@ -32,9 +35,10 @@ namespace GUI{
 
     private:
         Ui::DataTestTab *ui;
+        //TH1D* h1;
 
-        QCPBars *m_dataTestHist;
-        void setupCanvas();
+        void setupCanvas(QString graphTitle, int nCbc);
+        void drawTest();
     };
 
 }

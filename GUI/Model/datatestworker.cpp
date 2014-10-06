@@ -7,9 +7,11 @@
 #include <QEventLoop>
 #include <QTimer>
 
+#include <vector>
+
 #include <boost/format.hpp>
 
-#include <TH1F.h>
+#include <TH1.h>
 #include <TCanvas.h>
 #include <TStyle.h>
 #include <TApplication.h>
@@ -61,10 +63,20 @@ namespace GUI
 
         ReadDataTest();
 
+        /*cHistVec.push_back(new TH1F("Histo","HistoName",10,0, 10));
+        cHistVec[0]->Fill(1);
+        emit sendGraphData(cHistVec);*/
+
+
+
+
+
         // Set _working to false, meaning the process can't be aborted anymore.
         mutex.lock();
         _working = false;
         mutex.unlock();
+
+
 
         qDebug()<<"Worker process finished in Thread "<<thread()->currentThreadId();
 
@@ -80,24 +92,32 @@ namespace GUI
         bool abort = _abort;
         mutex.unlock();
 
-        QVariantMap mapGraphs;
+
+        for ( uint8_t cNCbc = 0; cNCbc < m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+            cHistVec.push_back( new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 ) );
+
         uint32_t cNthAcq = 0;
-        //push back a container of values
-
-
-
+        //uint32_t cVCth = 100;
 
         for (uint32_t cVCth = 100; cVCth<140; cVCth+=2)
         {
+
+            m_systemSettings.fCbcInterface->WriteCbcReg( m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), "VCth", cVCth );
+            m_systemSettings.fCbcInterface->WriteCbcReg( m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ), "VCth", cVCth );
             if (abort)
             {
                 qDebug()<<"Aborting worker process in Thread "<<thread()->currentThreadId();
                 break;
             }
+
             for ( uint8_t cNCbc = 0; cNCbc < m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
             {
-                m_systemSettings.fCbcInterface->WriteCbcReg( m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc(cNCbc), "VCth", cVCth );
+                delete cHistVec[cNCbc];
+                cHistVec[cNCbc] = new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 );
             }
+
+           // m_systemSettings.fCbcInterface->WriteCbcReg( m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc(cNCbc), "VCth", cVCth );
+
             uint32_t cNevents = 200;
             uint32_t cN = 0;
 
@@ -128,19 +148,22 @@ namespace GUI
                                 return;
                             }
 
-                            if (!cNHits==0)
-                            {
-                                QString qCbc = QString::number(cNCbc,16);
-                                mapGraphs.insert(qCbc, cNHits);
-                                emit sendGraphData(mapGraphs);
-                            }
+                            cHistVec[cNCbc]->Fill( cNHits );
+
                         }
                     }
 
                     cEvent = m_systemSettings.fBeBoardInterface->GetNextEvent( m_systemSettings.fShelveVec[0]->getBoard( 0 ) );
                     cN++;
                 }
+
+                emit sendGraphData(cHistVec);
+                if ( cN == cNevents )
+                    break;
+
+                cNthAcq++;
             }
+
         }
     }
 

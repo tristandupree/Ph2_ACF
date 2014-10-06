@@ -14,8 +14,9 @@
 #include "ViewMgr/datatestviewmanager.h"
 
 #include "utils.h"
+
 #include <QDebug>
-#include <QThread>
+#include <memory>
 
 
 
@@ -23,13 +24,12 @@ namespace GUI
 {
     Startup::Startup() :
         QObject(nullptr),
-        //m_threadDataTest(new QThread()),
 
-        m_setupTab(*new SetupTab(nullptr)), //nullptr as widget is added to a layout - transferring ownership
+        m_setupTab(*new SetupTab(nullptr)), //nullptr - transferring ownership in mianview
         m_regTab(*new CbcRegistersTab(nullptr)),
         m_dataTab(*new DataTestTab(nullptr)),
 
-        m_macroTestTab(*new MacroTestTab(nullptr)), //cheap quick macro tab
+        m_macroTestTab(*new MacroTestTab(nullptr)), //cheap quick non-std macro tab
 
         m_mainView(*new MainView(nullptr,
                                  m_setupTab,
@@ -37,11 +37,13 @@ namespace GUI
                                  m_dataTab,
                                  m_macroTestTab)),
 
+        m_systemControllerSettings(new SystemControllerSettings()),
         m_systemController(new SystemController(this,
-                                                 Provider::getSettingsAsSingleton())),
+                                                Provider::getSettingsAsSingleton(),
+                                                *m_systemControllerSettings)),
 
         m_dataTest(new DataTest(this,
-                                *m_systemController)),
+                                *m_systemControllerSettings)),
 
         m_setupTabVm(new SetupTabViewManager(this,
                                              m_setupTab,
@@ -52,15 +54,9 @@ namespace GUI
                                             *m_dataTest))
 
     {
-        //auto thread = new QThread();
-        //m_dataTest->moveToThread(thread);
-
     }
 
     Startup::~Startup(){
-        //m_threadDataTest->wait();
-        //delete m_threadDataTest;
-        //qDebug()<<"Deleting thread "<<this->QObject::thread()->currentThreadId();
         qDebug() << "Destructing " << this;
         delete &m_mainView;
     }

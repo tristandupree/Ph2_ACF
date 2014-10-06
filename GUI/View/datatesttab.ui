@@ -15,13 +15,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="gbTestTab">
      <property name="title">
       <string>GroupBox</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QCustomPlot" name="graphDataTest" native="true"/>
+       <widget class="TQtWidget" name="graphDataTest" native="true"/>
       </item>
       <item>
        <widget class="QPushButton" name="btnStart">
@@ -37,9 +37,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QCustomPlot</class>
+   <class>TQtWidget</class>
    <extends>QWidget</extends>
-   <header>lib/qcustomplot.h</header>
+   <header>TQtWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

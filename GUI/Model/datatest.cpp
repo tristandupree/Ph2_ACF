@@ -1,8 +1,7 @@
 #include "datatest.h"
 
-#include "Model/systemcontroller.h"
-
-#include "lib/qcustomplot.h"
+#include "Model/systemcontrollersettings.h"
+#include <QDebug>
 #include <QVector>
 #include <QThread>
 
@@ -13,14 +12,13 @@
 namespace GUI
 {
     DataTest::DataTest(QObject *parent,
-                       SystemController &sysCtrl) :
+                       SystemControllerSettings &sysCtrlSettings) :
         QObject(parent),
-        m_systemController(sysCtrl),
+        m_systemControllerSettings(sysCtrlSettings),
         m_thread(new QThread()),
-        m_worker(new DataTestWorker)
+        m_worker(new DataTestWorker(nullptr, sysCtrlSettings))
     {
-        //qRegisterMetaType<QVector<double> >();
-        qRegisterMetaType<QVector<double> >("QVector<double>");
+        qRegisterMetaType<std::vector<TH1F*>>("std::vector<TH1F*>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
     }
@@ -31,7 +29,6 @@ namespace GUI
         m_thread->wait();
         delete m_thread;
         qDebug() << "Deleting DataTest worker thread " <<this->QObject::thread()->currentThreadId();
-        //wait();
         qDebug() << "Destructing " << this;
     }
 
@@ -45,8 +42,8 @@ namespace GUI
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
 
-        connect(m_worker, SIGNAL(sendGraphData(QVector<double>,QVector<double>)),
-                this, SLOT(relaySendGraphData(QVector<double>,QVector<double>)));
+        connect(m_worker, SIGNAL(sendGraphData(std::vector<TH1F*>)),
+                this, SLOT(relaySendGraphData(std::vector<TH1F*>)),Qt::QueuedConnection);
     }
 
     void DataTest::createGraph()
@@ -59,10 +56,9 @@ namespace GUI
 
     }
 
-    void DataTest::relaySendGraphData(const QVector<double> &valueX, const QVector<double> &valueY)
+    void DataTest::relaySendGraphData(const std::vector<TH1F*> &value)
     {
-        //qDebug() << valueX;
-        emit sendGraphData(valueX, valueY);
+        emit sendGraphData(value);
     }
 
 }

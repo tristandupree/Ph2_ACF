@@ -30,6 +30,7 @@ namespace GUI {
     public slots:
         void onStatusUpdate(const QString& statusMsg);
         void setHwTreeView(QStandardItemModel *model);
+        //void onCustomLoadClicked();
 
     private slots:
 

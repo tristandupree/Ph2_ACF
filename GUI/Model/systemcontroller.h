@@ -2,51 +2,28 @@
 
 #pragma once
 #include <QObject>
-#include "../HWInterface/BeBoardFWInterface.h"
-#include "../HWDescription/Shelve.h"
-#include "../HWInterface/CbcInterface.h"
-#include "../HWInterface/BeBoardInterface.h"
-#include "../HWDescription/Definition.h"
 #include <iostream>
-#include <vector>
-#include <map>
-#include <stdlib.h>
-#include <string.h>
 
 #include <QVariantMap>
 
 #include "settings.h"
-
-using namespace Ph2_HwDescription;
-using namespace Ph2_HwInterface;
+#include "Model/systemcontrollersettings.h"
 
 namespace GUI{
 
     class Settings;
 
-    typedef std::vector<Shelve*> ShelveVec;
-
-    typedef std::map<std::string,uint8_t> SettingsMap;
-
-    class SystemController : public QObject
+    class SystemController : public QObject//, public SystemControllerSettings
     {
         Q_OBJECT
     public:
         explicit SystemController(QObject *parent,
-                                  Settings& config);
-
-        BeBoardInterface*	fBeBoardInterface; /*!< Interface to the BeBoard */
-        CbcInterface*		fCbcInterface; /*!< Interface to the Cbc */
-        ShelveVec		 	fShelveVec; /*!< Vector of Shelve pointers */
-        BeBoardFWMap   		fBeBoardFWMap; /*!< Map of connections to the BeBoard */
-        SettingsMap			fSettingsMap; /*!< Maps the settings */
+                                  Settings &config,
+                                  SystemControllerSettings &ctrlConfig);
 
         void Run(BeBoard *pBeBoard, uint32_t pNthAcq);
 
     ~SystemController();
-
-        void InitialiseHw();
-        void ConfigureHw();
 
 
     signals:
@@ -60,8 +37,8 @@ namespace GUI{
 
     private:
 
-        //void InitialiseHw();
-        //void ConfigureHw();
+        void InitialiseHw();
+        void ConfigureHw();
 
         uint32_t cShelveId;
         uint32_t cBeId;
@@ -72,6 +49,7 @@ namespace GUI{
         uint32_t cNShelve;
 
         Settings& m_Settings;
+        SystemControllerSettings& m_systemSettings;
 
 
         QVariantMap* map_ShelveId; //TODO don't pass in like this
@@ -79,8 +57,6 @@ namespace GUI{
 
         explicit SystemController(const SystemController& rhs) = delete;
         SystemController& operator= (const SystemController& rhs) = delete;
-
-        void DataTest();
     };
 }
 

@@ -1,11 +1,7 @@
 #include "systemcontroller.h"
 #include "settings.h"
+#include "systemcontrollersettings.h"
 
-#include "../HWInterface/BeBoardFWInterface.h"
-#include "../HWDescription/Shelve.h"
-#include "../HWInterface/CbcInterface.h"
-#include "../HWInterface/BeBoardInterface.h"
-#include "../HWDescription/Definition.h"
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
@@ -24,7 +20,8 @@ using namespace Ph2_HwInterface;
 namespace GUI
 {
     SystemController::SystemController(QObject *parent,
-                                       Settings &config) :
+                                       Settings &config,
+                                       SystemControllerSettings &sysConfig) :
         QObject(parent),
         cShelveId(0),
         cBeId(0),
@@ -34,6 +31,7 @@ namespace GUI
         cFeId(0),
         cFmcId(0),
         m_Settings(config),
+        m_systemSettings(sysConfig),
         map_ShelveId(new QVariantMap)
     {
     }
@@ -71,7 +69,7 @@ namespace GUI
 
 
             cShelveId=sh_kv.toUInt();
-            fShelveVec.push_back((new Shelve(cShelveId)));
+            m_systemSettings.fShelveVec.push_back((new Shelve(cShelveId)));
             QVariantMap map_BeBoardId = map_ShelveId->value(sh_kv).toMap().value("BeBoardId").toMap();
 
             for(auto& be_kv: map_BeBoardId.keys())
@@ -88,13 +86,13 @@ namespace GUI
                 {
                     cBeBoard.setReg(reg_kv.toStdString(),map_RegisterValues.value(reg_kv).toUInt());
                 }
-                fShelveVec[cNShelve]->addBoard(cBeBoard);
+                m_systemSettings.fShelveVec[cNShelve]->addBoard(cBeBoard);
                 BeBoardFWInterface* cBeBoardFWInterface;
 
                 if(map_BeBoardIdValues.value("boardType").toString() == "GLIB")
                 {
                     cBeBoardFWInterface = new GlibFWInterface("file://settings/connections_2CBC.xml",cBeId); //TODO - get rid of XML
-                    fBeBoardFWMap[cBeId] = cBeBoardFWInterface;
+                    m_systemSettings.fBeBoardFWMap[cBeId] = cBeBoardFWInterface;
                 }
 
                 if( map_BeBoardIdValues.contains("Module"))
@@ -105,7 +103,7 @@ namespace GUI
                     cFmcId = map_BeBoardId.value("FMCId").toInt();
                     cFeId = map_BeBoardId.value("FeId").toInt();
                     Module cModule(cShelveId,cBeId, cFmcId, cFeId,cModuleId);
-                    fShelveVec[cNShelve]->getBoard(cBeId)->addModule(cModule);
+                    m_systemSettings.fShelveVec[cNShelve]->getBoard(cBeId)->addModule(cModule);
 
                     int index(0);
 
@@ -118,27 +116,27 @@ namespace GUI
                         {
                             cCbc.setReg(cbcReg_kv.toStdString(), map_module_values.value("CbcRegisters").toMap().value(cbcReg_kv).toInt());
                         }
-                        fShelveVec[cNShelve]->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);
+                        m_systemSettings.fShelveVec[cNShelve]->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);
                     }
                 }
             }
         }
 
-        fBeBoardInterface = new BeBoardInterface(fBeBoardFWMap);
-        fCbcInterface = new CbcInterface(fBeBoardFWMap);
+        m_systemSettings.fBeBoardInterface = new BeBoardInterface(m_systemSettings.fBeBoardFWMap);
+        m_systemSettings.fCbcInterface = new CbcInterface(m_systemSettings.fBeBoardFWMap);
     }
 
     void SystemController::ConfigureHw()
     {
         uint32_t cMissedBoard, cMissedModule, cMissedCbc;
 
-        for(uint32_t cSId=0; cSId<fShelveVec.size(); cSId++)
+        for(uint32_t cSId=0; cSId<m_systemSettings.fShelveVec.size(); cSId++)
         {
             cMissedBoard = 0;
 
-            for(uint32_t cNBe=0; cNBe<fShelveVec[cSId]->getNBoard(); cNBe++)
+            for(uint32_t cNBe=0; cNBe<m_systemSettings.fShelveVec[cSId]->getNBoard(); cNBe++)
             {
-                if(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard) == NULL)
+                if(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard) == NULL)
                 {
                     cNBe--;
                     cMissedBoard++;
@@ -148,11 +146,11 @@ namespace GUI
                 {
                     cMissedModule = 0;
 
-                    fBeBoardInterface->ConfigureBoard(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard));
+                    m_systemSettings.fBeBoardInterface->ConfigureBoard(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard));
 
-                    for(uint32_t cNFe=0; cNFe<fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getNFe(); cNFe++)
+                    for(uint32_t cNFe=0; cNFe<m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getNFe(); cNFe++)
                     {
-                        if(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule) == NULL)
+                        if(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule) == NULL)
                         {
                             cNFe--;
                             cMissedModule++;
@@ -162,9 +160,9 @@ namespace GUI
                         {
                             cMissedCbc = 0;
 
-                            for(uint32_t cNCbc=0; cNCbc<fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getNCbc(); cNCbc++)
+                            for(uint32_t cNCbc=0; cNCbc<m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getNCbc(); cNCbc++)
                             {
-                                if(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc) == NULL)
+                                if(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc) == NULL)
                                 {
                                     cNCbc--;
                                     cMissedCbc++;
@@ -172,7 +170,7 @@ namespace GUI
 
                                 else
                                 {
-                                    fCbcInterface->ConfigureCbc(fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc),false);
+                                    m_systemSettings.fCbcInterface->ConfigureCbc(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc),false);
                                 }
                             }
                         }
@@ -180,19 +178,14 @@ namespace GUI
                 }
             }
         }
-        //DataTest();
-    }
-
-    void SystemController::DataTest()
-    {
-        qDebug() << fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 )->getCbcId() ;
+       //qDebug() << m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 )->getCbcId() ;
     }
 
     void SystemController::Run(BeBoard* pBeBoard, uint32_t pNthAcq)
     {
-        fBeBoardInterface->Start(pBeBoard);
-        fBeBoardInterface->ReadData(pBeBoard, pNthAcq, true );
-        fBeBoardInterface->Stop(pBeBoard, pNthAcq);
+        m_systemSettings.fBeBoardInterface->Start(pBeBoard);
+        m_systemSettings.fBeBoardInterface->ReadData(pBeBoard, pNthAcq, true );
+        m_systemSettings.fBeBoardInterface->Stop(pBeBoard, pNthAcq);
     }
 
     void SystemController::SendStatusMessage(QString msg)

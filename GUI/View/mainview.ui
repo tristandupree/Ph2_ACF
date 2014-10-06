@@ -77,9 +77,22 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuLoad">
+     <property name="title">
+      <string>Load...</string>
+     </property>
+     <addaction name="actionUser_Settings"/>
+    </widget>
+    <addaction name="menuLoad"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuPh2DAQ_GUI"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -93,6 +106,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionUser_Settings">
+   <property name="text">
+    <string>User Settings</string>
    </property>
   </action>
  </widget>

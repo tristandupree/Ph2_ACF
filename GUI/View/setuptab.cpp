@@ -18,6 +18,7 @@ namespace GUI{
         ui(new Ui::SetupTab)
     {
         ui->setupUi(this);
+
     }
 
     SetupTab::~SetupTab()
@@ -64,7 +65,6 @@ namespace GUI{
     void SetupTab::on_btnLoad_clicked()
     {
         emit onBtnLoadSettingsClicked(isCbc2Checked());
-
     }
 
     void SetupTab::on_btnInit_clicked()
@@ -72,7 +72,6 @@ namespace GUI{
         emit onBtnInitClicked();
         ui->btnConfig->setEnabled(true);
         ui->btnInit->setEnabled(false);
-        //ui->btnInit->setDisabled(true);
     }
 }
 

@@ -1,9 +1,9 @@
 #pragma once
 #include <QObject>
-#include "lib/qcustomplot.h"
 #include <QVector>
 
 #include "datatestworker.h"
+#include "Model/systemcontrollersettings.h"
 
 namespace GUI{
 
@@ -16,7 +16,7 @@ namespace GUI{
         Q_OBJECT
     public:
         explicit DataTest(QObject *parent,
-                          SystemController& sysCtrl);
+                          SystemControllerSettings &sysCtrlSettings);
 
         void requestWork();
         void abort();
@@ -25,13 +25,11 @@ namespace GUI{
         ~DataTest();
 
     signals:
-        void sendGraphData(const QVector<double> &valueX,
-                           const QVector<double> &valueY);
+        void sendGraphData(const std::vector<TH1F*> &value);
 
     public slots:
 
-        void relaySendGraphData(const QVector<double> &valueX,
-                                const QVector<double> &valueY);
+        void relaySendGraphData(const std::vector<TH1F*> &value);
 
         void createGraph();
 
@@ -40,7 +38,7 @@ namespace GUI{
 
     private:
 
-        SystemController& m_systemController;
+        SystemControllerSettings &m_systemControllerSettings;
         QThread *m_thread;
         DataTestWorker *m_worker;
 

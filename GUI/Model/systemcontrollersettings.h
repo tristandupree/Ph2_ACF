@@ -1,15 +1,24 @@
 #pragma once
-#include <QWidget>
+#include "../HWInterface/BeBoardFWInterface.h"
+#include "../HWDescription/Shelve.h"
+#include "../HWInterface/CbcInterface.h"
+#include "../HWInterface/BeBoardInterface.h"
+#include "../HWDescription/Definition.h"
+
+using namespace Ph2_HwDescription;
+using namespace Ph2_HwInterface;
 
 namespace GUI{
-    class SystemControllerSettings
+    struct SystemControllerSettings
     {
-    public:
-        SystemControllerSettings();
+        typedef std::vector<Shelve*> ShelveVec;
+        typedef std::map<std::string,uint8_t> SettingsMap;
 
-    private:
-        explicit SystemControllerSettings(const SystemControllerSettings& rhs) = delete;
-        SystemControllerSettings& operator= (const SystemControllerSettings& rhs) = delete;
+        BeBoardInterface*	fBeBoardInterface; /*!< Interface to the BeBoard */
+        CbcInterface*		fCbcInterface; /*!< Interface to the Cbc */
+        ShelveVec		 	fShelveVec; /*!< Vector of Shelve pointers */
+        BeBoardFWMap   		fBeBoardFWMap; /*!< Map of connections to the BeBoard */
+        SettingsMap			fSettingsMap; /*!< Maps the settings */
     };
 }
 

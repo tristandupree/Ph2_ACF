@@ -33,13 +33,7 @@
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <layout class="QVBoxLayout" name="loToolTwo">
-         <item>
-          <widget class="QCustomPlot" name="plotOne" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-          </widget>
-         </item>
-        </layout>
+        <layout class="QVBoxLayout" name="loToolTwo"/>
        </item>
       </layout>
      </widget>
@@ -72,14 +66,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QCustomPlot</class>
-   <extends>QWidget</extends>
-   <header>lib/qcustomplot.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
