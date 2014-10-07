@@ -14,10 +14,12 @@
 
 #include "FrontEndDescription.h"
 #include "Cbc.h"
+#include "Visitor.h"
 #include <vector>
 #include <boost/cstdint.hpp>
 
 // FE Hybrid HW Description Class
+
 
 /*!
  * \namespace Ph2_HwDescription
@@ -47,10 +49,22 @@ namespace Ph2_HwDescription
 		};
 
 		/*!
+		 * \brief acceptor method for HwDescriptionVisitor
+		 * \param pVisitor
+		 */
+		void accept( HwDescriptionVisitor& pVisitor ) {
+			pVisitor.visit( *this );
+			for ( auto& cCbc : fCbcVector )
+				cCbc.accept( pVisitor );
+		}
+
+		/*!
 		* \brief Get the number of Cbc connected to the Module
 		* \return The size of the vector
 		*/
-		uint8_t getNCbc() const {return fCbcVector.size();}
+		uint8_t getNCbc() const {
+			return fCbcVector.size();
+		}
 		/*!
 		 * \brief Adding a Cbc to the vector
 		 * \param pCbc
@@ -73,7 +87,9 @@ namespace Ph2_HwDescription
 		* \brief Get the Module Id
 		* \return The Module ID
 		*/
-		uint8_t getModuleId() const {return fModuleId;};
+		uint8_t getModuleId() const {
+			return fModuleId;
+		};
 		/*!
 		 * \brief Set the Module Id
 		 * \param pModuleId

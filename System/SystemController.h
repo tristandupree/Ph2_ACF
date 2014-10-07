@@ -18,6 +18,8 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
+#include "../HWDescription/Visitor.h"
+
 #include "pugixml.hpp"
 #include "ConsoleColor.h"
 #include <iostream>
@@ -62,6 +64,16 @@ namespace Ph2_System
 		 * \brief Destructor of the SystemController class
 		 */
 		~SystemController();
+
+		/*!
+		 * \brief acceptor method for HwDescriptionVisitor
+		 * \param pVisitor
+		 */
+		void accept( HwDescriptionVisitor& pVisitor ) {
+			pVisitor.visit( *this );
+			for ( auto& cShelve : fShelveVec )
+				cShelve->accept( pVisitor );
+		}
 
 		/*!
 		 * \brief Initialize the Hardware via an XML file

@@ -35,7 +35,7 @@ namespace Ph2_HwDescription
 
 	// C'tors with object FE Description
 
-	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename ):FrontEndDescription(pFeDesc)
+	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename ): FrontEndDescription( pFeDesc )
 	{
 
 		fCbcId = pCbcId;
@@ -84,10 +84,9 @@ namespace Ph2_HwDescription
 
 	}
 
-
 	//load fRegMap from file
 
-	void Cbc::loadfRegMap(const std::string& filename)
+	void Cbc::loadfRegMap( const std::string& filename )
 	{
 		std::ifstream file( filename.c_str(), std::ios::in );
 
@@ -118,10 +117,10 @@ namespace Ph2_HwDescription
 	}
 
 
-	uint8_t Cbc::getReg(const std::string& pReg)
+	uint8_t Cbc::getReg( const std::string& pReg )
 	{
-		CbcRegMap::iterator i = fRegMap.find(pReg);
-		if (i==fRegMap.end())
+		CbcRegMap::iterator i = fRegMap.find( pReg );
+		if ( i == fRegMap.end() )
 		{
 			std::cout << "The Cbc object: " << uint32_t( fCbcId ) << " doesn't have " << pReg << std::endl;
 			return 0;
@@ -131,11 +130,11 @@ namespace Ph2_HwDescription
 	}
 
 
-	void Cbc::setReg(const std::string& pReg, uint8_t psetValue)
+	void Cbc::setReg( const std::string& pReg, uint8_t psetValue )
 	{
-		CbcRegMap::iterator i = fRegMap.find(pReg);
-		if (i==fRegMap.end())
-		{std::cout<<"The Cbc object: "<<uint32_t(fCbcId)<<" doesn't have "<<pReg<<std::endl;}
+		CbcRegMap::iterator i = fRegMap.find( pReg );
+		if ( i == fRegMap.end() )
+			std::cout << "The Cbc object: " << uint32_t( fCbcId ) << " doesn't have " << pReg << std::endl;
 		else
 			i->second.fValue = psetValue;
 

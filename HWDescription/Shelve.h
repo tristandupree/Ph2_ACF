@@ -14,10 +14,14 @@
 
 #include "BeBoard.h"
 
+#include "Visitor.h"
+
 /*!
  * \namespace Ph2_HwDescription
  * \brief Namespace regrouping all the hardware description
  */
+
+
 namespace Ph2_HwDescription
 {
 
@@ -40,10 +44,21 @@ namespace Ph2_HwDescription
 		~Shelve() {}
 
 		/*!
+		 * \brief acceptor method for HwDescriptionVisitor
+		 * \param pVisitor
+		 */
+		void accept( HwDescriptionVisitor& pVisitor ) {
+			pVisitor.visit( *this );
+			for ( auto& cBoard : fBoardVector )
+				cBoard.accept( pVisitor );
+		}
+		/*!
 		* \brief Get the number of Board connected to the Shelve
 		* \return The size of the vector
 		*/
-		uint8_t getNBoard() const {return fBoardVector.size();}
+		uint8_t getNBoard() const {
+			return fBoardVector.size();
+		}
 		/*!
 		 * \brief Adding a Board to the vector
 		 * \param pBoard
@@ -66,7 +81,9 @@ namespace Ph2_HwDescription
 		* \brief Get the Shelve Id
 		* \return The Shelve ID
 		*/
-		uint8_t getShelveId() const {return fShelveId;}
+		uint8_t getShelveId() const {
+			return fShelveId;
+		}
 		/*!
 		 * \brief Set the Shelve Id
 		 * \param pShelveId

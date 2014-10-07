@@ -14,9 +14,11 @@
 
 #include "Definition.h"
 #include "Module.h"
+#include "Visitor.h"
 #include <vector>
 #include <map>
 #include <boost/cstdint.hpp>
+
 
 /*!
  * \namespace Ph2_HwDescription
@@ -60,15 +62,27 @@ namespace Ph2_HwDescription
 		/*!
 		* \brief Destructor
 		*/
-		~BeBoard(){}
+		~BeBoard() {}
 
 		// Public Methods
+
+		/*!
+		 * \brief acceptor method for HwDescriptionVisitor
+		 * \param pVisitor
+		 */
+		void accept( HwDescriptionVisitor& pVisitor ) {
+			pVisitor.visit( *this );
+			for ( auto& cFe : fModuleVector )
+				cFe.accept( pVisitor );
+		}
 
 		/*!
 		* \brief Get the number of modules connected to the BeBoard
 		* \return The size of the vector
 		*/
-		uint8_t getNFe() const {return fModuleVector.size();}
+		uint8_t getNFe() const {
+			return fModuleVector.size();
+		}
 
 		/*!
 		* \brief Get any register from the Map
@@ -105,28 +119,38 @@ namespace Ph2_HwDescription
 		* \brief Get the Map of the registers
 		* \return The map of register
 		*/
-		BeBoardRegMap getBeBoardRegMap () const {return fRegMap;}
+		BeBoardRegMap getBeBoardRegMap() const {
+			return fRegMap;
+		}
 
 		/*!
 		* \brief Get the BeBoardId of the BeBoard
 		* \return the BeBoard Id
 		*/
-		uint8_t getBeId() const {return fBeId;}
+		uint8_t getBeId() const {
+			return fBeId;
+		}
 		/*!
 		* \brief Get the Shelve Id of the BeBoard
 		* \return the ShelveId
 		*/
-		uint8_t getShelveId() const {return fShelveId;}
+		uint8_t getShelveId() const {
+			return fShelveId;
+		}
 		/*!
 		* \brief Set the Be Id of the BeBoard
 		* \param pBeId
 		*/
-		void setBeId(uint8_t pBeId){fBeId=pBeId;};
+		void setBeId( uint8_t pBeId ) {
+			fBeId = pBeId;
+		};
 		/*!
 		* \brief Set the Shelve Id of the BeBoard
 		* \param pShelveId
 		*/
-		void setShelveId(uint8_t pShelveId){fShelveId=pShelveId;};
+		void setShelveId( uint8_t pShelveId ) {
+			fShelveId = pShelveId;
+		};
 
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
 		std::vector< Module > fModuleVector;

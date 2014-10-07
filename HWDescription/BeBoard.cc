@@ -42,11 +42,10 @@ namespace Ph2_HwDescription
 
 	// Public Members:
 
-
 	uint16_t BeBoard::getReg( const std::string& pReg )
 	{
 		BeBoardRegMap::iterator i = fRegMap.find( pReg );
-		if( i == fRegMap.end() )
+		if ( i == fRegMap.end() )
 		{
 			std::cout << "The Board object: " << uint32_t( fBeId ) << " doesn't have " << pReg << std::endl;
 			return 0;
@@ -57,10 +56,8 @@ namespace Ph2_HwDescription
 	void BeBoard::setReg( const std::string& pReg, uint16_t psetValue )
 	{
 		BeBoardRegMap::iterator i = fRegMap.find( pReg );
-		if( i == fRegMap.end() )
-		{
-			fRegMap.insert ( std::make_pair(pReg,psetValue) );
-		}
+		if ( i == fRegMap.end() )
+			fRegMap.insert( std::make_pair( pReg, psetValue ) );
 		else i->second = psetValue;
 	}
 

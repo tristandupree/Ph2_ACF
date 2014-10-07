@@ -15,6 +15,7 @@
 
 #include "FrontEndDescription.h"
 #include "CbcRegItem.h"
+#include "Visitor.h"
 #include <iostream>
 #include <map>
 #include <string>
@@ -23,6 +24,7 @@
 #include <set>
 
 // Cbc2 Chip HW Description Class
+
 
 /*!
  * \namespace Ph2_HwDescription
@@ -61,23 +63,30 @@ namespace Ph2_HwDescription
 		~Cbc();
 
 		/*!
+		 * \brief acceptor method for HwDescriptionVisitor
+		 * \param pVisitor
+		 */
+		void accept( HwDescriptionVisitor& pVisitor ) {
+			pVisitor.visit( *this );
+		}
+		/*!
 		* \brief Load RegMap from a file
 		* \param filename
 		*/
-		void loadfRegMap(const std::string& filename);
+		void loadfRegMap( const std::string& filename );
 
 		/*!
 		* \brief Get any register from the Map
 		* \param pReg
 		* \return The value of the register
 		*/
-		uint8_t getReg(const std::string& pReg);
+		uint8_t getReg( const std::string& pReg );
 		/*!
 		* \brief Set any register of the Map
 		* \param pReg
 		* \param psetValue
 		*/
-		void setReg(const std::string& pReg, uint8_t psetValue);
+		void setReg( const std::string& pReg, uint8_t psetValue );
 
 		/*!
 		* \brief Write the registers of the Map in a file
@@ -89,13 +98,17 @@ namespace Ph2_HwDescription
 		* \brief Get the Map of the registers
 		* \return The map of register
 		*/
-		CbcRegMap getRegMap() const {return fRegMap;};
+		CbcRegMap getRegMap() const {
+			return fRegMap;
+		};
 
 		/*!
 		* \brief Get the Cbc Id
 		* \return The Cbc ID
 		*/
-		uint8_t getCbcId() const {return fCbcId;};
+		uint8_t getCbcId() const {
+			return fCbcId;
+		};
 		/*!
 		 * \brief Set the Cbc Id
 		 * \param pCbcId
