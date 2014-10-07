@@ -1,5 +1,19 @@
 Git Repository for the ACF (Acquisition & Control Framework)
 ============================================================
+Changelog
+---------------------------------------
+07.10.2014: 
+- merged the Dev branch with many performance updates into master
+- added a calibrate binary that allows to calibrate XxCBC hybrids
+- changed the algorithm for readback of CBC registe values to be faster
+- general cleanup and tweaking of the code
+- added visitor class and acceptor methods to the HWDecription objects
+- removed datatestXcbc in favour of :
+        "datatest pVcth nEvents (8CBC)"
+- added interfacetest for benchmarking containing also an example how to use the visitor
+- 8CBC Data format still not resolved
+
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
 
@@ -96,8 +110,6 @@ Here are the step to make the program functional
 
 5. Launch testpgrm command if you want to test if everything is working good.
 
-6. You can test the data acquisition by lauching datatest2cbc or datatest8cbc.
-
 7. Launch mcp to play with the Test Interface
 <br>
 <br>
@@ -136,21 +148,6 @@ Warning ! : be careful with options choice in the program menus, some mistypes c
 to unexpected hazards :-(.
 
 
-On the go...
-------------
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Last Updates__
-
-- 09/07/14 : Added threading for stack writing registers
-- 10/07/14 : Read Data from acquisition in a rubbish format
-- ~~25/07/14 : Fully functional for 2CBC (safe from Broadcast obviously), pending for 8CBC~~
-- ~~28/07/14 : Found a bug in the reading of CBC1 of 2CBC, trying to see if coming from soft or hard~~
-- 30/07/14 : Working 2CBC version, find a 8CBC working version in the 8CBC branch
-- 12/08/14 : Working agnostic version of the new structure on Master
-- 15/08/14 : System Controller Class working
-- 19/08/14 : Project wrapped, called ACF for Acquisition & Control Framework
-<br>
-<br>
 
 
 Support, Suggestions ?
