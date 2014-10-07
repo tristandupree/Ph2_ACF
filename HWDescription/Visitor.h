@@ -34,27 +34,29 @@ class HwDescriptionVisitor
 	 * \brief Visitor for top level System Controller
 	 * \param pSystemController
 	 */
-	virtual void visit( Ph2_System::SystemController& pSystemController ) = 0;
+	virtual void visit( Ph2_System::SystemController& pSystemController ) {}
+	// virtual void visit() = 0;
+
 	/*!
 	 * \brief Visitor for Shelve Class
 	 * \param pShelve
 	 */
-	virtual void visit( Ph2_HwDescription::Shelve& pShelve ) = 0;
+	virtual void visit( Ph2_HwDescription::Shelve& pShelve ) {}
 	/*!
 	 * \brief Visitor for BeBoard Class
 	 * \param pBeBoard
 	 */
-	virtual void visit( Ph2_HwDescription::BeBoard& pBeBoard ) = 0;
+	virtual void visit( Ph2_HwDescription::BeBoard& pBeBoard ) {}
 	/*!
 	 * \brief Visitor for Module Class
 	 * \param pModule
 	 */
-	virtual void visit( Ph2_HwDescription::Module& pModule ) = 0;
+	virtual void visit( Ph2_HwDescription::Module& pModule ) {}
 	/*!
 	 * \brief Visitor for Cbc Class
 	 * \param pCbc
 	 */
-	virtual void visit( Ph2_HwDescription::Cbc& pCbc ) = 0;
+	virtual void visit( Ph2_HwDescription::Cbc& pCbc ) {}
 };
 
 
