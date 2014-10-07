@@ -12,11 +12,7 @@
 #ifndef Visitor_h__
 #define Visitor_h__
 
-// #include "../System/SystemController.h"
-// #include "../HWDescription/Shelve.h"
-// #include "../HWDescription/BeBoard.h"
-// #include "../HWDescription/Module.h"
-// #include "../HWDescription/Cbc.h"
+#include <cstdint>
 
 namespace Ph2_System
 {

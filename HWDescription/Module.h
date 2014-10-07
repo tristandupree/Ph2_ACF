@@ -16,7 +16,7 @@
 #include "Cbc.h"
 #include "Visitor.h"
 #include <vector>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 
 // FE Hybrid HW Description Class
 
@@ -57,7 +57,11 @@ namespace Ph2_HwDescription
 			for ( auto& cCbc : fCbcVector )
 				cCbc.accept( pVisitor );
 		}
-
+		// void accept( HwDescriptionVisitor& pVisitor ) const {
+		//  pVisitor.visit( *this );
+		//  for ( auto& cCbc : fCbcVector )
+		//      cCbc.accept( pVisitor );
+		// }
 		/*!
 		* \brief Get the number of Cbc connected to the Module
 		* \return The size of the vector

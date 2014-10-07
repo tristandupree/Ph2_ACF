@@ -1,6 +1,6 @@
 CC              = gcc
 CXX             = g++
-CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags --evelibs`
+CCFlags         = -g -O1 -w -Wall -pedantic -std=c++11 -fPIC `root-config --cflags --evelibs`
 #DevFlags                    = -D__CBCDAQ_DEV__
 DevFlags                   =
 
@@ -17,7 +17,7 @@ ExternalObjects = $(LibraryPaths) -lpthread -lboost_thread -lboost_filesystem -l
 	$(CXX) -std=c++11 $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
 
-all: testpgrm mcp system calibration interfacetest datatest
+all: testpgrm mcp system calibrate interfacetest datatest
 
 testpgrm: test.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
@@ -31,7 +31,7 @@ mcp: mcp.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	mv $@ ../bin
 
-calibrationtest: calibration.cc
+calibrationtest: calibrate.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	mv $@ ../bin
 

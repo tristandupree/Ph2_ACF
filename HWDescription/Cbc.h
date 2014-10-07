@@ -19,7 +19,7 @@
 #include <iostream>
 #include <map>
 #include <string>
-#include <boost/cstdint.hpp>
+#include <cstdint>
 #include <utility>
 #include <set>
 
@@ -69,6 +69,9 @@ namespace Ph2_HwDescription
 		void accept( HwDescriptionVisitor& pVisitor ) {
 			pVisitor.visit( *this );
 		}
+		// void accept( HwDescriptionVisitor& pVisitor ) const {
+		//  pVisitor.visit( *this );
+		// }
 		/*!
 		* \brief Load RegMap from a file
 		* \param filename

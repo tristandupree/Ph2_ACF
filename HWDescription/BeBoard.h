@@ -17,7 +17,8 @@
 #include "Visitor.h"
 #include <vector>
 #include <map>
-#include <boost/cstdint.hpp>
+// #include <boost/cstdint.hpp>
+#include <cstdint>
 
 
 /*!
@@ -75,6 +76,11 @@ namespace Ph2_HwDescription
 			for ( auto& cFe : fModuleVector )
 				cFe.accept( pVisitor );
 		}
+		// void accept( HwDescriptionVisitor& pVisitor ) const {
+		//  pVisitor.visit( *this );
+		//  for ( auto& cFe : fModuleVector )
+		//      cFe.accept( pVisitor );
+		// }
 
 		/*!
 		* \brief Get the number of modules connected to the BeBoard

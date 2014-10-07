@@ -75,6 +75,12 @@ namespace Ph2_System
 				cShelve->accept( pVisitor );
 		}
 
+		// void accept( HwDescriptionVisitor& pVisitor ) const {
+		//  pVisitor.visit( *this );
+		//  for ( auto& cShelve : fShelveVec )
+		//      cShelve->accept( pVisitor );
+		// }
+
 		/*!
 		 * \brief Initialize the Hardware via an XML file
 		 * \param pFilename : XML HW Description file

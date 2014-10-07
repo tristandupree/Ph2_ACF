@@ -52,6 +52,11 @@ namespace Ph2_HwDescription
 			for ( auto& cBoard : fBoardVector )
 				cBoard.accept( pVisitor );
 		}
+		// void accept( HwDescriptionVisitor& pVisitor )  const {
+		//  pVisitor.visit( *this );
+		//  for ( auto& cBoard : fBoardVector )
+		//      cBoard.accept( pVisitor );
+		// }
 		/*!
 		* \brief Get the number of Board connected to the Shelve
 		* \return The size of the vector
