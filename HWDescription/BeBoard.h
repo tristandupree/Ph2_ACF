@@ -17,8 +17,7 @@
 #include "Visitor.h"
 #include <vector>
 #include <map>
-// #include <boost/cstdint.hpp>
-#include <cstdint>
+#include <stdint.h>
 
 
 /*!

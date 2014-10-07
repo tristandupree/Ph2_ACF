@@ -12,7 +12,7 @@
 #ifndef _CbcRegItem_h__
 #define _CbcRegItem_h__
 
-#include <cstdint>
+#include <stdint.h>
 
 namespace Ph2_HwDescription
 {

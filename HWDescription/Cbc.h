@@ -19,7 +19,7 @@
 #include <iostream>
 #include <map>
 #include <string>
-#include <cstdint>
+#include <stdint.h>
 #include <utility>
 #include <set>
 

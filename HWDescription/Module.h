@@ -16,7 +16,7 @@
 #include "Cbc.h"
 #include "Visitor.h"
 #include <vector>
-#include <cstdint>
+#include <stdint.h>
 
 // FE Hybrid HW Description Class
 

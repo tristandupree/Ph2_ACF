@@ -12,7 +12,7 @@
 #ifndef Visitor_h__
 #define Visitor_h__
 
-#include <cstdint>
+#include <stdint.h>
 
 namespace Ph2_System
 {

@@ -13,7 +13,7 @@
 #ifndef FrontEndDescription_h__
 #define FrontEndDescription_h__
 
-#include <cstdint>
+#include <stdint.h>
 
 /*!
  * \namespace Ph2_HwDescription
