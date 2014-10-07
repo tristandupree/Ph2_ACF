@@ -1,5 +1,15 @@
 Git Repository for the ACF (Acquisition & Control Framework)
 ============================================================
+
+- A middleware API layer, implemented in C++, which will basically wrap
+to abstracted functions the firmware calls and handshakes currently
+hardcoded into DAQ systems software
+
+- A C++ object-based library describing the system components (CBCs,
+Hybrids, Boards) and their properties(values, status)
+
+- Various test binaries for different applications
+
 Changelog
 ---------------------------------------
 07.10.2014: 
@@ -13,18 +23,6 @@ Changelog
 - added interfacetest for benchmarking containing also an example how to use the visitor
 - 8CBC Data format still not resolved
 
-
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
-
-- A middleware API layer, implemented in C++, which will basically wrap
-to abstracted functions the firmware calls and handshakes currently
-hardcoded into DAQ systems software
-
-- A C++ object-based library describing the system components (CBCs,
-Hybrids, Boards) and their properties(values, status)
-
-- The MCP test program which is the wrapping the previous two.
 
 Different versions for different setups
 ---------------------------------------
