@@ -42,8 +42,10 @@ int main( int argc, char* argv[] )
 	int pEventsperVcth;
 	int cVcth;
 
-	if (sscanf (argv[1],"%i", &cVcth)!=1) { printf ("ERROR: not an integer"); }
-	if (sscanf (argv[2],"%xu", &pEventsperVcth)!=1) { printf ("ERROR: not an integer"); }
+	if ( sscanf( argv[1], "%i", &cVcth ) != 1 )
+		printf( "ERROR: not an integer" );
+	if ( sscanf( argv[2], "%xu", &pEventsperVcth ) != 1 )
+		printf( "ERROR: not an integer" );
 
 	syntax( argc );
 
@@ -63,14 +65,14 @@ int main( int argc, char* argv[] )
 
 	uint64_t t0 = get_time();
 
-	for ( auto cShelve : cSystemController.fShelveVec )
+	for ( auto cShelve : cSystemController.fShelveVector )
 	{
 		for ( auto cBoard : ( cShelve )->fBoardVector )
 		{
 			for ( auto cFe : cBoard.fModuleVector )
 			{
 				for ( auto cCbc : cFe.fCbcVector )
-					cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t(cVcth) );
+					cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( cVcth ) );
 			}
 		}
 	}
@@ -84,7 +86,7 @@ int main( int argc, char* argv[] )
 
 	while ( cN < pEventsperVcth )
 	{
-		BeBoard pBoard = cSystemController.fShelveVec.at( 0 )->fBoardVector.at( 0 );
+		BeBoard pBoard = cSystemController.fShelveVector.at( 0 )->fBoardVector.at( 0 );
 		cSystemController.Run( &pBoard, cNthAcq );
 
 		const Event* cEvent = cSystemController.fBeBoardInterface->GetNextEvent( &pBoard );

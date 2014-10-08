@@ -9,7 +9,7 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../System/SystemController.h"
 #include "../System/ConsoleColor.h"
-#include "../HWDescription/Visitor.h"
+#include "../HWInterface/Visitor.h"
 
 
 

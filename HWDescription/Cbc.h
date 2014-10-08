@@ -15,7 +15,7 @@
 
 #include "FrontEndDescription.h"
 #include "CbcRegItem.h"
-#include "Visitor.h"
+#include "../HWInterface/Visitor.h"
 #include <iostream>
 #include <map>
 #include <string>

@@ -25,7 +25,7 @@ Calibration::~Calibration()
 void Calibration::InitialiseTestGroup()
 {
 	// Iterating over the Shelves
-	for ( auto cShelve : fShelveVec )
+	for ( auto cShelve : fShelveVector )
 	{
 		for ( auto cBoard : ( cShelve )->fBoardVector )
 		{
@@ -93,7 +93,7 @@ void Calibration::OffsetScan()
 	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
 	uint8_t cTargetVcth = fSettingsMap.find( "TargetVcth" )->second;
 
-	for ( auto& cShelve : fShelveVec )
+	for ( auto& cShelve : fShelveVector )
 	{
 		// Iterating over the Boards
 		for ( BeBoard& board : cShelve->fBoardVector )
@@ -313,7 +313,7 @@ void Calibration::VplusScan()
 	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
 	uint8_t cTargetVcth = fSettingsMap.find( "TargetVcth" )->second;
 
-	for ( auto& cShelve : fShelveVec )
+	for ( auto& cShelve : fShelveVector )
 	{
 		// Iterating over the Boards
 		for ( BeBoard& board : cShelve->fBoardVector )
@@ -425,7 +425,7 @@ void Calibration::FitVplusVcth( BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoD
 void Calibration::setGlobalReg( BeBoard& pBoard, std::string pRegName, uint8_t pRegValue )
 {
 	// Set 1 Register on all Cbcs connected to 1 BeBoard
-	// BeBoard* cBoard = fShelveVec.at(pShelveId)->getBoard(pBeId);
+	// BeBoard* cBoard = fShelveVector.at(pShelveId)->getBoard(pBeId);
 
 	for ( auto cFe : pBoard.fModuleVector )
 	{
@@ -708,7 +708,7 @@ void Calibration::SaveResults()
 
 	if ( !fDirName.empty() )
 	{
-		for ( auto cShelve : fShelveVec )
+		for ( auto cShelve : fShelveVector )
 		{
 			for ( auto cBoard : ( cShelve )->fBoardVector )
 			{

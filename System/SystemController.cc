@@ -57,7 +57,7 @@ namespace Ph2_System
 		for ( pugi::xml_node ns = doc.child( "HwDescription" ).child( "Shelve" ); ns; ns = ns.next_sibling() )
 		{
 			cShelveId = ns.attribute( "Id0" ).as_int();
-			fShelveVec.push_back( new Shelve( cShelveId ) );
+			fShelveVector.push_back( new Shelve( cShelveId ) );
 
 			std::cout << BOLDCYAN << ns.name() << "  " << ns.first_attribute().name() << " :" << ns.attribute( "Id" ).value() << RESET << std:: endl;
 
@@ -76,7 +76,7 @@ namespace Ph2_System
 					cBeBoard.setReg( std::string( nr.attribute( "name" ).value() ), atoi( nr.first_child().value() ) );
 				}
 
-				fShelveVec[cNShelve]->addBoard( cBeBoard );
+				fShelveVector[cNShelve]->addBoard( cBeBoard );
 
 				BeBoardFWInterface* cBeBoardFWInterface;
 
@@ -93,7 +93,7 @@ namespace Ph2_System
 					std::cout << BOLDCYAN << "|" << "	" << "|" << "----" << nm.name() << "  " << nm.first_attribute().name() << " :" << nm.attribute( "ModuleId" ).value() << RESET << std:: endl;
 					cModuleId = nm.attribute( "ModuleId" ).as_int();
 					Module cModule( cShelveId, cBeId, nm.attribute( "FMCId" ).as_int(), nm.attribute( "FeId" ).as_int(), cModuleId );
-					fShelveVec[cNShelve]->getBoard( cBeId )->addModule( cModule );
+					fShelveVector[cNShelve]->getBoard( cBeId )->addModule( cModule );
 
 					for ( pugi::xml_node nc = nm.child( "CBC" ); nc; nc = nc.next_sibling() )
 					{
@@ -112,7 +112,7 @@ namespace Ph2_System
 								std::cout << BOLDCYAN << "|" << "	" << "|" << "	" << "|" << "----" << ng.name() << "  " << ng.first_attribute().name() << " :" << ng.attribute( "name" ).value() << RESET << std:: endl;
 							}
 						}
-						fShelveVec[cNShelve]->getBoard( cBeId )->getModule( cModuleId )->addCbc( cCbc );
+						fShelveVector[cNShelve]->getBoard( cBeId )->getModule( cModuleId )->addCbc( cCbc );
 					}
 				}
 
@@ -170,13 +170,13 @@ namespace Ph2_System
 	{
 		uint32_t cMissedBoard, cMissedModule, cMissedCbc;
 
-		for ( uint32_t cSId = 0; cSId < fShelveVec.size(); cSId++ )
+		for ( uint32_t cSId = 0; cSId < fShelveVector.size(); cSId++ )
 		{
 			cMissedBoard = 0;
 
-			for ( uint32_t cNBe = 0; cNBe < fShelveVec[cSId]->getNBoard(); cNBe++ )
+			for ( uint32_t cNBe = 0; cNBe < fShelveVector[cSId]->getNBoard(); cNBe++ )
 			{
-				if ( fShelveVec[cSId]->getBoard( cNBe + cMissedBoard ) == NULL )
+				if ( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard ) == NULL )
 				{
 					cNBe--;
 					cMissedBoard++;
@@ -186,11 +186,11 @@ namespace Ph2_System
 				{
 					cMissedModule = 0;
 
-					fBeBoardInterface->ConfigureBoard( fShelveVec[cSId]->getBoard( cNBe + cMissedBoard ) );
+					fBeBoardInterface->ConfigureBoard( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard ) );
 
-					for ( uint32_t cNFe = 0; cNFe < fShelveVec[cSId]->getBoard( cNBe + cMissedBoard )->getNFe(); cNFe++ )
+					for ( uint32_t cNFe = 0; cNFe < fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getNFe(); cNFe++ )
 					{
-						if ( fShelveVec[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule ) == NULL )
+						if ( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule ) == NULL )
 						{
 							cNFe--;
 							cMissedModule++;
@@ -200,16 +200,16 @@ namespace Ph2_System
 						{
 							cMissedCbc = 0;
 
-							for ( uint32_t cNCbc = 0; cNCbc < fShelveVec[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getNCbc(); cNCbc++ )
+							for ( uint32_t cNCbc = 0; cNCbc < fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getNCbc(); cNCbc++ )
 							{
-								if ( fShelveVec[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getCbc( cNCbc + cMissedCbc ) == NULL )
+								if ( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getCbc( cNCbc + cMissedCbc ) == NULL )
 								{
 									cNCbc--;
 									cMissedCbc++;
 								}
 
 								else
-									fCbcInterface->ConfigureCbc( fShelveVec[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getCbc( cNCbc + cMissedCbc ), false );
+									fCbcInterface->ConfigureCbc( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getCbc( cNCbc + cMissedCbc ), false );
 							}
 						}
 					}

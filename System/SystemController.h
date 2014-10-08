@@ -18,7 +18,7 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
-#include "../HWDescription/Visitor.h"
+#include "../HWInterface/Visitor.h"
 
 #include "pugixml.hpp"
 #include "ConsoleColor.h"
@@ -51,7 +51,7 @@ namespace Ph2_System
 	  public:
 		BeBoardInterface*       fBeBoardInterface;                     /*!< Interface to the BeBoard */
 		CbcInterface*           fCbcInterface;                     /*!< Interface to the Cbc */
-		ShelveVec fShelveVec;                                           /*!< Vector of Shelve pointers */
+		ShelveVec fShelveVector;                                           /*!< Vector of Shelve pointers */
 		BeBoardFWMap fBeBoardFWMap;                                /*!< Map of connections to the BeBoard */
 		SettingsMap fSettingsMap;                                         /*!< Maps the settings */
 
@@ -71,13 +71,13 @@ namespace Ph2_System
 		 */
 		void accept( HwDescriptionVisitor& pVisitor ) {
 			pVisitor.visit( *this );
-			for ( auto& cShelve : fShelveVec )
+			for ( auto& cShelve : fShelveVector )
 				cShelve->accept( pVisitor );
 		}
 
 		// void accept( HwDescriptionVisitor& pVisitor ) const {
 		//  pVisitor.visit( *this );
-		//  for ( auto& cShelve : fShelveVec )
+		//  for ( auto& cShelve : fShelveVector )
 		//      cShelve->accept( pVisitor );
 		// }
 

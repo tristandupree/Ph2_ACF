@@ -74,21 +74,11 @@ void scanpause()
 
 void HybridTester::InitializeHists()
 {
-	// getNCbcs first and then initialize Canvases & Histograms
+	//  special Visito class to count objects
+	Counter cCbcCounter;
+	accept( cCbcCounter );
+	fNCbc = cCbcCounter.getNCbc();
 
-	struct CbcCounter : public HwDescriptionVisitor
-	{
-		uint32_t fCbcCounter = 0;
-
-		void visit( Cbc& pCbc ) {
-			fCbcCounter++;
-		}
-	};
-
-	CbcCounter cCounter;
-	accept( cCounter );
-
-	fNCbc = cCounter.fCbcCounter;
 	fDataCanvas = new TCanvas( "Data", "Different hits counters", 1200, 800 );
 	fDataCanvas->Divide( 2 );
 
@@ -150,7 +140,7 @@ void HybridTester::ScanThreshold()
 	// re-think this! TODO
 	while ( cHitCounter > 0.01 * fNCbc * NSENSOR )
 	{
-		for ( auto& cShelve : fShelveVec )
+		for ( auto& cShelve : fShelveVector )
 		{
 			for ( BeBoard& pBoard : cShelve->fBoardVector )
 			{
@@ -194,7 +184,7 @@ void HybridTester::Measure()
 {
 	uint32_t cTotalEvents = fSettingsMap.find( "NEvents" )->second;
 
-	for ( auto& cShelve : fShelveVec )
+	for ( auto& cShelve : fShelveVector )
 	{
 		for ( BeBoard& pBoard : cShelve->fBoardVector )
 		{
