@@ -8,16 +8,18 @@ struct CbcVisitor  : public HwDescriptionVisitor
 	TH1F* fTopHist;
 	const Event* fEvent;
 
-	CbcVisitor( TH1F* pBotHist, TH1F* pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
+	CbcVisitor( const TH1F* pBotHist, const TH1F* pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
 
 	void visit( Cbc& pCbc ) {
+		std::vector<bool> cDataBitVector = fEvent->DataBitVector( pCbc.getFeId(), pCbc.getCbcId() );
 		for ( uint32_t cId = 0; cId < NSENSOR; cId++ ) {
-			if ( fEvent->DataBit( pCbc.getFeId(), pCbc.getCbcId(), cId ) ) {
-				int globalChannel = 254 * pCbc.getCbcId() + cId;
+			if ( cDataBitVector.at( cId ) ) {
+				std::cout << globalChannel << std::endl;
 
-				if ( globalChannel % 2 == 0 ) fBotHist->Fill( globalChannel );
-				else fTopHist->Fill( globalChannel );
-			}
+				// find out why histograms are not filling!
+				if ( globalChannel % 2 == 0 ) fBotHist->Fill( globalChannel / 2 );
+				else fTopHist->Fill( ( ( globalChannel - 1 ) / 2 );
+				}
 		}
 	}
 };
@@ -83,16 +85,16 @@ void HybridTester::InitializeHists()
 	fDataCanvas->Divide( 2 );
 
 	TString cFrontName( "fHistTop" );
-	TObject* cObj = gROOT->FindObject( cFrontName );
-	if ( cObj ) delete cObj;
+	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
+	if ( fHistTop ) delete fHistTop;
 
 	fHistTop = new TH1F( cFrontName, "Front Face; Channel Number; Number of Hits", ( fNCbc / 2 * 254 ) + 1, -0.5, ( fNCbc / 2 * 254 ) + .5 );
 	fDataCanvas->cd( 1 );
 	fHistTop->Draw();
 
 	TString cBackName( "fHistBottom" );
-	cObj = gROOT->FindObject( cBackName );
-	if ( cObj ) delete cObj;
+	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
+	if ( fHistBottom ) delete fHistBottom;
 
 	fHistBottom = new TH1F( cFrontName, "Back Face; Channel Number; Number of Hits", ( fNCbc / 2 * 254 ) + 1, -0.5, ( fNCbc / 2 * 254 ) + .5 );
 	fDataCanvas->cd( 2 );
@@ -182,7 +184,7 @@ void HybridTester::ScanThreshold()
 
 void HybridTester::Measure()
 {
-	uint32_t cTotalEvents = fSettingsMap.find( "NEvents" )->second;
+	uint32_t cTotalEvents = fSettingsMap.find( "Nevents" )->second;
 
 	for ( auto& cShelve : fShelveVector )
 	{
@@ -199,7 +201,6 @@ void HybridTester::Measure()
 				// Loop over Events from this Acquisition
 				while ( cEvent )
 				{
-
 					if ( cN == cTotalEvents )
 						break;
 
