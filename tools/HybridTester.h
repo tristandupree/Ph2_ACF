@@ -18,6 +18,7 @@
 #include "TCanvas.h"
 #include "TFile.h"
 #include "TH1F.h"
+#include "TStyle.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -29,20 +30,23 @@ class HybridTester : public SystemController
 	HybridTester() {}
 	~HybridTester() {}
 	void InitializeHists();
-	void CreateResultDirectory( std::string pDirectoryname );
-	void InitResultFile();
 	void ScanThreshold();
 	void Measure();
 	void SaveResults();
 
   private:
 	uint32_t fNCbc;
-
-	std::string fDirName;
-	TFile* fResultFile;
 	TCanvas* fDataCanvas;
 	TH1F* fHistTop;
 	TH1F* fHistBottom;
+
+	void UpdateHists() {
+		fDataCanvas->cd( 1 );
+		fHistTop->Draw();
+		fDataCanvas->cd( 2 );
+		fHistBottom->Draw();
+		fDataCanvas->Update();
+	}
 };
 
 

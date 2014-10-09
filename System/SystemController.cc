@@ -54,6 +54,7 @@ namespace Ph2_System
 			std::cout << "*";
 		std::cout << "\n";
 		std::cout << "\n";
+
 		for ( pugi::xml_node ns = doc.child( "HwDescription" ).child( "Shelve" ); ns; ns = ns.next_sibling() )
 		{
 			cShelveId = ns.attribute( "Id0" ).as_int();
@@ -91,25 +92,41 @@ namespace Ph2_System
 				for ( pugi::xml_node nm = nb.child( "Module" ); nm; nm = nm.next_sibling() )
 				{
 					std::cout << BOLDCYAN << "|" << "	" << "|" << "----" << nm.name() << "  " << nm.first_attribute().name() << " :" << nm.attribute( "ModuleId" ).value() << RESET << std:: endl;
+
 					cModuleId = nm.attribute( "ModuleId" ).as_int();
+
 					Module cModule( cShelveId, cBeId, nm.attribute( "FMCId" ).as_int(), nm.attribute( "FeId" ).as_int(), cModuleId );
 					fShelveVector[cNShelve]->getBoard( cBeId )->addModule( cModule );
+
+					pugi::xml_node nprefix = nm.child( "CBC_Files" );
+					std::string cFilePrefix = std::string( nprefix.attribute( "path" ).value() );
+					if ( !cFilePrefix.empty() ) std::cout << GREEN << "|" << "	" << "|" << "	" << "|" << "----" << "CBC Files Path : " << cFilePrefix << RESET << std::endl;
 
 					for ( pugi::xml_node nc = nm.child( "CBC" ); nc; nc = nc.next_sibling() )
 					{
 						std::cout << BOLDCYAN << "|" << "	" << "|" << "	" << "|" << "----" << nc.name() << "  " << nc.first_attribute().name() << " :" << nc.attribute( "Id" ).value() << RESET << std:: endl;
-						Cbc cCbc( cShelveId, cBeId, nm.attribute( "FMCId" ).as_int(), nm.attribute( "FeId" ).as_int(), nc.attribute( "Id" ).as_int(), nc.attribute( "configfile" ).value() );
+
+
+						std::string cFileName;
+						if ( !cFilePrefix.empty() )
+							cFileName = cFilePrefix + nc.attribute( "configfile" ).value();
+						else cFileName = nc.attribute( "configfile" ).value();
+
+						Cbc cCbc( cShelveId, cBeId, nm.attribute( "FMCId" ).as_int(), nm.attribute( "FeId" ).as_int(), nc.attribute( "Id" ).as_int(), cFileName );
+
 						for ( pugi::xml_node ngr = nc.child( "Register" ); ngr; ngr = ngr.next_sibling() )
 							cCbc.setReg( std::string( ngr.attribute( "name" ).value() ), atoi( ngr.first_child().value() ) );
-						for ( pugi::xml_node ng = nm.child( "Global_CBC_Register" ); ng != nm.child( "CBC" ) && ng != NULL; ng = ng.next_sibling() )
+
+						for ( pugi::xml_node ng = nm.child( "Global_CBC_Register" ); ng != nm.child( "CBC" ) && ng != nm.child( "CBC_Files" ) && ng != NULL; ng = ng.next_sibling() )
 						{
-							// std::cout<<BOLDCYAN<<"|"<<"  "<<"|"<<"   "<<"|"<<"_____"<<ng.name()<<"  "<<ng.first_attribute().name()<<" :"<<ng.attribute("name").value() <<RESET<<std:: endl;
+
 							if ( ng != NULL )
 							{
 								std::string regname = std::string( ng.attribute( "name" ).value() );
-								uint32_t regvalue = atoi( ng.first_child().value() );
-								cCbc.setReg( regname, regvalue );
-								std::cout << BOLDCYAN << "|" << "	" << "|" << "	" << "|" << "----" << ng.name() << "  " << ng.first_attribute().name() << " :" << ng.attribute( "name" ).value() << RESET << std:: endl;
+								uint32_t regvalue = convertAnyInt( ng.first_child().value() ) ;
+								cCbc.setReg( regname, uint8_t( regvalue ) ) ;
+
+								std::cout << GREEN << "|" << "	" << "|" << "	" << "|" << "----" << ng.name() << "  " << ng.first_attribute().name() << " :" << regname << " =  0x" << std::hex << std::setw( 2 ) << std::setfill( '0' ) << regvalue << std::dec << RESET << std:: endl;
 							}
 						}
 						fShelveVector[cNShelve]->getBoard( cBeId )->getModule( cModuleId )->addCbc( cCbc );
@@ -152,70 +169,72 @@ namespace Ph2_System
 		{
 			for ( pugi::xml_node nSetting = nSettings.child( "Setting" ); nSetting; nSetting = nSetting.next_sibling() )
 			{
-				if ( std::string( nSetting.first_child().value() ).find( "0x" ) != std::string::npos )
-				{
-					fSettingsMap[nSetting.attribute( "name" ).value()] = strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 16 );
-					std:: cout << RED << "Setting" << RESET << " --" << BOLDCYAN << nSetting.attribute( "name" ).value() << RESET << ":" << BOLDYELLOW << strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 ) << RESET << std:: endl;
-				}
-				else
-				{
-					fSettingsMap[nSetting.attribute( "name" ).value()] = strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 );
-					std:: cout << RED << "Setting" << RESET << " --" << BOLDCYAN << nSetting.attribute( "name" ).value() << RESET << ":" << BOLDYELLOW << strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 ) << RESET << std:: endl;
-				}
+				// if ( std::string( nSetting.first_child().value() ).find( "0x" ) != std::string::npos )
+				// {
+				// fSettingsMap[nSetting.attribute( "name" ).value()] = strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 16 );
+				fSettingsMap[nSetting.attribute( "name" ).value()] = convertAnyInt( nSetting.first_child().value() );
+				std:: cout << RED << "Setting" << RESET << " --" << BOLDCYAN << nSetting.attribute( "name" ).value() << RESET << ":" << BOLDYELLOW << strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 ) << RESET << std:: endl;
+				// }
+				// else
+				// {
+				//  fSettingsMap[nSetting.attribute( "name" ).value()] = strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 );
+				//  std:: cout << RED << "Setting" << RESET << " --" << BOLDCYAN << nSetting.attribute( "name" ).value() << RESET << ":" << BOLDYELLOW << strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 ) << RESET << std:: endl;
+				// }
 			}
 		}
 	}
 
 	void SystemController::ConfigureHw()
 	{
-		uint32_t cMissedBoard, cMissedModule, cMissedCbc;
-
-		for ( uint32_t cSId = 0; cSId < fShelveVector.size(); cSId++ )
+		class Configurator: public HwDescriptionVisitor
 		{
-			cMissedBoard = 0;
-
-			for ( uint32_t cNBe = 0; cNBe < fShelveVector[cSId]->getNBoard(); cNBe++ )
-			{
-				if ( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard ) == NULL )
-				{
-					cNBe--;
-					cMissedBoard++;
-				}
-
-				else
-				{
-					cMissedModule = 0;
-
-					fBeBoardInterface->ConfigureBoard( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard ) );
-
-					for ( uint32_t cNFe = 0; cNFe < fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getNFe(); cNFe++ )
-					{
-						if ( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule ) == NULL )
-						{
-							cNFe--;
-							cMissedModule++;
-						}
-
-						else
-						{
-							cMissedCbc = 0;
-
-							for ( uint32_t cNCbc = 0; cNCbc < fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getNCbc(); cNCbc++ )
-							{
-								if ( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getCbc( cNCbc + cMissedCbc ) == NULL )
-								{
-									cNCbc--;
-									cMissedCbc++;
-								}
-
-								else
-									fCbcInterface->ConfigureCbc( fShelveVector[cSId]->getBoard( cNBe + cMissedBoard )->getModule( cNFe + cMissedModule )->getCbc( cNCbc + cMissedCbc ), false );
-							}
-						}
-					}
-				}
+		  private:
+			Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
+			Ph2_HwInterface::CbcInterface* fCbcInterface;
+		  public:
+			Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
+			void visit( BeBoard& pBoard ) {
+				fBeBoardInterface->ConfigureBoard( &pBoard );
+				std::cout << "Successfully configured Board " << int( pBoard.getBeId() ) << std::endl;
 			}
+			void visit( Cbc& pCbc ) {
+				fCbcInterface->ConfigureCbc( &pCbc );
+				std::cout << "Successfully configured Cbc " << int( pCbc.getCbcId() ) << std::endl;
+
+			}
+		};
+
+		Configurator cConfigurator( fBeBoardInterface, fCbcInterface );
+		accept( cConfigurator );
+	}
+
+	void SystemController::CreateResultDirectory( std::string pDirname )
+	{
+
+		bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
+
+		std::string cMode;
+		if ( cHoleMode ) cMode = "_Hole";
+		else cMode = "_Electron";
+
+		pDirname = pDirname + cMode +  currentDateTime();
+		std::cout << "Creating directory: " << pDirname << std::endl;
+		std::string cCommand = "mkdir -p " + pDirname;
+
+		system( cCommand.c_str() );
+
+		fDirectoryName = pDirname;
+	}
+
+	void SystemController::InitResultFile( std::string pFilename )
+	{
+
+		if ( !fDirectoryName.empty() )
+		{
+			std::string cFilename = fDirectoryName + "/" + pFilename + ".root";
+			fResultFile = TFile::Open( cFilename.c_str(), "RECREATE" );
 		}
+		else std::cout << RED << "ERROR: " << RESET << "No Result Directory initialized - not saving results!" << std::endl;
 	}
 
 	void SystemController::Run( BeBoard* pBeBoard, uint32_t pNthAcq )

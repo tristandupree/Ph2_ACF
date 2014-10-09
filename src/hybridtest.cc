@@ -34,7 +34,7 @@ int main( int argc, char* argv[] )
 	cHybridTester.InitializeHists();
 	cHybridTester.InitializeSettings( cHWFile );
 	cHybridTester.CreateResultDirectory( "Results/HybridTest" );
-	cHybridTester.InitResultFile();
+	cHybridTester.InitResultFile( "HybridTest" );
 	cHybridTester.ConfigureHw();
 
 	// Here comes our Part:

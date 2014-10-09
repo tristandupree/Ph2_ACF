@@ -34,7 +34,7 @@ int main( int argc, char* argv[] )
 	cCalibration.InitializeHw( cHWFile );
 	cCalibration.InitializeSettings( cHWFile );
 	cCalibration.CreateResultDirectory( "Results/Calibration" );
-	cCalibration.InitResultFile();
+	cCalibration.InitResultFile( "CalibrationResults" );
 	cCalibration.InitialiseTestGroup();
 	cCalibration.ConfigureHw();
 	cCalibration.VplusScan();

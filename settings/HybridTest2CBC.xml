@@ -23,22 +23,19 @@
             <Register name="user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"> 0 </Register>
 
             <Module FeId="0" FMCId="0" ModuleId="0" Status="1">
-              <!--   <Global_CBC_Register name="VCth"> 0x78 </Global_CBC_Register>
-                <Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register> -->
-<!--                 <CBC_Files path="./settings/"/>
- -->
-                <CBC Id="0" configfile="./settings/Cbc_default_hole.txt"/>
-                <CBC Id="1" configfile="./settings/Cbc_default_hole.txt"/>
+                <Global_CBC_Register name="VCth"> 0x80 </Global_CBC_Register>
+                <Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register>
+
+                <CBC_Files path="./settings/Calibration/"/>
+
+                <CBC Id="0" configfile="FE0CBC0.txt"/>
+                <CBC Id="1" configfile="FE0CBC1.txt"/>
             </Module>
         </BeBoard>
     </Shelve>
 </HwDescription>
 
 <Settings>
-    <Setting name="TargetVcth"> 0x78 </Setting>
-    <Setting name="RunNumber"> 1 </Setting>
-    <Setting name="Nevents"> 10 </Setting>
-    <Setting name="EnableTestPulse"> 0 </Setting>
-    <Setting name="TestPulsePotentiometer"> 0xF1 </Setting>
+    <Setting name="Nevents"> 500 </Setting>
     <Setting name="HoleMode"> 1 </Setting>
 </Settings>

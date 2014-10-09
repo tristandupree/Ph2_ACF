@@ -49,4 +49,17 @@ namespace Ph2_HwInterface
 		std::cin.get();
 	}
 
+	const std::string currentDateTime()
+	{
+		time_t now = time( 0 );
+		struct tm tstruct;
+		char buf[80];
+		tstruct = *localtime( &now );
+		// Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
+		// for more information about date/time format
+		strftime( buf, sizeof( buf ), "_%d-%m-%y_%H:%M", &tstruct );
+
+		return buf;
+	}
+
 }

@@ -8,19 +8,39 @@ struct CbcVisitor  : public HwDescriptionVisitor
 	TH1F* fTopHist;
 	const Event* fEvent;
 
-	CbcVisitor( const TH1F* pBotHist, const TH1F* pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
+	CbcVisitor( TH1F* pBotHist, TH1F* pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
 
 	void visit( Cbc& pCbc ) {
 		std::vector<bool> cDataBitVector = fEvent->DataBitVector( pCbc.getFeId(), pCbc.getCbcId() );
 		for ( uint32_t cId = 0; cId < NSENSOR; cId++ ) {
 			if ( cDataBitVector.at( cId ) ) {
-				std::cout << globalChannel << std::endl;
+				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
 
 				// find out why histograms are not filling!
-				if ( globalChannel % 2 == 0 ) fBotHist->Fill( globalChannel / 2 );
-				else fTopHist->Fill( ( ( globalChannel - 1 ) / 2 );
-				}
+				if ( globalChannel % 2 == 0 )
+					fBotHist->Fill( globalChannel / 2 );
+				else
+					fTopHist->Fill( ( globalChannel - 1 ) / 2 );
+
+			}
 		}
+	}
+};
+
+struct CbcRegReader : public HwDescriptionVisitor
+{
+	std::string fRegName;
+	uint8_t fRegValue;
+	uint8_t fReadRegValue;
+	CbcInterface* fInterface;
+
+	CbcRegReader( CbcInterface* pInterface, std::string pRegName ): fInterface( pInterface ), fRegName( pRegName ) {}
+	void visit( Cbc& pCbc ) {
+		fRegValue = pCbc.getReg( fRegName );
+		fInterface->ReadCbcReg( &pCbc, fRegName );
+		fReadRegValue = pCbc.getReg( fRegName );
+
+		std::cout << "Reading Reg " << RED << fRegName << RESET << " on CBC " << ( int )pCbc.getCbcId() << " memory value: " << ( int )fRegValue << " physical value: " << ( int )fReadRegValue << std::endl;
 	}
 };
 
@@ -54,19 +74,6 @@ struct CbcRegModifier : public HwDescriptionVisitor
 };
 
 
-const std::string currentDateTime()
-{
-	time_t now = time( 0 );
-	struct tm tstruct;
-	char buf[80];
-	tstruct = *localtime( &now );
-	// Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
-	// for more information about date/time format
-	strftime( buf, sizeof( buf ), "_%d-%m-%y_%H:%M", &tstruct );
-
-	return buf;
-}
-
 void scanpause()
 {
 	std::cout << "Found a Threshold with 0 Hits - Start external Signal source and press [Enter] to continue ...";
@@ -76,6 +83,8 @@ void scanpause()
 
 void HybridTester::InitializeHists()
 {
+	gStyle->SetOptStat( 000000 );
+	gStyle->SetTitleOffset( 1.3, "Y" );
 	//  special Visito class to count objects
 	Counter cCbcCounter;
 	accept( cCbcCounter );
@@ -88,48 +97,18 @@ void HybridTester::InitializeHists()
 	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
 	if ( fHistTop ) delete fHistTop;
 
-	fHistTop = new TH1F( cFrontName, "Front Face; Channel Number; Number of Hits", ( fNCbc / 2 * 254 ) + 1, -0.5, ( fNCbc / 2 * 254 ) + .5 );
-	fDataCanvas->cd( 1 );
-	fHistTop->Draw();
+	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
 
 	TString cBackName( "fHistBottom" );
 	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
 	if ( fHistBottom ) delete fHistBottom;
 
-	fHistBottom = new TH1F( cFrontName, "Back Face; Channel Number; Number of Hits", ( fNCbc / 2 * 254 ) + 1, -0.5, ( fNCbc / 2 * 254 ) + .5 );
-	fDataCanvas->cd( 2 );
-	fHistBottom->Draw();
+	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+
 
 }
 
-void HybridTester::CreateResultDirectory( std::string pDirname )
-{
 
-	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
-
-	std::string cMode;
-	if ( cHoleMode ) cMode = "_Hole";
-	else cMode = "_Electron";
-
-	pDirname = pDirname + cMode +  currentDateTime();
-	std::cout << "Creating directory: " << pDirname << std::endl;
-	std::string cCommand = "mkdir -p " + pDirname;
-
-	system( cCommand.c_str() );
-
-	fDirName = pDirname;
-}
-
-void HybridTester::InitResultFile()
-{
-
-	if ( !fDirName.empty() )
-	{
-		std::string cFilename = fDirName + "/HybridTestResults.root";
-		fResultFile = TFile::Open( cFilename.c_str(), "RECREATE" );
-	}
-	else std::cout << RED << "ERROR: " << RESET << "No Result Directory initialized - not saving results!" << std::endl;
-}
 
 void HybridTester::ScanThreshold()
 {
@@ -186,6 +165,9 @@ void HybridTester::Measure()
 {
 	uint32_t cTotalEvents = fSettingsMap.find( "Nevents" )->second;
 
+	CbcRegReader cReader( fCbcInterface, "VCth" );
+	accept( cReader );
+
 	for ( auto& cShelve : fShelveVector )
 	{
 		for ( BeBoard& pBoard : cShelve->fBoardVector )
@@ -207,7 +189,8 @@ void HybridTester::Measure()
 					CbcVisitor cFiller( fHistBottom, fHistTop, cEvent );
 					pBoard.accept( cFiller );
 
-					if ( cN % 10 == 0 ) fDataCanvas->Update();
+					if ( cN % 100 == 0 )
+						UpdateHists();
 
 					cN++;
 
@@ -219,6 +202,11 @@ void HybridTester::Measure()
 			} // End of Analyze Events of last Acquistion loop
 		}
 	}
+	fHistTop->Scale( 100 / double_t( cTotalEvents ) );
+	fHistTop->GetYaxis()->SetRangeUser( 0, 100 );
+	fHistBottom->Scale( 100 / double_t( cTotalEvents ) );
+	fHistBottom->GetYaxis()->SetRangeUser( 0, 100 );
+	UpdateHists();
 }
 
 void HybridTester::SaveResults()
@@ -230,6 +218,12 @@ void HybridTester::SaveResults()
 	fResultFile->Write();
 	fResultFile->Close();
 
+
 	std::cout << "Resultfile written correctly!" << std::endl;
+
+	std::string cPdfName = fDirectoryName + "/HybridTestResults.pdf";
+	fDataCanvas->SaveAs( cPdfName.c_str() );
+
 }
+
 
