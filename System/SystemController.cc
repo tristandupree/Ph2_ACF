@@ -169,17 +169,8 @@ namespace Ph2_System
 		{
 			for ( pugi::xml_node nSetting = nSettings.child( "Setting" ); nSetting; nSetting = nSetting.next_sibling() )
 			{
-				// if ( std::string( nSetting.first_child().value() ).find( "0x" ) != std::string::npos )
-				// {
-				// fSettingsMap[nSetting.attribute( "name" ).value()] = strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 16 );
 				fSettingsMap[nSetting.attribute( "name" ).value()] = convertAnyInt( nSetting.first_child().value() );
 				std:: cout << RED << "Setting" << RESET << " --" << BOLDCYAN << nSetting.attribute( "name" ).value() << RESET << ":" << BOLDYELLOW << strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 ) << RESET << std:: endl;
-				// }
-				// else
-				// {
-				//  fSettingsMap[nSetting.attribute( "name" ).value()] = strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 );
-				//  std:: cout << RED << "Setting" << RESET << " --" << BOLDCYAN << nSetting.attribute( "name" ).value() << RESET << ":" << BOLDYELLOW << strtoul( std::string( nSetting.first_child().value() ).c_str(), 0, 10 ) << RESET << std:: endl;
-				// }
 			}
 		}
 	}
@@ -195,11 +186,11 @@ namespace Ph2_System
 			Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
 			void visit( BeBoard& pBoard ) {
 				fBeBoardInterface->ConfigureBoard( &pBoard );
-				std::cout << "Successfully configured Board " << int( pBoard.getBeId() ) << std::endl;
+				std::cout << GREEN << "Successfully configured Board " << int( pBoard.getBeId() ) << RESET << std::endl;
 			}
 			void visit( Cbc& pCbc ) {
 				fCbcInterface->ConfigureCbc( &pCbc );
-				std::cout << "Successfully configured Cbc " << int( pCbc.getCbcId() ) << std::endl;
+				std::cout << GREEN <<  "Successfully configured Cbc " << int( pCbc.getCbcId() ) << RESET << std::endl;
 
 			}
 		};
@@ -218,7 +209,7 @@ namespace Ph2_System
 		else cMode = "_Electron";
 
 		pDirname = pDirname + cMode +  currentDateTime();
-		std::cout << "Creating directory: " << pDirname << std::endl;
+		std::cout << std::endl << "Creating directory: " << pDirname << std::endl << std::endl;
 		std::string cCommand = "mkdir -p " + pDirname;
 
 		system( cCommand.c_str() );

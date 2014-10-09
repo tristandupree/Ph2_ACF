@@ -103,8 +103,8 @@ namespace Ph2_HwInterface
 					// uint32_t index = std::distance(cVecWrite.begin(),cMismatchWord.first);
 					// std::string cMismatchName = pVecReq.at(index).first;
 
-					std::cout << "\nERROR !!!\nReadback value not the same for Register @ Page: " << int( cRegItemWrite.fPage ) << " Address: " << int( cRegItemWrite.fAddress ) << "\n" << "Written Value : " << int( cRegItemWrite.fValue ) << "\nReadback Value : " << int( cRegItemRead.fValue ) << std::endl;
-					std::cout << "Cbc Id : " << uint32_t( pCbc->getCbcId() ) << std::endl;
+					std::cout << RED << "\nERROR !!!\nReadback value not the same for Register @ Page: " << int( cRegItemWrite.fPage ) << " Address: " << int( cRegItemWrite.fAddress ) << "\n" << "Written Value : " << int( cRegItemWrite.fValue ) << "\nReadback Value : " << int( cRegItemRead.fValue ) << std::endl;
+					std::cout << "Cbc Id : " << uint32_t( pCbc->getCbcId() ) << RESET << std::endl << std::endl;
 					cMismatchWord = std::mismatch( ++cMismatchWord.first, cVecWrite.end(), ++cMismatchWord.second );
 					// mypause();
 				}
@@ -165,9 +165,9 @@ namespace Ph2_HwInterface
 
 				DecodeReg( cRegItem, cCbcId, cVecRead[0] );
 
-				std::cout << "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << "Written Value : " << pValue << "\nReadback Value : " << cRegItem.fValue << std::endl;
+				std::cout << RED <<  "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << "Written Value : " << pValue << "\nReadback Value : " << cRegItem.fValue << std::endl;
 				std::cout << "Register Adress : " << uint32_t( cRegItem.fAddress ) << std::endl;
-				std::cout << "Cbc Id : " << uint32_t( cCbcId ) << std::endl;
+				std::cout << "Cbc Id : " << uint32_t( cCbcId ) << RESET << std::endl << std::endl;
 				// mypause();
 			}
 		}
@@ -248,8 +248,8 @@ namespace Ph2_HwInterface
 					uint32_t index = std::distance( cVecWrite.begin(), cMismatchWord.first );
 					std::string cMismatchName = pVecReq.at( index ).first;
 
-					std::cout << "\nERROR !!!\nReadback value not the same for Register : " << cMismatchName << " @ Page: " << cRegItemWrite.fPage << " Address: " << cRegItemWrite.fAddress << "\n" << "Written Value : " << cRegItemWrite.fValue << "\nReadback Value : " << cRegItemRead.fValue << std::endl;
-					std::cout << "Cbc Id : " << uint32_t( pCbc->getCbcId() ) << std::endl;
+					std::cout << RED << "\nERROR !!!\nReadback value not the same for Register : " << cMismatchName << " @ Page: " << cRegItemWrite.fPage << " Address: " << cRegItemWrite.fAddress << "\n" << "Written Value : " << cRegItemWrite.fValue << "\nReadback Value : " << cRegItemRead.fValue << std::endl;
+					std::cout << "Cbc Id : " << uint32_t( pCbc->getCbcId() ) << RESET << std::endl << std::endl;
 					cMismatchWord = std::mismatch( ++cMismatchWord.first, cVecWrite.end(), ++cMismatchWord.second );
 					// mypause();
 				}

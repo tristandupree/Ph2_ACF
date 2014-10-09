@@ -27,22 +27,6 @@ struct CbcVisitor  : public HwDescriptionVisitor
 	}
 };
 
-struct CbcRegReader : public HwDescriptionVisitor
-{
-	std::string fRegName;
-	uint8_t fRegValue;
-	uint8_t fReadRegValue;
-	CbcInterface* fInterface;
-
-	CbcRegReader( CbcInterface* pInterface, std::string pRegName ): fInterface( pInterface ), fRegName( pRegName ) {}
-	void visit( Cbc& pCbc ) {
-		fRegValue = pCbc.getReg( fRegName );
-		fInterface->ReadCbcReg( &pCbc, fRegName );
-		fReadRegValue = pCbc.getReg( fRegName );
-
-		std::cout << "Reading Reg " << RED << fRegName << RESET << " on CBC " << ( int )pCbc.getCbcId() << " memory value: " << ( int )fRegValue << " physical value: " << ( int )fReadRegValue << std::endl;
-	}
-};
 
 struct CbcHitCounter  : public HwDescriptionVisitor
 {
@@ -164,9 +148,6 @@ void HybridTester::ScanThreshold()
 void HybridTester::Measure()
 {
 	uint32_t cTotalEvents = fSettingsMap.find( "Nevents" )->second;
-
-	CbcRegReader cReader( fCbcInterface, "VCth" );
-	accept( cReader );
 
 	for ( auto& cShelve : fShelveVector )
 	{
