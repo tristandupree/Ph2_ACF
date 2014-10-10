@@ -36,9 +36,10 @@ int main( int argc, char* argv[] )
 	cHybridTester.CreateResultDirectory( "Results/HybridTest" );
 	cHybridTester.InitResultFile( "HybridTest" );
 	cHybridTester.ConfigureHw();
-	cHybridTester.TestRegisters();
+
 	// Here comes our Part:
-	// cHybridTester.ScanThreshold();
+	cHybridTester.TestRegisters();
+	cHybridTester.ScanThreshold();
 	cHybridTester.Measure();
 	cHybridTester.SaveResults();
 

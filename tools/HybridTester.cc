@@ -2,13 +2,13 @@
 
 // fill the Histograms, count the hits and increment Vcth
 
-struct CbcVisitor  : public HwDescriptionVisitor
+struct HistogramFiller  : public HwDescriptionVisitor
 {
 	TH1F* fBotHist;
 	TH1F* fTopHist;
 	const Event* fEvent;
 
-	CbcVisitor( TH1F* pBotHist, TH1F* pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
+	HistogramFiller( TH1F* pBotHist, TH1F* pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
 
 	void visit( Cbc& pCbc ) {
 		std::vector<bool> cDataBitVector = fEvent->DataBitVector( pCbc.getFeId(), pCbc.getCbcId() );
@@ -32,6 +32,7 @@ struct CbcHitCounter  : public HwDescriptionVisitor
 {
 	const Event* fEvent;
 	uint32_t fHitcounter = 0;
+
 	CbcHitCounter( const Event* pEvent ): fEvent( pEvent ) {}
 
 	void visit( Cbc& pCbc ) {
@@ -41,26 +42,10 @@ struct CbcHitCounter  : public HwDescriptionVisitor
 	}
 };
 
-struct CbcRegModifier : public HwDescriptionVisitor
-{
-	CbcInterface* fInterface;
-	uint8_t fVcth;
-	bool fHoleMode;
-
-	CbcRegModifier( CbcInterface* pInterface, bool pHoleMode ): fInterface( pInterface ), fHoleMode( pHoleMode ) {}
-
-	void visit( Cbc& pCbc ) {
-		fVcth = pCbc.getReg( "VCth" );
-		int increment;
-		if ( fHoleMode ) fInterface->WriteCbcReg( &pCbc, "VCth", fVcth += 1 );
-		else fInterface->WriteCbcReg( &pCbc, "VCth", fVcth -= 1 );
-	}
-};
-
 
 void scanpause()
 {
-	std::cout << "Found a Threshold with 0 Hits - Start external Signal source and press [Enter] to continue ...";
+	std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source and press [Enter] to continue ...";
 	std::cin.get();
 }
 
@@ -96,23 +81,43 @@ void HybridTester::InitializeHists()
 
 void HybridTester::ScanThreshold()
 {
-
+	std::cout << "Scanning noise Occupancy to find threshold for test with external source ... " << std::endl;
+	// Necessary variables
 	uint32_t cEventsperVcth = 10;
+	bool cNonZero = false;
+	uint32_t cAllOne = 0;
 	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
-	uint32_t cHitCounter = 1;
+	uint8_t cVcth, cDoubleVcth;
+	( cHoleMode ) ? cVcth = 0xFF : cVcth = 0x00;
+	int cStep = ( cHoleMode ) ? -10 : 10;
 
-	// stop increasing the threshold when the occupancy has reached 1%
-	// re-think this! TODO
-	while ( cHitCounter > 0.01 * fNCbc * NSENSOR )
+	// Root objects
+	TCanvas* cSCurveCanvas = new TCanvas( "cSCurveCanvas", "Noise Occupancy as function of VCth" );
+	TH1F* cSCurve = new TH1F( "cSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
+	TF1* cFit = new TF1( "cFit", MyErf, 0, 255, 2 );
+
+	// Adaptive VCth loop
+	while ( 0x00 <= cVcth && cVcth <= 0xFF )
 	{
+		if ( cVcth == cDoubleVcth )
+		{
+			cVcth +=  cStep;
+			continue;
+		}
+
+		// Set current Vcth value on all Cbc's
+		CbcRegWriter cWriter( fCbcInterface, "VCth", cVcth );
+		accept( cWriter );
+
+		uint32_t cN = 0;
+		uint32_t cNthAcq = 0;
+		uint32_t cHitCounter = 0;
+
+		// maybe restrict to pBoard? instead of looping?
 		for ( auto& cShelve : fShelveVector )
 		{
 			for ( BeBoard& pBoard : cShelve->fBoardVector )
 			{
-				uint32_t cN = 0;
-				uint32_t cNthAcq = 0;
-				cHitCounter = 0;
-
 				while ( cN <  cEventsperVcth )
 				{
 					Run( &pBoard, cNthAcq );
@@ -135,13 +140,52 @@ void HybridTester::ScanThreshold()
 						else break;
 					}
 					cNthAcq++;
+				} // done with this acquisition
+
+				cSCurve->Fill( cHitCounter );
+
+				// check if the hitcounter is all ones
+
+				if ( cNonZero == false && cHitCounter != 0 )
+				{
+					cDoubleVcth = cVcth;
+					cNonZero = true;
+					cVcth -= 2 * cStep;
+					cStep /= 10;
+					continue;
 				}
-				CbcRegModifier cModifier( fCbcInterface, cHoleMode );
-				pBoard.accept( cModifier );
-				std::cout << "Counted " << cHitCounter << " Hits on Hybird for Vcth " << int( cModifier.fVcth ) << " - increasing Vcth by 1 unit!" << std::endl;
+				if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NSENSOR ) cAllOne++;
+				if ( cAllOne == 10 ) break;
+				cVcth += cStep;
 			}
 		}
-	}
+
+	} // end of VCth loop
+
+	// Fit & Plot
+	cSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NSENSOR ) );
+	cSCurveCanvas->cd();
+	cSCurve->Draw();
+	cSCurve->Fit( cFit, "RNQ+" );
+	cFit->Draw( "same" );
+
+	// Save
+	cSCurve->Write( cSCurve->GetName(), TObject::kOverwrite );
+	cFit->Write( cFit->GetName(), TObject::kOverwrite );
+	cSCurveCanvas->Write( cSCurveCanvas->GetName(), TObject::kOverwrite );
+	std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
+	cSCurveCanvas->SaveAs( cPdfName.c_str() );
+
+	// Set new VCth
+	double_t pedestal = cFit->GetParameter( 0 );
+	double_t noise = cFit->GetParameter( 1 );
+
+	std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by 3 sigmas (" << noise << ") to " << int( ceil( pedestal + 3 * noise ) ) << " for Hybrid test!" << std::endl;
+
+	CbcRegWriter cWriter( fInterface, "VCth", uint8_t( ceil( pedestal + 3 * noise ) ) );
+	accept( cWriter );
+
+	// Wait for user to acknowledge and turn on external Source!
 	scanpause();
 }
 
@@ -187,6 +231,7 @@ void HybridTester::TestRegisters()
 
 void HybridTester::Measure()
 {
+	std::cout << "Mesuring Efficiency per Strip ... " << std::endl;
 	uint32_t cTotalEvents = fSettingsMap.find( "Nevents" )->second;
 
 	for ( auto& cShelve : fShelveVector )
@@ -207,7 +252,7 @@ void HybridTester::Measure()
 					if ( cN == cTotalEvents )
 						break;
 
-					CbcVisitor cFiller( fHistBottom, fHistTop, cEvent );
+					HistogramFiller cFiller( fHistBottom, fHistTop, cEvent );
 					pBoard.accept( cFiller );
 
 					if ( cN % 100 == 0 )

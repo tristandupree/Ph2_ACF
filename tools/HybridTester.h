@@ -10,6 +10,7 @@
 #include "../System/SystemController.h"
 #include "../System/ConsoleColor.h"
 #include "../HWInterface/Visitor.h"
+#include "../HWInterface/Utilities.h"
 #include "../HWInterface/CommonVisitors.h"
 
 
