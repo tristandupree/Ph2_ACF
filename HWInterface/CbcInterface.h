@@ -68,6 +68,14 @@ namespace Ph2_HwInterface
 		 */
 		void WriteCbcReg( Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop = true );
 		/*!
+		 * \brief Write the designated register in both Cbc and Cbc Config File
+		 * \param pCbc
+		 * \param pRegNode : Node of the register to write
+		 * \param pValue : Value to write
+		 */
+		bool WriteCbcReg( Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop = true );
+
+		/*!
 		 * \brief Write several registers in both Cbc and Cbc Config File
 		 * \param pCbc
 		 * \param pVecReq : Vector of pair: Node of the register to write versus value to write

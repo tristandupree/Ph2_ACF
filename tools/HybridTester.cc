@@ -145,6 +145,31 @@ void HybridTester::ScanThreshold()
 	scanpause();
 }
 
+void HybridTester::TestRegisters()
+{
+	struct RegTester : public HwDescriptionVisitor
+	{
+		CbcInterface* fInterface;
+		std::string<std::string> fBadRegisters;
+		RegTester( CbcInterface* pInterface ): fInterface( pInterface ) {}
+
+		void visit( Cbc& pCbc ) {
+			uint8_t cFirstBitPattern = 0xAA;
+			uint8_t cSecondBitPattern = 0x55;
+
+			CbcRegMap cMap = pCbc.getRegMap();
+			for ( const auto& cReg : cMap ) {
+				fInterface->WriteCbcReg( &pCbc, cReg.first, cFirstBitPattern, true );
+				fInterface->WriteCbcReg( &pCbc, cReg.first, cSecondBitPattern, true );
+
+			}
+		};
+	};
+
+	RegTester cRegTester( fCbcInterface );
+	accept( cRegTester );
+}
+
 void HybridTester::Measure()
 {
 	uint32_t cTotalEvents = fSettingsMap.find( "Nevents" )->second;
