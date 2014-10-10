@@ -147,6 +147,7 @@ void HybridTester::ScanThreshold()
 
 void HybridTester::TestRegisters()
 {
+	// This method has to be followed by a configure call, otherwise the CBCs will be in an undefined state
 	struct RegTester : public HwDescriptionVisitor
 	{
 		CbcInterface* fInterface;
@@ -176,9 +177,12 @@ void HybridTester::TestRegisters()
 		}
 	};
 
+	std::cout << "Testing Cbc Registers one-by-one with complimentary bit-patterns (0xAA, 0x55) ..." << std::endl;
 	RegTester cRegTester( fCbcInterface );
 	accept( cRegTester );
 	cRegTester.dumpResult();
+	std::cout << "Done testing registers, re-configuring to calibrated state!" << std::endl;
+	ConfigureHw();
 }
 
 void HybridTester::Measure()

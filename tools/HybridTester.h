@@ -30,6 +30,7 @@ class HybridTester : public SystemController
 	HybridTester() {}
 	~HybridTester() {}
 	void InitializeHists();
+	void TestRegisters();
 	void ScanThreshold();
 	void Measure();
 	void SaveResults();
