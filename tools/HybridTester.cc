@@ -150,8 +150,12 @@ void HybridTester::TestRegisters()
 	struct RegTester : public HwDescriptionVisitor
 	{
 		CbcInterface* fInterface;
-		std::string<std::string> fBadRegisters;
-		RegTester( CbcInterface* pInterface ): fInterface( pInterface ) {}
+		std::map<uint32_t, std::set<std::string>> fBadRegisters;
+		RegTester( CbcInterface* pInterface ): fInterface( pInterface ) {
+			std::set<std::string> tempset;
+			fBadRegisters[0] = tempset;
+			fBadRegisters[1] = tempset;
+		}
 
 		void visit( Cbc& pCbc ) {
 			uint8_t cFirstBitPattern = 0xAA;
@@ -159,15 +163,22 @@ void HybridTester::TestRegisters()
 
 			CbcRegMap cMap = pCbc.getRegMap();
 			for ( const auto& cReg : cMap ) {
-				fInterface->WriteCbcReg( &pCbc, cReg.first, cFirstBitPattern, true );
-				fInterface->WriteCbcReg( &pCbc, cReg.first, cSecondBitPattern, true );
-
+				if ( fInterface->WriteCbcReg( &pCbc, cReg.first, cFirstBitPattern, true ) ) fBadResiters[pCbc.getCbcId()] .insert( cReg.first );
+				if ( fInterface->WriteCbcReg( &pCbc, cReg.first, cSecondBitPattern, true ) ) fBadResiters[pCbc.getCbcId()] .insert( cReg.first );
 			}
-		};
+		}
+
+		void dumpResult() {
+			for ( const auto& cCbc : fBadRegisters ) {
+				std::cout << "Bad Registers on Cbc " << cCbc.first << " : " << std::endl;
+				for ( const auto& cReg : cCbc.second ) std::cout << cReg << std::endl;
+			}
+		}
 	};
 
 	RegTester cRegTester( fCbcInterface );
 	accept( cRegTester );
+	cRegTester.dumpResult();
 }
 
 void HybridTester::Measure()
