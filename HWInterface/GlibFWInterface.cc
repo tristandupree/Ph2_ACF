@@ -277,12 +277,19 @@ namespace Ph2_HwInterface
 		boost::posix_time::milliseconds cWait( 1 );
 
 		uhal::ValWord<uint32_t> cVal;
-		uint32_t cNPackets = EVENT_NUMBER + 1;
 
-		uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * 2 * 9 + 6 );
+		// Since the Number of  Packets is a FW register, it should be read from the Settings Table, add 10 as safety
+		uint32_t cNPackets = EVENT_NUMBER + 1;
+		// uint32_t cNPackets = pBoard->getReg( "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER" ) + 10;
+
+
+		// number of CBC's * number of Modules * 9 32 bit words (CBC data) + 6  32 bit words (header + TDC)
+		uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * pBoard->getNFe() * 9 + 6 );
 
 		defineEventSize( pBoard->getModule( 0 )->getNCbc() );
+
 		fData->Initialise( EVENT_NUMBER, *pBoard );
+		// fData->Initialise( cNPackets , *pBoard );
 
 		//Wait for start acknowledge
 		do
@@ -345,6 +352,16 @@ namespace Ph2_HwInterface
 		//Read SRAM
 		uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, cBlockSize );
 
+		// To avoid the IPBUS bug
+		// need to convert uHal::ValVector to vector<uint32_t> so we can replace the 256th word
+		std::vector<uint32_t> cDataAlt = cData.value();
+		if ( cBlockSize > 255 )
+		{
+			std::string fSram_256 = fStrSram + "_256";
+			uhal::ValWord<uint32_t> cWord = ReadReg( fSram_256 );
+			cDataAlt[255] = cWord.value();
+		}
+
 #ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( cStartBlockRead, 1 );
 		std::cout << "Time took for block read: " << std::dec << mtime << " ms." << std::endl;
@@ -381,7 +398,7 @@ namespace Ph2_HwInterface
 		std::cout << "Time took for ReadDataInSRAM: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
-		fData->Set( &cData );
+		fData->Set( &cDataAlt );
 
 	}
 
@@ -400,7 +417,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	const char* GlibFWInterface::GetBuffer( uint32_t& pBufSize )
+	const char* GlibFWInterface::GetBuffer( uint32_t& pBufSize ) const
 	{
 		return fData->GetBuffer( pBufSize );
 	}

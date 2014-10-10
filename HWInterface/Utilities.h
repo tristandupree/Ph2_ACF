@@ -39,6 +39,10 @@ namespace Ph2_HwInterface
 	 * \brief Wait for Enter key press
 	 */
 	void mypause();
+	/*!
+	 * \brief get Current Time & Date
+	 */
+	const std::string currentDateTime();
 
 }
 

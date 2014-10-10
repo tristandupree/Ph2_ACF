@@ -16,7 +16,7 @@
 #include <map>
 #include <vector>
 #include <limits.h>
-#include <boost/cstdint.hpp>
+#include <stdint.h>
 #include "BeBoardFWInterface.h"
 #include "../HWDescription/Module.h"
 
@@ -100,12 +100,11 @@ namespace Ph2_HwInterface
 		 */
 		const Event* GetNextEvent();
 		/*!
-		 * \brief Get the data buffer
-		 * \param pBufSize : recovers the data buffer size
-		 * \return Data buffer
-		 */
-		const char* GetBuffer( uint32_t& pBufSize );
-
+		* \brief Get the data buffer
+		* \param pBufSize : recovers the data buffer size
+		* \return Data buffer
+		*/
+		const char* GetBuffer( uint32_t& pBufSize ) const;
 
 		//Methods for the Cbc's:
 

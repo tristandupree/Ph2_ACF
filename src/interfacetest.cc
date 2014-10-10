@@ -15,6 +15,7 @@
 
 #include <sys/time.h>
 #include <ctime>
+#include "../HWInterface/Visitor.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -48,20 +49,39 @@ int main( int argc, char* argv[] )
 
 	uint64_t t0 = get_time();
 
-	cSystemController.fCbcInterface->ConfigureCbc( cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), true );
+	cSystemController.fCbcInterface->ConfigureCbc( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), true );
+	cSystemController.fCbcInterface->ConfigureCbc( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ), true );
 
 	uint64_t t1 = get_time();
 
-	std::cout << "Time for configuring 1 CBC: " << t1 - t0 << " milliseconds!" << std::endl;
+	std::cout << "Time for configuring all CBC: " << t1 - t0 << " milliseconds!" << std::endl;
+
+	struct CbcWriter : public HwDescriptionVisitor
+	{
+		CbcInterface* fInterface;
+		CbcWriter( CbcInterface* pInterface ): fInterface( pInterface ) {
+		}
+
+		void visit( Cbc& pCbc ) {
+			fInterface->ConfigureCbc( &pCbc , true );
+			std::cout << "I visited CBC " << int( pCbc.getCbcId() ) << " at " << &pCbc << " using interface " << fInterface <<  std::endl;
+		}
+	};
 
 	t0 = get_time();
 
-	cSystemController.fCbcInterface->WriteCbcReg( cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), "VCth", 0x78, true );
-	// cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",0x78, false);
+	// cSystemController.fCbcInterface->WriteCbcReg( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), "VCth", 0x78, true );
+	// cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVector[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",0x78, false);
+	std::cout << cSystemController.fCbcInterface << " INTERFACE " <<  std::endl;
+	std::cout << cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ) << " CBC 0" << std::endl;
+	std::cout << cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ) << " CBC 1" << std::endl;
+
+	CbcWriter pWriter( cSystemController.fCbcInterface );
+	cSystemController.accept( pWriter );
 
 	t1 = get_time();
 
-	std::cout << "Time for single transaction to 1 CBC: " << t1 - t0 << " milliseconds!" << std::endl;
+	std::cout << "Time for configuring all CBCs using visitor: " << t1 - t0 << " milliseconds!" << std::endl;
 
 	std::vector< std::pair< std::string, uint8_t > > cRegVec;
 
@@ -78,8 +98,9 @@ int main( int argc, char* argv[] )
 
 	t0 = get_time();
 
-	cSystemController.fCbcInterface->WriteCbcMultReg( cSystemController.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), cRegVec, true );
-	// cSystemController.fCbcInterface->WriteCbcMultReg(cSystemController.fShelveVec[0]->getBoard(0)->getModule(0)->getCbc(1),cRegVec, false);
+
+	cSystemController.fCbcInterface->WriteCbcMultReg( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), cRegVec, true );
+	// cSystemController.fCbcInterface->WriteCbcMultReg(cSystemController.fShelveVector[0]->getBoard(0)->getModule(0)->getCbc(1),cRegVec, false);
 
 	t1 = get_time();
 

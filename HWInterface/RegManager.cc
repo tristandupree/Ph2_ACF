@@ -75,11 +75,11 @@ namespace Ph2_HwInterface
 	}
 
 
-	bool RegManager::WriteStackReg( std::vector< std::pair<std::string, uint32_t> >& pVecReg )
+	bool RegManager::WriteStackReg( const std::vector< std::pair<std::string, uint32_t> >& pVecReg )
 	{
 
 		fBoardMutex.lock();
-		for ( std::vector< std::pair<std::string, uint32_t> >::iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++ )
+		for ( std::vector< std::pair<std::string, uint32_t> >::const_iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++ )
 			fBoard->getNode( cIt->first ).write( cIt->second );
 		fBoard->dispatch();
 		fBoardMutex.unlock();
@@ -89,7 +89,7 @@ namespace Ph2_HwInterface
 			int cNbErrors = 0;
 			uint32_t comp;
 
-			for ( std::vector< std::pair<std::string, uint32_t> >::iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++ )
+			for ( std::vector< std::pair<std::string, uint32_t> >::const_iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++ )
 			{
 				fBoardMutex.lock();
 				uhal::ValWord<uint32_t> reply = fBoard->getNode( cIt->first ).read();

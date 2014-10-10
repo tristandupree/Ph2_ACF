@@ -1,3 +1,4 @@
+#include <cstring>
 #include "../HWDescription/Cbc.h"
 #include "../HWDescription/Module.h"
 #include "../HWDescription/BeBoard.h"
@@ -22,9 +23,10 @@ int main( int argc, char* argv[] )
 	syntax( argc );
 
 	std::string cHWFile;
-	if ( argv[1] == "8CBC" ) cHWFile = "settings/HWDescription_8CBC.xml";
+	if ( argc > 1 && !strcmp( argv[1], "8CBC" ) ) cHWFile = "settings/HWDescription_8CBC.xml";
 	else cHWFile = "settings/HWDescription_2CBC.xml";
 
+	std::cout << "cHWFile = " << cHWFile << std::endl;
 	TApplication cApp( "Root Application", &argc, argv );
 	TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
@@ -32,7 +34,7 @@ int main( int argc, char* argv[] )
 	cCalibration.InitializeHw( cHWFile );
 	cCalibration.InitializeSettings( cHWFile );
 	cCalibration.CreateResultDirectory( "Results/Calibration" );
-	cCalibration.InitResultFile();
+	cCalibration.InitResultFile( "CalibrationResults" );
 	cCalibration.InitialiseTestGroup();
 	cCalibration.ConfigureHw();
 	cCalibration.VplusScan();
@@ -40,4 +42,6 @@ int main( int argc, char* argv[] )
 	cCalibration.SaveResults();
 
 	cApp.Run();
+
+	return 0;
 }

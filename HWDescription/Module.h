@@ -14,10 +14,12 @@
 
 #include "FrontEndDescription.h"
 #include "Cbc.h"
+#include "../HWInterface/Visitor.h"
 #include <vector>
-#include <boost/cstdint.hpp>
+#include <stdint.h>
 
 // FE Hybrid HW Description Class
+
 
 /*!
  * \namespace Ph2_HwDescription
@@ -47,12 +49,26 @@ namespace Ph2_HwDescription
 		};
 
 		/*!
-		 * \brief Get the number of Cbc connected to the Module
-		 * \return The size of the vector
+		 * \brief acceptor method for HwDescriptionVisitor
+		 * \param pVisitor
 		 */
-		uint8_t getNCbc() {
+		void accept( HwDescriptionVisitor& pVisitor ) {
+			pVisitor.visit( *this );
+			for ( auto& cCbc : fCbcVector )
+				cCbc.accept( pVisitor );
+		}
+		// void accept( HwDescriptionVisitor& pVisitor ) const {
+		//  pVisitor.visit( *this );
+		//  for ( auto& cCbc : fCbcVector )
+		//      cCbc.accept( pVisitor );
+		// }
+		/*!
+		* \brief Get the number of Cbc connected to the Module
+		* \return The size of the vector
+		*/
+		uint8_t getNCbc() const {
 			return fCbcVector.size();
-		};
+		}
 		/*!
 		 * \brief Adding a Cbc to the vector
 		 * \param pCbc
@@ -72,10 +88,10 @@ namespace Ph2_HwDescription
 		Cbc*   getCbc( uint8_t pCbcId );
 
 		/*!
-		 * \brief Get the Module Id
-		 * \return The Module ID
-		 */
-		uint8_t getModuleId() {
+		* \brief Get the Module Id
+		* \return The Module ID
+		*/
+		uint8_t getModuleId() const {
 			return fModuleId;
 		};
 		/*!

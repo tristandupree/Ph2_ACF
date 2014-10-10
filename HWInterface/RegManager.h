@@ -40,45 +40,45 @@ namespace Ph2_HwInterface
 		bool fDeactiveThread;         /*!< Bool to terminate the thread in the destructor*/
 		std::mutex fBoardMutex;         /*!< Mutex to avoid conflict btw threads on shared resources*/
 
-	  public:
-		/*!
-		 * \brief Write a register
-		 * \param pRegNode : Node of the register to write
-		 * \param pVal : Value to write
-		 * \return boolean confirming the writing
-		 */
-		virtual bool WriteReg( const std::string& pRegNode, const uint32_t& pVal );
-		/*!
-		 * \brief Write a stack of registers
-		 * \param pVecReg : vector containing the registers and the associated values to write
-		 * \return boolean confirming the writing
-		 */
-		virtual bool WriteStackReg( std::vector<std::pair<std::string, uint32_t> >& pVecReg );
-		/*!
-		 * \brief Write a block of values in a register
-		 * \param pRegNode : Node of the register to write
-		 * \param pValues : Block of values to write
-		 * \return boolean confirming the writing
-		 */
-		virtual bool WriteBlockReg( const std::string& pRegNode, const std::vector< uint32_t >& pValues );
-		/*!
-		 * \brief Read a value in a register
-		 * \param pRegNode : Node of the register to read
-		 * \return ValWord value of the register
-		 */
-		virtual uhal::ValWord<uint32_t> ReadReg( const std::string& pRegNode );
-		/*!
-		 * \brief Read a block of values in a register
-		 * \param pRegNode : Node of the register to read
-		 * \param pBlocksize : Size of the block to read
-		 * \return ValVector block values of the register
-		 */
-		virtual uhal::ValVector<uint32_t> ReadBlockReg( const std::string& pRegNode, const uint32_t& pBlocksize );
-		/*!
-		 * \brief Time Out for sending the register/value stack in the writting.
-		 * \brief It has only to be set in a detached thread from the one you're working on
-		 */
-		void StackWriteTimeOut();
+        public:
+            /*!
+            * \brief Write a register
+            * \param pRegNode : Node of the register to write
+            * \param pVal : Value to write
+            * \return boolean confirming the writing
+            */
+            virtual bool WriteReg(const std::string& pRegNode, const uint32_t& pVal);
+            /*!
+            * \brief Write a stack of registers
+            * \param pVecReg : vector containing the registers and the associated values to write
+            * \return boolean confirming the writing
+            */
+            virtual bool WriteStackReg(const std::vector<std::pair<std::string,uint32_t> >& pVecReg);
+            /*!
+            * \brief Write a block of values in a register
+            * \param pRegNode : Node of the register to write
+            * \param pValues : Block of values to write
+            * \return boolean confirming the writing
+            */
+            virtual bool WriteBlockReg(const std::string& pRegNode, const std::vector< uint32_t >& pValues);
+            /*!
+            * \brief Read a value in a register
+            * \param pRegNode : Node of the register to read
+            * \return ValWord value of the register
+            */
+            virtual uhal::ValWord<uint32_t> ReadReg(const std::string& pRegNode);
+            /*!
+            * \brief Read a block of values in a register
+            * \param pRegNode : Node of the register to read
+            * \param pBlocksize : Size of the block to read
+            * \return ValVector block values of the register
+            */
+            virtual uhal::ValVector<uint32_t> ReadBlockReg(const std::string& pRegNode, const uint32_t& pBlocksize);
+            /*!
+            * \brief Time Out for sending the register/value stack in the writting.
+            * \brief It has only to be set in a detached thread from the one you're working on
+            */
+            void StackWriteTimeOut();
 
 	  public:
 		// Connection w uHal

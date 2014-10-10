@@ -24,7 +24,6 @@ namespace Ph2_HwDescription
 		fShelveId = 0;
 	}
 
-
 	void Shelve::addBoard( BeBoard& pBoard )
 	{
 		fBoardVector.push_back( pBoard );

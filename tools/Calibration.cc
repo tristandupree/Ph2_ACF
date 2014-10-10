@@ -25,7 +25,7 @@ Calibration::~Calibration()
 void Calibration::InitialiseTestGroup()
 {
 	// Iterating over the Shelves
-	for ( auto cShelve : fShelveVec )
+	for ( auto cShelve : fShelveVector )
 	{
 		for ( auto cBoard : ( cShelve )->fBoardVector )
 		{
@@ -93,7 +93,7 @@ void Calibration::OffsetScan()
 	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
 	uint8_t cTargetVcth = fSettingsMap.find( "TargetVcth" )->second;
 
-	for ( auto& cShelve : fShelveVec )
+	for ( auto& cShelve : fShelveVector )
 	{
 		// Iterating over the Boards
 		for ( BeBoard& board : cShelve->fBoardVector )
@@ -313,7 +313,7 @@ void Calibration::VplusScan()
 	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
 	uint8_t cTargetVcth = fSettingsMap.find( "TargetVcth" )->second;
 
-	for ( auto& cShelve : fShelveVec )
+	for ( auto& cShelve : fShelveVector )
 	{
 		// Iterating over the Boards
 		for ( BeBoard& board : cShelve->fBoardVector )
@@ -418,6 +418,9 @@ void Calibration::FitVplusVcth( BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoD
 			fCbcInterface->WriteCbcReg( &cCbc, "Vplus", cVplusResult );
 			std::cout << "Vplus Setting for Be " << int( pBoard.getBeId() ) << " Fe " << int( cFe.getFeId() ) << " Cbc " << int( cCbc.getCbcId() ) << " : " << int( cVplusResult ) << std::endl;
 
+			cVplusVcthMultiGraph->Write( cVplusVcthMultiGraph->GetName(), TObject::kOverwrite );
+			cFit->Write( cFit->GetName(), TObject::kOverwrite );
+
 		} // End of Cbc Loop
 	} // End of Fe Loop
 }
@@ -425,7 +428,7 @@ void Calibration::FitVplusVcth( BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoD
 void Calibration::setGlobalReg( BeBoard& pBoard, std::string pRegName, uint8_t pRegValue )
 {
 	// Set 1 Register on all Cbcs connected to 1 BeBoard
-	// BeBoard* cBoard = fShelveVec.at(pShelveId)->getBoard(pBeId);
+	// BeBoard* cBoard = fShelveVector.at(pShelveId)->getBoard(pBeId);
 
 	for ( auto cFe : pBoard.fModuleVector )
 	{
@@ -482,6 +485,11 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 			Run( &pBoard, cNthAcq );
 
 			const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+#if 0
+			std::cout << ">>> pGroupId = " << uint32_t( pGroupId ) << " cVcth = " << cVcth << std::endl;
+			std::cout << ">>> Event #" << cN << " Limit = " << pEventsperVcth << std::endl;
+			std::cout << *cEvent << std::endl;
+#endif
 
 			// Loop over Events from this Acquisition
 			while ( cEvent )
@@ -494,7 +502,15 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 				cTotalHits += cNHits;
 				cN++;
 
-				if ( cN < pEventsperVcth ) cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+				if ( cN < pEventsperVcth )
+				{
+					cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+#if 0
+					std::cout << ">>> pGroupId = " << uint32_t( pGroupId ) << " cVcth = " << cVcth << std::endl;
+					std::cout << ">>> Event #" << cN << std::endl;
+					std::cout << *cEvent << std::endl;
+#endif
+				}
 				else break;
 			}
 			cNthAcq++;
@@ -503,7 +519,7 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 		// This is the condition for some channels being different from 0
 		if ( cNonZero == false && cTotalHits != 0 )
 		{
-			// if( cNonZero == false && cTotalHits > 0.3 * pEventsperVcth * pTotalChannels){
+			//if( cNonZero == false && cTotalHits > 0.3 * pEventsperVcth * pTotalChannels){
 			cDoubleVcth = cVcth;
 			cNonZero = true;
 			cVcth -= 2 * cStep;
@@ -512,7 +528,7 @@ void Calibration::measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pE
 		}
 		// This is the condition for all of the S-curves having reached 1
 		if ( cTotalHits == pEventsperVcth * pTotalChannels ) cAllOne++;
-		// if(cTotalHits >= 0.85 * pEventsperVcth * pTotalChannels) cAllOne++;
+		//      if(cTotalHits >= 0.85 * pEventsperVcth * pTotalChannels) cAllOne++;
 		if ( cAllOne == 8 ) break;
 		cVcth += cStep;
 	}  // done looping over Vcth, Scurves created
@@ -661,41 +677,13 @@ uint32_t Calibration::ToggleTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool p
 	return cTotalNChannels;
 }
 
-void Calibration::CreateResultDirectory( std::string pDirname )
-{
-
-	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
-
-	std::string cMode;
-	if ( cHoleMode ) cMode = "_Hole";
-	else cMode = "_Electron";
-
-	pDirname = pDirname + cMode +  currentDateTime();
-	std::cout << "Creating directory: " << pDirname << std::endl;
-	std::string cCommand = "mkdir -p " + pDirname;
-
-	system( cCommand.c_str() );
-
-	fDirName = pDirname;
-}
-
-void Calibration::InitResultFile()
-{
-
-	if ( !fDirName.empty() )
-	{
-		std::string cFilename = fDirName + "/CalibrationResult.root";
-		fResultFile = TFile::Open( cFilename.c_str(), "RECREATE" );
-	}
-	else std::cout << RED << "ERROR: " << RESET << "No Result Directory initialized - not saving results!" << std::endl;
-}
 
 void Calibration::SaveResults()
 {
 
-	if ( !fDirName.empty() )
+	if ( !fDirectoryName.empty() )
 	{
-		for ( auto cShelve : fShelveVec )
+		for ( auto cShelve : fShelveVector )
 		{
 			for ( auto cBoard : ( cShelve )->fBoardVector )
 			{
@@ -705,7 +693,7 @@ void Calibration::SaveResults()
 					{
 						TString cFilename = Form( "/FE%dCBC%d.txt", cFe.getFeId(), cCbc.getCbcId() );
 
-						std::string cPathname = fDirName + cFilename.Data();
+						std::string cPathname = fDirectoryName + cFilename.Data();
 
 						std::cout << "Dumping Calibration Results to file: " << cPathname << std::endl;
 
@@ -714,20 +702,8 @@ void Calibration::SaveResults()
 				}
 			}
 		}
+		fResultFile->Write();
+		fResultFile->Close();
 	}
 	else std::cout << RED << "ERROR: " << RESET << "No Result Directory initialized - not saving results!" << std::endl;
-}
-
-
-const std::string Calibration::currentDateTime()
-{
-	time_t now = time( 0 );
-	struct tm tstruct;
-	char buf[80];
-	tstruct = *localtime( &now );
-	// Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
-	// for more information about date/time format
-	strftime( buf, sizeof( buf ), "_%d-%m-%y_%H:%M", &tstruct );
-
-	return buf;
 }

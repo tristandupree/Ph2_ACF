@@ -71,13 +71,13 @@ namespace Ph2_HwInterface
 	{
 		Reset();
 
-		uhal::ValVector<uint32_t>* cUhalData = ( uhal::ValVector<uint32_t>* )pData;
+		std::vector<uint32_t>* cData = ( std::vector<uint32_t>* ) pData;
 
-		for ( unsigned int i = 0; i < cUhalData->size(); i++ )
+		for ( unsigned int i = 0; i < cData->size(); i++ )
 		{
 
 			char cSwapped[4];
-			uint32_t cVal = cUhalData->at( i );
+			uint32_t cVal = cData->at( i );
 
 			swapByteOrder( ( const char* ) &cVal, cSwapped, 4 );
 

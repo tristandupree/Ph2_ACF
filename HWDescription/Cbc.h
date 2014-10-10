@@ -15,14 +15,16 @@
 
 #include "FrontEndDescription.h"
 #include "CbcRegItem.h"
+#include "../HWInterface/Visitor.h"
 #include <iostream>
 #include <map>
 #include <string>
-#include <boost/cstdint.hpp>
+#include <stdint.h>
 #include <utility>
 #include <set>
 
 // Cbc2 Chip HW Description Class
+
 
 /*!
  * \namespace Ph2_HwDescription
@@ -44,11 +46,11 @@ namespace Ph2_HwDescription
 	  public:
 
 		// C'tors with object FE Description
-		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, std::string filename );
+		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename );
 		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId );
 
 		// C'tors which take ShelveID, BeId, FeID, CbcId
-		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, std::string filename );
+		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, const std::string& filename );
 		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId );
 
 		// Default C'tor
@@ -61,43 +63,53 @@ namespace Ph2_HwDescription
 		~Cbc();
 
 		/*!
-		 * \brief Load RegMap from a file
-		 * \param filename
+		 * \brief acceptor method for HwDescriptionVisitor
+		 * \param pVisitor
 		 */
-		void loadfRegMap( std::string filename );
+		void accept( HwDescriptionVisitor& pVisitor ) {
+			pVisitor.visit( *this );
+		}
+		// void accept( HwDescriptionVisitor& pVisitor ) const {
+		//  pVisitor.visit( *this );
+		// }
+		/*!
+		* \brief Load RegMap from a file
+		* \param filename
+		*/
+		void loadfRegMap( const std::string& filename );
 
 		/*!
-		 * \brief Get any register from the Map
-		 * \param pReg
-		 * \return The value of the register
-		 */
-		uint8_t getReg( std::string pReg );
+		* \brief Get any register from the Map
+		* \param pReg
+		* \return The value of the register
+		*/
+		uint8_t getReg( const std::string& pReg );
 		/*!
-		 * \brief Set any register of the Map
-		 * \param pReg
-		 * \param psetValue
-		 */
-		void setReg( std::string pReg, uint8_t psetValue );
+		* \brief Set any register of the Map
+		* \param pReg
+		* \param psetValue
+		*/
+		void setReg( const std::string& pReg, uint8_t psetValue );
 
 		/*!
-		 * \brief Write the registers of the Map in a file
-		 * \param filename
-		 */
-		void saveRegMap( std::string filename );
+		* \brief Write the registers of the Map in a file
+		* \param filename
+		*/
+		void saveRegMap( const std::string& filename );
 
 		/*!
-		 * \brief Get the Map of the registers
-		 * \return The map of register
-		 */
-		CbcRegMap getRegMap() {
+		* \brief Get the Map of the registers
+		* \return The map of register
+		*/
+		CbcRegMap getRegMap() const {
 			return fRegMap;
 		};
 
 		/*!
-		 * \brief Get the Cbc Id
-		 * \return The Cbc ID
-		 */
-		uint8_t getCbcId() {
+		* \brief Get the Cbc Id
+		* \return The Cbc ID
+		*/
+		uint8_t getCbcId() const {
 			return fCbcId;
 		};
 		/*!
