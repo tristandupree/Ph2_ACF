@@ -16,6 +16,7 @@
 #include <TStyle.h>
 #include <TApplication.h>
 #include <TROOT.h>
+#include "utils.h"
 
 
 using namespace Ph2_HwDescription;
@@ -59,17 +60,53 @@ namespace GUI
 
     void DataTestWorker::doWork()
     {
-        qDebug()<<"Starting worker process in Thread "<<thread()->currentThreadId();
+        //gROOT->SetBatch(kTRUE);
+        static Int_t HistoID = 1;
+        qDebug() << "in Testing env ";
+        std::vector<TH1D*> graphs;
+        std::vector<TCanvas*> vCanvas;
 
-        ReadDataTest();
+        TString name("h1_");
+        Bool_t build = false;
 
-        /*cHistVec.push_back(new TH1F("Histo","HistoName",10,0, 10));
-        cHistVec[0]->Fill(1);
-        emit sendGraphData(cHistVec);*/
+        for (int i = 0; i <2 ; i++)
+        {
+            TCanvas *cCanvas = new TCanvas(build);
+            //TCanvas *containerCanvas = new TCanvas(build);
+
+            //containerCanvas->Divide(2,3);
+
+            name += HistoID++;
+
+            vCanvas.push_back(cCanvas);
+            //vCanvas.at(i)->cd();
+
+
+            TH1D *h1 = new TH1D(name.Data(),name.Data(),10,0, 10);
+            graphs.push_back(h1);
+            graphs.at(i)->Fill(i);
+            graphs.at(i)->Draw();
 
 
 
+            vCanvas.at(i)->Draw();
+            qDebug() << "Here";
 
+        }
+
+        /*void testme() {
+        TCanvas* contentCanvas = new TCanvas();
+        TH1D* myHisto = new TH1D("myHisto", "my histogram", 10, 0.5, 10.5);
+        TCanvas* containerCanvas = new TCanvas();
+        containerCanvas->Divide(2,3);
+        contentCanvas->cd();
+        myHisto->Draw();
+        containerCanvas->GetPad(3)->cd();
+        contentCanvas->DrawClonePad();
+        }*/
+
+
+        emit sendGraphData(vCanvas); //void sendGraphData(const std::vector<TCanvas*> &canvas);
 
         // Set _working to false, meaning the process can't be aborted anymore.
         mutex.lock();
@@ -92,12 +129,20 @@ namespace GUI
         bool abort = _abort;
         mutex.unlock();
 
+        Bool_t build = false;
+        std::vector<TCanvas*> vecCanvas;
+
+        std::vector<std::shared_ptr<TCanvas>> vCanvas;
+        std::vector<std::unique_ptr<TCanvas>> v2Canvas;
 
         for ( uint8_t cNCbc = 0; cNCbc < m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+        {
             cHistVec.push_back( new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 ) );
+            //v2Canvas.push_back();
+            //vecCanvas.push_back(new TCanvas(build));
+        }
 
         uint32_t cNthAcq = 0;
-        //uint32_t cVCth = 100;
 
         for (uint32_t cVCth = 100; cVCth<140; cVCth+=2)
         {
@@ -114,9 +159,9 @@ namespace GUI
             {
                 delete cHistVec[cNCbc];
                 cHistVec[cNCbc] = new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 );
+                std::shared_ptr<TCanvas> test(new TCanvas(build));
+                //vecCanvas.push_back(test);
             }
-
-           // m_systemSettings.fCbcInterface->WriteCbcReg( m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc(cNCbc), "VCth", cVCth );
 
             uint32_t cNevents = 200;
             uint32_t cN = 0;
@@ -148,8 +193,7 @@ namespace GUI
                                 return;
                             }
 
-                            cHistVec[cNCbc]->Fill( cNHits );
-
+                            cHistVec.at(cNCbc)->Fill( cNHits );
                         }
                     }
 
@@ -157,7 +201,15 @@ namespace GUI
                     cN++;
                 }
 
-                emit sendGraphData(cHistVec);
+                for ( uint8_t cNCbc = 0; cNCbc < cHistVec.size(); cNCbc++ )
+                {
+                    qDebug() << vecCanvas.size();
+                    vecCanvas.at(cNCbc)->cd();
+                    cHistVec.at(cNCbc)->Draw();
+                    vecCanvas.at(cNCbc)->Close();
+                }
+
+                emit sendGraphData(vecCanvas);
                 if ( cN == cNevents )
                     break;
 

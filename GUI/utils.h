@@ -11,7 +11,7 @@ namespace GUI{
         static void DestructorMsg(QString value);
         static void DestructorMsg(QObject *object);
 
-        template<typename T, typename... Args> //just for making singleton class
+        template<typename T, typename... Args> //implementing a C++14 feature
         static std::unique_ptr<T> make_unique(Args&&... args)
         {
             return std::unique_ptr<T>(new T(std::forward<Args>(args)...));

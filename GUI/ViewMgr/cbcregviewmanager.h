@@ -13,7 +13,6 @@ namespace GUI{
     private:
         explicit CbcRegViewManager(const CbcRegViewManager& rhs) = delete;
         CbcRegViewManager& operator= (const CbcRegViewManager& rhs) = delete;
-        void createGrid();
     };
 }
 

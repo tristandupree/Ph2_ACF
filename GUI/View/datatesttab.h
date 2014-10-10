@@ -2,10 +2,11 @@
 #define DATATESTTAB_H
 
 #include <QWidget>
-#include "TH1.h"
-//#include "lib/qcustomplot.h"
-//#include "lib/CustomTQtWidget.h"
-//#include "lib/TQtWidget.h"
+#include "lib/TQtWidget.h"
+#include "TCanvas.h"
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <memory>
 
 namespace Ui {
     class DataTestTab;
@@ -27,7 +28,7 @@ namespace GUI{
         void notifyAddGraph();
 
     public slots:
-        void drawGraph(const std::vector<TH1F*> &value);
+        void drawGraph(const std::vector<TCanvas *> &canvas);
 
 
     private slots:
@@ -35,9 +36,11 @@ namespace GUI{
 
     private:
         Ui::DataTestTab *ui;
-        //TH1D* h1;
+        std::vector<TQtWidget*> m_vectorCanvas;
+        std::vector<QGroupBox*> m_vectorGroupBox;
+        std::vector<QHBoxLayout*> m_vectorLayout;
 
-        void setupCanvas(QString graphTitle, int nCbc);
+        void setupCanvas(int cNCbc);
         void drawTest();
     };
 

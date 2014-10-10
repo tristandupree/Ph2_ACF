@@ -11,100 +11,109 @@
 #include "TCanvas.h"
 #include "TRint.h"
 #include "TROOT.h"
+#include <QGroupBox>
+#include <QHBoxLayout>
+
+#include "utils.h"
+
 namespace GUI {
 
     DataTestTab::DataTestTab(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::DataTestTab)
-      //h1(new TH1D("Histo","HistoName",10,0, 10))
 
     {
         ui->setupUi(this);
-        //drawTest();
-        //setupCanvas("CBC1", 2);
-        //ui->gbTestTab->setEnabled(false);
+        setupCanvas(2);
     }
 
     DataTestTab::~DataTestTab()
     {
         //qDebug() << "Destructing " << this;
+        //m_vectorCanvas.clear();
+
         delete ui;
     }
 
-    void DataTestTab::setupCanvas(QString graphTitle, int nCbc)
+    void DataTestTab::setupCanvas(int cNCbc)
     {
-        //ui->graphDataTest->cd();
-        //h1->Fill(1);
-        //ui->graphDataTest->Draw(h1);
+        for (int i=0; i<cNCbc; i++)
+        {
 
+            m_vectorCanvas.push_back(new TQtWidget(this));
 
-        //ui->graphDataTest->GetCanvas()->SetFillColor(5);
-        //ui->graphDataTest->GetCanvas()->Divide(2, 1); //col,row
+            //m_vectorCanvas[i]->GetCanvas()->SetFillColor(i);
+            QHBoxLayout *loH = new QHBoxLayout(this);
 
-        //TH1D* h1 = new TH1D("Histo","HistoName",10,0, 10);
-        //h1->Fill(1);
-        //h1->Draw();
-        //ui->graphDataTest->Draw(h1);
+            loH->addWidget(m_vectorCanvas[i]);
+            m_vectorLayout.push_back(loH);
 
-        //TCanvas* cCanvas = new TCanvas( "Data Acq", "Different hits counters", 1000, 800 );
-        //cCanvas->Divide( 2, 1 );
-        //ui->graphDataTest->
+            QGroupBox *gbCanvas = new QGroupBox(this);
+            QString title = QString("CBC %1").arg(i);
+            gbCanvas->setTitle(title);
+            gbCanvas->setLayout(m_vectorLayout[i]);
+            m_vectorGroupBox.push_back(gbCanvas);
 
+            ui->loCbcBox->addWidget(m_vectorGroupBox[i]);
+        }
     }
 
-    //void DataTestTab::drawGraph(const QVector<double> &x, const QVector<double> &y)
-    void DataTestTab::drawGraph(const std::vector<TH1F *> &value)
+    void DataTestTab::drawGraph(const std::vector<TCanvas*> &canvas)
     {
-        //TCanvas* cCanvas = new TCanvas( "Data Acq", "Different hits counters", 1000, 800 );
-        //cCanvas->Divide( 2, 1 );
-        ui->graphDataTest->GetCanvas()->cd();
-        ui->graphDataTest->GetCanvas()->Clear();
-        //ui->graphDataTest->SetCanvas();
-        //ui->graphDataTest->GetCanvas()->Update();
-        //gPad->SetFillColor(3);
-        ui->graphDataTest->Refresh();
-        ui->graphDataTest->Draw(value[0]);
-        ui->graphDataTest->GetCanvas()->Print("output.pdf");
-        ui->graphDataTest->Refresh();
-
-        //ui->graphDataTest->
-
-        //        /cCanvas->Print( ( ( boost::format( "output/Histogram_Vcth_%d.pdf" ) % ( cVCth ) ).str() ).c_str() );
-
-        for ( uint8_t cNCbc = 0; cNCbc < value.size(); cNCbc++)
+        for (int i=0; i<m_vectorCanvas.size(); i++)
         {
-            qDebug() << cNCbc << " " << value[cNCbc];
-            // delete value[cNCbc];
+            qDebug() << canvas.at(i);
+            canvas.at(i)->cd();
+            m_vectorCanvas.at(i)->cd();
+            m_vectorCanvas.at(i)->GetCanvas()->SetCanvas(canvas.at(i));
+            m_vectorCanvas.at(i)->Refresh();
+            //m_vectorCanvas.at(i)->GetCanvas()->Update();
+
         }
     }
 
     void DataTestTab::drawTest()
     {
-        gROOT->SetBatch(kTRUE);
-        TCanvas* cCanvas = new TCanvas( "Data Acq", "Different hits counters", 1000, 800 );
-        cCanvas->Divide( 2, 1 );
-        ui->graphDataTest->GetCanvas()->SetCanvas(cCanvas);
+        static Int_t HistoID = 1;
+        qDebug() << "in Testing env ";
+        std::vector<TH1D*> graphs;
+        std::vector<TCanvas*> vCanvas;
 
-        for (int i = 1; i <10 ; i++)
+        TString name("h1_");
+        Bool_t build = false;
+        for (int i = 0; i <m_vectorCanvas.size() ; i++)
         {
-            //std::shared_ptr<TH1D> h1(new TH1D("Histo","HistoName",10,0, 10));
+            std::unique_ptr<TCanvas> uCanvas(new TCanvas(build));
+            TCanvas *cCanvas = new TCanvas(build);
+            name += HistoID++;
 
-            ui->graphDataTest->Clear();
-            ui->graphDataTest->Refresh();
+            vCanvas.push_back(cCanvas);
+            vCanvas.at(i)->cd();
 
-            TH1D* h1 = new TH1D("Histo","HistoName",10,0, 10);
-            h1->Fill(i);
-            ui->graphDataTest->Draw(h1);
+
+            TH1D *h1 = new TH1D(name.Data(),name.Data(),10,0, 10);
+            graphs.push_back(h1);
+            graphs.at(i)->Fill(i);
+
+            //graphs.at(i)->Draw();
+            graphs.at(i)->DrawCopy();
+
+            m_vectorCanvas.at(i)->GetCanvas()->SetFillColor(i+5);
+            m_vectorCanvas.at(i)->cd();
+
+            qDebug() << i;
+
+            m_vectorCanvas.at(i)->GetCanvas()->SetCanvas(vCanvas.at(i));
+            m_vectorCanvas.at(i)->Refresh();
         }
-        //delete h1;
     }
+
 
     void DataTestTab::on_btnStart_clicked()
     {
-        drawTest();
+        //drawTest();
 
-        //emit notifyAddGraph();
-
+        emit notifyAddGraph();
     }
 }
 

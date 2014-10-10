@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QVector>
 #include <QThread>
+#include "TCanvas.h"
 
 #include "datatestworker.h"
 
@@ -18,7 +19,7 @@ namespace GUI
         m_thread(new QThread()),
         m_worker(new DataTestWorker(nullptr, sysCtrlSettings))
     {
-        qRegisterMetaType<std::vector<TH1F*>>("std::vector<TH1F*>");
+        qRegisterMetaType<std::vector<TCanvas*> >("std::vector<TCanvas*>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
     }
@@ -42,8 +43,9 @@ namespace GUI
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
 
-        connect(m_worker, SIGNAL(sendGraphData(std::vector<TH1F*>)),
-                this, SLOT(relaySendGraphData(std::vector<TH1F*>)),Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendGraphData(std::vector<TCanvas*>)),
+                this, SLOT(relaySendGraphData(std::vector<TCanvas*>)),
+                Qt::QueuedConnection);
     }
 
     void DataTest::createGraph()
@@ -56,9 +58,9 @@ namespace GUI
 
     }
 
-    void DataTest::relaySendGraphData(const std::vector<TH1F*> &value)
+    void DataTest::relaySendGraphData(const std::vector<TCanvas*> &canvas)
     {
-        emit sendGraphData(value);
+        emit sendGraphData(canvas);
     }
 
 }

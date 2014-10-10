@@ -31,8 +31,8 @@ namespace GUI
 
     void DataTestViewManager::WireThreads()
     {
-        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<TH1F*>)),
-                &m_dataTestTab, SLOT(drawGraph(std::vector<TH1F*>)));
+        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<TCanvas*>)),
+                &m_dataTestTab, SLOT(drawGraph(std::vector<TCanvas*>)));
     }
 
 

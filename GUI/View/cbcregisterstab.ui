@@ -15,53 +15,10 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
-    <widget class="QToolBox" name="toolBox">
+    <widget class="QTabWidget" name="cbcTabs">
      <property name="currentIndex">
-      <number>0</number>
+      <number>-1</number>
      </property>
-     <widget class="QWidget" name="toolTwo">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>453</width>
-        <height>382</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>Cbc Two</string>
-      </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <layout class="QVBoxLayout" name="loToolTwo"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="toolOne">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>453</width>
-        <height>382</height>
-       </rect>
-      </property>
-      <attribute name="label">
-       <string>Cbc One</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <layout class="QHBoxLayout" name="loToolOne">
-         <item>
-          <widget class="QColumnView" name="colOne"/>
-         </item>
-         <item>
-          <widget class="QTableView" name="tableOne"/>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>

@@ -22,10 +22,12 @@ namespace GUI {
         explicit CbcRegistersTab(QWidget *parent);
     ~CbcRegistersTab();
 
+    public slots:
+        void createCbcRegGrid(int cNCbcs);
+
     private:
         Ui::CbcRegistersTab *ui;
         QStandardItemModel *model;
-        void startup();
     };
 }
 

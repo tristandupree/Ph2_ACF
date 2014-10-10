@@ -25,11 +25,11 @@ namespace GUI{
         ~DataTest();
 
     signals:
-        void sendGraphData(const std::vector<TH1F*> &value);
+        void sendGraphData(const std::vector<TCanvas*> &canvas);
 
     public slots:
 
-        void relaySendGraphData(const std::vector<TH1F*> &value);
+        void relaySendGraphData(const std::vector<TCanvas*> &canvas);
 
         void createGraph();
 

@@ -28,8 +28,7 @@ namespace GUI{
         void valueChanged(const QString &value);
         void finished();
 
-        //void sendGraphData(const QVariantMap &mapGraph);
-        void sendGraphData(const std::vector<TH1F*> &value);
+        void sendGraphData(const std::vector<TCanvas*> &canvas);
 
     public slots:
 
