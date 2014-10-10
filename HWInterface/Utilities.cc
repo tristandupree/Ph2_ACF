@@ -62,11 +62,11 @@ const std::string currentDateTime()
 	return buf;
 }
 
-double_t MyErf( double_t* x, double_t* par )
+double MyErf( double* x, double* par )
 {
-	double_t x0 = par[0];
-	double_t width = par[1];
-	double_t fitval( 0 );
+	double x0 = par[0];
+	double width = par[1];
+	double fitval( 0 );
 	if ( x[0] < x0 ) fitval = 0.5 * TMath::Erfc( ( x0 - x[0] ) / width );
 	else fitval = 0.5 + 0.5 * TMath::Erf( ( x[0] - x0 ) / width );
 	return fitval;

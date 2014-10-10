@@ -19,6 +19,7 @@
 #include <limits>
 #include "../HWDescription/Definition.h"
 #include <iostream>
+#include "TMath.h"
 
 /*!
  * \brief Get time took since the start
@@ -46,6 +47,6 @@ const std::string currentDateTime();
  * \param p: parameter array
  * \return function value
  */
-double_t MyErf( double_t* x, double_t* par );
+double MyErf( double* x, double* par );
 
 #endif

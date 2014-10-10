@@ -182,7 +182,7 @@ void HybridTester::ScanThreshold()
 
 	std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by 3 sigmas (" << noise << ") to " << int( ceil( pedestal + 3 * noise ) ) << " for Hybrid test!" << std::endl;
 
-	CbcRegWriter cWriter( fInterface, "VCth", uint8_t( ceil( pedestal + 3 * noise ) ) );
+	CbcRegWriter cWriter( fCbcInterface, "VCth", uint8_t( ceil( pedestal + 3 * noise ) ) );
 	accept( cWriter );
 
 	// Wait for user to acknowledge and turn on external Source!
@@ -208,8 +208,8 @@ void HybridTester::TestRegisters()
 
 			CbcRegMap cMap = pCbc.getRegMap();
 			for ( const auto& cReg : cMap ) {
-				if ( fInterface->WriteCbcReg( &pCbc, cReg.first, cFirstBitPattern, true ) ) fBadResiters[pCbc.getCbcId()] .insert( cReg.first );
-				if ( fInterface->WriteCbcReg( &pCbc, cReg.first, cSecondBitPattern, true ) ) fBadResiters[pCbc.getCbcId()] .insert( cReg.first );
+				if ( fInterface->WriteCbcReg( &pCbc, cReg.first, cFirstBitPattern, true ) ) fBadRegisters[pCbc.getCbcId()] .insert( cReg.first );
+				if ( fInterface->WriteCbcReg( &pCbc, cReg.first, cSecondBitPattern, true ) ) fBadRegisters[pCbc.getCbcId()] .insert( cReg.first );
 			}
 		}
 

@@ -19,6 +19,7 @@
 #include "TCanvas.h"
 #include "TFile.h"
 #include "TH1F.h"
+#include "TF1.h"
 #include "TStyle.h"
 
 using namespace Ph2_HwDescription;
