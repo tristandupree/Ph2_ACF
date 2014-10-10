@@ -20,6 +20,7 @@ namespace GUI{
         void ParseJsondata();
 
         QVariantMap getshelveIdMap() const {return *map_ShelveId;} //QVariantMaps are implicitly shared
+        QVariantMap getHwDescriptionMap() const {return *map_HwDescription;}
     ~Settings();
 
     signals:
@@ -35,6 +36,7 @@ namespace GUI{
         QStandardItemModel *CreateItemModel();
         QStandardItemModel *getHwStandardItems() {return CreateItemModel();}
 
+        QVariantMap* map_Settings;
         QVariantMap* map_HwDescription;
         QVariantMap* map_ShelveId;
         QVariantMap* map_BeBoardId;

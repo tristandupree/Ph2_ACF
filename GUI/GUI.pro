@@ -48,7 +48,8 @@ SOURCES += main.cpp\
     ViewMgr/datatestviewmanager.cpp \
     Macros/macrotesttab.cpp \
     Model/datatestworker.cpp \
-    View/aboutbox.cpp
+    View/aboutbox.cpp \
+    Model/systemcontrollerworker.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -66,8 +67,8 @@ HEADERS  += View/mainview.h \
     ViewMgr/datatestviewmanager.h \
     Macros/macrotesttab.h \
     Model/datatestworker.h \
-    Model/systemcontrollersettings.h \
     View/aboutbox.h \
+    Model/systemcontrollerworker.h
     #lib/TQtWidget.h
 
 

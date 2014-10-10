@@ -8,6 +8,7 @@
 #include "View/mainview.h"
 #include "Model/settings.h"
 #include "Model/systemcontroller.h"
+#include "Model/systemcontrollerworker.h"
 #include "Model/datatest.h"
 #include "ViewMgr/setuptabviewmanager.h"
 #include "provider.h"
@@ -37,13 +38,11 @@ namespace GUI
                                  m_dataTab,
                                  m_macroTestTab)),
 
-        m_systemControllerSettings(new SystemControllerSettings()),
         m_systemController(new SystemController(this,
-                                                Provider::getSettingsAsSingleton(),
-                                                *m_systemControllerSettings)),
+                                                Provider::getSettingsAsSingleton())),
 
         m_dataTest(new DataTest(this,
-                                *m_systemControllerSettings)),
+                                *m_systemController)),
 
         m_setupTabVm(new SetupTabViewManager(this,
                                              m_setupTab,
@@ -52,7 +51,6 @@ namespace GUI
         m_dataTabVm(new DataTestViewManager(this,
                                             m_dataTab,
                                             *m_dataTest))
-
     {
     }
 
@@ -63,5 +61,6 @@ namespace GUI
 
     void Startup::show() const{
         m_mainView.show();
+       // m_systemController->m
     }
 }

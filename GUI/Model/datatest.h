@@ -3,7 +3,6 @@
 #include <QVector>
 
 #include "datatestworker.h"
-#include "Model/systemcontrollersettings.h"
 
 namespace GUI{
 
@@ -16,7 +15,7 @@ namespace GUI{
         Q_OBJECT
     public:
         explicit DataTest(QObject *parent,
-                          SystemControllerSettings &sysCtrlSettings);
+                          SystemController &sysController);
 
         void requestWork();
         void abort();
@@ -38,7 +37,7 @@ namespace GUI{
 
     private:
 
-        SystemControllerSettings &m_systemControllerSettings;
+        SystemController&m_systemController;
         QThread *m_thread;
         DataTestWorker *m_worker;
 

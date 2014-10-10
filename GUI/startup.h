@@ -14,7 +14,6 @@ namespace GUI{
     class MainView;
 
     class Settings;
-    class SystemControllerSettings;
 
     class SystemController;
 
@@ -43,13 +42,7 @@ namespace GUI{
         MainView& m_mainView;
         Settings* m_settings;
 
-        //std::unique_ptr<SystemControllerSettings> m_systemControllerSettings;
-        //SystemControllerSettings* m_systemControllerSettings;
-        std::shared_ptr<SystemControllerSettings> m_systemControllerSettings;
-
         SystemController* m_systemController;
-
-        //QThread *m_threadDataTest;
 
         DataTest* m_dataTest;
 

@@ -21,7 +21,7 @@
 #include <TROOT.h>
 
 namespace externalCalib {
-#include "../src/calibrationtest.cc"
+#include "../src/calibrate.cc"
 }
 
 namespace externalInterface {
@@ -29,7 +29,7 @@ namespace externalInterface {
 }
 
 namespace externalReadData {
-#include "../src/readdatatest2CBC.cc"
+#include "../src/datatest.cc"
 }
 
 namespace externalSystemTest {

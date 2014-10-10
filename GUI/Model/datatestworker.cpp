@@ -1,5 +1,4 @@
 #include "datatestworker.h"
-#include "Model/systemcontrollersettings.h"
 #include <QDebug>
 #include <QVector>
 #include <QThread>
@@ -26,9 +25,9 @@ using namespace Ph2_HwInterface;
 namespace GUI
 {
     DataTestWorker::DataTestWorker(QObject *parent,
-                                   SystemControllerSettings &sysSettings) ://, SystemController &sysCtrl) :
+                                   SystemController &sysController) ://, SystemController &sysCtrl) :
         QObject(parent),
-        m_systemSettings(sysSettings)
+        m_systemController(sysController)
     {
     }
 
@@ -135,7 +134,7 @@ namespace GUI
         std::vector<std::shared_ptr<TCanvas>> vCanvas;
         std::vector<std::unique_ptr<TCanvas>> v2Canvas;
 
-        for ( uint8_t cNCbc = 0; cNCbc < m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+        for ( uint8_t cNCbc = 0; cNCbc < m_systemController.m_SystemControllerWorker->fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
         {
             cHistVec.push_back( new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 ) );
             //v2Canvas.push_back();
@@ -147,15 +146,15 @@ namespace GUI
         for (uint32_t cVCth = 100; cVCth<140; cVCth+=2)
         {
 
-            m_systemSettings.fCbcInterface->WriteCbcReg( m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), "VCth", cVCth );
-            m_systemSettings.fCbcInterface->WriteCbcReg( m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ), "VCth", cVCth );
+            m_systemController.m_SystemControllerWorker.fCbcInterface->WriteCbcReg( m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), "VCth", cVCth );
+            m_systemController.m_SystemControllerWorker.fCbcInterface->WriteCbcReg( m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ), "VCth", cVCth );
             if (abort)
             {
                 qDebug()<<"Aborting worker process in Thread "<<thread()->currentThreadId();
                 break;
             }
 
-            for ( uint8_t cNCbc = 0; cNCbc < m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+            for ( uint8_t cNCbc = 0; cNCbc < m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
             {
                 delete cHistVec[cNCbc];
                 cHistVec[cNCbc] = new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 );
@@ -168,16 +167,16 @@ namespace GUI
 
             while ( !( cN == cNevents ) )
             {
-                Run(m_systemSettings.fShelveVec[0]->getBoard(0), cNthAcq);
-                const Event* cEvent = m_systemSettings.fBeBoardInterface->GetNextEvent( m_systemSettings.fShelveVec[0]->getBoard( 0 ) );
+                Run(m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard(0), cNthAcq);
+                const Event* cEvent = m_systemController.m_SystemControllerWorker.fBeBoardInterface->GetNextEvent( m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 ) );
                 while ( cEvent )
                 {
                     if ( cNevents != 0 && cN == cNevents )
                         break;
 
-                    for ( uint8_t cNFe = 0; cNFe < m_systemSettings.fShelveVec[0]->getBoard( 0 )->getNFe(); cNFe++ )
+                    for ( uint8_t cNFe = 0; cNFe < m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getNFe(); cNFe++ )
                     {
-                        for ( uint8_t cNCbc = 0; cNCbc < m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+                        for ( uint8_t cNCbc = 0; cNCbc < m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
                         {
                             uint cNHits = 0;
                             std::vector<bool> cDataBitVector = cEvent->DataBitVector( cNFe, cNCbc );
@@ -197,7 +196,7 @@ namespace GUI
                         }
                     }
 
-                    cEvent = m_systemSettings.fBeBoardInterface->GetNextEvent( m_systemSettings.fShelveVec[0]->getBoard( 0 ) );
+                    cEvent = m_systemController.m_SystemControllerWorker.fBeBoardInterface->GetNextEvent( m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 ) );
                     cN++;
                 }
 
@@ -222,9 +221,9 @@ namespace GUI
 
     void DataTestWorker::Run(BeBoard* pBeBoard, uint32_t pNthAcq)
     {
-        m_systemSettings.fBeBoardInterface->Start(pBeBoard);
-        m_systemSettings.fBeBoardInterface->ReadData(pBeBoard, pNthAcq, true );
-        m_systemSettings.fBeBoardInterface->Stop(pBeBoard, pNthAcq);
+        m_systemController.m_SystemControllerWorker.fBeBoardInterface->Start(pBeBoard);
+        m_systemController.m_SystemControllerWorker.fBeBoardInterface->ReadData(pBeBoard, pNthAcq, true );
+        m_systemController.m_SystemControllerWorker.fBeBoardInterface->Stop(pBeBoard, pNthAcq);
     }
 
 }

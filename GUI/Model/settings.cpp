@@ -39,11 +39,12 @@ namespace GUI
             SendStatusMessage(tr("Json file empty or not formatted correctly"));
             return;
         }
-        //map_HwDescription=this;
 
-        auto result = GetJsonObject(raw_json);
+        map_Settings = new QVariantMap;
+        *map_Settings = GetJsonObject(raw_json);
+
         map_HwDescription = new QVariantMap;
-        *map_HwDescription = (result["HwDescription"].toMap());
+        *map_HwDescription = (map_Settings->value("HwDescription").toMap());
 
     }
 
@@ -194,7 +195,7 @@ namespace GUI
 
         if (!res_dir.exists())
         {
-            SendStatusMessage(tr("Internal resource path missing ") + res_dir.canonicalPath()); //connect to Notify
+            SendStatusMessage(tr("Internal resource path missing ") + res_dir.canonicalPath());
             return "";
         }
         auto path= res_dir.filePath(m_filename);

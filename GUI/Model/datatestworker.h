@@ -6,7 +6,7 @@
 #include <TH1.h>
 #include <vector>
 
-#include "Model/systemcontrollersettings.h"
+#include "Model/systemcontroller.h"
 
 namespace GUI{
     class SystemControllerSettings;
@@ -15,7 +15,7 @@ namespace GUI{
         Q_OBJECT
     public:
         explicit DataTestWorker(QObject *parent,
-                                SystemControllerSettings &sysSettings);
+                                SystemController &sysController);
 
         void requestWork();
         void abort();
@@ -39,7 +39,7 @@ namespace GUI{
         bool _abort;
         bool _working;
         QMutex mutex;
-        SystemControllerSettings& m_systemSettings;
+        SystemController& m_systemController;
 
         std::vector<TH1F*> cHistVec;
 

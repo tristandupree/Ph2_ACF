@@ -7,19 +7,18 @@
 #include <QVariantMap>
 
 #include "settings.h"
-#include "Model/systemcontrollersettings.h"
+#include "Model/systemcontrollerworker.h"
 
 namespace GUI{
 
     class Settings;
 
-    class SystemController : public QObject//, public SystemControllerSettings
+    class SystemController : public QObject
     {
         Q_OBJECT
     public:
         explicit SystemController(QObject *parent,
-                                  Settings &config,
-                                  SystemControllerSettings &ctrlConfig);
+                                  Settings &config);
 
         void Run(BeBoard *pBeBoard, uint32_t pNthAcq);
 
@@ -37,22 +36,11 @@ namespace GUI{
 
     private:
 
+        Settings& m_Settings;
+        SystemControllerWorker* m_SystemControllerWorker;
+
         void InitialiseHw();
         void ConfigureHw();
-
-        uint32_t cShelveId;
-        uint32_t cBeId;
-        uint32_t cModuleId;
-        uint32_t cCbcId;
-        uint32_t cFeId;
-        uint32_t cFmcId;
-        uint32_t cNShelve;
-
-        Settings& m_Settings;
-        SystemControllerSettings& m_systemSettings;
-
-
-        QVariantMap* map_ShelveId; //TODO don't pass in like this
         void SendStatusMessage(QString msg);
 
         explicit SystemController(const SystemController& rhs) = delete;

@@ -21,6 +21,11 @@ namespace Ph2_System
 	class SystemController;
 }
 
+namespace GUI
+{
+	class SystemControllerWorker;
+}
+
 namespace Ph2_HwDescription
 {
 	class Shelve;
@@ -43,6 +48,12 @@ class HwDescriptionVisitor
 	 */
 	virtual void visit( Ph2_System::SystemController& pSystemController ) {}
 	// virtual void visit() = 0;
+
+	/*!
+		 * \brief Visitor for top level System Controller in the GUI
+		 * \param pSystemController
+		 */
+	virtual void visit( const GUI::SystemControllerWorker& pSystemControllerWorker ) {}
 
 	/*!
 	 * \brief Visitor for Shelve Class

@@ -1,6 +1,6 @@
-#include "systemcontroller.h"
+#include "Model/systemcontroller.h"
 #include "settings.h"
-#include "systemcontrollersettings.h"
+#include "Model/systemcontrollerworker.h"
 
 #include <iostream>
 #include <vector>
@@ -20,19 +20,10 @@ using namespace Ph2_HwInterface;
 namespace GUI
 {
     SystemController::SystemController(QObject *parent,
-                                       Settings &config,
-                                       SystemControllerSettings &sysConfig) :
+                                       Settings &config) :
         QObject(parent),
-        cShelveId(0),
-        cBeId(0),
-        cModuleId(0),
-        cCbcId(0),
-        cNShelve(0),
-        cFeId(0),
-        cFmcId(0),
         m_Settings(config),
-        m_systemSettings(sysConfig),
-        map_ShelveId(new QVariantMap)
+        m_SystemControllerWorker(new SystemControllerWorker(config))
     {
     }
 
@@ -55,137 +46,12 @@ namespace GUI
 
     void SystemController::InitialiseHw()
     {
-        *map_ShelveId = m_Settings.getshelveIdMap();
-
-        /*if (map_ShelveId->isEmpty())
-        {
-            SendStatusMessage(tr("Initialise HW failed, error in settings contents: ") + map_ShelveId->keys());
-            return; //TODO - disable config button
-        }*/
-
-
-        for (auto& sh_kv: map_ShelveId->keys())
-        {
-
-
-            cShelveId=sh_kv.toUInt();
-            m_systemSettings.fShelveVec.push_back((new Shelve(cShelveId)));
-            QVariantMap map_BeBoardId = map_ShelveId->value(sh_kv).toMap().value("BeBoardId").toMap();
-
-            for(auto& be_kv: map_BeBoardId.keys())
-            {
-                cBeId = be_kv.toUInt();
-
-                BeBoard cBeBoard(cShelveId,cBeId);
-
-                QVariantMap map_BeBoardIdValues = map_BeBoardId.value(be_kv).toMap();
-
-                QVariantMap map_RegisterValues = map_BeBoardIdValues.value("RegisterName").toMap();
-
-                for(auto& reg_kv : map_RegisterValues.keys()  )
-                {
-                    cBeBoard.setReg(reg_kv.toStdString(),map_RegisterValues.value(reg_kv).toUInt());
-                }
-                m_systemSettings.fShelveVec[cNShelve]->addBoard(cBeBoard);
-                BeBoardFWInterface* cBeBoardFWInterface;
-
-                if(map_BeBoardIdValues.value("boardType").toString() == "GLIB")
-                {
-                    cBeBoardFWInterface = new GlibFWInterface("file://settings/connections_2CBC.xml",cBeId); //TODO - get rid of XML
-                    m_systemSettings.fBeBoardFWMap[cBeId] = cBeBoardFWInterface;
-                }
-
-                if( map_BeBoardIdValues.contains("Module"))
-                {
-                    QVariantMap map_module_values = map_BeBoardIdValues.value("Module").toMap();
-
-                    cModuleId = map_module_values.value("FeId").toUInt();
-                    cFmcId = map_BeBoardId.value("FMCId").toInt();
-                    cFeId = map_BeBoardId.value("FeId").toInt();
-                    Module cModule(cShelveId,cBeId, cFmcId, cFeId,cModuleId);
-                    m_systemSettings.fShelveVec[cNShelve]->getBoard(cBeId)->addModule(cModule);
-
-                    int index(0);
-
-                    for(auto& config_lv: map_module_values.value("CbcConfigFile").toList()) //could change this loop for indv. + global
-                    {
-                        Cbc cCbc(cShelveId,cBeId,cFmcId,cFeId,index,config_lv.toString().toStdString());
-                        index++;
-
-                        for(auto& cbcReg_kv : map_module_values.value("CbcRegisters").toMap().keys())
-                        {
-                            cCbc.setReg(cbcReg_kv.toStdString(), map_module_values.value("CbcRegisters").toMap().value(cbcReg_kv).toInt());
-                        }
-                        m_systemSettings.fShelveVec[cNShelve]->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);
-                    }
-                }
-            }
-        }
-
-        m_systemSettings.fBeBoardInterface = new BeBoardInterface(m_systemSettings.fBeBoardFWMap);
-        m_systemSettings.fCbcInterface = new CbcInterface(m_systemSettings.fBeBoardFWMap);
+        m_SystemControllerWorker->InitializeHw();
     }
 
     void SystemController::ConfigureHw()
     {
-        uint32_t cMissedBoard, cMissedModule, cMissedCbc;
-
-        for(uint32_t cSId=0; cSId<m_systemSettings.fShelveVec.size(); cSId++)
-        {
-            cMissedBoard = 0;
-
-            for(uint32_t cNBe=0; cNBe<m_systemSettings.fShelveVec[cSId]->getNBoard(); cNBe++)
-            {
-                if(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard) == NULL)
-                {
-                    cNBe--;
-                    cMissedBoard++;
-                }
-
-                else
-                {
-                    cMissedModule = 0;
-
-                    m_systemSettings.fBeBoardInterface->ConfigureBoard(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard));
-
-                    for(uint32_t cNFe=0; cNFe<m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getNFe(); cNFe++)
-                    {
-                        if(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule) == NULL)
-                        {
-                            cNFe--;
-                            cMissedModule++;
-                        }
-
-                        else
-                        {
-                            cMissedCbc = 0;
-
-                            for(uint32_t cNCbc=0; cNCbc<m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getNCbc(); cNCbc++)
-                            {
-                                if(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc) == NULL)
-                                {
-                                    cNCbc--;
-                                    cMissedCbc++;
-                                }
-
-                                else
-                                {
-                                    m_systemSettings.fCbcInterface->ConfigureCbc(m_systemSettings.fShelveVec[cSId]->getBoard(cNBe+cMissedBoard)->getModule(cNFe+cMissedModule)->getCbc(cNCbc+cMissedCbc),false);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-       //qDebug() << m_systemSettings.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 )->getCbcId() ;
-    }
-
-    void SystemController::Run(BeBoard* pBeBoard, uint32_t pNthAcq)
-    {
-        m_systemSettings.fBeBoardInterface->Start(pBeBoard);
-        m_systemSettings.fBeBoardInterface->ReadData(pBeBoard, pNthAcq, true );
-        m_systemSettings.fBeBoardInterface->Stop(pBeBoard, pNthAcq);
+        m_SystemControllerWorker->ConfigureHw();
     }
 
     void SystemController::SendStatusMessage(QString msg)

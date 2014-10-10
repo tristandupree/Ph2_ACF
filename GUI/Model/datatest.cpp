@@ -1,23 +1,23 @@
 #include "datatest.h"
-
-#include "Model/systemcontrollersettings.h"
 #include <QDebug>
 #include <QVector>
 #include <QThread>
 #include "TCanvas.h"
 
 #include "datatestworker.h"
+#include "Model/systemcontroller.h"
 
 
 
 namespace GUI
 {
     DataTest::DataTest(QObject *parent,
-                       SystemControllerSettings &sysCtrlSettings) :
+                       SystemController &sysController) :
         QObject(parent),
-        m_systemControllerSettings(sysCtrlSettings),
+        m_systemController(sysController),
         m_thread(new QThread()),
-        m_worker(new DataTestWorker(nullptr, sysCtrlSettings))
+        m_worker(new DataTestWorker(nullptr,
+                                    sysController))
     {
         qRegisterMetaType<std::vector<TCanvas*> >("std::vector<TCanvas*>");
         m_worker->moveToThread(m_thread);
