@@ -102,15 +102,12 @@ namespace GUI
         contentCanvas->DrawClonePad();
         }*/
 
-
         emit sendGraphData(vCanvas); //void sendGraphData(const std::vector<TCanvas*> &canvas);
 
         // Set _working to false, meaning the process can't be aborted anymore.
         mutex.lock();
         _working = false;
         mutex.unlock();
-
-
 
         qDebug()<<"Worker process finished in Thread "<<thread()->currentThreadId();
 

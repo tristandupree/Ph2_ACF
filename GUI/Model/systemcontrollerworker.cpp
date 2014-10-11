@@ -137,6 +137,10 @@ namespace GUI
         }
         fBeBoardInterface = new BeBoardInterface(fBeBoardFWMap);
         fCbcInterface = new CbcInterface(fBeBoardFWMap);
+
+        mutex.lock();
+        _working = false;
+        mutex.unlock();
         emit finishedInitialiseHw();
     }
 
@@ -169,6 +173,10 @@ namespace GUI
 
         Configurator cConfigurator( fBeBoardInterface, fCbcInterface );
         accept( cConfigurator );
+
+        mutex.lock();
+        _working = false;
+        mutex.unlock();
         emit finishedConfigureHw();
     }
 
@@ -178,7 +186,7 @@ namespace GUI
         bool abort = _abort;
         mutex.unlock();
 
-        qDebug() << map_HwDescription->keys();
+        //qDebug() << map_HwDescription->keys();
         class Configurator: public HwDescriptionVisitor
         {
         private:
@@ -187,9 +195,8 @@ namespace GUI
         public:
             Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
             void visit( BeBoard& pBoard ) {
-                qDebug() << "I'm in";
+                //qDebug() << "I'm in";
                 fBeBoardInterface->ConfigureBoard( &pBoard );
-                qDebug() << "I finished";
                 qDebug() << "Successfully configured Board " << int( pBoard.getBeId() );
             }
             void visit( Cbc& pCbc ) {
