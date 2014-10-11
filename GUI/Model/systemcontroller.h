@@ -22,26 +22,36 @@ namespace GUI{
 
         void Run(BeBoard *pBeBoard, uint32_t pNthAcq);
 
+       // SystemControllerWorker &getSystemControllerWorker() const {return *m_SystemControllerWorker;}
+
+        void requestWork();
+        void abort();
+
     ~SystemController();
 
 
     signals:
         void notifyStatusMessage(QString msg);
+        void notifyConfigFinished();
+        void notifyInitFinished();
 
     public slots:
 
         void startInitialiseHw();
         void startConfigureHw();
+        void finishInitialiseHw();
+        void finishConfigureHw();
 
 
     private:
 
         Settings& m_Settings;
-        SystemControllerWorker* m_SystemControllerWorker;
+        QThread *m_thread;
+        SystemControllerWorker *m_worker;
 
-        void InitialiseHw();
-        void ConfigureHw();
         void SendStatusMessage(QString msg);
+
+        void WireThreadConnections();
 
         explicit SystemController(const SystemController& rhs) = delete;
         SystemController& operator= (const SystemController& rhs) = delete;

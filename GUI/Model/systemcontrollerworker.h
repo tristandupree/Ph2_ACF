@@ -1,5 +1,6 @@
-#ifndef __SYSTEMCONTROLLER_H__
-#define __SYSTEMCONTROLLER_H__
+#pragma once
+#include <QObject>
+#include <QMutex>
 #include "Model/settings.h"
 #include <QVariantMap>
 
@@ -15,6 +16,7 @@
 #include <map>
 #include <stdlib.h>
 #include <string.h>
+#include <QMutex>
 
 #include "TFile.h"
 
@@ -22,23 +24,16 @@
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 
-/*!
- * \namespace Ph2_System
- * \brief Namespace regrouping the framework wrapper
- */
 namespace GUI
 {
 
     typedef std::vector<Shelve*> ShelveVec;     /*!< Vector of Shelve pointers */
     typedef std::map<std::string, uint32_t> SettingsMap;    /*!< Maps the settings */
 
-    /*!
-     * \class SystemController
-     * \brief Create, initialise, configure a predefined HW structure
-     */
-    class SystemControllerWorker
+    class SystemControllerWorker : public QObject
     {
-      public:
+        Q_OBJECT
+    public:
         BeBoardInterface*       fBeBoardInterface;                     /*!< Interface to the BeBoard */
         CbcInterface*           fCbcInterface;                     /*!< Interface to the Cbc */
         ShelveVec fShelveVector;                                           /*!< Vector of Shelve pointers */
@@ -46,72 +41,45 @@ namespace GUI
         SettingsMap fSettingsMap;                                         /*!< Maps the settings */
         std::string fDirectoryName;             /*< the Directoryname for the Root file with results */
 
+    public:
+        explicit SystemControllerWorker(QObject *parent,
+                                        Settings &config);
 
+        void requestWork();
+        void requestConfigureHw();
+        void abort();
 
-      public:
+        void accept( HwDescriptionVisitor& pVisitor ) const {
+            pVisitor.visit( *this );
+            for ( auto& cShelve : fShelveVector )
+                cShelve->accept( pVisitor );
+        }
 
-        SystemControllerWorker(Settings &config);
-        /*!
-         * \brief Destructor of the SystemController class
-         */
         ~SystemControllerWorker();
-
-        /*!
-         * \brief acceptor method for HwDescriptionVisitor
-         * \param pVisitor
-         */
-
-         void accept( HwDescriptionVisitor& pVisitor ) const {
-          pVisitor.visit( *this );
-          for ( auto& cShelve : fShelveVector )
-              cShelve->accept( pVisitor );
-         }
-
-        /*!
-         * \brief Create a result directory at the specified path + ChargeMode + Timestamp
-         * \param pDirectoryname : the name of the directory to create
-         */
-        void CreateResultDirectory( std::string pDirectoryname );
-        /*!
-         * \brief Initialize the result Root file
-         * \param pFilename : Root filename
-         */
-        void InitResultFile( std::string pFilename );
-
-        /*!
-         * \brief Initialize the Hardware via an XML file
-         * \param pFilename : XML HW Description file
-         */
-        void InitializeHw();
-        /*!
-         * \brief Initialize the settings
-         * \param pFilename : XML HW Description file
-         */
-        void InitializeSettings( const std::string& pFilename );
-        /*!
-         * \brief Configure the Hardware with XML file indicated values
-         */
-        void ConfigureHw();
-        /*!
-         * \brief Run a DAQ
-         * \param pBeBoard
-         * \param pNthAcq
-         */
         void Run( BeBoard* pBeBoard, uint32_t pNthAcq );
 
-      private:
-        // uint8_t convertAnyInt( const char* pRegValue ) {
-        //  if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return uint8_t( strtoul( pRegValue , 0, 16 ) );
-        //  else return uint8_t( strtoul( pRegValue , 0, 10 ) );
+        void ConfigureHw2();
+    signals:
+        void workRequested();
+        void workConfigureHwRequested();
+        void finishedInitialiseHw();
+        void finishedConfigureHw();
 
-        // }
+    public slots:
+        void InitializeHw();
+        void ConfigureHw();
+
+    private:
+
+        bool _abort;
+        bool _working;
+        QMutex mutex;
+
 
         QVariantMap* map_HwDescription;
         Settings& m_Settings;
-        uint32_t convertAnyInt( const char* pRegValue ) {
 
-        }
+        explicit SystemControllerWorker(const SystemControllerWorker& rhs) = delete;
+        SystemControllerWorker& operator= (const SystemControllerWorker& rhs) = delete;
     };
 }
-
-#endif

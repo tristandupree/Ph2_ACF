@@ -4,7 +4,7 @@
 #include <QThread>
 #include "TCanvas.h"
 
-#include "datatestworker.h"
+#include "Model/datatestworker.h"
 #include "Model/systemcontroller.h"
 
 

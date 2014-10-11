@@ -32,9 +32,6 @@ namespace GUI{
 
         void createGraph();
 
-
-
-
     private:
 
         SystemController&m_systemController;

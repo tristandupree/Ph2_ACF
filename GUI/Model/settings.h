@@ -3,12 +3,11 @@
 #include <QVariantMap>
 
 #include <QDebug>
+#include <QStandardItem>
 
 class QString;
 class QStringListModel;
 class QFile;
-
-#include <QStandardItem>
 
 namespace GUI{
 

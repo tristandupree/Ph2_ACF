@@ -25,13 +25,11 @@ namespace GUI{
 
     signals:
         void workRequested();
-        void valueChanged(const QString &value);
         void finished();
 
         void sendGraphData(const std::vector<TCanvas*> &canvas);
 
     public slots:
-
         void doWork();
 
     private:
@@ -40,11 +38,11 @@ namespace GUI{
         bool _working;
         QMutex mutex;
         SystemController& m_systemController;
+        //SystemControllerWorker& m_systemControllerWorker;
 
         std::vector<TH1F*> cHistVec;
 
         void ReadDataTest();
-        void Run(BeBoard *pBeBoard, uint32_t pNthAcq);
 
 
 

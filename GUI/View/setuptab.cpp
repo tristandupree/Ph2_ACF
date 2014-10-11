@@ -27,7 +27,7 @@ namespace GUI{
         delete ui;
     }
 
-    void SetupTab::setHwTreeView(QStandardItemModel* model)
+    void SetupTab::setHwTreeView(QStandardItemModel *model)
     {
         ui->treeTest->setModel(model);
 
@@ -70,8 +70,18 @@ namespace GUI{
     void SetupTab::on_btnInit_clicked()
     {
         emit onBtnInitClicked();
-        ui->btnConfig->setEnabled(true);
         ui->btnInit->setEnabled(false);
+    }
+
+    void SetupTab::onInitFinished()
+    {
+        ui->btnConfig->setEnabled(true);
+        ui->btnInit->setEnabled(true);
+    }
+
+    void SetupTab::onConfigFinished()
+    {
+        ui->btnConfig->setEnabled(true);
     }
 }
 

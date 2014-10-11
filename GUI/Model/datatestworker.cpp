@@ -3,9 +3,6 @@
 #include <QVector>
 #include <QThread>
 
-#include <QEventLoop>
-#include <QTimer>
-
 #include <vector>
 
 #include <boost/format.hpp>
@@ -29,6 +26,7 @@ namespace GUI
         QObject(parent),
         m_systemController(sysController)
     {
+        //m_systemControllerWorker = m_systemController.getSystemControllerWorker();
     }
 
     DataTestWorker::~DataTestWorker()
@@ -134,7 +132,7 @@ namespace GUI
         std::vector<std::shared_ptr<TCanvas>> vCanvas;
         std::vector<std::unique_ptr<TCanvas>> v2Canvas;
 
-        for ( uint8_t cNCbc = 0; cNCbc < m_systemController.m_SystemControllerWorker->fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+        /*for ( uint8_t cNCbc = 0; cNCbc < m_systemController.m_SystemControllerWorker->fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
         {
             cHistVec.push_back( new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 ) );
             //v2Canvas.push_back();
@@ -215,15 +213,6 @@ namespace GUI
                 cNthAcq++;
             }
 
-        }
+        }*/
     }
-
-
-    void DataTestWorker::Run(BeBoard* pBeBoard, uint32_t pNthAcq)
-    {
-        m_systemController.m_SystemControllerWorker.fBeBoardInterface->Start(pBeBoard);
-        m_systemController.m_SystemControllerWorker.fBeBoardInterface->ReadData(pBeBoard, pNthAcq, true );
-        m_systemController.m_SystemControllerWorker.fBeBoardInterface->Stop(pBeBoard, pNthAcq);
-    }
-
 }

@@ -44,9 +44,13 @@ namespace GUI
 
         connect(&m_setupTab, SIGNAL(onBtnInitClicked()),
                 &m_systemController, SLOT(startInitialiseHw()));
-
         connect(&m_setupTab, SIGNAL(onBtnCfgClicked()),
                 &m_systemController, SLOT(startConfigureHw()));
+
+        connect(&m_systemController, SIGNAL(notifyInitFinished()),
+                &m_setupTab, SLOT(onInitFinished()));
+        connect(&m_systemController, SIGNAL(notifyConfigFinished()),
+                &m_setupTab, SLOT(onConfigFinished()));
 
     }
 
