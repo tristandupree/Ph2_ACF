@@ -3,6 +3,8 @@
 #include <QThread>
 #include "Model/systemcontrollerworker.h"
 
+//TODO Add proper destruct and safety methods to thread
+
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 
@@ -14,7 +16,8 @@ namespace GUI
         QObject(parent),
         m_Settings(config)
     {
-        qDebug() << "Starting System Controller Worker on thread " << this;
+        _working = false;
+        _abort = false;
     }
 
     SystemControllerWorker::~SystemControllerWorker()
@@ -57,10 +60,13 @@ namespace GUI
 
     void SystemControllerWorker::InitializeHw()
     {
-        qDebug() << "Starting System Controller Worker on thread " << this;
         mutex.lock();
         bool abort = _abort;
         mutex.unlock();
+
+        if (abort) {
+            return;
+        }
 
         uint32_t cShelveId;
         uint32_t cBeId;
@@ -78,6 +84,9 @@ namespace GUI
 
         for (auto& sh_kv: map_ShelveId.keys())
         {
+            if (abort) {
+                break;
+            }
             cShelveId=sh_kv.toUInt();
             fShelveVector.push_back((new Shelve(cShelveId)));
 
@@ -105,6 +114,9 @@ namespace GUI
                 if(map_BeBoardIdValues.value("boardType").toString() == "GLIB")
                 {
                     cBeBoardFWInterface = new GlibFWInterface("file://settings/connections_2CBC.xml",cBeId); //TODO - get rid of XML - get from JSON
+
+                    fBeBoardFWMap[cBeId] = cBeBoardFWInterface;
+
                 }
 
                 if( map_BeBoardIdValues.contains("Module"))
@@ -151,7 +163,10 @@ namespace GUI
         bool abort = _abort;
         mutex.unlock();
 
-        qDebug() << map_HwDescription->keys();
+        if (abort) {
+            return;
+        }
+
         class Configurator: public HwDescriptionVisitor
         {
         private:
@@ -160,53 +175,26 @@ namespace GUI
         public:
             Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
             void visit( BeBoard& pBoard ) {
-                qDebug() << "I'm in";
                 fBeBoardInterface->ConfigureBoard( &pBoard );
-                qDebug() << "I finished";
-                qDebug() << "Successfully configured Board " << int( pBoard.getBeId() );
+                qDebug() << "Configured Board " << int( pBoard.getBeId() );
+                //std::cout << GREEN << "Successfully configured Board " << int( pBoard.getBeId() ) << RESET << std::endl;
             }
             void visit( Cbc& pCbc ) {
                 fCbcInterface->ConfigureCbc( &pCbc );
+
                 qDebug() << "Successfully configured Cbc " << int( pCbc.getCbcId() );
+                // std::cout << GREEN <<  "Successfully configured Cbc " << int( pCbc.getCbcId() ) << RESET << std::endl;
+
             }
         };
 
         Configurator cConfigurator( fBeBoardInterface, fCbcInterface );
         accept( cConfigurator );
+
 
         mutex.lock();
         _working = false;
         mutex.unlock();
-        emit finishedConfigureHw();
-    }
-
-    void SystemControllerWorker::ConfigureHw2()
-    {
-        mutex.lock();
-        bool abort = _abort;
-        mutex.unlock();
-
-        //qDebug() << map_HwDescription->keys();
-        class Configurator: public HwDescriptionVisitor
-        {
-        private:
-            Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
-            Ph2_HwInterface::CbcInterface* fCbcInterface;
-        public:
-            Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
-            void visit( BeBoard& pBoard ) {
-                //qDebug() << "I'm in";
-                fBeBoardInterface->ConfigureBoard( &pBoard );
-                qDebug() << "Successfully configured Board " << int( pBoard.getBeId() );
-            }
-            void visit( Cbc& pCbc ) {
-                fCbcInterface->ConfigureCbc( &pCbc );
-                qDebug() << "Successfully configured Cbc " << int( pCbc.getCbcId() );
-            }
-        };
-
-        Configurator cConfigurator( fBeBoardInterface, fCbcInterface );
-        accept( cConfigurator );
         emit finishedConfigureHw();
     }
 
