@@ -1,6 +1,7 @@
 #pragma once
 #include <QObject>
 #include <QVector>
+#include "TH1D.h"
 
 #include "datatestworker.h"
 
@@ -20,15 +21,15 @@ namespace GUI{
         void requestWork();
         void abort();
 
-
         ~DataTest();
 
+
     signals:
-        void sendGraphData(const std::vector<TCanvas*> &canvas);
+        void sendGraphData(const std::vector<TH1D*> graphs);
 
     public slots:
 
-        void relaySendGraphData(const std::vector<TCanvas*> &canvas);
+        void relaySendGraphData(const std::vector<TH1D *> graphs);
 
         void createGraph();
 

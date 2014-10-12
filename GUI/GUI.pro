@@ -49,7 +49,9 @@ SOURCES += main.cpp\
     Macros/macrotesttab.cpp \
     Model/datatestworker.cpp \
     View/aboutbox.cpp \
-    Model/systemcontrollerworker.cpp
+    Model/systemcontrollerworker.cpp \
+    Model/cbcregisters.cpp \
+    ViewMgr/cbcregistersviewmanager.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -68,7 +70,9 @@ HEADERS  += View/mainview.h \
     Macros/macrotesttab.h \
     Model/datatestworker.h \
     View/aboutbox.h \
-    Model/systemcontrollerworker.h
+    Model/systemcontrollerworker.h \
+    Model/cbcregisters.h \
+    ViewMgr/cbcregistersviewmanager.h
     #lib/TQtWidget.h
 
 

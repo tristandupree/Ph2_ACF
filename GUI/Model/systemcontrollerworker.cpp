@@ -177,14 +177,11 @@ namespace GUI
             void visit( BeBoard& pBoard ) {
                 fBeBoardInterface->ConfigureBoard( &pBoard );
                 qDebug() << "Configured Board " << int( pBoard.getBeId() );
-                //std::cout << GREEN << "Successfully configured Board " << int( pBoard.getBeId() ) << RESET << std::endl;
             }
             void visit( Cbc& pCbc ) {
                 fCbcInterface->ConfigureCbc( &pCbc );
 
                 qDebug() << "Successfully configured Cbc " << int( pCbc.getCbcId() );
-                // std::cout << GREEN <<  "Successfully configured Cbc " << int( pCbc.getCbcId() ) << RESET << std::endl;
-
             }
         };
 

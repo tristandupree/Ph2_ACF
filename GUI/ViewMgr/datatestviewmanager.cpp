@@ -3,6 +3,7 @@
 #include "Model/datatest.h"
 #include <QDebug>
 #include <QThread>
+#include "TH1D.h"
 
 namespace GUI
 {
@@ -31,8 +32,8 @@ namespace GUI
 
     void DataTestViewManager::WireThreads()
     {
-        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<TCanvas*>)),
-                &m_dataTestTab, SLOT(drawGraph(std::vector<TCanvas*>)));
+        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<TH1D*>)),
+                &m_dataTestTab, SLOT(drawGraph(std::vector<TH1D*>)));
     }
 
 

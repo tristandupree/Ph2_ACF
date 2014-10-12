@@ -10,9 +10,6 @@
 
 namespace GUI{
 
-    const int ROWS = 2;
-    const int COLUMNS = 3;
-
     SetupTab::SetupTab(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::SetupTab)

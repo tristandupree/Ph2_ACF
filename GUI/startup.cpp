@@ -9,9 +9,11 @@
 #include "Model/settings.h"
 #include "Model/systemcontroller.h"
 #include "Model/systemcontrollerworker.h"
+#include "Model/cbcregisters.h"
 #include "Model/datatest.h"
 #include "ViewMgr/setuptabviewmanager.h"
 #include "provider.h"
+#include "ViewMgr/cbcregistersviewmanager.h"
 #include "ViewMgr/datatestviewmanager.h"
 
 #include "utils.h"
@@ -40,7 +42,8 @@ namespace GUI
 
         m_systemController(new SystemController(this,
                                                 Provider::getSettingsAsSingleton())),
-
+        m_cbcReg(new CbcRegisters(this,
+                                  *m_systemController)),
         m_dataTest(new DataTest(this,
                                 *m_systemController)),
 
@@ -48,6 +51,7 @@ namespace GUI
                                              m_setupTab,
                                              *m_systemController,
                                              Provider::getSettingsAsSingleton() )),
+        m_cbcRegTabVm(new CbcRegistersViewManager(this)),
         m_dataTabVm(new DataTestViewManager(this,
                                             m_dataTab,
                                             *m_dataTest))
@@ -61,6 +65,5 @@ namespace GUI
 
     void Startup::show() const{
         m_mainView.show();
-       // m_systemController->m
     }
 }

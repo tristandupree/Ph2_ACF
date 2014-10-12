@@ -4,7 +4,6 @@
 
 namespace GUI{
 
-
     class SetupTab;
     class CbcRegistersTab;
     class DataTestTab;
@@ -16,13 +15,11 @@ namespace GUI{
     class Settings;
 
     class SystemController;
-
+    class CbcRegisters;
     class DataTest;
     class SetupTabViewManager;
+    class CbcRegistersViewManager;
     class DataTestViewManager;
-
-
-
 
     class Startup : public QObject
     {
@@ -44,9 +41,11 @@ namespace GUI{
 
         SystemController* m_systemController;
 
+        CbcRegisters* m_cbcReg;
         DataTest* m_dataTest;
 
         SetupTabViewManager* m_setupTabVm;
+        CbcRegistersViewManager* m_cbcRegTabVm;
         DataTestViewManager* m_dataTabVm;
 
         explicit Startup(const Startup& rhs) = delete;

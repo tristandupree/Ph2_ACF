@@ -22,10 +22,9 @@ namespace GUI{
 
         void Run(BeBoard *pBeBoard, uint32_t pNthAcq);
 
-       // SystemControllerWorker &getSystemControllerWorker() const {return *m_SystemControllerWorker;}
-
         void requestWork();
         void abort();
+        void getCbcRegMap();
 
     ~SystemController();
 
@@ -45,9 +44,11 @@ namespace GUI{
 
     private:
 
-        Settings& m_Settings;
+        Settings  &m_Settings;
         QThread *m_thread;
         SystemControllerWorker *m_worker;
+
+        QVector<QVector<QVector<QMap<std::string, uint8_t>>>> *m_regMap;
 
         void SendStatusMessage(QString msg);
 

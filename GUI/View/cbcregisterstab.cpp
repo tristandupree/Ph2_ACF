@@ -20,6 +20,12 @@ using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 //using namespace Ph2_System;
 
+//At startup, create a vector of tabs depending on settings
+//Inside final tab, create a map of labels
+
+//When a write layer is emitted, send readback to vector and change
+//values in vector
+
 namespace GUI {
 
     CbcRegistersTab::CbcRegistersTab(QWidget *parent) :

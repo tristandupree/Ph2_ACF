@@ -59,37 +59,17 @@ namespace GUI
     {
         //gROOT->SetBatch(kTRUE);
         static Int_t HistoID = 1;
-        qDebug() << "in Testing env ";
         std::vector<TH1D*> graphs;
-        std::vector<TCanvas*> vCanvas;
-
         TString name("h1_");
-        Bool_t build = false;
-
         for (int i = 0; i <2 ; i++)
         {
-            TCanvas *cCanvas = new TCanvas(build);
-            //TCanvas *containerCanvas = new TCanvas(build);
-
-            //containerCanvas->Divide(2,3);
-
             name += HistoID++;
-
-            vCanvas.push_back(cCanvas);
-            //vCanvas.at(i)->cd();
-
-
             TH1D *h1 = new TH1D(name.Data(),name.Data(),10,0, 10);
             graphs.push_back(h1);
             graphs.at(i)->Fill(i);
-            graphs.at(i)->Draw();
-
-
-
-            vCanvas.at(i)->Draw();
-            qDebug() << "Here";
-
         }
+        emit sendGraphData(graphs); //void sendGraphData(std::vector<TH1D*>);
+
 
         /*void testme() {
         TCanvas* contentCanvas = new TCanvas();
@@ -102,7 +82,7 @@ namespace GUI
         contentCanvas->DrawClonePad();
         }*/
 
-        emit sendGraphData(vCanvas); //void sendGraphData(const std::vector<TCanvas*> &canvas);
+       // emit sendGraphData(vCanvas); //void sendGraphData(const std::vector<TCanvas*> &canvas);
 
         // Set _working to false, meaning the process can't be aborted anymore.
         mutex.lock();

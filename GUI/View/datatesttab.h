@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "lib/TQtWidget.h"
-#include "TCanvas.h"
+#include "TH1D.h"
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <memory>
@@ -28,7 +28,7 @@ namespace GUI{
         void notifyAddGraph();
 
     public slots:
-        void drawGraph(const std::vector<TCanvas *> &canvas);
+        void drawGraph(const std::vector<TH1D *> hists);
 
 
     private slots:

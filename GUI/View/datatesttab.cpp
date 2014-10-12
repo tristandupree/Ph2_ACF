@@ -7,7 +7,7 @@
 #include <memory>make
 #include <TCanvas.h>
 #include "TPad.h"
-#include "TH1.h"
+#include "TH1D.h"
 #include "TCanvas.h"
 #include "TRint.h"
 #include "TROOT.h"
@@ -43,7 +43,7 @@ namespace GUI {
             m_vectorCanvas.push_back(new TQtWidget(this));
 
             //m_vectorCanvas[i]->GetCanvas()->SetFillColor(i);
-            QHBoxLayout *loH = new QHBoxLayout(this);
+            QHBoxLayout *loH = new QHBoxLayout;
 
             loH->addWidget(m_vectorCanvas[i]);
             m_vectorLayout.push_back(loH);
@@ -58,17 +58,14 @@ namespace GUI {
         }
     }
 
-    void DataTestTab::drawGraph(const std::vector<TCanvas*> &canvas)
+    void DataTestTab::drawGraph(const std::vector<TH1D*> hists)
     {
-        for (int i=0; i<m_vectorCanvas.size(); i++)
+        for (size_t i=0; i<m_vectorCanvas.size(); i++)
         {
-            qDebug() << canvas.at(i);
-            canvas.at(i)->cd();
+            TH1D *h = hists.at(i);
             m_vectorCanvas.at(i)->cd();
-            m_vectorCanvas.at(i)->GetCanvas()->SetCanvas(canvas.at(i));
+            h->Draw();
             m_vectorCanvas.at(i)->Refresh();
-            //m_vectorCanvas.at(i)->GetCanvas()->Update();
-
         }
     }
 

@@ -57,8 +57,6 @@ namespace GUI
 
         ~SystemControllerWorker();
         void Run( BeBoard* pBeBoard, uint32_t pNthAcq );
-
-        void ConfigureHw2();
     signals:
         void workRequested();
         void workConfigureHwRequested();

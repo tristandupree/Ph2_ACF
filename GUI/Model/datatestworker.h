@@ -3,7 +3,7 @@
 #include <QVector>
 #include <QMutex>
 #include <QVariantMap>
-#include <TH1.h>
+#include <TH1D.h>
 #include <vector>
 
 #include "Model/systemcontroller.h"
@@ -27,7 +27,7 @@ namespace GUI{
         void workRequested();
         void finished();
 
-        void sendGraphData(const std::vector<TCanvas*> &canvas);
+        void sendGraphData(const std::vector<TH1D*> graph);
 
     public slots:
         void doWork();
