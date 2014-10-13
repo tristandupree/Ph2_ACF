@@ -28,6 +28,14 @@ namespace GUI
     {
         connect(&m_dataTestTab, SIGNAL(notifyAddGraph()),
                 &m_dataTest, SLOT(createGraph()));
+        connect(&m_dataTest, SIGNAL(getVcthValue()),
+                &m_dataTestTab, SLOT(getVcthDialValue()));
+        connect(&m_dataTestTab, SIGNAL(sendVcthValue(int)),
+                &m_dataTest, SLOT(setVcthValue(int)));
+        connect(&m_dataTest, SIGNAL(getEventsValue()),
+                &m_dataTestTab, SLOT(getEventsDial()));
+        connect(&m_dataTestTab, SIGNAL(sendEventsNumber(int)),
+                &m_dataTest, SLOT(setEventsValue(int)));
     }
 
     void DataTestViewManager::WireThreads()

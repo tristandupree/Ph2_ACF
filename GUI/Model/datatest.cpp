@@ -17,7 +17,9 @@ namespace GUI
         m_systemController(sysController),
         m_thread(new QThread()),
         m_worker(new DataTestWorker(nullptr,
-                                    sysController))
+                                    sysController)),
+        m_Vcth(0),
+        m_Events(0)
     {
         qRegisterMetaType<std::vector<TH1D*> >("std::vector<TH1D*>");
         m_worker->moveToThread(m_thread);
@@ -50,17 +52,29 @@ namespace GUI
 
     void DataTest::createGraph()
     {
+        emit getVcthValue();
+        emit getEventsValue();
 
         m_worker->abort();
         m_thread->wait(); // If the thread is not running, this will immediately return.
 
-        m_worker->requestWork();
+        m_worker->requestWork(m_Vcth, m_Events);
 
     }
 
     void DataTest::relaySendGraphData(const std::vector<TH1D*> graphs)
     {
         emit sendGraphData(graphs);
+    }
+
+    void DataTest::setVcthValue(int cVcth)
+    {
+        m_Vcth = cVcth;
+    }
+
+    void DataTest::setEventsValue(int cEvents)
+    {
+        m_Events = cEvents;
     }
 
 }

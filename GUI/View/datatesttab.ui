@@ -26,6 +26,98 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="2" alignment="Qt::AlignHCenter">
+           <widget class="QLabel" name="lblVcth">
+            <property name="text">
+             <string>Vcth</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QDial" name="dialVcth">
+            <property name="cursor">
+             <cursorShape>ArrowCursor</cursorShape>
+            </property>
+            <property name="maximum">
+             <number>255</number>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="wrapping">
+             <bool>false</bool>
+            </property>
+            <property name="notchesVisible">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QDial" name="dialEvents">
+            <property name="maximum">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2" alignment="Qt::AlignHCenter">
+           <widget class="QLineEdit" name="txtVcth">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4" alignment="Qt::AlignHCenter">
+           <widget class="QLineEdit" name="txtEvents">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="lblEvents">
+            <property name="text">
+             <string>Number of Events per Vcth</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="spacerSettings">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="gbStart">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
          <widget class="QPushButton" name="btnStart">
           <property name="text">
            <string>Start</string>
@@ -33,7 +125,7 @@
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer">
+         <spacer name="spacerStart">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>

@@ -23,28 +23,31 @@ namespace GUI{
 
         ~DataTest();
 
-
     signals:
         void sendGraphData(const std::vector<TH1D*> graphs);
+        void getVcthValue();
+        void getEventsValue();
 
     public slots:
 
         void relaySendGraphData(const std::vector<TH1D *> graphs);
-
         void createGraph();
+        void setVcthValue(int cVcth);
+        void setEventsValue(int cEvents);
 
     private:
+
+        int m_Vcth;
+        int m_Events;
 
         SystemController&m_systemController;
         QThread *m_thread;
         DataTestWorker *m_worker;
 
-        //void runDataTest();
+        void WireThreadConnections();
 
         explicit DataTest(const DataTest& rhs) = delete;
         DataTest& operator= (const DataTest& rhs) = delete;
-
-        void WireThreadConnections();
     };
 }
 

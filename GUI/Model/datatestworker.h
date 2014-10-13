@@ -8,6 +8,9 @@
 
 #include "Model/systemcontroller.h"
 
+using namespace Ph2_HwDescription;
+using namespace Ph2_HwInterface;
+
 namespace GUI{
     class SystemControllerSettings;
     class DataTestWorker : public QObject
@@ -17,7 +20,7 @@ namespace GUI{
         explicit DataTestWorker(QObject *parent,
                                 SystemController &sysController);
 
-        void requestWork();
+        void requestWork(int cVcth, int cEvents);
         void abort();
 
 
@@ -34,11 +37,18 @@ namespace GUI{
 
     private:
 
+        BeBoardInterface*       fBeBoardInterface;
+        CbcInterface*           fCbcInterface;
+        ShelveVec fShelveVector;
+        BeBoardFWMap fBeBoardFWMap;
+
+        int m_Vcth;
+        int m_Events;
+
         bool _abort;
         bool _working;
         QMutex mutex;
         SystemController& m_systemController;
-        //SystemControllerWorker& m_systemControllerWorker;
 
         std::vector<TH1F*> cHistVec;
 
@@ -47,6 +57,8 @@ namespace GUI{
 
 
     private:
+        void Run(BeBoard *pBeBoard, uint32_t pNthAcq);
+
         explicit DataTestWorker(const DataTestWorker& rhs) = delete;
         DataTestWorker& operator= (const DataTestWorker& rhs) = delete;
     };

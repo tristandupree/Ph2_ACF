@@ -1,18 +1,13 @@
 #include "datatestworker.h"
 #include <QDebug>
-#include <QVector>
 #include <QThread>
-
 #include <vector>
 
-#include <boost/format.hpp>
-
 #include <TH1.h>
-#include <TCanvas.h>
-#include <TStyle.h>
-#include <TApplication.h>
-#include <TROOT.h>
 #include "utils.h"
+
+
+#include "unistd.h"
 
 
 using namespace Ph2_HwDescription;
@@ -26,7 +21,7 @@ namespace GUI
         QObject(parent),
         m_systemController(sysController)
     {
-        //m_systemControllerWorker = m_systemController.getSystemControllerWorker();
+
     }
 
     DataTestWorker::~DataTestWorker()
@@ -34,8 +29,11 @@ namespace GUI
         qDebug() << "Destructing " << this;
     }
 
-    void DataTestWorker::requestWork()
+    void DataTestWorker::requestWork(int cVcth, int cEvents)
     {
+        m_Vcth = cVcth;
+        m_Events = cEvents;
+
         mutex.lock();
         _working = true;
         _abort = false;
@@ -57,39 +55,39 @@ namespace GUI
 
     void DataTestWorker::doWork()
     {
-        //gROOT->SetBatch(kTRUE);
-        static Int_t HistoID = 1;
+        /*static Int_t HistoID = 1;
+
+
         std::vector<TH1D*> graphs;
         TString name("h1_");
+
         for (int i = 0; i <2 ; i++)
         {
             name += HistoID++;
-            TH1D *h1 = new TH1D(name.Data(),name.Data(),10,0, 10);
+
+            TH1D *h1 = new TH1D(name.Data(),name.Data(),1000,0, 2000);
             graphs.push_back(h1);
-            graphs.at(i)->Fill(i);
         }
-        emit sendGraphData(graphs); //void sendGraphData(std::vector<TH1D*>);
 
+        for (int t = 0; t < 400; t++)
+        {
+            usleep(10000);
+            for (int i = 0; i <2 ; i++)
+            {
+                graphs.at(i)->Fill(t*2);
+                emit sendGraphData(graphs);
+            }
+        }
+        emit sendGraphData(graphs);*/
 
-        /*void testme() {
-        TCanvas* contentCanvas = new TCanvas();
-        TH1D* myHisto = new TH1D("myHisto", "my histogram", 10, 0.5, 10.5);
-        TCanvas* containerCanvas = new TCanvas();
-        containerCanvas->Divide(2,3);
-        contentCanvas->cd();
-        myHisto->Draw();
-        containerCanvas->GetPad(3)->cd();
-        contentCanvas->DrawClonePad();
-        }*/
-
-       // emit sendGraphData(vCanvas); //void sendGraphData(const std::vector<TCanvas*> &canvas);
+        ReadDataTest();
 
         // Set _working to false, meaning the process can't be aborted anymore.
         mutex.lock();
         _working = false;
         mutex.unlock();
 
-        qDebug()<<"Worker process finished in Thread "<<thread()->currentThreadId();
+        qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
 
         emit finished();
     }
@@ -103,93 +101,100 @@ namespace GUI
         bool abort = _abort;
         mutex.unlock();
 
-        Bool_t build = false;
-        std::vector<TCanvas*> vecCanvas;
+        std::vector<TH1D*> graphs;
+        TString name("h1_");
+        static Int_t HistoID = 1;
 
-        std::vector<std::shared_ptr<TCanvas>> vCanvas;
-        std::vector<std::unique_ptr<TCanvas>> v2Canvas;
+        int pEventsperVcth = m_Events;
 
-        /*for ( uint8_t cNCbc = 0; cNCbc < m_systemController.m_SystemControllerWorker->fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+        fBeBoardInterface = m_systemController.getBeBoardInterface();
+        fCbcInterface = m_systemController.getCbcInterface();
+        fShelveVector = m_systemController.getfShelveVector();
+        fBeBoardFWMap = m_systemController.getBeBoardFWMap();
+
+
+        for ( auto cShelve : fShelveVector )
         {
-            cHistVec.push_back( new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 ) );
-            //v2Canvas.push_back();
-            //vecCanvas.push_back(new TCanvas(build));
+            for ( auto cBoard : ( cShelve )->fBoardVector )
+            {
+                for ( auto cFe : cBoard.fModuleVector )
+                {
+                    for ( auto cCbc : cFe.fCbcVector )
+                    {
+                        name += HistoID++;
+                        TH1D *h1 = new TH1D(name.Data(),name.Data(),50,0, 50);
+                        graphs.push_back(h1);
+                        fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( m_Vcth ) );
+                    }
+                }
+            }
         }
 
+        emit sendGraphData(graphs);
+
+        uint32_t cN = 0;
         uint32_t cNthAcq = 0;
 
-        for (uint32_t cVCth = 100; cVCth<140; cVCth+=2)
+        while ( cN < pEventsperVcth )
         {
+            BeBoard pBoard = fShelveVector.at( 0 )->fBoardVector.at( 0 );
+            Run( &pBoard, cNthAcq );
 
-            m_systemController.m_SystemControllerWorker.fCbcInterface->WriteCbcReg( m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), "VCth", cVCth );
-            m_systemController.m_SystemControllerWorker.fCbcInterface->WriteCbcReg( m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ), "VCth", cVCth );
-            if (abort)
+            const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+
+            while ( cEvent )
             {
-                qDebug()<<"Aborting worker process in Thread "<<thread()->currentThreadId();
-                break;
-            }
-
-            for ( uint8_t cNCbc = 0; cNCbc < m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
-            {
-                delete cHistVec[cNCbc];
-                cHistVec[cNCbc] = new TH1F( Form( "Histo_Hits_CBC%d", cNCbc ), Form( "Occupancy_CBC%d", cNCbc ), 255, -0.5, 254.5 );
-                std::shared_ptr<TCanvas> test(new TCanvas(build));
-                //vecCanvas.push_back(test);
-            }
-
-            uint32_t cNevents = 200;
-            uint32_t cN = 0;
-
-            while ( !( cN == cNevents ) )
-            {
-                Run(m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard(0), cNthAcq);
-                const Event* cEvent = m_systemController.m_SystemControllerWorker.fBeBoardInterface->GetNextEvent( m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 ) );
-                while ( cEvent )
+                std::cout << " cVcth = " << uint32_t( m_Vcth ) << std::endl;
+                std::cout << ">>> Event #" << cN << std::endl;
+                std::cout << *cEvent << std::endl;
+                for ( auto cShelve : fShelveVector )
                 {
-                    if ( cNevents != 0 && cN == cNevents )
-                        break;
-
-                    for ( uint8_t cNFe = 0; cNFe < m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getNFe(); cNFe++ )
+                    for ( auto cBoard : ( cShelve )->fBoardVector )
                     {
-                        for ( uint8_t cNCbc = 0; cNCbc < m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 )->getModule( 0 )->getNCbc(); cNCbc++ )
+                        for ( auto cFe : cBoard.fModuleVector )
                         {
-                            uint cNHits = 0;
-                            std::vector<bool> cDataBitVector = cEvent->DataBitVector( cNFe, cNCbc );
-
-                            for ( uint8_t cDBVec = 0; cDBVec < cDataBitVector.size(); cDBVec++ )
+                            uint8_t cNCbc = 0;
+                            for ( auto cCbc : cFe.fCbcVector )
                             {
-                                if ( cDataBitVector[cDBVec] )
-                                    cNHits++;
-                            }
-                            if (abort)
-                            {
-                                qDebug()<<"Aborting worker process in Thread "<<thread()->currentThreadId();
-                                return;
-                            }
+                                uint32_t cNHits = 0;
+                                std::vector<bool> cVecData = cEvent->DataBitVector(cFe.getFeId(), cCbc.getCbcId());
 
-                            cHistVec.at(cNCbc)->Fill( cNHits );
+                                for ( uint8_t cDBVec = 0; cDBVec < cVecData.size(); cDBVec++ )
+                                {
+                                    if ( cVecData[cDBVec] )
+                                        cNHits++;
+                                }
+                                graphs.at(cNCbc)->Fill(cNHits);
+                                qDebug() << cNHits;
+
+                                cNCbc ++;
+                            }
+                            emit sendGraphData(graphs);
                         }
                     }
-
-                    cEvent = m_systemController.m_SystemControllerWorker.fBeBoardInterface->GetNextEvent( m_systemController.m_SystemControllerWorker.fShelveVec[0]->getBoard( 0 ) );
-                    cN++;
                 }
-
-                for ( uint8_t cNCbc = 0; cNCbc < cHistVec.size(); cNCbc++ )
-                {
-                    qDebug() << vecCanvas.size();
-                    vecCanvas.at(cNCbc)->cd();
-                    cHistVec.at(cNCbc)->Draw();
-                    vecCanvas.at(cNCbc)->Close();
-                }
-
-                emit sendGraphData(vecCanvas);
-                if ( cN == cNevents )
+                if ( cN == pEventsperVcth )
                     break;
+                cN++;
+                //emit sendGraphData(graphs);
 
-                cNthAcq++;
+                if ( cN < pEventsperVcth )
+                    cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+                else break;
             }
+            cNthAcq++;
 
-        }*/
+            qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
+
+            emit finished();
+        }
     }
+
+    void DataTestWorker::Run( BeBoard* pBeBoard, uint32_t pNthAcq )
+    {
+        fBeBoardInterface->Start( pBeBoard );
+        fBeBoardInterface->ReadData( pBeBoard, pNthAcq, true );
+        fBeBoardInterface->Stop( pBeBoard, pNthAcq );
+    }
+
 }

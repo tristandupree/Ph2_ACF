@@ -1,16 +1,9 @@
 #include "lib/CustomTQtWidget.h"
 #include "datatesttab.h"
 #include "ui_datatesttab.h"
-//#include "lib/CustomTQtWidget.h"
 #include "lib/TQtWidget.h"
 #include <QDebug>
-#include <memory>make
-#include <TCanvas.h>
-#include "TPad.h"
-#include "TH1D.h"
-#include "TCanvas.h"
-#include "TRint.h"
-#include "TROOT.h"
+#include <memory>
 #include <QGroupBox>
 #include <QHBoxLayout>
 
@@ -20,8 +13,9 @@ namespace GUI {
 
     DataTestTab::DataTestTab(QWidget *parent) :
         QWidget(parent),
-        ui(new Ui::DataTestTab)
-
+        ui(new Ui::DataTestTab),
+        m_Vcth(0),
+        m_Events(0)
     {
         ui->setupUi(this);
         setupCanvas(2);
@@ -39,10 +33,8 @@ namespace GUI {
     {
         for (int i=0; i<cNCbc; i++)
         {
-
+            //m_vectorCanvas.push_back(new CustomTQtWidget(this));
             m_vectorCanvas.push_back(new TQtWidget(this));
-
-            //m_vectorCanvas[i]->GetCanvas()->SetFillColor(i);
             QHBoxLayout *loH = new QHBoxLayout;
 
             loH->addWidget(m_vectorCanvas[i]);
@@ -62,56 +54,76 @@ namespace GUI {
     {
         for (size_t i=0; i<m_vectorCanvas.size(); i++)
         {
-            TH1D *h = hists.at(i);
+            TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
+            //m_vectorCanvas.at(i)->GetCanvas()->Flush();
             m_vectorCanvas.at(i)->cd();
-            h->Draw();
+            hists.at(i)->Draw();
             m_vectorCanvas.at(i)->Refresh();
         }
     }
 
-    void DataTestTab::drawTest()
+    void DataTestTab::getVcthDialValue()
     {
-        static Int_t HistoID = 1;
-        qDebug() << "in Testing env ";
-        std::vector<TH1D*> graphs;
-        std::vector<TCanvas*> vCanvas;
-
-        TString name("h1_");
-        Bool_t build = false;
-        for (int i = 0; i <m_vectorCanvas.size() ; i++)
-        {
-            std::unique_ptr<TCanvas> uCanvas(new TCanvas(build));
-            TCanvas *cCanvas = new TCanvas(build);
-            name += HistoID++;
-
-            vCanvas.push_back(cCanvas);
-            vCanvas.at(i)->cd();
-
-
-            TH1D *h1 = new TH1D(name.Data(),name.Data(),10,0, 10);
-            graphs.push_back(h1);
-            graphs.at(i)->Fill(i);
-
-            //graphs.at(i)->Draw();
-            graphs.at(i)->DrawCopy();
-
-            m_vectorCanvas.at(i)->GetCanvas()->SetFillColor(i+5);
-            m_vectorCanvas.at(i)->cd();
-
-            qDebug() << i;
-
-            m_vectorCanvas.at(i)->GetCanvas()->SetCanvas(vCanvas.at(i));
-            m_vectorCanvas.at(i)->Refresh();
-        }
+        emit sendVcthValue(m_Vcth);
     }
 
+    void DataTestTab::getEventsDial()
+    {
+        emit sendEventsNumber(m_Events);
+    }
 
     void DataTestTab::on_btnStart_clicked()
     {
-        //drawTest();
-
         emit notifyAddGraph();
     }
+    void DataTestTab::on_dialVcth_sliderMoved(int position)
+    {
+        ui->txtVcth->setText(QString::number(position));
+        m_Vcth = position;
+    }
+
+    void DataTestTab::on_txtVcth_editingFinished()
+    {
+        int value = (ui->txtVcth->text()).toInt();
+        if(value<256)
+        {
+            ui->dialVcth->setValue(value);
+            m_Vcth = value;
+        }
+        else
+
+        {
+            ui->txtVcth->setText(QString("0"));
+            ui->dialVcth->setValue(0);
+            m_Vcth = value;
+        }
+    }
+
+    void DataTestTab::on_dialEvents_sliderMoved(int position)
+    {
+
+        ui->txtEvents->setText(QString::number(position));
+        m_Events = position+1; // as loop starts from 0 -> N
+
+    }
+
+    void DataTestTab::on_txtEvents_editingFinished()
+    {
+
+        int value = (ui->txtVcth->text()).toInt();
+        if(value<501)
+        {
+            ui->dialVcth->setValue(value);
+            m_Vcth = value;
+        }
+        else
+
+        {
+            ui->txtVcth->setText(QString("0"));
+            ui->dialVcth->setValue(0);
+            m_Vcth = value;
+        }
+
+    }
+
 }
-
-

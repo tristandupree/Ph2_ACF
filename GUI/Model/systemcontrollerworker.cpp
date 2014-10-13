@@ -31,7 +31,6 @@ namespace GUI
         _working = true;
         _abort = false;
         qDebug() << "Starting System Controller Worker on thread " << this;
-        qDebug()<<"Request worker start in Thread "<<thread()->currentThreadId();
         mutex.unlock();
 
         emit workRequested();
@@ -39,7 +38,6 @@ namespace GUI
 
     void SystemControllerWorker::requestConfigureHw()
     {
-        qDebug() << "Starting System Controller Worker on thread " << this;
         mutex.lock();
         _working = true;
         _abort = false;

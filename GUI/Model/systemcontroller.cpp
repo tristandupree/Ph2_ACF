@@ -78,7 +78,6 @@ namespace GUI
     {
         SendStatusMessage(tr("Hardware configured"));
         emit notifyConfigFinished();
-        //getCbcRegMap();
     }
 
     void SystemController::SendStatusMessage(QString msg)
@@ -88,26 +87,7 @@ namespace GUI
 
     void SystemController::getCbcRegMap()
     {
-        return;
+        return; //TODO replace with get number of each tab?
     }
-        /*QVector<QVector<QVector<QVector<QMap<std::string, uint8_t>>>>> ShelveVector;
-        QVector<QVector<QVector<QMap<std::string, uint8_t>>>> BoardVector;
-        QVector<QVector<QMap<std::string, uint8_t>>> ModuleVector;
-        QVector<QMap<std::string, uint8_t>> CbcVector;
-        QMap<std::string, uint8_t> RegMap;
-
-        for ( auto cShelve : m_worker->fShelveVector )
-        {
-            for ( auto cBoard : ( cShelve )->fBoardVector )
-            {
-                for ( auto cFe : cBoard.fModuleVector )
-                {
-                    for ( auto cCbc : cFe.fCbcVector )
-                        //m_worker->fCbcInterface->re
-                        //m_worker->fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( cVcth ) );
-                }
-            }
-        }
-    }*/
 }
 

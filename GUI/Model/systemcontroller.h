@@ -1,5 +1,3 @@
-//NEEDS MASSIVE TIDY
-
 #pragma once
 #include <QObject>
 #include <iostream>
@@ -8,6 +6,9 @@
 
 #include "settings.h"
 #include "Model/systemcontrollerworker.h"
+
+using namespace Ph2_HwDescription;
+using namespace Ph2_HwInterface;
 
 namespace GUI{
 
@@ -25,9 +26,12 @@ namespace GUI{
         void requestWork();
         void abort();
         void getCbcRegMap();
+        BeBoardInterface* getBeBoardInterface() const {return (m_worker->fBeBoardInterface);}
+        CbcInterface* getCbcInterface() const {return (m_worker->fCbcInterface);}
+        ShelveVec getfShelveVector() const {return (m_worker->fShelveVector);}
+        BeBoardFWMap getBeBoardFWMap() const {return (m_worker->fBeBoardFWMap);}
 
     ~SystemController();
-
 
     signals:
         void notifyStatusMessage(QString msg);
@@ -47,8 +51,6 @@ namespace GUI{
         Settings  &m_Settings;
         QThread *m_thread;
         SystemControllerWorker *m_worker;
-
-        QVector<QVector<QVector<QMap<std::string, uint8_t>>>> *m_regMap;
 
         void SendStatusMessage(QString msg);
 

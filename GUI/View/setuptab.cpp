@@ -56,17 +56,22 @@ namespace GUI{
     {
         ui->btnConfig->setEnabled(false);
         ui->btnInit->setEnabled(false);
+        ui->btnLoad->setEnabled(false);
         emit onBtnCfgClicked();
     }
 
     void SetupTab::on_btnLoad_clicked()
     {
         emit onBtnLoadSettingsClicked(isCbc2Checked());
+        ui->btnInit->setEnabled(true);
+        ui->btnConfig->setEnabled(false);
     }
 
     void SetupTab::on_btnInit_clicked()
     {
         ui->btnInit->setEnabled(false);
+        ui->btnLoad->setEnabled(false);
+        ui->btnConfig->setEnabled(false);
         emit onBtnInitClicked();
     }
 
@@ -74,11 +79,14 @@ namespace GUI{
     {
         ui->btnConfig->setEnabled(true);
         ui->btnInit->setEnabled(true);
+        ui->btnLoad->setEnabled(true);
     }
 
     void SetupTab::onConfigFinished()
     {
         ui->btnConfig->setEnabled(true);
+        ui->btnInit->setEnabled(true);
+        ui->btnLoad->setEnabled(true);
     }
 }
 
