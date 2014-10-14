@@ -38,11 +38,14 @@ namespace Ph2_HwInterface
 	class Data
 	{
 	  private:
-		char* fBuf;         /*! Data buffer <*/
-		uint32_t fBufSize;         /*! Size of Data buffer <*/
-		uint32_t fNevents;         /*! Number of Events<*/
-		Event fEvent;         /*! Events container <*/
+		char* fBuf;              /*! Data buffer <*/
+		uint32_t fBufSize;           /*! Size of Data buffer <*/
+		uint32_t fNevents;                 /*! Number of Events<*/
+		Event* fEvent;                /*! Events container < */
 		uint32_t fCurrentEvent;         /*! Current Event in use <*/
+		uint32_t fNCbc  ;       /*! Number of CBCs in the setup <*/
+		uint32_t fEventSize  ;       /*! Size of 1 Event <*/
+
 
 	  private:
 		/*!
@@ -58,7 +61,7 @@ namespace Ph2_HwInterface
 		 * \brief Constructor of the Data class
 		 * \param pNbCbc
 		 */
-		Data( uint32_t pNbCbc ) : fBuf( NULL ), fCurrentEvent( 0 ), fEvent( pNbCbc ) {
+		Data( uint32_t pNbCbc ) : fBuf( NULL ), fCurrentEvent( 0 ), fEvent( NULL ) {
 		}
 		/*!
 		 * \brief Constructor of the Data class
@@ -81,18 +84,19 @@ namespace Ph2_HwInterface
 		 * \brief Initialise the data structure
 		 * \param pNevents : number of Events
 		 */
-		void Initialise( uint32_t pNevents );
+		// void Initialise( uint32_t pNevents );
 		/*!
 		 * \brief Initialise the data structure
 		 * \param pNevents : number of Events
 		 * \param pBoard : Board to work with
 		 */
-		void Initialise( uint32_t pNevents, BeBoard& pBoard );
+		// void Initialise( uint32_t pNevents, BeBoard& pBoard );
 		/*!
 		 * \brief Set the data in the data map
 		 * \param *pData : Data from the Cbc
+		 * \param pNevents : The number of events in this acquisiton
 		 */
-		void Set( std::vector<uint32_t>* pData );
+		void Set( std::vector<uint32_t>* pData, uint32_t pNevents );
 		/*!
 		 * \brief Reset the data structure
 		 */
@@ -112,7 +116,7 @@ namespace Ph2_HwInterface
 		 * \brief Get the next Event
 		 * \return Next Event
 		 */
-		const Event* GetNextEvent();
+		const Event* GetNextEvent( BeBoard* pBoard );
 
 	};
 

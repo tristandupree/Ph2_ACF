@@ -20,34 +20,38 @@ namespace Ph2_HwInterface
 	Data::Data( BeBoard& pBoard, uint32_t pNbCbc ) :
 		fBuf( 0 ),
 		fCurrentEvent( 0 ),
-		fEvent( pNbCbc )
+		fEvent( NULL ),
+		fEventSize( 0 )
 	{
-		fEvent.AddBoard( pBoard );
 	}
 
-	Data::Data( Data& pD ) :
-		fEvent( 0 )
+	Data::Data( Data& pD )
 	{
 		fBuf = 0;
-		Initialise( pD.fNevents );
-		fEvent = pD.fEvent;
+		// Initialise( pD.fNevents );
 		fBufSize = pD.fBufSize;
 		fNevents = pD.fNevents;
 		fCurrentEvent = pD.fCurrentEvent;
+		fNCbc = pD.fNCbc;
+		fEvent = pD.fEvent;
+		fEventSize = pD.fEventSize;
 	}
 
 
-	void Data::Set( std::vector<uint32_t>* pData )
+	void Data::Set( std::vector<uint32_t>* pData, uint32_t pNevents )
 	{
-		// initialize the buffer data array and the buffer size
-		fBufSize = pData->size() * 4;
-		std::cout << "Initializing buffer with " << pData->size() << " 32 bit words and " << fBufSize << " chars! " << std::endl;
-		if ( fBuf ) free( fBuf );
-		// the size of data is in uint32_t words which is 4 char
-		fBuf = ( char* )malloc( pData->size() * 4 );
-		Reset();
 
-		// std::vector<uint32_t>* cData = ( std::vector<uint32_t>* ) pData;
+		// initialize the buffer data array and the buffer size (one 32 bit word is 4 char!)
+		fBufSize = pData->size() * 4;
+		fNevents = uint32_t( pNevents );
+		fEventSize = uint32_t( fBufSize / fNevents );
+		fNCbc = ( fEventSize - 6 ) / 9;
+
+		std::cout << "Initializing buffer with " << pData->size() << " 32 bit words and " << fBufSize << " chars containing data from " << fNCbc << " Cbcs " << std::endl;
+		if ( fBuf ) free( fBuf );
+		fBuf = ( char* )malloc( pData->size() * 4 );
+
+		Reset();
 
 		for ( unsigned int i = 0; i < pData->size(); i++ )
 		{
@@ -67,42 +71,42 @@ namespace Ph2_HwInterface
 	}
 
 
-	void Data::Initialise( uint32_t pNevents )
-	{
-		fNevents = uint32_t( pNevents );
-		// fBufSize = ( fNevents + 1 ) * fEvent.fEventSize ;  //is already in char
-		// if ( fBuf )
-		//  free( fBuf );
-		// fBuf = ( char* ) malloc( fBufSize );
-		// std::cout << "Initializing buffer for " << fNevents << " Events with a size of  " << fBufSize << " chars" << std::endl;
-		fEvent.Clear();
+	// void Data::Initialise( uint32_t pNevents )
+	// {
+	//  fNevents = uint32_t( pNevents );
+	//  // fBufSize = ( fNevents + 1 ) * fEvent.fEventSize ;  //is already in char
+	//  // if ( fBuf )
+	//  //  free( fBuf );
+	//  // fBuf = ( char* ) malloc( fBufSize );
+	//  // std::cout << "Initializing buffer for " << fNevents << " Events with a size of  " << fBufSize << " chars" << std::endl;
+	//  // fEvent.Clear();
 
-		// #ifdef __CBCDAQ_DEV__
-		//      std::cout << "Data::Initialise done." << std::endl;
-		// #endif
+	//  // #ifdef __CBCDAQ_DEV__
+	//  //      std::cout << "Data::Initialise done." << std::endl;
+	//  // #endif
 
-	}
+	// }
 
 
-	void Data::Initialise( uint32_t pNevents, BeBoard& pBoard )
-	{
+	// void Data::Initialise( uint32_t pNevents, BeBoard& pBoard )
+	// {
 
-		fNevents = uint32_t( pNevents );
-		fBufSize = ( fNevents ) * fEvent.fEventSize ;
-		// if ( fBuf )
-		//  free( fBuf );
-		// fBuf = ( char* ) malloc( fBufSize );
-		std::cout << "Initializing buffer for " << fNevents << " Events with a size of  " << fBufSize << " chars" << std::endl;
+	//  fNevents = uint32_t( pNevents );
+	//  // fBufSize = ( fNevents ) * fEvent.fEventSize ;
+	//  // if ( fBuf )
+	//  //  free( fBuf );
+	//  // fBuf = ( char* ) malloc( fBufSize );
+	//  // std::cout << "Initializing buffer for " << fNevents << " Events with a size of  " << fBufSize << " chars" << std::endl;
 
-		fEvent.Clear();
+	//  // fEvent.Clear();
 
-		fEvent.AddBoard( pBoard );
+	//  // fEvent.AddBoard( pBoard );
 
-		// #ifdef __CBCDAQ_DEV__
-		//      std::cout << "Data::Initialise done." << std::endl;
-		// #endif
+	//  // #ifdef __CBCDAQ_DEV__
+	//  //      std::cout << "Data::Initialise done." << std::endl;
+	//  // #endif
 
-	}
+	// }
 
 
 	void Data::Reset()
@@ -142,15 +146,16 @@ namespace Ph2_HwInterface
 	}
 
 
-	const Event* Data::GetNextEvent()
+	const Event* Data::GetNextEvent( BeBoard* pBoard )
 	{
 		if ( fCurrentEvent >= fNevents ) return 0;
 		else
 		{
-			std::cout << "Get Next Event Event " << fCurrentEvent << " and position in buffer " << fCurrentEvent* fEvent.fEventSize << std::endl;
-			fEvent.SetEvent( &fBuf[ fCurrentEvent * fEvent.fEventSize ] );
+			if ( fEvent ) delete fEvent;
+			fEvent = new Event( pBoard, fNCbc, &fBuf[ fCurrentEvent * fEventSize ] );
+			std::cout << "Get Next Event Event " << fCurrentEvent << " and position in buffer " << fCurrentEvent* fEvent->fEventSize << std::endl;
 			fCurrentEvent++;
-			return &fEvent;
+			return fEvent;
 		}
 	}
 

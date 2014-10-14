@@ -297,6 +297,7 @@ namespace Ph2_HwInterface
 			uint32_t getNCbc() {
 				if ( fNCbc == 2 )
 					return 2 * fNCbc;
+				else return fNCbc;
 			}
 		};
 
@@ -307,12 +308,7 @@ namespace Ph2_HwInterface
 		std::cout << "###########DEBUG cBlockSize " << cBlockSize << " ###########################"  <<  std::endl;
 		// uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * pBoard->getNFe()) * 9 + 6 ;
 
-		// defineEventSize( pBoard->getModule( 0 )->getNCbc() );
-		// calls new data with the number of cbc as argument
 		defineEventSize( cCounter.getNCbc() );
-
-		// fData->Initialise( EVENT_NUMBER, *pBoard );
-		fData->Initialise( cNPackets , *pBoard );
 
 		//Wait for start acknowledge
 		do
@@ -349,6 +345,7 @@ namespace Ph2_HwInterface
 
 		}
 		while ( cVal == 0 );
+		std::cout << "DEBUG3" << std::endl;
 
 #ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 1 );
@@ -371,6 +368,7 @@ namespace Ph2_HwInterface
 #ifdef __CBCDAQ_DEV__
 		gettimeofday( &cStartBlockRead, 0 );
 #endif
+		std::cout << "DEBUG4" << std::endl;
 
 		//Read SRAM
 		uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, cBlockSize );
@@ -420,8 +418,10 @@ namespace Ph2_HwInterface
 		mtime = getTimeTook( cStartReadDataInSRAM, 1 );
 		std::cout << "Time took for ReadDataInSRAM: " << std::dec << mtime << " ms." << std::endl;
 #endif
+		std::cout << "DEBUG5" << std::endl;
 
-		fData->Set( &cDataAlt );
+		fData->Set( &cDataAlt , cNPackets );
+		std::cout << "DEBUG6" << std::endl;
 
 	}
 
@@ -434,9 +434,9 @@ namespace Ph2_HwInterface
 	}
 
 
-	const Event* GlibFWInterface::GetNextEvent()
+	const Event* GlibFWInterface::GetNextEvent( BeBoard* pBoard )
 	{
-		return fData->GetNextEvent();
+		return fData->GetNextEvent( pBoard );
 	}
 
 

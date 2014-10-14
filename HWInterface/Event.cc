@@ -27,16 +27,18 @@ namespace Ph2_HwInterface
 {
 
 	//Event implementation
-	Event::Event( uint32_t pNbCbc )
+	Event::Event( uint32_t pNbCbc, char* pEventBuf )
 	{
 		SetSize( pNbCbc );
+		SetEvent( pEventBuf );
 	}
 
 
-	Event::Event( BeBoard& pBoard, uint32_t pNbCbc )
+	Event::Event( BeBoard* pBoard, uint32_t pNbCbc, char* pEventBuf )
 	{
 		SetSize( pNbCbc );
 		AddBoard( pBoard );
+		SetEvent( pEventBuf );
 	}
 
 	Event::Event( Event& pEvent ) :
@@ -64,13 +66,13 @@ namespace Ph2_HwInterface
 		// }
 	}
 
-	void Event::AddBoard( BeBoard& pBoard )
+	void Event::AddBoard( BeBoard* pBoard )
 	{
-		uint32_t cNFe = uint32_t( pBoard.getNFe() );
+		uint32_t cNFe = uint32_t( pBoard->getNFe() );
 
 		for ( uint32_t i = 0; i < cNFe; i++ )
 		{
-			uint32_t cNCbc = uint32_t( pBoard.getModule( i )->getNCbc() );
+			uint32_t cNCbc = uint32_t( pBoard->getModule( i )->getNCbc() );
 			FeEventMap cFeEventMap;
 
 			for ( uint32_t j = 0; j < cNCbc; j++ )

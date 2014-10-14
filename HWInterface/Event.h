@@ -67,13 +67,13 @@ namespace Ph2_HwInterface
 		 * \brief Constructor of the Event Class
 		 * \param pNbCbc
 		 */
-		Event( uint32_t pNbCbc );
+		Event( uint32_t pNbCbc, char* pEventBuf );
 		/*!
 		 * \brief Constructor of the Event Class
 		 * \param pBoard : Board to work with
 		 * \param pNbCbc
 		 */
-		Event( BeBoard& pBoard, uint32_t pNbCbc );
+		Event( BeBoard* pBoard, uint32_t pNbCbc, char* pEventBuf );
 		/*!
 		 * \brief Copy Constructor of the Event Class
 		 */
@@ -93,7 +93,7 @@ namespace Ph2_HwInterface
 		 * \brief Add a board structure in the map
 		 * \param pBoard : board to work with
 		 */
-		void AddBoard( BeBoard& pBoard );
+		void AddBoard( BeBoard* pBoard );
 		/*!
 		 * \brief Set an Event to the Event map
 		 * \param pEvent : Event to set

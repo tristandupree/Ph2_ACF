@@ -140,7 +140,7 @@ namespace Ph2_HwInterface
 		 * \brief Get next event from data buffer
 		 * \return Next event
 		 */
-		virtual const Event* GetNextEvent() = 0;
+		virtual const Event* GetNextEvent( BeBoard* pBoard ) = 0;
 		/*!
 		 * \brief Get the data buffer
 		 * \param pBufSize : recovers the data buffer size
