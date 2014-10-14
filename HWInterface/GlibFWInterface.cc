@@ -280,7 +280,7 @@ namespace Ph2_HwInterface
 
 		// Since the Number of  Packets is a FW register, it should be read from the Settings Table, add 10 as safety
 		// uint32_t cNPackets = EVENT_NUMBER + 1;
-		uint32_t cNPackets = pBoard->getReg( "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER" ) ;
+		uint32_t cNPackets = pBoard->getReg( "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER" ) + 1 ;
 		std::cout << "###########DEBUG cNPackets " << cNPackets << " ###########################" << std::endl;
 
 
