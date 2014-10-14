@@ -104,7 +104,7 @@ namespace GUI {
     {
 
         ui->txtEvents->setText(QString::number(position));
-        m_Events = position+1; // as loop starts from 0 -> N
+        m_Events = position;
 
     }
 
