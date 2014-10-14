@@ -40,7 +40,7 @@ namespace Ph2_HwInterface
 	}
 
 	Event::Event( Event& pEvent ) :
-		fBuf( 0 ),
+		fBuf( NULL ),
 		fBunch( pEvent.fBunch ),
 		fOrbit( pEvent.fOrbit ),
 		fLumi( pEvent.fLumi ),
@@ -54,30 +54,11 @@ namespace Ph2_HwInterface
 
 	void Event::SetSize( uint32_t pNbCbc )
 	{
-		// if ( pNbCbc == 2 )
-		// {
-		//  fEventSize = EVENT_SIZE_32_2CBC;
-		//  fFeNChar = FE_NCHAR_2CBC;
-		//  fOffsetTDC = OFFSET_TDC_2CBC;
-		// }
-		// else if ( pNbCbc == 8 )
-		// {
-		//  fEventSize = EVENT_SIZE_32_8CBC;
-		//  fFeNChar = FE_NCHAR_8CBC;
-		//  fOffsetTDC = OFFSET_TDC_8CBC;
-		// }
-		// else
-		// {
+		//  need to introduce a factor of 2 because the 2CBC FW is written for 4 CBCs actually
+		int cFactor = ( pNbCbc == 2 ) ? 2 : 1;
 
-		// used to be
-		// fEventSize = pNbCbc * 2 * 9 + 6;
-		// fFeNChar = pNbCbc * CBC_NCHAR;
-		// fOffsetTDC = 5 * 32 + 9 * 2 * pNbCbc * 32;
-
-		fEventSize = pNbCbc * CBC_EVENT_SIZE_CHAR  + EVENT_HEADER_TDC_SIZE_CHAR;
-		// fFeNChar = pNbCbc * CBC_EVENT_SIZE_CHAR;
-		// fOffsetTDC = ( EVENT_HEADER_SIZE_CHAR + CBC_EVENT_SIZE_CHAR * pNbCbc  + 3 ) ; //in chars
-		fOffsetTDC = EVENT_HEADER_SIZE_32 + CBC_EVENT_SIZE_32 * pNbCbc; //in 32 bit words
+		fEventSize = pNbCbc * cFactor * CBC_EVENT_SIZE_CHAR  + EVENT_HEADER_TDC_SIZE_CHAR;
+		fOffsetTDC = EVENT_HEADER_SIZE_32 * cFactor + CBC_EVENT_SIZE_32 * pNbCbc * 2; //in 32 bit words
 
 		std::cout << "DEBUG EVENT SET SIZE: Event size(char) " << fEventSize << " nCBC =  " << pNbCbc <<  "  this should be 96 with 2cbc " << "  and Offset TDC " << fOffsetTDC << std::endl;
 		// }
@@ -107,18 +88,17 @@ namespace Ph2_HwInterface
 
 		fBuf = pEvent;
 
-		fBunch = swap_bytes( &pEvent[0 * vsize] );
+		fBunch = 0x00FFFFFF & swap_bytes( &pEvent[0 * vsize] );
 
-		fOrbit = swap_bytes( &pEvent[1 * vsize] );
+		fOrbit = 0x00FFFFFF & swap_bytes( &pEvent[1 * vsize] );
 
-		fLumi = swap_bytes( &pEvent[2 * vsize] );
+		fLumi = 0x00FFFFFF & swap_bytes( &pEvent[2 * vsize] );
 
-		fEventCount = swap_bytes( &pEvent[3 * vsize] );
+		fEventCount = 0x00FFFFFF & swap_bytes( &pEvent[3 * vsize] );
 
-		fEventCountCBC = swap_bytes( &pEvent[4 * vsize] );
+		fEventCountCBC = 0x00FFFFFF & swap_bytes( &pEvent[4 * vsize] );
 
 		fTDC = 0x000000FF & swap_bytes( &pEvent[fOffsetTDC * vsize] );
-
 
 
 		for ( EventMap::iterator cFeIt = fEventMap.begin(); cFeIt != fEventMap.end(); cFeIt++ )
@@ -131,7 +111,7 @@ namespace Ph2_HwInterface
 				uint8_t cCbcId = uint8_t( cCbcIt->first );
 				// cCbcIt->second = &pEvent[OFFSET_FE_EVENT + FeId * fFeNChar + CbcId * CBC_NCHAR];
 				cCbcIt->second = &pEvent[EVENT_HEADER_SIZE_CHAR + cFeId * CBC_EVENT_SIZE_CHAR * cNCbc + cCbcId * CBC_EVENT_SIZE_CHAR];
-
+				std::cout << "DEBUG FE " << int( cFeId ) << "  with " << int( cNCbc ) << " cbcs on CBC " << int( cCbcId ) << " and the offset in Chars is "  << EVENT_HEADER_SIZE_CHAR + cFeId* CBC_EVENT_SIZE_CHAR* cNCbc + cCbcId* CBC_EVENT_SIZE_CHAR << std::endl;
 			}
 		}
 

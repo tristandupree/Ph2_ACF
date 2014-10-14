@@ -280,7 +280,7 @@ namespace Ph2_HwInterface
 
 		// Since the Number of  Packets is a FW register, it should be read from the Settings Table, add 10 as safety
 		// uint32_t cNPackets = EVENT_NUMBER + 1;
-		uint32_t cNPackets = pBoard->getReg( "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER" ) + 1;
+		uint32_t cNPackets = pBoard->getReg( "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER" ) ;
 		std::cout << "###########DEBUG cNPackets " << cNPackets << " ###########################" << std::endl;
 
 
@@ -295,18 +295,20 @@ namespace Ph2_HwInterface
 				fNCbc++;
 			}
 			uint32_t getNCbc() {
-				return fNCbc;
+				if ( fNCbc == 2 )
+					return 2 * fNCbc;
 			}
 		};
 
 		CbcCounter cCounter;
 		pBoard->accept( cCounter );
 
-		uint32_t cBlockSize = cNPackets * ( cCounter.getNCbc() * CBC_EVENT_SIZE_32 + EVENT_HEADER_SIZE_32 ); // in 32 bit words
+		uint32_t cBlockSize = cNPackets * ( cCounter.getNCbc() * CBC_EVENT_SIZE_32 + EVENT_HEADER_TDC_SIZE_32 ); // in 32 bit words
 		std::cout << "###########DEBUG cBlockSize " << cBlockSize << " ###########################"  <<  std::endl;
 		// uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * pBoard->getNFe()) * 9 + 6 ;
 
 		// defineEventSize( pBoard->getModule( 0 )->getNCbc() );
+		// calls new data with the number of cbc as argument
 		defineEventSize( cCounter.getNCbc() );
 
 		// fData->Initialise( EVENT_NUMBER, *pBoard );

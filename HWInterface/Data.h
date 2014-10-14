@@ -58,7 +58,7 @@ namespace Ph2_HwInterface
 		 * \brief Constructor of the Data class
 		 * \param pNbCbc
 		 */
-		Data( uint32_t pNbCbc ) : fBuf( 0 ), fCurrentEvent( 0 ), fEvent( pNbCbc ) {
+		Data( uint32_t pNbCbc ) : fBuf( NULL ), fCurrentEvent( 0 ), fEvent( pNbCbc ) {
 		}
 		/*!
 		 * \brief Constructor of the Data class
