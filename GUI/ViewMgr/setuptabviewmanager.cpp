@@ -64,7 +64,9 @@ namespace GUI
     {
         qDebug() << "Tabs wired";
         connect(&m_setupTab, SIGNAL(enableAllTabs(bool)),
-                this, SLOT(relayEnableAllTabs(bool)));
+                this, SIGNAL(enableAlltabs(bool)));
+        //connect(&m_setupTab, SIGNAL(enableAllTabs(bool)),
+                //this, SLOT(relayEnableAllTabs(bool)));
     }
 
 

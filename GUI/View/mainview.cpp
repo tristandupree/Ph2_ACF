@@ -25,7 +25,7 @@ namespace GUI{
         ui->loDataTest->addWidget(&data);
         ui->loMacroTest->addWidget(&macroTest);
 
-        //enableAllTabs(false);
+        //enableAllTabsSlot(false); TODO Fix
     }
 
     MainView::~MainView()
