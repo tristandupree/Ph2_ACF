@@ -21,7 +21,6 @@ namespace GUI
         QObject(parent),
         m_systemController(sysController)
     {
-
     }
 
     DataTestWorker::~DataTestWorker()
@@ -80,6 +79,16 @@ namespace GUI
         }
         emit sendGraphData(graphs);*/
 
+        /*if (m_vecGraphs.size()!=0)
+        {
+            for (auto& kv : m_vecGraphs)
+            {
+                delete kv;
+            }
+
+            qDebug()<< "Size now " << m_vecGraphs.size();
+        }*/
+
         ReadDataTest();
 
         // Set _working to false, meaning the process can't be aborted anymore.
@@ -101,9 +110,7 @@ namespace GUI
         bool abort = _abort;
         mutex.unlock();
 
-        std::vector<TH1D*> graphs;
-        TString name("h1_");
-        static Int_t HistoID = 1;
+
 
         int pEventsperVcth = m_Events;
 
@@ -121,16 +128,22 @@ namespace GUI
                 {
                     for ( auto cCbc : cFe.fCbcVector )
                     {
-                        name += HistoID++;
-                        TH1D *h1 = new TH1D(name.Data(),name.Data(),50,0, 50);
-                        graphs.push_back(h1);
+                        TString name("Data Test Cbc ");
+                        name.Append(std::to_string(cCbc.getCbcId()));
+
+                        TH1D *h1 = new TH1D(name.Data(),name.Data(),254,0, 254);
+
+                        //cHistSVec.push_back(std::make_shared<TH1D>(new TH1D(name.Data(),name.Data(),254,0, 254)));
+                        auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 254, 0, 254);
+                        cHistSVec.push_back(h);
+
+                        m_vecGraphs.push_back(h1);
                         fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( m_Vcth ) );
+
                     }
                 }
             }
         }
-
-        emit sendGraphData(graphs);
 
         uint32_t cN = 0;
         uint32_t cNthAcq = 0;
@@ -164,12 +177,15 @@ namespace GUI
                                     if ( cVecData[cDBVec] )
                                         cNHits++;
                                 }
-                                graphs.at(cNCbc)->Fill(cNHits);
-                                qDebug() << cNHits;
+                                if(cNHits!=0)
+                                {
+                                    m_vecGraphs.at(cNCbc)->Fill(cNHits);
+                                    qDebug() << cNHits;
+                                }
 
                                 cNCbc ++;
                             }
-                            emit sendGraphData(graphs);
+                            emit sendGraphData(m_vecGraphs);
                         }
                     }
                 }

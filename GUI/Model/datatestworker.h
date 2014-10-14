@@ -44,13 +44,14 @@ namespace GUI{
 
         int m_Vcth;
         int m_Events;
+        std::vector<TH1D*> m_vecGraphs;
 
         bool _abort;
         bool _working;
         QMutex mutex;
         SystemController& m_systemController;
 
-        std::vector<TH1F*> cHistVec;
+        std::vector<std::shared_ptr<TH1D>> cHistSVec;
 
         void ReadDataTest();
 
