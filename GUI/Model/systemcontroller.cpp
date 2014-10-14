@@ -36,9 +36,10 @@ namespace GUI
     SystemController::~SystemController()
     {
         m_worker->abort();
+        m_thread->quit(); //as thread is persistant
         m_thread->wait();
         delete m_thread;
-        qDebug() << "Deleting DataTest worker thread " <<this->QObject::thread()->currentThreadId();
+        qDebug() << "Deleting SystemController worker thread " <<this->QObject::thread()->currentThreadId();
         qDebug() << "Destructing " << this;
     }
 

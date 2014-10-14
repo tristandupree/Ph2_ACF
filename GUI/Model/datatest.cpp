@@ -44,7 +44,6 @@ namespace GUI
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
-
         connect(m_worker, SIGNAL(sendGraphData(std::vector<TH1D*>)),
                 this, SLOT(relaySendGraphData(std::vector<TH1D*>)),
                 Qt::QueuedConnection);

@@ -15,7 +15,6 @@ namespace GUI{
         ui(new Ui::SetupTab)
     {
         ui->setupUi(this);
-
     }
 
     SetupTab::~SetupTab()
@@ -62,6 +61,7 @@ namespace GUI{
 
     void SetupTab::on_btnLoad_clicked()
     {
+        emit enableAllTabs(false);
         emit onBtnLoadSettingsClicked(isCbc2Checked());
         ui->btnInit->setEnabled(true);
         ui->btnConfig->setEnabled(false);
@@ -69,6 +69,7 @@ namespace GUI{
 
     void SetupTab::on_btnInit_clicked()
     {
+        emit enableAllTabs(false);
         ui->btnInit->setEnabled(false);
         ui->btnLoad->setEnabled(false);
         ui->btnConfig->setEnabled(false);
@@ -77,6 +78,7 @@ namespace GUI{
 
     void SetupTab::onInitFinished()
     {
+        emit enableAllTabs(false);
         ui->btnConfig->setEnabled(true);
         ui->btnInit->setEnabled(true);
         ui->btnLoad->setEnabled(true);
@@ -84,6 +86,7 @@ namespace GUI{
 
     void SetupTab::onConfigFinished()
     {
+        emit enableAllTabs(true);
         ui->btnConfig->setEnabled(true);
         ui->btnInit->setEnabled(true);
         ui->btnLoad->setEnabled(true);

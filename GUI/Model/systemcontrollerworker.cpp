@@ -22,7 +22,7 @@ namespace GUI
 
     SystemControllerWorker::~SystemControllerWorker()
     {
-        qDebug() << "Destructing System Controller Worker" << this;
+        qDebug() << "Destructing SystemController Worker" << this;
     }
 
     void SystemControllerWorker::requestWork()
@@ -30,7 +30,7 @@ namespace GUI
         mutex.lock();
         _working = true;
         _abort = false;
-        qDebug() << "Starting System Controller Worker on thread " << this;
+        qDebug() << "Starting SystemController Worker on thread " << this;
         mutex.unlock();
 
         emit workRequested();
@@ -51,7 +51,7 @@ namespace GUI
         mutex.lock();
         if (_working) {
             _abort = true;
-            qDebug()<<"Request worker aborting in Thread "<<thread()->currentThreadId();
+            qDebug()<<"SystemController worker aborting in Thread "<<thread()->currentThreadId();
         }
         mutex.unlock();
     }
@@ -156,7 +156,7 @@ namespace GUI
 
     void SystemControllerWorker::ConfigureHw()
     {
-        qDebug() << "Starting System Controller Worker on thread " << this;
+        qDebug() << "Configuring hardware on: " << this;
         mutex.lock();
         bool abort = _abort;
         mutex.unlock();
@@ -191,6 +191,7 @@ namespace GUI
         _working = false;
         mutex.unlock();
         emit finishedConfigureHw();
+        qDebug() << "Finished configure";
     }
 
 

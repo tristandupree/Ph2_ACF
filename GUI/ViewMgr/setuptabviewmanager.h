@@ -20,6 +20,10 @@ namespace GUI{
 
     signals:
         void notifyStatusUpdated(const QString& value);
+        void enableAlltabs(const bool enable);
+
+    public slots:
+        void relayEnableAllTabs(const bool enable);
 
     private:
 
@@ -28,6 +32,7 @@ namespace GUI{
 
         void WireMessages(Settings &config);
         void WireSetupTabButtons(Settings &config);
+        void WireCallToOtherTabs();
 
         explicit SetupTabViewManager(const SetupTabViewManager& rhs) = delete;
         SetupTabViewManager& operator= (const SetupTabViewManager& rhs) = delete;

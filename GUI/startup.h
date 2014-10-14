@@ -18,8 +18,10 @@ namespace GUI{
     class CbcRegisters;
     class DataTest;
     class SetupTabViewManager;
-    class CbcRegistersViewManager;
+    class CbcRegViewManager;
     class DataTestViewManager;
+
+    class MainViewManager;
 
     class Startup : public QObject
     {
@@ -44,9 +46,11 @@ namespace GUI{
         CbcRegisters* m_cbcReg;
         DataTest* m_dataTest;
 
-        SetupTabViewManager* m_setupTabVm;
-        CbcRegistersViewManager* m_cbcRegTabVm;
-        DataTestViewManager* m_dataTabVm;
+        SetupTabViewManager& m_setupTabVm;
+        CbcRegViewManager& m_cbcRegTabVm;
+        DataTestViewManager& m_dataTabVm;
+
+        MainViewManager* m_mainViewVm;
 
         explicit Startup(const Startup& rhs) = delete;
         Startup& operator= (const Startup& rhs) = delete;

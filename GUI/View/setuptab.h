@@ -26,6 +26,7 @@ namespace GUI {
         void onBtnLoadSettingsClicked(bool cbc2);
         void onBtnInitClicked();
         void onBtnCfgClicked();
+        void enableAllTabs(const bool enable);
 
     public slots:
         void onStatusUpdate(const QString& statusMsg);

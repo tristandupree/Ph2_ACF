@@ -51,8 +51,8 @@ SOURCES += main.cpp\
     View/aboutbox.cpp \
     Model/systemcontrollerworker.cpp \
     Model/cbcregisters.cpp \
-    ViewMgr/cbcregistersviewmanager.cpp \
-    lib/CustomTQtWidget.cpp
+    lib/CustomTQtWidget.cpp \
+    ViewMgr/mainviewmanager.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -73,8 +73,8 @@ HEADERS  += View/mainview.h \
     View/aboutbox.h \
     Model/systemcontrollerworker.h \
     Model/cbcregisters.h \
-    ViewMgr/cbcregistersviewmanager.h \
-    lib/CustomTQtWidget.h
+    lib/CustomTQtWidget.h \
+    ViewMgr/mainviewmanager.h
     #lib/TQtWidget.h
 
 

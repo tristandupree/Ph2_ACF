@@ -18,11 +18,18 @@ namespace GUI
     {
         WireMessages(config);
         WireSetupTabButtons(config);
+        WireCallToOtherTabs();
     }
 
     SetupTabViewManager::~SetupTabViewManager()
     {
         qDebug() << "Destructing " << this;
+    }
+
+    void SetupTabViewManager::relayEnableAllTabs(const bool enable)
+    {
+        qDebug() << "Call made to other tabs" << enable;
+        emit enableAlltabs(enable);
     }
 
     void SetupTabViewManager::WireMessages(Settings& config)
@@ -51,7 +58,13 @@ namespace GUI
                 &m_setupTab, SLOT(onInitFinished()));
         connect(&m_systemController, SIGNAL(notifyConfigFinished()),
                 &m_setupTab, SLOT(onConfigFinished()));
+    }
 
+    void SetupTabViewManager::WireCallToOtherTabs()
+    {
+        qDebug() << "Tabs wired";
+        connect(&m_setupTab, SIGNAL(enableAllTabs(bool)),
+                this, SLOT(relayEnableAllTabs(bool)));
     }
 
 

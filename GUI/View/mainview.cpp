@@ -25,10 +25,7 @@ namespace GUI{
         ui->loDataTest->addWidget(&data);
         ui->loMacroTest->addWidget(&macroTest);
 
-        //ui->tabRegisters->setEnabled(false);
-        //ui->tabDataTest->setEnabled(false);
-        //ui->tabMacroTest->setEnabled(false);
-        //ui->loGraphs->addWidget(&vcth);
+        //enableAllTabs(false);
     }
 
     MainView::~MainView()
@@ -37,17 +34,12 @@ namespace GUI{
         delete ui;
     }
 
-    void MainView::tabEnableRegisters(bool enable)
+    void MainView::enableAllTabsSlot(const bool enable)
     {
+        qDebug() << "enter " << enable;
         ui->tabRegisters->setEnabled(enable);
-    }
-    void MainView::tabEnableDataTest(bool enable)
-    {
-        ui->tabRegisters->setEnabled(enable);
-    }
-    void MainView::tabEnableMacroTest(bool enable)
-    {
-        ui->tabRegisters->setEnabled(enable);
+        ui->tabDataTest->setEnabled(enable);
+        ui->tabMacroTest->setEnabled(enable);
     }
 
     void MainView::on_actionAbout_triggered()

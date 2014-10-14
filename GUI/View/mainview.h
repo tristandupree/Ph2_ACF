@@ -26,13 +26,9 @@ namespace GUI{
                           GUI::DataTestTab &data,
                           GUI::MacroTestTab &macroTest);
         ~MainView();
-    signals:
-        //void onBtnCustomClicked();
 
     public slots:
-        void tabEnableRegisters(bool enable);
-        void tabEnableDataTest(bool enable);
-        void tabEnableMacroTest(bool enable);
+        void enableAllTabsSlot(const bool enable);
 
     private slots:
         void on_actionAbout_triggered();
@@ -40,6 +36,7 @@ namespace GUI{
         void on_actionUser_Settings_triggered();
 
     private:
+        //void enableAllTabs(bool enable);
         Ui::MainView *ui;
 
     };

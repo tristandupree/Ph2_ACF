@@ -6,6 +6,7 @@
 #include "Macros/macrotesttab.h"
 
 #include "View/mainview.h"
+
 #include "Model/settings.h"
 #include "Model/systemcontroller.h"
 #include "Model/systemcontrollerworker.h"
@@ -13,8 +14,9 @@
 #include "Model/datatest.h"
 #include "ViewMgr/setuptabviewmanager.h"
 #include "provider.h"
-#include "ViewMgr/cbcregistersviewmanager.h"
+#include "ViewMgr/cbcregviewmanager.h"
 #include "ViewMgr/datatestviewmanager.h"
+#include "ViewMgr/mainviewmanager.h"
 
 #include "utils.h"
 
@@ -47,14 +49,20 @@ namespace GUI
         m_dataTest(new DataTest(this,
                                 *m_systemController)),
 
-        m_setupTabVm(new SetupTabViewManager(this,
+        m_setupTabVm(*new SetupTabViewManager(this,
                                              m_setupTab,
                                              *m_systemController,
                                              Provider::getSettingsAsSingleton() )),
-        m_cbcRegTabVm(new CbcRegistersViewManager(this)),
-        m_dataTabVm(new DataTestViewManager(this,
+        m_cbcRegTabVm(*new CbcRegViewManager(this)),
+        m_dataTabVm(*new DataTestViewManager(this,
                                             m_dataTab,
-                                            *m_dataTest))
+                                            *m_dataTest)),
+
+        m_mainViewVm(new MainViewManager(this,
+                                         m_mainView,
+                                         m_setupTabVm,
+                                         m_cbcRegTabVm,
+                                         m_dataTabVm))
     {
     }
 
