@@ -39,19 +39,19 @@ uint64_t get_time()
 
 int main( int argc, char* argv[] )
 {
+	syntax( argc );
+	
 	int pEventsperVcth;
 	int cVcth;
 
-	if ( sscanf( argv[1], "%i", &cVcth ) != 1 )
+	if ( sscanf( argv[1], "%xu", &cVcth ) != 1 )
 		printf( "ERROR: not an integer" );
-	if ( sscanf( argv[2], "%xu", &pEventsperVcth ) != 1 )
+	if ( sscanf( argv[2], "%i", &pEventsperVcth ) != 1 )
 		printf( "ERROR: not an integer" );
-
-	syntax( argc );
-
-	std::string cHWFile;
-	if ( argc > 1 && !strcmp( argv[3], "8CBC" ) ) cHWFile = "settings/HWDescription_8CBC.xml";
-	else cHWFile = "settings/HWDescription_2CBC.xml";
+	std::cout << "Taking " << pEventsperVcth << " Events @ VCth of " << cVcth << std::endl;
+	std::string cHWFile = argv[3];
+//	if ( argc > 1 && !strcmp( argv[3], "8CBC" ) ) cHWFile = "settings/HWDescription_8CBC.xml";
+//	else cHWFile = "settings/HybridTest2CBC.xml";
 
 	std::cout << "cHWFile = " << cHWFile << std::endl;
 	// TApplication cApp( "Root Application", &argc, argv );
@@ -86,6 +86,7 @@ int main( int argc, char* argv[] )
 
 	while ( cN < pEventsperVcth )
 	{
+		if(cN == pEventsperVcth) break;
 		BeBoard pBoard = cSystemController.fShelveVector.at( 0 )->fBoardVector.at( 0 );
 		cSystemController.Run( &pBoard, cNthAcq );
 
