@@ -52,7 +52,7 @@ namespace Ph2_HwInterface
 
 	  public:
 		uint32_t fEventSize;                     /*!< Size of an Event */
-		uint32_t fFeNChar;                     /*!< Size of a Fe Event */
+		// uint32_t fFeNChar;                     /*!< Size of a Fe Event */
 		uint32_t fOffsetTDC;                     /*!< Offset of TDC */
 
 	  private:
@@ -259,8 +259,10 @@ namespace Ph2_HwInterface
 			return GetCbcEvent( pFeId, pCbcId )[pBytePosition];
 		}
 
-          const EventMap& GetEventMap() const {return fEventMap;}
-          friend ostream& operator<< (ostream &out, const Event& ev);
+		const EventMap& GetEventMap() const {
+			return fEventMap;
+		}
+		friend ostream& operator<< ( ostream& out, const Event& ev );
 	};
 }
 #endif

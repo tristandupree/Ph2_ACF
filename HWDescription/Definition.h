@@ -216,13 +216,24 @@
 //------------------------------------------------------------------------------
 //Events
 
+//in uint32_t words
+#define CBC_EVENT_SIZE_32   9 // 9 32bit words per CBC
+#define EVENT_HEADER_TDC_SIZE_32    6 // total of 6 32 bit words for HEADER + TDC
+#define EVENT_HEADER_SIZE_32    5  // 5 words for the header
+
+//in chars
+#define CBC_EVENT_SIZE_CHAR 9 * 4
+#define EVENT_HEADER_TDC_SIZE_CHAR  6 * 4
+#define EVENT_HEADER_SIZE_CHAR    5 * 4
+
+
 //Event number
-#define EVENT_NUMBER     50
+// #define EVENT_NUMBER     50
 // #define EVENT_NUMBER     200
 
 //Event Size
-#define EVENT_SIZE_32_2CBC    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1
-#define EVENT_SIZE_32_8CBC    8*9+6            //1 FE(FMC) x 8CBC (8*9) and  header (5) + 1
+// #define EVENT_SIZE_32_2CBC    4*9+6            //2 FE(FMC) x 2CBC (4*9) and  header (5) + 1
+// #define EVENT_SIZE_32_8CBC    8*9+6            //1 FE(FMC) x 8CBC (8*9) and  header (5) + 1
 
 //Event
 #define OFFSET_BUNCH               8
@@ -235,14 +246,14 @@
 #define WIDTH_EVENT_COUNT          24
 #define OFFSET_EVENT_COUNT_CBC     4*32+8
 #define WIDTH_EVENT_COUNT_CBC      3*8
-#define OFFSET_FE_EVENT            5*4
-#define WIDTH_FE_EVENT_2CBC        9*4*2            //CBC_NCHAR*2
-#define WIDTH_FE_EVENT_8CBC        9*4*8            //CBC_NCHAR*8
-#define OFFSET_TDC_2CBC            5*32+9*4*32       //5*32+WIDTH_FE_EVENT
-#define OFFSET_TDC_8CBC            5*32+9*16*32       //5*32+WIDTH_FE_EVENT
-#define WIDTH_TDC                  32
-#define FE_NCHAR_2CBC              9*4*2            //CBC_NCHAR*2
-#define FE_NCHAR_8CBC              9*4*8            //CBC_NCHAR*8
+// #define OFFSET_FE_EVENT            5*4
+// #define WIDTH_FE_EVENT_2CBC        9*4*2            //CBC_NCHAR*2
+// #define WIDTH_FE_EVENT_8CBC        9*4*8            //CBC_NCHAR*8
+// #define OFFSET_TDC_2CBC            5*32+9*4*32       //5*32+WIDTH_FE_EVENT
+// #define OFFSET_TDC_8CBC            5*32+9*16*32       //5*32+WIDTH_FE_EVENT
+// #define WIDTH_TDC                  32
+// #define FE_NCHAR_2CBC              9*4*2            //CBC_NCHAR*2
+// #define FE_NCHAR_8CBC              9*4*8            //CBC_NCHAR*8
 
 
 //Cbc Event
@@ -255,9 +266,9 @@
 #define WIDTH_CBCDATA             254     //NSENSOR
 #define OFFSET_GLIBFLAG           10+254  //OFFSET_CBCDATA + WIDTH_CBCDATA
 #define WIDTH_GLIBFLAG            12
-#define OFFSET_CBCSTABDATA        264+12  //OFFSET_GLIBFLAG + WIDTH_GLIBFLAG
-#define WIDTH_CBCSTABDATA         12
-#define CBC_NCHAR                 9*4
+#define OFFSET_CBCSTUBDATA        264+12  //OFFSET_GLIBFLAG + WIDTH_GLIBFLAG
+#define WIDTH_CBCSTUBDATA         12
+// #define CBC_NCHAR                 9*4
 
 //------------------------------------------------------------------------------
 //Others

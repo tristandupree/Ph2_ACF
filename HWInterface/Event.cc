@@ -54,24 +54,33 @@ namespace Ph2_HwInterface
 
 	void Event::SetSize( uint32_t pNbCbc )
 	{
-		if ( pNbCbc == 2 )
-		{
-			fEventSize = EVENT_SIZE_32_2CBC;
-			fFeNChar = FE_NCHAR_2CBC;
-			fOffsetTDC = OFFSET_TDC_2CBC;
-		}
-		else if ( pNbCbc == 8 )
-		{
-			fEventSize = EVENT_SIZE_32_8CBC;
-			fFeNChar = FE_NCHAR_8CBC;
-			fOffsetTDC = OFFSET_TDC_8CBC;
-		}
-		else
-		{
-			fEventSize = pNbCbc * 2 * 9 + 6;
-			fFeNChar = pNbCbc * CBC_NCHAR;
-			fOffsetTDC = 5 * 32 + 9 * 2 * pNbCbc * 32;
-		}
+		// if ( pNbCbc == 2 )
+		// {
+		//  fEventSize = EVENT_SIZE_32_2CBC;
+		//  fFeNChar = FE_NCHAR_2CBC;
+		//  fOffsetTDC = OFFSET_TDC_2CBC;
+		// }
+		// else if ( pNbCbc == 8 )
+		// {
+		//  fEventSize = EVENT_SIZE_32_8CBC;
+		//  fFeNChar = FE_NCHAR_8CBC;
+		//  fOffsetTDC = OFFSET_TDC_8CBC;
+		// }
+		// else
+		// {
+
+		// used to be
+		// fEventSize = pNbCbc * 2 * 9 + 6;
+		// fFeNChar = pNbCbc * CBC_NCHAR;
+		// fOffsetTDC = 5 * 32 + 9 * 2 * pNbCbc * 32;
+
+		fEventSize = pNbCbc * CBC_EVENT_SIZE_CHAR  + EVENT_HEADER_TDC_SIZE_CHAR;
+		// fFeNChar = pNbCbc * CBC_EVENT_SIZE_CHAR;
+		// fOffsetTDC = ( EVENT_HEADER_SIZE_CHAR + CBC_EVENT_SIZE_CHAR * pNbCbc  + 3 ) ; //in chars
+		fOffsetTDC = EVENT_HEADER_SIZE_32 + CBC_EVENT_SIZE_32 * pNbCbc; //in 32 bit words
+
+		std::cout << "DEBUG EVENT SET SIZE: Event size(char) " << fEventSize << " nCBC =  " << pNbCbc <<  "  this should be 96 with 2cbc " << "  and Offset TDC " << fOffsetTDC << std::endl;
+		// }
 	}
 
 	void Event::AddBoard( BeBoard& pBoard )
@@ -108,17 +117,21 @@ namespace Ph2_HwInterface
 
 		fEventCountCBC = swap_bytes( &pEvent[4 * vsize] );
 
-		fTDC = swap_bytes( &pEvent[fOffsetTDC] );
+		fTDC = 0x000000FF & swap_bytes( &pEvent[fOffsetTDC * vsize] );
 
 
-		for ( EventMap::iterator cIt = fEventMap.begin(); cIt != fEventMap.end(); cIt++ )
+
+		for ( EventMap::iterator cFeIt = fEventMap.begin(); cFeIt != fEventMap.end(); cFeIt++ )
 		{
-			uint8_t FeId = uint8_t( cIt->first );
+			uint8_t cFeId = uint8_t( cFeIt->first );
+			uint8_t cNCbc = uint8_t( cFeIt->second.size() );
 
-			for ( FeEventMap::iterator cJt = cIt->second.begin(); cJt != cIt->second.end(); cJt++ )
+			for ( FeEventMap::iterator cCbcIt = cFeIt->second.begin(); cCbcIt != cFeIt->second.end(); cCbcIt++ )
 			{
-				uint8_t CbcId = uint8_t( cJt->first );
-				cJt->second = &pEvent[OFFSET_FE_EVENT + FeId * fFeNChar + CbcId * CBC_NCHAR];
+				uint8_t cCbcId = uint8_t( cCbcIt->first );
+				// cCbcIt->second = &pEvent[OFFSET_FE_EVENT + FeId * fFeNChar + CbcId * CBC_NCHAR];
+				cCbcIt->second = &pEvent[EVENT_HEADER_SIZE_CHAR + cFeId * CBC_EVENT_SIZE_CHAR * cNCbc + cCbcId * CBC_EVENT_SIZE_CHAR];
+
 			}
 		}
 
@@ -316,36 +329,38 @@ namespace Ph2_HwInterface
 
 	std::string Event::StubBitString( uint8_t pFeId, uint8_t pCbcId ) const
 	{
-		return BitString( pFeId, pCbcId, OFFSET_CBCSTABDATA, WIDTH_CBCSTABDATA );
+		return BitString( pFeId, pCbcId, OFFSET_CBCSTUBDATA, WIDTH_CBCSTUBDATA );
 	}
 
-  std::ostream& operator<<(std::ostream& os, const Event& ev) {
-    os << "Bunch Counter: " << ev.GetBunch() << std::endl;
-    os << "Orbit Counter: " << ev.GetOrbit() << std::endl;
-    os << " Lumi Section: " << ev.GetLumi() << std::endl;
-    os << "  L1A Counter: " << ev.GetEventCount() << std::endl;
-    os << "  CBC Counter: " << ev.GetEventCountCBC() << std::endl;
-    os << "  TDC Counter: " << ev.GetTDC() << std::endl;
+	std::ostream& operator<<( std::ostream& os, const Event& ev )
+	{
+		os << "Bunch Counter: " << ev.GetBunch() << std::endl;
+		os << "Orbit Counter: " << ev.GetOrbit() << std::endl;
+		os << " Lumi Section: " << ev.GetLumi() << std::endl;
+		os << "  L1A Counter: " << ev.GetEventCount() << std::endl;
+		os << "  CBC Counter: " << ev.GetEventCountCBC() << std::endl;
+		os << "  TDC Counter: " << ev.GetTDC() << std::endl;
 
-    os << "CBC Data:" << std::endl; 
-    const EventMap& evmap = ev.GetEventMap();
-    const int FIRST_LINE_WIDTH = 22;
-    const int LINE_WIDTH = 32;
-    const int LAST_LINE_WIDTH = 8;
-    for (EventMap::const_iterator it = evmap.begin(); it != evmap.end(); ++it) {
-      uint32_t feId = it->first;
-      for (FeEventMap::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt) {
-        uint32_t cbcId = jt->first;
-        std::string data(ev.DataBitString(feId, cbcId));
-        os << "FEId = " << feId << " CBCId = " << cbcId << " len(data) = " << data.size() << std::endl;
-        os << std::setw(32) << data.substr(0,FIRST_LINE_WIDTH) << std::endl; 
-        for (int i = 0; i < 7; ++i) {
-          os << data.substr(FIRST_LINE_WIDTH+LINE_WIDTH*i,LINE_WIDTH) << std::endl; 
-        }
-        os << data.substr(FIRST_LINE_WIDTH+LINE_WIDTH*7,LAST_LINE_WIDTH) << std::endl; 
-      }
-      os << std::endl;
-    }
-    return os;
-  }
+		os << "CBC Data:" << std::endl;
+		const EventMap& evmap = ev.GetEventMap();
+		const int FIRST_LINE_WIDTH = 22;
+		const int LINE_WIDTH = 32;
+		const int LAST_LINE_WIDTH = 8;
+		for ( EventMap::const_iterator it = evmap.begin(); it != evmap.end(); ++it )
+		{
+			uint32_t feId = it->first;
+			for ( FeEventMap::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt )
+			{
+				uint32_t cbcId = jt->first;
+				std::string data( ev.DataBitString( feId, cbcId ) );
+				os << "FEId = " << feId << " CBCId = " << cbcId << " len(data) = " << data.size() << std::endl;
+				os << std::setw( 32 ) << data.substr( 0, FIRST_LINE_WIDTH ) << std::endl;
+				for ( int i = 0; i < 7; ++i )
+					os << data.substr( FIRST_LINE_WIDTH + LINE_WIDTH * i, LINE_WIDTH ) << std::endl;
+				os << data.substr( FIRST_LINE_WIDTH + LINE_WIDTH * 7, LAST_LINE_WIDTH ) << std::endl;
+			}
+			os << std::endl;
+		}
+		return os;
+	}
 }

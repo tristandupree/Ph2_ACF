@@ -19,7 +19,7 @@
 #include <stdint.h>
 #include "BeBoardFWInterface.h"
 #include "../HWDescription/Module.h"
-
+#include "../HWInterface/Visitor.h"
 
 using namespace Ph2_HwDescription;
 
