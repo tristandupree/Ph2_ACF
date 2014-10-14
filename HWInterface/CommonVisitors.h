@@ -110,7 +110,7 @@ struct CbcRegReader : public HwDescriptionVisitor
 		fInterface->ReadCbcReg( &pCbc, fRegName );
 		fReadRegValue = pCbc.getReg( fRegName );
 
-		std::cout << "Reading Reg " << RED << fRegName << RESET << " on CBC " << ( int )pCbc.getCbcId() << " memory value: " << ( int )fRegValue << " physical value: " << ( int )fReadRegValue << std::endl;
+		std::cout << "Reading Reg " << RED << fRegName << RESET << " on CBC " << ( int )pCbc.getCbcId() << " memory value: " << ( int )fRegValue << " read value: " << ( int )fReadRegValue << std::endl;
 	}
 };
 

@@ -10,6 +10,7 @@
 #include "../System/SystemController.h"
 #include "../System/ConsoleColor.h"
 #include "../HWInterface/Visitor.h"
+#include "../HWInterface/Utilities.h"
 #include "../HWInterface/CommonVisitors.h"
 
 
@@ -18,7 +19,9 @@
 #include "TCanvas.h"
 #include "TFile.h"
 #include "TH1F.h"
+#include "TF1.h"
 #include "TStyle.h"
+#include "TLine.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -30,6 +33,7 @@ class HybridTester : public SystemController
 	HybridTester() {}
 	~HybridTester() {}
 	void InitializeHists();
+	void TestRegisters();
 	void ScanThreshold();
 	void Measure();
 	void SaveResults();

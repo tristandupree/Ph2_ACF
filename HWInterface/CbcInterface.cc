@@ -126,7 +126,68 @@ namespace Ph2_HwInterface
 
 	}
 
-	void CbcInterface::WriteCbcReg( Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop )
+	//  void CbcInterface::WriteCbcReg( Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop )
+	//  {
+
+	// #ifdef __CBCDAQ_DEV__
+	//      static long min( 0 ), sec( 0 );
+	//      struct timeval start0, end;
+	//      long seconds( 0 ), useconds( 0 );
+
+	//      if ( DEV_FLAG )
+	//          gettimeofday( &start0, 0 );
+	// #endif
+
+	//      CbcRegItem cRegItem = ( pCbc->getRegMap() )[pRegNode];
+	//      std::vector<uint32_t> cVecWrite;
+	//      std::vector<uint32_t> cVecRead;
+
+	//      cRegItem.fValue = pValue;
+
+	//      setBoard( pCbc->getBeId() );
+
+	//      EncodeReg( cRegItem, pCbc->getCbcId(), cVecWrite );
+
+	//      fBoardFW->WriteCbcBlockReg( pCbc->getFeId(), cVecWrite );
+
+	//      if ( pVerifLoop )
+	//      {
+	//          uint8_t cCbcId = pCbc->getCbcId();
+
+	//          cRegItem.fValue = 0;
+
+	//          EncodeReg( cRegItem, pCbc->getCbcId(), cVecRead );
+
+	//          fBoardFW->ReadCbcBlockReg( pCbc->getFeId(), cVecRead );
+
+	//          if ( cVecWrite != cVecRead )
+	//          {
+
+	//              DecodeReg( cRegItem, cCbcId, cVecRead[0] );
+
+	//              std::cout << RED <<  "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << "Written Value : " << pValue << "\nReadback Value : " << cRegItem.fValue << std::endl;
+	//              std::cout << "Register Adress : " << uint32_t( cRegItem.fAddress ) << std::endl;
+	//              std::cout << "Cbc Id : " << uint32_t( cCbcId ) << RESET << std::endl << std::endl;
+	//              // mypause();
+	//          }
+	//      }
+
+	//      pCbc->setReg( pRegNode, cRegItem.fValue );
+
+	// #ifdef __CBCDAQ_DEV__
+	//      if ( DEV_FLAG )
+	//      {
+	//          gettimeofday( &end, 0 );
+	//          seconds = end.tv_sec - start0.tv_sec;
+	//          useconds = end.tv_usec - start0.tv_usec;
+	//          min += ( seconds + useconds / 1000000 ) / 60;
+	//          sec += ( seconds + useconds / 1000000 ) % 60;
+	//          std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
+	//      }
+	// #endif
+	//  }
+
+	bool CbcInterface::WriteCbcReg( Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop )
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -169,7 +230,9 @@ namespace Ph2_HwInterface
 				std::cout << "Register Adress : " << uint32_t( cRegItem.fAddress ) << std::endl;
 				std::cout << "Cbc Id : " << uint32_t( cCbcId ) << RESET << std::endl << std::endl;
 				// mypause();
+				return false;
 			}
+			else return true;
 		}
 
 		pCbc->setReg( pRegNode, cRegItem.fValue );
@@ -184,6 +247,7 @@ namespace Ph2_HwInterface
 			sec += ( seconds + useconds / 1000000 ) % 60;
 			std::cout << "Time took for Cbc register update so far = " << min << " min " << sec << " sec." << std::endl;
 		}
+		return true;
 #endif
 	}
 

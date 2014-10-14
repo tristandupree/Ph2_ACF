@@ -38,7 +38,8 @@ int main( int argc, char* argv[] )
 	cHybridTester.ConfigureHw();
 
 	// Here comes our Part:
-	// cHybridTester.ScanThreshold();
+	cHybridTester.TestRegisters();
+	cHybridTester.ScanThreshold();
 	cHybridTester.Measure();
 	cHybridTester.SaveResults();
 
