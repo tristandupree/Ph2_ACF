@@ -40,8 +40,8 @@ namespace GUI
 
     void DataTestViewManager::WireThreads()
     {
-        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<TH1D*>)),
-                &m_dataTestTab, SLOT(drawGraph(std::vector<TH1D*>)));
+        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D>>)),
+                &m_dataTestTab, SLOT(drawGraph(std::vector<std::shared_ptr<TH1D>>)));
     }
 
 

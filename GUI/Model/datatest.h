@@ -24,13 +24,11 @@ namespace GUI{
         ~DataTest();
 
     signals:
-        void sendGraphData(const std::vector<TH1D*> graphs);
+        void sendGraphData(const std::vector<std::shared_ptr<TH1D>> graphs);
         void getVcthValue();
         void getEventsValue();
 
     public slots:
-
-        void relaySendGraphData(const std::vector<TH1D *> graphs);
         void createGraph();
         void setVcthValue(int cVcth);
         void setEventsValue(int cEvents);

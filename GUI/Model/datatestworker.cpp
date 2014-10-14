@@ -54,18 +54,14 @@ namespace GUI
 
     void DataTestWorker::doWork()
     {
-        /*static Int_t HistoID = 1;
 
-
-        std::vector<TH1D*> graphs;
-        TString name("h1_");
-
-        for (int i = 0; i <2 ; i++)
+        /*for (int i = 0; i <2 ; i++)
         {
-            name += HistoID++;
+            TString name("Data Test Cbc ");
+            name.Append(std::to_string(i));
 
-            TH1D *h1 = new TH1D(name.Data(),name.Data(),1000,0, 2000);
-            graphs.push_back(h1);
+            auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 1000, 0, 1000);
+            m_vecHist.push_back(h);
         }
 
         for (int t = 0; t < 400; t++)
@@ -73,20 +69,9 @@ namespace GUI
             usleep(10000);
             for (int i = 0; i <2 ; i++)
             {
-                graphs.at(i)->Fill(t*2);
-                emit sendGraphData(graphs);
+                m_vecHist.at(i)->Fill(t*2);
             }
-        }
-        emit sendGraphData(graphs);*/
-
-        /*if (m_vecGraphs.size()!=0)
-        {
-            for (auto& kv : m_vecGraphs)
-            {
-                delete kv;
-            }
-
-            qDebug()<< "Size now " << m_vecGraphs.size();
+            emit sendGraphData(m_vecHist);
         }*/
 
         ReadDataTest();
@@ -110,7 +95,7 @@ namespace GUI
         bool abort = _abort;
         mutex.unlock();
 
-
+        std::vector<std::shared_ptr<TH1D>> m_vecHist;
 
         int pEventsperVcth = m_Events;
 
@@ -130,26 +115,23 @@ namespace GUI
                     {
                         TString name("Data Test Cbc ");
                         name.Append(std::to_string(cCbc.getCbcId()));
-
-                        TH1D *h1 = new TH1D(name.Data(),name.Data(),254,0, 254);
-
-                        //cHistSVec.push_back(std::make_shared<TH1D>(new TH1D(name.Data(),name.Data(),254,0, 254)));
-                        auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 254, 0, 254);
-                        cHistSVec.push_back(h);
-
-                        m_vecGraphs.push_back(h1);
+                        auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 50, 0, 50);
+                        m_vecHist.push_back(h);
                         fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( m_Vcth ) );
-
                     }
                 }
             }
         }
+
+        //uint32_t t1 = get_time();
+        //std::cout << "Time for changing VCth on all CBCse: " << t1 - t0 << " milliseconds!" << std::endl;
 
         uint32_t cN = 0;
         uint32_t cNthAcq = 0;
 
         while ( cN < pEventsperVcth )
         {
+            if(cN == pEventsperVcth) break;
             BeBoard pBoard = fShelveVector.at( 0 )->fBoardVector.at( 0 );
             Run( &pBoard, cNthAcq );
 
@@ -159,7 +141,8 @@ namespace GUI
             {
                 std::cout << " cVcth = " << uint32_t( m_Vcth ) << std::endl;
                 std::cout << ">>> Event #" << cN << std::endl;
-                std::cout << *cEvent << std::endl;
+                //std::cout << *cEvent << std::endl;
+
                 for ( auto cShelve : fShelveVector )
                 {
                     for ( auto cBoard : ( cShelve )->fBoardVector )
@@ -172,39 +155,40 @@ namespace GUI
                                 uint32_t cNHits = 0;
                                 std::vector<bool> cVecData = cEvent->DataBitVector(cFe.getFeId(), cCbc.getCbcId());
 
-                                for ( uint8_t cDBVec = 0; cDBVec < cVecData.size(); cDBVec++ )
+                                for ( uint8_t cDBVec = 0; cDBVec < m_vecHist.size(); cDBVec++ )
                                 {
                                     if ( cVecData[cDBVec] )
                                         cNHits++;
                                 }
-                                if(cNHits!=0)
-                                {
-                                    m_vecGraphs.at(cNCbc)->Fill(cNHits);
-                                    qDebug() << cNHits;
-                                }
+                                m_vecHist.at(cNCbc)->Fill(cNHits);
+                                qDebug() << cNHits;
 
                                 cNCbc ++;
                             }
-                            emit sendGraphData(m_vecGraphs);
+                            emit sendGraphData(m_vecHist);
                         }
                     }
                 }
+
+
+
                 if ( cN == pEventsperVcth )
                     break;
                 cN++;
-                //emit sendGraphData(graphs);
 
                 if ( cN < pEventsperVcth )
                     cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
                 else break;
             }
             cNthAcq++;
-
-            qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
-
-            emit finished();
         }
+        cNthAcq++;
+
+        qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
+
+        emit finished();
     }
+
 
     void DataTestWorker::Run( BeBoard* pBeBoard, uint32_t pNthAcq )
     {

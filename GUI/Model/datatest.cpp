@@ -21,7 +21,7 @@ namespace GUI
         m_Vcth(0),
         m_Events(0)
     {
-        qRegisterMetaType<std::vector<TH1D*> >("std::vector<TH1D*>");
+        qRegisterMetaType<std::vector<std::shared_ptr<TH1D>> >("std::vector<std::shared_ptr<TH1D>>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
     }
@@ -44,12 +44,8 @@ namespace GUI
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
-        /*connect(m_worker, SIGNAL(sendGraphData(std::vector<TH1D*>)),
-                this, SIGNAL(sendGraphData(std::vector<TH1D*>)), Qt::QueuedConnection);*/
-
-        connect(m_worker, SIGNAL(sendGraphData(std::vector<TH1D*>)),
-                this, SLOT(relaySendGraphData(std::vector<TH1D*>)),
-                Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D>>)),
+                this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D>>)), Qt::QueuedConnection);
     }
 
     void DataTest::createGraph()
@@ -62,11 +58,6 @@ namespace GUI
 
         m_worker->requestWork(m_Vcth, m_Events);
 
-    }
-
-    void DataTest::relaySendGraphData(const std::vector<TH1D*> graphs)
-    {
-        emit sendGraphData(graphs);
     }
 
     void DataTest::setVcthValue(int cVcth)

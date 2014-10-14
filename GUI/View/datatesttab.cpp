@@ -50,14 +50,15 @@ namespace GUI {
         }
     }
 
-    void DataTestTab::drawGraph(const std::vector<TH1D*> hists)
+    void DataTestTab::drawGraph(const std::vector<std::shared_ptr<TH1D> > hists)
     {
         for (size_t i=0; i<m_vectorCanvas.size(); i++)
         {
+            m_vecHist = hists;
             TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
-            //m_vectorCanvas.at(i)->GetCanvas()->Flush();
+            //m_vecHist = hists.a
             m_vectorCanvas.at(i)->cd();
-            hists.at(i)->Draw();
+            m_vecHist.at(i)->Draw();
             m_vectorCanvas.at(i)->Refresh();
         }
     }

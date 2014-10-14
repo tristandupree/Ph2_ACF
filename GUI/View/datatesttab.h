@@ -29,7 +29,7 @@ namespace GUI{
         void sendEventsNumber(int cEvents);
 
     public slots:
-        void drawGraph(const std::vector<TH1D *> hists);
+        void drawGraph(const std::vector<std::shared_ptr<TH1D>> hists);
         void getVcthDialValue();
         void getEventsDial();
 
@@ -48,7 +48,9 @@ namespace GUI{
     private:
 
         Ui::DataTestTab *ui;
-        //std::vector<CustomTQtWidget*> m_vectorCanvas;
+
+        std::vector<std::shared_ptr<TH1D>> m_vecHist;
+
         std::vector<TQtWidget*> m_vectorCanvas;
         std::vector<QGroupBox*> m_vectorGroupBox;
         std::vector<QHBoxLayout*> m_vectorLayout;

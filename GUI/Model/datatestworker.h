@@ -30,7 +30,7 @@ namespace GUI{
         void workRequested();
         void finished();
 
-        void sendGraphData(const std::vector<TH1D*> graph);
+        void sendGraphData(const std::vector<std::shared_ptr<TH1D>> graph);
 
     public slots:
         void doWork();
@@ -44,14 +44,13 @@ namespace GUI{
 
         int m_Vcth;
         int m_Events;
-        std::vector<TH1D*> m_vecGraphs;
+        //std::vector<std::shared_ptr<TH1D>> m_vecHist;
+        //std::vector<std::shared_ptr<TH1D>> m_vecHist;
 
         bool _abort;
         bool _working;
         QMutex mutex;
         SystemController& m_systemController;
-
-        std::vector<std::shared_ptr<TH1D>> cHistSVec;
 
         void ReadDataTest();
 

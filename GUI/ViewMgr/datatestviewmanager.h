@@ -21,8 +21,6 @@ namespace GUI{
         DataTestTab& m_dataTestTab;
         DataTest& m_dataTest;
 
-        //QThread *thread;
-
         void WireButtons();
         void WireThreads();
 
