@@ -15,7 +15,7 @@ struct HistogramFiller  : public HwDescriptionVisitor
 		for ( uint32_t cId = 0; cId < NSENSOR; cId++ ) {
 			if ( cDataBitVector.at( cId ) ) {
 				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
-//				std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
+				//              std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
 				// find out why histograms are not filling!
 				if ( globalChannel % 2 == 0 )
 					fBotHist->Fill( globalChannel / 2 );
@@ -312,13 +312,15 @@ void HybridTester::Measure()
 
 			while ( cN <  cTotalEvents )
 			{
+				std::cout << "Event # " << cN << " # of Acquistion " << cNthAcq << std::endl;
 				Run( &pBoard, cNthAcq );
 
 				const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
 				// Loop over Events from this Acquisition
 				while ( cEvent )
 				{
-//					std::cout << "EVENT ########## " << cN << std::endl;
+					std::cout << "Inside Event Loop Event # " << cN << " # of Acquistion " << cNthAcq << std::endl;
+
 					if ( cN == cTotalEvents )
 						break;
 
