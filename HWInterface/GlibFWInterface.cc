@@ -291,6 +291,7 @@ namespace Ph2_HwInterface
 			}
 			uint32_t getNCbc() {
 				if ( fNCbc == 2 )
+					// since the 2 CBC FW outputs data for 4 CBCs (beamtest heritage, might have to change in the future)
 					return 2 * fNCbc;
 				else return fNCbc;
 			}
@@ -298,7 +299,8 @@ namespace Ph2_HwInterface
 
 		CbcCounter cCounter;
 		pBoard->accept( cCounter );
-
+		// compute the block size according to the number of CBC's on this board
+		// this will have to change with a more generic FW
 		uint32_t cBlockSize = cNPackets * ( cCounter.getNCbc() * CBC_EVENT_SIZE_32 + EVENT_HEADER_TDC_SIZE_32 ); // in 32 bit words
 
 		//Wait for start acknowledge
