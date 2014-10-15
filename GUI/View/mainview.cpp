@@ -25,7 +25,7 @@ namespace GUI{
         ui->loDataTest->addWidget(&data);
         ui->loMacroTest->addWidget(&macroTest);
 
-        //enableAllTabsSlot(false); TODO Fix
+        enableAllTabsSlot(false);
     }
 
     MainView::~MainView()
@@ -36,7 +36,6 @@ namespace GUI{
 
     void MainView::enableAllTabsSlot(const bool enable)
     {
-        qDebug() << "enter " << enable;
         ui->tabRegisters->setEnabled(enable);
         ui->tabDataTest->setEnabled(enable);
         ui->tabMacroTest->setEnabled(enable);

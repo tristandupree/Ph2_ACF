@@ -27,6 +27,8 @@ namespace GUI{
         void sendGraphData(const std::vector<std::shared_ptr<TH1D>> graphs);
         void getVcthValue();
         void getEventsValue();
+        void startedDataTest();
+        void finishedDataTest();
 
     public slots:
         void createGraph();

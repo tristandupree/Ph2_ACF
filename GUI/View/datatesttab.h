@@ -32,6 +32,8 @@ namespace GUI{
         void drawGraph(const std::vector<std::shared_ptr<TH1D>> hists);
         void getVcthDialValue();
         void getEventsDial();
+        void onDataTestStart();
+        void onDataTestFinish();
 
 
     private slots:

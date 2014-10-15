@@ -18,6 +18,7 @@ namespace GUI
         m_regVm(cbcVm),
         m_dataTestVm(dataVm)
     {
+        WireVmMessages();
     }
 
     MainViewManager::~MainViewManager()

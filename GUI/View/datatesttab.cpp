@@ -23,9 +23,7 @@ namespace GUI {
 
     DataTestTab::~DataTestTab()
     {
-        //qDebug() << "Destructing " << this;
-        //m_vectorCanvas.clear();
-
+        qDebug() << "Destructing " << this;
         delete ui;
     }
 
@@ -56,7 +54,6 @@ namespace GUI {
         {
             m_vecHist = hists;
             TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
-            //m_vecHist = hists.a
             m_vectorCanvas.at(i)->cd();
             m_vecHist.at(i)->Draw();
             m_vectorCanvas.at(i)->Refresh();
@@ -71,6 +68,16 @@ namespace GUI {
     void DataTestTab::getEventsDial()
     {
         emit sendEventsNumber(m_Events);
+    }
+
+    void DataTestTab::onDataTestStart()
+    {
+        ui->btnStart->setEnabled(false);
+    }
+
+    void DataTestTab::onDataTestFinish()
+    {
+        ui->btnStart->setEnabled(true);
     }
 
     void DataTestTab::on_btnStart_clicked()

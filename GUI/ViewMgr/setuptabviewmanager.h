@@ -22,9 +22,6 @@ namespace GUI{
         void notifyStatusUpdated(const QString& value);
         void enableAlltabs(const bool enable);
 
-    public slots:
-        void relayEnableAllTabs(const bool enable);
-
     private:
 
         SetupTab& m_setupTab;

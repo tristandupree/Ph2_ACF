@@ -26,12 +26,6 @@ namespace GUI
         qDebug() << "Destructing " << this;
     }
 
-    void SetupTabViewManager::relayEnableAllTabs(const bool enable)
-    {
-        qDebug() << "Call made to other tabs" << enable;
-        emit enableAlltabs(enable);
-    }
-
     void SetupTabViewManager::WireMessages(Settings& config)
     {
         connect(&config, SIGNAL(notifyStatusMessage(QString)), //for QT4
@@ -62,11 +56,8 @@ namespace GUI
 
     void SetupTabViewManager::WireCallToOtherTabs()
     {
-        qDebug() << "Tabs wired";
         connect(&m_setupTab, SIGNAL(enableAllTabs(bool)),
                 this, SIGNAL(enableAlltabs(bool)));
-        //connect(&m_setupTab, SIGNAL(enableAllTabs(bool)),
-                //this, SLOT(relayEnableAllTabs(bool)));
     }
 
 

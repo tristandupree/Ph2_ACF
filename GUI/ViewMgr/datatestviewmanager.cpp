@@ -36,6 +36,11 @@ namespace GUI
                 &m_dataTestTab, SLOT(getEventsDial()));
         connect(&m_dataTestTab, SIGNAL(sendEventsNumber(int)),
                 &m_dataTest, SLOT(setEventsValue(int)));
+
+        connect(&m_dataTest, SIGNAL(startedDataTest()),
+                &m_dataTestTab, SLOT(onDataTestStart()));
+        connect(&m_dataTest, SIGNAL(finishedDataTest()),
+                &m_dataTestTab, SLOT(onDataTestFinish()));
     }
 
     void DataTestViewManager::WireThreads()

@@ -42,6 +42,8 @@ namespace GUI
         connect(m_thread, SIGNAL(started()),
                 m_worker, SLOT(doWork()));
         connect(m_worker, SIGNAL(finished()),
+                this, SIGNAL(finishedDataTest()));
+        connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
         connect(m_worker, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D>>)),
@@ -52,6 +54,7 @@ namespace GUI
     {
         emit getVcthValue();
         emit getEventsValue();
+        emit startedDataTest();
 
         m_worker->abort();
         m_thread->wait(); // If the thread is not running, this will immediately return.
