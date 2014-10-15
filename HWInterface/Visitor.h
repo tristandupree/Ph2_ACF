@@ -13,8 +13,6 @@
 #define Visitor_h__
 
 #include <stdint.h>
-#include <string>
-#include <vector>
 
 namespace Ph2_System
 {
@@ -32,11 +30,6 @@ namespace Ph2_HwDescription
 	class BeBoard;
 	class Module;
 	class Cbc;
-}
-
-namespace Ph2_HwInterface
-{
-	class CbcInterface;
 }
 
 class HwDescriptionVisitor

@@ -47,11 +47,9 @@ namespace Ph2_HwDescription
 
 		// C'tors with object FE Description
 		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename );
-		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId );
 
 		// C'tors which take ShelveID, BeId, FeID, CbcId
 		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, const std::string& filename );
-		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId );
 
 		// Default C'tor
 		Cbc();

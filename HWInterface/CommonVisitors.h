@@ -1,11 +1,13 @@
 #ifndef COMMONVISITORS_H__
 #define COMMONVISITORS_H__
 
+
 #include "../HWInterface/BeBoardFWInterface.h"
 #include "../HWDescription/Shelve.h"
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
+#include "../System/ConsoleColor.h"
 #include "../HWInterface/Visitor.h"
 
 #include <iostream>
@@ -16,13 +18,17 @@
 
 
 // wriite single reg
+
+using namespace Ph2_HwInterface;
+using namespace Ph2_HwDescription;
+
 struct CbcRegWriter : public HwDescriptionVisitor
 {
-	Ph2_HwInterface::CbcInterface* fInterface;
+	CbcInterface* fInterface;
 	std::string fRegName;
 	uint8_t fRegValue;
 
-	CbcRegWriter( Ph2_HwInterface::CbcInterface* pInterface, std::string pRegName, uint8_t pRegValue ): fInterface( pInterface ), fRegName( pRegName ), fRegValue( pRegValue ) {}
+	CbcRegWriter( CbcInterface* pInterface, std::string pRegName, uint8_t pRegValue ): fInterface( pInterface ), fRegName( pRegName ), fRegValue( pRegValue ) {}
 
 	void visit( Ph2_HwDescription::Cbc& pCbc ) {
 		fInterface->WriteCbcReg( &pCbc, fRegName, fRegValue );
@@ -32,10 +38,10 @@ struct CbcRegWriter : public HwDescriptionVisitor
 //write multi reg
 struct CbcMultiRegWriter : public HwDescriptionVisitor
 {
-	Ph2_HwInterface::CbcInterface* fInterface;
+	CbcInterface* fInterface;
 	std::vector<std::pair<std::string, uint8_t>> fRegVec;
 
-	CbcMultiRegWriter( Ph2_HwInterface::CbcInterface* pInterface, std::vector<std::pair<std::string, uint8_t>> pRegVec ): fInterface( pInterface ), fRegVec( pRegVec ) {}
+	CbcMultiRegWriter( CbcInterface* pInterface, std::vector<std::pair<std::string, uint8_t>> pRegVec ): fInterface( pInterface ), fRegVec( pRegVec ) {}
 
 	void visit( Ph2_HwDescription::Cbc& pCbc ) {
 		fInterface->WriteCbcMultReg( &pCbc, fRegVec );
@@ -81,10 +87,10 @@ class Counter : public HwDescriptionVisitor
 class Configurator: public HwDescriptionVisitor
 {
   private:
-	Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
-	Ph2_HwInterface::CbcInterface* fCbcInterface;
+	BeBoardInterface* fBeBoardInterface;
+	CbcInterface* fCbcInterface;
   public:
-	Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
+	Configurator( BeBoardInterface* pBeBoardInterface, CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
 	void visit( BeBoard& pBoard ) {
 		fBeBoardInterface->ConfigureBoard( &pBoard );
 		std::cout << "Successfully configured Board " << int( pBoard.getBeId() ) << std::endl;
