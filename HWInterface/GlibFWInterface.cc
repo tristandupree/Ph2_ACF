@@ -301,10 +301,6 @@ namespace Ph2_HwInterface
 
 		uint32_t cBlockSize = cNPackets * ( cCounter.getNCbc() * CBC_EVENT_SIZE_32 + EVENT_HEADER_TDC_SIZE_32 ); // in 32 bit words
 
-		// just creates a new Data object, setting the pointers and getting the correct sizes happens in Set()
-		if ( fData ) delete fData;
-		fData = new Data();
-
 		//Wait for start acknowledge
 		do
 		{
@@ -410,6 +406,10 @@ namespace Ph2_HwInterface
 		mtime = getTimeTook( cStartReadDataInSRAM, 1 );
 		std::cout << "Time took for ReadDataInSRAM: " << std::dec << mtime << " ms." << std::endl;
 #endif
+		// just creates a new Data object, setting the pointers and getting the correct sizes happens in Set()
+		if ( fData ) delete fData;
+		fData = new Data();
+
 		// set the vector<uint32_t> as event buffer and let him know how many packets it contains
 		fData->Set( &cDataAlt , cNPackets );
 
