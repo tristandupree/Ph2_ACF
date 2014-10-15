@@ -57,12 +57,6 @@ namespace Ph2_HwInterface
 		* \brief Destructor of the BeBoardFWInterface class
 		*/
 		virtual ~BeBoardFWInterface();
-
-		/*!
-		* \brief Define the size of Event
-		* \param pNbCbc Number of Cbc's
-		*/
-		virtual void defineEventSize( uint32_t pNbCbc );
 		/*!
 		* \brief Get the board type
 		*/

@@ -33,13 +33,6 @@ namespace Ph2_HwInterface
 	}
 
 
-	void BeBoardFWInterface::defineEventSize( uint32_t pNbCbc )
-	{
-		delete fData;
-		fData = new Data( );
-	}
-
-
 	std::string BeBoardFWInterface::getBoardType()
 	{
 		std::string cBoardTypeString;

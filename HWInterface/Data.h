@@ -26,7 +26,7 @@ namespace Ph2_HwInterface
 
 	/*!
 	 * \class Data
-	 * \brief Data container to manipulate data flux from the Cbc
+	 * \brief Data buffer class for CBC data
 	 */
 	class Data
 	{

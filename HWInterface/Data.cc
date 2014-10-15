@@ -16,6 +16,7 @@ namespace Ph2_HwInterface
 {
 	//Data Class
 
+	// copy constructor
 	Data::Data( Data& pD )
 	{
 		fBuf = 0;
@@ -39,9 +40,7 @@ namespace Ph2_HwInterface
 		fNCbc = ( fEventSize - ( EVENT_HEADER_TDC_SIZE_CHAR ) ) / ( CBC_EVENT_SIZE_CHAR );
 
 #ifdef __CBCDAQ_DEV__
-
 		std::cout << "Initializing buffer with " << pData->size() << " 32 bit words and " << fBufSize << " chars containing data from " << fNevents << "  Events with an eventbuffer size of " << fEventSize << " and " << fNCbc << " CBCs each! " << EVENT_HEADER_TDC_SIZE_CHAR << " " << CBC_EVENT_SIZE_CHAR << std::endl;
-
 #endif
 
 		if ( fBuf ) free( fBuf );

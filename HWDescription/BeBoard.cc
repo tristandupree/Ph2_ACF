@@ -24,7 +24,7 @@ namespace Ph2_HwDescription
 		fShelveId( 0 ),
 		fBeId( 0 )
 	{
-		loadConfigFile( DEFAULT_GLIB_FILE );
+		// loadConfigFile( DEFAULT_GLIB_FILE );
 	}
 
 	BeBoard::BeBoard( uint8_t pShelveId, uint8_t pBeId ) :

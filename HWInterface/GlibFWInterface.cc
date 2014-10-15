@@ -300,8 +300,8 @@ namespace Ph2_HwInterface
 		pBoard->accept( cCounter );
 
 		uint32_t cBlockSize = cNPackets * ( cCounter.getNCbc() * CBC_EVENT_SIZE_32 + EVENT_HEADER_TDC_SIZE_32 ); // in 32 bit words
-		// just creates a new Data object with the apropriate size
-		// defineEventSize( cCounter.getNCbc() );
+
+		// just creates a new Data object, setting the pointers and getting the correct sizes happens in Set()
 		if ( fData ) delete fData;
 		fData = new Data();
 
