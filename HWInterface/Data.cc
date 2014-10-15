@@ -10,7 +10,6 @@
  */
 
 #include "Data.h"
-#include "../HWDescription/Definition.h"
 #include <iostream>
 
 namespace Ph2_HwInterface
@@ -45,9 +44,9 @@ namespace Ph2_HwInterface
 		fBufSize = pData->size() * 4;
 		fNevents = uint32_t( pNevents );
 		fEventSize = uint32_t( fBufSize / fNevents );
-		fNCbc = ( fEventSize - 6 ) / 9;
+		fNCbc = ( fEventSize - ( EVENT_HEADER_TDC_SIZE_CHAR ) ) / ( CBC_EVENT_SIZE_CHAR );
 
-		std::cout << "Initializing buffer with " << pData->size() << " 32 bit words and " << fBufSize << " chars containing data from " << fNCbc << " Cbcs " << std::endl;
+		std::cout << "Initializing buffer with " << pData->size() << " 32 bit words and " << fBufSize << " chars containing data from " << fNevents << "  Events with an eventbuffer size of " << fEventSize << " and " << fNCbc << " CBCs each! " << EVENT_HEADER_TDC_SIZE_CHAR << " " << CBC_EVENT_SIZE_CHAR << std::endl;
 		if ( fBuf ) free( fBuf );
 		fBuf = ( char* )malloc( pData->size() * 4 );
 

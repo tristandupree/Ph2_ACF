@@ -17,6 +17,7 @@
 #include <istream>
 #include "Event.h"
 #include "../HWDescription/BeBoard.h"
+#include "../HWDescription/Definition.h"
 
 
 // #define SWAP_4(x) ( ((x) << 24) | \

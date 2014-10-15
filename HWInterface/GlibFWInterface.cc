@@ -278,11 +278,9 @@ namespace Ph2_HwInterface
 
 		uhal::ValWord<uint32_t> cVal;
 
-		// Since the Number of  Packets is a FW register, it should be read from the Settings Table, add 10 as safety
-		// uint32_t cNPackets = EVENT_NUMBER + 1;
+		// Since the Number of  Packets is a FW register, it should be read from the Settings Table
 		uint32_t cNPackets = pBoard->getReg( "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER" ) + 1 ;
 		std::cout << "###########DEBUG cNPackets " << cNPackets << " ###########################" << std::endl;
-
 
 		// number of CBC's * number of Modules * 9 32 bit words (CBC data) + 6  32 bit words (header + TDC)
 
@@ -306,7 +304,6 @@ namespace Ph2_HwInterface
 
 		uint32_t cBlockSize = cNPackets * ( cCounter.getNCbc() * CBC_EVENT_SIZE_32 + EVENT_HEADER_TDC_SIZE_32 ); // in 32 bit words
 		std::cout << "###########DEBUG cBlockSize " << cBlockSize << " ###########################"  <<  std::endl;
-		// uint32_t cBlockSize = cNPackets * ( pBoard->getModule( 0 )->getNCbc() * pBoard->getNFe()) * 9 + 6 ;
 
 		defineEventSize( cCounter.getNCbc() );
 
