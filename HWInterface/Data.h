@@ -57,12 +57,6 @@ namespace Ph2_HwInterface
 		Data( ) : fBuf( NULL ), fCurrentEvent( 0 ), fEvent( NULL ), fEventSize( 0 ) {
 		}
 		/*!
-		 * \brief Constructor of the Data class
-		 * \param pBoard : Board to work with
-		 * \param pNbCbc
-		 */
-		Data( BeBoard& pBoard );
-		/*!
 		 * \brief Copy Constructor of the Data class
 		 */
 		Data( Data& pData );

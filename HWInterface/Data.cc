@@ -16,14 +16,6 @@ namespace Ph2_HwInterface
 {
 	//Data Class
 
-	Data::Data( BeBoard& pBoard ) :
-		fBuf( 0 ),
-		fCurrentEvent( 0 ),
-		fEvent( NULL ),
-		fEventSize( 0 )
-	{
-	}
-
 	Data::Data( Data& pD )
 	{
 		fBuf = 0;
@@ -88,13 +80,6 @@ namespace Ph2_HwInterface
 		memcpy( fBuf, pData.fBuf, pData.fBufSize );
 	}
 
-
-	// void Data::swapByteOrder( const char* org, char* swapped, unsigned int nbyte )
-	// {
-	//  for ( unsigned int i = 0; i < nbyte; i++ )
-	//      swapped[i] = org[nbyte - 1 - i];
-	// }
-
 	void Data::swapByteOrder( const char* org, char* swapped, unsigned int nbyte )
 	{
 		swapped[0] = org[3];
@@ -113,12 +98,15 @@ namespace Ph2_HwInterface
 
 	const Event* Data::GetNextEvent( BeBoard* pBoard )
 	{
-		if ( fCurrentEvent >= fNevents ) return 0;
+		if ( fCurrentEvent >= fNevents ) return NULL;
 		else
 		{
+#ifdef __CBCDAQ_DEV__
+			std::cout << "Get Next Event Event " << fCurrentEvent << " and position in buffer " << fCurrentEvent* fEvent->fEventSize << std::endl;
+#endif
+
 			if ( fEvent ) delete fEvent;
 			fEvent = new Event( pBoard, fNCbc, &fBuf[ fCurrentEvent * fEventSize ] );
-			std::cout << "Get Next Event Event " << fCurrentEvent << " and position in buffer " << fCurrentEvent* fEvent->fEventSize << std::endl;
 			fCurrentEvent++;
 			return fEvent;
 		}
