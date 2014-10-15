@@ -96,15 +96,21 @@ Follow these instructions to install and compile the libraries:
 
 3. Launch system command if you want to test the reading of your hardware describing XML file.
 
-4. Launch 
-         datatest threshold(%X) nEvents HWDescriptionFile 
-    command if you want to test if you can correctly read data.
+4. Launch
 
-6. launch 
-          calibrate N_CBC_FLAG(none or 8CBC) (outputdirectory)
-    to calibrate a hybrid, 
-          hybridtest HWDescriptionFile
-    to test a hybird's I2C registers and input channel connectivity
+        datatest threshold(%X) nEvents HWDescriptionFile 
+        
+command if you want to test if you can correctly read data.
+
+6. launch
+
+        calibrate N_CBC_FLAG(none or 8CBC) (outputdirectory)
+
+to calibrate a hybrid,
+
+        hybridtest HWDescriptionFile
+
+to test a hybird's I2C registers and input channel connectivity
 
 7. an example of how to use visitors can be found in src/interfacetest.cc or in the HybridTester class
 
