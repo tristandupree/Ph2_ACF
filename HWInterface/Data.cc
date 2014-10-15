@@ -16,7 +16,7 @@ namespace Ph2_HwInterface
 {
 	//Data Class
 
-	Data::Data( BeBoard& pBoard, uint32_t pNbCbc ) :
+	Data::Data( BeBoard& pBoard ) :
 		fBuf( 0 ),
 		fCurrentEvent( 0 ),
 		fEvent( NULL ),
@@ -46,7 +46,12 @@ namespace Ph2_HwInterface
 		fEventSize = uint32_t( fBufSize / fNevents );
 		fNCbc = ( fEventSize - ( EVENT_HEADER_TDC_SIZE_CHAR ) ) / ( CBC_EVENT_SIZE_CHAR );
 
+#ifdef __CBCDAQ_DEV__
+
 		std::cout << "Initializing buffer with " << pData->size() << " 32 bit words and " << fBufSize << " chars containing data from " << fNevents << "  Events with an eventbuffer size of " << fEventSize << " and " << fNCbc << " CBCs each! " << EVENT_HEADER_TDC_SIZE_CHAR << " " << CBC_EVENT_SIZE_CHAR << std::endl;
+
+#endif
+
 		if ( fBuf ) free( fBuf );
 		fBuf = ( char* )malloc( pData->size() * 4 );
 
@@ -68,45 +73,6 @@ namespace Ph2_HwInterface
 				fBuf[i * 4 + j] = cSwapped[j];
 		}
 	}
-
-
-	// void Data::Initialise( uint32_t pNevents )
-	// {
-	//  fNevents = uint32_t( pNevents );
-	//  // fBufSize = ( fNevents + 1 ) * fEvent.fEventSize ;  //is already in char
-	//  // if ( fBuf )
-	//  //  free( fBuf );
-	//  // fBuf = ( char* ) malloc( fBufSize );
-	//  // std::cout << "Initializing buffer for " << fNevents << " Events with a size of  " << fBufSize << " chars" << std::endl;
-	//  // fEvent.Clear();
-
-	//  // #ifdef __CBCDAQ_DEV__
-	//  //      std::cout << "Data::Initialise done." << std::endl;
-	//  // #endif
-
-	// }
-
-
-	// void Data::Initialise( uint32_t pNevents, BeBoard& pBoard )
-	// {
-
-	//  fNevents = uint32_t( pNevents );
-	//  // fBufSize = ( fNevents ) * fEvent.fEventSize ;
-	//  // if ( fBuf )
-	//  //  free( fBuf );
-	//  // fBuf = ( char* ) malloc( fBufSize );
-	//  // std::cout << "Initializing buffer for " << fNevents << " Events with a size of  " << fBufSize << " chars" << std::endl;
-
-	//  // fEvent.Clear();
-
-	//  // fEvent.AddBoard( pBoard );
-
-	//  // #ifdef __CBCDAQ_DEV__
-	//  //      std::cout << "Data::Initialise done." << std::endl;
-	//  // #endif
-
-	// }
-
 
 	void Data::Reset()
 	{

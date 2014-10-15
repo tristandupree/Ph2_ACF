@@ -23,7 +23,7 @@ namespace Ph2_HwInterface
 		RegManager( puHalConfigFileName, pBoardId ),
 		fNTotalAcq( 0 )
 	{
-		fData = new Data( 0 );
+		fData = new Data( );
 	}
 
 
@@ -36,7 +36,7 @@ namespace Ph2_HwInterface
 	void BeBoardFWInterface::defineEventSize( uint32_t pNbCbc )
 	{
 		delete fData;
-		fData = new Data( pNbCbc );
+		fData = new Data( );
 	}
 
 

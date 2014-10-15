@@ -278,11 +278,8 @@ namespace Ph2_HwInterface
 
 		uhal::ValWord<uint32_t> cVal;
 
-		// Since the Number of  Packets is a FW register, it should be read from the Settings Table
+		// Since the Number of  Packets is a FW register, it should be read from the Settings Table, add 1 to avoid upsetting the EventCounter
 		uint32_t cNPackets = pBoard->getReg( "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER" ) + 1 ;
-		std::cout << "###########DEBUG cNPackets " << cNPackets << " ###########################" << std::endl;
-
-		// number of CBC's * number of Modules * 9 32 bit words (CBC data) + 6  32 bit words (header + TDC)
 
 		//use a counting visitor to find out the number of CBCs
 		struct CbcCounter : public HwDescriptionVisitor
@@ -303,9 +300,10 @@ namespace Ph2_HwInterface
 		pBoard->accept( cCounter );
 
 		uint32_t cBlockSize = cNPackets * ( cCounter.getNCbc() * CBC_EVENT_SIZE_32 + EVENT_HEADER_TDC_SIZE_32 ); // in 32 bit words
-		std::cout << "###########DEBUG cBlockSize " << cBlockSize << " ###########################"  <<  std::endl;
-
-		defineEventSize( cCounter.getNCbc() );
+		// just creates a new Data object with the apropriate size
+		// defineEventSize( cCounter.getNCbc() );
+		if ( fData ) delete fData;
+		fData = new Data();
 
 		//Wait for start acknowledge
 		do
@@ -342,7 +340,6 @@ namespace Ph2_HwInterface
 
 		}
 		while ( cVal == 0 );
-		std::cout << "DEBUG3" << std::endl;
 
 #ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 1 );
@@ -353,7 +350,6 @@ namespace Ph2_HwInterface
 		if ( pBreakTrigger )
 			WriteReg( BREAK_TRIGGER, 1 );
 
-		// JRF end
 
 #ifdef __CBCDAQ_DEV__
 		gettimeofday( &fStartVeto, 0 );
@@ -365,7 +361,6 @@ namespace Ph2_HwInterface
 #ifdef __CBCDAQ_DEV__
 		gettimeofday( &cStartBlockRead, 0 );
 #endif
-		std::cout << "DEBUG4" << std::endl;
 
 		//Read SRAM
 		uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, cBlockSize );
@@ -415,10 +410,8 @@ namespace Ph2_HwInterface
 		mtime = getTimeTook( cStartReadDataInSRAM, 1 );
 		std::cout << "Time took for ReadDataInSRAM: " << std::dec << mtime << " ms." << std::endl;
 #endif
-		std::cout << "DEBUG5" << std::endl;
-
+		// set the vector<uint32_t> as event buffer and let him know how many packets it contains
 		fData->Set( &cDataAlt , cNPackets );
-		std::cout << "DEBUG6" << std::endl;
 
 	}
 

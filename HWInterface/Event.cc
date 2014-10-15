@@ -62,8 +62,10 @@ namespace Ph2_HwInterface
 		fEventSize = pNbCbc * cFactor * CBC_EVENT_SIZE_CHAR  + EVENT_HEADER_TDC_SIZE_CHAR;
 		fOffsetTDC = EVENT_HEADER_SIZE_32 * cFactor + CBC_EVENT_SIZE_32 * pNbCbc * 2; //in 32 bit words
 
+#ifdef __CBCDAQ_DEV__
+
 		std::cout << "DEBUG EVENT SET SIZE: Event size(char) " << fEventSize << " nCBC =  " << cFactor* pNbCbc <<  "  this should be 168 with 4cbc " << "  and Offset TDC " << fOffsetTDC << std::endl;
-		// }
+#endif
 	}
 
 	void Event::AddBoard( BeBoard* pBoard )
@@ -113,7 +115,11 @@ namespace Ph2_HwInterface
 				uint8_t cCbcId = uint8_t( cCbcIt->first );
 				// cCbcIt->second = &pEvent[OFFSET_FE_EVENT + FeId * fFeNChar + CbcId * CBC_NCHAR];
 				cCbcIt->second = &pEvent[EVENT_HEADER_SIZE_CHAR + cFeId * CBC_EVENT_SIZE_CHAR * cNCbc + cCbcId * CBC_EVENT_SIZE_CHAR];
+
+#ifdef __CBCDAQ_DEV__
 				std::cout << "DEBUG FE " << int( cFeId ) << "  with " << int( cNCbc ) << " cbcs on CBC " << int( cCbcId ) << " and the offset in Chars is "  << EVENT_HEADER_SIZE_CHAR + cFeId* CBC_EVENT_SIZE_CHAR* cNCbc + cCbcId* CBC_EVENT_SIZE_CHAR << std::endl;
+#endif
+
 			}
 		}
 
