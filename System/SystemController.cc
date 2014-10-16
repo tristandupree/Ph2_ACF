@@ -199,7 +199,7 @@ namespace Ph2_System
 		accept( cConfigurator );
 	}
 
-	void SystemController::CreateResultDirectory( std::string pDirname )
+	void SystemController::CreateResultDirectory( const std::string& pDirname )
 	{
 
 		bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
@@ -208,16 +208,16 @@ namespace Ph2_System
 		if ( cHoleMode ) cMode = "_Hole";
 		else cMode = "_Electron";
 
-		pDirname = pDirname + cMode +  currentDateTime();
-		std::cout << std::endl << "Creating directory: " << pDirname << std::endl << std::endl;
-		std::string cCommand = "mkdir -p " + pDirname;
+		std::string nDirname = pDirname + cMode +  currentDateTime();
+		std::cout << std::endl << "Creating directory: " << nDirname << std::endl << std::endl;
+		std::string cCommand = "mkdir -p " + nDirname;
 
 		system( cCommand.c_str() );
 
-		fDirectoryName = pDirname;
+		fDirectoryName = nDirname;
 	}
 
-	void SystemController::InitResultFile( std::string pFilename )
+	void SystemController::InitResultFile( const std::string& pFilename )
 	{
 
 		if ( !fDirectoryName.empty() )
