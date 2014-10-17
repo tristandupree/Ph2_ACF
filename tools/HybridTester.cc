@@ -313,7 +313,6 @@ void HybridTester::Measure()
 				// Loop over Events from this Acquisition
 				while ( cEvent )
 				{
-					std::cout << "Inside Event Loop Event # " << cN << " # of Acquistion " << cNthAcq << std::endl;
 
 					if ( cN == cTotalEvents )
 						break;

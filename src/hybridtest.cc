@@ -30,7 +30,7 @@ int main( int argc, char* argv[] )
 	// options
 	cmd.setHelpOption( "h", "help", "Print this help page" );
 
-	cmd.defineOption( "file", "Hw Description File . Default value: settings/HWDescription_2CBC.xml", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOption( "file", "Hw Description File . Default value: settings/HybridTest2CBC.xml", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
 	cmd.defineOptionAlternative( "file", "f" );
 
 	cmd.defineOption( "registers", "test registers", ArgvParser::NoOptionAttribute );
@@ -39,7 +39,7 @@ int main( int argc, char* argv[] )
 	cmd.defineOption( "scan", "scan noise occupancy, if not set, the value from the .XML will be used", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "scan", "s" );
 
-	cmd.defineOption( "output", "Output Directory . Default value: Results", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOption( "output", "Output Directory . Default value: Results/", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
 	cmd.defineOptionAlternative( "output", "o" );
 
 	int result = cmd.parse( argc, argv );
@@ -53,9 +53,8 @@ int main( int argc, char* argv[] )
 	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/HWDescription_2CBC.xml";
 	bool cRegisters = ( cmd.foundOption( "registers" ) ) ? true : false;
 	bool cScan = ( cmd.foundOption( "scan" ) ) ? true : false;
-	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results";
-	if ( cDirectory.back() != '/' ) cDirectory += "/HybridTest";
-	else cDirectory += "HybridTest";
+	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results/";
+	cDirectory += "HybridTest";
 
 
 	TApplication cApp( "Root Application", &argc, argv );
