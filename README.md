@@ -1,4 +1,4 @@
-Git Repository for the ACF (Acquisition & Control Framework)
+Git Repository for the CMS Ph2 ACF (Acquisition & Control Framework)
 ============================================================
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
@@ -34,6 +34,7 @@ Changelog:
 - 19/08/14 : Project wrapped, called ACF for Acquisition & Control Framework
 - 09/10/14 : added Visitor class and the corresponding accept methods to the HWDescription objects
 - 15/10/14 : re-wrote the GlibFWInterface::ReadData() method, completeley re-wrote the parsing of the raw buffer and the offsets, modified the Data and Event classes to be more lightweight and less complex
+-17/10/14 : renamed the project to Ph2_ACF & re-structured the folder architecture and added command line parsing to the executables
 <br>
 <br>
 
@@ -98,17 +99,17 @@ Follow these instructions to install and compile the libraries:
 
 4. Launch
 
-        datatest threshold(%X) nEvents HWDescriptionFile 
+        datatest --help
         
 command if you want to test if you can correctly read data.
 
 6. launch
 
-        calibrate N_CBC_FLAG(none or 8CBC) (outputdirectory)
+        calibrate --help
 
 to calibrate a hybrid,
 
-        hybridtest HWDescriptionFile
+        hybridtest --help
 
 to test a hybird's I2C registers and input channel connectivity
 

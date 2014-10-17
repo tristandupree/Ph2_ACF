@@ -9,10 +9,10 @@
 
  */
 #include <uhal/uhal.hpp>
-#include <boost/format.hpp>
 #include "RegManager.h"
 #include "../Utils/Utilities.h"
 #include "../HWDescription/Definition.h"
+#include "TString.h"
 
 #define DEV_FLAG    0
 
@@ -31,7 +31,7 @@ namespace Ph2_HwInterface
 
 		uhal::ConnectionManager cm( fUHalConfigFileName ); // Get connection
 
-		fBoard = new uhal::HwInterface( cm.getDevice( boost::str( boost::format( "board%1%" ) % pBoardId ) ) );
+		fBoard = new uhal::HwInterface( cm.getDevice( ( Form( "board%1d", pBoardId ) ) ) );
 
 		fThread.detach();
 

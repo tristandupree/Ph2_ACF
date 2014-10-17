@@ -16,16 +16,12 @@ ExternalObjects = $(LibraryPaths) -lpthread -lboost_thread -lboost_filesystem -l
 %.o: %.cc %.h
 	$(CXX) -std=c++11 $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
-
-all: systemtest calibrate interfacetest datatest hybridtest
+binaries=systemtest calibrate interfacetest datatest hybridtest
+all: clean $(binaries)
 
 systemtest: systemtest.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	cp $@ ../bin
-
-# mcp: mcp.cc
-# 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
-# 	mv $@ ../bin
 
 calibrate: calibrate.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
@@ -43,5 +39,7 @@ hybridtest: hybridtest.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	cp $@ ../bin
 
+.PHONY: clean
 
 clean:
+	rm -f $(binaries) *.o
