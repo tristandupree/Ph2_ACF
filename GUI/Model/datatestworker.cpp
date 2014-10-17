@@ -54,28 +54,7 @@ namespace GUI
 
     void DataTestWorker::doWork()
     {
-
-        /*for (int i = 0; i <2 ; i++)
-        {
-            TString name("Data Test Cbc ");
-            name.Append(std::to_string(i));
-
-            auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 1000, 0, 1000);
-            m_vecHist.push_back(h);
-        }
-
-        for (int t = 0; t < 400; t++)
-        {
-            usleep(10000);
-            for (int i = 0; i <2 ; i++)
-            {
-                m_vecHist.at(i)->Fill(t*2);
-            }
-            emit sendGraphData(m_vecHist);
-        }*/
-
-        ReadDataTest();
-
+        
         // Set _working to false, meaning the process can't be aborted anymore.
         mutex.lock();
         _working = false;
@@ -83,7 +62,7 @@ namespace GUI
 
         qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
 
-        emit finished();
+        //emit finished();
     }
 
 
@@ -122,9 +101,6 @@ namespace GUI
                 }
             }
         }
-
-        //uint32_t t1 = get_time();
-        //std::cout << "Time for changing VCth on all CBCse: " << t1 - t0 << " milliseconds!" << std::endl;
 
         uint32_t cN = 0;
         uint32_t cNthAcq = 0;

@@ -44,8 +44,6 @@ namespace GUI{
 
         int m_Vcth;
         int m_Events;
-        //std::vector<std::shared_ptr<TH1D>> m_vecHist;
-        //std::vector<std::shared_ptr<TH1D>> m_vecHist;
 
         bool _abort;
         bool _working;

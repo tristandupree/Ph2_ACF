@@ -16,12 +16,12 @@ namespace GUI
     {
         WireButtons();
         WireThreads();
+        WireCanvas();
     }
 
     DataTestViewManager::~DataTestViewManager()
     {
         qDebug() << "Destructing " << this;
-
     }
 
     void DataTestViewManager::WireButtons()
@@ -47,6 +47,16 @@ namespace GUI
     {
         connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D>>)),
                 &m_dataTestTab, SLOT(drawGraph(std::vector<std::shared_ptr<TH1D>>)));
+    }
+
+    void DataTestViewManager::WireCanvas()
+    {
+        connect(&m_dataTest, SIGNAL(getTCanvas()),
+                &m_dataTestTab, SLOT(getTCanvas()));
+        connect(&m_dataTestTab, SIGNAL(sendTCanvas(std::vector<TCanvas*>)),
+                &m_dataTest, SLOT(recieveTCanvas(std::vector<TCanvas*>)));
+        connect(&m_dataTest, SIGNAL(sendRefresh()),
+                &m_dataTestTab, SLOT(refreshTCanvas()));
     }
 
 

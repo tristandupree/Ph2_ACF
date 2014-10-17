@@ -80,6 +80,26 @@ namespace GUI {
         ui->btnStart->setEnabled(true);
     }
 
+    void DataTestTab::getTCanvas()
+    {
+        qDebug() << "getTCanvas()";
+
+        for (int i; i < m_vectorCanvas.size(); i++)
+        {
+            m_vecTCanvas.push_back(m_vectorCanvas.at(i)->GetCanvas());
+        }
+        emit sendTCanvas(m_vecTCanvas);
+    }
+
+    void DataTestTab::refreshTCanvas()
+    {
+        qDebug()<< "RefreshTCanvas()";
+        for (int i; i < m_vectorCanvas.size(); i++)
+        {
+            m_vectorCanvas.at(i)->Refresh();
+        }
+    }
+
     void DataTestTab::on_btnStart_clicked()
     {
         emit notifyAddGraph();
@@ -99,7 +119,6 @@ namespace GUI {
             m_Vcth = value;
         }
         else
-
         {
             ui->txtVcth->setText(QString("0"));
             ui->dialVcth->setValue(0);
@@ -109,15 +128,12 @@ namespace GUI {
 
     void DataTestTab::on_dialEvents_sliderMoved(int position)
     {
-
         ui->txtEvents->setText(QString::number(position));
         m_Events = position;
-
     }
 
     void DataTestTab::on_txtEvents_editingFinished()
     {
-
         int value = (ui->txtVcth->text()).toInt();
         if(value<501)
         {
@@ -125,13 +141,11 @@ namespace GUI {
             m_Vcth = value;
         }
         else
-
         {
             ui->txtVcth->setText(QString("0"));
             ui->dialVcth->setValue(0);
             m_Vcth = value;
         }
-
     }
 
 }

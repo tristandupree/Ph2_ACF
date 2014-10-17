@@ -3,6 +3,8 @@
 #include <QVector>
 #include <QThread>
 #include "TH1D.h"
+#include "TCanvas.h"
+
 
 #include "Model/datatestworker.h"
 #include "Model/systemcontroller.h"
@@ -22,6 +24,8 @@ namespace GUI
         m_Events(0)
     {
         qRegisterMetaType<std::vector<std::shared_ptr<TH1D>> >("std::vector<std::shared_ptr<TH1D>>");
+        qRegisterMetaType<TCanvas*>("TCanvas*");
+        qRegisterMetaType<std::vector<TCanvas*> >("std::vector<TCanvas*>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
     }
@@ -55,13 +59,18 @@ namespace GUI
         emit getVcthValue();
         emit getEventsValue();
         emit startedDataTest();
+        qDebug()<<"Entered Create Graph";
+        emit getTCanvas();
 
-        m_worker->abort();
-        m_thread->wait(); // If the thread is not running, this will immediately return.
 
-        m_worker->requestWork(m_Vcth, m_Events);
+        //m_worker->abort();
+        //m_thread->wait(); // If the thread is not running, this will immediately return.
+
+        //m_worker->requestWork(m_Vcth, m_Events);
 
     }
+
+
 
     void DataTest::setVcthValue(int cVcth)
     {
@@ -71,6 +80,26 @@ namespace GUI
     void DataTest::setEventsValue(int cEvents)
     {
         m_Events = cEvents;
+    }
+
+    void DataTest::recieveTCanvas(std::vector<TCanvas *> canvas)
+    {
+        qDebug() << "Size of canvas" << canvas.size();
+        for (int i; i < canvas.size(); i++)
+        {
+            canvas.at(i)->SetFillColor(i+5);
+
+            TH1D* g = new TH1D("hjsh", "jhea", 10, 0, 10);
+            canvas.at(i)->cd();
+            g->Draw();
+
+            qDebug() << canvas.at(i)->GetName();
+
+            qDebug() << "DrawnGraph";
+            emit sendRefresh();
+            emit finishedDataTest();
+            //emit
+        }
     }
 
 }

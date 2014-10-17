@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "TH1D.h"
+#include "TCanvas.h"
 #include "lib/CustomTQtWidget.h"
 #include "lib/TQtWidget.h"
 #include <QGroupBox>
@@ -21,12 +22,14 @@ namespace GUI{
 
     public:
         explicit DataTestTab(QWidget *parent);
+        TCanvas* passTCanvas(int i);
 
     ~DataTestTab();
     signals:
         void notifyAddGraph();
         void sendVcthValue(int cVcth);
         void sendEventsNumber(int cEvents);
+        void sendTCanvas (std::vector<TCanvas*> canvas);
 
     public slots:
         void drawGraph(const std::vector<std::shared_ptr<TH1D>> hists);
@@ -34,6 +37,8 @@ namespace GUI{
         void getEventsDial();
         void onDataTestStart();
         void onDataTestFinish();
+        void getTCanvas();
+        void refreshTCanvas();
 
 
     private slots:
@@ -52,6 +57,8 @@ namespace GUI{
         Ui::DataTestTab *ui;
 
         std::vector<std::shared_ptr<TH1D>> m_vecHist;
+
+        std::vector<TCanvas*> m_vecTCanvas;
 
         std::vector<TQtWidget*> m_vectorCanvas;
         std::vector<QGroupBox*> m_vectorGroupBox;

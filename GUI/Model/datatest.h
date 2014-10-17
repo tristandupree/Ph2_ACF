@@ -29,11 +29,14 @@ namespace GUI{
         void getEventsValue();
         void startedDataTest();
         void finishedDataTest();
+        void getTCanvas();
+        void sendRefresh();
 
     public slots:
         void createGraph();
         void setVcthValue(int cVcth);
         void setEventsValue(int cEvents);
+        void recieveTCanvas(std::vector<TCanvas*> canvas);
 
     private:
 
