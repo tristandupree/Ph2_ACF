@@ -6,7 +6,7 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "../tools/Calibration.h"
-#include "../HWInterface/Timer.h"
+#include "../Utils/Timer.h"
 #include <TApplication.h>
 #include <inttypes.h>
 #include "../Utils/argvparser.h"
@@ -66,8 +66,6 @@ int main( int argc, char* argv[] )
 
 	Timer t;
 	t.start();
-
-	SystemController cSystemController;
 
 	cSystemController.InitializeHw( cHWFile );
 	cSystemController.ConfigureHw();
