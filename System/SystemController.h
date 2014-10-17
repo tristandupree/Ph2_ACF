@@ -119,11 +119,6 @@ namespace Ph2_System
 		 */
 		void Run( BeBoard* pBeBoard, uint32_t pNthAcq );
 
-	  private:
-		// !
-		//  * \brief Check the polarity of the CBC & GLIB logic from the settings node in the XML file
-
-		// void CheckPolarity( BeBoard* pBeBoard );
 
 		uint32_t convertAnyInt( const char* pRegValue ) {
 			if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return uint32_t( strtoul( pRegValue , 0, 16 ) );

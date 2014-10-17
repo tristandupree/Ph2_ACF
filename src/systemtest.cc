@@ -17,8 +17,10 @@ int main( int argc, char** argv )
 	cmd.addErrorCode( 1, "Error" );
 	// options
 	cmd.setHelpOption( "h", "help", "Print this help page" );
+
 	cmd.defineOption( "file", "Hw Description File . Default value: settings/HWDescription_2CBC.xml", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
 	cmd.defineOptionAlternative( "file", "f" );
+
 	cmd.defineOption( "configure", "Configure HW", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "configure", "c" );
 

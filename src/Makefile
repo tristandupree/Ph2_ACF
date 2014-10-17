@@ -17,9 +17,9 @@ ExternalObjects = $(LibraryPaths) -lpthread -lboost_thread -lboost_filesystem -l
 	$(CXX) -std=c++11 $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
 
-all: system calibrate interfacetest datatest hybridtest
+all: systemtest calibrate interfacetest datatest hybridtest
 
-system: systemtest.cc
+systemtest: systemtest.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	cp $@ ../bin
 

@@ -29,12 +29,16 @@ int main( int argc, char* argv[] )
 	cmd.addErrorCode( 1, "Error" );
 	// options
 	cmd.setHelpOption( "h", "help", "Print this help page" );
+
 	cmd.defineOption( "file", "Hw Description File . Default value: settings/HWDescription_2CBC.xml", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
 	cmd.defineOptionAlternative( "file", "f" );
+
 	cmd.defineOption( "registers", "test registers", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "registers", "r" );
+
 	cmd.defineOption( "scan", "scan noise occupancy, if not set, the value from the .XML will be used", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "scan", "s" );
+
 	cmd.defineOption( "output", "Output Directory . Default value: Results", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
 	cmd.defineOptionAlternative( "output", "o" );
 
