@@ -87,11 +87,11 @@ void HybridTester::ScanThreshold()
 	int cStep = ( cHoleMode ) ? -10 : 10;
 
 	// Root objects
-	TCanvas* cSCurveCanvas = new TCanvas( "cSCurveCanvas", "Noise Occupancy as function of VCth" );
-	TH1F* cSCurve = new TH1F( "cSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
-	cSCurve->SetMarkerStyle( 8 );
-	cSCurveCanvas->cd();
-	TF1* cFit = new TF1( "cFit", MyErf, 0, 255, 2 );
+	fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
+	fSCurve = new TH1F( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
+	fSCurve->SetMarkerStyle( 8 );
+	fSCurveCanvas->cd();
+	fFit = new TF1( "fFit", MyErf, 0, 255, 2 );
 
 	// Adaptive VCth loop
 	while ( 0x00 <= cVcth && cVcth <= 0xFF )
@@ -141,9 +141,9 @@ void HybridTester::ScanThreshold()
 					cNthAcq++;
 				} // done with this acquisition
 
-				cSCurve->SetBinContent( cVcth, cHitCounter );
-				cSCurve->Draw( "P" );
-				cSCurveCanvas->Update();
+				fSCurve->SetBinContent( cVcth, cHitCounter );
+				fSCurve->Draw( "P" );
+				fSCurveCanvas->Update();
 				// check if the hitcounter is all ones
 
 				if ( cNonZero == false && cHitCounter != 0 )
@@ -163,9 +163,9 @@ void HybridTester::ScanThreshold()
 	} // end of VCth loop
 
 	// Fit & Plot
-	cSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NSENSOR ) );
-	// cSCurveCanvas->cd();
-	cSCurve->Draw( "P" );
+	fSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NSENSOR ) );
+	// fSCurveCanvas->cd();
+	fSCurve->Draw( "P" );
 
 	double cFirstNon0( 0 );
 	double cFirst1( 0 );
@@ -173,16 +173,16 @@ void HybridTester::ScanThreshold()
 	// Not Hole Mode
 	if ( !cHoleMode )
 	{
-		for ( Int_t cBin = 1; cBin <= cSCurve->GetNbinsX(); cBin++ )
+		for ( Int_t cBin = 1; cBin <= fSCurve->GetNbinsX(); cBin++ )
 		{
-			double cContent = cSCurve->GetBinContent( cBin );
+			double cContent = fSCurve->GetBinContent( cBin );
 			if ( !cFirstNon0 )
 			{
-				if ( cContent ) cFirstNon0 = cSCurve->GetBinCenter( cBin );
+				if ( cContent ) cFirstNon0 = fSCurve->GetBinCenter( cBin );
 			}
 			else if ( cContent == 1 )
 			{
-				cFirst1 = cSCurve->GetBinCenter( cBin );
+				cFirst1 = fSCurve->GetBinCenter( cBin );
 				break;
 			}
 		}
@@ -190,16 +190,16 @@ void HybridTester::ScanThreshold()
 	// Hole mode
 	else
 	{
-		for ( Int_t cBin = cSCurve->GetNbinsX(); cBin >= 1; cBin-- )
+		for ( Int_t cBin = fSCurve->GetNbinsX(); cBin >= 1; cBin-- )
 		{
-			double cContent = cSCurve->GetBinContent( cBin );
+			double cContent = fSCurve->GetBinContent( cBin );
 			if ( !cFirstNon0 )
 			{
-				if ( cContent ) cFirstNon0 = cSCurve->GetBinCenter( cBin );
+				if ( cContent ) cFirstNon0 = fSCurve->GetBinCenter( cBin );
 			}
 			else if ( cContent == 1 )
 			{
-				cFirst1 = cSCurve->GetBinCenter( cBin );
+				cFirst1 = fSCurve->GetBinCenter( cBin );
 				break;
 			}
 		}
@@ -210,22 +210,22 @@ void HybridTester::ScanThreshold()
 	double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
 
 
-	cFit->SetParameter( 0, cMid );
-	cFit->SetParameter( 1, cWidth );
+	fFit->SetParameter( 0, cMid );
+	fFit->SetParameter( 1, cWidth );
 
-	cSCurve->Fit( cFit, "RNQ+" );
-	cFit->Draw( "same" );
+	fSCurve->Fit( fFit, "RNQ+" );
+	fFit->Draw( "same" );
 
 	// Save
-	cSCurve->Write( cSCurve->GetName(), TObject::kOverwrite );
-	cFit->Write( cFit->GetName(), TObject::kOverwrite );
-	cSCurveCanvas->Write( cSCurveCanvas->GetName(), TObject::kOverwrite );
+	fSCurve->Write( fSCurve->GetName(), TObject::kOverwrite );
+	fFit->Write( fFit->GetName(), TObject::kOverwrite );
+	fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
 	std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
-	cSCurveCanvas->SaveAs( cPdfName.c_str() );
+	fSCurveCanvas->SaveAs( cPdfName.c_str() );
 
 	// Set new VCth
-	double_t pedestal = cFit->GetParameter( 0 );
-	double_t noise = cFit->GetParameter( 1 );
+	double_t pedestal = fFit->GetParameter( 0 );
+	double_t noise = fFit->GetParameter( 1 );
 
 	int cSigmas = fSettingsMap.find( "Threshold_NSigmas" )->second;
 	uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
@@ -236,7 +236,7 @@ void HybridTester::ScanThreshold()
 	cLine->SetLineWidth( 3 );
 	cLine->SetLineColor( 2 );
 	cLine->Draw( "same" );
-	cSCurveCanvas->Update();
+	fSCurveCanvas->Update();
 
 	CbcRegWriter cWriter( fCbcInterface, "VCth", cThreshold );
 	accept( cWriter );
@@ -306,7 +306,6 @@ void HybridTester::Measure()
 
 			while ( cN <  cTotalEvents )
 			{
-				std::cout << "Event # " << cN << " # of Acquistion " << cNthAcq << std::endl;
 				Run( &pBoard, cNthAcq );
 
 				const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );

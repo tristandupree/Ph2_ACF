@@ -44,6 +44,10 @@ class HybridTester : public SystemController
 	TH1F* fHistTop;
 	TH1F* fHistBottom;
 
+	TCanvas* fSCurveCanvas;
+	TH1F* fSCurve;
+	TF1* fFit;
+
 	void UpdateHists() {
 		fDataCanvas->cd( 1 );
 		fHistTop->Draw();
