@@ -10,7 +10,7 @@
  */
 
 #include "CbcInterface.h"
-# include "../System/ConsoleColor.h"
+# include "../Utils/ConsoleColor.h"
 
 #define DEV_FLAG 0
 

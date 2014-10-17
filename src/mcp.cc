@@ -15,7 +15,7 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
-#include "../HWInterface/Utilities.h"
+#include "../Utils/Utilities.h"
 #include "../System/SystemController.h"
 #include <boost/format.hpp>
 #include <TH1F.h>

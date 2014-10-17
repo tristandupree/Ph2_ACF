@@ -15,7 +15,7 @@
 #include <uhal/uhal.hpp>
 #include <ios>
 #include <istream>
-#include "Event.h"
+#include "../Utils/Event.h"
 #include "../HWDescription/BeBoard.h"
 #include "../HWDescription/Definition.h"
 

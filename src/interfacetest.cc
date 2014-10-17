@@ -4,7 +4,7 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
-#include "../HWInterface/Utilities.h"
+#include "../Utils/Utilities.h"
 #include "../System/SystemController.h"
 #include <boost/format.hpp>
 #include <TH1F.h>
@@ -15,7 +15,7 @@
 
 #include <sys/time.h>
 #include <ctime>
-#include "../HWInterface/Visitor.h"
+#include "../Utils/Visitor.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;

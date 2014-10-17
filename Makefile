@@ -1,6 +1,8 @@
-all: HWDescription HWInterface System tools src
+all: Utils HWDescription HWInterface System tools src
 
 HWDescription::
+	$(MAKE) -C $@
+Utils::
 	$(MAKE) -C $@
 HWInterface::
 	$(MAKE) -C $@
@@ -14,6 +16,7 @@ src::
 
 clean:
 	(cd System; make clean)
+	(cd Utils; make clean)
 	(cd HWInterface; make clean)
 	(cd HWDescription; make clean)
 	(cd tools; make clean)

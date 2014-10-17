@@ -15,10 +15,10 @@
 #include <boost/format.hpp>
 #include <uhal/uhal.hpp>
 #include "RegManager.h"
-#include "Event.h"
-#include "Data.h"
-#include "Utilities.h"
-#include "Exception.h"
+#include "../Utils/Event.h"
+#include "../Utils/Data.h"
+#include "../Utils/Utilities.h"
+#include "../Utils/Exception.h"
 #include "../HWDescription/BeBoard.h"
 #include "../HWDescription/Definition.h"
 #include "../HWDescription/CbcRegItem.h"

@@ -11,7 +11,7 @@
 #include <uhal/uhal.hpp>
 #include <boost/format.hpp>
 #include "RegManager.h"
-#include "Utilities.h"
+#include "../Utils/Utilities.h"
 #include "../HWDescription/Definition.h"
 
 #define DEV_FLAG    0

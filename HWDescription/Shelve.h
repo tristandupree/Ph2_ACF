@@ -14,7 +14,7 @@
 
 #include "BeBoard.h"
 
-#include "../HWInterface/Visitor.h"
+#include "../Utils/Visitor.h"
 
 /*!
  * \namespace Ph2_HwDescription

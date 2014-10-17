@@ -18,11 +18,11 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
-#include "../HWInterface/Visitor.h"
-#include "../HWInterface/Utilities.h"
+#include "../Utils/Visitor.h"
+#include "../Utils/Utilities.h"
 
-#include "pugixml.hpp"
-#include "ConsoleColor.h"
+#include "../Utils/pugixml.hpp"
+#include "../Utils/ConsoleColor.h"
 #include <iostream>
 #include <vector>
 #include <map>

@@ -9,7 +9,7 @@
 
  */
 
-#include "Exception.h"
+#include "../Utils/Exception.h"
 #include "TROOT.h"
 
 namespace Ph2_HwInterface

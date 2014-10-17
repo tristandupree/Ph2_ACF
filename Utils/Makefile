@@ -1,4 +1,4 @@
-Objs                    = RegManager.o BeBoardFWInterface.o GlibFWInterface.o CbcInterface.o BeBoardInterface.o 
+Objs                    = Exception.o Utilities.o Event.o Data.o
 CC              = gcc
 CXX             = g++
 CCFlags         = -g -O1 -w -Wall -pedantic -fPIC `root-config --cflags --evelibs` -Wcpp
@@ -13,8 +13,8 @@ IncludePaths            = $(IncludeDirs:%=-I%)
 	$(CXX) -std=c++11  $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
 all: $(Objs) ../HWDescription/Definition.h
-	$(CC) -std=c++11 -shared -o libPh2_Interface.so $(Objs) -pthread
-	mv libPh2_Interface.so ../lib
+	$(CC) -std=c++11 -shared -o libPh2_Utils.so $(Objs) -pthread
+	mv libPh2_Utils.so ../lib
 
 clean:
 	rm -f *.o

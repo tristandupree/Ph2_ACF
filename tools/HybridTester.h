@@ -8,10 +8,10 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../System/SystemController.h"
-#include "../System/ConsoleColor.h"
-#include "../HWInterface/Visitor.h"
-#include "../HWInterface/Utilities.h"
-#include "../HWInterface/CommonVisitors.h"
+#include "../Utils/ConsoleColor.h"
+#include "../Utils/Visitor.h"
+#include "../Utils/Utilities.h"
+#include "../Utils/CommonVisitors.h"
 
 
 
