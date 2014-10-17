@@ -16,6 +16,7 @@
 #include <sys/time.h>
 #include <ctime>
 #include "../Utils/Visitor.h"
+#include "../Utils/Timer.h"
 #include "../Utils/argvparser.h"
 
 
@@ -25,23 +26,6 @@ using namespace Ph2_System;
 
 using namespace CommandLineProcessing;
 
-
-uint64_t get_time()
-{
-	/* Linux */
-	struct timeval tv;
-
-	gettimeofday( &tv, NULL );
-
-	uint64_t ret = tv.tv_usec;
-	/* Convert from micro seconds (10^-6) to milliseconds (10^-3) */
-	ret /= 1000;
-
-	/* Adds the seconds (10^0) after converting them to milliseconds (10^-3) */
-	ret += ( tv.tv_sec * 1000 );
-
-	return ret;
-}
 
 int main( int argc, char* argv[] )
 {
@@ -82,15 +66,19 @@ int main( int argc, char* argv[] )
 	bool cMulti = ( cmd.foundOption( "multi" ) ) ? true : false;
 
 	SystemController cSystemController;
+	Timer t;
 
 	cSystemController.InitializeHw( cHWFile );
 	cSystemController.InitializeSettings( cHWFile );
+
 	if ( cConfigure )
 	{
-		uint64_t t0 = get_time();
+		t.start();
+
 		cSystemController.ConfigureHw();
-		uint64_t t1 = get_time();
-		std::cout << "Time for configuring all HW: " << t1 - t0 << " milliseconds!" << std::endl;
+
+		t.stop();
+		t.show( "Time to Initialize/configure the system: " );
 	}
 
 	struct CbcWriter : public HwDescriptionVisitor
@@ -100,20 +88,19 @@ int main( int argc, char* argv[] )
 		}
 
 		void visit( Cbc& pCbc ) {
-			fInterface->ConfigureCbc( &pCbc , true );
+			fInterface->WriteCbcReg( &pCbc , "VCth", 0x78 );
 		}
 	};
 
 	if ( cSingle )
 	{
-		uint64_t t0 = get_time();
+		t.start();
 
 		CbcWriter pWriter( cSystemController.fCbcInterface );
 		cSystemController.accept( pWriter );
 
-		uint64_t t1 = get_time();
-
-		std::cout << "Time for configuring all CBCs using visitor: " << t1 - t0 << " milliseconds!" << std::endl;
+		t.stop();
+		t.show( "Time to write a single Register on all CBC s" );
 	}
 
 
@@ -133,14 +120,13 @@ int main( int argc, char* argv[] )
 	if ( cMulti )
 	{
 
-		uint64_t t0 = get_time();
+		t.start();
 
 		cSystemController.fCbcInterface->WriteCbcMultReg( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), cRegVec, true );
 		// cSystemController.fCbcInterface->WriteCbcMultReg(cSystemController.fShelveVector[0]->getBoard(0)->getModule(0)->getCbc(1),cRegVec, false);
 
-		uint64_t t1 = get_time();
-		std::cout << "Time for writing " << int( nChannels ) << " registers to 1 CBC: " << t1 - t0 << " milliseconds!" << std::endl;
-
+		t.stop();
+		t.show( "Time for writing 254 registers to a single CBC" );
 	}
 	return 0;
 }
