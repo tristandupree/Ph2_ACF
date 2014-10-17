@@ -6,6 +6,7 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "../tools/Calibration.h"
+#include "../HWInterface/Timer.h"
 #include <TApplication.h>
 #include <inttypes.h>
 #include "../Utils/argvparser.h"
@@ -23,23 +24,6 @@ void syntax( int argc )
 	if ( argc > 4 ) std::cerr << RED << "ERROR: Syntax: calibrationtest VCth NEvents (HWDescriptionFile)" << std::endl;
 	else if ( argc < 3 ) std::cerr << RED << "ERROR: Syntax: calibrationtest VCth NEvents (HWDescriptionFile)" << std::endl;
 	else return;
-}
-
-uint64_t get_time()
-{
-	/* Linux */
-	struct timeval tv;
-
-	gettimeofday( &tv, NULL );
-
-	uint64_t ret = tv.tv_usec;
-	/* Convert from micro seconds (10^-6) to milliseconds (10^-3) */
-	ret /= 1000;
-
-	/* Adds the seconds (10^0) after converting them to milliseconds (10^-3) */
-	ret += ( tv.tv_sec * 1000 );
-
-	return ret;
 }
 
 int main( int argc, char* argv[] )
@@ -80,24 +64,39 @@ int main( int argc, char* argv[] )
 	cVcth = ( cmd.foundOption( "vcth" ) ) ? cSystemController.convertAnyInt( cmd.optionValue( "vcth" ).c_str() ) : 0;
 	pEventsperVcth = ( cmd.foundOption( "events" ) ) ? cSystemController.convertAnyInt( cmd.optionValue( "events" ).c_str() ) : 10;
 
+	Timer t;
+	t.start();
+
+	SystemController cSystemController;
+
 	cSystemController.InitializeHw( cHWFile );
 	cSystemController.ConfigureHw();
 
+	t.stop();
+	t.show( "Time to Initialize/configure the system: " );
+
 	if ( cVcth != 0 )
 	{
+		t.start();
+
 		for ( auto cShelve : cSystemController.fShelveVector )
 		{
-			for ( auto cBoard : ( cShelve )->fBoardVector )
+			for ( auto cShelve : cSystemController.fShelveVector )
 			{
-				for ( auto cFe : cBoard.fModuleVector )
+				for ( auto cBoard : ( cShelve )->fBoardVector )
 				{
-					for ( auto cCbc : cFe.fCbcVector )
-						cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( cVcth ) );
+					for ( auto cFe : cBoard.fModuleVector )
+					{
+						for ( auto cCbc : cFe.fCbcVector )
+							cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( cVcth ) );
+					}
 				}
 			}
 		}
-	}
 
+		t.stop();
+		t.show( "Time for changing VCth on all CBCs:" );
+	}
 
 	uint32_t cN = 0;
 	uint32_t cNthAcq = 0;

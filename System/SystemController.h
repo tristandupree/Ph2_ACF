@@ -91,12 +91,12 @@ namespace Ph2_System
 		 * \brief Create a result directory at the specified path + ChargeMode + Timestamp
 		 * \param pDirectoryname : the name of the directory to create
 		 */
-		void CreateResultDirectory( std::string pDirectoryname );
+		void CreateResultDirectory( const std::string& pDirectoryname );
 		/*!
 		 * \brief Initialize the result Root file
 		 * \param pFilename : Root filename
 		 */
-		void InitResultFile( std::string pFilename );
+		void InitResultFile( const std::string& pFilename );
 
 		/*!
 		 * \brief Initialize the Hardware via an XML file
