@@ -1,109 +1,233 @@
-\hypertarget{class_calibration}{\section{Calibration Class Reference}
+\hypertarget{class_calibration}{
+\section{Calibration Class Reference}
 \label{class_calibration}\index{Calibration@{Calibration}}
 }
+Read/Write Cbc's registers on a file.  
 
 
-Read/\-Write Cbc's registers on a file.  
+{\tt \#include $<$Calibration.h$>$}
 
-
-
-
-{\ttfamily \#include $<$Calibration.\-h$>$}
-
-Inheritance diagram for Calibration\-:\begin{figure}[H]
+Inheritance diagram for Calibration::\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{class_calibration}
+\includegraphics[height=2cm]{class_calibration}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-\hyperlink{class_calibration_a80f51a5ff7ec0f44d5388c9a61d1f20b}{Calibration} ()
+\hyperlink{class_calibration_80f51a5ff7ec0f44d5388c9a61d1f20b}{Calibration} ()
 \item 
-\hyperlink{class_calibration_a108efb6ccd8c98e5cac950be4bf0ac26}{$\sim$\-Calibration} ()
+\hyperlink{class_calibration_108efb6ccd8c98e5cac950be4bf0ac26}{$\sim$Calibration} ()
 \item 
-void \hyperlink{class_calibration_afaec4580879bba485d8d174f6c4d415e}{Vplus\-Scan} (std\-::vector$<$ uint8\-\_\-t $>$ p\-Vplus\-Values)
+void \hyperlink{class_calibration_0d38b6198cd798ed2a2d3dceec93e6e1}{Initialise\-Test\-Group} ()
 \item 
-uint8\-\_\-t \hyperlink{class_calibration_ad4f21740b432091ac2789944c26f861d}{Fit\-Vplus\-Vcth} (bool p\-Do\-Draw, uint8\-\_\-t p\-Target\-Vcth)
-\end{DoxyCompactItemize}
+void \hyperlink{class_calibration_22a49d922a44c44eb1c5a7222c80e61a}{Vplus\-Scan} ()
+\item 
+void \hyperlink{class_calibration_90a0ab6faea40d474217ba5ab2c4d07f}{Offset\-Scan} ()
+\item 
+void \hyperlink{class_calibration_e154696d09e1b201ff1a28d99f2ed7a9}{Save\-Results} ()
+\end{CompactItemize}
 \subsection*{Private Member Functions}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-void \hyperlink{class_calibration_a9b2de26014e8ecaa48b99d39bd1d5446}{Construct\-Test\-Group} (uint8\-\_\-t p\-Be\-Id, uint8\-\_\-t Fe\-Id, uint8\-\_\-t Cbc\-Id)
-\end{DoxyCompactItemize}
+void \hyperlink{class_calibration_6fbe71051d2006b42b0ef359bf5df44c}{Construct\-Test\-Group} (uint8\_\-t p\-Shelve\-Id, uint8\_\-t p\-Be\-Id, uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id)
+\item 
+void \hyperlink{class_calibration_bb8c03c4daadb9063e4ef00303eda3bd}{Fit\-Vplus\-Vcth} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Target\-Vcth, bool p\-Do\-Draw)
+\item 
+void \hyperlink{class_calibration_f70b5ced67623bace3f122e6ff96fe33}{set\-Global\-Reg} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, std::string p\-Reg\-Name, uint8\_\-t p\-Reg\-Value)
+\item 
+void \hyperlink{class_calibration_4bcd5273c929942732583cf3b7b4fed8}{initialize\-SCurves} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Group\-Id, uint8\_\-t p\-Value, TString p\-Parameter)
+\item 
+void \hyperlink{class_calibration_b4219c9939ddc49ca79fdaf9e13ba321}{measure\-SCurves} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Group\-Id, uint32\_\-t p\-Eventsper\-Vcth, uint32\_\-t p\-Total\-Channels, bool p\-Hole\-Mode)
+\item 
+void \hyperlink{class_calibration_0c4e31e30ac0adf287e163960d761091}{process\-SCurves} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Group\-Id, uint32\_\-t p\-Eventsper\-Vcth, uint8\_\-t p\-Value, TString p\-Parameter, bool p\-Hole\-Mode, bool p\-Do\-Draw)
+\item 
+uint32\_\-t \hyperlink{class_calibration_e8231544cb5098450e714f98a9e66a60}{fill\-Scurve\-Hists} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Group\-Id, uint8\_\-t p\-Vcth, const \hyperlink{class_ph2___hw_interface_1_1_event}{Event} $\ast$p\-Event)
+\item 
+uint32\_\-t \hyperlink{class_calibration_cc42b29fa0301ecab251a51902603765}{Toggle\-Test\-Group} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Group\-Id, bool p\-Hole\-Mode, bool p\-Enable)
+\item 
+uint32\_\-t \hyperlink{class_calibration_e61d5cd4dfc7b3725ee2f5d734860627}{Set\-Offset\-Target\-Bit\-Test\-Group} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Group\-Id, bool p\-Hole\-Mode, uint8\_\-t p\-Target\-Bit, uint8\_\-t p\-Target\-Vcth)
+\item 
+void \hyperlink{class_calibration_29f921b720db68af7b1a889263aaac2a}{process\-SCurves\-Offset} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Group\-Id, uint32\_\-t p\-Eventsper\-Vcth, uint8\_\-t p\-Target\-Vcth, uint8\_\-t p\-Target\-Bit, TString p\-Parameter, bool p\-Hole\-Mode, bool p\-Do\-Draw)
+\item 
+void \hyperlink{class_calibration_e68b10877c53dc83483e90391ce4b9ac}{Update\-Cbc\-Object} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint8\_\-t p\-Group\-Id)
+\end{CompactItemize}
 \subsection*{Private Attributes}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-T\-File $\ast$ \hyperlink{class_calibration_a2eb24fa3646d79398c13d36e6a312a60}{f\-Result\-File}
+\hyperlink{_channel_8h_1fc681fc13cd077738e86a5fbc1104d4}{Test\-Group\-Map} \hyperlink{class_calibration_c79d5ebc2766ebc9c5faf384a05581b0}{f\-Test\-Group\-Map}
 \item 
-bool \hyperlink{class_calibration_a669c7e7de313d082ec526a01f1dfa99f}{f\-Hole}
+\hyperlink{_channel_8h_1be8cf31d2544b84debee2220beeb318}{Test\-Group\-Graph\-Map} \hyperlink{class_calibration_7598aa1e8dab58e452923e54909f8a8e}{f\-Test\-Group\-Graph\-Map}
 \item 
-\hyperlink{_channel_8h_a4ea9798fb754a2f5910c0b01959c2256}{Test\-Group\-Map} \hyperlink{class_calibration_ac79d5ebc2766ebc9c5faf384a05581b0}{f\-Test\-Group\-Map}
-\end{DoxyCompactItemize}
-\subsection*{Additional Inherited Members}
+std::vector$<$ uint8\_\-t $>$ \hyperlink{class_calibration_d6fedaf43e799f69b7fd46d9347cc536}{f\-Vplus\-Values}
+\item 
+std::map$<$ \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} $\ast$, TCanvas $\ast$ $>$ \hyperlink{class_calibration_e47a517af22b6c01652d8f5d5bd3ae20}{f\-Cbc\-Canvas\-Map}
+\end{CompactItemize}
 
 
 \subsection{Detailed Description}
-Read/\-Write Cbc's registers on a file. 
+Read/Write Cbc's registers on a file. 
+
+
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_calibration_a80f51a5ff7ec0f44d5388c9a61d1f20b}{\index{Calibration@{Calibration}!Calibration@{Calibration}}
+\hypertarget{class_calibration_80f51a5ff7ec0f44d5388c9a61d1f20b}{
 \index{Calibration@{Calibration}!Calibration@{Calibration}}
-\subsubsection[{Calibration}]{\setlength{\rightskip}{0pt plus 5cm}Calibration\-::\-Calibration (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_calibration_a80f51a5ff7ec0f44d5388c9a61d1f20b}
-\hypertarget{class_calibration_a108efb6ccd8c98e5cac950be4bf0ac26}{\index{Calibration@{Calibration}!$\sim$\-Calibration@{$\sim$\-Calibration}}
-\index{$\sim$\-Calibration@{$\sim$\-Calibration}!Calibration@{Calibration}}
-\subsubsection[{$\sim$\-Calibration}]{\setlength{\rightskip}{0pt plus 5cm}Calibration\-::$\sim$\-Calibration (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_calibration_a108efb6ccd8c98e5cac950be4bf0ac26}
+\index{Calibration@{Calibration}!Calibration@{Calibration}}
+\subsubsection[Calibration]{\setlength{\rightskip}{0pt plus 5cm}Calibration::Calibration ()}}
+\label{class_calibration_80f51a5ff7ec0f44d5388c9a61d1f20b}
+
+
+\hypertarget{class_calibration_108efb6ccd8c98e5cac950be4bf0ac26}{
+\index{Calibration@{Calibration}!~Calibration@{$\sim$Calibration}}
+\index{~Calibration@{$\sim$Calibration}!Calibration@{Calibration}}
+\subsubsection[$\sim$Calibration]{\setlength{\rightskip}{0pt plus 5cm}Calibration::$\sim$Calibration ()}}
+\label{class_calibration_108efb6ccd8c98e5cac950be4bf0ac26}
+
+
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_calibration_a9b2de26014e8ecaa48b99d39bd1d5446}{\index{Calibration@{Calibration}!Construct\-Test\-Group@{Construct\-Test\-Group}}
-\index{Construct\-Test\-Group@{Construct\-Test\-Group}!Calibration@{Calibration}}
-\subsubsection[{Construct\-Test\-Group}]{\setlength{\rightskip}{0pt plus 5cm}void Calibration\-::\-Construct\-Test\-Group (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Be\-Id, }
-\item[{uint8\-\_\-t}]{Fe\-Id, }
-\item[{uint8\-\_\-t}]{Cbc\-Id}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_a9b2de26014e8ecaa48b99d39bd1d5446}
-\hypertarget{class_calibration_ad4f21740b432091ac2789944c26f861d}{\index{Calibration@{Calibration}!Fit\-Vplus\-Vcth@{Fit\-Vplus\-Vcth}}
-\index{Fit\-Vplus\-Vcth@{Fit\-Vplus\-Vcth}!Calibration@{Calibration}}
-\subsubsection[{Fit\-Vplus\-Vcth}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Calibration\-::\-Fit\-Vplus\-Vcth (
-\begin{DoxyParamCaption}
-\item[{bool}]{p\-Do\-Draw, }
-\item[{uint8\-\_\-t}]{p\-Target\-Vcth}
-\end{DoxyParamCaption}
-)}}\label{class_calibration_ad4f21740b432091ac2789944c26f861d}
-\hypertarget{class_calibration_afaec4580879bba485d8d174f6c4d415e}{\index{Calibration@{Calibration}!Vplus\-Scan@{Vplus\-Scan}}
-\index{Vplus\-Scan@{Vplus\-Scan}!Calibration@{Calibration}}
-\subsubsection[{Vplus\-Scan}]{\setlength{\rightskip}{0pt plus 5cm}void Calibration\-::\-Vplus\-Scan (
-\begin{DoxyParamCaption}
-\item[{std\-::vector$<$ uint8\-\_\-t $>$}]{p\-Vplus\-Values}
-\end{DoxyParamCaption}
-)}}\label{class_calibration_afaec4580879bba485d8d174f6c4d415e}
+\hypertarget{class_calibration_6fbe71051d2006b42b0ef359bf5df44c}{
+\index{Calibration@{Calibration}!ConstructTestGroup@{ConstructTestGroup}}
+\index{ConstructTestGroup@{ConstructTestGroup}!Calibration@{Calibration}}
+\subsubsection[ConstructTestGroup]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::Construct\-Test\-Group (uint8\_\-t {\em p\-Shelve\-Id}, uint8\_\-t {\em p\-Be\-Id}, uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_6fbe71051d2006b42b0ef359bf5df44c}
+
+
+\hypertarget{class_calibration_e8231544cb5098450e714f98a9e66a60}{
+\index{Calibration@{Calibration}!fillScurveHists@{fillScurveHists}}
+\index{fillScurveHists@{fillScurveHists}!Calibration@{Calibration}}
+\subsubsection[fillScurveHists]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Calibration::fill\-Scurve\-Hists (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Group\-Id}, uint8\_\-t {\em p\-Vcth}, const \hyperlink{class_ph2___hw_interface_1_1_event}{Event} $\ast$ {\em p\-Event})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_e8231544cb5098450e714f98a9e66a60}
+
+
+\hypertarget{class_calibration_bb8c03c4daadb9063e4ef00303eda3bd}{
+\index{Calibration@{Calibration}!FitVplusVcth@{FitVplusVcth}}
+\index{FitVplusVcth@{FitVplusVcth}!Calibration@{Calibration}}
+\subsubsection[FitVplusVcth]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::Fit\-Vplus\-Vcth (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Target\-Vcth}, bool {\em p\-Do\-Draw})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_bb8c03c4daadb9063e4ef00303eda3bd}
+
+
+\hypertarget{class_calibration_0d38b6198cd798ed2a2d3dceec93e6e1}{
+\index{Calibration@{Calibration}!InitialiseTestGroup@{InitialiseTestGroup}}
+\index{InitialiseTestGroup@{InitialiseTestGroup}!Calibration@{Calibration}}
+\subsubsection[InitialiseTestGroup]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::Initialise\-Test\-Group ()}}
+\label{class_calibration_0d38b6198cd798ed2a2d3dceec93e6e1}
+
+
+\hypertarget{class_calibration_4bcd5273c929942732583cf3b7b4fed8}{
+\index{Calibration@{Calibration}!initializeSCurves@{initializeSCurves}}
+\index{initializeSCurves@{initializeSCurves}!Calibration@{Calibration}}
+\subsubsection[initializeSCurves]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::initialize\-SCurves (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Group\-Id}, uint8\_\-t {\em p\-Value}, TString {\em p\-Parameter})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_4bcd5273c929942732583cf3b7b4fed8}
+
+
+\hypertarget{class_calibration_b4219c9939ddc49ca79fdaf9e13ba321}{
+\index{Calibration@{Calibration}!measureSCurves@{measureSCurves}}
+\index{measureSCurves@{measureSCurves}!Calibration@{Calibration}}
+\subsubsection[measureSCurves]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::measure\-SCurves (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Group\-Id}, uint32\_\-t {\em p\-Eventsper\-Vcth}, uint32\_\-t {\em p\-Total\-Channels}, bool {\em p\-Hole\-Mode})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_b4219c9939ddc49ca79fdaf9e13ba321}
+
+
+\hypertarget{class_calibration_90a0ab6faea40d474217ba5ab2c4d07f}{
+\index{Calibration@{Calibration}!OffsetScan@{OffsetScan}}
+\index{OffsetScan@{OffsetScan}!Calibration@{Calibration}}
+\subsubsection[OffsetScan]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::Offset\-Scan ()}}
+\label{class_calibration_90a0ab6faea40d474217ba5ab2c4d07f}
+
+
+\hypertarget{class_calibration_0c4e31e30ac0adf287e163960d761091}{
+\index{Calibration@{Calibration}!processSCurves@{processSCurves}}
+\index{processSCurves@{processSCurves}!Calibration@{Calibration}}
+\subsubsection[processSCurves]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::process\-SCurves (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Group\-Id}, uint32\_\-t {\em p\-Eventsper\-Vcth}, uint8\_\-t {\em p\-Value}, TString {\em p\-Parameter}, bool {\em p\-Hole\-Mode}, bool {\em p\-Do\-Draw})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_0c4e31e30ac0adf287e163960d761091}
+
+
+\hypertarget{class_calibration_29f921b720db68af7b1a889263aaac2a}{
+\index{Calibration@{Calibration}!processSCurvesOffset@{processSCurvesOffset}}
+\index{processSCurvesOffset@{processSCurvesOffset}!Calibration@{Calibration}}
+\subsubsection[processSCurvesOffset]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::process\-SCurves\-Offset (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Group\-Id}, uint32\_\-t {\em p\-Eventsper\-Vcth}, uint8\_\-t {\em p\-Target\-Vcth}, uint8\_\-t {\em p\-Target\-Bit}, TString {\em p\-Parameter}, bool {\em p\-Hole\-Mode}, bool {\em p\-Do\-Draw})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_29f921b720db68af7b1a889263aaac2a}
+
+
+\hypertarget{class_calibration_e154696d09e1b201ff1a28d99f2ed7a9}{
+\index{Calibration@{Calibration}!SaveResults@{SaveResults}}
+\index{SaveResults@{SaveResults}!Calibration@{Calibration}}
+\subsubsection[SaveResults]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::Save\-Results ()}}
+\label{class_calibration_e154696d09e1b201ff1a28d99f2ed7a9}
+
+
+\hypertarget{class_calibration_f70b5ced67623bace3f122e6ff96fe33}{
+\index{Calibration@{Calibration}!setGlobalReg@{setGlobalReg}}
+\index{setGlobalReg@{setGlobalReg}!Calibration@{Calibration}}
+\subsubsection[setGlobalReg]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::set\-Global\-Reg (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, std::string {\em p\-Reg\-Name}, uint8\_\-t {\em p\-Reg\-Value})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_f70b5ced67623bace3f122e6ff96fe33}
+
+
+\hypertarget{class_calibration_e61d5cd4dfc7b3725ee2f5d734860627}{
+\index{Calibration@{Calibration}!SetOffsetTargetBitTestGroup@{SetOffsetTargetBitTestGroup}}
+\index{SetOffsetTargetBitTestGroup@{SetOffsetTargetBitTestGroup}!Calibration@{Calibration}}
+\subsubsection[SetOffsetTargetBitTestGroup]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Calibration::Set\-Offset\-Target\-Bit\-Test\-Group (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Group\-Id}, bool {\em p\-Hole\-Mode}, uint8\_\-t {\em p\-Target\-Bit}, uint8\_\-t {\em p\-Target\-Vcth})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_e61d5cd4dfc7b3725ee2f5d734860627}
+
+
+\hypertarget{class_calibration_cc42b29fa0301ecab251a51902603765}{
+\index{Calibration@{Calibration}!ToggleTestGroup@{ToggleTestGroup}}
+\index{ToggleTestGroup@{ToggleTestGroup}!Calibration@{Calibration}}
+\subsubsection[ToggleTestGroup]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Calibration::Toggle\-Test\-Group (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Group\-Id}, bool {\em p\-Hole\-Mode}, bool {\em p\-Enable})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_cc42b29fa0301ecab251a51902603765}
+
+
+\hypertarget{class_calibration_e68b10877c53dc83483e90391ce4b9ac}{
+\index{Calibration@{Calibration}!UpdateCbcObject@{UpdateCbcObject}}
+\index{UpdateCbcObject@{UpdateCbcObject}!Calibration@{Calibration}}
+\subsubsection[UpdateCbcObject]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::Update\-Cbc\-Object (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \& {\em p\-Board}, uint8\_\-t {\em p\-Group\-Id})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_e68b10877c53dc83483e90391ce4b9ac}
+
+
+\hypertarget{class_calibration_22a49d922a44c44eb1c5a7222c80e61a}{
+\index{Calibration@{Calibration}!VplusScan@{VplusScan}}
+\index{VplusScan@{VplusScan}!Calibration@{Calibration}}
+\subsubsection[VplusScan]{\setlength{\rightskip}{0pt plus 5cm}void Calibration::Vplus\-Scan ()}}
+\label{class_calibration_22a49d922a44c44eb1c5a7222c80e61a}
+
+
 
 
 \subsection{Field Documentation}
-\hypertarget{class_calibration_a669c7e7de313d082ec526a01f1dfa99f}{\index{Calibration@{Calibration}!f\-Hole@{f\-Hole}}
-\index{f\-Hole@{f\-Hole}!Calibration@{Calibration}}
-\subsubsection[{f\-Hole}]{\setlength{\rightskip}{0pt plus 5cm}bool Calibration\-::f\-Hole\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_a669c7e7de313d082ec526a01f1dfa99f}
-\hypertarget{class_calibration_a2eb24fa3646d79398c13d36e6a312a60}{\index{Calibration@{Calibration}!f\-Result\-File@{f\-Result\-File}}
-\index{f\-Result\-File@{f\-Result\-File}!Calibration@{Calibration}}
-\subsubsection[{f\-Result\-File}]{\setlength{\rightskip}{0pt plus 5cm}T\-File$\ast$ Calibration\-::f\-Result\-File\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_a2eb24fa3646d79398c13d36e6a312a60}
-\hypertarget{class_calibration_ac79d5ebc2766ebc9c5faf384a05581b0}{\index{Calibration@{Calibration}!f\-Test\-Group\-Map@{f\-Test\-Group\-Map}}
-\index{f\-Test\-Group\-Map@{f\-Test\-Group\-Map}!Calibration@{Calibration}}
-\subsubsection[{f\-Test\-Group\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Test\-Group\-Map} Calibration\-::f\-Test\-Group\-Map\hspace{0.3cm}{\ttfamily [private]}}}\label{class_calibration_ac79d5ebc2766ebc9c5faf384a05581b0}
+\hypertarget{class_calibration_e47a517af22b6c01652d8f5d5bd3ae20}{
+\index{Calibration@{Calibration}!fCbcCanvasMap@{fCbcCanvasMap}}
+\index{fCbcCanvasMap@{fCbcCanvasMap}!Calibration@{Calibration}}
+\subsubsection[fCbcCanvasMap]{\setlength{\rightskip}{0pt plus 5cm}std::map$<$\hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}$\ast$, TCanvas$\ast$$>$ \hyperlink{class_calibration_e47a517af22b6c01652d8f5d5bd3ae20}{Calibration::f\-Cbc\-Canvas\-Map}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_e47a517af22b6c01652d8f5d5bd3ae20}
 
 
-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\hypertarget{class_calibration_7598aa1e8dab58e452923e54909f8a8e}{
+\index{Calibration@{Calibration}!fTestGroupGraphMap@{fTestGroupGraphMap}}
+\index{fTestGroupGraphMap@{fTestGroupGraphMap}!Calibration@{Calibration}}
+\subsubsection[fTestGroupGraphMap]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{_channel_8h_1be8cf31d2544b84debee2220beeb318}{Test\-Group\-Graph\-Map} \hyperlink{class_calibration_7598aa1e8dab58e452923e54909f8a8e}{Calibration::f\-Test\-Group\-Graph\-Map}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_7598aa1e8dab58e452923e54909f8a8e}
+
+
+\hypertarget{class_calibration_c79d5ebc2766ebc9c5faf384a05581b0}{
+\index{Calibration@{Calibration}!fTestGroupMap@{fTestGroupMap}}
+\index{fTestGroupMap@{fTestGroupMap}!Calibration@{Calibration}}
+\subsubsection[fTestGroupMap]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{_channel_8h_1fc681fc13cd077738e86a5fbc1104d4}{Test\-Group\-Map} \hyperlink{class_calibration_c79d5ebc2766ebc9c5faf384a05581b0}{Calibration::f\-Test\-Group\-Map}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_c79d5ebc2766ebc9c5faf384a05581b0}
+
+
+\hypertarget{class_calibration_d6fedaf43e799f69b7fd46d9347cc536}{
+\index{Calibration@{Calibration}!fVplusValues@{fVplusValues}}
+\index{fVplusValues@{fVplusValues}!Calibration@{Calibration}}
+\subsubsection[fVplusValues]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$uint8\_\-t$>$ \hyperlink{class_calibration_d6fedaf43e799f69b7fd46d9347cc536}{Calibration::f\-Vplus\-Values}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_calibration_d6fedaf43e799f69b7fd46d9347cc536}
+
+
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
 \item 
-tools/\hyperlink{_calibration_8h}{Calibration.\-h}\item 
-tools/\hyperlink{_calibration_8cc}{Calibration.\-cc}\end{DoxyCompactItemize}
+tools/\hyperlink{_calibration_8h}{Calibration.h}\item 
+tools/\hyperlink{_calibration_8cc}{Calibration.cc}\end{CompactItemize}

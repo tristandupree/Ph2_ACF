@@ -1,26 +1,27 @@
-\hypertarget{_event_8cc}{\section{H\-W\-Interface/\-Event.cc File Reference}
-\label{_event_8cc}\index{H\-W\-Interface/\-Event.\-cc@{H\-W\-Interface/\-Event.\-cc}}
+\hypertarget{_event_8cc}{
+\section{Utils/Event.cc File Reference}
+\label{_event_8cc}\index{Utils/Event.cc@{Utils/Event.cc}}
 }
-{\ttfamily \#include \char`\"{}Event.\-h\char`\"{}}\\*
+{\tt \#include \char`\"{}../Utils/Event.h\char`\"{}}\par
 \subsection*{Namespaces}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-\hyperlink{namespace_ph2___hw_interface}{Ph2\-\_\-\-Hw\-Interface}
-\begin{DoxyCompactList}\small\item\em Namespace regrouping all the interfaces to the hardware. \end{DoxyCompactList}\end{DoxyCompactItemize}
+namespace \hyperlink{namespace_ph2___hw_interface}{Ph2\_\-Hw\-Interface}
+\end{CompactItemize}
 \subsection*{Functions}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-void \hyperlink{_event_8cc_a357f476cc06c9139c5d38ca61dc6b628}{swap\-\_\-byte\-\_\-order} (const void $\ast$org, void $\ast$swapped, unsigned int nbyte)
-\end{DoxyCompactItemize}
+uint32\_\-t \hyperlink{_event_8cc_1b984c5bbf7cee416f4b9612bbbd1657}{swap\_\-bytes} (char $\ast$p\-Org)
+\item 
+std::ostream \& \hyperlink{namespace_ph2___hw_interface_1ac2256abcd1c8a18fe02161b3735c80}{Ph2\_\-Hw\-Interface::operator$<$$<$} (std::ostream \&os, const Event \&ev)
+\end{CompactItemize}
 
 
 \subsection{Function Documentation}
-\hypertarget{_event_8cc_a357f476cc06c9139c5d38ca61dc6b628}{\index{Event.\-cc@{Event.\-cc}!swap\-\_\-byte\-\_\-order@{swap\-\_\-byte\-\_\-order}}
-\index{swap\-\_\-byte\-\_\-order@{swap\-\_\-byte\-\_\-order}!Event.cc@{Event.\-cc}}
-\subsubsection[{swap\-\_\-byte\-\_\-order}]{\setlength{\rightskip}{0pt plus 5cm}void swap\-\_\-byte\-\_\-order (
-\begin{DoxyParamCaption}
-\item[{const void $\ast$}]{org, }
-\item[{void $\ast$}]{swapped, }
-\item[{unsigned int}]{nbyte}
-\end{DoxyParamCaption}
-)}}\label{_event_8cc_a357f476cc06c9139c5d38ca61dc6b628}
+\hypertarget{_event_8cc_1b984c5bbf7cee416f4b9612bbbd1657}{
+\index{Event.cc@{Event.cc}!swap_bytes@{swap\_\-bytes}}
+\index{swap_bytes@{swap\_\-bytes}!Event.cc@{Event.cc}}
+\subsubsection[swap\_\-bytes]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t swap\_\-bytes (char $\ast$ {\em p\-Org})}}
+\label{_event_8cc_1b984c5bbf7cee416f4b9612bbbd1657}
+
+

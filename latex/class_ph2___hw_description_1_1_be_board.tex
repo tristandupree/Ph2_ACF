@@ -1,129 +1,116 @@
-\hypertarget{class_ph2___hw_description_1_1_be_board}{\section{Ph2\-\_\-\-Hw\-Description\-:\-:Be\-Board Class Reference}
-\label{class_ph2___hw_description_1_1_be_board}\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
+\hypertarget{class_ph2___hw_description_1_1_be_board}{
+\section{Ph2\_\-Hw\-Description::Be\-Board Class Reference}
+\label{class_ph2___hw_description_1_1_be_board}\index{Ph2_HwDescription::BeBoard@{Ph2\_\-HwDescription::BeBoard}}
 }
+Read/Write Be\-Board's registers on a file, handles a register map and handles a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}.  
 
 
-Read/\-Write \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}'s registers on a file, handles a register map and handles a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}.  
-
-
-
-
-{\ttfamily \#include $<$Be\-Board.\-h$>$}
+{\tt \#include $<$Be\-Board.h$>$}
 
 \subsection*{Public Member Functions}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-\hyperlink{class_ph2___hw_description_1_1_be_board_a3bd1302a3dbf6ff0ba59dab710cfa537}{Be\-Board} ()
-\begin{DoxyCompactList}\small\item\em Default C'tor. \end{DoxyCompactList}\item 
-\hyperlink{class_ph2___hw_description_1_1_be_board_a4aca8e709e5ae58d4d12ea544dff9a9e}{Be\-Board} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id)
-\begin{DoxyCompactList}\small\item\em Standard C'tor. \end{DoxyCompactList}\item 
-\hyperlink{class_ph2___hw_description_1_1_be_board_a88b73bd7d4be8e447ac14abcb9fe734d}{Be\-Board} (uint8\-\_\-t p\-Shelve\-Id, uint8\-\_\-t p\-Be\-Id, std\-::string filename)
-\begin{DoxyCompactList}\small\item\em C'tor for a standard \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} reading a config file. \end{DoxyCompactList}\item 
-\hyperlink{class_ph2___hw_description_1_1_be_board_a9e763718213e7106b7a6ba1ccb5d23e2}{$\sim$\-Be\-Board} ()
-\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
-uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_a2fa9bc6ee1db78f046186117f162eb1e}{get\-N\-Fe} ()
-\begin{DoxyCompactList}\small\item\em Get the number of modules connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\item 
-uint16\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_ac25f4182e6340ca29d42ba9b861d8e67}{get\-Reg} (std\-::string p\-Reg)
-\begin{DoxyCompactList}\small\item\em Get any register from the Map. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_description_1_1_be_board_a933f9d5f715fbe9187f6aa79589cb55c}{set\-Reg} (std\-::string p\-Reg, uint16\-\_\-t pset\-Value)
-\begin{DoxyCompactList}\small\item\em Set any register of the Map, if the register is not on the map, it adds it. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_description_1_1_be_board_a5242925c065165be9b407dabf889ac9a}{add\-Module} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} \&p\-Module)
-\begin{DoxyCompactList}\small\item\em Adding a module to the vector. \end{DoxyCompactList}\item 
-bool \hyperlink{class_ph2___hw_description_1_1_be_board_aba02e7319c8c41b569c583bfa2068215}{remove\-Module} (uint8\-\_\-t p\-Module\-Id)
-\begin{DoxyCompactList}\small\item\em Remove a \hyperlink{class_ph2___hw_description_1_1_module}{Module} from the vector. \end{DoxyCompactList}\item 
-\hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$ \hyperlink{class_ph2___hw_description_1_1_be_board_a71b8e3e970d554d7642bea8a9d21b037}{get\-Module} (uint8\-\_\-t p\-Module\-Id)
-\begin{DoxyCompactList}\small\item\em Get a module from the vector. \end{DoxyCompactList}\item 
-\hyperlink{namespace_ph2___hw_description_a2e13fb82c8ed98154c60f9d0f8467d72}{Be\-Board\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_be_board_a79db4eec76271db93f0f56698c5b4c85}{get\-Be\-Board\-Reg\-Map} ()
-\begin{DoxyCompactList}\small\item\em Get the Map of the registers. \end{DoxyCompactList}\item 
-uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_a81c2071b04bb2c4541f0b30bcf2ff1ba}{get\-Be\-Id} ()
-\begin{DoxyCompactList}\small\item\em Get the Be\-Board\-Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\item 
-uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_af241f127cad3f32dc0aad9bcc6422f2a}{get\-Shelve\-Id} ()
-\begin{DoxyCompactList}\small\item\em Get the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_description_1_1_be_board_ad96f8aff122cccb9b01a4a57b6db5440}{set\-Be\-Id} (uint8\-\_\-t p\-Be\-Id)
-\begin{DoxyCompactList}\small\item\em Set the Be Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_description_1_1_be_board_acce2ea02abfd36f32a10a900a805f8de}{set\-Shelve\-Id} (uint8\-\_\-t p\-Shelve\-Id)
-\begin{DoxyCompactList}\small\item\em Set the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\hyperlink{class_ph2___hw_description_1_1_be_board_3bd1302a3dbf6ff0ba59dab710cfa537}{Be\-Board} ()
+\begin{CompactList}\small\item\em Default C'tor. \item\end{CompactList}\item 
+\hyperlink{class_ph2___hw_description_1_1_be_board_4aca8e709e5ae58d4d12ea544dff9a9e}{Be\-Board} (uint8\_\-t p\-Shelve\-Id, uint8\_\-t p\-Be\-Id)
+\begin{CompactList}\small\item\em Standard C'tor. \item\end{CompactList}\item 
+\hyperlink{class_ph2___hw_description_1_1_be_board_53b49ebde44e6c052c64865b50f33764}{Be\-Board} (uint8\_\-t p\-Shelve\-Id, uint8\_\-t p\-Be\-Id, const std::string \&filename)
+\begin{CompactList}\small\item\em C'tor for a standard \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} reading a config file. \item\end{CompactList}\item 
+\hyperlink{class_ph2___hw_description_1_1_be_board_9e763718213e7106b7a6ba1ccb5d23e2}{$\sim$Be\-Board} ()
+\begin{CompactList}\small\item\em Destructor. \item\end{CompactList}\item 
+void \hyperlink{class_ph2___hw_description_1_1_be_board_ccc84350bce4a95a2ce27bde0b146422}{accept} (\hyperlink{class_hw_description_visitor}{Hw\-Description\-Visitor} \&p\-Visitor)
+\begin{CompactList}\small\item\em acceptor method for \hyperlink{class_hw_description_visitor}{Hw\-Description\-Visitor} \item\end{CompactList}\item 
+uint8\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_34239d72c4929ae85cd9eb27a6bf9b2d}{get\-NFe} () const 
+\begin{CompactList}\small\item\em Get the number of modules connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \item\end{CompactList}\item 
+uint16\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_e28c81e80dab7acdd5fa90819709f339}{get\-Reg} (const std::string \&p\-Reg)
+\begin{CompactList}\small\item\em Get any register from the Map. \item\end{CompactList}\item 
+void \hyperlink{class_ph2___hw_description_1_1_be_board_84cf502132f9391e0ac7c53d230c3ea0}{set\-Reg} (const std::string \&p\-Reg, uint16\_\-t pset\-Value)
+\begin{CompactList}\small\item\em Set any register of the Map, if the register is not on the map, it adds it. \item\end{CompactList}\item 
+void \hyperlink{class_ph2___hw_description_1_1_be_board_5242925c065165be9b407dabf889ac9a}{add\-Module} (\hyperlink{class_ph2___hw_description_1_1_module}{Module} \&p\-Module)
+\begin{CompactList}\small\item\em Adding a module to the vector. \item\end{CompactList}\item 
+bool \hyperlink{class_ph2___hw_description_1_1_be_board_ba02e7319c8c41b569c583bfa2068215}{remove\-Module} (uint8\_\-t p\-Module\-Id)
+\begin{CompactList}\small\item\em Remove a \hyperlink{class_ph2___hw_description_1_1_module}{Module} from the vector. \item\end{CompactList}\item 
+\hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$ \hyperlink{class_ph2___hw_description_1_1_be_board_71b8e3e970d554d7642bea8a9d21b037}{get\-Module} (uint8\_\-t p\-Module\-Id)
+\begin{CompactList}\small\item\em Get a module from the vector. \item\end{CompactList}\item 
+\hyperlink{namespace_ph2___hw_description_2e13fb82c8ed98154c60f9d0f8467d72}{Be\-Board\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_be_board_d7a7bbe35ca9558c89c6fd349532fd0d}{get\-Be\-Board\-Reg\-Map} () const 
+\begin{CompactList}\small\item\em Get the Map of the registers. \item\end{CompactList}\item 
+uint8\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_2da7431c4861caf9ff6e2667561ac8c5}{get\-Be\-Id} () const 
+\begin{CompactList}\small\item\em Get the Be\-Board\-Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \item\end{CompactList}\item 
+uint8\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_28b9dd9cdcc4fc22f03d36432de37ddf}{get\-Shelve\-Id} () const 
+\begin{CompactList}\small\item\em Get the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \item\end{CompactList}\item 
+void \hyperlink{class_ph2___hw_description_1_1_be_board_d96f8aff122cccb9b01a4a57b6db5440}{set\-Be\-Id} (uint8\_\-t p\-Be\-Id)
+\begin{CompactList}\small\item\em Set the Be Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \item\end{CompactList}\item 
+void \hyperlink{class_ph2___hw_description_1_1_be_board_cce2ea02abfd36f32a10a900a805f8de}{set\-Shelve\-Id} (uint8\_\-t p\-Shelve\-Id)
+\begin{CompactList}\small\item\em Set the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+std::vector$<$ \hyperlink{class_ph2___hw_description_1_1_module}{Module} $>$ \hyperlink{class_ph2___hw_description_1_1_be_board_dcee78870a20c92fc8c060ff709a4baf}{f\-Module\-Vector}
+\end{CompactItemize}
 \subsection*{Protected Attributes}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_a8e45d863c0a596466a78fd3e16ef92d1}{f\-Shelve\-Id}
+uint8\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_8e45d863c0a596466a78fd3e16ef92d1}{f\-Shelve\-Id}
 \item 
-uint8\-\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_aabe1a515a23ff8813d4641293a8b4ba1}{f\-Be\-Id}
+uint8\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_abe1a515a23ff8813d4641293a8b4ba1}{f\-Be\-Id}
 \item 
-std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_module}{Module} $>$ \hyperlink{class_ph2___hw_description_1_1_be_board_adcee78870a20c92fc8c060ff709a4baf}{f\-Module\-Vector}
-\item 
-\hyperlink{namespace_ph2___hw_description_a2e13fb82c8ed98154c60f9d0f8467d72}{Be\-Board\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_be_board_a6db4850485715c0f23c97c3d621a781b}{f\-Reg\-Map}
-\end{DoxyCompactItemize}
+\hyperlink{namespace_ph2___hw_description_2e13fb82c8ed98154c60f9d0f8467d72}{Be\-Board\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_be_board_6db4850485715c0f23c97c3d621a781b}{f\-Reg\-Map}
+\end{CompactItemize}
 \subsection*{Private Member Functions}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-void \hyperlink{class_ph2___hw_description_1_1_be_board_a1aaade58f564544b17de9509ad82cb0e}{load\-Config\-File} (std\-::string filename)
-\begin{DoxyCompactList}\small\item\em Load Reg\-Map from a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+void \hyperlink{class_ph2___hw_description_1_1_be_board_ec21c67ac5b5219cfb13ec13e4905402}{load\-Config\-File} (const std::string \&filename)
+\begin{CompactList}\small\item\em Load Reg\-Map from a file. \item\end{CompactList}\end{CompactItemize}
 
 
 \subsection{Detailed Description}
-Read/\-Write \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}'s registers on a file, handles a register map and handles a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. 
+Read/Write Be\-Board's registers on a file, handles a register map and handles a vector of \hyperlink{class_ph2___hw_description_1_1_module}{Module} which are connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. 
+
+
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a3bd1302a3dbf6ff0ba59dab710cfa537}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!Be\-Board@{Be\-Board}}
-\index{Be\-Board@{Be\-Board}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{Be\-Board}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::\-Be\-Board (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_be_board_a3bd1302a3dbf6ff0ba59dab710cfa537}
+\hypertarget{class_ph2___hw_description_1_1_be_board_3bd1302a3dbf6ff0ba59dab710cfa537}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!BeBoard@{BeBoard}}
+\index{BeBoard@{BeBoard}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[BeBoard]{\setlength{\rightskip}{0pt plus 5cm}Ph2\_\-Hw\-Description::Be\-Board::Be\-Board ()}}
+\label{class_ph2___hw_description_1_1_be_board_3bd1302a3dbf6ff0ba59dab710cfa537}
 
 
 Default C'tor. 
 
-\hypertarget{class_ph2___hw_description_1_1_be_board_a4aca8e709e5ae58d4d12ea544dff9a9e}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!Be\-Board@{Be\-Board}}
-\index{Be\-Board@{Be\-Board}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{Be\-Board}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::\-Be\-Board (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Shelve\-Id, }
-\item[{uint8\-\_\-t}]{p\-Be\-Id}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_be_board_a4aca8e709e5ae58d4d12ea544dff9a9e}
+\hypertarget{class_ph2___hw_description_1_1_be_board_4aca8e709e5ae58d4d12ea544dff9a9e}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!BeBoard@{BeBoard}}
+\index{BeBoard@{BeBoard}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[BeBoard]{\setlength{\rightskip}{0pt plus 5cm}Ph2\_\-Hw\-Description::Be\-Board::Be\-Board (uint8\_\-t {\em p\-Shelve\-Id}, uint8\_\-t {\em p\-Be\-Id})}}
+\label{class_ph2___hw_description_1_1_be_board_4aca8e709e5ae58d4d12ea544dff9a9e}
 
 
 Standard C'tor. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Shelve\-Id} & \\
-\hline
-{\em p\-Be\-Id} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a88b73bd7d4be8e447ac14abcb9fe734d}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!Be\-Board@{Be\-Board}}
-\index{Be\-Board@{Be\-Board}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{Be\-Board}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::\-Be\-Board (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Shelve\-Id, }
-\item[{uint8\-\_\-t}]{p\-Be\-Id, }
-\item[{std\-::string}]{filename}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_be_board_a88b73bd7d4be8e447ac14abcb9fe734d}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Shelve\-Id}]\item[{\em p\-Be\-Id}]\end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_53b49ebde44e6c052c64865b50f33764}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!BeBoard@{BeBoard}}
+\index{BeBoard@{BeBoard}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[BeBoard]{\setlength{\rightskip}{0pt plus 5cm}Ph2\_\-Hw\-Description::Be\-Board::Be\-Board (uint8\_\-t {\em p\-Shelve\-Id}, uint8\_\-t {\em p\-Be\-Id}, const std::string \& {\em filename})}}
+\label{class_ph2___hw_description_1_1_be_board_53b49ebde44e6c052c64865b50f33764}
 
 
 C'tor for a standard \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} reading a config file. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Shelve\-Id} & \\
-\hline
-{\em p\-Be\-Id} & \\
-\hline
-{\em filename} & of the configuration file \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a9e763718213e7106b7a6ba1ccb5d23e2}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!$\sim$\-Be\-Board@{$\sim$\-Be\-Board}}
-\index{$\sim$\-Be\-Board@{$\sim$\-Be\-Board}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{$\sim$\-Be\-Board}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::$\sim$\-Be\-Board (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_be_board_a9e763718213e7106b7a6ba1ccb5d23e2}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Shelve\-Id}]\item[{\em p\-Be\-Id}]\item[{\em filename}]of the configuration file \end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_9e763718213e7106b7a6ba1ccb5d23e2}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!~BeBoard@{$\sim$BeBoard}}
+\index{~BeBoard@{$\sim$BeBoard}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[$\sim$BeBoard]{\setlength{\rightskip}{0pt plus 5cm}Ph2\_\-Hw\-Description::Be\-Board::$\sim$Be\-Board ()\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_9e763718213e7106b7a6ba1ccb5d23e2}
 
 
 Destructor. 
@@ -131,220 +118,216 @@ Destructor.
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a5242925c065165be9b407dabf889ac9a}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!add\-Module@{add\-Module}}
-\index{add\-Module@{add\-Module}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{add\-Module}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::add\-Module (
-\begin{DoxyParamCaption}
-\item[{{\bf Module} \&}]{p\-Module}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_be_board_a5242925c065165be9b407dabf889ac9a}
+\hypertarget{class_ph2___hw_description_1_1_be_board_ccc84350bce4a95a2ce27bde0b146422}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!accept@{accept}}
+\index{accept@{accept}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[accept]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Description::Be\-Board::accept (\hyperlink{class_hw_description_visitor}{Hw\-Description\-Visitor} \& {\em p\-Visitor})\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_ccc84350bce4a95a2ce27bde0b146422}
+
+
+acceptor method for \hyperlink{class_hw_description_visitor}{Hw\-Description\-Visitor} 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Visitor}]\end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_5242925c065165be9b407dabf889ac9a}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!addModule@{addModule}}
+\index{addModule@{addModule}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[addModule]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Description::Be\-Board::add\-Module (\hyperlink{class_ph2___hw_description_1_1_module}{Module} \& {\em p\-Module})}}
+\label{class_ph2___hw_description_1_1_be_board_5242925c065165be9b407dabf889ac9a}
 
 
 Adding a module to the vector. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Module} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a79db4eec76271db93f0f56698c5b4c85}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Be\-Board\-Reg\-Map@{get\-Be\-Board\-Reg\-Map}}
-\index{get\-Be\-Board\-Reg\-Map@{get\-Be\-Board\-Reg\-Map}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{get\-Be\-Board\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Be\-Board\-Reg\-Map} Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Be\-Board\-Reg\-Map (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_be_board_a79db4eec76271db93f0f56698c5b4c85}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Module}]\end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_d7a7bbe35ca9558c89c6fd349532fd0d}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!getBeBoardRegMap@{getBeBoardRegMap}}
+\index{getBeBoardRegMap@{getBeBoardRegMap}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[getBeBoardRegMap]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{namespace_ph2___hw_description_2e13fb82c8ed98154c60f9d0f8467d72}{Be\-Board\-Reg\-Map} Ph2\_\-Hw\-Description::Be\-Board::get\-Be\-Board\-Reg\-Map () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_d7a7bbe35ca9558c89c6fd349532fd0d}
 
 
 Get the Map of the registers. 
 
-\begin{DoxyReturn}{Returns}
-The map of register 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a81c2071b04bb2c4541f0b30bcf2ff1ba}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Be\-Id@{get\-Be\-Id}}
-\index{get\-Be\-Id@{get\-Be\-Id}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{get\-Be\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Be\-Id (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_be_board_a81c2071b04bb2c4541f0b30bcf2ff1ba}
+\begin{Desc}
+\item[Returns:]The map of register \end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_2da7431c4861caf9ff6e2667561ac8c5}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!getBeId@{getBeId}}
+\index{getBeId@{getBeId}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[getBeId]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t Ph2\_\-Hw\-Description::Be\-Board::get\-Be\-Id () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_2da7431c4861caf9ff6e2667561ac8c5}
 
 
 Get the Be\-Board\-Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. 
 
-\begin{DoxyReturn}{Returns}
-the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} Id 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a71b8e3e970d554d7642bea8a9d21b037}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Module@{get\-Module}}
-\index{get\-Module@{get\-Module}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{get\-Module}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Module} $\ast$ Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Module (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Module\-Id}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_be_board_a71b8e3e970d554d7642bea8a9d21b037}
+\begin{Desc}
+\item[Returns:]the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} Id \end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_71b8e3e970d554d7642bea8a9d21b037}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!getModule@{getModule}}
+\index{getModule@{getModule}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[getModule]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{class_ph2___hw_description_1_1_module}{Module} $\ast$ Ph2\_\-Hw\-Description::Be\-Board::get\-Module (uint8\_\-t {\em p\-Module\-Id})}}
+\label{class_ph2___hw_description_1_1_be_board_71b8e3e970d554d7642bea8a9d21b037}
 
 
 Get a module from the vector. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Module\-Id} & \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a pointer of module, so we can manipulate directly the module contained in the vector 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a2fa9bc6ee1db78f046186117f162eb1e}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-N\-Fe@{get\-N\-Fe}}
-\index{get\-N\-Fe@{get\-N\-Fe}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{get\-N\-Fe}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-N\-Fe (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_be_board_a2fa9bc6ee1db78f046186117f162eb1e}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Module\-Id}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]a pointer of module, so we can manipulate directly the module contained in the vector \end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_34239d72c4929ae85cd9eb27a6bf9b2d}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!getNFe@{getNFe}}
+\index{getNFe@{getNFe}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[getNFe]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t Ph2\_\-Hw\-Description::Be\-Board::get\-NFe () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_34239d72c4929ae85cd9eb27a6bf9b2d}
 
 
 Get the number of modules connected to the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. 
 
-\begin{DoxyReturn}{Returns}
-The size of the vector 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_ac25f4182e6340ca29d42ba9b861d8e67}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Reg@{get\-Reg}}
-\index{get\-Reg@{get\-Reg}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{get\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}uint16\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Reg (
-\begin{DoxyParamCaption}
-\item[{std\-::string}]{p\-Reg}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_be_board_ac25f4182e6340ca29d42ba9b861d8e67}
+\begin{Desc}
+\item[Returns:]The size of the vector \end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_e28c81e80dab7acdd5fa90819709f339}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!getReg@{getReg}}
+\index{getReg@{getReg}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[getReg]{\setlength{\rightskip}{0pt plus 5cm}uint16\_\-t Ph2\_\-Hw\-Description::Be\-Board::get\-Reg (const std::string \& {\em p\-Reg})}}
+\label{class_ph2___hw_description_1_1_be_board_e28c81e80dab7acdd5fa90819709f339}
 
 
 Get any register from the Map. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Reg} & \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-The value of the register 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_af241f127cad3f32dc0aad9bcc6422f2a}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!get\-Shelve\-Id@{get\-Shelve\-Id}}
-\index{get\-Shelve\-Id@{get\-Shelve\-Id}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{get\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::get\-Shelve\-Id (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_be_board_af241f127cad3f32dc0aad9bcc6422f2a}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Reg}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The value of the register \end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_28b9dd9cdcc4fc22f03d36432de37ddf}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!getShelveId@{getShelveId}}
+\index{getShelveId@{getShelveId}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[getShelveId]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t Ph2\_\-Hw\-Description::Be\-Board::get\-Shelve\-Id () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_28b9dd9cdcc4fc22f03d36432de37ddf}
 
 
 Get the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. 
 
-\begin{DoxyReturn}{Returns}
-the Shelve\-Id 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a1aaade58f564544b17de9509ad82cb0e}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!load\-Config\-File@{load\-Config\-File}}
-\index{load\-Config\-File@{load\-Config\-File}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{load\-Config\-File}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::load\-Config\-File (
-\begin{DoxyParamCaption}
-\item[{std\-::string}]{filename}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_description_1_1_be_board_a1aaade58f564544b17de9509ad82cb0e}
+\begin{Desc}
+\item[Returns:]the Shelve\-Id \end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_ec21c67ac5b5219cfb13ec13e4905402}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!loadConfigFile@{loadConfigFile}}
+\index{loadConfigFile@{loadConfigFile}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[loadConfigFile]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Description::Be\-Board::load\-Config\-File (const std::string \& {\em filename})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_ec21c67ac5b5219cfb13ec13e4905402}
 
 
 Load Reg\-Map from a file. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em filename} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_be_board_aba02e7319c8c41b569c583bfa2068215}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!remove\-Module@{remove\-Module}}
-\index{remove\-Module@{remove\-Module}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{remove\-Module}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::remove\-Module (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Module\-Id}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_be_board_aba02e7319c8c41b569c583bfa2068215}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em filename}]\end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_ba02e7319c8c41b569c583bfa2068215}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!removeModule@{removeModule}}
+\index{removeModule@{removeModule}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[removeModule]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\_\-Hw\-Description::Be\-Board::remove\-Module (uint8\_\-t {\em p\-Module\-Id})}}
+\label{class_ph2___hw_description_1_1_be_board_ba02e7319c8c41b569c583bfa2068215}
 
 
 Remove a \hyperlink{class_ph2___hw_description_1_1_module}{Module} from the vector. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Module\-Id} & \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-a bool which indicate if the removing was successful 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_description_1_1_be_board_ad96f8aff122cccb9b01a4a57b6db5440}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!set\-Be\-Id@{set\-Be\-Id}}
-\index{set\-Be\-Id@{set\-Be\-Id}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{set\-Be\-Id}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::set\-Be\-Id (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Be\-Id}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_be_board_ad96f8aff122cccb9b01a4a57b6db5440}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Module\-Id}]\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]a bool which indicate if the removing was successful \end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_d96f8aff122cccb9b01a4a57b6db5440}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!setBeId@{setBeId}}
+\index{setBeId@{setBeId}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[setBeId]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Description::Be\-Board::set\-Be\-Id (uint8\_\-t {\em p\-Be\-Id})\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_d96f8aff122cccb9b01a4a57b6db5440}
 
 
 Set the Be Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Be\-Id} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_be_board_a933f9d5f715fbe9187f6aa79589cb55c}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!set\-Reg@{set\-Reg}}
-\index{set\-Reg@{set\-Reg}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{set\-Reg}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::set\-Reg (
-\begin{DoxyParamCaption}
-\item[{std\-::string}]{p\-Reg, }
-\item[{uint16\-\_\-t}]{pset\-Value}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_description_1_1_be_board_a933f9d5f715fbe9187f6aa79589cb55c}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Be\-Id}]\end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_84cf502132f9391e0ac7c53d230c3ea0}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!setReg@{setReg}}
+\index{setReg@{setReg}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[setReg]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Description::Be\-Board::set\-Reg (const std::string \& {\em p\-Reg}, uint16\_\-t {\em pset\-Value})}}
+\label{class_ph2___hw_description_1_1_be_board_84cf502132f9391e0ac7c53d230c3ea0}
 
 
 Set any register of the Map, if the register is not on the map, it adds it. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Reg} & \\
-\hline
-{\em pset\-Value} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_description_1_1_be_board_acce2ea02abfd36f32a10a900a805f8de}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!set\-Shelve\-Id@{set\-Shelve\-Id}}
-\index{set\-Shelve\-Id@{set\-Shelve\-Id}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{set\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::set\-Shelve\-Id (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Shelve\-Id}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_description_1_1_be_board_acce2ea02abfd36f32a10a900a805f8de}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Reg}]\item[{\em pset\-Value}]\end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_description_1_1_be_board_cce2ea02abfd36f32a10a900a805f8de}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!setShelveId@{setShelveId}}
+\index{setShelveId@{setShelveId}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[setShelveId]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Description::Be\-Board::set\-Shelve\-Id (uint8\_\-t {\em p\-Shelve\-Id})\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_cce2ea02abfd36f32a10a900a805f8de}
 
 
 Set the \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} Id of the \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board}. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Shelve\-Id} & \\
-\hline
-\end{DoxyParams}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Shelve\-Id}]\end{description}
+\end{Desc}
 
 
 \subsection{Field Documentation}
-\hypertarget{class_ph2___hw_description_1_1_be_board_aabe1a515a23ff8813d4641293a8b4ba1}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!f\-Be\-Id@{f\-Be\-Id}}
-\index{f\-Be\-Id@{f\-Be\-Id}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{f\-Be\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::f\-Be\-Id\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_be_board_aabe1a515a23ff8813d4641293a8b4ba1}
-\hypertarget{class_ph2___hw_description_1_1_be_board_adcee78870a20c92fc8c060ff709a4baf}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!f\-Module\-Vector@{f\-Module\-Vector}}
-\index{f\-Module\-Vector@{f\-Module\-Vector}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{f\-Module\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf Module} $>$ Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::f\-Module\-Vector\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_be_board_adcee78870a20c92fc8c060ff709a4baf}
-Vector of F\-E\-Modules, each module is supposed to know which F\-M\-C slot it is connected to... \hypertarget{class_ph2___hw_description_1_1_be_board_a6db4850485715c0f23c97c3d621a781b}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!f\-Reg\-Map@{f\-Reg\-Map}}
-\index{f\-Reg\-Map@{f\-Reg\-Map}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{f\-Reg\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Be\-Board\-Reg\-Map} Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::f\-Reg\-Map\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_be_board_a6db4850485715c0f23c97c3d621a781b}
-Map of \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} Register Names vs. Register Values \hypertarget{class_ph2___hw_description_1_1_be_board_a8e45d863c0a596466a78fd3e16ef92d1}{\index{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}!f\-Shelve\-Id@{f\-Shelve\-Id}}
-\index{f\-Shelve\-Id@{f\-Shelve\-Id}!Ph2_HwDescription::BeBoard@{Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board}}
-\subsubsection[{f\-Shelve\-Id}]{\setlength{\rightskip}{0pt plus 5cm}uint8\-\_\-t Ph2\-\_\-\-Hw\-Description\-::\-Be\-Board\-::f\-Shelve\-Id\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_ph2___hw_description_1_1_be_board_a8e45d863c0a596466a78fd3e16ef92d1}
+\hypertarget{class_ph2___hw_description_1_1_be_board_abe1a515a23ff8813d4641293a8b4ba1}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!fBeId@{fBeId}}
+\index{fBeId@{fBeId}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[fBeId]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_abe1a515a23ff8813d4641293a8b4ba1}{Ph2\_\-Hw\-Description::Be\-Board::f\-Be\-Id}\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_abe1a515a23ff8813d4641293a8b4ba1}
 
 
-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\hypertarget{class_ph2___hw_description_1_1_be_board_dcee78870a20c92fc8c060ff709a4baf}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!fModuleVector@{fModuleVector}}
+\index{fModuleVector@{fModuleVector}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[fModuleVector]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ \hyperlink{class_ph2___hw_description_1_1_module}{Module} $>$ \hyperlink{class_ph2___hw_description_1_1_be_board_dcee78870a20c92fc8c060ff709a4baf}{Ph2\_\-Hw\-Description::Be\-Board::f\-Module\-Vector}}}
+\label{class_ph2___hw_description_1_1_be_board_dcee78870a20c92fc8c060ff709a4baf}
+
+
+\hypertarget{class_ph2___hw_description_1_1_be_board_6db4850485715c0f23c97c3d621a781b}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!fRegMap@{fRegMap}}
+\index{fRegMap@{fRegMap}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[fRegMap]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{namespace_ph2___hw_description_2e13fb82c8ed98154c60f9d0f8467d72}{Be\-Board\-Reg\-Map} \hyperlink{class_ph2___hw_description_1_1_be_board_6db4850485715c0f23c97c3d621a781b}{Ph2\_\-Hw\-Description::Be\-Board::f\-Reg\-Map}\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_6db4850485715c0f23c97c3d621a781b}
+
+
+Map of \hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} Register Names vs. Register Values \hypertarget{class_ph2___hw_description_1_1_be_board_8e45d863c0a596466a78fd3e16ef92d1}{
+\index{Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}!fShelveId@{fShelveId}}
+\index{fShelveId@{fShelveId}!Ph2_HwDescription::BeBoard@{Ph2\_\-Hw\-Description::Be\-Board}}
+\subsubsection[fShelveId]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t \hyperlink{class_ph2___hw_description_1_1_be_board_8e45d863c0a596466a78fd3e16ef92d1}{Ph2\_\-Hw\-Description::Be\-Board::f\-Shelve\-Id}\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_ph2___hw_description_1_1_be_board_8e45d863c0a596466a78fd3e16ef92d1}
+
+
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
 \item 
-H\-W\-Description/\hyperlink{_be_board_8h}{Be\-Board.\-h}\item 
-H\-W\-Description/\hyperlink{_be_board_8cc}{Be\-Board.\-cc}\end{DoxyCompactItemize}
+HWDescription/\hyperlink{_be_board_8h}{Be\-Board.h}\item 
+HWDescription/\hyperlink{_be_board_8cc}{Be\-Board.cc}\end{CompactItemize}

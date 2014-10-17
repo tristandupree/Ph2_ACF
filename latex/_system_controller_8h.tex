@@ -1,48 +1,49 @@
-\hypertarget{_system_controller_8h}{\section{System/\-System\-Controller.h File Reference}
-\label{_system_controller_8h}\index{System/\-System\-Controller.\-h@{System/\-System\-Controller.\-h}}
+\hypertarget{_system_controller_8h}{
+\section{System/System\-Controller.h File Reference}
+\label{_system_controller_8h}\index{System/SystemController.h@{System/SystemController.h}}
 }
+Controller of the System, overall wrapper of the framework. 
 
-
-Controller of the System, overall wrapper of the framework.  
-
-
-{\ttfamily \#include \char`\"{}../\-H\-W\-Interface/\-Be\-Board\-F\-W\-Interface.\-h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}../\-H\-W\-Description/\-Shelve.\-h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}../\-H\-W\-Interface/\-Cbc\-Interface.\-h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}../\-H\-W\-Interface/\-Be\-Board\-Interface.\-h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}../\-H\-W\-Description/\-Definition.\-h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}pugixml.\-hpp\char`\"{}}\\*
-{\ttfamily \#include $<$iostream$>$}\\*
-{\ttfamily \#include $<$vector$>$}\\*
-{\ttfamily \#include $<$map$>$}\\*
-{\ttfamily \#include $<$stdlib.\-h$>$}\\*
-\subsection*{Data Structures}
-\begin{DoxyCompactItemize}
-\item 
-class \hyperlink{class_ph2___system_1_1_system_controller}{Ph2\-\_\-\-System\-::\-System\-Controller}
-\begin{DoxyCompactList}\small\item\em Create, initialise, configure a predefined H\-W structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\tt \#include \char`\"{}../HWInterface/Be\-Board\-FWInterface.h\char`\"{}}\par
+{\tt \#include \char`\"{}../HWDescription/Shelve.h\char`\"{}}\par
+{\tt \#include \char`\"{}../HWInterface/Cbc\-Interface.h\char`\"{}}\par
+{\tt \#include \char`\"{}../HWInterface/Be\-Board\-Interface.h\char`\"{}}\par
+{\tt \#include \char`\"{}../HWDescription/Definition.h\char`\"{}}\par
+{\tt \#include \char`\"{}../Utils/Visitor.h\char`\"{}}\par
+{\tt \#include \char`\"{}../Utils/Utilities.h\char`\"{}}\par
+{\tt \#include \char`\"{}../Utils/pugixml.hpp\char`\"{}}\par
+{\tt \#include \char`\"{}../Utils/Console\-Color.h\char`\"{}}\par
+{\tt \#include $<$iostream$>$}\par
+{\tt \#include $<$vector$>$}\par
+{\tt \#include $<$map$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include \char`\"{}TFile.h\char`\"{}}\par
 \subsection*{Namespaces}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-\hyperlink{namespace_ph2___system}{Ph2\-\_\-\-System}
-\begin{DoxyCompactList}\small\item\em Namespace regrouping the framework wrapper. \end{DoxyCompactList}\end{DoxyCompactItemize}
+namespace \hyperlink{namespace_ph2___system}{Ph2\_\-System}
+\end{CompactItemize}
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+class \hyperlink{class_ph2___system_1_1_system_controller}{Ph2\_\-System::System\-Controller}
+\begin{CompactList}\small\item\em Create, initialise, configure a predefined HW structure. \item\end{CompactList}\end{CompactItemize}
 \subsection*{Typedefs}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-typedef std\-::vector$<$ \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} $\ast$ $>$ \hyperlink{namespace_ph2___system_a1c21eed494ab8a888694adf3de379dcf}{Ph2\-\_\-\-System\-::\-Shelve\-Vec}
+typedef std::vector$<$ \hyperlink{class_ph2___hw_description_1_1_shelve}{Shelve} $\ast$ $>$ \hyperlink{namespace_ph2___system_1c21eed494ab8a888694adf3de379dcf}{Ph2\_\-System::Shelve\-Vec}
 \item 
-typedef std\-::map$<$ std\-::string, \\*
-uint8\-\_\-t $>$ \hyperlink{namespace_ph2___system_a0ea674c0ee02ac6834ac9a1335111980}{Ph2\-\_\-\-System\-::\-Settings\-Map}
-\end{DoxyCompactItemize}
+typedef std::map$<$ std::string, uint32\_\-t $>$ \hyperlink{namespace_ph2___system_f2bca61b7444e1e35ab6bccba079876b}{Ph2\_\-System::Settings\-Map}
+\end{CompactItemize}
 
 
 \subsection{Detailed Description}
-Controller of the System, overall wrapper of the framework. \begin{DoxyAuthor}{Author}
-Nicolas P\-I\-E\-R\-R\-E 
-\end{DoxyAuthor}
-\begin{DoxyVersion}{Version}
-1.\-0 
-\end{DoxyVersion}
-\begin{DoxyDate}{Date}
-10/08/14 Support \-: mail to \-: \href{mailto:lorenzo.bidegain@cern.ch}{\tt lorenzo.\-bidegain@cern.\-ch}, \href{mailto:nico.pierre@icloud.com}{\tt nico.\-pierre@icloud.\-com} 
-\end{DoxyDate}
+Controller of the System, overall wrapper of the framework. 
+
+\begin{Desc}
+\item[Author:]Nicolas PIERRE \end{Desc}
+\begin{Desc}
+\item[Version:]1.0 \end{Desc}
+\begin{Desc}
+\item[Date:]10/08/14 Support : mail to : \href{mailto:lorenzo.bidegain@cern.ch}\tt{lorenzo.bidegain@cern.ch}, \href{mailto:nico.pierre@icloud.com}\tt{nico.pierre@icloud.com} \end{Desc}

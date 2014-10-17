@@ -1,51 +1,47 @@
-\hypertarget{_cbc_8h}{\section{H\-W\-Description/\-Cbc.h File Reference}
-\label{_cbc_8h}\index{H\-W\-Description/\-Cbc.\-h@{H\-W\-Description/\-Cbc.\-h}}
+\hypertarget{_cbc_8h}{
+\section{HWDescription/Cbc.h File Reference}
+\label{_cbc_8h}\index{HWDescription/Cbc.h@{HWDescription/Cbc.h}}
 }
+Cbc Description class, config of the Cbcs. 
 
-
-Cbc Description class, config of the Cbcs.  
-
-
-{\ttfamily \#include \char`\"{}Front\-End\-Description.\-h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}Cbc\-Reg\-Item.\-h\char`\"{}}\\*
-{\ttfamily \#include $<$iostream$>$}\\*
-{\ttfamily \#include $<$map$>$}\\*
-{\ttfamily \#include $<$string$>$}\\*
-{\ttfamily \#include $<$boost/cstdint.\-hpp$>$}\\*
-{\ttfamily \#include $<$utility$>$}\\*
-{\ttfamily \#include $<$set$>$}\\*
-\subsection*{Data Structures}
-\begin{DoxyCompactItemize}
-\item 
-class \hyperlink{class_ph2___hw_description_1_1_cbc}{Ph2\-\_\-\-Hw\-Description\-::\-Cbc}
-\begin{DoxyCompactList}\small\item\em Read/\-Write \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc}'s registers on a file, contains a register map. \end{DoxyCompactList}\item 
-struct \hyperlink{struct_ph2___hw_description_1_1_cbc_comparer}{Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-Comparer}
-\begin{DoxyCompactList}\small\item\em Compare two \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} by their I\-D. \end{DoxyCompactList}\item 
-struct \hyperlink{struct_ph2___hw_description_1_1_reg_item_comparer}{Ph2\-\_\-\-Hw\-Description\-::\-Reg\-Item\-Comparer}
-\begin{DoxyCompactList}\small\item\em Compare two pair of Register Name Versus \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} by the Page and Adress of the \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+{\tt \#include \char`\"{}Front\-End\-Description.h\char`\"{}}\par
+{\tt \#include \char`\"{}Cbc\-Reg\-Item.h\char`\"{}}\par
+{\tt \#include \char`\"{}../Utils/Visitor.h\char`\"{}}\par
+{\tt \#include $<$iostream$>$}\par
+{\tt \#include $<$map$>$}\par
+{\tt \#include $<$string$>$}\par
+{\tt \#include $<$stdint.h$>$}\par
+{\tt \#include $<$utility$>$}\par
+{\tt \#include $<$set$>$}\par
 \subsection*{Namespaces}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-\hyperlink{namespace_ph2___hw_description}{Ph2\-\_\-\-Hw\-Description}
-\begin{DoxyCompactList}\small\item\em Namespace regrouping all the hardware description. \end{DoxyCompactList}\end{DoxyCompactItemize}
+namespace \hyperlink{namespace_ph2___hw_description}{Ph2\_\-Hw\-Description}
+\end{CompactItemize}
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+class \hyperlink{class_ph2___hw_description_1_1_cbc}{Ph2\_\-Hw\-Description::Cbc}
+\begin{CompactList}\small\item\em Read/Write Cbc's registers on a file, contains a register map. \item\end{CompactList}\item 
+struct \hyperlink{struct_ph2___hw_description_1_1_cbc_comparer}{Ph2\_\-Hw\-Description::Cbc\-Comparer}
+\begin{CompactList}\small\item\em Compare two \hyperlink{class_ph2___hw_description_1_1_cbc}{Cbc} by their ID. \item\end{CompactList}\item 
+struct \hyperlink{struct_ph2___hw_description_1_1_reg_item_comparer}{Ph2\_\-Hw\-Description::Reg\-Item\-Comparer}
+\begin{CompactList}\small\item\em Compare two pair of Register Name Versus \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item} by the Page and Adress of the \hyperlink{struct_ph2___hw_description_1_1_cbc_reg_item}{Cbc\-Reg\-Item}. \item\end{CompactList}\end{CompactItemize}
 \subsection*{Typedefs}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-typedef std\-::map$<$ std\-::string, \\*
-Cbc\-Reg\-Item $>$ \hyperlink{namespace_ph2___hw_description_a9a23b373068f169aa67ca1d22c9a6001}{Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-Reg\-Map}
+typedef std::map$<$ std::string, Cbc\-Reg\-Item $>$ \hyperlink{namespace_ph2___hw_description_9a23b373068f169aa67ca1d22c9a6001}{Ph2\_\-Hw\-Description::Cbc\-Reg\-Map}
 \item 
-typedef std\-::pair$<$ std\-::string, \\*
-Cbc\-Reg\-Item $>$ \hyperlink{namespace_ph2___hw_description_a78856413327152e693dceca249188d11}{Ph2\-\_\-\-Hw\-Description\-::\-Cbc\-Reg\-Pair}
-\end{DoxyCompactItemize}
+typedef std::pair$<$ std::string, Cbc\-Reg\-Item $>$ \hyperlink{namespace_ph2___hw_description_78856413327152e693dceca249188d11}{Ph2\_\-Hw\-Description::Cbc\-Reg\-Pair}
+\end{CompactItemize}
 
 
 \subsection{Detailed Description}
-Cbc Description class, config of the Cbcs. \begin{DoxyAuthor}{Author}
-Lorenzo B\-I\-D\-E\-G\-A\-I\-N 
-\end{DoxyAuthor}
-\begin{DoxyVersion}{Version}
-1.\-0 
-\end{DoxyVersion}
-\begin{DoxyDate}{Date}
-25/06/14 Support \-: mail to \-: \href{mailto:lorenzo.bidegain@gmail.com}{\tt lorenzo.\-bidegain@gmail.\-com} 
-\end{DoxyDate}
+Cbc Description class, config of the Cbcs. 
+
+\begin{Desc}
+\item[Author:]Lorenzo BIDEGAIN \end{Desc}
+\begin{Desc}
+\item[Version:]1.0 \end{Desc}
+\begin{Desc}
+\item[Date:]25/06/14 Support : mail to : \href{mailto:lorenzo.bidegain@gmail.com}\tt{lorenzo.bidegain@gmail.com} \end{Desc}

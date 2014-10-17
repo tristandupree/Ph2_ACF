@@ -1,161 +1,159 @@
-\hypertarget{class_ph2___hw_interface_1_1_event}{\section{Ph2\-\_\-\-Hw\-Interface\-:\-:Event Class Reference}
-\label{class_ph2___hw_interface_1_1_event}\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
+\hypertarget{class_ph2___hw_interface_1_1_event}{
+\section{Ph2\_\-Hw\-Interface::Event Class Reference}
+\label{class_ph2___hw_interface_1_1_event}\index{Ph2_HwInterface::Event@{Ph2\_\-HwInterface::Event}}
 }
-
-
 \hyperlink{class_ph2___hw_interface_1_1_event}{Event} container to manipulate event flux from the Cbc.  
 
 
-
-
-{\ttfamily \#include $<$Event.\-h$>$}
+{\tt \#include $<$Event.h$>$}
 
 \subsection*{Public Member Functions}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-\hyperlink{class_ph2___hw_interface_1_1_event_a76e38e4a345ed8cac86579821efe9b73}{Event} (uint32\-\_\-t p\-Nb\-Cbc)
-\begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. \end{DoxyCompactList}\item 
-\hyperlink{class_ph2___hw_interface_1_1_event_a75a7e673a29d9cca0080c5517895d838}{Event} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board, uint32\-\_\-t p\-Nb\-Cbc)
-\begin{DoxyCompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. \end{DoxyCompactList}\item 
-\hyperlink{class_ph2___hw_interface_1_1_event_a3f676bea23859e6417f1ccbade7308df}{Event} (\hyperlink{class_ph2___hw_interface_1_1_event}{Event} \&p\-Event)
-\begin{DoxyCompactList}\small\item\em Copy Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. \end{DoxyCompactList}\item 
-\hyperlink{class_ph2___hw_interface_1_1_event_a2698d395adfcd65d0853676a899127fc}{$\sim$\-Event} ()
-\begin{DoxyCompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_event_ac324585a7a75fb07c51e71317e53ea64}{Clear} ()
-\begin{DoxyCompactList}\small\item\em Clear the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Map. \end{DoxyCompactList}\item 
-void \hyperlink{class_ph2___hw_interface_1_1_event_a41a2aae19c78d908c738163e56f1be0b}{Add\-Board} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} \&p\-Board)
-\begin{DoxyCompactList}\small\item\em Add a board structure in the map. \end{DoxyCompactList}\item 
-int \hyperlink{class_ph2___hw_interface_1_1_event_a67bf8cfaeaec158907932be40b37601d}{Set\-Event} (char $\ast$p\-Event)
-\begin{DoxyCompactList}\small\item\em Set an \hyperlink{class_ph2___hw_interface_1_1_event}{Event} to the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} map. \end{DoxyCompactList}\item 
-char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_event_a2ee5e2552a84cb78ae902436e0dd77f4}{Get\-Cbc\-Event} (uint8\-\_\-t \&p\-Fe\-Id, uint8\-\_\-t \&p\-Cbc\-Id) const 
-\begin{DoxyCompactList}\small\item\em Get an event contained in a Cbc. \end{DoxyCompactList}\item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_ab577a18ce8a9edc17debb67ea8734530}{Get\-Bunch} () const 
-\begin{DoxyCompactList}\small\item\em Get the bunch value. \end{DoxyCompactList}\item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a02d8bec5f5249cb80e2835e8aff037d7}{Get\-Orbit} () const 
-\begin{DoxyCompactList}\small\item\em Get the orbit value. \end{DoxyCompactList}\item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_ae5af75e033d2eb6d76a039e859a9ce86}{Get\-Lumi} () const 
-\begin{DoxyCompactList}\small\item\em Get the luminence value. \end{DoxyCompactList}\item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_aaebf08f816e8a98f424ba8ab25e32231}{Get\-Event\-Count} () const 
-\begin{DoxyCompactList}\small\item\em Get the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter. \end{DoxyCompactList}\item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a620592c831036eae724c37db45ca0765}{Get\-Event\-Count\-C\-B\-C} () const 
-\begin{DoxyCompactList}\small\item\em Get the Cbc \hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter. \end{DoxyCompactList}\item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a2c193b4b2bdb35267f63d03cc684e7b1}{Get\-T\-D\-C} () const 
-\begin{DoxyCompactList}\small\item\em Get T\-D\-C value ?? \end{DoxyCompactList}\item 
-std\-::string \hyperlink{class_ph2___hw_interface_1_1_event_a1dd8d9cc8a8169df80518d57b1075d2c}{Hex\-String} () const 
-\begin{DoxyCompactList}\small\item\em Convert \hyperlink{class_ph2___hw_interface_1_1_data}{Data} to Hex string. \end{DoxyCompactList}\item 
-bool \hyperlink{class_ph2___hw_interface_1_1_event_a5b542b0d98a413feef14cc57cff250bf}{Bit} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint32\-\_\-t p\-Position) const 
-\begin{DoxyCompactList}\small\item\em Function to get the bit at the global data string position. \end{DoxyCompactList}\item 
-bool \hyperlink{class_ph2___hw_interface_1_1_event_ae0242a4b78e3da2959a2bcfb8adb86f9}{Error} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint32\-\_\-t i) const 
-\begin{DoxyCompactList}\small\item\em Function to get Error bit. \end{DoxyCompactList}\item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_ab3bbc58be7f96ba0dbc1721eb90d4380}{Error} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id) const 
-\begin{DoxyCompactList}\small\item\em Function to get all Error bits. \end{DoxyCompactList}\item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a2597189e1c09b65433df4489f5afbf56}{Pipeline\-Address} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id) const 
-\begin{DoxyCompactList}\small\item\em Function to get pipeline address. \end{DoxyCompactList}\item 
-bool \hyperlink{class_ph2___hw_interface_1_1_event_a3e93e6f16944f443caffd2df81262fbe}{Data\-Bit} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint32\-\_\-t i) const 
-\begin{DoxyCompactList}\small\item\em Function to get a C\-B\-C pixel bit data. \end{DoxyCompactList}\item 
-std\-::string \hyperlink{class_ph2___hw_interface_1_1_event_a67261ba2ea976e1c265c8aa7fe1a4b2d}{Bit\-String} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint32\-\_\-t p\-Offset, uint32\-\_\-t p\-Width) const 
-\begin{DoxyCompactList}\small\item\em Function to get bit string from the data offset and width. \end{DoxyCompactList}\item 
-std\-::vector$<$ bool $>$ \hyperlink{class_ph2___hw_interface_1_1_event_ab83e11f21873bd5beebd1049671ce3da}{Bit\-Vector} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint32\-\_\-t p\-Offset, uint32\-\_\-t p\-Width) const 
-\begin{DoxyCompactList}\small\item\em Function to get bit vector from the data offset and width. \end{DoxyCompactList}\item 
-std\-::string \hyperlink{class_ph2___hw_interface_1_1_event_adb005c7fbcd56f6cb66a4b83b185886b}{Data\-Bit\-String} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id) const 
-\begin{DoxyCompactList}\small\item\em Function to get bit string of C\-B\-C data. \end{DoxyCompactList}\item 
-std\-::vector$<$ bool $>$ \hyperlink{class_ph2___hw_interface_1_1_event_a54db44c9de8f4ca816d8cadcaa733260}{Data\-Bit\-Vector} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id) const 
-\begin{DoxyCompactList}\small\item\em Function to get bit vector of C\-B\-C data. \end{DoxyCompactList}\item 
-std\-::string \hyperlink{class_ph2___hw_interface_1_1_event_ab7a41db929dba07f724a0b0f3e5ba626}{Data\-Hex\-String} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id) const 
-\begin{DoxyCompactList}\small\item\em Function to get bit string in hexadecimal format for C\-B\-C data. \end{DoxyCompactList}\item 
-std\-::string \hyperlink{class_ph2___hw_interface_1_1_event_a8b6a50a409927366a830084f11885882}{Glib\-Flag\-String} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id) const 
-\begin{DoxyCompactList}\small\item\em Function to get G\-L\-I\-B flag string. \end{DoxyCompactList}\item 
-std\-::string \hyperlink{class_ph2___hw_interface_1_1_event_abc647a9563bd796f8785590a2b5b525b}{Stub\-Bit\-String} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id) const 
-\begin{DoxyCompactList}\small\item\em Function to get bit string for C\-B\-C S\-T\-U\-B data. \end{DoxyCompactList}\item 
-char \hyperlink{class_ph2___hw_interface_1_1_event_a348abea85bdfdfc8c0b88cda907dbea8}{Char} (uint8\-\_\-t p\-Fe\-Id, uint8\-\_\-t p\-Cbc\-Id, uint32\-\_\-t p\-Byte\-Position)
-\begin{DoxyCompactList}\small\item\em Function to get char at the global data string at position 8$\ast$i. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\hyperlink{class_ph2___hw_interface_1_1_event_683bd51c34b6b849a970f50b4c2a61c3}{Event} (uint32\_\-t p\-Nb\-Cbc, char $\ast$p\-Event\-Buf)
+\begin{CompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. \item\end{CompactList}\item 
+\hyperlink{class_ph2___hw_interface_1_1_event_39280981aa5ea8a3a6d9adce5e1fe409}{Event} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board, uint32\_\-t p\-Nb\-Cbc, char $\ast$p\-Event\-Buf)
+\begin{CompactList}\small\item\em Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. \item\end{CompactList}\item 
+\hyperlink{class_ph2___hw_interface_1_1_event_3f676bea23859e6417f1ccbade7308df}{Event} (\hyperlink{class_ph2___hw_interface_1_1_event}{Event} \&p\-Event)
+\begin{CompactList}\small\item\em Copy Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. \item\end{CompactList}\item 
+\hyperlink{class_ph2___hw_interface_1_1_event_2698d395adfcd65d0853676a899127fc}{$\sim$Event} ()
+\begin{CompactList}\small\item\em Destructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. \item\end{CompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_event_c324585a7a75fb07c51e71317e53ea64}{Clear} ()
+\begin{CompactList}\small\item\em Clear the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Map. \item\end{CompactList}\item 
+void \hyperlink{class_ph2___hw_interface_1_1_event_f3c69c800172c254f020628293c232b9}{Add\-Board} (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$p\-Board)
+\begin{CompactList}\small\item\em Add a board structure in the map. \item\end{CompactList}\item 
+int \hyperlink{class_ph2___hw_interface_1_1_event_67bf8cfaeaec158907932be40b37601d}{Set\-Event} (char $\ast$p\-Event)
+\begin{CompactList}\small\item\em Set an \hyperlink{class_ph2___hw_interface_1_1_event}{Event} to the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} map. \item\end{CompactList}\item 
+char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_event_2ee5e2552a84cb78ae902436e0dd77f4}{Get\-Cbc\-Event} (uint8\_\-t \&p\-Fe\-Id, uint8\_\-t \&p\-Cbc\-Id) const 
+\begin{CompactList}\small\item\em Get an event contained in a Cbc. \item\end{CompactList}\item 
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_b577a18ce8a9edc17debb67ea8734530}{Get\-Bunch} () const 
+\begin{CompactList}\small\item\em Get the bunch value. \item\end{CompactList}\item 
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_02d8bec5f5249cb80e2835e8aff037d7}{Get\-Orbit} () const 
+\begin{CompactList}\small\item\em Get the orbit value. \item\end{CompactList}\item 
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_e5af75e033d2eb6d76a039e859a9ce86}{Get\-Lumi} () const 
+\begin{CompactList}\small\item\em Get the luminence value. \item\end{CompactList}\item 
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_aebf08f816e8a98f424ba8ab25e32231}{Get\-Event\-Count} () const 
+\begin{CompactList}\small\item\em Get the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter. \item\end{CompactList}\item 
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_620592c831036eae724c37db45ca0765}{Get\-Event\-Count\-CBC} () const 
+\begin{CompactList}\small\item\em Get the Cbc \hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter. \item\end{CompactList}\item 
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_2c193b4b2bdb35267f63d03cc684e7b1}{Get\-TDC} () const 
+\begin{CompactList}\small\item\em Get TDC value ?? \item\end{CompactList}\item 
+std::string \hyperlink{class_ph2___hw_interface_1_1_event_1dd8d9cc8a8169df80518d57b1075d2c}{Hex\-String} () const 
+\begin{CompactList}\small\item\em Convert \hyperlink{class_ph2___hw_interface_1_1_data}{Data} to Hex string. \item\end{CompactList}\item 
+bool \hyperlink{class_ph2___hw_interface_1_1_event_5b542b0d98a413feef14cc57cff250bf}{Bit} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id, uint32\_\-t p\-Position) const 
+\begin{CompactList}\small\item\em Function to get the bit at the global data string position. \item\end{CompactList}\item 
+bool \hyperlink{class_ph2___hw_interface_1_1_event_e0242a4b78e3da2959a2bcfb8adb86f9}{Error} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id, uint32\_\-t i) const 
+\begin{CompactList}\small\item\em Function to get Error bit. \item\end{CompactList}\item 
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_b3bbc58be7f96ba0dbc1721eb90d4380}{Error} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id) const 
+\begin{CompactList}\small\item\em Function to get all Error bits. \item\end{CompactList}\item 
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_2597189e1c09b65433df4489f5afbf56}{Pipeline\-Address} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id) const 
+\begin{CompactList}\small\item\em Function to get pipeline address. \item\end{CompactList}\item 
+bool \hyperlink{class_ph2___hw_interface_1_1_event_3e93e6f16944f443caffd2df81262fbe}{Data\-Bit} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id, uint32\_\-t i) const 
+\begin{CompactList}\small\item\em Function to get a CBC pixel bit data. \item\end{CompactList}\item 
+std::string \hyperlink{class_ph2___hw_interface_1_1_event_67261ba2ea976e1c265c8aa7fe1a4b2d}{Bit\-String} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id, uint32\_\-t p\-Offset, uint32\_\-t p\-Width) const 
+\begin{CompactList}\small\item\em Function to get bit string from the data offset and width. \item\end{CompactList}\item 
+std::vector$<$ bool $>$ \hyperlink{class_ph2___hw_interface_1_1_event_b83e11f21873bd5beebd1049671ce3da}{Bit\-Vector} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id, uint32\_\-t p\-Offset, uint32\_\-t p\-Width) const 
+\begin{CompactList}\small\item\em Function to get bit vector from the data offset and width. \item\end{CompactList}\item 
+std::string \hyperlink{class_ph2___hw_interface_1_1_event_db005c7fbcd56f6cb66a4b83b185886b}{Data\-Bit\-String} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id) const 
+\begin{CompactList}\small\item\em Function to get bit string of CBC data. \item\end{CompactList}\item 
+std::vector$<$ bool $>$ \hyperlink{class_ph2___hw_interface_1_1_event_54db44c9de8f4ca816d8cadcaa733260}{Data\-Bit\-Vector} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id) const 
+\begin{CompactList}\small\item\em Function to get bit vector of CBC data. \item\end{CompactList}\item 
+std::string \hyperlink{class_ph2___hw_interface_1_1_event_b7a41db929dba07f724a0b0f3e5ba626}{Data\-Hex\-String} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id) const 
+\begin{CompactList}\small\item\em Function to get bit string in hexadecimal format for CBC data. \item\end{CompactList}\item 
+std::string \hyperlink{class_ph2___hw_interface_1_1_event_8b6a50a409927366a830084f11885882}{Glib\-Flag\-String} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id) const 
+\begin{CompactList}\small\item\em Function to get GLIB flag string. \item\end{CompactList}\item 
+std::string \hyperlink{class_ph2___hw_interface_1_1_event_bc647a9563bd796f8785590a2b5b525b}{Stub\-Bit\-String} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id) const 
+\begin{CompactList}\small\item\em Function to get bit string for CBC STUB data. \item\end{CompactList}\item 
+char \hyperlink{class_ph2___hw_interface_1_1_event_348abea85bdfdfc8c0b88cda907dbea8}{Char} (uint8\_\-t p\-Fe\-Id, uint8\_\-t p\-Cbc\-Id, uint32\_\-t p\-Byte\-Position)
+\begin{CompactList}\small\item\em Function to get char at the global data string at position 8$\ast$i. \item\end{CompactList}\item 
+const \hyperlink{namespace_ph2___hw_interface_cf9f41d647e7a3ad9bae233b04b9e3bc}{Event\-Map} \& \hyperlink{class_ph2___hw_interface_1_1_event_64814e9ba1b9cd7ed1e8dd5587275f49}{Get\-Event\-Map} () const 
+\end{CompactItemize}
 \subsection*{Data Fields}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a0a12db10e67652851517cc65c8057667}{f\-Event\-Size}
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_0a12db10e67652851517cc65c8057667}{f\-Event\-Size}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a4d5cdd6c250eecb7bfd2f0ee3b1056a4}{f\-Fe\-N\-Char}
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_fd3160b2830469808d9f671bfbedfd55}{f\-Offset\-TDC}
+\end{CompactItemize}
+\subsection*{Private Member Functions}
+\begin{CompactItemize}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_afd3160b2830469808d9f671bfbedfd55}{f\-Offset\-T\-D\-C}
-\end{DoxyCompactItemize}
+void \hyperlink{class_ph2___hw_interface_1_1_event_2a9e8d866e4d8c4fe91ea8320b931047}{Set\-Size} (uint32\_\-t p\-Nb\-Cbc)
+\begin{CompactList}\small\item\em Method to set the size of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} according to the number of CBCs. \item\end{CompactList}\end{CompactItemize}
 \subsection*{Private Attributes}
-\begin{DoxyCompactItemize}
+\begin{CompactItemize}
 \item 
-char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_event_ab396cf1480f11b535d0e464aa6f9f046}{f\-Buf}
+char $\ast$ \hyperlink{class_ph2___hw_interface_1_1_event_b396cf1480f11b535d0e464aa6f9f046}{f\-Buf}
 \item 
-\hyperlink{namespace_ph2___hw_interface_acf9f41d647e7a3ad9bae233b04b9e3bc}{Event\-Map} \hyperlink{class_ph2___hw_interface_1_1_event_ace9844f1fc14895f880ed111c705d392}{f\-Event\-Map}
+\hyperlink{namespace_ph2___hw_interface_cf9f41d647e7a3ad9bae233b04b9e3bc}{Event\-Map} \hyperlink{class_ph2___hw_interface_1_1_event_ce9844f1fc14895f880ed111c705d392}{f\-Event\-Map}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_ae5b69f2e0a9c9c947f7a37b7dcf380dc}{f\-Bunch}
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_e5b69f2e0a9c9c947f7a37b7dcf380dc}{f\-Bunch}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a6aa6c402d2b16e735fbb4b7518c2666e}{f\-Orbit}
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_6aa6c402d2b16e735fbb4b7518c2666e}{f\-Orbit}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_a78afd0886560acf70ee6b982c5690e0a}{f\-Lumi}
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_78afd0886560acf70ee6b982c5690e0a}{f\-Lumi}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_add8f3a445ae11e54b47af7690074a4ce}{f\-Event\-Count}
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_dd8f3a445ae11e54b47af7690074a4ce}{f\-Event\-Count}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_ac61b0e2c53e5d4228d43132f470dfdac}{f\-Event\-Count\-C\-B\-C}
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_c61b0e2c53e5d4228d43132f470dfdac}{f\-Event\-Count\-CBC}
 \item 
-uint32\-\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_ab91638311238d12f1cd258556c8d1d80}{f\-T\-D\-C}
-\end{DoxyCompactItemize}
+uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_b91638311238d12f1cd258556c8d1d80}{f\-TDC}
+\end{CompactItemize}
+\subsection*{Friends}
+\begin{CompactItemize}
+\item 
+ostream \& \hyperlink{class_ph2___hw_interface_1_1_event_dd2a25ce09465ee24314bbbf409f7ee1}{operator$<$$<$} (ostream \&out, const \hyperlink{class_ph2___hw_interface_1_1_event}{Event} \&ev)
+\end{CompactItemize}
 
 
 \subsection{Detailed Description}
 \hyperlink{class_ph2___hw_interface_1_1_event}{Event} container to manipulate event flux from the Cbc. 
 
+
+
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_event_a76e38e4a345ed8cac86579821efe9b73}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Event@{Event}}
-\index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Event}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Event (
-\begin{DoxyParamCaption}
-\item[{uint32\-\_\-t}]{p\-Nb\-Cbc}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_event_a76e38e4a345ed8cac86579821efe9b73}
+\hypertarget{class_ph2___hw_interface_1_1_event_683bd51c34b6b849a970f50b4c2a61c3}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!Event@{Event}}
+\index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[Event]{\setlength{\rightskip}{0pt plus 5cm}Ph2\_\-Hw\-Interface::Event::Event (uint32\_\-t {\em p\-Nb\-Cbc}, char $\ast$ {\em p\-Event\-Buf})}}
+\label{class_ph2___hw_interface_1_1_event_683bd51c34b6b849a970f50b4c2a61c3}
 
 
 Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Nb\-Cbc} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_event_a75a7e673a29d9cca0080c5517895d838}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Event@{Event}}
-\index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Event}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Event (
-\begin{DoxyParamCaption}
-\item[{{\bf Be\-Board} \&}]{p\-Board, }
-\item[{uint32\-\_\-t}]{p\-Nb\-Cbc}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_event_a75a7e673a29d9cca0080c5517895d838}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Nb\-Cbc}]\item[{\em p\-Event\-Buf}]: the pointer to the raw \hyperlink{class_ph2___hw_interface_1_1_event}{Event} buffer of this \hyperlink{class_ph2___hw_interface_1_1_event}{Event} \end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_39280981aa5ea8a3a6d9adce5e1fe409}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!Event@{Event}}
+\index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[Event]{\setlength{\rightskip}{0pt plus 5cm}Ph2\_\-Hw\-Interface::Event::Event (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$ {\em p\-Board}, uint32\_\-t {\em p\-Nb\-Cbc}, char $\ast$ {\em p\-Event\-Buf})}}
+\label{class_ph2___hw_interface_1_1_event_39280981aa5ea8a3a6d9adce5e1fe409}
 
 
 Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Board} & \-: Board to work with \\
-\hline
-{\em p\-Nb\-Cbc} & \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_event_a3f676bea23859e6417f1ccbade7308df}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Event@{Event}}
-\index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Event}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Event (
-\begin{DoxyParamCaption}
-\item[{{\bf Event} \&}]{p\-Event}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_event_a3f676bea23859e6417f1ccbade7308df}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Board}]: Board to work with \item[{\em p\-Nb\-Cbc}]\item[{\em p\-Event\-Buf}]: the pointer to the raw \hyperlink{class_ph2___hw_interface_1_1_event}{Event} buffer of this \hyperlink{class_ph2___hw_interface_1_1_event}{Event} \end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_3f676bea23859e6417f1ccbade7308df}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!Event@{Event}}
+\index{Event@{Event}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[Event]{\setlength{\rightskip}{0pt plus 5cm}Ph2\_\-Hw\-Interface::Event::Event (\hyperlink{class_ph2___hw_interface_1_1_event}{Event} \& {\em p\-Event})}}
+\label{class_ph2___hw_interface_1_1_event_3f676bea23859e6417f1ccbade7308df}
 
 
 Copy Constructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. 
 
-\hypertarget{class_ph2___hw_interface_1_1_event_a2698d395adfcd65d0853676a899127fc}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!$\sim$\-Event@{$\sim$\-Event}}
-\index{$\sim$\-Event@{$\sim$\-Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{$\sim$\-Event}]{\setlength{\rightskip}{0pt plus 5cm}Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::$\sim$\-Event (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_a2698d395adfcd65d0853676a899127fc}
+\hypertarget{class_ph2___hw_interface_1_1_event_2698d395adfcd65d0853676a899127fc}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!~Event@{$\sim$Event}}
+\index{~Event@{$\sim$Event}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[$\sim$Event]{\setlength{\rightskip}{0pt plus 5cm}Ph2\_\-Hw\-Interface::Event::$\sim$Event ()\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_2698d395adfcd65d0853676a899127fc}
 
 
 Destructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class. 
@@ -163,521 +161,453 @@ Destructor of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Class.
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_event_a41a2aae19c78d908c738163e56f1be0b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Add\-Board@{Add\-Board}}
-\index{Add\-Board@{Add\-Board}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Add\-Board}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Add\-Board (
-\begin{DoxyParamCaption}
-\item[{{\bf Be\-Board} \&}]{p\-Board}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_event_a41a2aae19c78d908c738163e56f1be0b}
+\hypertarget{class_ph2___hw_interface_1_1_event_f3c69c800172c254f020628293c232b9}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!AddBoard@{AddBoard}}
+\index{AddBoard@{AddBoard}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[AddBoard]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Interface::Event::Add\-Board (\hyperlink{class_ph2___hw_description_1_1_be_board}{Be\-Board} $\ast$ {\em p\-Board})}}
+\label{class_ph2___hw_interface_1_1_event_f3c69c800172c254f020628293c232b9}
 
 
 Add a board structure in the map. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Board} & \-: board to work with \\
-\hline
-\end{DoxyParams}
-\hypertarget{class_ph2___hw_interface_1_1_event_a5b542b0d98a413feef14cc57cff250bf}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Bit@{Bit}}
-\index{Bit@{Bit}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Bit}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Bit (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
-\item[{uint32\-\_\-t}]{p\-Position}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_a5b542b0d98a413feef14cc57cff250bf}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Board}]: board to work with \end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_5b542b0d98a413feef14cc57cff250bf}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!Bit@{Bit}}
+\index{Bit@{Bit}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[Bit]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\_\-Hw\-Interface::Event::Bit (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}, uint32\_\-t {\em p\-Position}) const}}
+\label{class_ph2___hw_interface_1_1_event_5b542b0d98a413feef14cc57cff250bf}
 
 
 Function to get the bit at the global data string position. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-{\em p\-Position} & \-: Position in the data buffer \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Bit 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a67261ba2ea976e1c265c8aa7fe1a4b2d}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Bit\-String@{Bit\-String}}
-\index{Bit\-String@{Bit\-String}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Bit\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Bit\-String (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
-\item[{uint32\-\_\-t}]{p\-Offset, }
-\item[{uint32\-\_\-t}]{p\-Width}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_a67261ba2ea976e1c265c8aa7fe1a4b2d}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \item[{\em p\-Position}]: Position in the data buffer \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Bit \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_67261ba2ea976e1c265c8aa7fe1a4b2d}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!BitString@{BitString}}
+\index{BitString@{BitString}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[BitString]{\setlength{\rightskip}{0pt plus 5cm}std::string Ph2\_\-Hw\-Interface::Event::Bit\-String (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}, uint32\_\-t {\em p\-Offset}, uint32\_\-t {\em p\-Width}) const}}
+\label{class_ph2___hw_interface_1_1_event_67261ba2ea976e1c265c8aa7fe1a4b2d}
 
 
 Function to get bit string from the data offset and width. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-{\em p\-Offset} & \-: position Offset \\
-\hline
-{\em p\-Width} & \-: string width \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Bit string 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_ab83e11f21873bd5beebd1049671ce3da}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Bit\-Vector@{Bit\-Vector}}
-\index{Bit\-Vector@{Bit\-Vector}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Bit\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ bool $>$ Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Bit\-Vector (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
-\item[{uint32\-\_\-t}]{p\-Offset, }
-\item[{uint32\-\_\-t}]{p\-Width}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_ab83e11f21873bd5beebd1049671ce3da}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \item[{\em p\-Offset}]: position Offset \item[{\em p\-Width}]: string width \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Bit string \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_b83e11f21873bd5beebd1049671ce3da}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!BitVector@{BitVector}}
+\index{BitVector@{BitVector}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[BitVector]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ bool $>$ Ph2\_\-Hw\-Interface::Event::Bit\-Vector (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}, uint32\_\-t {\em p\-Offset}, uint32\_\-t {\em p\-Width}) const}}
+\label{class_ph2___hw_interface_1_1_event_b83e11f21873bd5beebd1049671ce3da}
 
 
 Function to get bit vector from the data offset and width. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-{\em p\-Offset} & \-: position Offset \\
-\hline
-{\em p\-Width} & \-: string width \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Boolean/\-Bit vector 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a348abea85bdfdfc8c0b88cda907dbea8}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Char@{Char}}
-\index{Char@{Char}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Char}]{\setlength{\rightskip}{0pt plus 5cm}char Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Char (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
-\item[{uint32\-\_\-t}]{p\-Byte\-Position}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_a348abea85bdfdfc8c0b88cda907dbea8}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \item[{\em p\-Offset}]: position Offset \item[{\em p\-Width}]: string width \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Boolean/Bit vector \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_348abea85bdfdfc8c0b88cda907dbea8}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!Char@{Char}}
+\index{Char@{Char}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[Char]{\setlength{\rightskip}{0pt plus 5cm}char Ph2\_\-Hw\-Interface::Event::Char (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}, uint32\_\-t {\em p\-Byte\-Position})\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_348abea85bdfdfc8c0b88cda907dbea8}
 
 
 Function to get char at the global data string at position 8$\ast$i. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-{\em p\-Byte\-Position} & \-: Position of the byte \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Char in given position 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_ac324585a7a75fb07c51e71317e53ea64}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Clear@{Clear}}
-\index{Clear@{Clear}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Clear}]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Clear (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_ac324585a7a75fb07c51e71317e53ea64}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \item[{\em p\-Byte\-Position}]: Position of the byte \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Char in given position \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_c324585a7a75fb07c51e71317e53ea64}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!Clear@{Clear}}
+\index{Clear@{Clear}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[Clear]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Interface::Event::Clear ()\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_c324585a7a75fb07c51e71317e53ea64}
 
 
 Clear the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Map. 
 
-\hypertarget{class_ph2___hw_interface_1_1_event_a3e93e6f16944f443caffd2df81262fbe}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Data\-Bit@{Data\-Bit}}
-\index{Data\-Bit@{Data\-Bit}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Data\-Bit}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Data\-Bit (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
-\item[{uint32\-\_\-t}]{i}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_a3e93e6f16944f443caffd2df81262fbe}
+\hypertarget{class_ph2___hw_interface_1_1_event_3e93e6f16944f443caffd2df81262fbe}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!DataBit@{DataBit}}
+\index{DataBit@{DataBit}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[DataBit]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\_\-Hw\-Interface::Event::Data\-Bit (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}, uint32\_\-t {\em i}) const}}
+\label{class_ph2___hw_interface_1_1_event_3e93e6f16944f443caffd2df81262fbe}
 
 
-Function to get a C\-B\-C pixel bit data. 
+Function to get a CBC pixel bit data. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \item[{\em i}]: pixel bit data number i \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\hyperlink{class_ph2___hw_interface_1_1_data}{Data} Bit \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_db005c7fbcd56f6cb66a4b83b185886b}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!DataBitString@{DataBitString}}
+\index{DataBitString@{DataBitString}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[DataBitString]{\setlength{\rightskip}{0pt plus 5cm}std::string Ph2\_\-Hw\-Interface::Event::Data\-Bit\-String (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}) const}}
+\label{class_ph2___hw_interface_1_1_event_db005c7fbcd56f6cb66a4b83b185886b}
 
 
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-{\em i} & \-: pixel bit data number i \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\hyperlink{class_ph2___hw_interface_1_1_data}{Data} Bit 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_adb005c7fbcd56f6cb66a4b83b185886b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Data\-Bit\-String@{Data\-Bit\-String}}
-\index{Data\-Bit\-String@{Data\-Bit\-String}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Data\-Bit\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Data\-Bit\-String (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_adb005c7fbcd56f6cb66a4b83b185886b}
+Function to get bit string of CBC data. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\hyperlink{class_ph2___hw_interface_1_1_data}{Data} Bit string \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_54db44c9de8f4ca816d8cadcaa733260}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!DataBitVector@{DataBitVector}}
+\index{DataBitVector@{DataBitVector}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[DataBitVector]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$ bool $>$ Ph2\_\-Hw\-Interface::Event::Data\-Bit\-Vector (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}) const}}
+\label{class_ph2___hw_interface_1_1_event_54db44c9de8f4ca816d8cadcaa733260}
 
 
-Function to get bit string of C\-B\-C data. 
+Function to get bit vector of CBC data. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\hyperlink{class_ph2___hw_interface_1_1_data}{Data} Bit vector \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_b7a41db929dba07f724a0b0f3e5ba626}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!DataHexString@{DataHexString}}
+\index{DataHexString@{DataHexString}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[DataHexString]{\setlength{\rightskip}{0pt plus 5cm}std::string Ph2\_\-Hw\-Interface::Event::Data\-Hex\-String (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}) const}}
+\label{class_ph2___hw_interface_1_1_event_b7a41db929dba07f724a0b0f3e5ba626}
 
 
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\hyperlink{class_ph2___hw_interface_1_1_data}{Data} Bit string 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a54db44c9de8f4ca816d8cadcaa733260}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Data\-Bit\-Vector@{Data\-Bit\-Vector}}
-\index{Data\-Bit\-Vector@{Data\-Bit\-Vector}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Data\-Bit\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ bool $>$ Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Data\-Bit\-Vector (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_a54db44c9de8f4ca816d8cadcaa733260}
+Function to get bit string in hexadecimal format for CBC data. 
 
-
-Function to get bit vector of C\-B\-C data. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\hyperlink{class_ph2___hw_interface_1_1_data}{Data} Bit vector 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_ab7a41db929dba07f724a0b0f3e5ba626}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Data\-Hex\-String@{Data\-Hex\-String}}
-\index{Data\-Hex\-String@{Data\-Hex\-String}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Data\-Hex\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Data\-Hex\-String (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_ab7a41db929dba07f724a0b0f3e5ba626}
-
-
-Function to get bit string in hexadecimal format for C\-B\-C data. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\hyperlink{class_ph2___hw_interface_1_1_data}{Data} Bit string in Hex 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_ae0242a4b78e3da2959a2bcfb8adb86f9}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Error@{Error}}
-\index{Error@{Error}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Error}]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Error (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id, }
-\item[{uint32\-\_\-t}]{i}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_ae0242a4b78e3da2959a2bcfb8adb86f9}
-
-
-Function to get Error bit. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-{\em i} & \-: Error bit number i \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Error bit 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_ab3bbc58be7f96ba0dbc1721eb90d4380}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Error@{Error}}
-\index{Error@{Error}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Error}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Error (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_ab3bbc58be7f96ba0dbc1721eb90d4380}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\hyperlink{class_ph2___hw_interface_1_1_data}{Data} Bit string in Hex \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_b3bbc58be7f96ba0dbc1721eb90d4380}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!Error@{Error}}
+\index{Error@{Error}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[Error]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Ph2\_\-Hw\-Interface::Event::Error (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}) const}}
+\label{class_ph2___hw_interface_1_1_event_b3bbc58be7f96ba0dbc1721eb90d4380}
 
 
 Function to get all Error bits. 
 
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Error bit \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_e0242a4b78e3da2959a2bcfb8adb86f9}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!Error@{Error}}
+\index{Error@{Error}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[Error]{\setlength{\rightskip}{0pt plus 5cm}bool Ph2\_\-Hw\-Interface::Event::Error (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}, uint32\_\-t {\em i}) const}}
+\label{class_ph2___hw_interface_1_1_event_e0242a4b78e3da2959a2bcfb8adb86f9}
 
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Error bit 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_ab577a18ce8a9edc17debb67ea8734530}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Get\-Bunch@{Get\-Bunch}}
-\index{Get\-Bunch@{Get\-Bunch}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Get\-Bunch}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Get\-Bunch (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_ab577a18ce8a9edc17debb67ea8734530}
+
+Function to get Error bit. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \item[{\em i}]: Error bit number i \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Error bit \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_b577a18ce8a9edc17debb67ea8734530}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GetBunch@{GetBunch}}
+\index{GetBunch@{GetBunch}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GetBunch]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Ph2\_\-Hw\-Interface::Event::Get\-Bunch () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_b577a18ce8a9edc17debb67ea8734530}
 
 
 Get the bunch value. 
 
-\begin{DoxyReturn}{Returns}
-Bunch value 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a2ee5e2552a84cb78ae902436e0dd77f4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Get\-Cbc\-Event@{Get\-Cbc\-Event}}
-\index{Get\-Cbc\-Event@{Get\-Cbc\-Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Get\-Cbc\-Event}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Get\-Cbc\-Event (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t \&}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t \&}]{p\-Cbc\-Id}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_a2ee5e2552a84cb78ae902436e0dd77f4}
+\begin{Desc}
+\item[Returns:]Bunch value \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_2ee5e2552a84cb78ae902436e0dd77f4}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GetCbcEvent@{GetCbcEvent}}
+\index{GetCbcEvent@{GetCbcEvent}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GetCbcEvent]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ Ph2\_\-Hw\-Interface::Event::Get\-Cbc\-Event (uint8\_\-t \& {\em p\-Fe\-Id}, uint8\_\-t \& {\em p\-Cbc\-Id}) const}}
+\label{class_ph2___hw_interface_1_1_event_2ee5e2552a84cb78ae902436e0dd77f4}
 
 
 Get an event contained in a Cbc. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-\hyperlink{class_ph2___hw_interface_1_1_event}{Event} buffer 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_aaebf08f816e8a98f424ba8ab25e32231}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Get\-Event\-Count@{Get\-Event\-Count}}
-\index{Get\-Event\-Count@{Get\-Event\-Count}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Get\-Event\-Count}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Get\-Event\-Count (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_aaebf08f816e8a98f424ba8ab25e32231}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]\hyperlink{class_ph2___hw_interface_1_1_event}{Event} buffer \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_aebf08f816e8a98f424ba8ab25e32231}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GetEventCount@{GetEventCount}}
+\index{GetEventCount@{GetEventCount}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GetEventCount]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Ph2\_\-Hw\-Interface::Event::Get\-Event\-Count () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_aebf08f816e8a98f424ba8ab25e32231}
 
 
 Get the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter. 
 
-\begin{DoxyReturn}{Returns}
-\hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a620592c831036eae724c37db45ca0765}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Get\-Event\-Count\-C\-B\-C@{Get\-Event\-Count\-C\-B\-C}}
-\index{Get\-Event\-Count\-C\-B\-C@{Get\-Event\-Count\-C\-B\-C}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Get\-Event\-Count\-C\-B\-C}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Get\-Event\-Count\-C\-B\-C (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_a620592c831036eae724c37db45ca0765}
+\begin{Desc}
+\item[Returns:]\hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_620592c831036eae724c37db45ca0765}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GetEventCountCBC@{GetEventCountCBC}}
+\index{GetEventCountCBC@{GetEventCountCBC}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GetEventCountCBC]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Ph2\_\-Hw\-Interface::Event::Get\-Event\-Count\-CBC () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_620592c831036eae724c37db45ca0765}
 
 
 Get the Cbc \hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter. 
 
-\begin{DoxyReturn}{Returns}
-Cbc \hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_ae5af75e033d2eb6d76a039e859a9ce86}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Get\-Lumi@{Get\-Lumi}}
-\index{Get\-Lumi@{Get\-Lumi}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Get\-Lumi}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Get\-Lumi (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_ae5af75e033d2eb6d76a039e859a9ce86}
+\begin{Desc}
+\item[Returns:]Cbc \hyperlink{class_ph2___hw_interface_1_1_event}{Event} counter \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_64814e9ba1b9cd7ed1e8dd5587275f49}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GetEventMap@{GetEventMap}}
+\index{GetEventMap@{GetEventMap}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GetEventMap]{\setlength{\rightskip}{0pt plus 5cm}const \hyperlink{namespace_ph2___hw_interface_cf9f41d647e7a3ad9bae233b04b9e3bc}{Event\-Map}\& Ph2\_\-Hw\-Interface::Event::Get\-Event\-Map () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_64814e9ba1b9cd7ed1e8dd5587275f49}
+
+
+\hypertarget{class_ph2___hw_interface_1_1_event_e5af75e033d2eb6d76a039e859a9ce86}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GetLumi@{GetLumi}}
+\index{GetLumi@{GetLumi}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GetLumi]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Ph2\_\-Hw\-Interface::Event::Get\-Lumi () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_e5af75e033d2eb6d76a039e859a9ce86}
 
 
 Get the luminence value. 
 
-\begin{DoxyReturn}{Returns}
-Luminence value 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a02d8bec5f5249cb80e2835e8aff037d7}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Get\-Orbit@{Get\-Orbit}}
-\index{Get\-Orbit@{Get\-Orbit}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Get\-Orbit}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Get\-Orbit (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_a02d8bec5f5249cb80e2835e8aff037d7}
+\begin{Desc}
+\item[Returns:]Luminence value \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_02d8bec5f5249cb80e2835e8aff037d7}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GetOrbit@{GetOrbit}}
+\index{GetOrbit@{GetOrbit}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GetOrbit]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Ph2\_\-Hw\-Interface::Event::Get\-Orbit () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_02d8bec5f5249cb80e2835e8aff037d7}
 
 
 Get the orbit value. 
 
-\begin{DoxyReturn}{Returns}
-Orbit value 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a2c193b4b2bdb35267f63d03cc684e7b1}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Get\-T\-D\-C@{Get\-T\-D\-C}}
-\index{Get\-T\-D\-C@{Get\-T\-D\-C}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Get\-T\-D\-C}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Get\-T\-D\-C (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_ph2___hw_interface_1_1_event_a2c193b4b2bdb35267f63d03cc684e7b1}
+\begin{Desc}
+\item[Returns:]Orbit value \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_2c193b4b2bdb35267f63d03cc684e7b1}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GetTDC@{GetTDC}}
+\index{GetTDC@{GetTDC}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GetTDC]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Ph2\_\-Hw\-Interface::Event::Get\-TDC () const\hspace{0.3cm}{\tt  \mbox{[}inline\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_2c193b4b2bdb35267f63d03cc684e7b1}
 
 
-Get T\-D\-C value ?? 
+Get TDC value ?? 
 
-\begin{DoxyReturn}{Returns}
-T\-D\-C value 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a8b6a50a409927366a830084f11885882}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Glib\-Flag\-String@{Glib\-Flag\-String}}
-\index{Glib\-Flag\-String@{Glib\-Flag\-String}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Glib\-Flag\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Glib\-Flag\-String (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_a8b6a50a409927366a830084f11885882}
+\begin{Desc}
+\item[Returns:]TDC value \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_8b6a50a409927366a830084f11885882}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!GlibFlagString@{GlibFlagString}}
+\index{GlibFlagString@{GlibFlagString}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[GlibFlagString]{\setlength{\rightskip}{0pt plus 5cm}std::string Ph2\_\-Hw\-Interface::Event::Glib\-Flag\-String (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}) const}}
+\label{class_ph2___hw_interface_1_1_event_8b6a50a409927366a830084f11885882}
 
 
-Function to get G\-L\-I\-B flag string. 
+Function to get GLIB flag string. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Glib flag string 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a1dd8d9cc8a8169df80518d57b1075d2c}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Hex\-String@{Hex\-String}}
-\index{Hex\-String@{Hex\-String}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Hex\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Hex\-String (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_a1dd8d9cc8a8169df80518d57b1075d2c}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Glib flag string \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_1dd8d9cc8a8169df80518d57b1075d2c}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!HexString@{HexString}}
+\index{HexString@{HexString}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[HexString]{\setlength{\rightskip}{0pt plus 5cm}std::string Ph2\_\-Hw\-Interface::Event::Hex\-String () const}}
+\label{class_ph2___hw_interface_1_1_event_1dd8d9cc8a8169df80518d57b1075d2c}
 
 
 Convert \hyperlink{class_ph2___hw_interface_1_1_data}{Data} to Hex string. 
 
-\begin{DoxyReturn}{Returns}
-\hyperlink{class_ph2___hw_interface_1_1_data}{Data} string in hex 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a2597189e1c09b65433df4489f5afbf56}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Pipeline\-Address@{Pipeline\-Address}}
-\index{Pipeline\-Address@{Pipeline\-Address}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Pipeline\-Address}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Pipeline\-Address (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_a2597189e1c09b65433df4489f5afbf56}
+\begin{Desc}
+\item[Returns:]\hyperlink{class_ph2___hw_interface_1_1_data}{Data} string in hex \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_2597189e1c09b65433df4489f5afbf56}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!PipelineAddress@{PipelineAddress}}
+\index{PipelineAddress@{PipelineAddress}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[PipelineAddress]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t Ph2\_\-Hw\-Interface::Event::Pipeline\-Address (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}) const}}
+\label{class_ph2___hw_interface_1_1_event_2597189e1c09b65433df4489f5afbf56}
 
 
 Function to get pipeline address. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Pipeline address 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_a67bf8cfaeaec158907932be40b37601d}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Set\-Event@{Set\-Event}}
-\index{Set\-Event@{Set\-Event}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Set\-Event}]{\setlength{\rightskip}{0pt plus 5cm}int Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Set\-Event (
-\begin{DoxyParamCaption}
-\item[{char $\ast$}]{p\-Event}
-\end{DoxyParamCaption}
-)}}\label{class_ph2___hw_interface_1_1_event_a67bf8cfaeaec158907932be40b37601d}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Pipeline address \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_67bf8cfaeaec158907932be40b37601d}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!SetEvent@{SetEvent}}
+\index{SetEvent@{SetEvent}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[SetEvent]{\setlength{\rightskip}{0pt plus 5cm}int Ph2\_\-Hw\-Interface::Event::Set\-Event (char $\ast$ {\em p\-Event})}}
+\label{class_ph2___hw_interface_1_1_event_67bf8cfaeaec158907932be40b37601d}
 
 
 Set an \hyperlink{class_ph2___hw_interface_1_1_event}{Event} to the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} map. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em p\-Event} & \-: \hyperlink{class_ph2___hw_interface_1_1_event}{Event} to set \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Aknowledgement of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} setting (1/0) 
-\end{DoxyReturn}
-\hypertarget{class_ph2___hw_interface_1_1_event_abc647a9563bd796f8785590a2b5b525b}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!Stub\-Bit\-String@{Stub\-Bit\-String}}
-\index{Stub\-Bit\-String@{Stub\-Bit\-String}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{Stub\-Bit\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::\-Stub\-Bit\-String (
-\begin{DoxyParamCaption}
-\item[{uint8\-\_\-t}]{p\-Fe\-Id, }
-\item[{uint8\-\_\-t}]{p\-Cbc\-Id}
-\end{DoxyParamCaption}
-) const}}\label{class_ph2___hw_interface_1_1_event_abc647a9563bd796f8785590a2b5b525b}
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Event}]: \hyperlink{class_ph2___hw_interface_1_1_event}{Event} to set \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Aknowledgement of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} setting (1/0) \end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_2a9e8d866e4d8c4fe91ea8320b931047}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[SetSize]{\setlength{\rightskip}{0pt plus 5cm}void Ph2\_\-Hw\-Interface::Event::Set\-Size (uint32\_\-t {\em p\-Nb\-Cbc})\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_2a9e8d866e4d8c4fe91ea8320b931047}
 
 
-Function to get bit string for C\-B\-C S\-T\-U\-B data. 
+Method to set the size of the \hyperlink{class_ph2___hw_interface_1_1_event}{Event} according to the number of CBCs. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Nb\-Cbc}]: Number of CBCs connected \end{description}
+\end{Desc}
+\hypertarget{class_ph2___hw_interface_1_1_event_bc647a9563bd796f8785590a2b5b525b}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!StubBitString@{StubBitString}}
+\index{StubBitString@{StubBitString}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[StubBitString]{\setlength{\rightskip}{0pt plus 5cm}std::string Ph2\_\-Hw\-Interface::Event::Stub\-Bit\-String (uint8\_\-t {\em p\-Fe\-Id}, uint8\_\-t {\em p\-Cbc\-Id}) const}}
+\label{class_ph2___hw_interface_1_1_event_bc647a9563bd796f8785590a2b5b525b}
 
 
-\begin{DoxyParams}{Parameters}
-{\em p\-Fe\-Id} & \-: F\-E Id \\
-\hline
-{\em p\-Cbc\-Id} & \-: Cbc Id \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Stub Bit string 
-\end{DoxyReturn}
+Function to get bit string for CBC STUB data. 
+
+\begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em p\-Fe\-Id}]: FE Id \item[{\em p\-Cbc\-Id}]: Cbc Id \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]Stub Bit string \end{Desc}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_ph2___hw_interface_1_1_event_dd2a25ce09465ee24314bbbf409f7ee1}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!operator<<@{operator$<$$<$}}
+\index{operator<<@{operator$<$$<$}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[operator$<$$<$]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (ostream \& {\em out}, const \hyperlink{class_ph2___hw_interface_1_1_event}{Event} \& {\em ev})\hspace{0.3cm}{\tt  \mbox{[}friend\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_dd2a25ce09465ee24314bbbf409f7ee1}
+
+
 
 
 \subsection{Field Documentation}
-\hypertarget{class_ph2___hw_interface_1_1_event_ab396cf1480f11b535d0e464aa6f9f046}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Buf@{f\-Buf}}
-\index{f\-Buf@{f\-Buf}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Buf}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Buf\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_ab396cf1480f11b535d0e464aa6f9f046}
-\hyperlink{class_ph2___hw_interface_1_1_data}{Data} buffer \hypertarget{class_ph2___hw_interface_1_1_event_ae5b69f2e0a9c9c947f7a37b7dcf380dc}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Bunch@{f\-Bunch}}
-\index{f\-Bunch@{f\-Bunch}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Bunch}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Bunch\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_ae5b69f2e0a9c9c947f7a37b7dcf380dc}
-Bunch value \hypertarget{class_ph2___hw_interface_1_1_event_add8f3a445ae11e54b47af7690074a4ce}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Event\-Count@{f\-Event\-Count}}
-\index{f\-Event\-Count@{f\-Event\-Count}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Event\-Count}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Event\-Count\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_add8f3a445ae11e54b47af7690074a4ce}
-\hyperlink{class_ph2___hw_interface_1_1_event}{Event} Counter \hypertarget{class_ph2___hw_interface_1_1_event_ac61b0e2c53e5d4228d43132f470dfdac}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Event\-Count\-C\-B\-C@{f\-Event\-Count\-C\-B\-C}}
-\index{f\-Event\-Count\-C\-B\-C@{f\-Event\-Count\-C\-B\-C}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Event\-Count\-C\-B\-C}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Event\-Count\-C\-B\-C\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_ac61b0e2c53e5d4228d43132f470dfdac}
-Cbc \hyperlink{class_ph2___hw_interface_1_1_event}{Event} Counter \hypertarget{class_ph2___hw_interface_1_1_event_ace9844f1fc14895f880ed111c705d392}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Event\-Map@{f\-Event\-Map}}
-\index{f\-Event\-Map@{f\-Event\-Map}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Event\-Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Event\-Map} Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Event\-Map\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_ace9844f1fc14895f880ed111c705d392}
-\hyperlink{class_ph2___hw_interface_1_1_event}{Event} map \hypertarget{class_ph2___hw_interface_1_1_event_a0a12db10e67652851517cc65c8057667}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Event\-Size@{f\-Event\-Size}}
-\index{f\-Event\-Size@{f\-Event\-Size}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Event\-Size}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Event\-Size}}\label{class_ph2___hw_interface_1_1_event_a0a12db10e67652851517cc65c8057667}
-Size of an \hyperlink{class_ph2___hw_interface_1_1_event}{Event} \hypertarget{class_ph2___hw_interface_1_1_event_a4d5cdd6c250eecb7bfd2f0ee3b1056a4}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Fe\-N\-Char@{f\-Fe\-N\-Char}}
-\index{f\-Fe\-N\-Char@{f\-Fe\-N\-Char}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Fe\-N\-Char}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Fe\-N\-Char}}\label{class_ph2___hw_interface_1_1_event_a4d5cdd6c250eecb7bfd2f0ee3b1056a4}
-Size of a Fe \hyperlink{class_ph2___hw_interface_1_1_event}{Event} \hypertarget{class_ph2___hw_interface_1_1_event_a78afd0886560acf70ee6b982c5690e0a}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Lumi@{f\-Lumi}}
-\index{f\-Lumi@{f\-Lumi}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Lumi}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Lumi\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_a78afd0886560acf70ee6b982c5690e0a}
-Luminense value \hypertarget{class_ph2___hw_interface_1_1_event_afd3160b2830469808d9f671bfbedfd55}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Offset\-T\-D\-C@{f\-Offset\-T\-D\-C}}
-\index{f\-Offset\-T\-D\-C@{f\-Offset\-T\-D\-C}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Offset\-T\-D\-C}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Offset\-T\-D\-C}}\label{class_ph2___hw_interface_1_1_event_afd3160b2830469808d9f671bfbedfd55}
-Offset of T\-D\-C \hypertarget{class_ph2___hw_interface_1_1_event_a6aa6c402d2b16e735fbb4b7518c2666e}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-Orbit@{f\-Orbit}}
-\index{f\-Orbit@{f\-Orbit}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-Orbit}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-Orbit\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_a6aa6c402d2b16e735fbb4b7518c2666e}
-Orbit value \hypertarget{class_ph2___hw_interface_1_1_event_ab91638311238d12f1cd258556c8d1d80}{\index{Ph2\-\_\-\-Hw\-Interface\-::\-Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}!f\-T\-D\-C@{f\-T\-D\-C}}
-\index{f\-T\-D\-C@{f\-T\-D\-C}!Ph2_HwInterface::Event@{Ph2\-\_\-\-Hw\-Interface\-::\-Event}}
-\subsubsection[{f\-T\-D\-C}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t Ph2\-\_\-\-Hw\-Interface\-::\-Event\-::f\-T\-D\-C\hspace{0.3cm}{\ttfamily [private]}}}\label{class_ph2___hw_interface_1_1_event_ab91638311238d12f1cd258556c8d1d80}
-T\-D\-C ?? 
+\hypertarget{class_ph2___hw_interface_1_1_event_b396cf1480f11b535d0e464aa6f9f046}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fBuf@{fBuf}}
+\index{fBuf@{fBuf}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fBuf]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \hyperlink{class_ph2___hw_interface_1_1_event_b396cf1480f11b535d0e464aa6f9f046}{Ph2\_\-Hw\-Interface::Event::f\-Buf}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_b396cf1480f11b535d0e464aa6f9f046}
 
-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+
+\hyperlink{class_ph2___hw_interface_1_1_data}{Data} buffer \hypertarget{class_ph2___hw_interface_1_1_event_e5b69f2e0a9c9c947f7a37b7dcf380dc}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fBunch@{fBunch}}
+\index{fBunch@{fBunch}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fBunch]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_e5b69f2e0a9c9c947f7a37b7dcf380dc}{Ph2\_\-Hw\-Interface::Event::f\-Bunch}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_e5b69f2e0a9c9c947f7a37b7dcf380dc}
+
+
+Bunch value \hypertarget{class_ph2___hw_interface_1_1_event_dd8f3a445ae11e54b47af7690074a4ce}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fEventCount@{fEventCount}}
+\index{fEventCount@{fEventCount}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fEventCount]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_dd8f3a445ae11e54b47af7690074a4ce}{Ph2\_\-Hw\-Interface::Event::f\-Event\-Count}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_dd8f3a445ae11e54b47af7690074a4ce}
+
+
+\hyperlink{class_ph2___hw_interface_1_1_event}{Event} \hyperlink{class_counter}{Counter} \hypertarget{class_ph2___hw_interface_1_1_event_c61b0e2c53e5d4228d43132f470dfdac}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fEventCountCBC@{fEventCountCBC}}
+\index{fEventCountCBC@{fEventCountCBC}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fEventCountCBC]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_c61b0e2c53e5d4228d43132f470dfdac}{Ph2\_\-Hw\-Interface::Event::f\-Event\-Count\-CBC}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_c61b0e2c53e5d4228d43132f470dfdac}
+
+
+Cbc \hyperlink{class_ph2___hw_interface_1_1_event}{Event} \hyperlink{class_counter}{Counter} \hypertarget{class_ph2___hw_interface_1_1_event_ce9844f1fc14895f880ed111c705d392}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fEventMap@{fEventMap}}
+\index{fEventMap@{fEventMap}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fEventMap]{\setlength{\rightskip}{0pt plus 5cm}\hyperlink{namespace_ph2___hw_interface_cf9f41d647e7a3ad9bae233b04b9e3bc}{Event\-Map} \hyperlink{class_ph2___hw_interface_1_1_event_ce9844f1fc14895f880ed111c705d392}{Ph2\_\-Hw\-Interface::Event::f\-Event\-Map}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_ce9844f1fc14895f880ed111c705d392}
+
+
+\hyperlink{class_ph2___hw_interface_1_1_event}{Event} map \hypertarget{class_ph2___hw_interface_1_1_event_0a12db10e67652851517cc65c8057667}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fEventSize@{fEventSize}}
+\index{fEventSize@{fEventSize}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fEventSize]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_0a12db10e67652851517cc65c8057667}{Ph2\_\-Hw\-Interface::Event::f\-Event\-Size}}}
+\label{class_ph2___hw_interface_1_1_event_0a12db10e67652851517cc65c8057667}
+
+
+Size of an \hyperlink{class_ph2___hw_interface_1_1_event}{Event} \hypertarget{class_ph2___hw_interface_1_1_event_78afd0886560acf70ee6b982c5690e0a}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fLumi@{fLumi}}
+\index{fLumi@{fLumi}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fLumi]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_78afd0886560acf70ee6b982c5690e0a}{Ph2\_\-Hw\-Interface::Event::f\-Lumi}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_78afd0886560acf70ee6b982c5690e0a}
+
+
+Luminosity\-Section value \hypertarget{class_ph2___hw_interface_1_1_event_fd3160b2830469808d9f671bfbedfd55}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fOffsetTDC@{fOffsetTDC}}
+\index{fOffsetTDC@{fOffsetTDC}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fOffsetTDC]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_fd3160b2830469808d9f671bfbedfd55}{Ph2\_\-Hw\-Interface::Event::f\-Offset\-TDC}}}
+\label{class_ph2___hw_interface_1_1_event_fd3160b2830469808d9f671bfbedfd55}
+
+
+Offset of TDC \hypertarget{class_ph2___hw_interface_1_1_event_6aa6c402d2b16e735fbb4b7518c2666e}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fOrbit@{fOrbit}}
+\index{fOrbit@{fOrbit}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fOrbit]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_6aa6c402d2b16e735fbb4b7518c2666e}{Ph2\_\-Hw\-Interface::Event::f\-Orbit}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_6aa6c402d2b16e735fbb4b7518c2666e}
+
+
+Orbit value \hypertarget{class_ph2___hw_interface_1_1_event_b91638311238d12f1cd258556c8d1d80}{
+\index{Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}!fTDC@{fTDC}}
+\index{fTDC@{fTDC}!Ph2_HwInterface::Event@{Ph2\_\-Hw\-Interface::Event}}
+\subsubsection[fTDC]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \hyperlink{class_ph2___hw_interface_1_1_event_b91638311238d12f1cd258556c8d1d80}{Ph2\_\-Hw\-Interface::Event::f\-TDC}\hspace{0.3cm}{\tt  \mbox{[}private\mbox{]}}}}
+\label{class_ph2___hw_interface_1_1_event_b91638311238d12f1cd258556c8d1d80}
+
+
+TDC value 
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
 \item 
-H\-W\-Interface/\hyperlink{_event_8h}{Event.\-h}\item 
-H\-W\-Interface/\hyperlink{_event_8cc}{Event.\-cc}\end{DoxyCompactItemize}
+Utils/\hyperlink{_event_8h}{Event.h}\item 
+Utils/\hyperlink{_event_8cc}{Event.cc}\end{CompactItemize}
