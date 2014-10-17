@@ -74,184 +74,181 @@ void HybridTester::InitializeHists()
 
 void HybridTester::ScanThreshold()
 {
-	if ( fSettingsMap.find( "ScanThreshold" )->second != 0 )
+	std::cout << "Scanning noise Occupancy to find threshold for test with external source ... " << std::endl;
+
+	// Necessary variables
+	uint32_t cEventsperVcth = 10;
+	bool cNonZero = false;
+	bool cAllOne = false;
+	uint32_t cAllOneCounter = 0;
+	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
+	uint8_t cVcth, cDoubleVcth;
+	( cHoleMode ) ? cVcth = 0xFF : cVcth = 0x00;
+	int cStep = ( cHoleMode ) ? -10 : 10;
+
+	// Root objects
+	TCanvas* cSCurveCanvas = new TCanvas( "cSCurveCanvas", "Noise Occupancy as function of VCth" );
+	TH1F* cSCurve = new TH1F( "cSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
+	cSCurve->SetMarkerStyle( 8 );
+	cSCurveCanvas->cd();
+	TF1* cFit = new TF1( "cFit", MyErf, 0, 255, 2 );
+
+	// Adaptive VCth loop
+	while ( 0x00 <= cVcth && cVcth <= 0xFF )
 	{
-		std::cout << "Scanning noise Occupancy to find threshold for test with external source ... " << std::endl;
-
-		// Necessary variables
-		uint32_t cEventsperVcth = 10;
-		bool cNonZero = false;
-		bool cAllOne = false;
-		uint32_t cAllOneCounter = 0;
-		bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
-		uint8_t cVcth, cDoubleVcth;
-		( cHoleMode ) ? cVcth = 0xFF : cVcth = 0x00;
-		int cStep = ( cHoleMode ) ? -10 : 10;
-
-		// Root objects
-		TCanvas* cSCurveCanvas = new TCanvas( "cSCurveCanvas", "Noise Occupancy as function of VCth" );
-		TH1F* cSCurve = new TH1F( "cSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
-		cSCurve->SetMarkerStyle( 8 );
-		cSCurveCanvas->cd();
-		TF1* cFit = new TF1( "cFit", MyErf, 0, 255, 2 );
-
-		// Adaptive VCth loop
-		while ( 0x00 <= cVcth && cVcth <= 0xFF )
+		if ( cAllOne ) break;
+		if ( cVcth == cDoubleVcth )
 		{
-			if ( cAllOne ) break;
-			if ( cVcth == cDoubleVcth )
-			{
-				cVcth +=  cStep;
-				continue;
-			}
-
-			// Set current Vcth value on all Cbc's
-			CbcRegWriter cWriter( fCbcInterface, "VCth", cVcth );
-			accept( cWriter );
-
-			uint32_t cN = 0;
-			uint32_t cNthAcq = 0;
-			uint32_t cHitCounter = 0;
-
-			// maybe restrict to pBoard? instead of looping?
-			for ( auto& cShelve : fShelveVector )
-			{
-				if ( cAllOne ) break;
-				for ( BeBoard& pBoard : cShelve->fBoardVector )
-				{
-					while ( cN <  cEventsperVcth )
-					{
-						Run( &pBoard, cNthAcq );
-
-						const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
-
-						// Loop over Events from this Acquisition
-						while ( cEvent )
-						{
-							if ( cN == cEventsperVcth )
-								break;
-
-							CbcHitCounter cHitcounter( cEvent );
-							pBoard.accept( cHitcounter );
-							cHitCounter += cHitcounter.fHitcounter;
-							cN++;
-
-							if ( cN < cEventsperVcth )
-								cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
-							else break;
-						}
-						cNthAcq++;
-					} // done with this acquisition
-
-					cSCurve->SetBinContent( cVcth, cHitCounter );
-					cSCurve->Draw( "P" );
-					cSCurveCanvas->Update();
-					// check if the hitcounter is all ones
-
-					if ( cNonZero == false && cHitCounter != 0 )
-					{
-						cDoubleVcth = cVcth;
-						cNonZero = true;
-						cVcth -= 2 * cStep;
-						cStep /= 10;
-						continue;
-					}
-					if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NSENSOR ) cAllOneCounter++;
-					if ( cAllOneCounter >= 10 ) cAllOne = true;
-					if ( cAllOne ) break;
-					cVcth += cStep;
-				}
-			}
-		} // end of VCth loop
-
-		// Fit & Plot
-		cSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NSENSOR ) );
-		// cSCurveCanvas->cd();
-		cSCurve->Draw( "P" );
-
-		double cFirstNon0( 0 );
-		double cFirst1( 0 );
-
-		// Not Hole Mode
-		if ( !cHoleMode )
-		{
-			for ( Int_t cBin = 1; cBin <= cSCurve->GetNbinsX(); cBin++ )
-			{
-				double cContent = cSCurve->GetBinContent( cBin );
-				if ( !cFirstNon0 )
-				{
-					if ( cContent ) cFirstNon0 = cSCurve->GetBinCenter( cBin );
-				}
-				else if ( cContent == 1 )
-				{
-					cFirst1 = cSCurve->GetBinCenter( cBin );
-					break;
-				}
-			}
-		}
-		// Hole mode
-		else
-		{
-			for ( Int_t cBin = cSCurve->GetNbinsX(); cBin >= 1; cBin-- )
-			{
-				double cContent = cSCurve->GetBinContent( cBin );
-				if ( !cFirstNon0 )
-				{
-					if ( cContent ) cFirstNon0 = cSCurve->GetBinCenter( cBin );
-				}
-				else if ( cContent == 1 )
-				{
-					cFirst1 = cSCurve->GetBinCenter( cBin );
-					break;
-				}
-			}
+			cVcth +=  cStep;
+			continue;
 		}
 
-		// Get rough midpoint & width
-		double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
-		double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
-
-
-		cFit->SetParameter( 0, cMid );
-		cFit->SetParameter( 1, cWidth );
-
-		cSCurve->Fit( cFit, "RNQ+" );
-		cFit->Draw( "same" );
-
-		// Save
-		cSCurve->Write( cSCurve->GetName(), TObject::kOverwrite );
-		cFit->Write( cFit->GetName(), TObject::kOverwrite );
-		cSCurveCanvas->Write( cSCurveCanvas->GetName(), TObject::kOverwrite );
-		std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
-		cSCurveCanvas->SaveAs( cPdfName.c_str() );
-
-		// Set new VCth
-		double_t pedestal = cFit->GetParameter( 0 );
-		double_t noise = cFit->GetParameter( 1 );
-
-		int cSigmas = fSettingsMap.find( "Threshold_NSigmas" )->second;
-		uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
-
-		std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (" << fabs( noise ) << ") to " << int( cThreshold ) << " for Hybrid test!" << std::endl;
-
-		TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
-		cLine->SetLineWidth( 3 );
-		cLine->SetLineColor( 2 );
-		cLine->Draw( "same" );
-		cSCurveCanvas->Update();
-
-		CbcRegWriter cWriter( fCbcInterface, "VCth", cThreshold );
+		// Set current Vcth value on all Cbc's
+		CbcRegWriter cWriter( fCbcInterface, "VCth", cVcth );
 		accept( cWriter );
 
-		// Wait for user to acknowledge and turn on external Source!
-		std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
-		mypause();
+		uint32_t cN = 0;
+		uint32_t cNthAcq = 0;
+		uint32_t cHitCounter = 0;
+
+		// maybe restrict to pBoard? instead of looping?
+		for ( auto& cShelve : fShelveVector )
+		{
+			if ( cAllOne ) break;
+			for ( BeBoard& pBoard : cShelve->fBoardVector )
+			{
+				while ( cN <  cEventsperVcth )
+				{
+					Run( &pBoard, cNthAcq );
+
+					const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+
+					// Loop over Events from this Acquisition
+					while ( cEvent )
+					{
+						if ( cN == cEventsperVcth )
+							break;
+
+						CbcHitCounter cHitcounter( cEvent );
+						pBoard.accept( cHitcounter );
+						cHitCounter += cHitcounter.fHitcounter;
+						cN++;
+
+						if ( cN < cEventsperVcth )
+							cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+						else break;
+					}
+					cNthAcq++;
+				} // done with this acquisition
+
+				cSCurve->SetBinContent( cVcth, cHitCounter );
+				cSCurve->Draw( "P" );
+				cSCurveCanvas->Update();
+				// check if the hitcounter is all ones
+
+				if ( cNonZero == false && cHitCounter != 0 )
+				{
+					cDoubleVcth = cVcth;
+					cNonZero = true;
+					cVcth -= 2 * cStep;
+					cStep /= 10;
+					continue;
+				}
+				if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NSENSOR ) cAllOneCounter++;
+				if ( cAllOneCounter >= 10 ) cAllOne = true;
+				if ( cAllOne ) break;
+				cVcth += cStep;
+			}
+		}
+	} // end of VCth loop
+
+	// Fit & Plot
+	cSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NSENSOR ) );
+	// cSCurveCanvas->cd();
+	cSCurve->Draw( "P" );
+
+	double cFirstNon0( 0 );
+	double cFirst1( 0 );
+
+	// Not Hole Mode
+	if ( !cHoleMode )
+	{
+		for ( Int_t cBin = 1; cBin <= cSCurve->GetNbinsX(); cBin++ )
+		{
+			double cContent = cSCurve->GetBinContent( cBin );
+			if ( !cFirstNon0 )
+			{
+				if ( cContent ) cFirstNon0 = cSCurve->GetBinCenter( cBin );
+			}
+			else if ( cContent == 1 )
+			{
+				cFirst1 = cSCurve->GetBinCenter( cBin );
+				break;
+			}
+		}
 	}
+	// Hole mode
+	else
+	{
+		for ( Int_t cBin = cSCurve->GetNbinsX(); cBin >= 1; cBin-- )
+		{
+			double cContent = cSCurve->GetBinContent( cBin );
+			if ( !cFirstNon0 )
+			{
+				if ( cContent ) cFirstNon0 = cSCurve->GetBinCenter( cBin );
+			}
+			else if ( cContent == 1 )
+			{
+				cFirst1 = cSCurve->GetBinCenter( cBin );
+				break;
+			}
+		}
+	}
+
+	// Get rough midpoint & width
+	double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
+	double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
+
+
+	cFit->SetParameter( 0, cMid );
+	cFit->SetParameter( 1, cWidth );
+
+	cSCurve->Fit( cFit, "RNQ+" );
+	cFit->Draw( "same" );
+
+	// Save
+	cSCurve->Write( cSCurve->GetName(), TObject::kOverwrite );
+	cFit->Write( cFit->GetName(), TObject::kOverwrite );
+	cSCurveCanvas->Write( cSCurveCanvas->GetName(), TObject::kOverwrite );
+	std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
+	cSCurveCanvas->SaveAs( cPdfName.c_str() );
+
+	// Set new VCth
+	double_t pedestal = cFit->GetParameter( 0 );
+	double_t noise = cFit->GetParameter( 1 );
+
+	int cSigmas = fSettingsMap.find( "Threshold_NSigmas" )->second;
+	uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
+
+	std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (" << fabs( noise ) << ") to " << int( cThreshold ) << " for Hybrid test!" << std::endl;
+
+	TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
+	cLine->SetLineWidth( 3 );
+	cLine->SetLineColor( 2 );
+	cLine->Draw( "same" );
+	cSCurveCanvas->Update();
+
+	CbcRegWriter cWriter( fCbcInterface, "VCth", cThreshold );
+	accept( cWriter );
+
+	// Wait for user to acknowledge and turn on external Source!
+	std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
+	mypause();
 }
+
 
 void HybridTester::TestRegisters()
 {
-
 	// This method has to be followed by a configure call, otherwise the CBCs will be in an undefined state
 	struct RegTester : public HwDescriptionVisitor
 	{
@@ -283,16 +280,13 @@ void HybridTester::TestRegisters()
 	};
 
 	// This should probably be done in the top level application but there I do not have access to the settings map
-	if ( fSettingsMap.find( "TestRegs" )->second != 0 )
-	{
 
-		std::cout << "Testing Cbc Registers one-by-one with complimentary bit-patterns (0xAA, 0x55) ..." << std::endl;
-		RegTester cRegTester( fCbcInterface );
-		accept( cRegTester );
-		cRegTester.dumpResult();
-		std::cout << "Done testing registers, re-configuring to calibrated state!" << std::endl;
-		ConfigureHw();
-	}
+	std::cout << "Testing Cbc Registers one-by-one with complimentary bit-patterns (0xAA, 0x55) ..." << std::endl;
+	RegTester cRegTester( fCbcInterface );
+	accept( cRegTester );
+	cRegTester.dumpResult();
+	std::cout << "Done testing registers, re-configuring to calibrated state!" << std::endl;
+	ConfigureHw();
 }
 
 void HybridTester::Measure()

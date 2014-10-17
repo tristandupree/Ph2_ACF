@@ -7,24 +7,52 @@
 #include "../HWDescription/Definition.h"
 #include "../tools/HybridTester.h"
 #include <TApplication.h>
+#include "../Utils/argvparser.h"
+
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 using namespace Ph2_System;
 
-void syntax( int argc )
-{
-	if ( argc > 2 ) std::cerr << RED << "ERROR: Syntax: hybridtest HWDescriptionFile" << std::endl;
-	else return;
-}
+using namespace CommandLineProcessing;
+
 
 int main( int argc, char* argv[] )
 {
-	syntax( argc );
 
-	std::string cHWFile = argv[1];
-	// if ( argc > 1 && !strcmp( argv[1], "8CBC" ) ) cHWFile = "settings/HWDescription_8CBC.xml";
-	// else cHWFile = "settings/HWDescription_2CBC.xml";
+	ArgvParser cmd;
+
+	// init
+	cmd.setIntroductoryDescription( "CMS Ph2_ACF  Hybrid validation test performs the following actions:\n-Test individual CBC registers one by one by writing complimentary bit patterns 0x55 and 0xAA\n-scan the threshold range and measure the noise occupancy to determine the pedestal and identify a threshold with ~0 noise occupancy\n-measure the single-strip efficiency under the influence of an external signal source to identify bad connections" );
+	// error codes
+	cmd.addErrorCode( 0, "Success" );
+	cmd.addErrorCode( 1, "Error" );
+	// options
+	cmd.setHelpOption( "h", "help", "Print this help page" );
+	cmd.defineOption( "file", "Hw Description File . Default value: settings/HWDescription_2CBC.xml", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOptionAlternative( "file", "f" );
+	cmd.defineOption( "registers", "test registers", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "registers", "r" );
+	cmd.defineOption( "scan", "scan noise occupancy, if not set, the value from the .XML will be used", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "scan", "s" );
+	cmd.defineOption( "output", "Output Directory . Default value: Results", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOptionAlternative( "output", "o" );
+
+	int result = cmd.parse( argc, argv );
+	if ( result != ArgvParser::NoParserError )
+	{
+		std::cout << cmd.parseErrorDescription( result );
+		exit( 1 );
+	}
+
+	// now query the parsing results
+	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/HWDescription_2CBC.xml";
+	bool cRegisters = ( cmd.foundOption( "registers" ) ) ? true : false;
+	bool cScan = ( cmd.foundOption( "scan" ) ) ? true : false;
+	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results";
+	if ( cDirectory.back() != '/' ) cDirectory += "/HybridTest";
+	else cDirectory += "HybridTest";
+
 
 	TApplication cApp( "Root Application", &argc, argv );
 	TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
@@ -33,13 +61,13 @@ int main( int argc, char* argv[] )
 	cHybridTester.InitializeHw( cHWFile );
 	cHybridTester.InitializeHists();
 	cHybridTester.InitializeSettings( cHWFile );
-	cHybridTester.CreateResultDirectory( "Results/HybridTest" );
+	cHybridTester.CreateResultDirectory( cDirectory );
 	cHybridTester.InitResultFile( "HybridTest" );
 	cHybridTester.ConfigureHw();
 
 	// Here comes our Part:
-	cHybridTester.TestRegisters();
-	cHybridTester.ScanThreshold();
+	if ( cRegisters ) cHybridTester.TestRegisters();
+	if ( cScan ) cHybridTester.ScanThreshold();
 	cHybridTester.Measure();
 	cHybridTester.SaveResults();
 

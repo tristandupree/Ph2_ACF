@@ -177,31 +177,39 @@ namespace Ph2_System
 
 	void SystemController::ConfigureHw()
 	{
-		bool cHoleMode;
-		SettingsMap::iterator cSetting = fSettingsMap.find( "HoleMode" );
-		if ( cSetting != fSettingsMap.end() )
+
+		bool cHoleMode, cCheck;
+		if ( !fSettingsMap.empty() )
 		{
-			cHoleMode = cSetting->second;
-			std::cout << " Overriding GLIB register values for signal polarity with value from settings node!" << std::endl;
+			SettingsMap::iterator cSetting = fSettingsMap.find( "HoleMode" );
+			if ( cSetting != fSettingsMap.end() )
+			{
+				cHoleMode = cSetting->second;
+				std::cout << " Overriding GLIB register values for signal polarity with value from settings node!" << std::endl;
+			}
+			cCheck = true;
 		}
-		else std::cout << "No polarity (HoleMode) specified in the settings node in the XML file. Using standard Reg values from above!" << std::endl;
+		else cCheck = false;
 
 		class Configurator : public HwDescriptionVisitor
 		{
 		  private:
-			bool fHoleMode;
+			bool fHoleMode, fCheck;
 			Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
 			Ph2_HwInterface::CbcInterface* fCbcInterface;
 		  public:
-			Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ) {}
+			Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode, bool pCheck ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ), fCheck( pCheck ) {}
 
 			void visit( BeBoard& pBoard ) {
 				fBeBoardInterface->ConfigureBoard( &pBoard );
-				uint32_t cHoleRegisterValue;
 
-				cHoleRegisterValue = ( fHoleMode ) ? 0 : 1;
+				if ( fCheck ) {
+					uint32_t cHoleRegisterValue;
 
-				fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, cHoleRegisterValue );
+					cHoleRegisterValue = ( fHoleMode ) ? 0 : 1;
+
+					fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, cHoleRegisterValue );
+				}
 				std::cout << GREEN << "Successfully configured Board " << int( pBoard.getBeId() ) << RESET << std::endl;
 			}
 
@@ -212,7 +220,7 @@ namespace Ph2_System
 			}
 		};
 
-		Configurator cConfigurator( fBeBoardInterface, fCbcInterface, cHoleMode );
+		Configurator cConfigurator( fBeBoardInterface, fCbcInterface, cHoleMode, cCheck );
 		accept( cConfigurator );
 	}
 
