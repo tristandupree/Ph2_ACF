@@ -30,5 +30,8 @@ namespace GUI
     {
         connect(&m_setupVm, SIGNAL(enableAlltabs(bool)),
                 &m_mainView, SLOT(enableAllTabsSlot(bool)));
+
+        connect(&m_setupVm, SIGNAL(onBtnLoadClicked(bool)),
+                &m_dataTestVm, SIGNAL(onBtnLoadClicked(bool)));
     }
 }

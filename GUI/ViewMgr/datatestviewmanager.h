@@ -15,6 +15,8 @@ namespace GUI{
                                      DataTestTab& dataTab,
                                      DataTest& dataTest);
     ~DataTestViewManager();
+    signals:
+        void onBtnLoadClicked(bool);
 
     private:
 

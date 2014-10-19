@@ -21,6 +21,7 @@ namespace GUI{
     signals:
         void notifyStatusUpdated(const QString& value);
         void enableAlltabs(const bool enable);
+        void onBtnLoadClicked(bool cbc);
 
     private:
 

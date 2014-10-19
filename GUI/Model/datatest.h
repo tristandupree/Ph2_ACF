@@ -2,6 +2,7 @@
 #include <QObject>
 #include <QVector>
 #include "TH1D.h"
+#include <QTimer>
 
 #include "datatestworker.h"
 
@@ -42,6 +43,8 @@ namespace GUI{
 
         int m_Vcth;
         int m_Events;
+
+        QTimer *m_timer;
 
         SystemController&m_systemController;
         QThread *m_thread;

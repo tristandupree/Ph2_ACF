@@ -2,8 +2,10 @@
 #include <QDebug>
 #include <QThread>
 #include <vector>
+#include <QTimer>
 
 #include <TH1.h>
+#include "TCanvas.h"
 #include "utils.h"
 
 
@@ -28,10 +30,27 @@ namespace GUI
         qDebug() << "Destructing " << this;
     }
 
-    void DataTestWorker::requestWork(int cVcth, int cEvents)
+    void DataTestWorker::requestWork(int cVcth, int cEvents, std::vector<TCanvas *> canvas)
     {
         m_Vcth = cVcth;
         m_Events = cEvents;
+        m_canvas = canvas;
+
+        for (int i; i < m_canvas.size(); i++)
+        {
+            m_canvas.at(i)->SetFillColor(i+5);
+
+            TH1D* g = new TH1D("hjsh", "jhea", 10, 0, 10);
+            m_canvas.at(i)->cd();
+            g->Draw();
+
+            qDebug() << m_canvas.at(i)->GetName();
+
+            qDebug() << "DrawnGraph";
+            //emit sendRefresh();
+            //emit finishedDataTest();
+            //emit
+        }
 
         mutex.lock();
         _working = true;

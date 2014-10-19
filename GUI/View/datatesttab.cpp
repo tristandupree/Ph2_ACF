@@ -6,6 +6,7 @@
 #include <memory>
 #include <QGroupBox>
 #include <QHBoxLayout>
+#include <QTabWidget>
 
 #include "utils.h"
 
@@ -18,7 +19,6 @@ namespace GUI {
         m_Events(0)
     {
         ui->setupUi(this);
-        setupCanvas(2);
     }
 
     DataTestTab::~DataTestTab()
@@ -27,25 +27,41 @@ namespace GUI {
         delete ui;
     }
 
-    void DataTestTab::setupCanvas(int cNCbc)
+    void DataTestTab::setupCanvas(bool cbc2)
     {
+        QTabWidget *cbcTab = new QTabWidget;
+        int cNCbc;
+        if(cbc2)
+        {
+            cNCbc = 2;
+        }
+
+        else
+        {
+            cNCbc = 8;
+        }
+
         for (int i=0; i<cNCbc; i++)
         {
-            //m_vectorCanvas.push_back(new CustomTQtWidget(this));
             m_vectorCanvas.push_back(new TQtWidget(this));
-            QHBoxLayout *loH = new QHBoxLayout;
-
-            loH->addWidget(m_vectorCanvas[i]);
-            m_vectorLayout.push_back(loH);
-
-            QGroupBox *gbCanvas = new QGroupBox(this);
             QString title = QString("CBC %1").arg(i);
-            gbCanvas->setTitle(title);
-            gbCanvas->setLayout(m_vectorLayout[i]);
-            m_vectorGroupBox.push_back(gbCanvas);
-
-            ui->loCbcBox->addWidget(m_vectorGroupBox[i]);
+            cbcTab->addTab(createCbcTab(), title);
         }
+
+        ui->loCbcBox->addWidget(cbcTab);
+    }
+
+    QTabWidget *DataTestTab::createCbcTab()
+    {
+        QTabWidget *tab = new QTabWidget;
+        QHBoxLayout *loH = new QHBoxLayout;
+
+        loH->addWidget(m_vectorCanvas.at(m_vectorCanvas.size()-1));
+        m_vectorLayout.push_back(loH);
+
+        tab->setLayout(loH);
+        return tab;
+
     }
 
     void DataTestTab::drawGraph(const std::vector<std::shared_ptr<TH1D> > hists)
@@ -84,9 +100,9 @@ namespace GUI {
     {
         qDebug() << "getTCanvas()";
 
-        for (int i; i < m_vectorCanvas.size(); i++)
+        for (auto& canvas : m_vectorCanvas)
         {
-            m_vecTCanvas.push_back(m_vectorCanvas.at(i)->GetCanvas());
+            m_vecTCanvas.push_back(canvas->GetCanvas());
         }
         emit sendTCanvas(m_vecTCanvas);
     }
@@ -94,9 +110,9 @@ namespace GUI {
     void DataTestTab::refreshTCanvas()
     {
         qDebug()<< "RefreshTCanvas()";
-        for (int i; i < m_vectorCanvas.size(); i++)
+        for (auto& canvas : m_vectorCanvas)
         {
-            m_vectorCanvas.at(i)->Refresh();
+            canvas->Refresh();
         }
     }
 

@@ -4,6 +4,7 @@
 #include <QMutex>
 #include <QVariantMap>
 #include <TH1D.h>
+#include "TCanvas.h"
 #include <vector>
 
 #include "Model/systemcontroller.h"
@@ -20,7 +21,7 @@ namespace GUI{
         explicit DataTestWorker(QObject *parent,
                                 SystemController &sysController);
 
-        void requestWork(int cVcth, int cEvents);
+        void requestWork(int cVcth, int cEvents, std::vector<TCanvas *> canvas);
         void abort();
 
 
@@ -44,6 +45,7 @@ namespace GUI{
 
         int m_Vcth;
         int m_Events;
+        std::vector<TCanvas *> m_canvas;
 
         bool _abort;
         bool _working;

@@ -20,6 +20,7 @@ namespace GUI
         m_thread(new QThread()),
         m_worker(new DataTestWorker(nullptr,
                                     sysController)),
+        m_timer(new QTimer(this)),
         m_Vcth(0),
         m_Events(0)
     {
@@ -28,6 +29,9 @@ namespace GUI
         qRegisterMetaType<std::vector<TCanvas*> >("std::vector<TCanvas*>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
+        //connect()
+        connect(m_timer, SIGNAL(timeout()),
+                this, SIGNAL(sendRefresh()));
     }
 
     DataTest::~DataTest()
@@ -36,6 +40,9 @@ namespace GUI
         m_thread->wait();
         delete m_thread;
         qDebug() << "Deleting DataTest worker thread " <<this->QObject::thread()->currentThreadId();
+        m_timer->stop();
+        qDebug() << "Deleting timer";
+        delete m_timer;
         qDebug() << "Destructing " << this;
     }
 
@@ -47,6 +54,8 @@ namespace GUI
                 m_worker, SLOT(doWork()));
         connect(m_worker, SIGNAL(finished()),
                 this, SIGNAL(finishedDataTest()));
+        connect(m_worker, SIGNAL(finished()),
+                this, SIGNAL(sendRefresh()));
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
@@ -66,7 +75,7 @@ namespace GUI
         //m_worker->abort();
         //m_thread->wait(); // If the thread is not running, this will immediately return.
 
-        //m_worker->requestWork(m_Vcth, m_Events);
+        // m_worker->requestWork(m_Vcth, m_Events, );
 
     }
 
@@ -85,7 +94,16 @@ namespace GUI
     void DataTest::recieveTCanvas(std::vector<TCanvas *> canvas)
     {
         qDebug() << "Size of canvas" << canvas.size();
-        for (int i; i < canvas.size(); i++)
+
+        m_worker->requestWork(m_Vcth, m_Events, canvas);
+        m_timer->start(100);
+        //m_timer->start(100);
+        //m_timer->stop();
+
+        //m_worker->abort();
+        //m_thread->wait();
+
+        /* for (int i; i < canvas.size(); i++)
         {
             canvas.at(i)->SetFillColor(i+5);
 
@@ -99,7 +117,7 @@ namespace GUI
             emit sendRefresh();
             emit finishedDataTest();
             //emit
-        }
+        }*/
     }
 
 }

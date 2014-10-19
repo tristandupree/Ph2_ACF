@@ -1,5 +1,4 @@
-#ifndef DATATESTTAB_H
-#define DATATESTTAB_H
+#pragma once
 
 #include <QWidget>
 #include "TH1D.h"
@@ -9,6 +8,7 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <memory>
+#include <QTabWidget>
 
 namespace Ui {
     class DataTestTab;
@@ -39,6 +39,7 @@ namespace GUI{
         void onDataTestFinish();
         void getTCanvas();
         void refreshTCanvas();
+        void setupCanvas(bool cbc2);
 
 
     private slots:
@@ -56,6 +57,8 @@ namespace GUI{
 
         Ui::DataTestTab *ui;
 
+        //QTabWidget *m_cbcTab;
+
         std::vector<std::shared_ptr<TH1D>> m_vecHist;
 
         std::vector<TCanvas*> m_vecTCanvas;
@@ -67,8 +70,8 @@ namespace GUI{
         int m_Vcth;
         int m_Events;
 
-        void setupCanvas(int cNCbc);
+        //void setupCanvas(int cNCbc);
+        QTabWidget *createCbcTab();
     };
 
 }
-#endif // DATATESTTAB_H
