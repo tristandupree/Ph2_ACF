@@ -12,6 +12,8 @@ tools::
 	$(MAKE) -C $@
 src::
 	$(MAKE) -C $@
+doc::
+	$(MAKE) -C $@
 
 
 clean:
@@ -20,5 +22,6 @@ clean:
 	(cd HWInterface; make clean)
 	(cd HWDescription; make clean)
 	(cd tools; make clean)
+	(cd doc; make clean)
 	(rm -f lib/* bin/*)
 
