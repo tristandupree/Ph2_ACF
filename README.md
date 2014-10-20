@@ -34,7 +34,7 @@ Changelog:
 - 19/08/14 : Project wrapped, called ACF for Acquisition & Control Framework
 - 09/10/14 : added Visitor class and the corresponding accept methods to the HWDescription objects
 - 15/10/14 : re-wrote the GlibFWInterface::ReadData() method, completeley re-wrote the parsing of the raw buffer and the offsets, modified the Data and Event classes to be more lightweight and less complex
--17/10/14 : renamed the project to Ph2_ACF & re-structured the folder architecture and added command line parsing to the executables
+- 17/10/14 : renamed the project to Ph2_ACF & re-structured the folder architecture and added command line parsing to the executables
 <br>
 <br>
 
