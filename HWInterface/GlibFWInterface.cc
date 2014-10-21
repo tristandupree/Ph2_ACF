@@ -454,6 +454,7 @@ namespace Ph2_HwInterface
 		if ( pAckVal )
 			cWait = pNcount * 500;
 
+
 		usleep( cWait );
 
 		uhal::ValWord<uint32_t> cVal;

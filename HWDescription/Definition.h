@@ -45,7 +45,7 @@
 #define I2C_REPLY         "user_wb_ttc_fmc_regs.cbc_reg_i2c_reply"
 #define I2C_SETTINGS      "user_wb_ttc_fmc_regs.cbc_reg_i2c_settings"
 
-#define MAX_NB_LOOP       50
+#define MAX_NB_LOOP       70
 
 //------------------------------------------------------------------------------
 //Board infos
@@ -271,13 +271,13 @@
 #define WIDTH_EVENT_COUNT_CBC      3*8
 
 //Cbc Event
-#define NSENSOR                   254
+#define NCHANNELS                   254
 #define OFFSET_ERROR              0
 #define WIDTH_ERROR               2
 #define OFFSET_PIPELINE_ADDRESS   2       //OFFSET_ERROR + WIDTH_ERROR
 #define WIDTH_PIPELINE_ADDRESS    8
 #define OFFSET_CBCDATA            2+8     //OFFSET_PIPELINE_ADDRESS + WIDTH_PIPELINE_ADDRESS
-#define WIDTH_CBCDATA             254     //NSENSOR
+#define WIDTH_CBCDATA             254     //NCHANNELS
 #define OFFSET_GLIBFLAG           10+254  //OFFSET_CBCDATA + WIDTH_CBCDATA
 #define WIDTH_GLIBFLAG            12
 #define OFFSET_CBCSTUBDATA        264+12  //OFFSET_GLIBFLAG + WIDTH_GLIBFLAG
