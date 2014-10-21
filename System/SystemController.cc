@@ -185,7 +185,7 @@ namespace Ph2_System
 			if ( cSetting != fSettingsMap.end() )
 			{
 				cHoleMode = cSetting->second;
-				std::cout << " Overriding GLIB register values for signal polarity with value from settings node!" << std::endl;
+				std::cout << GREEN << "Overriding GLIB register values for signal polarity with value from settings node!" << RESET << std::endl;
 			}
 			cCheck = true;
 		}
