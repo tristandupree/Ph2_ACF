@@ -60,18 +60,7 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
 
         /usr/bin/gcc --version
 
-3. Download [boost] (http://www.boost.org/users/history/version_1_55_0.html), then install:
-
-        tar --bzip2 -xf boost_1_55_0.tar.bz2
-	    cd boost_1_55_0
-	    ./bootstrap.sh --prefix=/usr/
-	    ./b2 install
-
-   Then check Boost v1.55 is correctly installed using:
-
-        cat /usr/include/boost/version.hpp | grep "BOOST_LIB_VERSION"
-
-4. Finally, update uHAL to version 2.3:
+3. Finally, update uHAL to version 2.3:
 
         sudo yum groupremove uhal
         wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
