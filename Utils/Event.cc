@@ -212,7 +212,7 @@ namespace Ph2_HwInterface
 
 	bool Event::DataBit( uint8_t pFeId, uint8_t pCbcId, uint32_t i ) const
 	{
-		if ( i > NSENSOR )
+		if ( i > NCHANNELS )
 			return 0;
 
 		return Bit( pFeId, pCbcId, i + OFFSET_CBCDATA );
