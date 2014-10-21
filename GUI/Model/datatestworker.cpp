@@ -36,21 +36,14 @@ namespace GUI
         m_Events = cEvents;
         m_canvas = canvas;
 
-        for (int i; i < m_canvas.size(); i++)
+        /*for (auto& cCanvas : m_canvas)
         {
-            m_canvas.at(i)->SetFillColor(i+5);
+            cCanvas->SetFillColor(KRED);
 
             TH1D* g = new TH1D("hjsh", "jhea", 10, 0, 10);
-            m_canvas.at(i)->cd();
+            cCanvas->cd();
             g->Draw();
-
-            qDebug() << m_canvas.at(i)->GetName();
-
-            qDebug() << "DrawnGraph";
-            //emit sendRefresh();
-            //emit finishedDataTest();
-            //emit
-        }
+        }*/
 
         mutex.lock();
         _working = true;
@@ -73,14 +66,48 @@ namespace GUI
 
     void DataTestWorker::doWork()
     {
-        
-        // Set _working to false, meaning the process can't be aborted anymore.
+        //ReadDataTest();
+
+        std::vector<std::shared_ptr<TH1D>> vecHist;
+       // std::vector<TH1D*> = hist;
+
+        int no = 0;
+        for (auto& cCanvas : m_canvas)
+        {
+            TString name("Data Test Cbc ");
+            name.Append(std::to_string(no));
+            auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 250, 0, 250);
+            name.Data(),name.Data(), 250, 0, 250;
+            vecHist.push_back(h);
+            no++;
+        }
+
+        int i = 0;
+        for (int j= 0; j<5; j++){
+            int n = 0;
+            for (auto& cCanvas : m_canvas)
+            {
+                usleep(100000);
+                vecHist.at(n)->Fill(j+n);
+                usleep(100000);
+                cCanvas->cd();
+                vecHist.at(n)->Draw();
+                //cCanvas->SetFillColor(i+3);
+
+                //TH1D* g = new TH1D("hjsh", "jhea", 10, 0, 10);
+
+
+                //cCanvas->cd();
+                //g->Draw();
+                i++;
+                n++;
+            }
+        }
         mutex.lock();
         _working = false;
         mutex.unlock();
 
         qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
-
         //emit finished();
     }
 
@@ -88,12 +115,12 @@ namespace GUI
 
     void DataTestWorker::ReadDataTest()
     {
-        // Checks if the process should be aborted
         mutex.lock();
         bool abort = _abort;
         mutex.unlock();
 
-        std::vector<std::shared_ptr<TH1D>> m_vecHist;
+        std::vector<std::shared_ptr<TH1D>> vecHist;
+        std::vector<TH1D*> vecTH1D;
 
         int pEventsperVcth = m_Events;
 
@@ -113,8 +140,12 @@ namespace GUI
                     {
                         TString name("Data Test Cbc ");
                         name.Append(std::to_string(cCbc.getCbcId()));
-                        auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 50, 0, 50);
-                        m_vecHist.push_back(h);
+                        auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 250, 0, 250);
+                        vecHist.push_back(h);
+
+                        TH1D* g = new TH1D("hjsh", "jhea", 260, 0, 260);
+                        vecTH1D.push_back(g);
+
                         fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( m_Vcth ) );
                     }
                 }
@@ -136,7 +167,6 @@ namespace GUI
             {
                 std::cout << " cVcth = " << uint32_t( m_Vcth ) << std::endl;
                 std::cout << ">>> Event #" << cN << std::endl;
-                //std::cout << *cEvent << std::endl;
 
                 for ( auto cShelve : fShelveVector )
                 {
@@ -150,22 +180,21 @@ namespace GUI
                                 uint32_t cNHits = 0;
                                 std::vector<bool> cVecData = cEvent->DataBitVector(cFe.getFeId(), cCbc.getCbcId());
 
-                                for ( uint8_t cDBVec = 0; cDBVec < m_vecHist.size(); cDBVec++ )
+                                for ( uint8_t cDBVec = 0; cDBVec < vecHist.size(); cDBVec++ )
                                 {
                                     if ( cVecData[cDBVec] )
                                         cNHits++;
                                 }
-                                m_vecHist.at(cNCbc)->Fill(cNHits);
+                                //vecHist.at(cNCbc)->Fill(cNHits);
+                                //vecHist.at(cNCbc)->Draw();
+
                                 qDebug() << cNHits;
 
                                 cNCbc ++;
                             }
-                            emit sendGraphData(m_vecHist);
                         }
                     }
                 }
-
-
 
                 if ( cN == pEventsperVcth )
                     break;
@@ -178,10 +207,6 @@ namespace GUI
             cNthAcq++;
         }
         cNthAcq++;
-
-        qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
-
-        emit finished();
     }
 
 

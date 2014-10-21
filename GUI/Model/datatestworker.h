@@ -51,6 +51,8 @@ namespace GUI{
         bool _working;
         QMutex mutex;
         SystemController& m_systemController;
+        std::vector<std::shared_ptr<TH1D>> m_vecHist;
+        std::vector<TH1D*> m_hist;
 
         void ReadDataTest();
 

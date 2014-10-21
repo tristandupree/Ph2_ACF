@@ -16,7 +16,7 @@ namespace GUI{
                                      DataTest& dataTest);
     ~DataTestViewManager();
     signals:
-        void onBtnLoadClicked(bool);
+        void on2CbcToggle(const bool);
 
     private:
 

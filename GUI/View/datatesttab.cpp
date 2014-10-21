@@ -16,9 +16,12 @@ namespace GUI {
         QWidget(parent),
         ui(new Ui::DataTestTab),
         m_Vcth(0),
-        m_Events(0)
+        m_Events(0),
+        m_tabMainCbc(new QTabWidget)
     {
         ui->setupUi(this);
+        ui->loCbcBox->addWidget(m_tabMainCbc);
+        setupCanvas(true);
     }
 
     DataTestTab::~DataTestTab()
@@ -28,27 +31,29 @@ namespace GUI {
     }
 
     void DataTestTab::setupCanvas(bool cbc2)
-    {
-        QTabWidget *cbcTab = new QTabWidget;
+    {   
         int cNCbc;
-        if(cbc2)
+        if(cbc2) cNCbc = 2;
+        else cNCbc = 8;
+        if(m_tabMainCbc->count() != m_vectorCanvas.size())
         {
-            cNCbc = 2;
+            qDebug() << "ERROR! Canvas size does not match tab size";
+            qDebug() << "Cbc Tabs: " << m_tabMainCbc->count();
+            qDebug() << "Canvas size : " << m_vectorCanvas.size();
         }
 
-        else
+        if(m_tabMainCbc->count() > 0)
         {
-            cNCbc = 8;
+            m_tabMainCbc->clear();
+            m_vectorCanvas.clear();
         }
 
         for (int i=0; i<cNCbc; i++)
         {
             m_vectorCanvas.push_back(new TQtWidget(this));
             QString title = QString("CBC %1").arg(i);
-            cbcTab->addTab(createCbcTab(), title);
+            m_tabMainCbc->addTab(createCbcTab(), title);
         }
-
-        ui->loCbcBox->addWidget(cbcTab);
     }
 
     QTabWidget *DataTestTab::createCbcTab()
@@ -61,7 +66,6 @@ namespace GUI {
 
         tab->setLayout(loH);
         return tab;
-
     }
 
     void DataTestTab::drawGraph(const std::vector<std::shared_ptr<TH1D> > hists)
@@ -98,8 +102,6 @@ namespace GUI {
 
     void DataTestTab::getTCanvas()
     {
-        qDebug() << "getTCanvas()";
-
         for (auto& canvas : m_vectorCanvas)
         {
             m_vecTCanvas.push_back(canvas->GetCanvas());
@@ -109,9 +111,9 @@ namespace GUI {
 
     void DataTestTab::refreshTCanvas()
     {
-        qDebug()<< "RefreshTCanvas()";
         for (auto& canvas : m_vectorCanvas)
         {
+            TQtWidget *u = new TQtWidget(this);//for flush
             canvas->Refresh();
         }
     }

@@ -91,8 +91,11 @@ namespace GUI{
         ui->btnInit->setEnabled(true);
         ui->btnLoad->setEnabled(true);
     }
+
+
+    void SetupTab::on_radio2CBC_toggled(bool checked)
+    {
+        emit on2CbcToggle(checked);
+    }
+
 }
-
-
-
-

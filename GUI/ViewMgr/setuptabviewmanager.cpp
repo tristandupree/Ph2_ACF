@@ -58,8 +58,8 @@ namespace GUI
     {
         connect(&m_setupTab, SIGNAL(enableAllTabs(bool)),
                 this, SIGNAL(enableAlltabs(bool)));
-        connect(&m_setupTab, SIGNAL(onBtnLoadSettingsClicked(bool)),
-                this, SIGNAL(onBtnLoadClicked(bool)));
+        connect(&m_setupTab, SIGNAL(on2CbcToggle(bool)),
+                this, SIGNAL(on2CbcToggle(bool)));
     }
 
 

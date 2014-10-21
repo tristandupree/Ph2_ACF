@@ -52,7 +52,8 @@ SOURCES += main.cpp\
     Model/systemcontrollerworker.cpp \
     Model/cbcregisters.cpp \
     lib/CustomTQtWidget.cpp \
-    ViewMgr/mainviewmanager.cpp
+    ViewMgr/mainviewmanager.cpp \
+    Macros/datatestmacro.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -74,7 +75,8 @@ HEADERS  += View/mainview.h \
     Model/systemcontrollerworker.h \
     Model/cbcregisters.h \
     lib/CustomTQtWidget.h \
-    ViewMgr/mainviewmanager.h
+    ViewMgr/mainviewmanager.h \
+    Macros/datatestmacro.h
     #lib/TQtWidget.h
 
 

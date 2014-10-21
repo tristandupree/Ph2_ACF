@@ -57,8 +57,6 @@ namespace GUI{
 
         Ui::DataTestTab *ui;
 
-        //QTabWidget *m_cbcTab;
-
         std::vector<std::shared_ptr<TH1D>> m_vecHist;
 
         std::vector<TCanvas*> m_vecTCanvas;
@@ -70,8 +68,8 @@ namespace GUI{
         int m_Vcth;
         int m_Events;
 
-        //void setupCanvas(int cNCbc);
         QTabWidget *createCbcTab();
+        QTabWidget *m_tabMainCbc;
     };
 
 }

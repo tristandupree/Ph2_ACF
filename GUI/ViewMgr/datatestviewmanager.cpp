@@ -57,7 +57,7 @@ namespace GUI
                 &m_dataTest, SLOT(recieveTCanvas(std::vector<TCanvas*>)));
         connect(&m_dataTest, SIGNAL(sendRefresh()),
                 &m_dataTestTab, SLOT(refreshTCanvas()));
-        connect(this, SIGNAL(onBtnLoadClicked(bool)),
+        connect(this, SIGNAL(on2CbcToggle(bool)),
                 &m_dataTestTab, SLOT(setupCanvas(bool)));
     }
 

@@ -27,14 +27,13 @@ namespace GUI {
         void onBtnInitClicked();
         void onBtnCfgClicked();
         void enableAllTabs(const bool enable);
+        void on2CbcToggle(const bool checked);
 
     public slots:
         void onStatusUpdate(const QString& statusMsg);
         void setHwTreeView(QStandardItemModel *model);
         void onInitFinished();
         void onConfigFinished();
-
-        //void onCustomLoadClicked();
 
     private slots:
 
@@ -47,6 +46,8 @@ namespace GUI {
         void on_btnLoad_clicked();
 
         void on_btnInit_clicked();
+
+        void on_radio2CBC_toggled(bool checked);
 
     private:
         Ui::SetupTab *ui;

@@ -51,6 +51,7 @@ namespace GUI{
         DataTestWorker *m_worker;
 
         void WireThreadConnections();
+        void WireTimer();
 
         explicit DataTest(const DataTest& rhs) = delete;
         DataTest& operator= (const DataTest& rhs) = delete;
