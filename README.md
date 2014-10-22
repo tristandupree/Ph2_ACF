@@ -1,5 +1,5 @@
-Git Repository for the CMS Ph2 ACF (Acquisition & Control Framework)
-============================================================
+CMS Ph2 ACF (Acquisition & Control Framework)      {#mainpage}
+======================================
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
 
