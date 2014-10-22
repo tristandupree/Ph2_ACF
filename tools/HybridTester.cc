@@ -12,7 +12,7 @@ struct HistogramFiller  : public HwDescriptionVisitor
 
 	void visit( Cbc& pCbc ) {
 		std::vector<bool> cDataBitVector = fEvent->DataBitVector( pCbc.getFeId(), pCbc.getCbcId() );
-		for ( uint32_t cId = 0; cId < NSENSOR; cId++ ) {
+		for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
 			if ( cDataBitVector.at( cId ) ) {
 				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
 				//              std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
@@ -36,7 +36,7 @@ struct CbcHitCounter  : public HwDescriptionVisitor
 	CbcHitCounter( const Event* pEvent ): fEvent( pEvent ) {}
 
 	void visit( Cbc& pCbc ) {
-		for ( uint32_t cId = 0; cId < NSENSOR; cId++ ) {
+		for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
 			if ( fEvent->DataBit( pCbc.getFeId(), pCbc.getCbcId(), cId ) ) fHitcounter++;
 		}
 	}
@@ -154,7 +154,7 @@ void HybridTester::ScanThreshold()
 					cStep /= 10;
 					continue;
 				}
-				if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NSENSOR ) cAllOneCounter++;
+				if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NCHANNELS ) cAllOneCounter++;
 				if ( cAllOneCounter >= 10 ) cAllOne = true;
 				if ( cAllOne ) break;
 				cVcth += cStep;
@@ -163,7 +163,7 @@ void HybridTester::ScanThreshold()
 	} // end of VCth loop
 
 	// Fit & Plot
-	fSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NSENSOR ) );
+	fSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NCHANNELS ) );
 	// fSCurveCanvas->cd();
 	fSCurve->Draw( "P" );
 
