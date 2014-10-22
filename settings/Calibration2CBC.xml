@@ -23,8 +23,8 @@
             <Register name="user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"> 0 </Register>
 
             <Module FeId="0" FMCId="0" ModuleId="0" Status="1">
-                <CBC Id="0" configfile="./settings/Cbc_default_hole.txt"/>
-                <CBC Id="1" configfile="./settings/Cbc_default_hole.txt"/>
+                <CBC Id="0" configfile="./settings/Cbc_default_electron.txt"/>
+                <CBC Id="1" configfile="./settings/Cbc_default_electron.txt"/>
             </Module>
         </BeBoard>
     </Shelve>
@@ -35,5 +35,5 @@
     <Setting name="Nevents"> 10 </Setting>
     <Setting name="EnableTestPulse"> 0 </Setting>
     <Setting name="TestPulsePotentiometer"> 0xF1 </Setting>
-    <Setting name="HoleMode"> 1 </Setting>
+    <Setting name="HoleMode"> 0 </Setting>
 </Settings>
