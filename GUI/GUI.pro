@@ -46,14 +46,12 @@ SOURCES += main.cpp\
     View/datatesttab.cpp \
     Model/datatest.cpp \
     ViewMgr/datatestviewmanager.cpp \
-    Macros/macrotesttab.cpp \
     Model/datatestworker.cpp \
     View/aboutbox.cpp \
     Model/systemcontrollerworker.cpp \
     Model/cbcregisters.cpp \
     lib/CustomTQtWidget.cpp \
-    ViewMgr/mainviewmanager.cpp \
-    Macros/datatestmacro.cpp
+    ViewMgr/mainviewmanager.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -69,14 +67,12 @@ HEADERS  += View/mainview.h \
     View/datatesttab.h \
     Model/datatest.h \
     ViewMgr/datatestviewmanager.h \
-    Macros/macrotesttab.h \
     Model/datatestworker.h \
     View/aboutbox.h \
     Model/systemcontrollerworker.h \
     Model/cbcregisters.h \
     lib/CustomTQtWidget.h \
-    ViewMgr/mainviewmanager.h \
-    Macros/datatestmacro.h
+    ViewMgr/mainviewmanager.h
     #lib/TQtWidget.h
 
 
@@ -84,7 +80,6 @@ FORMS    += View/mainview.ui \
     View/setuptab.ui \
     View/cbcregisterstab.ui \
     View/datatesttab.ui \
-    Macros/macrotesttab.ui \
     View/aboutbox.ui
 
 OTHER_FILES +=

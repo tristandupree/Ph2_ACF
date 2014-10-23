@@ -9,7 +9,7 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
-#include "../HWInterface/Visitor.h"
+#include "../Utils/Visitor.h"
 
 #include <iostream>
 #include <vector>

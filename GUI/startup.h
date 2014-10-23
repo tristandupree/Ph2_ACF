@@ -8,8 +8,6 @@ namespace GUI{
     class CbcRegistersTab;
     class DataTestTab;
 
-    class MacroTestTab; //cheap non-std tab
-
     class MainView;
 
     class Settings;
@@ -35,8 +33,6 @@ namespace GUI{
         SetupTab& m_setupTab;
         CbcRegistersTab& m_regTab;
         DataTestTab& m_dataTab;
-
-        MacroTestTab& m_macroTestTab; //cheap non-std tab
 
         MainView& m_mainView;
         Settings* m_settings;

@@ -23,8 +23,7 @@ namespace GUI{
         explicit MainView(QWidget *parent,
                           GUI::SetupTab &setup,
                           GUI::CbcRegistersTab &reg,
-                          GUI::DataTestTab &data,
-                          GUI::MacroTestTab &macroTest);
+                          GUI::DataTestTab &data);
         ~MainView();
 
     public slots:

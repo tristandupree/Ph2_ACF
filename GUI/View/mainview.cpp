@@ -5,8 +5,6 @@
 #include "View/datatesttab.h"
 #include "View/aboutbox.h"
 
-#include "Macros/macrotesttab.h"
-
 #include <QDebug>
 
 namespace GUI{
@@ -14,8 +12,7 @@ namespace GUI{
     MainView::MainView(QWidget *parent,
                        SetupTab& setup,
                        CbcRegistersTab& regTab,
-                       DataTestTab& data,
-                       MacroTestTab& macroTest) :
+                       DataTestTab& data) :
         QMainWindow(parent),
         ui(new Ui::MainView)
     {
@@ -23,7 +20,6 @@ namespace GUI{
         ui->loSetup->addWidget(&setup);
         ui->loRegisters->addWidget(&regTab);
         ui->loDataTest->addWidget(&data);
-        ui->loMacroTest->addWidget(&macroTest);
 
         //enableAllTabsSlot(false);
     }
@@ -38,7 +34,6 @@ namespace GUI{
     {
         ui->tabRegisters->setEnabled(enable);
         ui->tabDataTest->setEnabled(enable);
-        ui->tabMacroTest->setEnabled(enable);
     }
 
     void MainView::on_actionAbout_triggered()
