@@ -2,7 +2,6 @@
 #include <QDebug>
 #include <QThread>
 #include <vector>
-#include <QTimer>
 
 #include <TH1.h>
 #include "TCanvas.h"
@@ -21,7 +20,8 @@ namespace GUI
     DataTestWorker::DataTestWorker(QObject *parent,
                                    SystemController &sysController) ://, SystemController &sysCtrl) :
         QObject(parent),
-        m_systemController(sysController)
+        m_systemController(sysController),
+        _Drawing(true) // stops refresh being called
     {
     }
 
@@ -30,94 +30,91 @@ namespace GUI
         qDebug() << "Destructing " << this;
     }
 
-    void DataTestWorker::requestWork(int cVcth, int cEvents, std::vector<TCanvas *> canvas)
+    void DataTestWorker::requestWork(int cVcth, int cEvents, const std::vector<TCanvas *> canvas)
     {
         m_Vcth = cVcth;
         m_Events = cEvents;
         m_canvas = canvas;
 
-        /*for (auto& cCanvas : m_canvas)
-        {
-            cCanvas->SetFillColor(KRED);
+        /*Mutex.lock();
+        _Drawing = false;
+        this->Mutex.unlock();*/
 
-            TH1D* g = new TH1D("hjsh", "jhea", 10, 0, 10);
-            cCanvas->cd();
-            g->Draw();
-        }*/
-
-        mutex.lock();
-        _working = true;
-        _abort = false;
         qDebug()<<"Request worker start in Thread "<<thread()->currentThreadId();
-        mutex.unlock();
 
         emit workRequested();
     }
 
     void DataTestWorker::abort()
     {
-        mutex.lock();
+        //TODO
+        /*mutex.lock();
         if (_working) {
             _abort = true;
             qDebug()<<"Request worker aborting in Thread "<<thread()->currentThreadId();
         }
-        mutex.unlock();
+        mutex.unlock();*/
     }
 
     void DataTestWorker::doWork()
     {
         //ReadDataTest();
-
-        std::vector<std::shared_ptr<TH1D>> vecHist;
-       // std::vector<TH1D*> = hist;
+        std::vector<TH1D*> hist;
 
         int no = 0;
         for (auto& cCanvas : m_canvas)
         {
             TString name("Data Test Cbc ");
             name.Append(std::to_string(no));
-            auto h = std::make_shared<TH1D>(name.Data(),name.Data(), 250, 0, 250);
-            name.Data(),name.Data(), 250, 0, 250;
-            vecHist.push_back(h);
+            hist.push_back(new TH1D (name.Data(),name.Data(), 500, 0, 500));
             no++;
         }
 
         int i = 0;
-        for (int j= 0; j<5; j++){
+        for (int j= 0; j<490; j++){
             int n = 0;
             for (auto& cCanvas : m_canvas)
             {
-                usleep(100000);
-                vecHist.at(n)->Fill(j+n);
-                usleep(100000);
-                cCanvas->cd();
-                vecHist.at(n)->Draw();
-                //cCanvas->SetFillColor(i+3);
+                usleep(100);
 
-                //TH1D* g = new TH1D("hjsh", "jhea", 10, 0, 10);
+                if(this->Mutex.try_lock_for(std::chrono::milliseconds(100)))
+                {
+                    qDebug() << "Locking in thread";
+                    _Drawing = true;
+                    this->Mutex.unlock();
 
+                    qDebug() << "Draw is " << _Drawing;
 
-                //cCanvas->cd();
-                //g->Draw();
-                i++;
-                n++;
+                    hist.at(n)->Fill(j+n);
+                    cCanvas->cd();
+                    hist.at(n)->Draw();
+
+                    this->Mutex.lock();
+                    qDebug() << "Thread Locked";
+                    _Drawing = false;
+                    this->Mutex.unlock();
+                    qDebug() << "Thread Unlocked";
+
+                    qDebug() << "Draw is " << _Drawing;
+
+                    i++;
+                    n++;
+                }
+                else
+                {
+                    qDebug() << "!!!!!!!!!!Trying to fill graph timed out for CBC " << n;
+                }
             }
         }
-        mutex.lock();
-        _working = false;
-        mutex.unlock();
 
         qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
-        //emit finished();
+        emit finished();
     }
 
 
 
     void DataTestWorker::ReadDataTest()
     {
-        mutex.lock();
-        bool abort = _abort;
-        mutex.unlock();
 
         std::vector<std::shared_ptr<TH1D>> vecHist;
         std::vector<TH1D*> vecTH1D;

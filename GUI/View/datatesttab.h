@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <memory>
 #include <QTabWidget>
+#include <atomic>
 
 namespace Ui {
     class DataTestTab;
@@ -29,7 +30,7 @@ namespace GUI{
         void notifyAddGraph();
         void sendVcthValue(int cVcth);
         void sendEventsNumber(int cEvents);
-        void sendTCanvas (std::vector<TCanvas*> canvas);
+        void sendTCanvas (const std::vector<TCanvas*> canvas);
 
     public slots:
         void drawGraph(const std::vector<std::shared_ptr<TH1D>> hists);
@@ -39,7 +40,7 @@ namespace GUI{
         void onDataTestFinish();
         void getTCanvas();
         void refreshTCanvas();
-        void setupCanvas(bool cbc2);
+        void setupCanvas(const bool cbc2);
 
 
     private slots:
@@ -58,6 +59,8 @@ namespace GUI{
         Ui::DataTestTab *ui;
 
         std::vector<std::shared_ptr<TH1D>> m_vecHist;
+
+        //std::vector<TCanvas*> m_vecTCanvas;
 
         std::vector<TCanvas*> m_vecTCanvas;
 

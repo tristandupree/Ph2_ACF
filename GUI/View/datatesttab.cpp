@@ -30,7 +30,7 @@ namespace GUI {
         delete ui;
     }
 
-    void DataTestTab::setupCanvas(bool cbc2)
+    void DataTestTab::setupCanvas(const bool cbc2)
     {   
         int cNCbc;
         if(cbc2) cNCbc = 2;
@@ -113,7 +113,8 @@ namespace GUI {
     {
         for (auto& canvas : m_vectorCanvas)
         {
-            TQtWidget *u = new TQtWidget(this);//for flush
+            TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
+            qDebug() << " >>> Refreshed" ;
             canvas->Refresh();
         }
     }

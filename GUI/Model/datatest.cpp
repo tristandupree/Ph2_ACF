@@ -4,6 +4,7 @@
 #include <QThread>
 #include "TH1D.h"
 #include "TCanvas.h"
+#include <atomic>
 
 
 #include "Model/datatestworker.h"
@@ -52,18 +53,19 @@ namespace GUI
                 m_worker, SLOT(doWork()));
         connect(m_worker, SIGNAL(finished()),
                 this, SIGNAL(finishedDataTest()));
-        connect(m_worker, SIGNAL(finished()),
-                this, SIGNAL(sendRefresh()));
+        //connect(m_worker, SIGNAL(finished()),
+          //      this, SIGNAL(sendRefresh()));
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
         connect(m_worker, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D>>)),
                 this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D>>)), Qt::QueuedConnection);
     }
+
     void DataTest::WireTimer()
     {
         connect(m_timer, SIGNAL(timeout()),
-                this, SIGNAL(sendRefresh()));
+                this, SLOT(tryRefresh()));
         connect(m_worker, SIGNAL(finished()),
                 m_timer, SLOT(stop()));
     }
@@ -73,11 +75,8 @@ namespace GUI
         emit getVcthValue();
         emit getEventsValue();
         emit startedDataTest();
-        qDebug()<<"Entered Create Graph";
         emit getTCanvas();
     }
-
-
 
     void DataTest::setVcthValue(int cVcth)
     {
@@ -89,15 +88,40 @@ namespace GUI
         m_Events = cEvents;
     }
 
-    void DataTest::recieveTCanvas(std::vector<TCanvas *> canvas)
+    void DataTest::recieveTCanvas(const std::vector<TCanvas *> canvas)
     {
         qDebug() << "Size of canvas" << canvas.size();
 
         m_worker->abort();
         m_thread->wait();
-
+        m_timer->start(10);
         m_worker->requestWork(m_Vcth, m_Events, canvas);
-        m_timer->start(100);
     }
+
+    void DataTest::tryRefresh()
+    {
+        if (!m_worker->getIsDrawing())
+        {
+            qDebug()<< ">> get is " << m_worker->getIsDrawing();
+            for (int i = 0; i < 10; i++)
+            {
+                qDebug() << " >> Attempting lock in worker";
+                if(m_worker->Mutex.try_lock_for(std::chrono::milliseconds(10)))
+                {
+                    qDebug() << " >> Worker Locked";
+                    //emit sendRefresh();
+                    std::chrono::microseconds(100);
+                    m_worker->Mutex.unlock();
+                    qDebug() << " >> Worker Unlocked";
+                }
+                else
+                {
+                    qDebug() << "Unable to lock Mutex!!";
+                }
+            }
+        }
+    }
+
+
 
 }

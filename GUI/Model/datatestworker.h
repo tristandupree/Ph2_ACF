@@ -21,8 +21,11 @@ namespace GUI{
         explicit DataTestWorker(QObject *parent,
                                 SystemController &sysController);
 
-        void requestWork(int cVcth, int cEvents, std::vector<TCanvas *> canvas);
+        void requestWork(int cVcth, int cEvents, const std::vector<TCanvas *> canvas);
         void abort();
+
+        bool getIsDrawing() {return _Drawing;}
+        std::recursive_timed_mutex Mutex;
 
 
         ~DataTestWorker();
@@ -47,9 +50,13 @@ namespace GUI{
         int m_Events;
         std::vector<TCanvas *> m_canvas;
 
-        bool _abort;
-        bool _working;
-        QMutex mutex;
+        //std::recursive_timed_mutex Mutex;
+        //std::mutex Mutex;
+        bool _Drawing;
+
+        //bool _abort;
+        //bool _working;
+        //QMutex mutex;
         SystemController& m_systemController;
         std::vector<std::shared_ptr<TH1D>> m_vecHist;
         std::vector<TH1D*> m_hist;

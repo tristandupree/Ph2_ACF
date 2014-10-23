@@ -37,7 +37,8 @@ namespace GUI{
         void createGraph();
         void setVcthValue(int cVcth);
         void setEventsValue(int cEvents);
-        void recieveTCanvas(std::vector<TCanvas*> canvas);
+        void recieveTCanvas(const std::vector<TCanvas*> canvas);
+        void tryRefresh();
 
     private:
 
@@ -46,7 +47,7 @@ namespace GUI{
 
         QTimer *m_timer;
 
-        SystemController&m_systemController;
+        SystemController &m_systemController;
         QThread *m_thread;
         DataTestWorker *m_worker;
 
