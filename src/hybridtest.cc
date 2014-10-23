@@ -62,7 +62,8 @@ int main( int argc, char* argv[] )
 
 	HybridTester cHybridTester;
 	cHybridTester.InitializeHw( cHWFile );
-	cHybridTester.InitializeHists();
+	cHybridTester.InitializeHists( cScan );
+	// cHybridTester.InitializeHistsGUI(cScan, FionnsExternalGUIvector);
 	cHybridTester.InitializeSettings( cHWFile );
 	cHybridTester.CreateResultDirectory( cDirectory );
 	cHybridTester.InitResultFile( "HybridTest" );
