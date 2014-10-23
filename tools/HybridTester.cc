@@ -43,7 +43,7 @@ struct CbcHitCounter  : public HwDescriptionVisitor
 };
 
 
-void HybridTester::InitializeHists()
+void HybridTester::InitializeHists( bool pThresholdScan )
 {
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
@@ -52,8 +52,11 @@ void HybridTester::InitializeHists()
 	accept( cCbcCounter );
 	fNCbc = cCbcCounter.getNCbc();
 
-	fDataCanvas = new TCanvas( "Data", "Different hits counters", 1200, 800 );
+	fDataCanvas = new TCanvas( "fDataCanvas", "SingleStripEfficiency", 1200, 800 );
 	fDataCanvas->Divide( 2 );
+
+	if ( pThresholdScan ) fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
+
 
 	TString cFrontName( "fHistTop" );
 	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
@@ -68,6 +71,43 @@ void HybridTester::InitializeHists()
 	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
 
 
+
+
+}
+
+void HybridTester::InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
+{
+
+	gStyle->SetOptStat( 000000 );
+	gStyle->SetTitleOffset( 1.3, "Y" );
+	//  special Visito class to count objects
+	Counter cCbcCounter;
+	accept( cCbcCounter );
+	fNCbc = cCbcCounter.getNCbc();
+
+	fDataCanvas = pCanvasVector.at( 1 ); //since I ounly need one here
+	fDataCanvas->SetName( "fDataCanvas" );
+	fDataCanvas->SetTitle( "SingleStripEfficiency" );
+	fDataCanvas->Divide( 2 );
+
+	if ( pThresholdScan )
+	{
+		fSCurveCanvas = pCanvasVector.at( 2 ); // only if the user decides to do a thresholdscan
+		fSCurveCanvas->SetName( "fSCurveCanvas" );
+		fSCurveCanvas->SetTitle( "NoiseOccupancy" );
+	}
+
+	TString cFrontName( "fHistTop" );
+	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
+	if ( fHistTop ) delete fHistTop;
+
+	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+
+	TString cBackName( "fHistBottom" );
+	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
+	if ( fHistBottom ) delete fHistBottom;
+
+	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
 }
 
 
@@ -87,7 +127,6 @@ void HybridTester::ScanThreshold()
 	int cStep = ( cHoleMode ) ? -10 : 10;
 
 	// Root objects
-	fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
 	fSCurve = new TH1F( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
 	fSCurve->SetMarkerStyle( 8 );
 	fSCurveCanvas->cd();

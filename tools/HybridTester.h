@@ -32,7 +32,8 @@ class HybridTester : public SystemController
   public:
 	HybridTester() {}
 	~HybridTester() {}
-	void InitializeHists();
+	void InitializeHists( bool pThresholdScan );
+	void InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector );
 	void TestRegisters();
 	void ScanThreshold();
 	void Measure();
