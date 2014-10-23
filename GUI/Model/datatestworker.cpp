@@ -7,6 +7,8 @@
 #include "TCanvas.h"
 #include "utils.h"
 
+#include "../tools/HybridTester.h"
+
 
 #include "unistd.h"
 
@@ -58,6 +60,20 @@ namespace GUI
 
     void DataTestWorker::doWork()
     {
+        std::string cHWFile = ( "settings/Calibration2CBC.xml");
+        std::string cDirectory = ("Results/");
+        bool cScan=false;
+
+        HybridTester cHybridTester;
+        cHybridTester.InitializeHw( cHWFile );
+        //cHybridTester.InitializeHists( cScan );
+        cHybridTester.InitializeHistsGUI(cScan, m_canvas);
+        cHybridTester.InitializeSettings( cHWFile );
+        cHybridTester.CreateResultDirectory( cDirectory );
+        cHybridTester.InitResultFile( "HybridTest" );
+        cHybridTester.ConfigureHw();
+
+
 
     }
 

@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabMainView">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabSetup">
        <attribute name="title">
@@ -47,16 +47,6 @@
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <layout class="QVBoxLayout" name="loDataTest"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tabMacroTest">
-       <attribute name="title">
-        <string>Macro Tests</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <layout class="QVBoxLayout" name="loMacroTest"/>
         </item>
        </layout>
       </widget>

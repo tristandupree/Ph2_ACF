@@ -53,8 +53,8 @@ namespace GUI
                 m_worker, SLOT(doWork()));
         connect(m_worker, SIGNAL(finished()),
                 this, SIGNAL(finishedDataTest()));
-        //connect(m_worker, SIGNAL(finished()),
-          //      this, SIGNAL(sendRefresh()));
+        connect(m_worker, SIGNAL(finished()),
+                this, SIGNAL(sendRefresh()));
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
@@ -100,7 +100,7 @@ namespace GUI
 
     void DataTest::tryRefresh()
     {
-        if (!m_worker->getIsDrawing())
+        /*if (!m_worker->getIsDrawing())
         {
             qDebug()<< ">> get is " << m_worker->getIsDrawing();
             for (int i = 0; i < 10; i++)
@@ -119,7 +119,7 @@ namespace GUI
                     qDebug() << "Unable to lock Mutex!!";
                 }
             }
-        }
+        }*/
     }
 
 

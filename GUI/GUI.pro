@@ -18,7 +18,7 @@ QMAKE_CXXFLAGS += -g -O1 -w -pedantic -fPIC -std=c++11 `root-config --cflags --e
 include("$(ROOTSYS)/include/rootcint.pri")
 
 LIBS += -L/usr/include/boost -lboost_system -lboost_thread -lpthread -lboost_regex
-LIBS += -L../lib -lPh2_Interface -lPh2_Description -lPh2_System -lPh2_Tools
+LIBS += -L../lib -lPh2_Interface -lPh2_Description -lPh2_System -lPh2_Tools -lPh2_Utils
 LIBS += -L/opt/cactus/lib -lcactus_extern_pugixml -lcactus_uhal_log -lcactus_uhal_grammars -lcactus_uhal_uhal
 LibraryDirs = /opt/cactus/lib /opt/xdaq/lib ../
 LibraryPaths = $(LibraryDirs:%=-L%)
