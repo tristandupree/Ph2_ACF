@@ -11,8 +11,8 @@
 #include "TString.h"
 #include "TROOT.h"
 #include "TCanvas.h"
-#include "../System/ConsoleColor.h"
-#include "../HWInterface/Utilities.h"
+#include "../Utils/ConsoleColor.h"
+#include "../Utils/Utilities.h"
 
 
 

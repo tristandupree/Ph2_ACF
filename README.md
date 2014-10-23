@@ -1,5 +1,5 @@
-Git Repository for the ACF (Acquisition & Control Framework)
-============================================================
+CMS Ph2 ACF (Acquisition & Control Framework)      {#mainpage}
+======================================
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
 
@@ -34,6 +34,7 @@ Changelog:
 - 19/08/14 : Project wrapped, called ACF for Acquisition & Control Framework
 - 09/10/14 : added Visitor class and the corresponding accept methods to the HWDescription objects
 - 15/10/14 : re-wrote the GlibFWInterface::ReadData() method, completeley re-wrote the parsing of the raw buffer and the offsets, modified the Data and Event classes to be more lightweight and less complex
+- 17/10/14 : renamed the project to Ph2_ACF & re-structured the folder architecture and added command line parsing to the executables
 <br>
 <br>
 
@@ -59,18 +60,7 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
 
         /usr/bin/gcc --version
 
-3. Download [boost] (http://www.boost.org/users/history/version_1_55_0.html), then install:
-
-        tar --bzip2 -xf boost_1_55_0.tar.bz2
-	    cd boost_1_55_0
-	    ./bootstrap.sh --prefix=/usr/
-	    ./b2 install
-
-   Then check Boost v1.55 is correctly installed using:
-
-        cat /usr/include/boost/version.hpp | grep "BOOST_LIB_VERSION"
-
-4. Finally, update uHAL to version 2.3:
+3. Finally, update uHAL to version 2.3:
 
         sudo yum groupremove uhal
         wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
@@ -96,15 +86,21 @@ Follow these instructions to install and compile the libraries:
 
 3. Launch system command if you want to test the reading of your hardware describing XML file.
 
-4. Launch 
-         datatest threshold(%X) nEvents HWDescriptionFile 
-    command if you want to test if you can correctly read data.
+4. Launch
 
-6. launch 
-          calibrate N_CBC_FLAG(none or 8CBC) (outputdirectory)
-    to calibrate a hybrid, 
-          hybridtest HWDescriptionFile
-    to test a hybird's I2C registers and input channel connectivity
+        datatest --help
+        
+command if you want to test if you can correctly read data.
+
+6. launch
+
+        calibrate --help
+
+to calibrate a hybrid,
+
+        hybridtest --help
+
+to test a hybird's I2C registers and input channel connectivity
 
 7. an example of how to use visitors can be found in src/interfacetest.cc or in the HybridTester class
 

@@ -7,44 +7,72 @@
 #include "../HWDescription/Definition.h"
 #include "../tools/Calibration.h"
 #include <TApplication.h>
+#include "../Utils/argvparser.h"
+
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 using namespace Ph2_System;
 
-void syntax( int argc )
-{
-	if ( argc > 3 ) std::cerr << RED << "ERROR: Syntax: calibrationtest HWDescriptionFile DestinationPath" << std::endl;
-	else return;
-}
+using namespace CommandLineProcessing;
+
 
 int main( int argc, char* argv[] )
 {
-	syntax( argc );
+	ArgvParser cmd;
 
-	std::string cHWFile;
-	if ( argc > 1 && !strcmp( argv[1], "8CBC" ) ) cHWFile = "settings/HWDescription_8CBC.xml";
-	else cHWFile = "settings/HWDescription_2CBC.xml";
+	// init
+	cmd.setIntroductoryDescription( "CMS Ph2_ACF  calibration routine using K. Uchida's algorithm "/*or a fast algoriithm*/ );
+	// error codes
+	cmd.addErrorCode( 0, "Success" );
+	cmd.addErrorCode( 1, "Error" );
+	// options
+	cmd.setHelpOption( "h", "help", "Print this help page" );
 
-	std::string cDestinationPath;
-	if ( argc == 3 ) cDestinationPath = argv[2];
-	else cDestinationPath = "Results/";
-	cDestinationPath += "Calibration";
+	cmd.defineOption( "file", "Hw Description File . Default value: settings/Calibration2CBC.xml", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOptionAlternative( "file", "f" );
+
+	cmd.defineOption( "output", "Output Directory . Default value: Results", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOptionAlternative( "output", "o" );
+
+	cmd.defineOption( "skip", "skip scaning VCth vs Vplus", ArgvParser::NoOptionAttribute );
+
+	// cmd.defineOption( "fast", "Use fast calibration algorithm", ArgvParser::NoOptionAttribute );
+
+	int result = cmd.parse( argc, argv );
+	if ( result != ArgvParser::NoParserError )
+	{
+		std::cout << cmd.parseErrorDescription( result );
+		exit( 1 );
+	}
+
+	// now query the parsing results
+	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/Calibration2CBC.xml";
+	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results/";
+	cDirectory += "Calibration";
+	bool cVplus = ( cmd.foundOption( "skip" ) ) ? true : false;
+	// bool cFast = ( cmd.foundOption( "fast" ) ) ? true : false;
 
 	TApplication cApp( "Root Application", &argc, argv );
 	TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
+	// if ( cFast )
+	// {
+	//  FastCalibration cCalibration;
+	// }
+	// else
+	// {
 	Calibration cCalibration;
 	cCalibration.InitializeHw( cHWFile );
 	cCalibration.InitializeSettings( cHWFile );
-	cCalibration.CreateResultDirectory( cDestinationPath );
+	cCalibration.CreateResultDirectory( cDirectory );
 	cCalibration.InitResultFile( "CalibrationResults" );
 	cCalibration.InitialiseTestGroup();
 	cCalibration.ConfigureHw();
-	cCalibration.VplusScan();
+	if ( !cVplus ) cCalibration.VplusScan();
 	cCalibration.OffsetScan();
 	cCalibration.SaveResults();
-
+	// }
 	cApp.Run();
 
 	return 0;

@@ -6,12 +6,18 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "../tools/Calibration.h"
+#include "../Utils/Timer.h"
 #include <TApplication.h>
 #include <inttypes.h>
+#include "../Utils/argvparser.h"
+
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 using namespace Ph2_System;
+
+using namespace CommandLineProcessing;
+
 
 void syntax( int argc )
 {
@@ -20,73 +26,82 @@ void syntax( int argc )
 	else return;
 }
 
-uint64_t get_time()
-{
-	/* Linux */
-	struct timeval tv;
-
-	gettimeofday( &tv, NULL );
-
-	uint64_t ret = tv.tv_usec;
-	/* Convert from micro seconds (10^-6) to milliseconds (10^-3) */
-	ret /= 1000;
-
-	/* Adds the seconds (10^0) after converting them to milliseconds (10^-3) */
-	ret += ( tv.tv_sec * 1000 );
-
-	return ret;
-}
-
 int main( int argc, char* argv[] )
 {
-	syntax( argc );
-	
+
 	int pEventsperVcth;
 	int cVcth;
 
-	if ( sscanf( argv[1], "%xu", &cVcth ) != 1 )
-		printf( "ERROR: not an integer" );
-	if ( sscanf( argv[2], "%i", &pEventsperVcth ) != 1 )
-		printf( "ERROR: not an integer" );
-	std::cout << "Taking " << pEventsperVcth << " Events @ VCth of " << cVcth << std::endl;
-	std::string cHWFile = argv[3];
-//	if ( argc > 1 && !strcmp( argv[3], "8CBC" ) ) cHWFile = "settings/HWDescription_8CBC.xml";
-//	else cHWFile = "settings/HybridTest2CBC.xml";
-
-	std::cout << "cHWFile = " << cHWFile << std::endl;
-	// TApplication cApp( "Root Application", &argc, argv );
-	// TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
-
-
 	SystemController cSystemController;
+	ArgvParser cmd;
+
+	// init
+	cmd.setIntroductoryDescription( "CMS Ph2_ACF  Data acquisition test and Data dump" );
+	// error codes
+	cmd.addErrorCode( 0, "Success" );
+	cmd.addErrorCode( 1, "Error" );
+	// options
+	cmd.setHelpOption( "h", "help", "Print this help page" );
+
+	cmd.defineOption( "file", "Hw Description File . Default value: settings/HWDescription_2CBC.xml", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOptionAlternative( "file", "f" );
+
+	cmd.defineOption( "vcth", "Threshold in VCth units (hex (including 0x) or decimal) . Default values from HW description .XML file", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOptionAlternative( "vcth", "v" );
+
+	cmd.defineOption( "events", "Number of Events . Default value: 10", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOptionAlternative( "events", "e" );
+
+	int result = cmd.parse( argc, argv );
+	if ( result != ArgvParser::NoParserError )
+	{
+		std::cout << cmd.parseErrorDescription( result );
+		exit( 1 );
+	}
+
+	// now query the parsing results
+	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/HWDescription_2CBC.xml";
+	cVcth = ( cmd.foundOption( "vcth" ) ) ? cSystemController.convertAnyInt( cmd.optionValue( "vcth" ).c_str() ) : 0;
+	pEventsperVcth = ( cmd.foundOption( "events" ) ) ? cSystemController.convertAnyInt( cmd.optionValue( "events" ).c_str() ) : 10;
+
+	Timer t;
+	t.start();
 
 	cSystemController.InitializeHw( cHWFile );
 	cSystemController.ConfigureHw();
 
-	uint64_t t0 = get_time();
+	t.stop();
+	t.show( "Time to Initialize/configure the system: " );
 
-	for ( auto cShelve : cSystemController.fShelveVector )
+	if ( cVcth != 0 )
 	{
-		for ( auto cBoard : ( cShelve )->fBoardVector )
+		t.start();
+
+		for ( auto cShelve : cSystemController.fShelveVector )
 		{
-			for ( auto cFe : cBoard.fModuleVector )
+			for ( auto cShelve : cSystemController.fShelveVector )
 			{
-				for ( auto cCbc : cFe.fCbcVector )
-					cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( cVcth ) );
+				for ( auto cBoard : ( cShelve )->fBoardVector )
+				{
+					for ( auto cFe : cBoard.fModuleVector )
+					{
+						for ( auto cCbc : cFe.fCbcVector )
+							cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( cVcth ) );
+					}
+				}
 			}
 		}
+
+		t.stop();
+		t.show( "Time for changing VCth on all CBCs:" );
 	}
-
-	uint32_t t1 = get_time();
-	std::cout << "Time for changing VCth on all CBCse: " << t1 - t0 << " milliseconds!" << std::endl;
-
 
 	uint32_t cN = 0;
 	uint32_t cNthAcq = 0;
 
 	while ( cN < pEventsperVcth )
 	{
-		if(cN == pEventsperVcth) break;
+		if ( cN == pEventsperVcth ) break;
 		BeBoard pBoard = cSystemController.fShelveVector.at( 0 )->fBoardVector.at( 0 );
 		cSystemController.Run( &pBoard, cNthAcq );
 

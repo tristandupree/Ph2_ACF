@@ -14,7 +14,7 @@
 
 #include "Definition.h"
 #include "Module.h"
-#include "../HWInterface/Visitor.h"
+#include "../Utils/Visitor.h"
 #include <vector>
 #include <map>
 #include <stdint.h>

@@ -8,10 +8,10 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../System/SystemController.h"
-#include "../System/ConsoleColor.h"
-#include "../HWInterface/Visitor.h"
-#include "../HWInterface/Utilities.h"
-#include "../HWInterface/CommonVisitors.h"
+#include "../Utils/ConsoleColor.h"
+#include "../Utils/Visitor.h"
+#include "../Utils/Utilities.h"
+#include "../Utils/CommonVisitors.h"
 
 
 
@@ -32,7 +32,8 @@ class HybridTester : public SystemController
   public:
 	HybridTester() {}
 	~HybridTester() {}
-	void InitializeHists();
+	void InitializeHists( bool pThresholdScan );
+	void InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector );
 	void TestRegisters();
 	void ScanThreshold();
 	void Measure();
@@ -43,6 +44,10 @@ class HybridTester : public SystemController
 	TCanvas* fDataCanvas;
 	TH1F* fHistTop;
 	TH1F* fHistBottom;
+
+	TCanvas* fSCurveCanvas;
+	TH1F* fSCurve;
+	TF1* fFit;
 
 	void UpdateHists() {
 		fDataCanvas->cd( 1 );

@@ -1,12 +1,13 @@
+
+
 #include "../HWDescription/Cbc.h"
 #include "../HWDescription/Module.h"
 #include "../HWDescription/BeBoard.h"
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
-#include "../HWInterface/Utilities.h"
+#include "../Utils/Utilities.h"
 #include "../System/SystemController.h"
-#include <boost/format.hpp>
 #include <TH1F.h>
 #include <TCanvas.h>
 #include <TStyle.h>
@@ -15,46 +16,71 @@
 
 #include <sys/time.h>
 #include <ctime>
-#include "../HWInterface/Visitor.h"
+#include "../Utils/Visitor.h"
+#include "../Utils/Timer.h"
+#include "../Utils/argvparser.h"
+
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 using namespace Ph2_System;
 
+using namespace CommandLineProcessing;
 
-uint64_t get_time()
-{
-	/* Linux */
-	struct timeval tv;
-
-	gettimeofday( &tv, NULL );
-
-	uint64_t ret = tv.tv_usec;
-	/* Convert from micro seconds (10^-6) to milliseconds (10^-3) */
-	ret /= 1000;
-
-	/* Adds the seconds (10^0) after converting them to milliseconds (10^-3) */
-	ret += ( tv.tv_sec * 1000 );
-
-	return ret;
-}
 
 int main( int argc, char* argv[] )
 {
 
+	ArgvParser cmd;
+
+	// init
+	cmd.setIntroductoryDescription( "CMS Ph2_ACF  HWInterface performance Benchmark test" );
+	// error codes
+	cmd.addErrorCode( 0, "Success" );
+	cmd.addErrorCode( 1, "Error" );
+	// options
+	cmd.setHelpOption( "h", "help", "Print this help page" );
+
+	cmd.defineOption( "file", "Hw Description File . Default value: settings/HWDescription_2CBC.xml", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
+	cmd.defineOptionAlternative( "file", "f" );
+
+	cmd.defineOption( "configure", "test Configure HW", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "configure", "c" );
+
+	cmd.defineOption( "single", "test single Register transaction", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "single", "s" );
+
+	cmd.defineOption( "multi", "test multi-Register transaction", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "multi", "m" );
+
+	int result = cmd.parse( argc, argv );
+	if ( result != ArgvParser::NoParserError )
+	{
+		std::cout << cmd.parseErrorDescription( result );
+		exit( 1 );
+	}
+
+	// now query the parsing results
+	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/HWDescription_2CBC.xml";
+	bool cConfigure = ( cmd.foundOption( "configure" ) ) ? true : false;
+	bool cSingle = ( cmd.foundOption( "single" ) ) ? true : false;
+	bool cMulti = ( cmd.foundOption( "multi" ) ) ? true : false;
+
 	SystemController cSystemController;
+	Timer t;
 
-	cSystemController.InitializeHw( XML_DESCRIPTION_FILE_2CBC );
-	cSystemController.ConfigureHw();
+	cSystemController.InitializeHw( cHWFile );
+	cSystemController.InitializeSettings( cHWFile );
 
-	uint64_t t0 = get_time();
+	if ( cConfigure )
+	{
+		t.start();
 
-	cSystemController.fCbcInterface->ConfigureCbc( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), true );
-	cSystemController.fCbcInterface->ConfigureCbc( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ), true );
+		cSystemController.ConfigureHw();
 
-	uint64_t t1 = get_time();
-
-	std::cout << "Time for configuring all CBC: " << t1 - t0 << " milliseconds!" << std::endl;
+		t.stop();
+		t.show( "Time to Initialize/configure the system: " );
+	}
 
 	struct CbcWriter : public HwDescriptionVisitor
 	{
@@ -63,25 +89,21 @@ int main( int argc, char* argv[] )
 		}
 
 		void visit( Cbc& pCbc ) {
-			fInterface->ConfigureCbc( &pCbc , true );
-			std::cout << "I visited CBC " << int( pCbc.getCbcId() ) << " at " << &pCbc << " using interface " << fInterface <<  std::endl;
+			fInterface->WriteCbcReg( &pCbc , "VCth", 0x78 );
 		}
 	};
 
-	t0 = get_time();
+	if ( cSingle )
+	{
+		t.start();
 
-	// cSystemController.fCbcInterface->WriteCbcReg( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), "VCth", 0x78, true );
-	// cSystemController.fCbcInterface->WriteCbcReg(cSystemController.fShelveVector[0]->getBoard(0)->getModule(0)->getCbc(1),"VCth",0x78, false);
-	std::cout << cSystemController.fCbcInterface << " INTERFACE " <<  std::endl;
-	std::cout << cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ) << " CBC 0" << std::endl;
-	std::cout << cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ) << " CBC 1" << std::endl;
+		CbcWriter pWriter( cSystemController.fCbcInterface );
+		cSystemController.accept( pWriter );
 
-	CbcWriter pWriter( cSystemController.fCbcInterface );
-	cSystemController.accept( pWriter );
+		t.stop();
+		t.show( "Time to write a single Register on all CBC s" );
+	}
 
-	t1 = get_time();
-
-	std::cout << "Time for configuring all CBCs using visitor: " << t1 - t0 << " milliseconds!" << std::endl;
 
 	std::vector< std::pair< std::string, uint8_t > > cRegVec;
 
@@ -96,16 +118,16 @@ int main( int argc, char* argv[] )
 		cRegVec.push_back( cRegPair );
 	}
 
-	t0 = get_time();
+	if ( cMulti )
+	{
 
+		t.start();
 
-	cSystemController.fCbcInterface->WriteCbcMultReg( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), cRegVec, true );
-	// cSystemController.fCbcInterface->WriteCbcMultReg(cSystemController.fShelveVector[0]->getBoard(0)->getModule(0)->getCbc(1),cRegVec, false);
+		cSystemController.fCbcInterface->WriteCbcMultReg( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), cRegVec, true );
+		// cSystemController.fCbcInterface->WriteCbcMultReg(cSystemController.fShelveVector[0]->getBoard(0)->getModule(0)->getCbc(1),cRegVec, false);
 
-	t1 = get_time();
-
-	std::cout << "Time for writing " << int( nChannels ) << " registers to 1 CBC: " << t1 - t0 << " milliseconds!" << std::endl;
-
-
+		t.stop();
+		t.show( "Time for writing 254 registers to a single CBC" );
+	}
 	return 0;
 }

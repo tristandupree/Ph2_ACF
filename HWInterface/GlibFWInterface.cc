@@ -10,10 +10,10 @@
  */
 
 #include <uhal/uhal.hpp>
-#include <boost/date_time.hpp>
-#include <boost/thread.hpp>
 #include <time.h>
 #include "GlibFWInterface.h"
+#include <chrono>
+#include <thread>
 
 #define DEV_FLAG         0
 
@@ -36,7 +36,7 @@ namespace Ph2_HwInterface
 		std::vector< std::pair<std::string, uint32_t> > cVecReg;
 		std::pair<std::string, uint32_t> cPairReg;
 
-		boost::posix_time::milliseconds cPause( 200 );
+		std::chrono::milliseconds cPause( 200 );
 
 		//Primary Configuration
 		cPairReg.first = PC_CONFIG_OK;
@@ -59,8 +59,7 @@ namespace Ph2_HwInterface
 
 		cVecReg.clear();
 
-		boost::this_thread::sleep( cPause );
-
+		std::this_thread::sleep_for( cPause );
 
 		/*
 		        GlibRegMap : map<std::string,uint8_t> created from Glib class
@@ -121,8 +120,7 @@ namespace Ph2_HwInterface
 
 		cVecReg.clear();
 
-		boost::this_thread::sleep( cPause );
-
+		std::this_thread::sleep_for( cPause );
 
 		cPairReg.first = SPURIOUS_FRAME;
 		cPairReg.second = 0;
@@ -141,7 +139,7 @@ namespace Ph2_HwInterface
 
 		cVecReg.clear();
 
-		boost::this_thread::sleep( cPause * 3 );
+		std::this_thread::sleep_for( cPause * 3 );
 
 	}
 
@@ -220,7 +218,7 @@ namespace Ph2_HwInterface
 		WriteStackReg( cVecReg );
 		cVecReg.clear();
 
-		boost::posix_time::milliseconds cWait( 100 );
+		std::chrono::milliseconds cWait( 100 );
 
 		//Wait for the selected SRAM to be full then empty it
 		do
@@ -228,7 +226,7 @@ namespace Ph2_HwInterface
 			cVal = ReadReg( fStrFull );
 
 			if ( cVal == 1 )
-				boost::this_thread::sleep( cWait );
+				std::this_thread::sleep_for( cWait );
 
 		}
 		while ( cVal == 1 );
@@ -274,7 +272,7 @@ namespace Ph2_HwInterface
 #endif
 
 		//Readout settings
-		boost::posix_time::milliseconds cWait( 1 );
+		std::chrono::milliseconds cWait( 1 );
 
 		uhal::ValWord<uint32_t> cVal;
 
@@ -309,7 +307,7 @@ namespace Ph2_HwInterface
 			cVal = ReadReg( CMD_START_VALID );
 
 			if ( cVal == 0 )
-				boost::this_thread::sleep( cWait );
+				std::this_thread::sleep_for( cWait );
 
 		}
 		while ( cVal == 0 );
@@ -332,7 +330,7 @@ namespace Ph2_HwInterface
 
 		do
 		{
-			boost::this_thread::sleep( cWait );
+			std::this_thread::sleep_for( cWait );
 
 			cVal = ReadReg( fStrFull );
 
@@ -391,7 +389,7 @@ namespace Ph2_HwInterface
 			cVal = ReadReg( fStrFull );
 
 			if ( cVal == 1 )
-				boost::this_thread::sleep( cWait );
+				std::this_thread::sleep_for( cWait );
 
 		}
 		while ( cVal == 1 );
@@ -455,6 +453,7 @@ namespace Ph2_HwInterface
 
 		if ( pAckVal )
 			cWait = pNcount * 500;
+
 
 		usleep( cWait );
 

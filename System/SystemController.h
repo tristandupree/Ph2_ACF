@@ -18,11 +18,11 @@
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
-#include "../HWInterface/Visitor.h"
-#include "../HWInterface/Utilities.h"
+#include "../Utils/Visitor.h"
+#include "../Utils/Utilities.h"
 
-#include "pugixml.hpp"
-#include "ConsoleColor.h"
+#include "../Utils/pugixml.hpp"
+#include "../Utils/ConsoleColor.h"
 #include <iostream>
 #include <vector>
 #include <map>
@@ -91,12 +91,12 @@ namespace Ph2_System
 		 * \brief Create a result directory at the specified path + ChargeMode + Timestamp
 		 * \param pDirectoryname : the name of the directory to create
 		 */
-		void CreateResultDirectory( std::string pDirectoryname );
+		void CreateResultDirectory( const std::string& pDirectoryname );
 		/*!
 		 * \brief Initialize the result Root file
 		 * \param pFilename : Root filename
 		 */
-		void InitResultFile( std::string pFilename );
+		void InitResultFile( const std::string& pFilename );
 
 		/*!
 		 * \brief Initialize the Hardware via an XML file
@@ -119,12 +119,7 @@ namespace Ph2_System
 		 */
 		void Run( BeBoard* pBeBoard, uint32_t pNthAcq );
 
-	  private:
-		// uint8_t convertAnyInt( const char* pRegValue ) {
-		//  if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return uint8_t( strtoul( pRegValue , 0, 16 ) );
-		//  else return uint8_t( strtoul( pRegValue , 0, 10 ) );
 
-		// }
 		uint32_t convertAnyInt( const char* pRegValue ) {
 			if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return uint32_t( strtoul( pRegValue , 0, 16 ) );
 			else return uint32_t( strtoul( pRegValue , 0, 10 ) );

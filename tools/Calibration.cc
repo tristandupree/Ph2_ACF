@@ -657,8 +657,7 @@ uint32_t Calibration::ToggleTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool p
 				TString cRegName = Form( "Channel%03d", cChannel.fChannelId );
 				uint8_t cRegValue;
 				if ( pEnable ) cRegValue = 0x50;
-				else if ( !pEnable && pHoleMode ) cRegValue = 0x00;
-				else cRegValue = 0xFF;
+				else cRegValue = ( pHoleMode ) ?  0x00 : 0xFF;
 				std::pair<std::string, uint8_t> cRegPair = std::make_pair( cRegName.Data(), cRegValue );
 				cRegVec.push_back( cRegPair );
 
