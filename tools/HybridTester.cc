@@ -112,12 +112,14 @@ void HybridTester::ScanThreshold()
 {
 	std::cout << "Scanning noise Occupancy to find threshold for test with external source ... " << std::endl;
 
+	auto cSetting = fSettingsMap.find( "HoleMode" );
+	bool cHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
+
 	// Necessary variables
 	uint32_t cEventsperVcth = 10;
 	bool cNonZero = false;
 	bool cAllOne = false;
 	uint32_t cAllOneCounter = 0;
-	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
 	uint8_t cVcth, cDoubleVcth;
 	( cHoleMode ) ? cVcth = 0xFF : cVcth = 0x00;
 	int cStep = ( cHoleMode ) ? -10 : 10;
@@ -262,7 +264,9 @@ void HybridTester::ScanThreshold()
 	double_t pedestal = fFit->GetParameter( 0 );
 	double_t noise = fFit->GetParameter( 1 );
 
-	int cSigmas = fSettingsMap.find( "Threshold_NSigmas" )->second;
+	cSetting = fSettingsMap.find( "Threshold_NSigmas" );
+	int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
+
 	uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
 
 	std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (" << fabs( noise ) << ") to " << int( cThreshold ) << " for Hybrid test!" << std::endl;

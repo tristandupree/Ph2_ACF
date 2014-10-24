@@ -50,7 +50,7 @@ int main( int argc, char* argv[] )
 	}
 
 	// now query the parsing results
-	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/HWDescription_2CBC.xml";
+	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/HybridTest2CBC.xml";
 	bool cRegisters = ( cmd.foundOption( "registers" ) ) ? true : false;
 	bool cScan = ( cmd.foundOption( "scan" ) ) ? true : false;
 	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results/";
