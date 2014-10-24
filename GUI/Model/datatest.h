@@ -25,7 +25,6 @@ namespace GUI{
         ~DataTest();
 
     signals:
-        void sendGraphData(const std::vector<std::shared_ptr<TH1D>> graphs);
         void getVcthValue();
         void getEventsValue();
         void startedDataTest();

@@ -77,6 +77,7 @@ void HybridTester::InitializeHists( bool pThresholdScan )
 
 void HybridTester::InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
 {
+	std::cout << "Here 1" << std::endl;
 
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
@@ -86,9 +87,9 @@ void HybridTester::InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*
 	fNCbc = cCbcCounter.getNCbc();
 
 	fDataCanvas = pCanvasVector.at( 1 ); //since I ounly need one here
-	fDataCanvas->SetName( "fDataCanvas" );
-	fDataCanvas->SetTitle( "SingleStripEfficiency" );
-	fDataCanvas->Divide( 2 );
+	//fDataCanvas->SetName( "fDataCanvas" );
+	//fDataCanvas->SetTitle( "SingleStripEfficiency" );
+	//fDataCanvas->Divide( 2 );
 
 	if ( pThresholdScan )
 	{
@@ -108,6 +109,7 @@ void HybridTester::InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*
 	if ( fHistBottom ) delete fHistBottom;
 
 	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	std::cout << "Here 2";
 }
 
 

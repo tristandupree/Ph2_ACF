@@ -15,7 +15,6 @@ namespace GUI
         m_dataTest(dataTest)
     {
         WireButtons();
-        WireThreads();
         WireCanvas();
     }
 
@@ -41,12 +40,6 @@ namespace GUI
                 &m_dataTestTab, SLOT(onDataTestStart()));
         connect(&m_dataTest, SIGNAL(finishedDataTest()),
                 &m_dataTestTab, SLOT(onDataTestFinish()));
-    }
-
-    void DataTestViewManager::WireThreads()
-    {
-        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D>>)),
-                &m_dataTestTab, SLOT(drawGraph(std::vector<std::shared_ptr<TH1D>>)));
     }
 
     void DataTestViewManager::WireCanvas()

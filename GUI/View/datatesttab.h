@@ -33,7 +33,6 @@ namespace GUI{
         void sendTCanvas (const std::vector<TCanvas*> canvas);
 
     public slots:
-        void drawGraph(const std::vector<std::shared_ptr<TH1D>> hists);
         void getVcthDialValue();
         void getEventsDial();
         void onDataTestStart();
@@ -57,10 +56,6 @@ namespace GUI{
     private:
 
         Ui::DataTestTab *ui;
-
-        std::vector<std::shared_ptr<TH1D>> m_vecHist;
-
-        //std::vector<TCanvas*> m_vecTCanvas;
 
         std::vector<TCanvas*> m_vecTCanvas;
 

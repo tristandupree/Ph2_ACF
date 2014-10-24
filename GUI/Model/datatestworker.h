@@ -24,8 +24,9 @@ namespace GUI{
         void requestWork(int cVcth, int cEvents, const std::vector<TCanvas *> canvas);
         void abort();
 
-        bool getIsDrawing() {return _Drawing;}
+        //bool getIsDrawing() const {return _Drawing;}
         std::recursive_timed_mutex Mutex;
+        bool _Drawing;
 
 
         ~DataTestWorker();
@@ -52,7 +53,7 @@ namespace GUI{
 
         //std::recursive_timed_mutex Mutex;
         //std::mutex Mutex;
-        bool _Drawing;
+        //bool _Drawing;
 
         //bool _abort;
         //bool _working;

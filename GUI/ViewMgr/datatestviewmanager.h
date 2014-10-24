@@ -24,7 +24,6 @@ namespace GUI{
         DataTest& m_dataTest;
 
         void WireButtons();
-        void WireThreads();
         void WireCanvas();
 
         explicit DataTestViewManager(const DataTestViewManager& rhs) = delete;
