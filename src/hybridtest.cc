@@ -36,7 +36,7 @@ int main( int argc, char* argv[] )
 	cmd.defineOption( "registers", "test registers", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "registers", "r" );
 
-	cmd.defineOption( "scan", "scan noise occupancy, if not set, the value from the .XML will be used", ArgvParser::NoOptionAttribute );
+	cmd.defineOption( "scan", "scan noise occupancy, if not set, the threshold from the .XML will be used", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "scan", "s" );
 
 	cmd.defineOption( "output", "Output Directory . Default value: Results/", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
@@ -62,8 +62,8 @@ int main( int argc, char* argv[] )
 
 	HybridTester cHybridTester;
 	cHybridTester.InitializeHw( cHWFile );
-	cHybridTester.InitializeHists( cScan );
-	// cHybridTester.InitializeHistsGUI(cScan, FionnsExternalGUIvector);
+	cHybridTester.Initialize( cScan );
+	// cHybridTester.InitializeGUI(cScan, FionnsExternalGUIvector);
 	cHybridTester.InitializeSettings( cHWFile );
 	cHybridTester.CreateResultDirectory( cDirectory );
 	cHybridTester.InitResultFile( "HybridTest" );

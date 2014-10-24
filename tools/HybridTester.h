@@ -32,8 +32,8 @@ class HybridTester : public SystemController
   public:
 	HybridTester() {}
 	~HybridTester() {}
-	void InitializeHists( bool pThresholdScan );
-	void InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector );
+	void Initialize( bool pThresholdScan );
+	void InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector );
 	void TestRegisters();
 	void ScanThreshold();
 	void Measure();
@@ -49,6 +49,8 @@ class HybridTester : public SystemController
 	TH1F* fSCurve;
 	TF1* fFit;
 
+	void InitializeHists();
+
 	void UpdateHists() {
 		fDataCanvas->cd( 1 );
 		fHistTop->Draw();
@@ -56,6 +58,7 @@ class HybridTester : public SystemController
 		fHistBottom->Draw();
 		fDataCanvas->Update();
 	}
+
 };
 
 

@@ -16,7 +16,6 @@ struct HistogramFiller  : public HwDescriptionVisitor
 			if ( cDataBitVector.at( cId ) ) {
 				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
 				//              std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
-				// find out why histograms are not filling!
 				if ( globalChannel % 2 == 0 )
 					fBotHist->Fill( globalChannel / 2 );
 				else
@@ -42,8 +41,26 @@ struct CbcHitCounter  : public HwDescriptionVisitor
 	}
 };
 
+void HybridTester::InitializeHists()
+{
+	TString cFrontName( "fHistTop" );
+	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
+	if ( fHistTop ) delete fHistTop;
 
-void HybridTester::InitializeHists( bool pThresholdScan )
+	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1, -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	fHistTop->SetFillColor( 4 );
+	fHistTop->SetFillStyle( 3001 );
+
+	TString cBackName( "fHistBottom" );
+	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
+	if ( fHistBottom ) delete fHistBottom;
+
+	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1 , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	fHistBottom->SetFillColor( 4 );
+	fHistBottom->SetFillStyle( 3001 );
+}
+
+void HybridTester::Initialize( bool pThresholdScan )
 {
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
@@ -57,25 +74,14 @@ void HybridTester::InitializeHists( bool pThresholdScan )
 
 	if ( pThresholdScan ) fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
 
-
-	TString cFrontName( "fHistTop" );
-	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
-	if ( fHistTop ) delete fHistTop;
-
-	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
-
-	TString cBackName( "fHistBottom" );
-	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
-	if ( fHistBottom ) delete fHistBottom;
-
-	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	InitializeHists();
 
 
 
 
 }
 
-void HybridTester::InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
+void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
 {
 
 	gStyle->SetOptStat( 000000 );
@@ -97,17 +103,7 @@ void HybridTester::InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*
 		fSCurveCanvas->SetTitle( "NoiseOccupancy" );
 	}
 
-	TString cFrontName( "fHistTop" );
-	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
-	if ( fHistTop ) delete fHistTop;
-
-	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
-
-	TString cBackName( "fHistBottom" );
-	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
-	if ( fHistBottom ) delete fHistBottom;
-
-	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	InitializeHists();
 }
 
 
@@ -331,7 +327,9 @@ void HybridTester::TestRegisters()
 void HybridTester::Measure()
 {
 	std::cout << "Mesuring Efficiency per Strip ... " << std::endl;
-	uint32_t cTotalEvents = fSettingsMap.find( "Nevents" )->second;
+	auto cSetting = fSettingsMap.find( "Nevents" );
+	uint32_t cTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 200;
+	std::cout << "Taking data with " << cTotalEvents << " Events!" << std::endl;
 
 	CbcRegReader cReader( fCbcInterface, "VCth" );
 	accept( cReader );
