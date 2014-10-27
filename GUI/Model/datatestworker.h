@@ -67,7 +67,6 @@ namespace GUI{
 
 
     private:
-        void Run(BeBoard *pBeBoard, uint32_t pNthAcq);
 
         explicit DataTestWorker(const DataTestWorker& rhs) = delete;
         DataTestWorker& operator= (const DataTestWorker& rhs) = delete;

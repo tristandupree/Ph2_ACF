@@ -15,10 +15,10 @@ namespace GUI
         QObject(parent),
         m_mainView(mainView),
         m_setupVm(setupVm),
-        m_regVm(cbcVm),
+        m_cbcRegVm(cbcVm),
         m_dataTestVm(dataVm)
     {
-        WireVmMessages();
+        WireSetupVmMessages();
     }
 
     MainViewManager::~MainViewManager()
@@ -26,12 +26,17 @@ namespace GUI
         qDebug() << "Destructing " << this;
     }
 
-    void MainViewManager::WireVmMessages()
+    void MainViewManager::WireSetupVmMessages()
     {
         connect(&m_setupVm, SIGNAL(enableAlltabs(bool)),
                 &m_mainView, SLOT(enableAllTabsSlot(bool)));
 
         connect(&m_setupVm, SIGNAL(on2CbcToggle(bool)),
                 &m_dataTestVm, SIGNAL(on2CbcToggle(bool)));
+
+        connect(&m_setupVm, SIGNAL(on2CbcToggle(bool)),
+                &m_cbcRegVm, SIGNAL(on2CbcToggle(bool)));
+        connect(&m_setupVm, SIGNAL(notifyConfigFinished()),
+                &m_cbcRegVm, SIGNAL(notifyConfigFinished()));
     }
 }

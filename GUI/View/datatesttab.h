@@ -9,7 +9,6 @@
 #include <QHBoxLayout>
 #include <memory>
 #include <QTabWidget>
-#include <atomic>
 
 namespace Ui {
     class DataTestTab;

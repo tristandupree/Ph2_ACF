@@ -60,6 +60,9 @@ namespace GUI
                 this, SIGNAL(enableAlltabs(bool)));
         connect(&m_setupTab, SIGNAL(on2CbcToggle(bool)),
                 this, SIGNAL(on2CbcToggle(bool)));
+
+        connect(&m_systemController, SIGNAL(notifyConfigFinished()),
+                this, SIGNAL(notifyConfigFinished()));
     }
 
 

@@ -22,11 +22,11 @@ namespace GUI{
     private:
         MainView& m_mainView;
         SetupTabViewManager& m_setupVm;
-        CbcRegViewManager& m_regVm;
+        CbcRegViewManager& m_cbcRegVm;
         DataTestViewManager& m_dataTestVm;
         //MacroTestTab& m_macroVm;
 
-        void WireVmMessages();
+        void WireSetupVmMessages();
 
         explicit MainViewManager(const MainViewManager& rhs) = delete;
         MainViewManager& operator= (const MainViewManager& rhs) = delete;

@@ -22,6 +22,7 @@ namespace GUI{
         void notifyStatusUpdated(const QString& value);
         void enableAlltabs(const bool enable);
         void on2CbcToggle(const bool);
+        void notifyConfigFinished();
 
     private:
 

@@ -102,7 +102,7 @@ namespace GUI {
         for (auto& canvas : m_vectorCanvas)
         {
             TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
-            qDebug() << " >>> Refreshed" ;
+            qDebug() << " >>> Refreshed Canvas" ;
             canvas->Refresh();
         }
     }

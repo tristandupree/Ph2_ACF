@@ -5,35 +5,20 @@
 #include <QMap>
 #include <QWidget>
 #include <QGridLayout>
+#include <QHBoxLayout>
 #include <QLabel>
-
-#include "../HWDescription/Cbc.h"
-#include "../HWDescription/Module.h"
-#include "../HWDescription/BeBoard.h"
-#include "../HWInterface/CbcInterface.h"
-#include "../HWInterface/BeBoardInterface.h"
-#include "../HWDescription/Definition.h"
-#include "../Utils/Utilities.h"
-#include "../Model/systemcontroller.h"
-
-using namespace Ph2_HwDescription;
-using namespace Ph2_HwInterface;
-//using namespace Ph2_System;
-
-//At startup, create a vector of tabs depending on settings
-//Inside final tab, create a map of labels
-
-//When a write layer is emitted, send readback to vector and change
-//values in vector
+#include <QDebug>
 
 namespace GUI {
 
     CbcRegistersTab::CbcRegistersTab(QWidget *parent) :
         QWidget(parent),
-        ui(new Ui::CbcRegistersTab)
+        ui(new Ui::CbcRegistersTab),
+        m_tabCbc(new QTabWidget)
     {
         ui->setupUi(this);
-        //createCbcRegGrid(2);
+        ui->loCbcs->addWidget(m_tabCbc);
+        setupCbcRegGrid(true);
     }
 
     CbcRegistersTab::~CbcRegistersTab()
@@ -42,29 +27,72 @@ namespace GUI {
         delete ui;
     }
 
-    void CbcRegistersTab::createCbcRegGrid(int cNCbcs)//Cbc(regvalues())
+    void CbcRegistersTab::setupCbcRegGrid(const bool cbc2)
     {
-        QMap<QString, QWidget*> mapTabs;
+        int cNCbc;
+        if(cbc2) cNCbc = 2;
+        else cNCbc = 8;
 
-        for(int i=0; i<cNCbcs; i++)
+        if(m_tabCbc->count() > 0)
         {
-            QString title = QString("CBC%1").arg(i);
-            mapTabs.insert(title, new QWidget());
-
+            m_tabCbc->clear();
+            m_loGridVec.clear();
         }
 
-        for (auto& kv : mapTabs.keys())
+        for (int i=0; i<cNCbc; i++)
         {
-            QGridLayout *loGrid = new QGridLayout(this);
-            for(int j=0; j<10; j++)
-            {
-
-                QLabel *lbl = new QLabel(QString("Hello"));
-                loGrid->addWidget(lbl, j, j);
-            }
-            mapTabs.value(kv)->setLayout(loGrid);
-            ui->cbcTabs->addTab(mapTabs.value(kv), kv);
+            QString title = QString("CBC %1").arg(i);
+            m_tabCbc->addTab(createCbcTab(), title);
         }
-
     }
+
+
+    void CbcRegistersTab::createCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg)
+    {
+        qDebug() << "I'm in";
+        for (auto& kv : mapReg)
+        {
+            qDebug() << QString::fromStdString(kv.first);
+            qDebug() << QString::number(int(kv.second.fAddress));
+
+            //QGridLayout *tabCbc = m_loGridVec.at(cbc).at(kv.second.fPage); //access cbc->page
+            QGridLayout *tabCbc = m_loGridVec.at(0).at(0); //access cbc->page
+            QString RegTitle_Address = QString("%1    %2").arg(QString::fromStdString(kv.first), QString::number(kv.second.fAddress));
+            QString value = QString::number(kv.second.fValue);
+
+            QLabel *lblRegTitle = new QLabel(this);
+            lblRegTitle->setText(RegTitle_Address);
+
+            tabCbc->addWidget(lblRegTitle);
+
+        }
+        //QLabel lblRegNameAndValue = new QLabel(this);
+        //lblRegNameAndValue.setText(title);
+    }
+
+    QTabWidget *CbcRegistersTab::createCbcTab()
+    {
+        std::vector<QGridLayout*> loVec; //to add to master layout
+
+        QTabWidget *tabCbc = new QTabWidget;
+
+        for(int i=0; i<2; i++) //number of pages
+        {
+            QTabWidget *tabPage = new QTabWidget;
+            QGridLayout *loGrid = new QGridLayout;
+
+            QString title = QString("Page %1").arg(i);
+            tabPage->setLayout(loGrid);
+
+            tabCbc->addTab(tabPage, title);
+
+            loVec.push_back(loGrid);
+        }
+
+        m_loGridVec.push_back(loVec);
+
+        return tabCbc;
+    }
+
+
 }

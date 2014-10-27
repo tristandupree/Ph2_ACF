@@ -135,12 +135,4 @@ namespace GUI
 
     }
 
-
-    void DataTestWorker::Run( BeBoard* pBeBoard, uint32_t pNthAcq )
-    {
-        fBeBoardInterface->Start( pBeBoard );
-        fBeBoardInterface->ReadData( pBeBoard, pNthAcq, true );
-        fBeBoardInterface->Stop( pBeBoard, pNthAcq );
-    }
-
 }

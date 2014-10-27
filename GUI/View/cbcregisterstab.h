@@ -1,16 +1,22 @@
-#ifndef CBCREGISTERSTAB_H
-#define CBCREGISTERSTAB_H
+#pragma once
 
 #include <QWidget>
-#include <QTableView>
-#include <QItemDelegate>
-#include <QStandardItemModel>
+#include <QTabWidget>
+#include <QGridLayout>
+#include <map>
 
 namespace Ui {
     class CbcRegistersTab;
 }
 
 namespace GUI {
+
+    struct CbcRegItem
+    {
+        int fPage;
+        int fAddress;
+        int fValue;
+    };
 
     class QStandardItem;
 
@@ -20,15 +26,21 @@ namespace GUI {
 
     public:
         explicit CbcRegistersTab(QWidget *parent);
-    ~CbcRegistersTab();
+        ~CbcRegistersTab();
 
     public slots:
-        void createCbcRegGrid(int cNCbcs);
+        void setupCbcRegGrid(const bool cbc2);
+        void createCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg);
 
     private:
         Ui::CbcRegistersTab *ui;
-        QStandardItemModel *model;
+
+        std::vector<std::vector<QGridLayout*>> m_loGridVec; //so I can access widgets inside it later
+        std::vector<std::vector<CbcRegItem>> m_cbcRegisterValues; //cbc, regItem
+
+        QTabWidget *m_tabCbc;
+
+        QTabWidget *createCbcTab();
     };
 }
 
-#endif // CBCREGISTERSTAB_H
