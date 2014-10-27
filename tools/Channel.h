@@ -1,3 +1,14 @@
+/*!
+
+        \file                   Channel.h
+        \brief                 class representing a CBC channel for calibration
+        \author              Georg AUZINGER
+        \version                1.0
+        \date                   24/10/14
+        Support :               mail to : georg.auzinger@cern.ch
+
+ */
+
 #ifndef _CHANNEL_H__
 #define _CHANNEL_H__
 
@@ -15,7 +26,10 @@
 #include "../Utils/Utilities.h"
 
 
-
+/*!
+ * \class Channel
+ * \brief Class representing a CBC channel for calibration
+ */
 struct Channel
 {
 
@@ -24,29 +38,63 @@ struct Channel
 
 	// members
 	// Ids
-	uint8_t fBeId;
-	uint8_t fFeId;
-	uint8_t fCbcId;
-	uint8_t fChannelId;
+	uint8_t fBeId;  /*!< Back End ID */
+	uint8_t fFeId;  /*!< Front End ID */
+	uint8_t fCbcId;  /*!< CBC ID*/
+	uint8_t fChannelId;  /*!< Channel Number */
 
 	// Settings
-	uint8_t fOffset;
+	uint8_t fOffset;  /*!<  current offset value for this channel; needs to be set manually */
 
 	// Data
-	TH1F* fScurve;
-	TF1*  fFit;
+	TH1F* fScurve;  /*!< Histogram to store the SCurve */
+	TF1*  fFit;  /*!< Fit for the SCurve */
 
 	// Methods
+	/*!
+	* \brief get the SCurve midpoint affter fitting
+	* \return the midpoint of the SCurve; the so-called pedestal
+	*/
 	double getPedestal();
-	double getNoise();
+	/*!
+	* \brief get the SCurve width affter fitting
+	* \return the width of the SCurve; the so-called noise
+	*/double getNoise();
+	/*!
+	* \brief get the current channel offset
+	* \return the current channel offset
+	*/
 	uint8_t getOffset() {
 		return fOffset;
 	};
+	/*!
+	* \brief set the Offset of the Channel object: this is not propagated to HW
+	* \param pOffset:  set the fOffset member to pOffset
+	*/
 	void setOffset( uint8_t pOffset );
-
+	/*!
+	* \brief Initialize the Histogram and Fit for the Channel
+	* \param pParameter: the current parameter that is being varied for storing in file
+	* \param pValue: the value of pParameter
+	*/
 	void initializeHist( uint8_t pValue, TString pParameter );
+	/*!
+	* \brief fill the histogram
+	* \param pVcth: the bin at which to fill the histogram (normally Vcth value)
+	*/
 	void fillHist( uint8_t pVcth );
+	/*!
+	* \brief fit the SCurve Histogram with the Fit object
+	* \param pEventsperVcth: the number of Events taken for each Vcth setting, used to normalize SCurve
+	* \param pHole: the CBC mode: electron or hole
+	* \param pParameter: the current parameter that is being varied for storing in file
+	* \param pValue: the value of pParameter
+	*\param pResutlfile: pointer to the ROOT file where the results are supposed to be stored
+	*/
 	void fitHist( uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TString pParameter, TFile* pResultfile );
+	/*!
+	* \brief reset the Histogram and Fit objects
+	*/
 	void resetHist();
 };
 
