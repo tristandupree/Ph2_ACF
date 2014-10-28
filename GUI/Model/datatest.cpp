@@ -86,6 +86,13 @@ namespace GUI
     void DataTest::recieveTCanvas(const std::vector<TCanvas *> canvas)
     {
         qDebug() << "Size of canvas" << canvas.size();
+        canvas.at(0);
+        canvas.at(0)->SetName( "fDataCanvas" );
+        canvas.at(0)->SetTitle( "SingleStripEfficiency" );
+        //canvas.at(0)->Divide( 2 );
+
+        emit sendRefresh();
+
 
         m_worker->abort();
         m_thread->wait();

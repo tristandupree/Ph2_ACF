@@ -83,7 +83,31 @@ void HybridTester::Initialize( bool pThresholdScan )
 
 void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
 {
-	std::cout << "Here 1" << std::endl;
+	std::vector<TH1D*> hist;
+	int no = 0;
+	for (auto& cCanvas :pCanvasVector)
+	{
+		TString name("Data Test Cbc ");
+		name.Append(std::to_string(no));
+		hist.push_back(new TH1D (name.Data(),name.Data(), 500, 0, 500));
+		no++;
+	}
+	int total = 0;
+
+	int i = 0;
+	for (int j= 0; j<200; j++){
+		int n = 0;
+		for (auto& cCanvas : pCanvasVector)
+		{
+			++total;
+
+			hist.at(n)->Fill(j+n);
+			cCanvas->cd();
+			hist.at(n)->Draw();
+			i++;
+			n++;
+		}
+	}
 
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
@@ -92,32 +116,21 @@ void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCa
 	accept( cCbcCounter );
 	fNCbc = cCbcCounter.getNCbc();
 
-	fDataCanvas = pCanvasVector.at( 1 ); //since I ounly need one here
+	//fDataCanvas = pCanvasVector.at( 1 ); //since I ounly need one here
 	//fDataCanvas->SetName( "fDataCanvas" );
 	//fDataCanvas->SetTitle( "SingleStripEfficiency" );
 	//fDataCanvas->Divide( 2 );
 
-	if ( pThresholdScan )
+	/*if ( pThresholdScan )
 	{
 		fSCurveCanvas = pCanvasVector.at( 2 ); // only if the user decides to do a thresholdscan
 		fSCurveCanvas->SetName( "fSCurveCanvas" );
 		fSCurveCanvas->SetTitle( "NoiseOccupancy" );
-	}
+	}*/
 
-//
-	TString cFrontName( "fHistTop" );
-	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
-	if ( fHistTop ) delete fHistTop;
+	fDataCanvas = pCanvasVector.at(1);
 
-	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
-
-	TString cBackName( "fHistBottom" );
-	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
-	if ( fHistBottom ) delete fHistBottom;
-
-	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
-//
-	InitializeHists();
+	//InitializeHists();
 }
 
 

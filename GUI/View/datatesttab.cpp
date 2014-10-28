@@ -94,6 +94,7 @@ namespace GUI {
         {
             m_vecTCanvas.push_back(canvas->GetCanvas());
         }
+
         emit sendTCanvas(m_vecTCanvas);
     }
 
