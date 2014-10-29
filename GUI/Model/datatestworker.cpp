@@ -3,27 +3,77 @@
 #include <QThread>
 #include <vector>
 
-#include <TH1.h>
+#include "../HWDescription/Module.h"
+#include "../HWDescription/Cbc.h"
+#include "../HWDescription/BeBoard.h"
+#include "../HWInterface/CbcInterface.h"
+#include "../HWInterface/BeBoardInterface.h"
+#include "../System/SystemController.h"
+#include "../Utils/ConsoleColor.h"
+#include "../Utils/Visitor.h"
+#include "../Utils/Utilities.h"
+#include "../Utils/CommonVisitors.h"
+
+#include "../System/SystemController.h"
 #include "TCanvas.h"
+#include "TFile.h"
+#include "TH1F.h"
+#include "TF1.h"
+#include "TStyle.h"
+#include "TLine.h"
+#include "TH1D.h"
+
 #include "utils.h"
-
-#include "../tools/HybridTester.h"
-
-
 #include "unistd.h"
-
-
-using namespace Ph2_HwDescription;
-using namespace Ph2_HwInterface;
 
 
 namespace GUI
 {
+    struct HistogramFiller  : public HwDescriptionVisitor
+    {
+
+        std::shared_ptr<TH1D>  fBotHist;
+        std::shared_ptr<TH1D>  fTopHist;
+
+        const Event* fEvent;
+
+        HistogramFiller( std::shared_ptr<TH1D> pBotHist, std::shared_ptr<TH1D> pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
+
+        void visit( Cbc& pCbc ) {
+
+            std::vector<bool> cDataBitVector = fEvent->DataBitVector( pCbc.getFeId(), pCbc.getCbcId() );
+            for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
+                if ( cDataBitVector.at( cId ) ) {
+                    uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
+                                  std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
+                    if ( globalChannel % 2 == 0 )
+                        fBotHist->Fill( globalChannel / 2 );
+                    else
+                        fTopHist->Fill( ( globalChannel - 1 ) / 2 );
+
+                }
+            }
+        }
+    };
+
+    struct CbcHitCounter  : public HwDescriptionVisitor
+    {
+        const Event* fEvent;
+        uint32_t fHitcounter = 0;
+
+        CbcHitCounter( const Event* pEvent ): fEvent( pEvent ) {}
+
+        void visit( Cbc& pCbc ) {
+            for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
+                if ( fEvent->DataBit( pCbc.getFeId(), pCbc.getCbcId(), cId ) ) fHitcounter++;
+            }
+        }
+    };
+
     DataTestWorker::DataTestWorker(QObject *parent,
                                    SystemController &sysController) ://, SystemController &sysCtrl) :
         QObject(parent),
-        m_systemController(sysController),
-        _Drawing(true) // stops refresh being called
+        m_systemController(sysController)
     {
     }
 
@@ -32,15 +82,10 @@ namespace GUI
         qDebug() << "Destructing " << this;
     }
 
-    void DataTestWorker::requestWork(int cVcth, int cEvents, const std::vector<TCanvas *> canvas)
+    void DataTestWorker::requestWork(int cVcth, int cEvents)
     {
         m_Vcth = cVcth;
         m_Events = cEvents;
-        m_canvas = canvas;
-
-        /*Mutex.lock();
-        _Drawing = false;
-        this->Mutex.unlock();*/
 
         qDebug()<<"Request worker start in Thread "<<thread()->currentThreadId();
 
@@ -64,170 +109,74 @@ namespace GUI
         std::string cDirectory = ("Results/");
         bool cScan=false;
 
-        HybridTester cHybridTester;
-        qDebug() << "Started";
-        cHybridTester.InitializeHw( cHWFile );
-        qDebug() << "1";
-        cHybridTester.InitializeGUI(cScan, m_canvas);
-        /*qDebug() << "2";
-        cHybridTester.InitializeSettings( cHWFile );
-        qDebug() << "3";
-        cHybridTester.CreateResultDirectory( cDirectory );
-        qDebug() << "4";
-        cHybridTester.InitResultFile( "HybridTest" );
-        qDebug() << "5";
-        cHybridTester.ConfigureHw();
+        fBeBoardInterface = m_systemController.getBeBoardInterface();
+        fCbcInterface = m_systemController.getCbcInterface();
+        fShelveVector = m_systemController.getfShelveVector();
+        fBeBoardFWMap = m_systemController.getBeBoardFWMap();
 
-        cHybridTester.Measure();
-        cHybridTester.SaveResults();*/
+        Initialise(cScan);
+        //m_systemController.m_worker->ConfigureHw();
+        //TestRegisters();
+
+        Measure();
+
 
         emit finished();
 
     }
 
-#include "HybridTester.h"
-
-    // fill the Histograms, count the hits and increment Vcth
-
-    struct HistogramFiller  : public HwDescriptionVisitor
+    void DataTestWorker::Initialise(bool pThresholdScan)
     {
-        TH1F* fBotHist;
-        TH1F* fTopHist;
-        const Event* fEvent;
+        gStyle->SetOptStat( 000000 );
+        gStyle->SetTitleOffset( 1.3, "Y" );
+        //  special Visito class to count objects
+        Counter cCbcCounter;
+        m_systemController.m_worker->accept(cCbcCounter);
+        fNCbc = cCbcCounter.getNCbc();
 
-        HistogramFiller( TH1F* pBotHist, TH1F* pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
+        InitialiseHists();
 
-        void visit( Cbc& pCbc ) {
-            std::vector<bool> cDataBitVector = fEvent->DataBitVector( pCbc.getFeId(), pCbc.getCbcId() );
-            for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
-                if ( cDataBitVector.at( cId ) ) {
-                    uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
-                    //              std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
-                    if ( globalChannel % 2 == 0 )
-                        fBotHist->Fill( globalChannel / 2 );
-                    else
-                        fTopHist->Fill( ( globalChannel - 1 ) / 2 );
+    }
 
-                }
-            }
-        }
-    };
-
-
-    struct CbcHitCounter  : public HwDescriptionVisitor
+    void DataTestWorker::InitialiseHists()
     {
-        const Event* fEvent;
-        uint32_t fHitcounter = 0;
+        fNCbc = 2;
 
-        CbcHitCounter( const Event* pEvent ): fEvent( pEvent ) {}
-
-        void visit( Cbc& pCbc ) {
-            for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
-                if ( fEvent->DataBit( pCbc.getFeId(), pCbc.getCbcId(), cId ) ) fHitcounter++;
-            }
-        }
-    };
-
-    void HybridTester::InitializeHists()
-    {
         TString cFrontName( "fHistTop" );
-        fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
+        /*fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
         if ( fHistTop ) delete fHistTop;
 
         fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1, -0.5, ( fNCbc / 2 * 254 ) + .5 );
         fHistTop->SetFillColor( 4 );
-        fHistTop->SetFillStyle( 3001 );
+        fHistTop->SetFillStyle( 3001 );*/
+
+        auto h1 = std::make_shared<TH1D>(cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1, -0.5, ( fNCbc / 2 * 254 ) + .5);
+        m_vecHist.push_back(h1);
+        m_vecHist.at(0)->SetFillColor(4);
+        m_vecHist.at(0)->SetFillStyle(3001);
 
         TString cBackName( "fHistBottom" );
-        fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
+        /*fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
         if ( fHistBottom ) delete fHistBottom;
 
         fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1 , -0.5, ( fNCbc / 2 * 254 ) + .5 );
         fHistBottom->SetFillColor( 4 );
-        fHistBottom->SetFillStyle( 3001 );
-    }
+        fHistBottom->SetFillStyle( 3001 );*/
 
-    void HybridTester::Initialize( bool pThresholdScan )
-    {
-        gStyle->SetOptStat( 000000 );
-        gStyle->SetTitleOffset( 1.3, "Y" );
-        //  special Visito class to count objects
-        Counter cCbcCounter;
-        accept( cCbcCounter );
-        fNCbc = cCbcCounter.getNCbc();
+        auto h2 = std::make_shared<TH1D>( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1 , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+        m_vecHist.push_back(h2);
 
-        fDataCanvas = new TCanvas( "fDataCanvas", "SingleStripEfficiency", 1200, 800 );
-        fDataCanvas->Divide( 2 );
-
-        if ( pThresholdScan ) fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
-
-        InitializeHists();
-
-
-
+        emit sendGraphData(m_vecHist);
 
     }
 
-    void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
-    {
-        std::vector<TH1D*> hist;
-        int no = 0;
-        for (auto& cCanvas :pCanvasVector)
-        {
-            TString name("Data Test Cbc ");
-            name.Append(std::to_string(no));
-            hist.push_back(new TH1D (name.Data(),name.Data(), 500, 0, 500));
-            no++;
-        }
-        int total = 0;
-
-        int i = 0;
-        for (int j= 0; j<200; j++){
-            int n = 0;
-            for (auto& cCanvas : pCanvasVector)
-            {
-                ++total;
-
-                hist.at(n)->Fill(j+n);
-                cCanvas->cd();
-                hist.at(n)->Draw();
-                i++;
-                n++;
-            }
-        }
-
-        gStyle->SetOptStat( 000000 );
-        gStyle->SetTitleOffset( 1.3, "Y" );
-        //  special Visito class to count objects
-        Counter cCbcCounter;
-        accept( cCbcCounter );
-        fNCbc = cCbcCounter.getNCbc();
-
-        //fDataCanvas = pCanvasVector.at( 1 ); //since I ounly need one here
-        //fDataCanvas->SetName( "fDataCanvas" );
-        //fDataCanvas->SetTitle( "SingleStripEfficiency" );
-        //fDataCanvas->Divide( 2 );
-
-        /*if ( pThresholdScan )
-    {
-        fSCurveCanvas = pCanvasVector.at( 2 ); // only if the user decides to do a thresholdscan
-        fSCurveCanvas->SetName( "fSCurveCanvas" );
-        fSCurveCanvas->SetTitle( "NoiseOccupancy" );
-    }*/
-
-        fDataCanvas = pCanvasVector.at(1);
-
-        //InitializeHists();
-    }
-
-
-
-    void HybridTester::ScanThreshold()
+    void DataTestWorker::ScanThreshold()
     {
         std::cout << "Scanning noise Occupancy to find threshold for test with external source ... " << std::endl;
 
-        auto cSetting = fSettingsMap.find( "HoleMode" );
-        bool cHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
+        //auto cSetting = fSettingsMap.find( "HoleMode" );
+        //bool cHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
+        bool cHoleMode = true;
 
         // Necessary variables
         uint32_t cEventsperVcth = 10;
@@ -241,7 +190,7 @@ namespace GUI
         // Root objects
         fSCurve = new TH1F( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
         fSCurve->SetMarkerStyle( 8 );
-        fSCurveCanvas->cd();
+        //fSCurveCanvas->cd();
         fFit = new TF1( "fFit", MyErf, 0, 255, 2 );
 
         // Adaptive VCth loop
@@ -256,7 +205,7 @@ namespace GUI
 
             // Set current Vcth value on all Cbc's
             CbcRegWriter cWriter( fCbcInterface, "VCth", cVcth );
-            accept( cWriter );
+            m_systemController.m_worker->accept( cWriter );
 
             uint32_t cN = 0;
             uint32_t cNthAcq = 0;
@@ -270,7 +219,7 @@ namespace GUI
                 {
                     while ( cN <  cEventsperVcth )
                     {
-                        Run( &pBoard, cNthAcq );
+                        m_systemController.m_worker->Run( &pBoard, cNthAcq );
 
                         const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
 
@@ -316,7 +265,7 @@ namespace GUI
         // Fit & Plot
         fSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NCHANNELS ) );
         // fSCurveCanvas->cd();
-        fSCurve->Draw( "P" );
+        //fSCurve->Draw( "P" );
 
         double cFirstNon0( 0 );
         double cFirst1( 0 );
@@ -365,21 +314,23 @@ namespace GUI
         fFit->SetParameter( 1, cWidth );
 
         fSCurve->Fit( fFit, "RNQ+" );
-        fFit->Draw( "same" );
+       // fFit->Draw( "same" );
 
         // Save
         fSCurve->Write( fSCurve->GetName(), TObject::kOverwrite );
         fFit->Write( fFit->GetName(), TObject::kOverwrite );
-        fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
-        std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
-        fSCurveCanvas->SaveAs( cPdfName.c_str() );
+        //fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
+        //std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
+        std::string cPdFName = "Results/NoiseOccupancy.pdf";
+        //fSCurveCanvas->SaveAs( cPdfName.c_str() );
 
         // Set new VCth
         double_t pedestal = fFit->GetParameter( 0 );
         double_t noise = fFit->GetParameter( 1 );
 
-        cSetting = fSettingsMap.find( "Threshold_NSigmas" );
-        int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
+        //cSetting = fSettingsMap.find( "Threshold_NSigmas" );
+        //int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
+        int cSigmas = 4;
 
         uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
 
@@ -388,19 +339,18 @@ namespace GUI
         TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
         cLine->SetLineWidth( 3 );
         cLine->SetLineColor( 2 );
-        cLine->Draw( "same" );
-        fSCurveCanvas->Update();
+        //cLine->Draw( "same" );
+        //fSCurveCanvas->Update();
 
         CbcRegWriter cWriter( fCbcInterface, "VCth", cThreshold );
-        accept( cWriter );
+        m_systemController.m_worker->accept( cWriter );
 
         // Wait for user to acknowledge and turn on external Source!
         std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
         mypause();
     }
 
-
-    void HybridTester::TestRegisters()
+    void DataTestWorker::TestRegisters()
     {
         // This method has to be followed by a configure call, otherwise the CBCs will be in an undefined state
         struct RegTester : public HwDescriptionVisitor
@@ -436,21 +386,22 @@ namespace GUI
 
         std::cout << "Testing Cbc Registers one-by-one with complimentary bit-patterns (0xAA, 0x55) ..." << std::endl;
         RegTester cRegTester( fCbcInterface );
-        accept( cRegTester );
+        m_systemController.m_worker->accept(cRegTester);
         cRegTester.dumpResult();
         std::cout << "Done testing registers, re-configuring to calibrated state!" << std::endl;
-        ConfigureHw();
+        m_systemController.m_worker->ConfigureHw(); //TODO should emit this as signal
     }
 
-    void HybridTester::Measure()
+    void DataTestWorker::Measure()
     {
         std::cout << "Mesuring Efficiency per Strip ... " << std::endl;
-        auto cSetting = fSettingsMap.find( "Nevents" );
-        uint32_t cTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 200;
+        uint32_t cTotalEvents = 200; //TODO Add dial
+        //auto cSetting = fSettingsMap.find( "Nevents" );
+        //uint32_t cTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 200;
         std::cout << "Taking data with " << cTotalEvents << " Events!" << std::endl;
 
         CbcRegReader cReader( fCbcInterface, "VCth" );
-        accept( cReader );
+        m_systemController.m_worker->accept(cReader); //TODO pass safe
 
         for ( auto& cShelve : fShelveVector )
         {
@@ -461,7 +412,7 @@ namespace GUI
 
                 while ( cN <  cTotalEvents )
                 {
-                    Run( &pBoard, cNthAcq );
+                    m_systemController.m_worker->Run( &pBoard, cNthAcq );
 
                     const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
                     // Loop over Events from this Acquisition
@@ -471,11 +422,13 @@ namespace GUI
                         if ( cN == cTotalEvents )
                             break;
 
-                        HistogramFiller cFiller( fHistBottom, fHistTop, cEvent );
+                        //HistogramFiller cFiller( fHistBottom, fHistTop, cEvent );
+                        HistogramFiller cFiller(m_vecHist.at(0), m_vecHist.at(1), cEvent);
                         pBoard.accept( cFiller );
 
                         if ( cN % 100 == 0 )
-                            UpdateHists();
+                            //UpdateHists();
+                            emit sendGraphData(m_vecHist);
 
                         cN++;
 
@@ -487,31 +440,12 @@ namespace GUI
                 } // End of Analyze Events of last Acquistion loop
             }
         }
-        fHistTop->Scale( 100 / double_t( cTotalEvents ) );
-        fHistTop->GetYaxis()->SetRangeUser( 0, 100 );
-        fHistBottom->Scale( 100 / double_t( cTotalEvents ) );
-        fHistBottom->GetYaxis()->SetRangeUser( 0, 100 );
-        UpdateHists();
+        m_vecHist.at(0)->Scale( 100 / double_t( cTotalEvents ) );
+        m_vecHist.at(0)->GetYaxis()->SetRangeUser( 0, 100 );
+        m_vecHist.at(1)->Scale( 100 / double_t( cTotalEvents ) );
+        m_vecHist.at(1)->GetYaxis()->SetRangeUser( 0, 100 );
+        emit sendGraphData(m_vecHist);
+        //UpdateHists();
     }
-
-    void HybridTester::SaveResults()
-    {
-        fHistTop->Write( fHistTop->GetName(), TObject::kOverwrite );
-        fHistBottom->Write( fHistBottom->GetName(), TObject::kOverwrite );
-        fDataCanvas->Write( fDataCanvas->GetName(), TObject::kOverwrite );
-
-        fResultFile->Write();
-        fResultFile->Close();
-
-
-        std::cout << "Resultfile written correctly!" << std::endl;
-
-        std::string cPdfName = fDirectoryName + "/HybridTestResults.pdf";
-        fDataCanvas->SaveAs( cPdfName.c_str() );
-
-    }
-
-
-
 
 }

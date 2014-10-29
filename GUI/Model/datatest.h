@@ -31,13 +31,14 @@ namespace GUI{
         void finishedDataTest();
         void getTCanvas();
         void sendRefresh();
+        void sendGraphData(const std::vector<std::shared_ptr<TH1D>> graph);
+        void sendAccept(HwDescriptionVisitor pVisitor);
 
     public slots:
         void createGraph();
         void setVcthValue(int cVcth);
         void setEventsValue(int cEvents);
         void recieveTCanvas(const std::vector<TCanvas*> canvas);
-        void tryRefresh();
 
     private:
 

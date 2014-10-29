@@ -31,7 +31,9 @@ namespace GUI{
         ShelveVec getfShelveVector() const {return (m_worker->fShelveVector);}
         BeBoardFWMap getBeBoardFWMap() const {return (m_worker->fBeBoardFWMap);}
 
-    ~SystemController();
+        SystemControllerWorker *m_worker;
+
+        ~SystemController();
 
     signals:
         void notifyStatusMessage(QString msg);
@@ -45,12 +47,14 @@ namespace GUI{
         void finishInitialiseHw();
         void finishConfigureHw();
 
+        void onAccept(HwDescriptionVisitor pVisitor);
+
 
     private:
 
         Settings  &m_Settings;
         QThread *m_thread;
-        SystemControllerWorker *m_worker;
+        //SystemControllerWorker *m_worker;
 
         void SendStatusMessage(QString msg);
 

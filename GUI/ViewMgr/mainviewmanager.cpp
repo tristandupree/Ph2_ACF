@@ -19,6 +19,7 @@ namespace GUI
         m_dataTestVm(dataVm)
     {
         WireSetupVmMessages();
+        WireDataTestVmMessages();
     }
 
     MainViewManager::~MainViewManager()
@@ -38,5 +39,12 @@ namespace GUI
                 &m_cbcRegVm, SIGNAL(on2CbcToggle(bool)));
         connect(&m_setupVm, SIGNAL(notifyConfigFinished()),
                 &m_cbcRegVm, SIGNAL(notifyConfigFinished()));
+    }
+
+    void MainViewManager::WireDataTestVmMessages()
+    {
+        connect(&m_dataTestVm, SIGNAL(sendAccept(HwDescriptionVisitor)),
+                &m_setupVm, SIGNAL(sendAccept(HwDescriptionVisitor)));
+
     }
 }

@@ -81,6 +81,12 @@ namespace GUI
         emit notifyConfigFinished();
     }
 
+    void SystemController::onAccept(HwDescriptionVisitor pVisitor)
+    {
+        qDebug() << "I'm in!!!!";
+
+    }
+
     void SystemController::SendStatusMessage(QString msg)
     {
         emit notifyStatusMessage(msg);

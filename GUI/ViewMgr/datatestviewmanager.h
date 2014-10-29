@@ -1,11 +1,13 @@
 #pragma once
 #include <QObject>
 #include <QThread>
+#include "Model/datatest.h"
 
 namespace GUI{
 
     class DataTestTab;
     class DataTest;
+    //class HwDescriptionVisitor;
 
     class DataTestViewManager : public QObject
     {
@@ -17,6 +19,7 @@ namespace GUI{
     ~DataTestViewManager();
     signals:
         void on2CbcToggle(const bool);
+        void sendAccept(HwDescriptionVisitor pVisitor);
 
     private:
 
@@ -25,6 +28,7 @@ namespace GUI{
 
         void WireButtons();
         void WireCanvas();
+        void WireExternalCalls();
 
         explicit DataTestViewManager(const DataTestViewManager& rhs) = delete;
         DataTestViewManager& operator= (const DataTestViewManager& rhs) = delete;

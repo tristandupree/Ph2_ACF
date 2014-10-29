@@ -27,6 +27,7 @@ namespace GUI{
         //MacroTestTab& m_macroVm;
 
         void WireSetupVmMessages();
+        void WireDataTestVmMessages();
 
         explicit MainViewManager(const MainViewManager& rhs) = delete;
         MainViewManager& operator= (const MainViewManager& rhs) = delete;

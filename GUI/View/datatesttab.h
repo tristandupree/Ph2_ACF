@@ -39,6 +39,7 @@ namespace GUI{
         void getTCanvas();
         void refreshTCanvas();
         void setupCanvas(const bool cbc2);
+        void drawGraph(const std::vector<std::shared_ptr<TH1D>> hists);
 
 
     private slots:
@@ -57,6 +58,7 @@ namespace GUI{
         Ui::DataTestTab *ui;
 
         std::vector<TCanvas*> m_vecTCanvas;
+        std::vector<std::shared_ptr<TH1D>> m_vecHist;
 
         std::vector<TQtWidget*> m_vectorCanvas;
         std::vector<QGroupBox*> m_vectorGroupBox;

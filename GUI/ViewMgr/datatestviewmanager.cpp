@@ -40,6 +40,9 @@ namespace GUI
                 &m_dataTestTab, SLOT(onDataTestStart()));
         connect(&m_dataTest, SIGNAL(finishedDataTest()),
                 &m_dataTestTab, SLOT(onDataTestFinish()));
+
+        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D> >)),
+                &m_dataTestTab, SLOT(drawGraph(std::vector<std::shared_ptr<TH1D> >)));
     }
 
     void DataTestViewManager::WireCanvas()
@@ -52,7 +55,17 @@ namespace GUI
                 &m_dataTestTab, SLOT(refreshTCanvas()));
         connect(this, SIGNAL(on2CbcToggle(bool)),
                 &m_dataTestTab, SLOT(setupCanvas(bool)));
+
     }
+
+    void DataTestViewManager::WireExternalCalls()
+    {
+     //connect(m_dataTest,)
+        connect(&m_dataTest, SIGNAL(sendAccept(HwDescriptionVisitor)),
+                this, SIGNAL(sendAccept(HwDescriptionVisitor)));
+
+    }
+
 
 
 }

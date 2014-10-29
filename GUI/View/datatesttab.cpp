@@ -68,6 +68,19 @@ namespace GUI {
         return tab;
     }
 
+    void DataTestTab::drawGraph(const std::vector<std::shared_ptr<TH1D> > hists)
+        {
+            for (size_t i=0; i<m_vectorCanvas.size(); i++)
+            {
+                m_vecHist = hists;
+                TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
+                //m_vecHist = hists.a
+                m_vectorCanvas.at(i)->cd();
+                m_vecHist.at(i)->Draw();
+                m_vectorCanvas.at(i)->Refresh();
+            }
+        }
+
     void DataTestTab::getVcthDialValue()
     {
         emit sendVcthValue(m_Vcth);

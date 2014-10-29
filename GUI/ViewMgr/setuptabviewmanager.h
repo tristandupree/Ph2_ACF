@@ -1,12 +1,14 @@
 #pragma once
 #include <QObject>
+#include "Model/systemcontroller.h"
 
-#include <QStandardItemModel>
+//#include <QStandardItemModel>
 
 namespace GUI{
     class SetupTab;
     class SystemController;
     class Settings;
+
 
     class SetupTabViewManager : public QObject
     {
@@ -23,6 +25,7 @@ namespace GUI{
         void enableAlltabs(const bool enable);
         void on2CbcToggle(const bool);
         void notifyConfigFinished();
+        void sendAccept(HwDescriptionVisitor pVisitor);
 
     private:
 
@@ -32,6 +35,7 @@ namespace GUI{
         void WireMessages(Settings &config);
         void WireSetupTabButtons(Settings &config);
         void WireCallToOtherTabs();
+        void WireCallFromOtherTabs();
 
         explicit SetupTabViewManager(const SetupTabViewManager& rhs) = delete;
         SetupTabViewManager& operator= (const SetupTabViewManager& rhs) = delete;

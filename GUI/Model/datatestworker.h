@@ -13,7 +13,7 @@ using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 
 namespace GUI{
-    class SystemControllerSettings;
+
     class DataTestWorker : public QObject
     {
         Q_OBJECT
@@ -21,19 +21,17 @@ namespace GUI{
         explicit DataTestWorker(QObject *parent,
                                 SystemController &sysController);
 
-        void requestWork(int cVcth, int cEvents, const std::vector<TCanvas *> canvas);
+        void requestWork(int cVcth, int cEvents);
         void abort();
 
-        //bool getIsDrawing() const {return _Drawing;}
-        std::recursive_timed_mutex Mutex;
-        bool _Drawing;
-
+        void TestRegisters();
 
         ~DataTestWorker();
 
     signals:
         void workRequested();
         void finished();
+        void sendAccept(HwDescriptionVisitor pVisitor); //not working
 
         void sendGraphData(const std::vector<std::shared_ptr<TH1D>> graph);
 
@@ -41,6 +39,12 @@ namespace GUI{
         void doWork();
 
     private:
+
+        /*void accept( HwDescriptionVisitor& pVisitor ) const {
+            pVisitor.visit( *this );
+            for ( auto& cShelve : fShelveVector )
+                cShelve->accept( pVisitor );
+        }*/
 
         BeBoardInterface*       fBeBoardInterface;
         CbcInterface*           fCbcInterface;
@@ -51,22 +55,31 @@ namespace GUI{
         int m_Events;
         std::vector<TCanvas *> m_canvas;
 
-        //std::recursive_timed_mutex Mutex;
-        //std::mutex Mutex;
-        //bool _Drawing;
-
-        //bool _abort;
-        //bool _working;
-        //QMutex mutex;
         SystemController& m_systemController;
         std::vector<std::shared_ptr<TH1D>> m_vecHist;
         std::vector<TH1D*> m_hist;
 
+        void Initialise(bool pThresholdScan);
+        void InitialiseHists();
+
         void ReadDataTest();
+        void ScanThreshold();
+        void Measure();
 
 
 
     private:
+        uint32_t fNCbc;   /*!< Number of CBCs in the Setup */
+        TCanvas* fDataCanvas;   /*!<Canvas to output single-strip efficiency */
+        TH1F* fHistTop;   /*!< Histogram for top pads */
+        TH1F* fHistBottom;   /*!< Histogram for bottom pads */
+
+        //std::shared_ptr<TH1D>  fBotHist;
+        //std::shared_ptr<TH1D>  fTopHist;
+
+        TCanvas* fSCurveCanvas;   /*!< Canvas for threshold scan */
+        TH1F* fSCurve;   /*!< Histogram for SCurve */
+        TF1* fFit;   /*!< fit for SCurve*/
 
         explicit DataTestWorker(const DataTestWorker& rhs) = delete;
         DataTestWorker& operator= (const DataTestWorker& rhs) = delete;

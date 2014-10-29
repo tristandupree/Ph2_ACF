@@ -19,6 +19,7 @@ namespace GUI
         WireMessages(config);
         WireSetupTabButtons(config);
         WireCallToOtherTabs();
+        WireCallFromOtherTabs();
     }
 
     SetupTabViewManager::~SetupTabViewManager()
@@ -63,6 +64,12 @@ namespace GUI
 
         connect(&m_systemController, SIGNAL(notifyConfigFinished()),
                 this, SIGNAL(notifyConfigFinished()));
+    }
+
+    void SetupTabViewManager::WireCallFromOtherTabs()
+    {
+        connect(this, SIGNAL(sendAccept(HwDescriptionVisitor)),
+                &m_systemController, SLOT(onAccept(HwDescriptionVisitor)));
     }
 
 

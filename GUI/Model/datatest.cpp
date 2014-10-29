@@ -25,10 +25,11 @@ namespace GUI
         m_Vcth(0),
         m_Events(0)
     {
+        qRegisterMetaType<std::vector<std::shared_ptr<TH1D>> >("std::vector<std::shared_ptr<TH1D>>");
+        qRegisterMetaType<HwDescriptionVisitor >("HwDescriptionVisitor");
         qRegisterMetaType<std::vector<TCanvas*> >("std::vector<TCanvas*>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
-        WireTimer();
     }
 
     DataTest::~DataTest()
@@ -55,22 +56,23 @@ namespace GUI
            this, SIGNAL(sendRefresh()));
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
+
+        connect(m_worker, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D> >)),
+                this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D> >)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendAccept(HwDescriptionVisitor)),
+                this, SIGNAL(sendAccept(HwDescriptionVisitor)));
     }
 
-    void DataTest::WireTimer()
-    {
-        connect(m_timer, SIGNAL(timeout()),
-                this, SLOT(tryRefresh()), Qt::QueuedConnection);
-        connect(m_worker, SIGNAL(finished()),
-                m_timer, SLOT(stop()));
-    }
 
     void DataTest::createGraph()
     {
         emit getVcthValue();
         emit getEventsValue();
         emit startedDataTest();
-        emit getTCanvas();
+
+        m_worker->abort();
+        m_thread->wait();
+        m_worker->requestWork(m_Vcth, m_Events);
     }
 
     void DataTest::setVcthValue(int cVcth)
@@ -85,47 +87,11 @@ namespace GUI
 
     void DataTest::recieveTCanvas(const std::vector<TCanvas *> canvas)
     {
-        qDebug() << "Size of canvas" << canvas.size();
-        canvas.at(0);
-        canvas.at(0)->SetName( "fDataCanvas" );
-        canvas.at(0)->SetTitle( "SingleStripEfficiency" );
-        //canvas.at(0)->Divide( 2 );
+        //emit sendRefresh();
 
-        emit sendRefresh();
-
-
-        m_worker->abort();
-        m_thread->wait();
-        m_timer->start(100);
-        m_worker->requestWork(m_Vcth, m_Events, canvas);
-    }
-
-    void DataTest::tryRefresh()
-    {
-        /*if (!m_worker->_Drawing)
-        {
-            qDebug()<< ">> get is " << m_worker->_Drawing;
-            for (int i = 0; i < 10; i++)
-            {
-                qDebug() << " >> Attempting lock in worker";
-                if(m_worker->Mutex.try_lock_for(std::chrono::milliseconds(100)))
-                {
-                    if (!m_worker->_Drawing)
-                    {
-                        qDebug() << " >> Worker Locked";
-                        emit sendRefresh();
-                        std::chrono::microseconds(100);
-                        m_worker->Mutex.unlock();
-                        qDebug() << " >> Worker Unlocked";
-                        usleep(10);
-                    }
-                }
-                else
-                {
-                    qDebug() << "Unable to lock Mutex!!";
-                }
-            }
-        }*/
+        //m_worker->abort();
+        //m_thread->wait();
+        //m_worker->requestWork(m_Vcth, m_Events, canvas);
     }
 
 
