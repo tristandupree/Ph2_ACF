@@ -1,7 +1,7 @@
 #pragma once
 #include <QObject>
 #include <QVector>
-#include "TH1D.h"
+#include "TH1F.h"
 #include <QTimer>
 
 #include "datatestworker.h"
@@ -31,7 +31,7 @@ namespace GUI{
         void finishedDataTest();
         void getTCanvas();
         void sendRefresh();
-        void sendGraphData(const std::vector<std::shared_ptr<TH1D>> graph);
+        void sendGraphData(const std::vector<std::shared_ptr<TH1F>> graph);
         void sendAccept(HwDescriptionVisitor pVisitor);
 
     public slots:

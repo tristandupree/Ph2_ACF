@@ -15,13 +15,15 @@ namespace GUI {
     DataTestTab::DataTestTab(QWidget *parent) :
         QWidget(parent),
         ui(new Ui::DataTestTab),
-        m_Vcth(0),
-        m_Events(0),
         m_tabMainCbc(new QTabWidget)
     {
         ui->setupUi(this);
         ui->loCbcBox->addWidget(m_tabMainCbc);
         setupCanvas(true);
+
+        m_Vcth = 120;
+        m_Events= 100;
+        qDebug() << "Number of Events" << m_Events;
     }
 
     DataTestTab::~DataTestTab()
@@ -68,7 +70,7 @@ namespace GUI {
         return tab;
     }
 
-    void DataTestTab::drawGraph(const std::vector<std::shared_ptr<TH1D> > hists)
+    void DataTestTab::drawGraph(const std::vector<std::shared_ptr<TH1F> > hists)
         {
             for (size_t i=0; i<m_vectorCanvas.size(); i++)
             {

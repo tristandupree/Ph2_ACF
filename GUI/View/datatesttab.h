@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-#include "TH1D.h"
+#include "TH1F.h"
 #include "TCanvas.h"
 #include "lib/CustomTQtWidget.h"
 #include "lib/TQtWidget.h"
@@ -39,7 +39,7 @@ namespace GUI{
         void getTCanvas();
         void refreshTCanvas();
         void setupCanvas(const bool cbc2);
-        void drawGraph(const std::vector<std::shared_ptr<TH1D>> hists);
+        void drawGraph(const std::vector<std::shared_ptr<TH1F>> hists);
 
 
     private slots:
@@ -58,7 +58,7 @@ namespace GUI{
         Ui::DataTestTab *ui;
 
         std::vector<TCanvas*> m_vecTCanvas;
-        std::vector<std::shared_ptr<TH1D>> m_vecHist;
+        std::vector<std::shared_ptr<TH1F>> m_vecHist;
 
         std::vector<TQtWidget*> m_vectorCanvas;
         std::vector<QGroupBox*> m_vectorGroupBox;

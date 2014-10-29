@@ -31,8 +31,8 @@
               "ModuleId": 0,
               "Status": 1,
               "CbcRegisters": {
-                "VCth": "0x78",
-                "TriggerLatency": "0x0C"
+                "VCth": "120",
+                "TriggerLatency": "12"
               },
               "CbcConfigFile": [
                 "./settings/Cbc_default_hole.txt",

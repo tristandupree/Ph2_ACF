@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QVector>
 #include <QThread>
-#include "TH1D.h"
+#include "TH1F.h"
 #include "TCanvas.h"
 #include <atomic>
 
@@ -25,7 +25,7 @@ namespace GUI
         m_Vcth(0),
         m_Events(0)
     {
-        qRegisterMetaType<std::vector<std::shared_ptr<TH1D>> >("std::vector<std::shared_ptr<TH1D>>");
+        qRegisterMetaType<std::vector<std::shared_ptr<TH1F>> >("std::vector<std::shared_ptr<TH1F>>");
         qRegisterMetaType<HwDescriptionVisitor >("HwDescriptionVisitor");
         qRegisterMetaType<std::vector<TCanvas*> >("std::vector<TCanvas*>");
         m_worker->moveToThread(m_thread);
@@ -57,8 +57,8 @@ namespace GUI
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
-        connect(m_worker, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D> >)),
-                this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1D> >)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)),
+                this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
         connect(m_worker, SIGNAL(sendAccept(HwDescriptionVisitor)),
                 this, SIGNAL(sendAccept(HwDescriptionVisitor)));
     }

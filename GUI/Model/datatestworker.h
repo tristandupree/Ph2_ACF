@@ -3,7 +3,7 @@
 #include <QVector>
 #include <QMutex>
 #include <QVariantMap>
-#include <TH1D.h>
+#include <TH1F.h>
 #include "TCanvas.h"
 #include <vector>
 
@@ -33,18 +33,12 @@ namespace GUI{
         void finished();
         void sendAccept(HwDescriptionVisitor pVisitor); //not working
 
-        void sendGraphData(const std::vector<std::shared_ptr<TH1D>> graph);
+        void sendGraphData(const std::vector<std::shared_ptr<TH1F>> graph);
 
     public slots:
         void doWork();
 
     private:
-
-        /*void accept( HwDescriptionVisitor& pVisitor ) const {
-            pVisitor.visit( *this );
-            for ( auto& cShelve : fShelveVector )
-                cShelve->accept( pVisitor );
-        }*/
 
         BeBoardInterface*       fBeBoardInterface;
         CbcInterface*           fCbcInterface;
@@ -56,8 +50,8 @@ namespace GUI{
         std::vector<TCanvas *> m_canvas;
 
         SystemController& m_systemController;
-        std::vector<std::shared_ptr<TH1D>> m_vecHist;
-        std::vector<TH1D*> m_hist;
+        std::vector<std::shared_ptr<TH1F>> m_vecHist;
+        std::vector<TH1F*> m_hist;
 
         void Initialise(bool pThresholdScan);
         void InitialiseHists();
@@ -74,8 +68,8 @@ namespace GUI{
         TH1F* fHistTop;   /*!< Histogram for top pads */
         TH1F* fHistBottom;   /*!< Histogram for bottom pads */
 
-        //std::shared_ptr<TH1D>  fBotHist;
-        //std::shared_ptr<TH1D>  fTopHist;
+        //std::shared_ptr<TH1F>  fBotHist;
+        //std::shared_ptr<TH1F>  fTopHist;
 
         TCanvas* fSCurveCanvas;   /*!< Canvas for threshold scan */
         TH1F* fSCurve;   /*!< Histogram for SCurve */

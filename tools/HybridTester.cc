@@ -15,7 +15,7 @@ struct HistogramFiller  : public HwDescriptionVisitor
 		for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
 			if ( cDataBitVector.at( cId ) ) {
 				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
-				//              std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
+				std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
 				if ( globalChannel % 2 == 0 )
 					fBotHist->Fill( globalChannel / 2 );
 				else
@@ -83,31 +83,6 @@ void HybridTester::Initialize( bool pThresholdScan )
 
 void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
 {
-	std::vector<TH1D*> hist;
-	int no = 0;
-	for (auto& cCanvas :pCanvasVector)
-	{
-		TString name("Data Test Cbc ");
-		name.Append(std::to_string(no));
-		hist.push_back(new TH1D (name.Data(),name.Data(), 500, 0, 500));
-		no++;
-	}
-	int total = 0;
-
-	int i = 0;
-	for (int j= 0; j<200; j++){
-		int n = 0;
-		for (auto& cCanvas : pCanvasVector)
-		{
-			++total;
-
-			hist.at(n)->Fill(j+n);
-			cCanvas->cd();
-			hist.at(n)->Draw();
-			i++;
-			n++;
-		}
-	}
 
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
@@ -116,21 +91,19 @@ void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCa
 	accept( cCbcCounter );
 	fNCbc = cCbcCounter.getNCbc();
 
-	//fDataCanvas = pCanvasVector.at( 1 ); //since I ounly need one here
-	//fDataCanvas->SetName( "fDataCanvas" );
-	//fDataCanvas->SetTitle( "SingleStripEfficiency" );
-	//fDataCanvas->Divide( 2 );
+	fDataCanvas = pCanvasVector.at( 1 ); //since I ounly need one here
+	fDataCanvas->SetName( "fDataCanvas" );
+	fDataCanvas->SetTitle( "SingleStripEfficiency" );
+	fDataCanvas->Divide( 2 );
 
-	/*if ( pThresholdScan )
+	if ( pThresholdScan )
 	{
 		fSCurveCanvas = pCanvasVector.at( 2 ); // only if the user decides to do a thresholdscan
 		fSCurveCanvas->SetName( "fSCurveCanvas" );
 		fSCurveCanvas->SetTitle( "NoiseOccupancy" );
-	}*/
+	}
 
-	fDataCanvas = pCanvasVector.at(1);
-
-	//InitializeHists();
+	InitializeHists();
 }
 
 
@@ -357,6 +330,21 @@ void HybridTester::TestRegisters()
 
 void HybridTester::Measure()
 {
+	for ( auto cShelve : fShelveVector )
+	{
+		for ( auto cBoard : ( cShelve )->fBoardVector )
+		{
+			for ( auto cFe : cBoard.fModuleVector )
+			{
+				fCbcInterface->ReadAllCbc(&cFe);
+
+				for ( auto cCbc : cFe.fCbcVector )
+				{
+					std::cout << "VCth is" << int(cCbc.getReg("VCth")) << std::endl;
+				}
+			}
+		}
+	}
 	std::cout << "Mesuring Efficiency per Strip ... " << std::endl;
 	auto cSetting = fSettingsMap.find( "Nevents" );
 	uint32_t cTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 200;
@@ -423,5 +411,4 @@ void HybridTester::SaveResults()
 	fDataCanvas->SaveAs( cPdfName.c_str() );
 
 }
-
 

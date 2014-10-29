@@ -21,7 +21,7 @@ namespace GUI{
         ui->loRegisters->addWidget(&regTab);
         ui->loDataTest->addWidget(&data);
 
-        //enableAllTabsSlot(false);
+        enableAllTabsSlot(false);
     }
 
     MainView::~MainView()

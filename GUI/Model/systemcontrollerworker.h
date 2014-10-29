@@ -53,6 +53,7 @@ namespace GUI
             pVisitor.visit( *this );
             for ( auto& cShelve : fShelveVector )
                 cShelve->accept( pVisitor );
+            qDebug() << "Accept method called";
         }
 
         ~SystemControllerWorker();
