@@ -24,7 +24,8 @@ namespace GUI{
         void requestWork(int cVcth,
                          int cEvents,
                          bool testReg,
-                         bool scanReg);
+                         bool scanReg,
+                         bool holeMode);
         void abort();
 
         void TestRegisters();
@@ -36,7 +37,7 @@ namespace GUI{
         void finished();
         void sendAccept(HwDescriptionVisitor pVisitor); //not working
 
-        void sendGraphData(const std::vector<std::shared_ptr<TH1F>> graph);
+        void sendOccupyHists(const std::vector<std::shared_ptr<TH1F>> graph);
         void sendCanvasOccupy(const std::shared_ptr<TCanvas> canvas);
 
     public slots:
@@ -53,13 +54,14 @@ namespace GUI{
         int m_Events;
         bool m_scan;
         bool m_test;
+        bool m_HoleMode;
         std::vector<TCanvas *> m_canvas;
 
         SystemController& m_systemController;
         std::vector<std::shared_ptr<TH1F>> m_vecHist;
         std::vector<TH1F*> m_hist;
 
-        void Initialise(bool pThresholdScan);
+        void Initialise();
         void InitialiseHists();
 
         void ReadDataTest();

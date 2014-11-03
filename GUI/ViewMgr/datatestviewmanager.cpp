@@ -47,6 +47,10 @@ namespace GUI
                 &m_dataTestTab, SLOT(onDataTestStart()));
         connect(&m_dataTest, SIGNAL(finishedDataTest()),
                 &m_dataTestTab, SLOT(onDataTestFinish()));
+        connect(&m_dataTest, SIGNAL(getIsHoleModeChecked()),
+                &m_dataTestTab, SLOT(getIsHoleModeChecked()));
+        connect(&m_dataTestTab, SIGNAL(sendIsHoleModeChecked(bool)),
+                &m_dataTest, SLOT(setHoleMode(bool)));
     }
 
     void DataTestViewManager::WireCanvas()

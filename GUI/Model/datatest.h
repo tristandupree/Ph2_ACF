@@ -2,7 +2,6 @@
 #include <QObject>
 #include <QVector>
 #include "TH1F.h"
-#include <QTimer>
 
 #include "datatestworker.h"
 
@@ -29,6 +28,7 @@ namespace GUI{
         void getEventsValue();
         void getIsRegTestChecked();
         void getIsScanChecked();
+        void getIsHoleModeChecked();
         void startedDataTest();
         void finishedDataTest();
         void sendRefresh();
@@ -40,6 +40,7 @@ namespace GUI{
         void setEventsValue(int cEvents);
         void setTestReg(const bool testReg);
         void setScanThreshold(const bool scanThreshhold);
+        void setHoleMode(const bool holeMode);
 
     private:
 
@@ -47,8 +48,7 @@ namespace GUI{
         int m_Events;
         bool m_TestReg;
         bool m_ScanThreshold;
-
-        QTimer *m_timer;
+        bool m_HoleMode;
 
         SystemController &m_systemController;
         QThread *m_thread;

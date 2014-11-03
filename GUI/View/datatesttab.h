@@ -30,12 +30,14 @@ namespace GUI{
         void sendEventsNumber(int cEvents);
         void sendIsRegTestChecked(const bool);
         void sendIsScanChecked(const bool);
+        void sendIsHoleModeChecked(const bool);
 
     public slots:
         void getVcthDialValue();
         void getEventsDial();
         void getIsRegTestChecked();
         void getIsScanChecked();
+        void getIsHoleModeChecked();
         void onDataTestStart();
         void onDataTestFinish();
         void setupCanvas(const bool cbc2);
@@ -60,14 +62,18 @@ namespace GUI{
 
         TCanvas* m_canvasOccupy;
 
-        std::vector<TQtWidget*> m_vecTWidget;
+        std::vector<TQtWidget*> m_vecTWidget_Occupancy;
+        std::vector<TQtWidget*> m_vecTWidget_Threshold;
         std::vector<QGroupBox*> m_vectorGroupBox;
+        std::vector<QHBoxLayout*> m_vectorLayout;
+
 
         int m_Vcth;
         int m_Events;
 
-        QTabWidget *createCbcTab();
+        QTabWidget *createOccupancyTab();
         QTabWidget *m_tabMainCbc;
+        QTabWidget *createThresholdTab();
     };
 
 }

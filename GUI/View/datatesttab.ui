@@ -117,6 +117,13 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="checkHoleMode">
+            <property name="text">
+             <string>Hole Mode</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>

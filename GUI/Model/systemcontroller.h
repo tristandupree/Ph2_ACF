@@ -31,6 +31,8 @@ namespace GUI{
         ShelveVec getfShelveVector() const {return (m_worker->fShelveVector);}
         BeBoardFWMap getBeBoardFWMap() const {return (m_worker->fBeBoardFWMap);}
 
+        //SystemControllerWorker* getSysCtrlWorker() const {return m_worker;}
+
         SystemControllerWorker *m_worker;
 
         ~SystemController();
@@ -54,7 +56,7 @@ namespace GUI{
 
         Settings  &m_Settings;
         QThread *m_thread;
-        //SystemControllerWorker *m_worker;
+       // SystemControllerWorker *m_worker;
 
         void SendStatusMessage(QString msg);
 

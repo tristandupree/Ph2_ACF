@@ -21,7 +21,6 @@ namespace GUI
         m_thread(new QThread()),
         m_worker(new DataTestWorker(nullptr,
                                     sysController)),
-        m_timer(new QTimer(this)),
         m_Vcth(0),
         m_Events(0)
     {
@@ -36,9 +35,6 @@ namespace GUI
         m_thread->wait();
         delete m_thread;
         qDebug() << "Deleting DataTest worker thread " <<this->QObject::thread()->currentThreadId();
-        m_timer->stop();
-        qDebug() << "Deleting timer";
-        delete m_timer;
         qDebug() << "Destructing " << this;
     }
 
@@ -48,12 +44,13 @@ namespace GUI
                 m_thread, SLOT(start()));
         connect(m_thread, SIGNAL(started()),
                 m_worker, SLOT(doWork()));
+
         connect(m_worker, SIGNAL(finished()),
                 this, SIGNAL(finishedDataTest()));
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
-        connect(m_worker, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)),
+        connect(m_worker, SIGNAL(sendOccupyHists(std::vector<std::shared_ptr<TH1F> >)),
                 this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
     }
 
@@ -62,12 +59,15 @@ namespace GUI
     {
         emit getVcthValue();
         emit getEventsValue();
+        emit getIsRegTestChecked();
+        emit getIsScanChecked();
+        emit getIsHoleModeChecked();
 
         emit startedDataTest();
 
         m_worker->abort();
         m_thread->wait();
-        m_worker->requestWork(m_Vcth, m_Events, m_TestReg, m_ScanThreshold);
+        m_worker->requestWork(m_Vcth, m_Events, m_TestReg, m_ScanThreshold, m_HoleMode);
     }
 
     void DataTest::setVcthValue(int cVcth)
@@ -88,6 +88,11 @@ namespace GUI
     void DataTest::setScanThreshold(const bool scanThreshhold)
     {
         m_ScanThreshold = scanThreshhold;
+    }
+
+    void DataTest::setHoleMode(const bool holeMode)
+    {
+        m_HoleMode = holeMode;
     }
 
 }

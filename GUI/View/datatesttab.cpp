@@ -9,6 +9,7 @@
 #include <QTabWidget>
 #include "TCanvas.h"
 #include "TH2F.h"
+#include "TStyle.h"
 
 #include "utils.h"
 
@@ -35,9 +36,14 @@ namespace GUI {
 
     void DataTestTab::setupCanvas(const bool cbc2)
     {
+        gStyle->SetOptStat( 000000 );
+        gStyle->SetTitleOffset( 1.3, "Y" );
+
         int cNCbc;
         if(cbc2) cNCbc = 2;
         else cNCbc = 8;
+
+        qDebug() << "setupCanvas";
         /*if(m_tabMainCbc->count() != m_vectorCanvasOccupancy.size())
         {
             qDebug() << "ERROR! Canvas size does not match tab size";
@@ -48,51 +54,45 @@ namespace GUI {
         if(m_tabMainCbc->count() > 0)
         {
             m_tabMainCbc->clear();
-            m_vecTWidget.clear();
+            m_vecTWidget_Occupancy.clear();
+            m_vecTWidget_Threshold.clear();
         }
-        m_vecTWidget.push_back(new TQtWidget(this));
-        //m_canvasOccupy = m_vecTWidget.at(0)->GetCanvas();
+        //m_canvasOccupy = m_vecTWidget_Occupancy.at(0)->GetCanvas();
         //m_canvasOccupy->Divide(2);
-        QString title = QString("Occupancy");
-        m_tabMainCbc->addTab(createCbcTab(), title);
+        QString titleOcc = QString("Occupancy");
+        m_tabMainCbc->addTab(createOccupancyTab(), titleOcc);
 
-
-        /*TCanvas *c1 = m_vectorCanvasOccupancy.at(0)->GetCanvas();
-
-        c1->Divide(2,2,0,0);
-        TH2F *h1 = new TH2F("h1","test1",10,0,1,20,0,20);
-        TH2F *h2 = new TH2F("h2","test2",10,0,1,20,0,100);
-        TH2F *h3 = new TH2F("h3","test3",10,0,1,20,-1,1);
-        TH2F *h4 = new TH2F("h4","test4",10,0,1,20,0,1000);
-
-        c1->cd(1);
-        gPad->SetTickx(2);
-        h1->Draw();
-
-        c1->cd(2);
-        gPad->SetTickx(2);
-        gPad->SetTicky(2);
-        h2->GetYaxis()->SetLabelOffset(0.01);
-        h2->Draw();
-
-        c1->cd(3);
-        h3->Draw();
-
-        c1->cd(4);
-        gPad->SetTicky(2);
-        h4->Draw();*/
-
+        QString titleThresh = QString("Threshold Scan");
+        m_tabMainCbc->addTab(createThresholdTab(), titleThresh);
     }
 
-    QTabWidget *DataTestTab::createCbcTab()
+    QTabWidget *DataTestTab::createOccupancyTab()
     {
         QTabWidget *tab = new QTabWidget;
         QHBoxLayout *loH = new QHBoxLayout;
 
-        loH->addWidget(m_vecTWidget.at(0));
-        //m_vectorLayout.push_back(loH);
+        for (int i=0; i<2 ;i++) //TODO support 8CBC
+        {
+            m_vecTWidget_Occupancy.push_back(new TQtWidget(this));
+            loH->addWidget(m_vecTWidget_Occupancy.at(i));
+            m_vectorLayout.push_back(loH); //incase I want to access later
+            tab->setLayout(loH);
+        }
+        return tab;
+    }
 
-        tab->setLayout(loH);
+    QTabWidget *DataTestTab::createThresholdTab()
+    {
+        QTabWidget *tab = new QTabWidget;
+        QHBoxLayout *loH = new QHBoxLayout;
+
+        for (int i=0; i<2 ;i++) //TODO support 8CBC
+        {
+            m_vecTWidget_Threshold.push_back(new TQtWidget(this));
+            loH->addWidget(m_vecTWidget_Threshold.at(i));
+            m_vectorLayout.push_back(loH); //incase I want to access later
+            tab->setLayout(loH);
+        }
         return tab;
     }
 
@@ -100,13 +100,12 @@ namespace GUI {
     {
         for (int i=0; i<2; i++)
         {
+            qDebug() << "Drawing...";
+            m_vecTWidget_Occupancy.at(i)->Clear();
             m_vecHistOccupancy = hists;
-            TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
-            m_vecTWidget.at(0)->GetCanvas()->cd();
-            //m_canvasOccupy->cd(i);
-            //m_vecTWidget.at(0)->cd();
+            m_vecTWidget_Occupancy.at(i)->GetCanvas()->cd();
             m_vecHistOccupancy.at(i)->Draw();
-            m_vecTWidget.at(0)->Refresh();
+            m_vecTWidget_Occupancy.at(i)->Refresh();
         }
     }
 
@@ -128,6 +127,11 @@ namespace GUI {
     void DataTestTab::getIsScanChecked()
     {
         emit sendIsScanChecked(ui->checkScan->isChecked());
+    }
+
+    void DataTestTab::getIsHoleModeChecked()
+    {
+        emit sendIsHoleModeChecked(ui->checkHoleMode->isChecked());
     }
 
     void DataTestTab::onDataTestStart()
