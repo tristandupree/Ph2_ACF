@@ -7,6 +7,8 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QTabWidget>
+#include "TCanvas.h"
+#include "TH2F.h"
 
 #include "utils.h"
 
@@ -23,7 +25,6 @@ namespace GUI {
 
         m_Vcth = 120;
         m_Events= 100;
-        qDebug() << "Number of Events" << m_Events;
     }
 
     DataTestTab::~DataTestTab()
@@ -33,29 +34,54 @@ namespace GUI {
     }
 
     void DataTestTab::setupCanvas(const bool cbc2)
-    {   
+    {
         int cNCbc;
         if(cbc2) cNCbc = 2;
         else cNCbc = 8;
-        if(m_tabMainCbc->count() != m_vectorCanvas.size())
+        /*if(m_tabMainCbc->count() != m_vectorCanvasOccupancy.size())
         {
             qDebug() << "ERROR! Canvas size does not match tab size";
             qDebug() << "Cbc Tabs: " << m_tabMainCbc->count();
-            qDebug() << "Canvas size : " << m_vectorCanvas.size();
-        }
+            qDebug() << "Canvas size : " << m_vectorCanvasOccupancy.size();
+        }*/
 
         if(m_tabMainCbc->count() > 0)
         {
             m_tabMainCbc->clear();
-            m_vectorCanvas.clear();
+            m_vecTWidget.clear();
         }
+        m_vecTWidget.push_back(new TQtWidget(this));
+        //m_canvasOccupy = m_vecTWidget.at(0)->GetCanvas();
+        //m_canvasOccupy->Divide(2);
+        QString title = QString("Occupancy");
+        m_tabMainCbc->addTab(createCbcTab(), title);
 
-        for (int i=0; i<cNCbc; i++)
-        {
-            m_vectorCanvas.push_back(new TQtWidget(this));
-            QString title = QString("CBC %1").arg(i);
-            m_tabMainCbc->addTab(createCbcTab(), title);
-        }
+
+        /*TCanvas *c1 = m_vectorCanvasOccupancy.at(0)->GetCanvas();
+
+        c1->Divide(2,2,0,0);
+        TH2F *h1 = new TH2F("h1","test1",10,0,1,20,0,20);
+        TH2F *h2 = new TH2F("h2","test2",10,0,1,20,0,100);
+        TH2F *h3 = new TH2F("h3","test3",10,0,1,20,-1,1);
+        TH2F *h4 = new TH2F("h4","test4",10,0,1,20,0,1000);
+
+        c1->cd(1);
+        gPad->SetTickx(2);
+        h1->Draw();
+
+        c1->cd(2);
+        gPad->SetTickx(2);
+        gPad->SetTicky(2);
+        h2->GetYaxis()->SetLabelOffset(0.01);
+        h2->Draw();
+
+        c1->cd(3);
+        h3->Draw();
+
+        c1->cd(4);
+        gPad->SetTicky(2);
+        h4->Draw();*/
+
     }
 
     QTabWidget *DataTestTab::createCbcTab()
@@ -63,25 +89,26 @@ namespace GUI {
         QTabWidget *tab = new QTabWidget;
         QHBoxLayout *loH = new QHBoxLayout;
 
-        loH->addWidget(m_vectorCanvas.at(m_vectorCanvas.size()-1));
-        m_vectorLayout.push_back(loH);
+        loH->addWidget(m_vecTWidget.at(0));
+        //m_vectorLayout.push_back(loH);
 
         tab->setLayout(loH);
         return tab;
     }
 
-    void DataTestTab::drawGraph(const std::vector<std::shared_ptr<TH1F> > hists)
+    void DataTestTab::drawOccupancy(const std::vector<std::shared_ptr<TH1F> > hists)
+    {
+        for (int i=0; i<2; i++)
         {
-            for (size_t i=0; i<m_vectorCanvas.size(); i++)
-            {
-                m_vecHist = hists;
-                TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
-                //m_vecHist = hists.a
-                m_vectorCanvas.at(i)->cd();
-                m_vecHist.at(i)->Draw();
-                m_vectorCanvas.at(i)->Refresh();
-            }
+            m_vecHistOccupancy = hists;
+            TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
+            m_vecTWidget.at(0)->GetCanvas()->cd();
+            //m_canvasOccupy->cd(i);
+            //m_vecTWidget.at(0)->cd();
+            m_vecHistOccupancy.at(i)->Draw();
+            m_vecTWidget.at(0)->Refresh();
         }
+    }
 
     void DataTestTab::getVcthDialValue()
     {
@@ -91,6 +118,16 @@ namespace GUI {
     void DataTestTab::getEventsDial()
     {
         emit sendEventsNumber(m_Events);
+    }
+
+    void DataTestTab::getIsRegTestChecked()
+    {
+        emit sendIsRegTestChecked(ui->checkTestReg->isChecked());
+    }
+
+    void DataTestTab::getIsScanChecked()
+    {
+        emit sendIsScanChecked(ui->checkScan->isChecked());
     }
 
     void DataTestTab::onDataTestStart()
@@ -103,30 +140,11 @@ namespace GUI {
         ui->btnStart->setEnabled(true);
     }
 
-    void DataTestTab::getTCanvas()
-    {
-        for (auto& canvas : m_vectorCanvas)
-        {
-            m_vecTCanvas.push_back(canvas->GetCanvas());
-        }
-
-        emit sendTCanvas(m_vecTCanvas);
-    }
-
-    void DataTestTab::refreshTCanvas()
-    {
-        for (auto& canvas : m_vectorCanvas)
-        {
-            TQtWidget *u = new TQtWidget(this); //No idea why this helps flush
-            qDebug() << " >>> Refreshed Canvas" ;
-            canvas->Refresh();
-        }
-    }
-
     void DataTestTab::on_btnStart_clicked()
     {
         emit notifyAddGraph();
     }
+
     void DataTestTab::on_dialVcth_sliderMoved(int position)
     {
         ui->txtVcth->setText(QString::number(position));

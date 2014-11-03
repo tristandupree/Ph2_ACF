@@ -26,8 +26,6 @@ namespace GUI
         m_Events(0)
     {
         qRegisterMetaType<std::vector<std::shared_ptr<TH1F>> >("std::vector<std::shared_ptr<TH1F>>");
-        qRegisterMetaType<HwDescriptionVisitor >("HwDescriptionVisitor");
-        qRegisterMetaType<std::vector<TCanvas*> >("std::vector<TCanvas*>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
     }
@@ -53,26 +51,23 @@ namespace GUI
         connect(m_worker, SIGNAL(finished()),
                 this, SIGNAL(finishedDataTest()));
         connect(m_worker, SIGNAL(finished()),
-           this, SIGNAL(sendRefresh()));
-        connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
         connect(m_worker, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)),
                 this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
-        connect(m_worker, SIGNAL(sendAccept(HwDescriptionVisitor)),
-                this, SIGNAL(sendAccept(HwDescriptionVisitor)));
     }
 
 
-    void DataTest::createGraph()
+    void DataTest::initialiseSettings()
     {
         emit getVcthValue();
         emit getEventsValue();
+
         emit startedDataTest();
 
         m_worker->abort();
         m_thread->wait();
-        m_worker->requestWork(m_Vcth, m_Events);
+        m_worker->requestWork(m_Vcth, m_Events, m_TestReg, m_ScanThreshold);
     }
 
     void DataTest::setVcthValue(int cVcth)
@@ -85,15 +80,14 @@ namespace GUI
         m_Events = cEvents;
     }
 
-    void DataTest::recieveTCanvas(const std::vector<TCanvas *> canvas)
+    void DataTest::setTestReg(const bool testReg)
     {
-        //emit sendRefresh();
-
-        //m_worker->abort();
-        //m_thread->wait();
-        //m_worker->requestWork(m_Vcth, m_Events, canvas);
+        m_TestReg = testReg;
     }
 
-
+    void DataTest::setScanThreshold(const bool scanThreshhold)
+    {
+        m_ScanThreshold = scanThreshhold;
+    }
 
 }

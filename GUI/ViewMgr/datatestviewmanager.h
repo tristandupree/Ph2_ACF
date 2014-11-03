@@ -7,7 +7,6 @@ namespace GUI{
 
     class DataTestTab;
     class DataTest;
-    //class HwDescriptionVisitor;
 
     class DataTestViewManager : public QObject
     {
@@ -28,7 +27,6 @@ namespace GUI{
 
         void WireButtons();
         void WireCanvas();
-        void WireExternalCalls();
 
         explicit DataTestViewManager(const DataTestViewManager& rhs) = delete;
         DataTestViewManager& operator= (const DataTestViewManager& rhs) = delete;

@@ -22,24 +22,24 @@ namespace GUI{
 
     public:
         explicit DataTestTab(QWidget *parent);
-        TCanvas* passTCanvas(int i);
 
     ~DataTestTab();
     signals:
         void notifyAddGraph();
         void sendVcthValue(int cVcth);
         void sendEventsNumber(int cEvents);
-        void sendTCanvas (const std::vector<TCanvas*> canvas);
+        void sendIsRegTestChecked(const bool);
+        void sendIsScanChecked(const bool);
 
     public slots:
         void getVcthDialValue();
         void getEventsDial();
+        void getIsRegTestChecked();
+        void getIsScanChecked();
         void onDataTestStart();
         void onDataTestFinish();
-        void getTCanvas();
-        void refreshTCanvas();
         void setupCanvas(const bool cbc2);
-        void drawGraph(const std::vector<std::shared_ptr<TH1F>> hists);
+        void drawOccupancy(const std::vector<std::shared_ptr<TH1F>> hists);
 
 
     private slots:
@@ -56,13 +56,12 @@ namespace GUI{
     private:
 
         Ui::DataTestTab *ui;
+        std::vector<std::shared_ptr<TH1F>> m_vecHistOccupancy;
 
-        std::vector<TCanvas*> m_vecTCanvas;
-        std::vector<std::shared_ptr<TH1F>> m_vecHist;
+        TCanvas* m_canvasOccupy;
 
-        std::vector<TQtWidget*> m_vectorCanvas;
+        std::vector<TQtWidget*> m_vecTWidget;
         std::vector<QGroupBox*> m_vectorGroupBox;
-        std::vector<QHBoxLayout*> m_vectorLayout;
 
         int m_Vcth;
         int m_Events;

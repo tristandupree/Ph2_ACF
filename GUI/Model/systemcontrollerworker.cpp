@@ -137,7 +137,6 @@ namespace GUI
                         for(auto& cbcReg_kv : map_module_values.value("CbcRegisters").toMap().keys())
                         {
                             cCbc.setReg(cbcReg_kv.toStdString(), map_module_values.value("CbcRegisters").toMap().value(cbcReg_kv).toInt());
-                            qDebug() << "cbcRegKv " << cbcReg_kv << "  : " << map_module_values.value("CbcRegisters").toMap().value(cbcReg_kv).toInt();
                         }
                         fShelveVector.at(cNShelve)->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);
 
@@ -192,22 +191,6 @@ namespace GUI
         mutex.unlock();
         emit finishedConfigureHw();
         qDebug() << "Finished configure";
-
-        for ( auto cShelve : fShelveVector )
-        {
-            for ( auto cBoard : ( cShelve )->fBoardVector )
-            {
-                for ( auto cFe : cBoard.fModuleVector )
-                {
-                    fCbcInterface->ReadAllCbc(&cFe);
-
-                    for ( auto cCbc : cFe.fCbcVector )
-                    {
-                        qDebug() << "VCth is after configure" << cCbc.getReg("VCth");
-                    }
-                }
-            }
-        }
     }
 
 

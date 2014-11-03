@@ -27,23 +27,26 @@ namespace GUI{
     signals:
         void getVcthValue();
         void getEventsValue();
+        void getIsRegTestChecked();
+        void getIsScanChecked();
         void startedDataTest();
         void finishedDataTest();
-        void getTCanvas();
         void sendRefresh();
         void sendGraphData(const std::vector<std::shared_ptr<TH1F>> graph);
-        void sendAccept(HwDescriptionVisitor pVisitor);
 
     public slots:
-        void createGraph();
+        void initialiseSettings();
         void setVcthValue(int cVcth);
         void setEventsValue(int cEvents);
-        void recieveTCanvas(const std::vector<TCanvas*> canvas);
+        void setTestReg(const bool testReg);
+        void setScanThreshold(const bool scanThreshhold);
 
     private:
 
         int m_Vcth;
         int m_Events;
+        bool m_TestReg;
+        bool m_ScanThreshold;
 
         QTimer *m_timer;
 

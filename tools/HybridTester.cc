@@ -330,21 +330,6 @@ void HybridTester::TestRegisters()
 
 void HybridTester::Measure()
 {
-	for ( auto cShelve : fShelveVector )
-	{
-		for ( auto cBoard : ( cShelve )->fBoardVector )
-		{
-			for ( auto cFe : cBoard.fModuleVector )
-			{
-				fCbcInterface->ReadAllCbc(&cFe);
-
-				for ( auto cCbc : cFe.fCbcVector )
-				{
-					std::cout << "VCth is" << int(cCbc.getReg("VCth")) << std::endl;
-				}
-			}
-		}
-	}
 	std::cout << "Mesuring Efficiency per Strip ... " << std::endl;
 	auto cSetting = fSettingsMap.find( "Nevents" );
 	uint32_t cTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 200;

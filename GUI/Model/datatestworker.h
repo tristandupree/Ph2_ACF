@@ -21,7 +21,10 @@ namespace GUI{
         explicit DataTestWorker(QObject *parent,
                                 SystemController &sysController);
 
-        void requestWork(int cVcth, int cEvents);
+        void requestWork(int cVcth,
+                         int cEvents,
+                         bool testReg,
+                         bool scanReg);
         void abort();
 
         void TestRegisters();
@@ -34,6 +37,7 @@ namespace GUI{
         void sendAccept(HwDescriptionVisitor pVisitor); //not working
 
         void sendGraphData(const std::vector<std::shared_ptr<TH1F>> graph);
+        void sendCanvasOccupy(const std::shared_ptr<TCanvas> canvas);
 
     public slots:
         void doWork();
@@ -47,6 +51,8 @@ namespace GUI{
 
         int m_Vcth;
         int m_Events;
+        bool m_scan;
+        bool m_test;
         std::vector<TCanvas *> m_canvas;
 
         SystemController& m_systemController;
@@ -60,18 +66,10 @@ namespace GUI{
         void ScanThreshold();
         void Measure();
 
-
-
-    private:
         uint32_t fNCbc;   /*!< Number of CBCs in the Setup */
-        TCanvas* fDataCanvas;   /*!<Canvas to output single-strip efficiency */
-        TH1F* fHistTop;   /*!< Histogram for top pads */
-        TH1F* fHistBottom;   /*!< Histogram for bottom pads */
 
         //std::shared_ptr<TH1F>  fBotHist;
         //std::shared_ptr<TH1F>  fTopHist;
-
-        TCanvas* fSCurveCanvas;   /*!< Canvas for threshold scan */
         TH1F* fSCurve;   /*!< Histogram for SCurve */
         TF1* fFit;   /*!< fit for SCurve*/
 

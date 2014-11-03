@@ -95,7 +95,25 @@
           <item row="0" column="4">
            <widget class="QLabel" name="lblEvents">
             <property name="text">
-             <string>Number of Events per Vcth</string>
+             <string>Number of Events</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="loOptionsExtra">
+          <item>
+           <widget class="QCheckBox" name="checkTestReg">
+            <property name="text">
+             <string>Test Registers</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkScan">
+            <property name="text">
+             <string>Scan Threshold</string>
             </property>
            </widget>
           </item>

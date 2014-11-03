@@ -26,7 +26,7 @@ namespace GUI
     void DataTestViewManager::WireButtons()
     {
         connect(&m_dataTestTab, SIGNAL(notifyAddGraph()),
-                &m_dataTest, SLOT(createGraph()));
+                &m_dataTest, SLOT(initialiseSettings()));
         connect(&m_dataTest, SIGNAL(getVcthValue()),
                 &m_dataTestTab, SLOT(getVcthDialValue()));
         connect(&m_dataTestTab, SIGNAL(sendVcthValue(int)),
@@ -35,37 +35,25 @@ namespace GUI
                 &m_dataTestTab, SLOT(getEventsDial()));
         connect(&m_dataTestTab, SIGNAL(sendEventsNumber(int)),
                 &m_dataTest, SLOT(setEventsValue(int)));
-
+        connect(&m_dataTest, SIGNAL(getIsRegTestChecked()),
+                &m_dataTestTab, SLOT(getIsRegTestChecked()));
+        connect(&m_dataTest, SIGNAL(getIsScanChecked()),
+                &m_dataTestTab, SLOT(getIsScanChecked()));
+        connect(&m_dataTestTab, SIGNAL(sendIsRegTestChecked(bool)),
+                &m_dataTest, SLOT(setTestReg(bool)));
+        connect(&m_dataTestTab, SIGNAL(sendIsScanChecked(bool)),
+                &m_dataTest, SLOT(setScanThreshold(bool)));
         connect(&m_dataTest, SIGNAL(startedDataTest()),
                 &m_dataTestTab, SLOT(onDataTestStart()));
         connect(&m_dataTest, SIGNAL(finishedDataTest()),
                 &m_dataTestTab, SLOT(onDataTestFinish()));
-
-        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)),
-                &m_dataTestTab, SLOT(drawGraph(std::vector<std::shared_ptr<TH1F> >)));
     }
 
     void DataTestViewManager::WireCanvas()
     {
-        connect(&m_dataTest, SIGNAL(getTCanvas()),
-                &m_dataTestTab, SLOT(getTCanvas()));
-        connect(&m_dataTestTab, SIGNAL(sendTCanvas(std::vector<TCanvas*>)),
-                &m_dataTest, SLOT(recieveTCanvas(std::vector<TCanvas*>)));
-        connect(&m_dataTest, SIGNAL(sendRefresh()),
-                &m_dataTestTab, SLOT(refreshTCanvas()));
         connect(this, SIGNAL(on2CbcToggle(bool)),
                 &m_dataTestTab, SLOT(setupCanvas(bool)));
-
+        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)),
+                &m_dataTestTab, SLOT(drawOccupancy(std::vector<std::shared_ptr<TH1F> >)));
     }
-
-    void DataTestViewManager::WireExternalCalls()
-    {
-     //connect(m_dataTest,)
-        connect(&m_dataTest, SIGNAL(sendAccept(HwDescriptionVisitor)),
-                this, SIGNAL(sendAccept(HwDescriptionVisitor)));
-
-    }
-
-
-
 }

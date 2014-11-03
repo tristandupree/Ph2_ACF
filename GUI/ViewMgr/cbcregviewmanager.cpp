@@ -24,17 +24,16 @@ namespace GUI
 
     void CbcRegViewManager::WireConnections()
     {
-        qDebug() << "Wired";
-        connect(&m_cbcRegisters, SIGNAL(sendCbcRegisterValue(int,std::map<std::string,CbcRegItem>)),
-                &m_cbcRegistersTab, SLOT(createCbcRegisterValue(int,std::map<std::string,CbcRegItem>)));
+        /*connect(&m_cbcRegisters, SIGNAL(sendCbcRegisterValue(int,std::map<std::string,CbcRegItem>)),
+                &m_cbcRegistersTab, SLOT(createCbcRegisterValue(int,std::map<std::string,CbcRegItem>)));*/
     }
 
     void CbcRegViewManager::WireExternalConnections()
     {
-        connect(this, SIGNAL(notifyConfigFinished()),
+        /*connect(this, SIGNAL(notifyConfigFinished()),
                 &m_cbcRegisters, SLOT(getCbcRegistersMap()));
         connect(this, SIGNAL(on2CbcToggle(bool)),
-                &m_cbcRegistersTab, SLOT(setupCbcRegGrid(bool)));
+                &m_cbcRegistersTab, SLOT(setupCbcRegGrid(bool)));*/
     }
 
 }

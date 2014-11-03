@@ -82,10 +82,13 @@ namespace GUI
         qDebug() << "Destructing " << this;
     }
 
-    void DataTestWorker::requestWork(int cVcth, int cEvents)
+    void DataTestWorker::requestWork(int cVcth, int cEvents,
+                                     bool testReg, bool scanReg)
     {
         m_Vcth = cVcth;
         m_Events = cEvents;
+        m_test = testReg;
+        m_scan = scanReg;
 
         qDebug()<<"Request worker start in Thread "<<thread()->currentThreadId();
 
@@ -105,8 +108,6 @@ namespace GUI
 
     void DataTestWorker::doWork()
     {
-        bool cScan=false;
-
         fBeBoardInterface = m_systemController.getBeBoardInterface();
         fCbcInterface = m_systemController.getCbcInterface();
         fShelveVector = m_systemController.getfShelveVector();
@@ -115,7 +116,7 @@ namespace GUI
         CbcRegWriter cWriter (fCbcInterface, "VCth", m_Vcth);
         m_systemController.m_worker->accept(cWriter); //TODO pass safe
 
-        Initialise(cScan);
+        Initialise(m_scan);
         Measure();
 
 
@@ -161,6 +162,46 @@ namespace GUI
 
     void DataTestWorker::TestRegisters()
     {
+        /*
+        // This method has to be followed by a configure call, otherwise the CBCs will be in an undefined state
+        struct RegTester : public HwDescriptionVisitor
+        {
+            CbcInterface* fInterface;
+            std::map<uint32_t, std::set<std::string>> fBadRegisters;
+            RegTester( CbcInterface* pInterface ): fInterface( pInterface ) {
+                std::set<std::string> tempset;
+                fBadRegisters[0] = tempset;
+                fBadRegisters[1] = tempset;
+            }
+
+            void visit( Cbc& pCbc ) {
+                uint8_t cFirstBitPattern = 0xAA;
+                uint8_t cSecondBitPattern = 0x55;
+
+                CbcRegMap cMap = pCbc.getRegMap();
+                for ( const auto& cReg : cMap ) {
+                    if ( !fInterface->WriteCbcReg( &pCbc, cReg.first, cFirstBitPattern, true ) ) fBadRegisters[pCbc.getCbcId()] .insert( cReg.first );
+                    if ( !fInterface->WriteCbcReg( &pCbc, cReg.first, cSecondBitPattern, true ) ) fBadRegisters[pCbc.getCbcId()] .insert( cReg.first );
+                }
+            }
+
+            void dumpResult() {
+                for ( const auto& cCbc : fBadRegisters ) {
+                    std::cout << "Bad Registers on Cbc " << cCbc.first << " : " << std::endl;
+                    for ( const auto& cReg : cCbc.second ) std::cout << cReg << std::endl;
+                }
+            }
+        };
+
+        // This should probably be done in the top level application but there I do not have access to the settings map
+
+        std::cout << "Testing Cbc Registers one-by-one with complimentary bit-patterns (0xAA, 0x55) ..." << std::endl;
+        RegTester cRegTester( fCbcInterface );
+        m_systemController.m_worker->accept( cRegTester );
+        cRegTester.dumpResult();
+        std::cout << "Done testing registers, re-configuring to calibrated state!" << std::endl;
+        m_systemController.m_worker->ConfigureHw();
+        */
     }
 
     void DataTestWorker::Measure()
@@ -212,6 +253,7 @@ namespace GUI
         m_vecHist.at(1)->Scale( 100 / double_t( cTotalEvents ) );
         m_vecHist.at(1)->GetYaxis()->SetRangeUser( 0, 100 );
         emit sendGraphData(m_vecHist);
+        m_vecHist.clear();
     }
 
 }
