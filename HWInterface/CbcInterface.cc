@@ -46,7 +46,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::ConfigureCbc( Cbc* pCbc, bool pVerifLoop )
+	void CbcInterface::ConfigureCbc( Cbc* pCbc, bool pVerifLoop, uint32_t pBlockSize )
 	{
 		setBoard( pCbc->getBeId() );
 
@@ -59,60 +59,65 @@ namespace Ph2_HwInterface
 			gettimeofday( &start0, 0 );
 #endif
 
-		std::vector<uint32_t> cVecWrite;
-		std::vector<uint32_t> cVecRead;
-
-		// CbcRegItem cRegItemWrite;
-		// CbcRegItem cRegItemRead;
 
 		CbcRegMap cCbcRegMap = pCbc->getRegMap();
-		int counter = 0;
-		for ( CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++ )
-		{
+		CbcRegMap::iterator cIt = cCbcRegMap.begin();
 
-			std::cout << cIt->first << " " << counter << std::endl;
-			EncodeReg( cIt->second, pCbc->getCbcId(), cVecWrite );
+		while ( cIt != cCbcRegMap.end() )
+		{
+			std::vector<uint32_t> cVecWrite;
+			std::vector<uint32_t> cVecRead;
+
+			uint32_t cCounter = 0;
+
+			for ( cIt; cIt != cCbcRegMap.end(); cIt++ )
+			{
+
+				if ( cCounter >= pBlockSize ) break;
+
+				EncodeReg( cIt->second, pCbc->getCbcId(), cVecWrite );
+
+				if ( pVerifLoop )
+				{
+					CbcRegItem cItem = cIt->second;
+					cItem.fValue = 0;
+
+					EncodeReg( cItem, pCbc->getCbcId(), cVecRead );
+				}
+				cCounter++;
+			}
+
+			fBoardFW->WriteCbcBlockReg( pCbc->getFeId(), cVecWrite );
 
 			if ( pVerifLoop )
 			{
-				CbcRegItem cItem = cIt->second;
-				cItem.fValue = 0;
+				uint8_t cCbcId = pCbc->getCbcId();
 
-				EncodeReg( cItem, pCbc->getCbcId(), cVecRead );
-			}
-			counter++;
-		}
+				fBoardFW->ReadCbcBlockReg( pCbc->getFeId(), cVecRead );
 
-		fBoardFW->WriteCbcBlockReg( pCbc->getFeId(), cVecWrite );
-
-		if ( pVerifLoop )
-		{
-			uint8_t cCbcId = pCbc->getCbcId();
-
-			fBoardFW->ReadCbcBlockReg( pCbc->getFeId(), cVecRead );
-
-			// only if I have a mismatch will i decode word by word and compare
-			if ( cVecWrite != cVecRead )
-			{
-
-				auto cMismatchWord = std::mismatch( cVecWrite.begin(), cVecWrite.end(), cVecRead.begin() );
-				while ( cMismatchWord.first != cVecWrite.end() )
+				// only if I have a mismatch will i decode word by word and compare
+				if ( cVecWrite != cVecRead )
 				{
-					CbcRegItem cRegItemWrite;
-					DecodeReg( cRegItemWrite, cCbcId, *cMismatchWord.first );
-					CbcRegItem cRegItemRead;
-					DecodeReg( cRegItemRead, cCbcId, *cMismatchWord.second );
 
-					// uint32_t index = std::distance(cVecWrite.begin(),cMismatchWord.first);
-					// std::string cMismatchName = pVecReq.at(index).first;
+					auto cMismatchWord = std::mismatch( cVecWrite.begin(), cVecWrite.end(), cVecRead.begin() );
+					while ( cMismatchWord.first != cVecWrite.end() )
+					{
+						CbcRegItem cRegItemWrite;
+						DecodeReg( cRegItemWrite, cCbcId, *cMismatchWord.first );
+						CbcRegItem cRegItemRead;
+						DecodeReg( cRegItemRead, cCbcId, *cMismatchWord.second );
 
-					std::cout << RED << "\nERROR !!!\nReadback value not the same for Register @ Page: "  << int( cRegItemWrite.fPage ) << " Address: " << int( cRegItemWrite.fAddress ) << "\n" << std::hex << "Written Value : 0x" << int( cRegItemWrite.fValue ) << "\nReadback Value : 0x" << int( cRegItemRead.fValue ) << std::dec << std::endl;
-					std::cout << "Cbc Id : " << uint32_t( pCbc->getCbcId() ) << RESET << std::endl << std::endl;
-					cMismatchWord = std::mismatch( ++cMismatchWord.first, cVecWrite.end(), ++cMismatchWord.second );
-					// mypause();
+						// uint32_t index = std::distance(cVecWrite.begin(),cMismatchWord.first);
+						// std::string cMismatchName = pVecReq.at(index).first;
+
+						std::cout << RED << "\nERROR !!!\nReadback value not the same for Register @ Page: "  << int( cRegItemWrite.fPage ) << " Address: " << int( cRegItemWrite.fAddress ) << "\n" << std::hex << "Written Value : 0x" << int( cRegItemWrite.fValue ) << "\nReadback Value : 0x" << int( cRegItemRead.fValue ) << std::dec << std::endl;
+						std::cout << "Cbc Id : " << uint32_t( pCbc->getCbcId() ) << RESET << std::endl << std::endl;
+						cMismatchWord = std::mismatch( ++cMismatchWord.first, cVecWrite.end(), ++cMismatchWord.second );
+						// mypause();
+					}
 				}
-			}
 
+			}
 		}
 
 #ifdef __CBCDAQ_DEV__
