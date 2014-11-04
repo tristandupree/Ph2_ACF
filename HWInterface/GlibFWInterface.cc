@@ -532,6 +532,14 @@ namespace Ph2_HwInterface
 			it++;
 			itValue++;
 		}
+		// To avoid the IPBUS bug
+		//  replace the 256th word
+		if ( pVecReq.size() > 255 )
+		{
+			std::string fSram_256 = fStrSram + "_256";
+			uhal::ValWord<uint32_t> cWord = ReadReg( fSram_256 );
+			pVecReq.at( 255 ) = cWord.value();
+		}
 	}
 
 
