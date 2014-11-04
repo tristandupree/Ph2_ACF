@@ -519,13 +519,13 @@ namespace Ph2_HwInterface
 		WriteReg( fStrSramUserLogic, 0 );
 
 		uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, pVecReq.size() );
+		uhal::ValWord<uint32_t> cWord;
 		// To avoid the IPBUS bug
 		//  replace the 256th word
 		if ( pVecReq.size() > 255 )
 		{
 			std::string fSram_256 = fStrSram + "_256";
-			uhal::ValWord<uint32_t> cWord = ReadReg( fSram_256 );
-			pVecReq[255] = cWord.value();
+			cWord = ReadReg( fSram_256 );
 		}
 		WriteReg( fStrSramUserLogic, 1 );
 		WriteReg( CBC_I2C_CMD_RQ, 0 );
@@ -539,6 +539,10 @@ namespace Ph2_HwInterface
 			it++;
 			itValue++;
 		}
+		// To avoid the IPBUS bug
+		//  replace the 256th word
+		if ( pVecReq.size() > 255 ) pVecReq.at( 255 ) = cWord.value();
+
 	}
 
 
