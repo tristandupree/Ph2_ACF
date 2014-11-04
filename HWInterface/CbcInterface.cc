@@ -66,9 +66,11 @@ namespace Ph2_HwInterface
 		// CbcRegItem cRegItemRead;
 
 		CbcRegMap cCbcRegMap = pCbc->getRegMap();
-
+		int counter = 0;
 		for ( CbcRegMap::iterator cIt = cCbcRegMap.begin(); cIt != cCbcRegMap.end(); cIt++ )
 		{
+
+			std::cout << cIt->first << " " << counter << std::endl;
 			EncodeReg( cIt->second, pCbc->getCbcId(), cVecWrite );
 
 			if ( pVerifLoop )
@@ -78,6 +80,7 @@ namespace Ph2_HwInterface
 
 				EncodeReg( cItem, pCbc->getCbcId(), cVecRead );
 			}
+			counter++;
 		}
 
 		fBoardFW->WriteCbcBlockReg( pCbc->getFeId(), cVecWrite );
