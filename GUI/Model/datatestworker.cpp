@@ -90,6 +90,7 @@ namespace GUI
         m_Events = cEvents;
         m_test = testReg;
         m_scan = scanReg;
+        m_HoleMode = holeMode;
 
 
         qDebug()<<"Request worker start in Thread "<<thread()->currentThreadId();
@@ -167,10 +168,6 @@ namespace GUI
     {
         std::cout << "Scanning noise Occupancy to find threshold for test with external source ... " << std::endl;
 
-        //auto cSetting = fSettingsMap.find( "HoleMode" );
-
-        //bool cHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
-
         // Necessary variables
         uint32_t cEventsperVcth = 10;
         bool cNonZero = false;
@@ -198,7 +195,7 @@ namespace GUI
 
             // Set current Vcth value on all Cbc's
             CbcRegWriter cWriter( fCbcInterface, "VCth", cVcth );
-            //accept( cWriter );
+            m_systemController.m_worker->accept( cWriter );
 
             uint32_t cN = 0;
             uint32_t cNthAcq = 0;
@@ -212,7 +209,7 @@ namespace GUI
                 {
                     while ( cN <  cEventsperVcth )
                     {
-                        //Run( &pBoard, cNthAcq );
+                        m_systemController.m_worker->Run( &pBoard, cNthAcq );
 
                         const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
 

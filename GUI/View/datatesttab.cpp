@@ -109,6 +109,19 @@ namespace GUI {
         }
     }
 
+    void DataTestTab::drawThreshold(const std::vector<std::shared_ptr<TH1F> > hists)
+    {
+        for (int i=0; i<2; i++)
+        {
+            qDebug() << "Drawing...";
+            m_vecTWidget_Occupancy.at(i)->Clear();
+            m_vecHistOccupancy = hists;
+            m_vecTWidget_Occupancy.at(i)->GetCanvas()->cd();
+            m_vecHistOccupancy.at(i)->Draw();
+            m_vecTWidget_Occupancy.at(i)->Refresh();
+        }
+    }
+
     void DataTestTab::getVcthDialValue()
     {
         emit sendVcthValue(m_Vcth);

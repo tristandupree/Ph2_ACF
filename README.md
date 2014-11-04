@@ -53,12 +53,12 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
 2. Install the latest gcc compiler:
 
         sudo yum install devtoolset-2
-        sudo ln -s /opt/rh/devtoolset-2/root/usr/bin* /usr/local/bin/
+        sudo ln -s /opt/rh/devtoolset-2/root/usr/bin/* /usr/local/bin/
         hash -r
 
    This should give you gcc 4.8.1:
 
-        /usr/bin/gcc --version
+        gcc --version
 
 3. Finally, update uHAL to version 2.3:
 
