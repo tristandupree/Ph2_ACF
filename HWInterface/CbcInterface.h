@@ -57,9 +57,11 @@ namespace Ph2_HwInterface
 		~CbcInterface();
 		/*!
 		 * \brief Configure the Cbc with the Cbc Config File
-		 * \param pCbc
+		 * \param pCbc: pointer to CBC object
+		 * \param pVerifLoop: perform a readback check
+		 * \param pBlockSize: the number of registers to be written at once, default is 310
 		 */
-		void ConfigureCbc( Cbc* pCbc, bool pVerifLoop = true );
+		void ConfigureCbc( Cbc* pCbc, bool pVerifLoop = true, uint32_t pBlockSize = 310 );
 		/*!
 		 * \brief Write the designated register in both Cbc and Cbc Config File
 		 * \param pCbc
