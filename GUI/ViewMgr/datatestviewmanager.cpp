@@ -59,5 +59,9 @@ namespace GUI
                 &m_dataTestTab, SLOT(setupCanvas(bool)));
         connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)),
                 &m_dataTestTab, SLOT(drawOccupancy(std::vector<std::shared_ptr<TH1F> >)));
+        connect(&m_dataTest, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >)),
+                &m_dataTestTab, SLOT(drawThreshold(std::vector<std::shared_ptr<TH1F> >)));
+        connect(&m_dataTest, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >)),
+                &m_dataTestTab, SLOT(drawFitThreshold(std::vector<std::shared_ptr<TF1> >)));
     }
 }

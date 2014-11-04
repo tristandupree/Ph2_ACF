@@ -33,6 +33,8 @@ namespace GUI{
         void finishedDataTest();
         void sendRefresh();
         void sendGraphData(const std::vector<std::shared_ptr<TH1F>> graph);
+        void sendHistsThreshold(const std::vector<std::shared_ptr<TH1F>> graph);
+        void sendFitThreshold(const std::vector<std::shared_ptr<TF1>> graph);
 
     public slots:
         void initialiseSettings();
@@ -55,7 +57,7 @@ namespace GUI{
         DataTestWorker *m_worker;
 
         void WireThreadConnections();
-        void WireTimer();
+        void WireGraphData();
 
         explicit DataTest(const DataTest& rhs) = delete;
         DataTest& operator= (const DataTest& rhs) = delete;

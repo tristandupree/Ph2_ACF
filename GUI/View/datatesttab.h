@@ -42,6 +42,8 @@ namespace GUI{
         void onDataTestFinish();
         void setupCanvas(const bool cbc2);
         void drawOccupancy(const std::vector<std::shared_ptr<TH1F>> hists);
+        void drawThreshold(const std::vector<std::shared_ptr<TH1F>> hists);
+        void drawFitThreshold(const std::vector<std::shared_ptr<TF1>> graph);
 
 
     private slots:
@@ -59,6 +61,8 @@ namespace GUI{
 
         Ui::DataTestTab *ui;
         std::vector<std::shared_ptr<TH1F>> m_vecHistOccupancy;
+        std::vector<std::shared_ptr<TH1F>> m_vecHistThreshold;
+        std::vector<std::shared_ptr<TF1>> m_vecFitThreshold;
 
         TCanvas* m_canvasOccupy;
 

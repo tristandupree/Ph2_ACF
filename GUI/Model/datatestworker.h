@@ -38,7 +38,8 @@ namespace GUI{
         void sendAccept(HwDescriptionVisitor pVisitor); //not working
 
         void sendOccupyHists(const std::vector<std::shared_ptr<TH1F>> graph);
-        void sendCanvasOccupy(const std::shared_ptr<TCanvas> canvas);
+        void sendHistsThreshold(const std::vector<std::shared_ptr<TH1F>> graph);
+        void sendFitThreshold(const std::vector<std::shared_ptr<TF1>> graph);
 
     public slots:
         void doWork();
@@ -72,8 +73,10 @@ namespace GUI{
 
         //std::shared_ptr<TH1F>  fBotHist;
         //std::shared_ptr<TH1F>  fTopHist;
-        TH1F* fSCurve;   /*!< Histogram for SCurve */
-        TF1* fFit;   /*!< fit for SCurve*/
+        //TH1F* fSCurve;   /*!< Histogram for SCurve */
+        std::vector<std::shared_ptr<TH1F>> m_vecSCurve;
+        //TF1* fFit;   /*!< fit for SCurve*/
+        std::vector<std::shared_ptr<TF1>> m_vecFit;
 
         explicit DataTestWorker(const DataTestWorker& rhs) = delete;
         DataTestWorker& operator= (const DataTestWorker& rhs) = delete;

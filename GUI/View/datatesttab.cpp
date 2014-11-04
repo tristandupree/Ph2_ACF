@@ -10,6 +10,7 @@
 #include "TCanvas.h"
 #include "TH2F.h"
 #include "TStyle.h"
+#include "TH1.h"
 
 #include "utils.h"
 
@@ -100,7 +101,6 @@ namespace GUI {
     {
         for (int i=0; i<2; i++)
         {
-            qDebug() << "Drawing...";
             m_vecTWidget_Occupancy.at(i)->Clear();
             m_vecHistOccupancy = hists;
             m_vecTWidget_Occupancy.at(i)->GetCanvas()->cd();
@@ -111,15 +111,20 @@ namespace GUI {
 
     void DataTestTab::drawThreshold(const std::vector<std::shared_ptr<TH1F> > hists)
     {
-        for (int i=0; i<2; i++)
-        {
-            qDebug() << "Drawing...";
-            m_vecTWidget_Occupancy.at(i)->Clear();
-            m_vecHistOccupancy = hists;
-            m_vecTWidget_Occupancy.at(i)->GetCanvas()->cd();
-            m_vecHistOccupancy.at(i)->Draw();
-            m_vecTWidget_Occupancy.at(i)->Refresh();
-        }
+        m_vecTWidget_Threshold.at(0)->Clear();
+        m_vecHistThreshold = hists;
+        m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
+        m_vecHistThreshold.at(0)->Draw("P");
+        m_vecTWidget_Threshold.at(0)->Refresh();
+    }
+
+    void DataTestTab::drawFitThreshold(const std::vector<std::shared_ptr<TF1> > graph)
+    {
+        m_vecTWidget_Threshold.at(0)->Clear();
+        m_vecFitThreshold = graph;
+        m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
+        m_vecHistThreshold.at(0)->Draw("same");
+        m_vecTWidget_Threshold.at(0)->Refresh();
     }
 
     void DataTestTab::getVcthDialValue()

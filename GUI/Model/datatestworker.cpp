@@ -126,6 +126,8 @@ namespace GUI
             TestRegisters();
         }
 
+        ScanThreshold();
+
         Measure();
 
         //qDebug()<<"Worker process finished in DataTest thread "<<thread()->currentThreadId();
@@ -179,8 +181,16 @@ namespace GUI
 
         // Root objects
         //fSCurve = new TH1F( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
-        //fSCurve->SetMarkerStyle( 8 );
+        auto sCurve  = std::make_shared<TH1F>( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
+
+        m_vecSCurve.clear();
+        m_vecSCurve.push_back(sCurve);
+        m_vecSCurve.at(0)->SetMarkerStyle( 8 );
         //fSCurveCanvas->cd();
+
+        m_vecFit.clear();
+        auto fFit  = std::make_shared<TH1F>( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
+        m_vecFit.push_back(fFit);
         //fFit = new TF1( "fFit", MyErf, 0, 255, 2 );
 
         // Adaptive VCth loop
@@ -231,7 +241,8 @@ namespace GUI
                         cNthAcq++;
                     } // done with this acquisition
 
-                    //fSCurve->SetBinContent( cVcth, cHitCounter );
+                    m_vecSCurve.at(0)->SetBinContent( cVcth, cHitCounter );
+                    emit sendHistsThreshold(m_vecSCurve);
                     //fSCurve->Draw( "P" );
                     //fSCurveCanvas->Update();
                     // check if the hitcounter is all ones
@@ -253,7 +264,8 @@ namespace GUI
         } // end of VCth loop
 
         // Fit & Plot
-        //fSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NCHANNELS ) );
+        m_vecSCurve.at(0)->Scale( 1 / double_t( cEventsperVcth * fNCbc * NCHANNELS ) );
+        emit sendHistsThreshold(m_vecSCurve);
         //fSCurve->Draw( "P" );
 
         double cFirstNon0( 0 );
@@ -262,16 +274,16 @@ namespace GUI
         // Not Hole Mode
         if ( !m_HoleMode )
         {
-            for ( Int_t cBin = 1; cBin <= fSCurve->GetNbinsX(); cBin++ )
+            for ( Int_t cBin = 1; cBin <= m_vecSCurve.at(0)->GetNbinsX(); cBin++ )
             {
-                double cContent = fSCurve->GetBinContent( cBin );
+                double cContent = m_vecSCurve.at(0)->GetBinContent( cBin );
                 if ( !cFirstNon0 )
                 {
-                    if ( cContent ) cFirstNon0 = fSCurve->GetBinCenter( cBin );
+                    if ( cContent ) cFirstNon0 = m_vecSCurve.at(0)->GetBinCenter( cBin );
                 }
                 else if ( cContent == 1 )
                 {
-                    cFirst1 = fSCurve->GetBinCenter( cBin );
+                    cFirst1 = m_vecSCurve.at(0)->GetBinCenter( cBin );
                     break;
                 }
             }
@@ -279,16 +291,16 @@ namespace GUI
         // Hole mode
         else
         {
-            for ( Int_t cBin = fSCurve->GetNbinsX(); cBin >= 1; cBin-- )
+            for ( Int_t cBin = m_vecSCurve.at(0)->GetNbinsX(); cBin >= 1; cBin-- )
             {
-                double cContent = fSCurve->GetBinContent( cBin );
+                double cContent = m_vecSCurve.at(0)->GetBinContent( cBin );
                 if ( !cFirstNon0 )
                 {
-                    if ( cContent ) cFirstNon0 = fSCurve->GetBinCenter( cBin );
+                    if ( cContent ) cFirstNon0 = m_vecSCurve.at(0)->GetBinCenter( cBin );
                 }
                 else if ( cContent == 1 )
                 {
-                    cFirst1 = fSCurve->GetBinCenter( cBin );
+                    cFirst1 = m_vecSCurve.at(0)->GetBinCenter( cBin );
                     break;
                 }
             }
@@ -299,15 +311,18 @@ namespace GUI
         double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
 
 
-        //fFit->SetParameter( 0, cMid );
-        //fFit->SetParameter( 1, cWidth );
+        fFit->SetParameter( 0, cMid );
+        fFit->SetParameter( 1, cWidth );
 
-        //fSCurve->Fit( fFit, "RNQ+" );
+        m_vecSCurve.at(0)->Fit( fFit, "RNQ+" );
         //fFit->Draw( "same" );
+        emit sendHistsThreshold(m_vecSCurve);
 
         // Save
-        //fSCurve->Write( fSCurve->GetName(), TObject::kOverwrite );
-        //fFit->Write( fFit->GetName(), TObject::kOverwrite );
+        m_vecSCurve.at(0)->Write( m_vecSCurve.at(0)->GetName(), TObject::kOverwrite );
+        fFit->Write( fFit->GetName(), TObject::kOverwrite );
+        emit sendFitThreshold(m_vecFit);
+        //emit save canvas
         //fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
         std::string fDirectoryName = "output";
         std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
@@ -325,18 +340,19 @@ namespace GUI
 
         std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (" << fabs( noise ) << ") to " << int( cThreshold ) << " for Hybrid test!" << std::endl;
 
-        //TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
-        //cLine->SetLineWidth( 3 );
-        //cLine->SetLineColor( 2 );
+        TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
+        cLine->SetLineWidth( 3 );
+        cLine->SetLineColor( 2 );
         //cLine->Draw( "same" );
         //fSCurveCanvas->Update();
 
         CbcRegWriter cWriter( fCbcInterface, "VCth", cThreshold );
-        //accept( cWriter );
+        m_systemController.m_worker->accept( cWriter );
 
+        //!No external signal support for now !!!
         // Wait for user to acknowledge and turn on external Source!
-        std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
-        mypause();
+        //std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
+        //mypause();
 
     }
 

@@ -4,8 +4,7 @@
 #include <QThread>
 #include "TH1F.h"
 #include "TCanvas.h"
-#include <atomic>
-
+#include "TH1.h"
 
 #include "Model/datatestworker.h"
 #include "Model/systemcontroller.h"
@@ -27,6 +26,7 @@ namespace GUI
         qRegisterMetaType<std::vector<std::shared_ptr<TH1F>> >("std::vector<std::shared_ptr<TH1F>>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
+        WireGraphData();
     }
 
     DataTest::~DataTest()
@@ -49,9 +49,16 @@ namespace GUI
                 this, SIGNAL(finishedDataTest()));
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
+    }
 
+    void DataTest::WireGraphData()
+    {
         connect(m_worker, SIGNAL(sendOccupyHists(std::vector<std::shared_ptr<TH1F> >)),
                 this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >)),
+                this, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >)),
+                this, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >)), Qt::QueuedConnection);
     }
 
 
