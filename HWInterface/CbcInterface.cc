@@ -160,6 +160,8 @@ namespace Ph2_HwInterface
 
 		fBoardFW->WriteCbcBlockReg( pCbc->getFeId(), cVecWrite );
 
+		pCbc->setReg( pRegNode, pValue );
+
 		if ( pVerifLoop )
 		{
 			uint8_t cCbcId = pCbc->getCbcId();
@@ -168,12 +170,14 @@ namespace Ph2_HwInterface
 
 			EncodeReg( cRegItem, pCbc->getCbcId(), cVecRead );
 
+
 			fBoardFW->ReadCbcBlockReg( pCbc->getFeId(), cVecRead );
 
 			if ( cVecWrite != cVecRead )
 			{
 
 				DecodeReg( cRegItem, cCbcId, cVecRead[0] );
+				pCbc->setReg( pRegNode, cRegItem.fValue );
 
 				std::cout << RED <<  "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << std::hex << "Written Value : 0x" << int( pValue ) << "\nReadback Value : 0x" << int( cRegItem.fValue ) << std::dec << std::endl;
 				std::cout << "Register Adress : " << uint32_t( cRegItem.fAddress ) << std::endl;
@@ -184,7 +188,6 @@ namespace Ph2_HwInterface
 			else return true;
 		}
 
-		pCbc->setReg( pRegNode, cRegItem.fValue );
 
 #ifdef __CBCDAQ_DEV__
 		if ( DEV_FLAG )
