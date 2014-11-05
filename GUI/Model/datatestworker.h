@@ -3,7 +3,8 @@
 #include <QVector>
 #include <QMutex>
 #include <QVariantMap>
-#include <TH1F.h>
+//#include <TH1F.h>
+#include "TF1.h"
 #include "TCanvas.h"
 #include <vector>
 

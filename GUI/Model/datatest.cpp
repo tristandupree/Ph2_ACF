@@ -3,8 +3,8 @@
 #include <QVector>
 #include <QThread>
 #include "TH1F.h"
+#include "TF1.h"
 #include "TCanvas.h"
-#include "TH1.h"
 
 #include "Model/datatestworker.h"
 #include "Model/systemcontroller.h"
@@ -24,6 +24,7 @@ namespace GUI
         m_Events(0)
     {
         qRegisterMetaType<std::vector<std::shared_ptr<TH1F>> >("std::vector<std::shared_ptr<TH1F>>");
+        qRegisterMetaType<std::vector<std::shared_ptr<TF1>> >("std::vector<std::shared_ptr<TF1>>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
         WireGraphData();

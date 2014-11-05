@@ -9,7 +9,6 @@
 #include "../HWDescription/BeBoard.h"
 #include "../HWInterface/CbcInterface.h"
 #include "../HWInterface/BeBoardInterface.h"
-//#include "../System/SystemController.h"
 #include "../Utils/ConsoleColor.h"
 #include "../Utils/Visitor.h"
 #include "../Utils/Utilities.h"
@@ -126,7 +125,10 @@ namespace GUI
             TestRegisters();
         }
 
-        ScanThreshold();
+        if(m_scan){
+
+            ScanThreshold();
+        }
 
         Measure();
 
@@ -189,7 +191,7 @@ namespace GUI
         //fSCurveCanvas->cd();
 
         m_vecFit.clear();
-        auto fFit  = std::make_shared<TH1F>( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
+        auto fFit  = std::make_shared<TF1>( "fFit", MyErf, 0, 255, 2 );
         m_vecFit.push_back(fFit);
         //fFit = new TF1( "fFit", MyErf, 0, 255, 2 );
 
@@ -311,16 +313,16 @@ namespace GUI
         double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
 
 
-        fFit->SetParameter( 0, cMid );
-        fFit->SetParameter( 1, cWidth );
+        m_vecFit.at(0)->SetParameter( 0, cMid );
+        m_vecFit.at(0)->SetParameter( 1, cWidth );
 
-        m_vecSCurve.at(0)->Fit( fFit, "RNQ+" );
+        //m_vecSCurve.at(0)->Fit( m_vecFit.at(0), "RNQ+" );
         //fFit->Draw( "same" );
         emit sendHistsThreshold(m_vecSCurve);
 
         // Save
         m_vecSCurve.at(0)->Write( m_vecSCurve.at(0)->GetName(), TObject::kOverwrite );
-        fFit->Write( fFit->GetName(), TObject::kOverwrite );
+        m_vecFit.at(0)->Write( fFit->GetName(), TObject::kOverwrite );
         emit sendFitThreshold(m_vecFit);
         //emit save canvas
         //fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
@@ -329,8 +331,8 @@ namespace GUI
         //fSCurveCanvas->SaveAs( cPdfName.c_str() );
 
         // Set new VCth
-        double_t pedestal = fFit->GetParameter( 0 );
-        double_t noise = fFit->GetParameter( 1 );
+        double_t pedestal = m_vecFit.at(0)->GetParameter( 0 );
+        double_t noise = m_vecFit.at(0)->GetParameter( 1 );
 
         //cSetting = fSettingsMap.find( "Threshold_NSigmas" );
         //int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
@@ -352,7 +354,7 @@ namespace GUI
         //!No external signal support for now !!!
         // Wait for user to acknowledge and turn on external Source!
         //std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
-        //mypause();
+        //mypause();*/
 
     }
 
