@@ -17,6 +17,7 @@
 #include <sys/time.h>
 #include <ctime>
 #include "../Utils/Visitor.h"
+#include "../Utils/CommonVisitors.h"
 #include "../Utils/Timer.h"
 #include "../Utils/argvparser.h"
 
@@ -93,6 +94,7 @@ int main( int argc, char* argv[] )
 		}
 	};
 
+
 	if ( cSingle )
 	{
 		t.start();
@@ -102,6 +104,8 @@ int main( int argc, char* argv[] )
 
 		t.stop();
 		t.show( "Time to write a single Register on all CBC s" );
+		CbcRegReader cReader( cSystemController.fCbcInterface, "VCth" );
+		cSystemController.accept( cReader );
 	}
 
 
@@ -112,7 +116,7 @@ int main( int argc, char* argv[] )
 	{
 
 		TString cRegName = Form( "Channel%03d", cChannel );
-		uint8_t cRegValue = 0x50;
+		uint8_t cRegValue = 0x99;
 
 		std::pair<std::string, uint8_t> cRegPair = std::make_pair( cRegName.Data(), cRegValue );
 		cRegVec.push_back( cRegPair );
@@ -124,10 +128,12 @@ int main( int argc, char* argv[] )
 		t.start();
 
 		cSystemController.fCbcInterface->WriteCbcMultReg( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 0 ), cRegVec, true );
-		// cSystemController.fCbcInterface->WriteCbcMultReg(cSystemController.fShelveVector[0]->getBoard(0)->getModule(0)->getCbc(1),cRegVec, false);
+		cSystemController.fCbcInterface->WriteCbcMultReg( cSystemController.fShelveVector[0]->getBoard( 0 )->getModule( 0 )->getCbc( 1 ), cRegVec, false );
 
 		t.stop();
-		t.show( "Time for writing 254 registers to a single CBC" );
+		t.show( "Time for writing 254 registers to 2 CBCs" );
+		CbcRegReader cReader( cSystemController.fCbcInterface, "Channel005" );
+		cSystemController.accept( cReader );
 	}
 	return 0;
 }

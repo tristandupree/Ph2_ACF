@@ -679,6 +679,7 @@ uint32_t Calibration::ToggleTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool p
 
 void Calibration::SaveResults()
 {
+	uint8_t cTargetVCth = fSettingsMap.find( "TargetVcth" )->second;
 
 	if ( !fDirectoryName.empty() )
 	{
@@ -690,6 +691,9 @@ void Calibration::SaveResults()
 				{
 					for ( auto cCbc : cFe.fCbcVector )
 					{
+						// set Target VCth, just to be sure
+						fCbcInterface->WriteCbcReg( &cCbc, "VCth", cTargetVCth );
+
 						TString cFilename = Form( "/FE%dCBC%d.txt", cFe.getFeId(), cCbc.getCbcId() );
 
 						std::string cPathname = fDirectoryName + cFilename.Data();
