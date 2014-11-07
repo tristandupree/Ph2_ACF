@@ -177,11 +177,14 @@ namespace Ph2_HwInterface
 			if ( cVecWrite != cVecRead )
 			{
 
-				DecodeReg( cRegItem, cCbcId, cVecRead[0] );
-				pCbc->setReg( pRegNode, cRegItem.fValue );
+				CbcRegItem cReadItem;
+				CbcRegItem cWriteItem;
+				DecodeReg( cWriteItem, cCbcId, cVecWrite.at( 0 ) );
+				DecodeReg( cReadItem, cCbcId, cVecRead.at( 0 ) );
+				pCbc->setReg( pRegNode, cReadItem.fValue );
 
-				std::cout << RED <<  "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << std::hex << "Written Value : 0x" << int( pValue ) << "\nReadback Value : 0x" << int( cRegItem.fValue ) << std::dec << std::endl;
-				std::cout << "Register Adress : " << uint32_t( cRegItem.fAddress ) << std::endl;
+				std::cout << RED <<  "ERROR !!!\nReadback Value different for Register : " << pRegNode << "\n" << std::hex << "Written Value : 0x" << int( cWriteItem.fValue ) << "\nReadback Value : 0x" << int( cReadItem.fValue ) << std::dec << std::endl;
+				std::cout << "Register Adress : " << uint32_t( cReadItem.fAddress ) << std::endl;
 				std::cout << "Cbc Id : " << uint32_t( cCbcId ) << RESET << std::endl << std::endl;
 				// mypause();
 				return false;
