@@ -24,6 +24,8 @@ namespace GUI
 
     void CbcRegViewManager::WireConnections()
     {
+        connect(&m_cbcRegistersTab, SIGNAL(refreshCbcRegisters()),
+                &m_cbcRegisters, SLOT(getCbcRegistersMap()));
         connect(&m_cbcRegisters, SIGNAL(sendCbcRegisterValue(int,std::map<std::string,CbcRegItem>)),
                 &m_cbcRegistersTab, SLOT(createCbcRegisterValue(int,std::map<std::string,CbcRegItem>)));
     }

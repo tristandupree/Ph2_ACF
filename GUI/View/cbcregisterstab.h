@@ -27,9 +27,15 @@ namespace GUI {
         explicit CbcRegistersTab(QWidget *parent);
         ~CbcRegistersTab();
 
+    signals:
+        void refreshCbcRegisters();
+
     public slots:
         void setupCbcRegGrid(const bool cbc2);
         void createCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg);
+
+    private slots:
+        void on_pushButton_clicked();
 
     private:
         Ui::CbcRegistersTab *ui;

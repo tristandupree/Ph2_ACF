@@ -13,6 +13,7 @@
 #include <QStandardItem>
 #include <QList>
 #include <QScrollArea>
+#include <QGroupBox>
 
 namespace GUI {
 
@@ -42,6 +43,7 @@ namespace GUI {
         {
             m_tabCbc->clear();
             m_loGridVec.clear();
+            m_widgetMap.clear();
         }
 
         for (int i=0; i<cNCbc; i++)
@@ -49,16 +51,6 @@ namespace GUI {
             QString title = QString("CBC %1").arg(i);
             m_tabCbc->addTab(createCbcTab(), title);
         }
-
-        CbcRegItem test;
-        test.fAddress=100;
-        test.fDefValue=3;
-        test.fPage = 0;
-        test.fValue=55;
-
-        std::map<std::string, CbcRegItem> regMap = { {"HelloWorld", test } };
-
-        //createCbcRegisterValue(0, regMap);
     }
 
 
@@ -69,21 +61,17 @@ namespace GUI {
 
         for (auto& kv : mapReg)
         {
-            //QVector<QMap<QString, QMap<QLabel*, QLineEdit*>>> m_widgetMap; //vector of CBCs access the map via the name of the register
             QGridLayout *loCbcPage = m_loGridVec.at(cbc).at(kv.second.fPage); //access cbc->page
             QHBoxLayout *loHorz = new QHBoxLayout; //will contain label + text edit
-
-            //qDebug() << QString::fromStdString(kv.first);
-            //qDebug() << QString::number(int(kv.second.fAddress));
-            //qDebug() << kv.second.fPage;
 
             auto cAddress = kv.second.fAddress;
             QString cHexAddress;
 
-            QString RegTitle_Address = QString("%1 [0x%2]").arg(QString::fromStdString(kv.first), cHexAddress.setNum(cAddress, 16));
+            QString cRegTitle_Address = QString("%1 [0x%2]").arg(QString::fromStdString(kv.first), cHexAddress.setNum(cAddress, 16));
 
             QLabel *lblRegTitle = new QLabel(this);
-            lblRegTitle->setText(RegTitle_Address);
+            lblRegTitle->setText(cRegTitle_Address);
+            //lblRegTitle->setLineWidth(150);
 
             QLineEdit *lineRegValue = new QLineEdit(this);
             lineRegValue->setText(QString::number(kv.second.fValue));
@@ -104,16 +92,15 @@ namespace GUI {
             QMap<QLabel*, QLineEdit*> map;
             map.insert(lblRegTitle, lineRegValue);
             mapWidgets.insert(QString::fromStdString(kv.first), map );
-            m_widgetMap.push_back(mapWidgets);
+            m_widgetMap.push_back(mapWidgets); //TODO use this to send later specific registers
 
             ++row;
 
-            if (row == 15)
+            if (row == 20)
             {
                 ++column;
                 row = 0;
             }
-
         }
     }
 
@@ -140,5 +127,9 @@ namespace GUI {
         return tabCbc;
     }
 
+    void CbcRegistersTab::on_pushButton_clicked()
+    {
+        emit refreshCbcRegisters();
+    }
 
 }

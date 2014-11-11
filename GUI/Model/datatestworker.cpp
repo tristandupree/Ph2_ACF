@@ -14,7 +14,6 @@
 #include "../Utils/Utilities.h"
 #include "../Utils/CommonVisitors.h"
 
-//#include "../System/SystemController.h"
 #include "TCanvas.h"
 #include "TFile.h"
 #include "TH1F.h"
@@ -90,7 +89,6 @@ namespace GUI
         m_test = testReg;
         m_scan = scanReg;
         m_HoleMode = holeMode;
-
 
         qDebug()<<"Request worker start in Thread "<<thread()->currentThreadId();
 
