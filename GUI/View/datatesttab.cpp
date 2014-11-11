@@ -87,13 +87,13 @@ namespace GUI {
         QTabWidget *tab = new QTabWidget;
         QHBoxLayout *loH = new QHBoxLayout;
 
-        for (int i=0; i<2 ;i++) //TODO support 8CBC
-        {
-            m_vecTWidget_Threshold.push_back(new TQtWidget(this));
-            loH->addWidget(m_vecTWidget_Threshold.at(i));
-            m_vectorLayout.push_back(loH); //incase I want to access later
-            tab->setLayout(loH);
-        }
+        //for (int i=0; i<2 ;i++) //TODO support 8CBC
+        //{
+        m_vecTWidget_Threshold.push_back(new TQtWidget(this));
+        loH->addWidget(m_vecTWidget_Threshold.at(0));
+        m_vectorLayout.push_back(loH); //incase I want to access later
+        tab->setLayout(loH);
+        //}
         return tab;
     }
 
@@ -109,21 +109,22 @@ namespace GUI {
         }
     }
 
-    void DataTestTab::drawThreshold(const std::vector<std::shared_ptr<TH1F> > hists)
+    void DataTestTab::drawThreshold(const std::vector<std::shared_ptr<TH1F> > hists, std::string option)
     {
         m_vecTWidget_Threshold.at(0)->Clear();
         m_vecHistThreshold = hists;
         m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
-        m_vecHistThreshold.at(0)->Draw("P");
+        m_vecHistThreshold.at(0)->Draw(option.c_str());
         m_vecTWidget_Threshold.at(0)->Refresh();
     }
 
-    void DataTestTab::drawFitThreshold(const std::vector<std::shared_ptr<TF1> > graph)
+    void DataTestTab::drawFitThreshold(const std::vector<std::shared_ptr<TF1> > graph, std::string option)
     {
-        m_vecTWidget_Threshold.at(0)->Clear();
+        //m_vecTWidget_Threshold.at(0)->Clear();
+        TQtWidget *flush = new TQtWidget(this); // no idea why this flushes
         m_vecFitThreshold = graph;
         m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
-        m_vecHistThreshold.at(0)->Draw("same");
+        m_vecHistThreshold.at(0)->Draw(option.c_str());
         m_vecTWidget_Threshold.at(0)->Refresh();
     }
 

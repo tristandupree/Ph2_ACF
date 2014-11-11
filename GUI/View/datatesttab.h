@@ -42,8 +42,8 @@ namespace GUI{
         void onDataTestFinish();
         void setupCanvas(const bool cbc2);
         void drawOccupancy(const std::vector<std::shared_ptr<TH1F>> hists);
-        void drawThreshold(const std::vector<std::shared_ptr<TH1F>> hists);
-        void drawFitThreshold(const std::vector<std::shared_ptr<TF1>> graph);
+        void drawThreshold(const std::vector<std::shared_ptr<TH1F>> hists, std::string option);
+        void drawFitThreshold(const std::vector<std::shared_ptr<TF1>> graph, std::string option);
 
 
     private slots:

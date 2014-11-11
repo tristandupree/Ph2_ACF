@@ -40,8 +40,8 @@ namespace GUI{
         void sendAccept(HwDescriptionVisitor pVisitor); //not working
 
         void sendOccupyHists(const std::vector<std::shared_ptr<TH1F>> graph);
-        void sendHistsThreshold(const std::vector<std::shared_ptr<TH1F>> graph);
-        void sendFitThreshold(const std::vector<std::shared_ptr<TF1>> graph);
+        void sendHistsThreshold(const std::vector<std::shared_ptr<TH1F>> graph, std::string option);
+        void sendFitThreshold(const std::vector<std::shared_ptr<TF1>> graph, std::string option);
 
     public slots:
         void doWork();

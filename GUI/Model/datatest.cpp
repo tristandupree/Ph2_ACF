@@ -25,6 +25,7 @@ namespace GUI
     {
         qRegisterMetaType<std::vector<std::shared_ptr<TH1F>> >("std::vector<std::shared_ptr<TH1F>>");
         qRegisterMetaType<std::vector<std::shared_ptr<TF1>> >("std::vector<std::shared_ptr<TF1>>");
+        qRegisterMetaType<std::string> ("std::string");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
         WireGraphData();
@@ -56,10 +57,10 @@ namespace GUI
     {
         connect(m_worker, SIGNAL(sendOccupyHists(std::vector<std::shared_ptr<TH1F> >)),
                 this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
-        connect(m_worker, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >)),
-                this, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
-        connect(m_worker, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >)),
-                this, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >,std::string)),
+                this, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >,std::string)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)),
+                this, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)), Qt::QueuedConnection);
     }
 
 

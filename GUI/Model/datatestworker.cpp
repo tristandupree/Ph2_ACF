@@ -183,10 +183,13 @@ namespace GUI
         auto sCurve  = std::make_shared<TH1F>( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
 
         m_vecSCurve.clear();
+        m_vecFit.clear();
+
         m_vecSCurve.push_back(sCurve);
         m_vecSCurve.at(0)->SetMarkerStyle( 8 );
 
-        m_vecFit.clear();
+        emit sendHistsThreshold(m_vecSCurve, "P");
+
         auto fFit  = std::make_shared<TF1>( "fFit", MyErf, 0, 255, 2 );
         m_vecFit.push_back(fFit);
 
@@ -239,7 +242,7 @@ namespace GUI
                     } // done with this acquisition
 
                     m_vecSCurve.at(0)->SetBinContent( cVcth, cHitCounter );
-                    emit sendHistsThreshold(m_vecSCurve);
+                    emit sendHistsThreshold(m_vecSCurve, "P");
 
                     // check if the hitcounter is all ones
 
@@ -261,7 +264,7 @@ namespace GUI
 
         // Fit & Plot
         m_vecSCurve.at(0)->Scale( 1 / double_t( cEventsperVcth * fNCbc * NCHANNELS ) );
-        emit sendHistsThreshold(m_vecSCurve);
+        emit sendHistsThreshold(m_vecSCurve, "P");
 
         double cFirstNon0( 0 );
         double cFirst1( 0 );
@@ -310,13 +313,13 @@ namespace GUI
         m_vecFit.at(0)->SetParameter( 1, cWidth );
 
         m_vecSCurve.at(0)->Fit( m_vecFit.at(0).get(), "RNQ+" );
+        emit sendFitThreshold(m_vecFit, "same");
         //fFit->Draw( "same" );
-        emit sendHistsThreshold(m_vecSCurve);
+        //emit sendHistsThreshold(m_vecSCurve);
 
         // Save
         m_vecSCurve.at(0)->Write( m_vecSCurve.at(0)->GetName(), TObject::kOverwrite );
         m_vecFit.at(0)->Write( fFit->GetName(), TObject::kOverwrite );
-        emit sendFitThreshold(m_vecFit);
         //emit save canvas
         //fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
         std::string fDirectoryName = "output";
