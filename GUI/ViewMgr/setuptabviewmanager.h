@@ -26,6 +26,7 @@ namespace GUI{
         void on2CbcToggle(const bool);
         void notifyConfigFinished();
         void sendAccept(HwDescriptionVisitor pVisitor);
+        void sendInitialiseRegistersView();
 
     private:
 

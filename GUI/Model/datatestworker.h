@@ -5,6 +5,7 @@
 #include <QVariantMap>
 //#include <TH1F.h>
 #include "TF1.h"
+#include "TLine.h"
 #include "TCanvas.h"
 #include <vector>
 
@@ -72,12 +73,9 @@ namespace GUI{
 
         uint32_t fNCbc;   /*!< Number of CBCs in the Setup */
 
-        //std::shared_ptr<TH1F>  fBotHist;
-        //std::shared_ptr<TH1F>  fTopHist;
-        //TH1F* fSCurve;   /*!< Histogram for SCurve */
         std::vector<std::shared_ptr<TH1F>> m_vecSCurve;
-        //TF1* fFit;   /*!< fit for SCurve*/
         std::vector<std::shared_ptr<TF1>> m_vecFit;
+        std::vector<std::shared_ptr<TLine>> m_vecTLine;
 
         explicit DataTestWorker(const DataTestWorker& rhs) = delete;
         DataTestWorker& operator= (const DataTestWorker& rhs) = delete;

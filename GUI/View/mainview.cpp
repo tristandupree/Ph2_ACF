@@ -17,6 +17,7 @@ namespace GUI{
         ui(new Ui::MainView)
     {
         ui->setupUi(this);
+        setWindowTitle("Ph2_ACF");
         ui->loSetup->addWidget(&setup);
         ui->loRegisters->addWidget(&regTab);
         ui->loDataTest->addWidget(&data);

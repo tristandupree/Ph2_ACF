@@ -62,8 +62,8 @@ namespace GUI
         connect(&m_setupTab, SIGNAL(on2CbcToggle(bool)),
                 this, SIGNAL(on2CbcToggle(bool)));
 
-        connect(&m_systemController, SIGNAL(notifyConfigFinished()),
-                this, SIGNAL(notifyConfigFinished()));
+        connect(&m_systemController, SIGNAL(sendInitialiseRegistersView()),
+                this, SIGNAL(sendInitialiseRegistersView()));
     }
 
     void SetupTabViewManager::WireCallFromOtherTabs()

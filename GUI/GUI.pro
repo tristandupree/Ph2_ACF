@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = GUI
+TARGET = Ph2_ACF
 TEMPLATE = app
 
 CONFIG += c++11 debug

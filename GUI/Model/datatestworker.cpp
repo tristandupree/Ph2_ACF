@@ -182,18 +182,15 @@ namespace GUI
         int cStep = ( m_HoleMode ) ? -10 : 10;
 
         // Root objects
-        //fSCurve = new TH1F( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
         auto sCurve  = std::make_shared<TH1F>( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
 
         m_vecSCurve.clear();
         m_vecSCurve.push_back(sCurve);
         m_vecSCurve.at(0)->SetMarkerStyle( 8 );
-        //fSCurveCanvas->cd();
 
         m_vecFit.clear();
         auto fFit  = std::make_shared<TF1>( "fFit", MyErf, 0, 255, 2 );
         m_vecFit.push_back(fFit);
-        //fFit = new TF1( "fFit", MyErf, 0, 255, 2 );
 
         // Adaptive VCth loop
         while ( 0x00 <= cVcth && cVcth <= 0xFF )
@@ -245,8 +242,7 @@ namespace GUI
 
                     m_vecSCurve.at(0)->SetBinContent( cVcth, cHitCounter );
                     emit sendHistsThreshold(m_vecSCurve);
-                    //fSCurve->Draw( "P" );
-                    //fSCurveCanvas->Update();
+
                     // check if the hitcounter is all ones
 
                     if ( cNonZero == false && cHitCounter != 0 )
@@ -268,7 +264,6 @@ namespace GUI
         // Fit & Plot
         m_vecSCurve.at(0)->Scale( 1 / double_t( cEventsperVcth * fNCbc * NCHANNELS ) );
         emit sendHistsThreshold(m_vecSCurve);
-        //fSCurve->Draw( "P" );
 
         double cFirstNon0( 0 );
         double cFirst1( 0 );
@@ -316,7 +311,7 @@ namespace GUI
         m_vecFit.at(0)->SetParameter( 0, cMid );
         m_vecFit.at(0)->SetParameter( 1, cWidth );
 
-        //m_vecSCurve.at(0)->Fit( m_vecFit.at(0), "RNQ+" );
+        m_vecSCurve.at(0)->Fit( m_vecFit.at(0).get(), "RNQ+" );
         //fFit->Draw( "same" );
         emit sendHistsThreshold(m_vecSCurve);
 
@@ -355,6 +350,9 @@ namespace GUI
         // Wait for user to acknowledge and turn on external Source!
         //std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
         //mypause();*/
+
+        m_vecSCurve.clear();
+        m_vecFit.clear();
 
     }
 

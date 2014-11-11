@@ -25,7 +25,6 @@ namespace GUI{
 
         void requestWork();
         void abort();
-        void getCbcRegMap();
         BeBoardInterface* getBeBoardInterface() const {return (m_worker->fBeBoardInterface);}
         CbcInterface* getCbcInterface() const {return (m_worker->fCbcInterface);}
         ShelveVec getfShelveVector() const {return (m_worker->fShelveVector);}
@@ -41,6 +40,7 @@ namespace GUI{
         void notifyStatusMessage(QString msg);
         void notifyConfigFinished();
         void notifyInitFinished();
+        void sendInitialiseRegistersView();
 
     public slots:
 

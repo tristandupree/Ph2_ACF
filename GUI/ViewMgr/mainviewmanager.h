@@ -24,7 +24,6 @@ namespace GUI{
         SetupTabViewManager& m_setupVm;
         CbcRegViewManager& m_cbcRegVm;
         DataTestViewManager& m_dataTestVm;
-        //MacroTestTab& m_macroVm;
 
         void WireSetupVmMessages();
         void WireDataTestVmMessages();

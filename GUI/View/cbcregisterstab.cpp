@@ -4,10 +4,15 @@
 #include <QVector>
 #include <QMap>
 #include <QWidget>
-#include <QGridLayout>
+#include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QDebug>
+#include <QStandardItem>
+#include <QTableView>
+#include <QStandardItem>
+#include <QList>
+#include <QScrollArea>
 
 namespace GUI {
 
@@ -44,51 +49,92 @@ namespace GUI {
             QString title = QString("CBC %1").arg(i);
             m_tabCbc->addTab(createCbcTab(), title);
         }
+
+        CbcRegItem test;
+        test.fAddress=100;
+        test.fDefValue=3;
+        test.fPage = 0;
+        test.fValue=55;
+
+        std::map<std::string, CbcRegItem> regMap = { {"HelloWorld", test } };
+
+        //createCbcRegisterValue(0, regMap);
     }
 
 
-    void CbcRegistersTab::createCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg)
+    void CbcRegistersTab::createCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg) //for initial creation - later should find inside map
     {
-        qDebug() << "I'm in";
+        int row = 0;
+        int column = 0;
+
         for (auto& kv : mapReg)
         {
-            qDebug() << QString::fromStdString(kv.first);
-            qDebug() << QString::number(int(kv.second.fAddress));
+            //QVector<QMap<QString, QMap<QLabel*, QLineEdit*>>> m_widgetMap; //vector of CBCs access the map via the name of the register
+            QGridLayout *loCbcPage = m_loGridVec.at(cbc).at(kv.second.fPage); //access cbc->page
+            QHBoxLayout *loHorz = new QHBoxLayout; //will contain label + text edit
 
-            //QGridLayout *tabCbc = m_loGridVec.at(cbc).at(kv.second.fPage); //access cbc->page
-            QGridLayout *tabCbc = m_loGridVec.at(0).at(0); //access cbc->page
-            QString RegTitle_Address = QString("%1    %2").arg(QString::fromStdString(kv.first), QString::number(kv.second.fAddress));
-            QString value = QString::number(kv.second.fValue);
+            //qDebug() << QString::fromStdString(kv.first);
+            //qDebug() << QString::number(int(kv.second.fAddress));
+            //qDebug() << kv.second.fPage;
+
+            auto cAddress = kv.second.fAddress;
+            QString cHexAddress;
+
+            QString RegTitle_Address = QString("%1 [0x%2]").arg(QString::fromStdString(kv.first), cHexAddress.setNum(cAddress, 16));
 
             QLabel *lblRegTitle = new QLabel(this);
             lblRegTitle->setText(RegTitle_Address);
 
-            tabCbc->addWidget(lblRegTitle);
+            QLineEdit *lineRegValue = new QLineEdit(this);
+            lineRegValue->setText(QString::number(kv.second.fValue));
+            lineRegValue->setMaximumWidth(50);
+
+            loHorz->addWidget(lblRegTitle);
+            loHorz->setAlignment(lblRegTitle, Qt::AlignLeft);
+            loHorz->addWidget(lineRegValue);
+            loHorz->setAlignment(lineRegValue, Qt::AlignLeft);
+
+            //QScrollArea *scrollArea = new QScrollArea;
+            //scrollArea->setLayout(loHorz);
+
+            loCbcPage->addLayout(loHorz, row, column);
+            loCbcPage->setAlignment(Qt::AlignLeft);
+
+            QMap<QString, QMap<QLabel*, QLineEdit*>> mapWidgets;
+            QMap<QLabel*, QLineEdit*> map;
+            map.insert(lblRegTitle, lineRegValue);
+            mapWidgets.insert(QString::fromStdString(kv.first), map );
+            m_widgetMap.push_back(mapWidgets);
+
+            ++row;
+
+            if (row == 15)
+            {
+                ++column;
+                row = 0;
+            }
 
         }
-        //QLabel lblRegNameAndValue = new QLabel(this);
-        //lblRegNameAndValue.setText(title);
     }
 
     QTabWidget *CbcRegistersTab::createCbcTab()
     {
-        std::vector<QGridLayout*> loVec; //to add to master layout
-
         QTabWidget *tabCbc = new QTabWidget;
+
+        std::vector<QGridLayout*> loVec; //to add to master layout
 
         for(int i=0; i<2; i++) //number of pages
         {
             QTabWidget *tabPage = new QTabWidget;
-            QGridLayout *loGrid = new QGridLayout;
 
-            QString title = QString("Page %1").arg(i);
+            QGridLayout *loGrid = new QGridLayout;
             tabPage->setLayout(loGrid);
 
+            QString title = QString("Page %1").arg(i);
             tabCbc->addTab(tabPage, title);
 
             loVec.push_back(loGrid);
         }
-
         m_loGridVec.push_back(loVec);
 
         return tabCbc;

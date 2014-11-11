@@ -37,8 +37,8 @@ namespace GUI
 
         connect(&m_setupVm, SIGNAL(on2CbcToggle(bool)),
                 &m_cbcRegVm, SIGNAL(on2CbcToggle(bool)));
-        connect(&m_setupVm, SIGNAL(notifyConfigFinished()),
-                &m_cbcRegVm, SIGNAL(notifyConfigFinished()));
+        connect(&m_setupVm, SIGNAL(sendInitialiseRegistersView()),
+                &m_cbcRegVm, SIGNAL(sendInitialiseRegistersView()));
     }
 
     void MainViewManager::WireDataTestVmMessages()

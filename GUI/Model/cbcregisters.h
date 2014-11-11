@@ -6,8 +6,6 @@
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 
-//Q_DECLARE_METATYPE(CbcRegItem)
-
 namespace GUI{
     class SystemController;
 
@@ -24,7 +22,6 @@ namespace GUI{
     public slots:
         void getCbcRegistersMap();
 
-
     private:
         SystemController& m_systemController;
 
@@ -34,8 +31,6 @@ namespace GUI{
         BeBoardFWMap fBeBoardFWMap;
 
         void getObjects();
-
-
 
         explicit CbcRegisters(const CbcRegisters& rhs) = delete;
         CbcRegisters& operator= (const CbcRegisters& rhs) = delete;

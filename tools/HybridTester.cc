@@ -15,7 +15,7 @@ struct HistogramFiller  : public HwDescriptionVisitor
 		for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
 			if ( cDataBitVector.at( cId ) ) {
 				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
-				std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
+				//              std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
 				if ( globalChannel % 2 == 0 )
 					fBotHist->Fill( globalChannel / 2 );
 				else

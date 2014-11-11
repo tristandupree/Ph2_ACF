@@ -78,23 +78,20 @@ namespace GUI
     void SystemController::finishConfigureHw()
     {
         SendStatusMessage(tr("Hardware configured"));
+        emit sendInitialiseRegistersView();
+        SendStatusMessage(tr("Initialising register values"));
         emit notifyConfigFinished();
+        SendStatusMessage(tr("Register values initialised"));
     }
 
     void SystemController::onAccept(HwDescriptionVisitor pVisitor)
     {
         qDebug() << "I'm in!!!!";
-
     }
 
     void SystemController::SendStatusMessage(QString msg)
     {
         emit notifyStatusMessage(msg);
-    }
-
-    void SystemController::getCbcRegMap()
-    {
-        return; //TODO replace with get number of each tab?
     }
 }
 

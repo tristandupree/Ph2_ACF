@@ -18,6 +18,7 @@ namespace GUI{
     signals:
         void on2CbcToggle(const bool);
         void notifyConfigFinished();
+        void sendInitialiseRegistersView();
 
     private:
         void WireConnections();
