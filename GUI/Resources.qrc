@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/json">
-        <file>HwDescription.json</file>
-        <file>Settings.json</file>
-        <file>HwDescription_8CBC.json</file>
+        <file>settings/HwDescription_8CBC.json</file>
+        <file>settings/HwDescription.json</file>
     </qresource>
 </RCC>

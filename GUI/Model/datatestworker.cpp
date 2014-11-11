@@ -308,14 +308,11 @@ namespace GUI
         double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
         double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
 
-
         m_vecFit.at(0)->SetParameter( 0, cMid );
         m_vecFit.at(0)->SetParameter( 1, cWidth );
 
         m_vecSCurve.at(0)->Fit( m_vecFit.at(0).get(), "RNQ+" );
         emit sendFitThreshold(m_vecFit, "same");
-        //fFit->Draw( "same" );
-        //emit sendHistsThreshold(m_vecSCurve);
 
         // Save
         m_vecSCurve.at(0)->Write( m_vecSCurve.at(0)->GetName(), TObject::kOverwrite );
@@ -330,9 +327,7 @@ namespace GUI
         double_t pedestal = m_vecFit.at(0)->GetParameter( 0 );
         double_t noise = m_vecFit.at(0)->GetParameter( 1 );
 
-        //cSetting = fSettingsMap.find( "Threshold_NSigmas" );
-        //int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
-        int cSigmas = 4;
+        int cSigmas = 4; //create settings
 
         uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
 
@@ -398,7 +393,6 @@ namespace GUI
         cRegTester.dumpResult();
         std::cout << "Done testing registers, re-configuring to calibrated state!" << std::endl;
         m_systemController.m_worker->ConfigureHw();
-
     }
 
     void DataTestWorker::Measure()

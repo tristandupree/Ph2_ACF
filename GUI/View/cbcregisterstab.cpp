@@ -75,7 +75,7 @@ namespace GUI {
 
             QLineEdit *lineRegValue = new QLineEdit(this);
             lineRegValue->setText(QString::number(kv.second.fValue));
-            lineRegValue->setMaximumWidth(50);
+            //lineRegValue->setMaximumWidth(50);
 
             loHorz->addWidget(lblRegTitle);
             loHorz->setAlignment(lblRegTitle, Qt::AlignLeft);

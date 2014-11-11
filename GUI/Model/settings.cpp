@@ -15,10 +15,9 @@
 
 namespace GUI
 {
-    static auto RESOURCE_PREFIX = QString(":/json").toLatin1();
-    Settings::Settings(QObject *parent, QString filename) :
+    static auto RESOURCE_PREFIX = QString(":/json/settings").toLatin1();//from resources
+    Settings::Settings(QObject *parent) :
         QObject(parent),
-        m_filename (filename),
         map_ShelveId(new QVariantMap),
         map_BeBoardId(new QVariantMap)
     {
@@ -29,10 +28,8 @@ namespace GUI
         qDebug() << "Destructing " << this;
     }
 
-
     void Settings::ParseJsondata()
     {
-
         QString raw_json = ReadJsonFile();
         if (raw_json.size()==0)
         {
@@ -45,7 +42,23 @@ namespace GUI
 
         map_HwDescription = new QVariantMap;
         *map_HwDescription = (map_Settings->value("HwDescription").toMap());
+    }
 
+    void Settings::ParseCustomJsonData()
+    {
+        QString raw_json = ReadCustomJsonFile();
+
+        if (raw_json.size()==0)
+        {
+            SendStatusMessage(tr("Custom Json file not formatted correctly"));
+            return;
+        }
+
+        map_Settings = new QVariantMap;
+        *map_Settings = GetJsonObject(raw_json);
+
+        map_HwDescription = new QVariantMap;
+        *map_HwDescription = (map_Settings->value("HwDescription").toMap());
     }
 
     void Settings::onLoadButtonClicked(bool cbc2)
@@ -64,11 +77,27 @@ namespace GUI
             emit setHwTree(getHwStandardItems());
             SendStatusMessage(tr("Settings for 8CBC2 loaded"));
         }
-
     }
+
+    void Settings::onCustomLoadButtonClicked(QString cfileName)
+    {
+        m_filename = cfileName.toLatin1();
+        ParseCustomJsonData();
+
+        emit setHwTree(getHwStandardItems()); //TODO - add debug
+        SendStatusMessage(tr("Custom settings loaded from :"));
+        SendStatusMessage(m_filename);
+    }
+
     QString Settings::ReadJsonFile()
     {
         auto default_settings = ReadJsonFromInternalResource();
+        return default_settings;
+    }
+
+    QString Settings::ReadCustomJsonFile()
+    {
+        auto default_settings = ReadJsonFromCustomResource();
         return default_settings;
     }
 
@@ -191,7 +220,25 @@ namespace GUI
             SendStatusMessage(tr("Internal resource path missing ") + res_dir.canonicalPath());
             return "";
         }
-        auto path= res_dir.filePath(m_filename);
+
+        auto path = res_dir.filePath(m_filename);
+        QFile res_file(path);
+        if(!res_file.open(QFile::ReadOnly|QFile::Text))
+        {
+            SendStatusMessage(tr("Could not open internal resource ") );//+ path);
+            return ""; //flush
+        }
+
+        QString settings = res_file.readAll();
+        return settings;
+    }
+
+    QString Settings::ReadJsonFromCustomResource()
+    {
+        QDir res_dir;
+
+        auto path = res_dir.filePath(m_filename);
+
         QFile res_file(path);
         if(!res_file.open(QFile::ReadOnly|QFile::Text))
         {

@@ -24,6 +24,7 @@ namespace GUI {
 
     signals:
         void onBtnLoadSettingsClicked(bool cbc2);
+        void onBtnCustomLoadSettingsClicked(QString cFileName);
         void onBtnInitClicked();
         void onBtnCfgClicked();
         void enableAllTabs(const bool enable);
@@ -48,6 +49,10 @@ namespace GUI {
         void on_btnInit_clicked();
 
         void on_radio2CBC_toggled(bool checked);
+
+        void on_btnOpenDir_clicked();
+
+        void on_btnLoadCustom_clicked();
 
     private:
         Ui::SetupTab *ui;

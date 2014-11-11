@@ -7,6 +7,7 @@
 #include <QListView>
 
 #include <QStandardItemModel>
+#include <QFileDialog>
 
 namespace GUI{
 
@@ -98,4 +99,16 @@ namespace GUI{
         emit on2CbcToggle(checked);
     }
 
+    void SetupTab::on_btnOpenDir_clicked()
+    {
+        QString fileName = QFileDialog::getOpenFileName(this,
+                                                        tr("Open Settings"), "./GUI/settings", tr("Settings File (*.json)"));
+
+        ui->lineSettings->setText(fileName);
+    }
+
+    void SetupTab::on_btnLoadCustom_clicked()
+    {
+        emit onBtnCustomLoadSettingsClicked(ui->lineSettings->text());
+    }
 }

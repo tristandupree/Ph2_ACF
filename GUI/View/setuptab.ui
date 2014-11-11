@@ -103,6 +103,48 @@
                </layout>
               </widget>
              </item>
+             <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+              <widget class="QGroupBox" name="gbCustomSettings">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string/>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item>
+                 <widget class="QPushButton" name="btnOpenDir">
+                  <property name="text">
+                   <string>Open Directory</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineSettings">
+                  <property name="maximumSize">
+                   <size>
+                    <width>165</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="btnLoadCustom">
+                  <property name="text">
+                   <string>Load Custom Settings</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>

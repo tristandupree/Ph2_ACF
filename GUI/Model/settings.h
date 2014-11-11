@@ -15,12 +15,13 @@ namespace GUI{
     {
         Q_OBJECT
     public:
-        explicit Settings(QObject *parent, QString filename);
+        explicit Settings(QObject *parent);
         void ParseJsondata();
+        void ParseCustomJsonData();
 
         QVariantMap getshelveIdMap() const {return *map_ShelveId;} //QVariantMaps are implicitly shared
         QVariantMap getHwDescriptionMap() const {return *map_HwDescription;}
-    ~Settings();
+        ~Settings();
 
     signals:
         void notifyStatusMessage(QString msg);
@@ -28,6 +29,7 @@ namespace GUI{
 
     public slots:
         void onLoadButtonClicked(bool cbc2);
+        void onCustomLoadButtonClicked(QString cfileName);
 
     private:
         QString m_filename;
@@ -47,7 +49,9 @@ namespace GUI{
         QList<QStandardItem *> prepareRow(const QString &first);
 
         QString ReadJsonFromInternalResource();
+        QString ReadJsonFromCustomResource();
         QString ReadJsonFile();
+        QString ReadCustomJsonFile();
         void SendStatusMessage(QString msg);
 
         QVariantMap GetJsonObject(const QString &rawJson);

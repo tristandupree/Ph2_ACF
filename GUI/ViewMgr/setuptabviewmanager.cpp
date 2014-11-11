@@ -41,6 +41,9 @@ namespace GUI
         connect(&m_setupTab, SIGNAL(onBtnLoadSettingsClicked(bool)),
                 &config, SLOT(onLoadButtonClicked(bool)) );
 
+        connect(&m_setupTab, SIGNAL(onBtnCustomLoadSettingsClicked(QString)),
+                &config, SLOT(onCustomLoadButtonClicked(QString)));
+
         connect(&config, SIGNAL(setHwTree(QStandardItemModel*)),
                 &m_setupTab, SLOT(setHwTreeView(QStandardItemModel*)));
 
@@ -71,9 +74,4 @@ namespace GUI
         connect(this, SIGNAL(sendAccept(HwDescriptionVisitor)),
                 &m_systemController, SLOT(onAccept(HwDescriptionVisitor)));
     }
-
-
-
-
-
 }
