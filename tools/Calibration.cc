@@ -416,8 +416,12 @@ void Calibration::FitVplusVcth( BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoD
 			uint8_t cVplusResult = ( uint8_t )( cFit->GetParameter( 1 ) * pTargetVcth + cFit->GetParameter( 0 ) );
 
 			fCbcInterface->WriteCbcReg( &cCbc, "Vplus", cVplusResult );
-			std::cout << "Vplus Setting for Be " << int( pBoard.getBeId() ) << " Fe " << int( cFe.getFeId() ) << " Cbc " << int( cCbc.getCbcId() ) << " : " << int( cVplusResult ) << std::endl;
+			// manually set the register on the CBC because some people complained that it would not work correctly
+			cCbc.setReg( "Vplus", cVplusResult );
 
+			std::cout << "Vplus Setting for Be " << int( pBoard.getBeId() ) << " Fe " << int( cFe.getFeId() ) << " Cbc " << int( cCbc.getCbcId() ) << " : " << int( cVplusResult ) << std::endl;
+			CbcRegReader myReader( fCbcInterface, "Vplus" );
+			accept( myReader );
 			cVplusVcthMultiGraph->Write( cVplusVcthMultiGraph->GetName(), TObject::kOverwrite );
 			cFit->Write( cFit->GetName(), TObject::kOverwrite );
 
@@ -679,6 +683,7 @@ uint32_t Calibration::ToggleTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool p
 
 void Calibration::SaveResults()
 {
+	uint8_t cTargetVCth = fSettingsMap.find( "TargetVcth" )->second;
 
 	if ( !fDirectoryName.empty() )
 	{
@@ -690,6 +695,9 @@ void Calibration::SaveResults()
 				{
 					for ( auto cCbc : cFe.fCbcVector )
 					{
+						// set Target VCth, just to be sure
+						fCbcInterface->WriteCbcReg( &cCbc, "VCth", cTargetVCth );
+
 						TString cFilename = Form( "/FE%dCBC%d.txt", cFe.getFeId(), cCbc.getCbcId() );
 
 						std::string cPathname = fDirectoryName + cFilename.Data();
