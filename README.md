@@ -64,7 +64,7 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
 
         sudo yum groupremove uhal
         wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
-        (You may need the --no-check-certificate)
+(You may need the --no-check-certificate)
 	sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
         sudo yum clean all
         sudo yum groupinstall uhal
