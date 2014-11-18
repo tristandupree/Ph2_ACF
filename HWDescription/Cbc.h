@@ -46,7 +46,7 @@ namespace Ph2_HwDescription
 	  public:
 
 		// C'tors with object FE Description
-		Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename );
+		Cbc( const FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename );
 
 		// C'tors which take ShelveID, BeId, FeID, CbcId
 		Cbc( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pCbcId, const std::string& filename );
@@ -81,7 +81,7 @@ namespace Ph2_HwDescription
 		* \param pReg
 		* \return The value of the register
 		*/
-		uint8_t getReg( const std::string& pReg );
+		uint8_t getReg( const std::string& pReg ) const;
 		/*!
 		* \brief Set any register of the Map
 		* \param pReg
@@ -102,7 +102,6 @@ namespace Ph2_HwDescription
 		CbcRegMap getRegMap() const {
 			return fRegMap;
 		};
-
 		/*!
 		* \brief Get the Cbc Id
 		* \return The Cbc ID
@@ -136,7 +135,7 @@ namespace Ph2_HwDescription
 	struct CbcComparer
 	{
 
-		bool operator()( Cbc& cbc1, Cbc& cbc2 );
+		bool operator()( const Cbc& cbc1, const Cbc& cbc2 ) const;
 
 	};
 
@@ -147,7 +146,7 @@ namespace Ph2_HwDescription
 	struct RegItemComparer
 	{
 
-		bool operator()( CbcRegPair pRegItem1, CbcRegPair pRegItem2 );
+		bool operator()( const CbcRegPair& pRegItem1, const CbcRegPair& pRegItem2 ) const;
 
 	};
 

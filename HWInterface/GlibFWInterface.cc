@@ -27,7 +27,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void GlibFWInterface::ConfigureBoard( BeBoard* pBoard )
+	void GlibFWInterface::ConfigureBoard( const BeBoard* pBoard )
 	{
 
 		//We may here switch in the future with the StackReg method of the RegManager
@@ -146,13 +146,13 @@ namespace Ph2_HwInterface
 
 	void GlibFWInterface::SelectFEId()
 	{
-		if ( uint32_t( ReadReg( HYBRID_TYPE ) ) == 8 )
+		if ( static_cast<uint32_t>( ReadReg( HYBRID_TYPE ) ) == 8 )
 		{
-			fCbcStubLat  = ( uint32_t( ReadReg( FMC1_PRESENT ) ) ? CBC_STUB_LATENCY_FE1 : CBC_STUB_LATENCY_FE2 );
-			fCbcI2CCmdAck = ( uint32_t( ReadReg( FMC1_PRESENT ) ) ? CBC_I2C_CMD_ACK_FE1 : CBC_I2C_CMD_ACK_FE2 );
-			fCbcI2CCmdRq = ( uint32_t( ReadReg( FMC1_PRESENT ) ) ? CBC_I2C_CMD_RQ_FE1 : CBC_I2C_CMD_RQ_FE2 );
-			fCbcHardReset = ( uint32_t( ReadReg( FMC1_PRESENT ) ) ? CBC_HARD_RESET_FE1 : CBC_HARD_RESET_FE2 );
-			fCbcFastReset = ( uint32_t( ReadReg( FMC1_PRESENT ) ) ? CBC_FAST_RESET_FE1 : CBC_FAST_RESET_FE2 );
+			fCbcStubLat  = ( static_cast<uint32_t>( ReadReg( FMC1_PRESENT ) ) ? CBC_STUB_LATENCY_FE1 : CBC_STUB_LATENCY_FE2 );
+			fCbcI2CCmdAck = ( static_cast<uint32_t>( ReadReg( FMC1_PRESENT ) ) ? CBC_I2C_CMD_ACK_FE1 : CBC_I2C_CMD_ACK_FE2 );
+			fCbcI2CCmdRq = ( static_cast<uint32_t>( ReadReg( FMC1_PRESENT ) ) ? CBC_I2C_CMD_RQ_FE1 : CBC_I2C_CMD_RQ_FE2 );
+			fCbcHardReset = ( static_cast<uint32_t>( ReadReg( FMC1_PRESENT ) ) ? CBC_HARD_RESET_FE1 : CBC_HARD_RESET_FE2 );
+			fCbcFastReset = ( static_cast<uint32_t>( ReadReg( FMC1_PRESENT ) ) ? CBC_FAST_RESET_FE1 : CBC_FAST_RESET_FE2 );
 		}
 		else
 		{
@@ -424,7 +424,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	const Event* GlibFWInterface::GetNextEvent( BeBoard* pBoard )
+	const Event* GlibFWInterface::GetNextEvent( const BeBoard* pBoard )
 	{
 		return fData->GetNextEvent( pBoard );
 	}
@@ -466,7 +466,7 @@ namespace Ph2_HwInterface
 
 			if ( cVal != pAckVal )
 			{
-				//std::cout << "Waiting for the I2c command acknowledge to be " << pAckVal << " for " << uint32_t(pNcount) << " registers." << std::endl;
+				//std::cout << "Waiting for the I2c command acknowledge to be " << pAckVal << " for " << pNcount << " registers." << std::endl;
 				usleep( cWait );
 			}
 

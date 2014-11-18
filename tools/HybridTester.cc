@@ -15,7 +15,7 @@ struct HistogramFiller  : public HwDescriptionVisitor
 		for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
 			if ( cDataBitVector.at( cId ) ) {
 				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
-				//              std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
+				//              std::cout << "Channel " << globalChannel << " VCth " << +pCbc.getReg( "VCth" ) << std::endl;
 				// find out why histograms are not filling!
 				if ( globalChannel % 2 == 0 )
 					fBotHist->Fill( globalChannel / 2 );
@@ -59,13 +59,13 @@ void HybridTester::InitializeHists( bool pThresholdScan )
 
 
 	TString cFrontName( "fHistTop" );
-	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
+	fHistTop = dynamic_cast<TH1F*>( gROOT->FindObject( cFrontName ) );
 	if ( fHistTop ) delete fHistTop;
 
 	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
 
 	TString cBackName( "fHistBottom" );
-	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
+	fHistBottom = dynamic_cast<TH1F*>( gROOT->FindObject( cBackName ) );
 	if ( fHistBottom ) delete fHistBottom;
 
 	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
@@ -75,7 +75,7 @@ void HybridTester::InitializeHists( bool pThresholdScan )
 
 }
 
-void HybridTester::InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
+void HybridTester::InitializeHistsGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector )
 {
 
 	gStyle->SetOptStat( 000000 );
@@ -98,13 +98,13 @@ void HybridTester::InitializeHistsGUI( bool pThresholdScan, std::vector<TCanvas*
 	}
 
 	TString cFrontName( "fHistTop" );
-	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
+	fHistTop = dynamic_cast<TH1F*>( gROOT->FindObject( cFrontName ) );
 	if ( fHistTop ) delete fHistTop;
 
 	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
 
 	TString cBackName( "fHistBottom" );
-	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
+	fHistBottom = dynamic_cast<TH1F*>( gROOT->FindObject( cBackName ) );
 	if ( fHistBottom ) delete fHistBottom;
 
 	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
@@ -154,13 +154,13 @@ void HybridTester::ScanThreshold()
 		for ( auto& cShelve : fShelveVector )
 		{
 			if ( cAllOne ) break;
-			for ( BeBoard& pBoard : cShelve->fBoardVector )
+			for ( BeBoard* pBoard : cShelve->fBoardVector )
 			{
 				while ( cN <  cEventsperVcth )
 				{
-					Run( &pBoard, cNthAcq );
+					Run( pBoard, cNthAcq );
 
-					const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+					const Event* cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 
 					// Loop over Events from this Acquisition
 					while ( cEvent )
@@ -169,16 +169,16 @@ void HybridTester::ScanThreshold()
 							break;
 
 						CbcHitCounter cHitcounter( cEvent );
-						pBoard.accept( cHitcounter );
+						pBoard->accept( cHitcounter );
 						cHitCounter += cHitcounter.fHitcounter;
 						cN++;
 
 						if ( cN < cEventsperVcth )
-							cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+							cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 						else break;
 					}
 					cNthAcq++;
-				} // done with this acquisition
+				}
 
 				fSCurve->SetBinContent( cVcth, cHitCounter );
 				fSCurve->Draw( "P" );
@@ -199,7 +199,7 @@ void HybridTester::ScanThreshold()
 				cVcth += cStep;
 			}
 		}
-	} // end of VCth loop
+	}
 
 	// Fit & Plot
 	fSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NCHANNELS ) );
@@ -269,7 +269,7 @@ void HybridTester::ScanThreshold()
 	int cSigmas = fSettingsMap.find( "Threshold_NSigmas" )->second;
 	uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
 
-	std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (" << fabs( noise ) << ") to " << int( cThreshold ) << " for Hybrid test!" << std::endl;
+	std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (" << fabs( noise ) << ") to " << +cThreshold << " for Hybrid test!" << std::endl;
 
 	TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
 	cLine->SetLineWidth( 3 );
@@ -338,16 +338,16 @@ void HybridTester::Measure()
 
 	for ( auto& cShelve : fShelveVector )
 	{
-		for ( BeBoard& pBoard : cShelve->fBoardVector )
+		for ( BeBoard* pBoard : cShelve->fBoardVector )
 		{
 			uint32_t cN = 0;
 			uint32_t cNthAcq = 0;
 
 			while ( cN <  cTotalEvents )
 			{
-				Run( &pBoard, cNthAcq );
+				Run( pBoard, cNthAcq );
 
-				const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+				const Event* cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 				// Loop over Events from this Acquisition
 				while ( cEvent )
 				{
@@ -356,7 +356,7 @@ void HybridTester::Measure()
 						break;
 
 					HistogramFiller cFiller( fHistBottom, fHistTop, cEvent );
-					pBoard.accept( cFiller );
+					pBoard->accept( cFiller );
 
 					if ( cN % 100 == 0 )
 						UpdateHists();
@@ -364,11 +364,11 @@ void HybridTester::Measure()
 					cN++;
 
 					if ( cN < cTotalEvents )
-						cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+						cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 					else break;
 				}
 				cNthAcq++;
-			} // End of Analyze Events of last Acquistion loop
+			}
 		}
 	}
 	fHistTop->Scale( 100 / double_t( cTotalEvents ) );
@@ -394,5 +394,3 @@ void HybridTester::SaveResults()
 	fDataCanvas->SaveAs( cPdfName.c_str() );
 
 }
-
-

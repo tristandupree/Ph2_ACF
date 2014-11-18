@@ -33,7 +33,7 @@ namespace Ph2_HwInterface
 	{
 
 	  private:
-		BeBoardFWMap& fBoardMap;                     /*!< Map of Board connected */
+		BeBoardFWMap fBoardMap;                     /*!< Map of Board connected */
 		BeBoardFWInterface* fBoardFW;                     /*!< Board loaded */
 		uint8_t prevBoardId;                     /*!< Id of the previous board */
 
@@ -49,7 +49,7 @@ namespace Ph2_HwInterface
 		 * \brief Constructor of the BeBoardInterface class
 		 * \param Reference to the BoardFWInterface
 		 */
-		BeBoardInterface( BeBoardFWMap& pBoardMap );
+		BeBoardInterface( const BeBoardFWMap& pBoardMap );
 		/*!
 		 * \brief Destructor of the BeBoardInterface class
 		 */
@@ -73,13 +73,13 @@ namespace Ph2_HwInterface
 		 * \brief Get the board infos
 		 * \param pBoard
 		 */
-		void getBoardInfo( BeBoard* pBoard );
+		void getBoardInfo( const BeBoard* pBoard );
 
 		/*!
 		 * \brief Configure the board with its Config File
 		 * \param pBoard
 		 */
-		void ConfigureBoard( BeBoard* pBoard );
+		void ConfigureBoard( const BeBoard* pBoard );
 		/*!
 		 * \brief Start a DAQ
 		 * \param pBoard
@@ -113,13 +113,13 @@ namespace Ph2_HwInterface
 		 * \param pBoard
 		 * \return Next event
 		 */
-		const Event* GetNextEvent( BeBoard* pBoard );
+		const Event* GetNextEvent( const BeBoard* pBoard );
 		/*!
 		 * \brief Get the data buffer
 		 * \param pBufSize : recovers the data buffer size
 		 * \return Data buffer
 		 */
-		const char* GetBuffer( BeBoard* pBeBoard, uint32_t& pBufSize );
+		const char* GetBuffer( const BeBoard* pBeBoard, uint32_t& pBufSize );
 
 	};
 }

@@ -34,7 +34,7 @@ namespace Ph2_HwInterface
 	{
 
 	  private:
-		BeBoardFWMap& fBoardMap;                     /*!< Map of Board connected */
+		BeBoardFWMap fBoardMap;                     /*!< Map of Board connected */
 		BeBoardFWInterface* fBoardFW;                     /*!< Board loaded */
 		uint8_t prevBoardId;                     /*!< Id of the previous board */
 
@@ -50,7 +50,7 @@ namespace Ph2_HwInterface
 		 * \brief Constructor of the CBCInterface Class
 		 * \param pBoardMap
 		 */
-		CbcInterface( BeBoardFWMap& pBoardMap );
+		CbcInterface( const BeBoardFWMap& pBoardMap );
 		/*!
 		 * \brief Destructor of the CBCInterface Class
 		 */
@@ -59,14 +59,13 @@ namespace Ph2_HwInterface
 		 * \brief Configure the Cbc with the Cbc Config File
 		 * \param pCbc
 		 */
-		void ConfigureCbc( Cbc* pCbc, bool pVerifLoop = true );
+		void ConfigureCbc( const Cbc* pCbc, bool pVerifLoop = true );
 		/*!
 		 * \brief Write the designated register in both Cbc and Cbc Config File
 		 * \param pCbc
 		 * \param pRegNode : Node of the register to write
 		 * \param pValue : Value to write
 		 */
-		// void WriteCbcReg( Cbc* pCbc, const std::string& pRegNode, uint8_t pValue, bool pVerifLoop = true );
 		/*!
 		 * \brief Write the designated register in both Cbc and Cbc Config File
 		 * \param pCbc
@@ -80,14 +79,14 @@ namespace Ph2_HwInterface
 		 * \param pCbc
 		 * \param pVecReq : Vector of pair: Node of the register to write versus value to write
 		 */
-		void WriteCbcMultReg( Cbc* pCbc, std::vector< std::pair<std::string, uint8_t> > pVecReq, bool pVerifLoop = true );
+		void WriteCbcMultReg( Cbc* pCbc, const std::vector< std::pair<std::string, uint8_t> >& pVecReq, bool pVerifLoop = true );
 		/*!
 		 * \brief Write same register in all Cbcs and then UpdateCbc (not working with current Firmware)
 		 * \param pModule : Module containing vector of Cbcs
 		 * \param pRegNode : Node of the register to write
 		 * \param pValue : Value to write
 		 */
-		void WriteBroadcast( Module* pModule, const std::string& pRegNode, uint32_t pValue );
+		void WriteBroadcast( const Module* pModule, const std::string& pRegNode, uint32_t pValue );
 		/*!
 		 * \brief Read the designated register in the Cbc
 		 * \param pCbc
@@ -99,22 +98,22 @@ namespace Ph2_HwInterface
 		 * \param pCbc
 		 * \param pVecReg : Vector of the nodes of the register to read
 		 */
-		void ReadCbcMultReg( Cbc* pCbc, std::vector<std::string> pVecReg );
+		void ReadCbcMultReg( Cbc* pCbc, const std::vector<std::string>& pVecReg );
 		/*!
 		 * \brief Read all register in all Cbcs and then UpdateCbc
 		 * \param pModule : Module containing vector of Cbcs
 		 */
-		void ReadAllCbc( Module* pModule );
+		void ReadAllCbc( const Module* pModule );
 		/*!
 		 * \brief Hard reset of the Cbc
 		 * \param pCbc
 		 */
-		void CbcHardReset( Cbc* pCbc );
+		void CbcHardReset( const Cbc* pCbc );
 		/*!
 		 * \brief Fast Reset of the Cbc
 		 * \param pCbc
 		 */
-		void CbcFastReset( Cbc* pCbc );
+		void CbcFastReset( const Cbc* pCbc );
 
 		//Encode/Decode Cbc values
 		/*!
@@ -123,7 +122,7 @@ namespace Ph2_HwInterface
 		 * \param pCbcId : Id of the Cbc to work with
 		 * \param pVecReq : Vector to stack the encoded words
 		 */
-		void EncodeReg( CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq );
+		void EncodeReg( const CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq );
 		/*!
 		 * \brief Decode a word from a read of a register of the Cbc
 		 * \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read

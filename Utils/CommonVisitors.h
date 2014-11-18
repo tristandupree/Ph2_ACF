@@ -52,11 +52,12 @@ struct CbcMultiRegWriter : public HwDescriptionVisitor
 class Counter : public HwDescriptionVisitor
 {
   private:
-	uint32_t fNCbc = 0;
-	uint32_t fNFe = 0;
-	uint32_t fNBe = 0;
-	uint32_t fNShelve = 0;
+	uint32_t fNCbc;
+	uint32_t fNFe;
+	uint32_t fNBe;
+	uint32_t fNShelve;
   public:
+        Counter() : fNCbc(0), fNFe(0), fNBe(0), fNShelve(0) {}
 	void visit( Ph2_HwDescription::Cbc& pCbc ) {
 		fNCbc++;
 	}
@@ -69,16 +70,16 @@ class Counter : public HwDescriptionVisitor
 	void visit( Ph2_HwDescription::Shelve& pShelve ) {
 		fNShelve++;
 	}
-	uint32_t getNCbc() {
+	uint32_t getNCbc() const {
 		return fNCbc;
 	}
-	uint32_t getNFe() {
+	uint32_t getNFe() const {
 		return fNFe;
 	}
-	uint32_t getNBe() {
+	uint32_t getNBe() const {
 		return fNBe;
 	}
-	uint32_t getNShelves() {
+	uint32_t getNShelves() const {
 		return fNShelve;
 	};
 };
@@ -93,11 +94,11 @@ class Configurator: public HwDescriptionVisitor
 	Configurator( BeBoardInterface* pBeBoardInterface, CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
 	void visit( BeBoard& pBoard ) {
 		fBeBoardInterface->ConfigureBoard( &pBoard );
-		std::cout << "Successfully configured Board " << int( pBoard.getBeId() ) << std::endl;
+		std::cout << "Successfully configured Board " << +pBoard.getBeId() << std::endl;
 	}
 	void visit( Cbc& pCbc ) {
 		fCbcInterface->ConfigureCbc( &pCbc );
-		std::cout << "Successfully configured Cbc " << int( pCbc.getCbcId() ) << std::endl;
+		std::cout << "Successfully configured Cbc " <<  +pCbc.getCbcId() << std::endl;
 
 	}
 };
@@ -116,7 +117,7 @@ struct CbcRegReader : public HwDescriptionVisitor
 		fInterface->ReadCbcReg( &pCbc, fRegName );
 		fReadRegValue = pCbc.getReg( fRegName );
 
-		std::cout << "Reading Reg " << RED << fRegName << RESET << " on CBC " << ( int )pCbc.getCbcId() << " memory value: " << ( int )fRegValue << " read value: " << ( int )fReadRegValue << std::endl;
+		std::cout << "Reading Reg " << RED << fRegName << RESET << " on CBC " << +pCbc.getCbcId() << " memory value: " << +fRegValue << " read value: " << +fReadRegValue << std::endl;
 	}
 };
 

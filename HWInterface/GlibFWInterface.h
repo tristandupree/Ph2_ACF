@@ -60,13 +60,13 @@ namespace Ph2_HwInterface
 		 * \brief Destructor of the GlibFWInterface class
 		 */
 		~GlibFWInterface() {
-		};
+		}
 
 		/*!
 		 * \brief Configure the board with its Config File
 		 * \param pBoard
 		 */
-		void ConfigureBoard( BeBoard* pBoard );
+		void ConfigureBoard( const BeBoard* pBoard );
 		/*!
 		 * \brief Detect the right FE Id to write the right registers (not working with the latest Firmware)
 		 */
@@ -98,7 +98,7 @@ namespace Ph2_HwInterface
 		 * \brief Get next event from data buffer
 		 * \return Next event
 		 */
-		const Event* GetNextEvent( BeBoard* pBoard );
+		const Event* GetNextEvent( const BeBoard* pBoard );
 		/*!
 		* \brief Get the data buffer
 		* \param pBufSize : recovers the data buffer size

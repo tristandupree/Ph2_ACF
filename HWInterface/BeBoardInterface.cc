@@ -14,7 +14,7 @@
 namespace Ph2_HwInterface
 {
 
-	BeBoardInterface::BeBoardInterface( BeBoardFWMap& pBoardMap ) :
+	BeBoardInterface::BeBoardInterface( const BeBoardFWMap& pBoardMap ) :
 		fBoardMap( pBoardMap )
 	{
 		fBoardFW = NULL;
@@ -30,10 +30,9 @@ namespace Ph2_HwInterface
 	{
 		if ( prevBoardId != pBoardId )
 		{
-			BeBoardFWMap::iterator i;
-			i = fBoardMap.find( pBoardId );
+			BeBoardFWMap::iterator i = fBoardMap.find( pBoardId );
 			if ( i == fBoardMap.end() )
-				std::cout << "The Board: " << uint32_t( pBoardId ) << " doesn't exist" << std::endl;
+			        std::cout << "The Board: " << +pBoardId << " doesn't exist" << std::endl;
 			else
 			{
 				fBoardFW = i->second;
@@ -55,17 +54,17 @@ namespace Ph2_HwInterface
 	{
 		setBoard( pBoard->getBeId() );
 
-		pBoard->setReg( pRegNode, uint32_t( fBoardFW->ReadReg( pRegNode ) ) );
+		pBoard->setReg( pRegNode, static_cast<uint32_t>( fBoardFW->ReadReg( pRegNode ) ) );
 	}
 
 
-	void BeBoardInterface::getBoardInfo( BeBoard* pBoard )
+	void BeBoardInterface::getBoardInfo( const BeBoard* pBoard )
 	{
 		setBoard( pBoard->getBeId() );
 		fBoardFW->getBoardInfo();
 	}
 
-	void BeBoardInterface::ConfigureBoard( BeBoard* pBoard )
+	void BeBoardInterface::ConfigureBoard( const BeBoard* pBoard )
 	{
 		setBoard( pBoard->getBeId() );
 		fBoardFW->ConfigureBoard( pBoard );
@@ -106,13 +105,13 @@ namespace Ph2_HwInterface
 		fBoardFW->ReadData( pBoard, pNthAcq, pBreakTrigger );
 	}
 
-	const Event* BeBoardInterface::GetNextEvent( BeBoard* pBoard )
+	const Event* BeBoardInterface::GetNextEvent( const BeBoard* pBoard )
 	{
 		setBoard( pBoard->getBeId() );
 		fBoardFW->GetNextEvent( pBoard );
 	}
 
-	const char* BeBoardInterface::GetBuffer( BeBoard* pBoard, uint32_t& pBufSize )
+	const char* BeBoardInterface::GetBuffer( const BeBoard* pBoard, uint32_t& pBufSize )
 	{
 		setBoard( pBoard->getBeId() );
 		fBoardFW->GetBuffer( pBufSize );

@@ -37,9 +37,9 @@ struct Channel
 	TF1*  fFit;
 
 	// Methods
-	double getPedestal();
-	double getNoise();
-	uint8_t getOffset() {
+	double getPedestal() const;
+	double getNoise() const;
+	uint8_t getOffset() const {
 		return fOffset;
 	};
 	void setOffset( uint8_t pOffset );

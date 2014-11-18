@@ -67,18 +67,18 @@ namespace Ph2_HwInterface
 		 * \param pNbCbc
 		 * \param pEventBuf : the pointer to the raw Event buffer of this Event
 		 */
-		Event( uint32_t pNbCbc, char* pEventBuf );
+		Event( uint32_t pNbCbc, const char* pEventBuf );
 		/*!
 		 * \brief Constructor of the Event Class
 		 * \param pBoard : Board to work with
 		 * \param pNbCbc
 		 * \param pEventBuf : the pointer to the raw Event buffer of this Event
 		 */
-		Event( BeBoard* pBoard, uint32_t pNbCbc, char* pEventBuf );
+		Event( const BeBoard* pBoard, uint32_t pNbCbc, const char* pEventBuf );
 		/*!
 		 * \brief Copy Constructor of the Event Class
 		 */
-		Event( Event& pEvent );
+		Event( const Event& pEvent );
 		/*!
 		 * \brief Destructor of the Event Class
 		 */
@@ -94,13 +94,13 @@ namespace Ph2_HwInterface
 		 * \brief Add a board structure in the map
 		 * \param pBoard : board to work with
 		 */
-		void AddBoard( BeBoard* pBoard );
+		void AddBoard( const BeBoard* pBoard );
 		/*!
 		 * \brief Set an Event to the Event map
 		 * \param pEvent : Event to set
 		 * \return Aknowledgement of the Event setting (1/0)
 		 */
-		int SetEvent( char* pEvent );
+		int SetEvent( const char* pEvent );
 
 		//user interface
 		/*!
@@ -109,7 +109,7 @@ namespace Ph2_HwInterface
 		 * \param pCbcId : Cbc Id
 		 * \return Event buffer
 		 */
-		char* GetCbcEvent( uint8_t& pFeId, uint8_t& pCbcId ) const;
+		char* GetCbcEvent( const uint8_t& pFeId, const uint8_t& pCbcId ) const;
 		/*!
 		 * \brief Get the bunch value
 		 * \return Bunch value

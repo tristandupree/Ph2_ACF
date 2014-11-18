@@ -64,16 +64,48 @@ class Calibration : public SystemController
   private:
 	void ConstructTestGroup( uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId );
 
-	void FitVplusVcth( BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDraw );
-	void setGlobalReg( BeBoard& pBoard, std::string pRegName, uint8_t pRegValue );
-	void initializeSCurves( BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, TString pParameter );
-	void measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode );
-	void processSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, TString pParameter, bool pHoleMode, bool pDoDraw );
-	uint32_t fillScurveHists( BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent );
-	uint32_t ToggleTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable );
-	uint32_t SetOffsetTargetBitTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, uint8_t pTargetBit, uint8_t pTargetVcth );
-	void processSCurvesOffset( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pTargetVcth, uint8_t pTargetBit, TString pParameter, bool pHoleMode, bool pDoDraw );
-	void UpdateCbcObject( BeBoard& pBoard, uint8_t pGroupId );
+	void FitVplusVcth( BeBoard* pBoard, uint8_t pTargetVcth,  bool pDoDraw );
+	void setGlobalReg( BeBoard* pBoard, const std::string& pRegName, uint8_t pRegValue );
+	void initializeSCurves( BeBoard* pBoard, uint8_t pGroupId, uint8_t pValue, TString pParameter );
+	void measureSCurves( BeBoard* pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode );
+	void processSCurves( BeBoard* pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, TString pParameter, bool pHoleMode, bool pDoDraw );
+	uint32_t fillScurveHists( BeBoard* pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent );
+	uint32_t ToggleTestGroup( BeBoard* pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable );
+	uint32_t SetOffsetTargetBitTestGroup( BeBoard* pBoard, uint8_t pGroupId, bool pHoleMode, uint8_t pTargetBit, uint8_t pTargetVcth );
+	void processSCurvesOffset( BeBoard* pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pTargetVcth, uint8_t pTargetBit, TString pParameter, bool pHoleMode, bool pDoDraw );
+	void UpdateCbcObject( BeBoard* pBoard, uint8_t pGroupId );
+
+        // Use BeBoard reference
+	void FitVplusVcth( BeBoard& pBoard, uint8_t pTargetVcth,  bool pDoDraw ) {
+	     FitVplusVcth( &pBoard, pTargetVcth,  pDoDraw );
+        }
+	void setGlobalReg( BeBoard& pBoard, const std::string& pRegName, uint8_t pRegValue ) {
+	     setGlobalReg( &pBoard, pRegName, pRegValue );
+        }
+	void initializeSCurves( BeBoard& pBoard, uint8_t pGroupId, uint8_t pValue, TString pParameter ) {
+	     initializeSCurves( &pBoard, pGroupId, pValue, pParameter );
+        }
+	void measureSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode ) {
+	     measureSCurves( &pBoard, pGroupId, pEventsperVcth, pTotalChannels, pHoleMode );
+        }
+	void processSCurves( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pValue, TString pParameter, bool pHoleMode, bool pDoDraw ) {
+	     processSCurves( &pBoard, pGroupId, pEventsperVcth, pValue, pParameter, pHoleMode, pDoDraw );
+        }
+	uint32_t fillScurveHists( BeBoard& pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent ) {
+	     return fillScurveHists( &pBoard, pGroupId, pVcth, pEvent );
+        }
+	uint32_t ToggleTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, bool pEnable ) {
+	     return ToggleTestGroup( &pBoard, pGroupId, pHoleMode, pEnable );
+        }
+	uint32_t SetOffsetTargetBitTestGroup( BeBoard& pBoard, uint8_t pGroupId, bool pHoleMode, uint8_t pTargetBit, uint8_t pTargetVcth ) {
+    	     return SetOffsetTargetBitTestGroup( &pBoard, pGroupId, pHoleMode, pTargetBit, pTargetVcth );
+        }
+	void processSCurvesOffset( BeBoard& pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint8_t pTargetVcth, uint8_t pTargetBit, TString pParameter, bool pHoleMode, bool pDoDraw ) {
+	     processSCurvesOffset( &pBoard, pGroupId, pEventsperVcth, pTargetVcth, pTargetBit, pParameter, pHoleMode, pDoDraw );
+        }
+	void UpdateCbcObject( BeBoard& pBoard, uint8_t pGroupId ) {
+	     UpdateCbcObject( &pBoard, pGroupId );
+        }
 };
 
 #endif

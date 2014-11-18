@@ -17,7 +17,7 @@ Channel::~Channel()
 {
 }
 
-double Channel::getPedestal()
+double Channel::getPedestal() const
 {
 
 	if ( fFit != NULL )
@@ -25,7 +25,7 @@ double Channel::getPedestal()
 	else return -1;
 }
 
-double Channel::getNoise()
+double Channel::getNoise() const
 {
 
 	if ( fFit != NULL )
@@ -53,14 +53,14 @@ void Channel::initializeHist( uint8_t pValue, TString pParameter )
 	fitname += pParameter;
 
 
-	fScurve = ( TH1F* ) gROOT->FindObject( histname );
+	fScurve = dynamic_cast<TH1F*>( gROOT->FindObject( histname ));
 	if ( fScurve ) delete fScurve;
 	fScurve = new TH1F( histname, Form( "Scurve_Be%d_Fe%d_Cbc%d_Channel%d", fBeId, fFeId, fCbcId, fChannelId ), 256, -0.5, 255.5 );
 
 	fScurve->SetMarkerStyle( 7 );
 	fScurve->SetMarkerSize( 2 );
 
-	fFit = ( TF1* ) gROOT->FindObject( fitname );
+	fFit = dynamic_cast< TF1* >( gROOT->FindObject( fitname ));
 	if ( fFit ) delete fFit;
 	// TF1 *f1=gROOT->GetFunction("myfunc");
 	fFit = new TF1( fitname, MyErf, 0, 255, 2 );
@@ -177,7 +177,7 @@ TestGroupGraph::TestGroupGraph()
 TestGroupGraph::TestGroupGraph( uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, uint8_t pGroupId )
 {
 	TString graphname = Form( "VplusVcthGraph_Fe%d_Cbc%d_Group%d", pFeId, pCbcId, pGroupId );
-	fVplusVcthGraph = ( TGraphErrors* ) gROOT->FindObject( graphname );
+	fVplusVcthGraph = dynamic_cast<TGraphErrors*>( gROOT->FindObject( graphname ));
 	if ( fVplusVcthGraph ) delete fVplusVcthGraph;
 	fVplusVcthGraph = new TGraphErrors();
 	fVplusVcthGraph->SetName( graphname );

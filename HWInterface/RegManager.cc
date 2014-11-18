@@ -170,8 +170,6 @@ namespace Ph2_HwInterface
 
 	uhal::ValVector<uint32_t> RegManager::ReadBlockReg( const std::string& pRegNode, const uint32_t& pBlockSize )
 	{
-		uint32_t read;
-
 		fBoardMutex.lock();
 		uhal::ValVector<uint32_t> cBlockRead = fBoard->getNode( pRegNode ).readBlock( pBlockSize );
 		fBoard->dispatch();
@@ -184,7 +182,7 @@ namespace Ph2_HwInterface
 			//Use size_t and not an iterator as op[] only works with size_t type
 			for ( std::size_t i = 0; i != cBlockRead.size(); i++ )
 			{
-				read = ( uint32_t ) cBlockRead[i];
+				uint32_t read = ( uint32_t ) cBlockRead[i];
 				std::cout << " " << read << " " << std::endl;
 			}
 		}
