@@ -17,6 +17,7 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../System/SystemController.h"
 #include "../Utils/ConsoleColor.h"
+#include "../Utils/CommonVisitors.h"
 #include "Channel.h"
 
 #include "TMultiGraph.h"

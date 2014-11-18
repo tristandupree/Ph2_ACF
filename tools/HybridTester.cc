@@ -42,8 +42,26 @@ struct CbcHitCounter  : public HwDescriptionVisitor
 	}
 };
 
+void HybridTester::InitializeHists()
+{
+	TString cFrontName( "fHistTop" );
+	fHistTop = ( TH1F* )( gROOT->FindObject( cFrontName ) );
+	if ( fHistTop ) delete fHistTop;
 
-void HybridTester::InitializeHists( bool pThresholdScan )
+	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1, -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	fHistTop->SetFillColor( 4 );
+	fHistTop->SetFillStyle( 3001 );
+
+	TString cBackName( "fHistBottom" );
+	fHistBottom = ( TH1F* )( gROOT->FindObject( cBackName ) );
+	if ( fHistBottom ) delete fHistBottom;
+
+	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1 , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	fHistBottom->SetFillColor( 4 );
+	fHistBottom->SetFillStyle( 3001 );
+}
+
+void HybridTester::Initialize( bool pThresholdScan )
 {
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
@@ -57,25 +75,14 @@ void HybridTester::InitializeHists( bool pThresholdScan )
 
 	if ( pThresholdScan ) fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
 
-
-	TString cFrontName( "fHistTop" );
-	fHistTop = dynamic_cast<TH1F*>( gROOT->FindObject( cFrontName ) );
-	if ( fHistTop ) delete fHistTop;
-
-	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
-
-	TString cBackName( "fHistBottom" );
-	fHistBottom = dynamic_cast<TH1F*>( gROOT->FindObject( cBackName ) );
-	if ( fHistBottom ) delete fHistBottom;
-
-	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	InitializeHists();
 
 
 
 
 }
 
-void HybridTester::InitializeHistsGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector )
+void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
 {
 
 	gStyle->SetOptStat( 000000 );
@@ -97,17 +104,7 @@ void HybridTester::InitializeHistsGUI( bool pThresholdScan, const std::vector<TC
 		fSCurveCanvas->SetTitle( "NoiseOccupancy" );
 	}
 
-	TString cFrontName( "fHistTop" );
-	fHistTop = dynamic_cast<TH1F*>( gROOT->FindObject( cFrontName ) );
-	if ( fHistTop ) delete fHistTop;
-
-	fHistTop = new TH1F( cFrontName, "Front Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
-
-	TString cBackName( "fHistBottom" );
-	fHistBottom = dynamic_cast<TH1F*>( gROOT->FindObject( cBackName ) );
-	if ( fHistBottom ) delete fHistBottom;
-
-	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) , -0.5, ( fNCbc / 2 * 254 ) + .5 );
+	InitializeHists();
 }
 
 
@@ -116,12 +113,14 @@ void HybridTester::ScanThreshold()
 {
 	std::cout << "Scanning noise Occupancy to find threshold for test with external source ... " << std::endl;
 
+	auto cSetting = fSettingsMap.find( "HoleMode" );
+	bool cHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
+
 	// Necessary variables
 	uint32_t cEventsperVcth = 10;
 	bool cNonZero = false;
 	bool cAllOne = false;
 	uint32_t cAllOneCounter = 0;
-	bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
 	uint8_t cVcth, cDoubleVcth;
 	( cHoleMode ) ? cVcth = 0xFF : cVcth = 0x00;
 	int cStep = ( cHoleMode ) ? -10 : 10;
@@ -266,7 +265,9 @@ void HybridTester::ScanThreshold()
 	double_t pedestal = fFit->GetParameter( 0 );
 	double_t noise = fFit->GetParameter( 1 );
 
-	int cSigmas = fSettingsMap.find( "Threshold_NSigmas" )->second;
+	cSetting = fSettingsMap.find( "Threshold_NSigmas" );
+	int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
+
 	uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
 
 	std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (" << fabs( noise ) << ") to " << +cThreshold << " for Hybrid test!" << std::endl;
@@ -331,7 +332,9 @@ void HybridTester::TestRegisters()
 void HybridTester::Measure()
 {
 	std::cout << "Mesuring Efficiency per Strip ... " << std::endl;
-	uint32_t cTotalEvents = fSettingsMap.find( "Nevents" )->second;
+	auto cSetting = fSettingsMap.find( "Nevents" );
+	uint32_t cTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 200;
+	std::cout << "Taking data with " << cTotalEvents << " Events!" << std::endl;
 
 	CbcRegReader cReader( fCbcInterface, "VCth" );
 	accept( cReader );
