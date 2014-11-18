@@ -59,7 +59,7 @@ namespace Ph2_HwInterface
 #endif
 
 
-		CbcRegMap& cCbcRegMap = pCbc->getRegMap();
+		CbcRegMap cCbcRegMap = pCbc->getRegMap();
 		CbcRegMap::iterator cIt = cCbcRegMap.begin();
 
 		while ( cIt != cCbcRegMap.end() )
@@ -204,7 +204,7 @@ namespace Ph2_HwInterface
 #endif
 	}
 
-	void CbcInterface::WriteCbcMultReg( Cbc* pCbc, std::vector< std::pair<std::string, uint8_t> > pVecReq, bool pVerifLoop )
+	void CbcInterface::WriteCbcMultReg( Cbc* pCbc, const std::vector< std::pair<std::string, uint8_t> >& pVecReq, bool pVerifLoop )
 	{
 
 #ifdef __CBCDAQ_DEV__

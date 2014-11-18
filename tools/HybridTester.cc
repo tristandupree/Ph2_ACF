@@ -82,7 +82,7 @@ void HybridTester::Initialize( bool pThresholdScan )
 
 }
 
-void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
+void HybridTester::InitializeGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector )
 {
 
 	gStyle->SetOptStat( 000000 );
