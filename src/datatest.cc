@@ -83,10 +83,10 @@ int main( int argc, char* argv[] )
 			{
 				for ( auto cBoard : ( cShelve )->fBoardVector )
 				{
-					for ( auto cFe : cBoard.fModuleVector )
+					for ( auto cFe : cBoard->fModuleVector )
 					{
-						for ( auto cCbc : cFe.fCbcVector )
-							cSystemController.fCbcInterface->WriteCbcReg( &cCbc, "VCth", uint8_t( cVcth ) );
+						for ( auto cCbc : cFe->fCbcVector )
+							cSystemController.fCbcInterface->WriteCbcReg( cCbc, "VCth", uint8_t( cVcth ) );
 					}
 				}
 			}
@@ -102,14 +102,14 @@ int main( int argc, char* argv[] )
 	while ( cN < pEventsperVcth )
 	{
 		if ( cN == pEventsperVcth ) break;
-		BeBoard pBoard = cSystemController.fShelveVector.at( 0 )->fBoardVector.at( 0 );
-		cSystemController.Run( &pBoard, cNthAcq );
+		BeBoard* pBoard = cSystemController.fShelveVector.at( 0 )->fBoardVector.at( 0 );
+		cSystemController.Run( pBoard, cNthAcq );
 
-		const Event* cEvent = cSystemController.fBeBoardInterface->GetNextEvent( &pBoard );
+		const Event* cEvent = cSystemController.fBeBoardInterface->GetNextEvent( pBoard );
 
 		while ( cEvent )
 		{
-			std::cout << " cVcth = " << uint32_t( cVcth ) << std::endl;
+			std::cout << " cVcth = " << cVcth << std::endl;
 			std::cout << ">>> Event #" << cN << std::endl;
 			std::cout << *cEvent << std::endl;
 			if ( cN == pEventsperVcth )
@@ -117,7 +117,7 @@ int main( int argc, char* argv[] )
 			cN++;
 
 			if ( cN < pEventsperVcth )
-				cEvent = cSystemController.fBeBoardInterface->GetNextEvent( &pBoard );
+				cEvent = cSystemController.fBeBoardInterface->GetNextEvent( pBoard );
 			else break;
 		}
 		cNthAcq++;

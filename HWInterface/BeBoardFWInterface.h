@@ -1,5 +1,4 @@
 /*!
-
         \file                BeBoardFWInterface.h
         \brief                           BeBoardFWInterface base class of all type of boards
         \author                          Lorenzo BIDEGAIN, Nicolas PIERRE
@@ -45,6 +44,12 @@ namespace Ph2_HwInterface
 
 		Data* fData; /*!< Data read storage*/
 
+                static const uint32_t cMask1 = 0xff;
+                static const uint32_t cMask2 = 0xff00;
+                static const uint32_t cMask3 = 0xff0000;
+                static const uint32_t cMask4 = 0xff000000;
+                static const uint32_t cMask5 = 0x1e0000;
+                static const uint32_t cMask6 = 0x10000;
 	  public:
 
 		/*!
@@ -76,7 +81,7 @@ namespace Ph2_HwInterface
 		* \param pCbcId : Id of the Cbc to work with
 		* \param pVecReq : Vector to stack the encoded words
 		*/
-		virtual void EncodeReg( CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq ); /*!< Encode a/several word(s) readable for a Cbc*/
+		virtual void EncodeReg( const CbcRegItem& pRegItem, uint8_t pCbcId, std::vector<uint32_t>& pVecReq ); /*!< Encode a/several word(s) readable for a Cbc*/
 		/*!
 		* \brief Decode a word from a read of a register of the Cbc
 		* \param pRegItem : RegItem containing infos (name, adress, value...) about the register to read
@@ -104,7 +109,7 @@ namespace Ph2_HwInterface
 		* \brief Configure the board with its Config File
 		* \param pBoard
 		*/
-		virtual void ConfigureBoard( BeBoard* pBoard ) = 0;
+		virtual void ConfigureBoard( const BeBoard* pBoard ) = 0;
 		/*!
 		 * \brief Start a DAQ
 		 */
@@ -133,7 +138,7 @@ namespace Ph2_HwInterface
 		 * \brief Get next event from data buffer
 		 * \return Next event
 		 */
-		virtual const Event* GetNextEvent( BeBoard* pBoard ) = 0;
+		virtual const Event* GetNextEvent( const BeBoard* pBoard ) = 0;
 		/*!
 		 * \brief Get the data buffer
 		 * \param pBufSize : recovers the data buffer size

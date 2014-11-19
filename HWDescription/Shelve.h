@@ -41,7 +41,9 @@ namespace Ph2_HwDescription
 		Shelve();
 
 		// D'tor
-		~Shelve() {}
+		~Shelve() {
+                         fBoardVector.clear();
+                }
 
 		/*!
 		 * \brief acceptor method for HwDescriptionVisitor
@@ -50,7 +52,7 @@ namespace Ph2_HwDescription
 		void accept( HwDescriptionVisitor& pVisitor ) {
 			pVisitor.visit( *this );
 			for ( auto& cBoard : fBoardVector )
-				cBoard.accept( pVisitor );
+				cBoard->accept( pVisitor );
 		}
 		// void accept( HwDescriptionVisitor& pVisitor )  const {
 		//  pVisitor.visit( *this );
@@ -68,7 +70,12 @@ namespace Ph2_HwDescription
 		 * \brief Adding a Board to the vector
 		 * \param pBoard
 		 */
-		void addBoard( BeBoard& pBoard );
+		void addBoard( BeBoard& pBoard ) {
+		        fBoardVector.push_back( &pBoard );
+		}
+		void addBoard( BeBoard* pBoard ) {
+		        fBoardVector.push_back( pBoard );
+		}
 		/*!
 		 * \brief Remove a Board from the vector
 		 * \param pBeId
@@ -80,7 +87,7 @@ namespace Ph2_HwDescription
 		 * \param pBeId
 		 * \return a pointer of Board, so we can manipulate directly the Board contained in the vector
 		 */
-		BeBoard*   getBoard( uint8_t pBeId );
+		BeBoard*   getBoard( uint8_t pBeId ) const;
 
 		/*!
 		* \brief Get the Shelve Id
@@ -98,7 +105,7 @@ namespace Ph2_HwDescription
 		};
 
 		// Vector of Boards
-		std::vector< BeBoard > fBoardVector;
+		std::vector< BeBoard* > fBoardVector;
 
 	  protected:
 

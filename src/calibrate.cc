@@ -6,6 +6,7 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "../tools/Calibration.h"
+//#include "TROOT.h"
 #include <TApplication.h>
 #include "../Utils/argvparser.h"
 
@@ -53,6 +54,7 @@ int main( int argc, char* argv[] )
 	bool cVplus = ( cmd.foundOption( "skip" ) ) ? true : false;
 	// bool cFast = ( cmd.foundOption( "fast" ) ) ? true : false;
 
+  //      gROOT->SetBatch(true);
 	TApplication cApp( "Root Application", &argc, argv );
 	TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 

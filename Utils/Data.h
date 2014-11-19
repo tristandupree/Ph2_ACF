@@ -59,7 +59,7 @@ namespace Ph2_HwInterface
 		/*!
 		 * \brief Copy Constructor of the Data class
 		 */
-		Data( Data& pData );
+		Data( const Data& pData );
 		/*!
 		 * \brief Destructor of the Data class
 		 */
@@ -71,7 +71,7 @@ namespace Ph2_HwInterface
 		 * \param *pData : Data from the Cbc
 		 * \param pNevents : The number of events in this acquisiton
 		 */
-		void Set( std::vector<uint32_t>* pData, uint32_t pNevents );
+		void Set( const std::vector<uint32_t>* pData, uint32_t pNevents );
 		/*!
 		 * \brief Reset the data structure
 		 */
@@ -80,7 +80,7 @@ namespace Ph2_HwInterface
 		 * \brief Copy the data buffer
 		 * \param pData : Data to copy in
 		 */
-		void CopyBuffer( Data& pData );
+		void CopyBuffer( const Data& pData );
 		/*!
 		 * \brief Copy the data buffer
 		 * \param pBufSize : size of the buffer
@@ -92,7 +92,7 @@ namespace Ph2_HwInterface
 		 * \param pBoard: pointer to BeBoard
 		 * \return Next Event
 		 */
-		const Event* GetNextEvent( BeBoard* pBoard );
+		const Event* GetNextEvent( const BeBoard* pBoard );
 
 	};
 

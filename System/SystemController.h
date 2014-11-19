@@ -77,7 +77,7 @@ namespace Ph2_System
 		 */
 		void accept( HwDescriptionVisitor& pVisitor ) {
 			pVisitor.visit( *this );
-			for ( auto& cShelve : fShelveVector )
+			for ( Shelve* cShelve : fShelveVector )
 				cShelve->accept( pVisitor );
 		}
 
