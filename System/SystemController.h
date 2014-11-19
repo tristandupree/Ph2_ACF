@@ -90,8 +90,9 @@ namespace Ph2_System
 		/*!
 		 * \brief Create a result directory at the specified path + ChargeMode + Timestamp
 		 * \param pDirectoryname : the name of the directory to create
+		 * \param pDate : apend the current date and time to the directoryname
 		 */
-		void CreateResultDirectory( const std::string& pDirectoryname );
+		void CreateResultDirectory( const std::string& pDirectoryname, bool pDate = true );
 		/*!
 		 * \brief Initialize the result Root file
 		 * \param pFilename : Root filename

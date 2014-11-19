@@ -83,8 +83,9 @@ class HybridTester : public SystemController
 	TH1F* fHistBottom;   /*!< Histogram for bottom pads */
 
 	TCanvas* fSCurveCanvas;   /*!< Canvas for threshold scan */
-	TH1F* fSCurve;   /*!< Histogram for SCurve */
-	TF1* fFit;   /*!< fit for SCurve*/
+
+	std::map<Cbc*, TH1F*> fSCurveMap;  /*!< Histograms for SCurve */
+	std::map<Cbc*, TF1*> fFitMap;   /*!< fits for SCurve*/
 
 	/*!
 	* \brief private method that calls the constructors for the histograms
@@ -100,6 +101,11 @@ class HybridTester : public SystemController
 		fHistBottom->Draw();
 		fDataCanvas->Update();
 	}
+
+	// To measure the occupancy per Cbc
+	uint32_t fillSCurves( BeBoard* pBoard,  const Event* pEvent, uint8_t pValue );
+	void updateSCurveCanvas( BeBoard* pBoard );
+	void processSCurves( uint32_t pEventsperVcth );
 
 };
 

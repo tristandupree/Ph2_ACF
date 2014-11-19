@@ -8,7 +8,8 @@ IncludeDirs     =  /opt/cactus/include ../
 
 IncludePaths            = $(IncludeDirs:%=-I%)
 
-LibraryDirs = /opt/cactus/lib /opt/xdaq/lib ../lib
+LibraryDirs = /opt/cactus/lib ../lib
+# /opt/xdaq/lib
 LibraryPaths = $(LibraryDirs:%=-L%)
 
 ExternalObjects = $(LibraryPaths) -lpthread  -lcactus_extern_pugixml -lcactus_uhal_log -lcactus_uhal_grammars -lcactus_uhal_uhal -lboost_system `root-config --glibs` -lPh2_Interface -lPh2_Description -lPh2_System -lPh2_Tools -lPh2_Utils

@@ -24,7 +24,7 @@ namespace Ph2_System
 
 	SystemController::~SystemController()
 	{
-	        fShelveVector.clear();
+		fShelveVector.clear();
 	}
 
 	void SystemController::InitializeHw( const std::string& pFilename )
@@ -204,8 +204,8 @@ namespace Ph2_System
 			void visit( BeBoard& pBoard ) {
 				fBeBoardInterface->ConfigureBoard( &pBoard );
 
-				if ( fCheck ) 
-					fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, (( fHoleMode ) ? 0 : 1) );
+				if ( fCheck )
+					fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, ( ( fHoleMode ) ? 0 : 1 ) );
 				std::cout << GREEN << "Successfully configured Board " << +pBoard.getBeId() << RESET << std::endl;
 			}
 
@@ -220,16 +220,26 @@ namespace Ph2_System
 		accept( cConfigurator );
 	}
 
-	void SystemController::CreateResultDirectory( const std::string& pDirname )
+	void SystemController::CreateResultDirectory( const std::string& pDirname, bool pDate )
 	{
-
-		bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
-
+		bool cCheck;
+		bool cHoleMode;
+		auto cSetting = fSettingsMap.find( "HoleMode" );
+		if ( cSetting != std::end( fSettingsMap ) )
+		{
+			cCheck = true;
+			cHoleMode = ( cSetting->second == 1 ) ? true : false;
+		}
 		std::string cMode;
-		if ( cHoleMode ) cMode = "_Hole";
-		else cMode = "_Electron";
+		if ( cCheck )
+		{
+			if ( cHoleMode ) cMode = "_Hole";
+			else cMode = "_Electron";
+		}
 
-		std::string nDirname = pDirname + cMode +  currentDateTime();
+		std::string nDirname = pDirname;
+		if ( cCheck ) nDirname +=  cMode;
+		if ( pDate ) nDirname +=  currentDateTime();
 		std::cout << std::endl << "Creating directory: " << nDirname << std::endl << std::endl;
 		std::string cCommand = "mkdir -p " + nDirname;
 
@@ -255,23 +265,6 @@ namespace Ph2_System
 		fBeBoardInterface->ReadData( pBeBoard, pNthAcq, true );
 		fBeBoardInterface->Stop( pBeBoard, pNthAcq );
 	}
-
-	// void SystemController::CheckPolarity( BeBoard* pBeBoard )
-	// {
-	//  std::cout << "Checking HoleMode status from the settings. This will override BeBoard regiser settings specified in the .XML!" << std::endl;
-
-	//  SettingsMap::iterator cSetting = fSettingsMap.find( "HoleMode" );
-	//  if ( cSetting != fSettingsMap.end() )
-	//  {
-	//      bool cHoleMode = cSetting->second;
-	//      uint32_t cHoleRegisterValue;
-
-	//      cHoleRegisterValue = ( cHoleMode ) ? 0 : 1;
-
-	//      fBeBoardInterface->WriteBoardReg( pBeBoard, NEG_LOGIC_CBC, cHoleRegisterValue );
-	//  }
-	//  else std::cout << "No CBC polarity specified in the the settings file, nothing to do!" << std::endl;
-	// }
 }
 
 
