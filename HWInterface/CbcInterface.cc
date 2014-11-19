@@ -35,7 +35,7 @@ namespace Ph2_HwInterface
 		{
 			BeBoardFWMap::iterator i = fBoardMap.find( pBoardId );
 			if ( i == fBoardMap.end() )
-			        std::cout << "The Board: " << +pBoardId << " doesn't exist" << std::endl;
+				std::cout << "The Board: " << +pBoardId << " doesn't exist" << std::endl;
 			else
 			{
 				fBoardFW = i->second;
@@ -45,7 +45,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::ConfigureCbc( Cbc* pCbc, bool pVerifLoop, uint32_t pBlockSize )
+	void CbcInterface::ConfigureCbc( const Cbc* pCbc, bool pVerifLoop, uint32_t pBlockSize )
 	{
 		setBoard( pCbc->getBeId() );
 
@@ -207,7 +207,7 @@ namespace Ph2_HwInterface
 #endif
 	}
 
-	void CbcInterface::WriteCbcMultReg( Cbc* pCbc, std::vector< std::pair<std::string, uint8_t> > pVecReq, bool pVerifLoop )
+	void CbcInterface::WriteCbcMultReg( Cbc* pCbc, const std::vector< std::pair<std::string, uint8_t> >& pVecReq, bool pVerifLoop )
 	{
 
 #ifdef __CBCDAQ_DEV__
@@ -443,7 +443,7 @@ namespace Ph2_HwInterface
 					std::cout << "Value read : " << cRegItem.fValue << std::endl;
 #endif
 
-					cCbc->setReg( cVecRegNode.at(j), cRegItem.fValue );
+					cCbc->setReg( cVecRegNode.at( j ), cRegItem.fValue );
 				}
 			}
 		}
@@ -463,7 +463,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void CbcInterface::WriteBroadcast( Module* pModule, const std::string& pRegNode, uint32_t pValue )
+	void CbcInterface::WriteBroadcast( const Module* pModule, const std::string& pRegNode, uint32_t pValue )
 	{
 		setBoard( pModule->getBeId() );
 

@@ -263,7 +263,7 @@ namespace Ph2_HwInterface
 		const EventMap& GetEventMap() const {
 			return fEventMap;
 		}
-		friend ostream& operator<< ( ostream& out, const Event& ev );
+		friend std::ostream& operator<< ( std::ostream& out, const Event& ev );
 	};
 }
 #endif
