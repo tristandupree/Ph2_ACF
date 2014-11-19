@@ -18,7 +18,7 @@ Different versions
 ---------------------------------------
 
 On this GitHub, you can find different version of the software :
-- An agnostic (to the number of CBCs) version with the new structure in the Master branch
+- a hopefully working and stable version on the master branch
 - An in-progress version in the Dev branch
 <br>
 <br>
@@ -53,18 +53,21 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
 2. Install the latest gcc compiler:
 
         sudo yum install devtoolset-2
-        sudo ln -s /opt/rh/devtoolset-2/root/usr/bin* /usr/local/bin/
+        sudo ln -s /opt/rh/devtoolset-2/root/usr/bin/* /usr/local/bin/
         hash -r
 
    This should give you gcc 4.8.1:
 
-        /usr/bin/gcc --version
+        gcc --version
 
 3. Finally, update uHAL to version 2.3:
 
         sudo yum groupremove uhal
         wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
-        sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
+
+(You may need the --no-check-certificate)
+	
+	sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
         sudo yum clean all
         sudo yum groupinstall uhal
 
@@ -132,6 +135,24 @@ For debugging purpose, you can activate DEV_FLAG in files or in Makefile and als
 
 More features will be implemented later, so make sure to have the last release
 locally to benefit from them.
+
+
+__Known Issues:__
+-------------------------
+Several bugs / problematic behavior has been reported by various users that is not direclty linked to the Ph2_ACF libraries, however, some workarounds are provided in the following:
+
+- When configuring a CBC object (writing all registers at once), the MSB of the Register "FrontEncControl" is read back incorrectly. This only manifests in hole mode (0xC3 instead of 0x43). The cause of this problem is identified as related to the FW and the error itself can be safely ignored until the problem is solved. The chips will still properly configure and data quality should not be affected.
+
+- uHAL exceptions and UDP timeouts when reading larger packet sizes from the GLIB board: this can happen for some users (cause not yet identified) but can be circumvented by changing the line
+        "ipbusudp-2.0://192.168.000.175:50001"
+in the connections.xml file to
+        "chtcp-2.0://localhost:10203?target=192.168.000.175:50001"
+& then launching the CACTUS control hub by the command:
+        /opt/cactus/bin/controlhub_start
+
+This uses TCP protocol instead of UDP which accounts for packet loss but decreases the performance.
+
+
 
 
 Support, Suggestions ?
