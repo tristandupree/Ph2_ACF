@@ -504,5 +504,7 @@ void HybridTester::SaveResults()
 
 	std::string cPdfName = fDirectoryName + "/HybridTestResults.pdf";
 	fDataCanvas->SaveAs( cPdfName.c_str() );
+	cPdfName = fDirectoryName + "/ThresholdScanResults.pdf";
+	fSCurveCanvas->SaveAs( cPdfName.c_str() );
 
 }

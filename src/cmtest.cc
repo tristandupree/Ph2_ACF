@@ -60,7 +60,7 @@ int main( int argc, char* argv[] )
 
 	TApplication cApp( "Root Application", &argc, argv );
 	if ( batchMode ) gROOT->SetBatch( true );
-	elseTQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
+	else TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
 	CMTester cTester;
 	cTester.InitializeHw( cHWFile );

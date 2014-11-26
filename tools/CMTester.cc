@@ -332,7 +332,14 @@ void CMTester::SaveResults()
 	}
 	// Save Canvasses too
 	for ( const auto& cCanvas : fCanvasMap )
+	{
 		cCanvas.second->Write( cCanvas.second->GetName(), TObject::kOverwrite );
+		std::string cPdfName = fDirectoryName + "/" + cCanvas.second->GetName() + ".pdf";
+		cCanvas.second->SaveAs( cPdfName.c_str() );
+	}
+
+	fResultFile->Write();
+	fResultFile->Close();
 
 	std::cout << "Results saved!" << std::endl;
 }
