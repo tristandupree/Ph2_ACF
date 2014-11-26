@@ -217,7 +217,7 @@ void HybridTester::ScanThreshold()
 					// check if all Cbcs have reached full occupancy
 					if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NCHANNELS ) cAllOneCounter++;
 					// add a second check if the global SCurve slope is 0 for 10 consecutive Vcth values
-					if ( fabs( cHitCounter - cOldHitCounter ) < 10 ) cSlopeZeroCounter++;
+					if ( fabs( cHitCounter - cOldHitCounter ) < 10 && cHitCounter != 0 ) cSlopeZeroCounter++;
 				}
 				if ( cAllOneCounter >= 10 ) cAllOne = true;
 				if ( cSlopeZeroCounter >= 10 ) cSlopeZero = true;
@@ -228,7 +228,11 @@ void HybridTester::ScanThreshold()
 					break;
 				}
 				else if ( cSlopeZero )
+				{
 					std::cout << "Slope of SCurve 0 -- ending the scan at VCth " << +cVcth << std::endl;
+					break;
+				}
+
 				cOldHitCounter = cHitCounter;
 				cVcth += cStep;
 			}
