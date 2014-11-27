@@ -81,7 +81,7 @@ class HybridTester : public SystemController
 	TCanvas* fDataCanvas;   /*!<Canvas to output single-strip efficiency */
 	TH1F* fHistTop;   /*!< Histogram for top pads */
 	TH1F* fHistBottom;   /*!< Histogram for bottom pads */
-
+	bool fThresholdScan; /*!< Flag for SCurve Canvas */
 	TCanvas* fSCurveCanvas;   /*!< Canvas for threshold scan */
 
 	std::map<Cbc*, TH1F*> fSCurveMap;  /*!< Histograms for SCurve */

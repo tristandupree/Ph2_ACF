@@ -84,6 +84,7 @@ void HybridTester::InitializeHists()
 
 void HybridTester::Initialize( bool pThresholdScan )
 {
+	fThresholdScan = pThresholdScan;
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
 	//  special Visito class to count objects
@@ -93,10 +94,12 @@ void HybridTester::Initialize( bool pThresholdScan )
 
 	fDataCanvas = new TCanvas( "fDataCanvas", "SingleStripEfficiency", 1200, 800 );
 	fDataCanvas->Divide( 2 );
-
-	if ( pThresholdScan ) fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
-	fSCurveCanvas->Divide( fNCbc );
-
+	
+	if ( fThresholdScan ) 
+	{
+		fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
+		fSCurveCanvas->Divide( fNCbc );
+	}
 	InitializeHists();
 
 
@@ -106,7 +109,7 @@ void HybridTester::Initialize( bool pThresholdScan )
 
 void HybridTester::InitializeGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector )
 {
-
+	fThresholdScan = pThresholdScan;
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
 	//  special Visito class to count objects
@@ -119,7 +122,7 @@ void HybridTester::InitializeGUI( bool pThresholdScan, const std::vector<TCanvas
 	fDataCanvas->SetTitle( "SingleStripEfficiency" );
 	fDataCanvas->Divide( 2 );
 
-	if ( pThresholdScan )
+	if ( fThresholdScan )
 	{
 		fSCurveCanvas = pCanvasVector.at( 2 ); // only if the user decides to do a thresholdscan
 		fSCurveCanvas->SetName( "fSCurveCanvas" );
@@ -504,7 +507,9 @@ void HybridTester::SaveResults()
 
 	std::string cPdfName = fDirectoryName + "/HybridTestResults.pdf";
 	fDataCanvas->SaveAs( cPdfName.c_str() );
-	cPdfName = fDirectoryName + "/ThresholdScanResults.pdf";
-	fSCurveCanvas->SaveAs( cPdfName.c_str() );
-
+	if(fThresholdScan)
+	{
+		cPdfName = fDirectoryName + "/ThresholdScanResults.pdf";
+		fSCurveCanvas->SaveAs( cPdfName.c_str() );
+	}
 }
