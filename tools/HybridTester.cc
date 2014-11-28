@@ -94,8 +94,8 @@ void HybridTester::Initialize( bool pThresholdScan )
 
 	fDataCanvas = new TCanvas( "fDataCanvas", "SingleStripEfficiency", 1200, 800 );
 	fDataCanvas->Divide( 2 );
-	
-	if ( fThresholdScan ) 
+
+	if ( fThresholdScan )
 	{
 		fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
 		fSCurveCanvas->Divide( fNCbc );
@@ -150,8 +150,8 @@ void HybridTester::ScanThreshold()
 	uint32_t cAllOneCounter = 0;
 	uint32_t cSlopeZeroCounter = 0;
 	uint32_t cOldHitCounter = 0;
-	uint8_t cVcth, cDoubleVcth;
-	( cHoleMode ) ? cVcth = 0xFF : cVcth = 0x00;
+	uint8_t  cDoubleVcth;
+	uint8_t cVcth = ( cHoleMode ) ?  0xFF :  0x00;
 	int cStep = ( cHoleMode ) ? -10 : 10;
 
 
@@ -507,7 +507,7 @@ void HybridTester::SaveResults()
 
 	std::string cPdfName = fDirectoryName + "/HybridTestResults.pdf";
 	fDataCanvas->SaveAs( cPdfName.c_str() );
-	if(fThresholdScan)
+	if ( fThresholdScan )
 	{
 		cPdfName = fDirectoryName + "/ThresholdScanResults.pdf";
 		fSCurveCanvas->SaveAs( cPdfName.c_str() );
