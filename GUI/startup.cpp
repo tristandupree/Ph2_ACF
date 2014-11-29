@@ -1,3 +1,4 @@
+#define _GUI
 #include "startup.h"
 #include "View/setuptab.h"
 #include "View/cbcregisterstab.h"

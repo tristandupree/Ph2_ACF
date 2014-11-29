@@ -51,6 +51,19 @@ namespace GUI {
             QString title = QString("CBC %1").arg(i);
             m_tabCbc->addTab(createCbcTab(), title);
         }
+
+        CbcRegItem test;
+        test.fAddress=0;
+        test.fDefValue=5;
+        test.fPage=0;
+        test.fValue=6;
+
+        std::map<std::string, CbcRegItem> testing = {{"Hey", test},{"Hey2222", test},{"Hey33", test},{"Hey4", test},{"Hey5", test},{"Hey666666666666666", test},{"Hey7", test},{"Hey88", test}};
+
+
+        //createCbcRegisterValue(0,testing);
+        //createCbcRegisterValue(1,testing);
+
     }
 
 
@@ -58,6 +71,7 @@ namespace GUI {
     {
         int row = 0;
         int column = 0;
+        int cLineSize = 0;
 
         for (auto& kv : mapReg)
         {
@@ -71,11 +85,15 @@ namespace GUI {
 
             QLabel *lblRegTitle = new QLabel(this);
             lblRegTitle->setText(cRegTitle_Address);
-            //lblRegTitle->setLineWidth(150);
+
+            if (cLineSize < lblRegTitle->width())
+            {
+                cLineSize = lblRegTitle->width();
+            }
 
             QLineEdit *lineRegValue = new QLineEdit(this);
             lineRegValue->setText(QString::number(kv.second.fValue));
-            //lineRegValue->setMaximumWidth(50);
+            lineRegValue->setMaximumWidth(30);
 
             loHorz->addWidget(lblRegTitle);
             loHorz->setAlignment(lblRegTitle, Qt::AlignLeft);
@@ -100,6 +118,19 @@ namespace GUI {
             {
                 ++column;
                 row = 0;
+            }
+        }
+
+        for(auto& cbc : m_widgetMap) //vector of CBCs
+        {
+            for(auto& regNames : cbc.keys())//registerName keys
+            {
+                for(auto& widget : cbc.value(regNames).keys())
+                {
+                    //cbc.value(regNames).value(widget)->setMaximumWidth(cLineSize + 50);
+                    widget->setMinimumWidth(cLineSize + 50);
+                    qDebug() << widget;
+                }
             }
         }
     }

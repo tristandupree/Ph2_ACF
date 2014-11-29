@@ -1,76 +1,15 @@
 #include "datatestworker.h"
-#include <QDebug>
-#include <QThread>
-#include <vector>
-#include "../Model/systemcontroller.h"
-
-#include "../HWDescription/Module.h"
-#include "../HWDescription/Cbc.h"
-#include "../HWDescription/BeBoard.h"
-#include "../HWInterface/CbcInterface.h"
-#include "../HWInterface/BeBoardInterface.h"
-#include "../Utils/ConsoleColor.h"
-#include "../Utils/Visitor.h"
-#include "../Utils/Utilities.h"
-#include "../Utils/CommonVisitors.h"
-
-#include "TCanvas.h"
-#include "TFile.h"
-#include "TH1F.h"
-#include "TF1.h"
-#include "TStyle.h"
-#include "TLine.h"
-#include "TH1F.h"
 
 #include "utils.h"
 #include "unistd.h"
 
 
+#ifdef _GUI
 namespace GUI
 {
-    struct HistogramFiller  : public HwDescriptionVisitor
-    {
-
-        std::shared_ptr<TH1F>  fBotHist;
-        std::shared_ptr<TH1F>  fTopHist;
-
-        const Event* fEvent;
-
-        HistogramFiller( std::shared_ptr<TH1F> pBotHist, std::shared_ptr<TH1F> pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
-
-        void visit( Cbc& pCbc ) {
-
-            std::vector<bool> cDataBitVector = fEvent->DataBitVector( pCbc.getFeId(), pCbc.getCbcId() );
-            for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
-                if ( cDataBitVector.at( cId ) ) {
-                    uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
-                    //std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
-                    if ( globalChannel % 2 == 0 )
-                        fBotHist->Fill( globalChannel / 2 );
-                    else
-                        fTopHist->Fill( ( globalChannel - 1 ) / 2 );
-
-                }
-            }
-        }
-    };
-
-    struct CbcHitCounter  : public HwDescriptionVisitor
-    {
-        const Event* fEvent;
-        uint32_t fHitcounter = 0;
-
-        CbcHitCounter( const Event* pEvent ): fEvent( pEvent ) {}
-
-        void visit( Cbc& pCbc ) {
-            for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
-                if ( fEvent->DataBit( pCbc.getFeId(), pCbc.getCbcId(), cId ) ) fHitcounter++;
-            }
-        }
-    };
 
     DataTestWorker::DataTestWorker(QObject *parent,
-                                   SystemController &sysController) ://, SystemController &sysCtrl) :
+                                   SystemController &sysController) :
         QObject(parent),
         m_systemController(sysController)
     {
@@ -134,6 +73,48 @@ namespace GUI
         emit finished();
 
     }
+#endif
+
+    struct HistogramFiller  : public HwDescriptionVisitor
+    {
+
+        std::shared_ptr<TH1F>  fBotHist;
+        std::shared_ptr<TH1F>  fTopHist;
+
+        const Event* fEvent;
+
+        HistogramFiller( std::shared_ptr<TH1F> pBotHist, std::shared_ptr<TH1F> pTopHist, const Event* pEvent ): fBotHist( pBotHist ), fTopHist( pTopHist ), fEvent( pEvent ) {}
+
+        void visit( Cbc& pCbc ) {
+
+            std::vector<bool> cDataBitVector = fEvent->DataBitVector( pCbc.getFeId(), pCbc.getCbcId() );
+            for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
+                if ( cDataBitVector.at( cId ) ) {
+                    uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
+                    //std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
+                    if ( globalChannel % 2 == 0 )
+                        fBotHist->Fill( globalChannel / 2 );
+                    else
+                        fTopHist->Fill( ( globalChannel - 1 ) / 2 );
+
+                }
+            }
+        }
+    };
+
+    struct CbcHitCounter  : public HwDescriptionVisitor
+    {
+        const Event* fEvent;
+        uint32_t fHitcounter = 0;
+
+        CbcHitCounter( const Event* pEvent ): fEvent( pEvent ) {}
+
+        void visit( Cbc& pCbc ) {
+            for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
+                if ( fEvent->DataBit( pCbc.getFeId(), pCbc.getCbcId(), cId ) ) fHitcounter++;
+            }
+        }
+    };
 
     void DataTestWorker::Initialise()
     {
@@ -446,5 +427,6 @@ namespace GUI
         emit sendOccupyHists(m_vecHist);
         m_vecHist.clear();
     }
-
+#ifdef _GUI
 }
+#endif

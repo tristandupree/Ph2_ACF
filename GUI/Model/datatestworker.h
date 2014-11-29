@@ -1,20 +1,45 @@
+#define _GUI
 #pragma once
+
+#include "../HWDescription/Module.h"
+#include "../HWDescription/Cbc.h"
+#include "../HWDescription/BeBoard.h"
+#include "../HWInterface/CbcInterface.h"
+#include "../HWInterface/BeBoardInterface.h"
+#include "../Utils/ConsoleColor.h"
+#include "../Utils/Visitor.h"
+#include "../Utils/Utilities.h"
+#include "../Utils/CommonVisitors.h"
+
+#include <vector>
+
+#include "TCanvas.h"
+#include "TFile.h"
+#include "TH1F.h"
+#include "TF1.h"
+#include "TStyle.h"
+#include "TLine.h"
+#include "TH1F.h"
+
+#ifdef _GUI
+#include <QDebug>
+#include <QThread>
 #include <QObject>
 #include <QVector>
 #include <QMutex>
 #include <QVariantMap>
-//#include <TH1F.h>
-#include "TF1.h"
-#include "TLine.h"
-#include "TCanvas.h"
-#include <vector>
+#endif
+
+
 
 #include "Model/systemcontroller.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 
+#ifdef _GUI
 namespace GUI{
+#endif
 
     class DataTestWorker : public QObject
     {
@@ -53,6 +78,14 @@ namespace GUI{
         ShelveVec fShelveVector;
         BeBoardFWMap fBeBoardFWMap;
 
+        void Initialise();
+        void InitialiseHists();
+
+        void ReadDataTest();
+        void ScanThreshold();
+        void Measure();
+        uint32_t fNCbc;   /*!< Number of CBCs in the Setup */
+#ifdef _GUI
         int m_Vcth;
         int m_Events;
         bool m_scan;
@@ -64,23 +97,36 @@ namespace GUI{
         std::vector<std::shared_ptr<TH1F>> m_vecHist;
         std::vector<TH1F*> m_hist;
 
-        void Initialise();
-        void InitialiseHists();
-
-        void ReadDataTest();
-        void ScanThreshold();
-        void Measure();
-
-        uint32_t fNCbc;   /*!< Number of CBCs in the Setup */
-
         std::vector<std::shared_ptr<TH1F>> m_vecSCurve;
         std::vector<std::shared_ptr<TF1>> m_vecFit;
         std::vector<std::shared_ptr<TLine>> m_vecTLine;
 
+        /*void draw(std::string type)
+        {
+            if (type="Occupancy")
+            {
+              emit sendOccupyHists(m_vecHist);
+            }
+
+            if (type="Threshold")
+            {
+              emit sendHistsThreshold(m_vecSCurve, "P");
+            }
+
+            if (type="FitThreshold")
+            {
+              emit sendFitThreshold(m_vecFit, "same");
+            }
+        }*/
+
+
         explicit DataTestWorker(const DataTestWorker& rhs) = delete;
         DataTestWorker& operator= (const DataTestWorker& rhs) = delete;
+#endif
     };
+#ifdef _GUI
 }
+#endif
 
 
 
