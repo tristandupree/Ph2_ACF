@@ -156,7 +156,7 @@ void CMTester::ScanNoiseChannels()
 				if ( fabs( cStripOccupancy - cMean ) > cMean / 2 )
 				{
 					cNoiseSet->second.insert( cNoiseStrips->GetBinCenter( cBin ) );
-					std::cout << "Found noisy Strip on CBC " << +cCbc.first->getCbcId() << " : " << cNoiseStrips->GetBinCenter( cBin ) << std::endl;
+					std::cout << "Found noisy Strip on CBC " << int(cCbc.first->getCbcId()) << " : " << cNoiseStrips->GetBinCenter( cBin ) << std::endl;
 				}
 			}
 		}

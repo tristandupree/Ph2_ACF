@@ -29,7 +29,7 @@ namespace Ph2_HwInterface
 
 	BeBoardFWInterface::~BeBoardFWInterface()
 	{
-		delete fData;
+	        if (fData) delete fData;
 	}
 
 
@@ -94,7 +94,7 @@ namespace Ph2_HwInterface
 	void BeBoardFWInterface::DecodeReg( CbcRegItem& pRegItem, uint8_t pCbcId, uint32_t pWord )
 	{
                 // What does pCbcId do here??
-		pCbcId = ( ( pWord & cMask5 ) >> 17 );
+		pCbcId = ( pWord & cMask5 ) >> 17;
 		pRegItem.fPage = ( pWord & cMask6 ) >> 16;
 		pRegItem.fAddress = ( pWord & cMask2 ) >> 8;
 		pRegItem.fValue = pWord & cMask1;

@@ -15,7 +15,7 @@ struct HistogramFiller  : public HwDescriptionVisitor
 		for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
 			if ( cDataBitVector.at( cId ) ) {
 				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
-				//              std::cout << "Channel " << globalChannel << " VCth " << +pCbc.getReg( "VCth" ) << std::endl;
+				//              std::cout << "Channel " << globalChannel << " VCth " << int(pCbc.getReg( "VCth" )) << std::endl;
 				// find out why histograms are not filling!
 				if ( globalChannel % 2 == 0 )
 					fBotHist->Fill( globalChannel / 2 );
@@ -227,12 +227,12 @@ void HybridTester::ScanThreshold()
 
 				if ( cAllOne )
 				{
-					std::cout << "All strips firing -- ending the scan at VCth " << +cVcth << std::endl;
+				  std::cout << "All strips firing -- ending the scan at VCth " << +cVcth << std::endl;
 					break;
 				}
 				else if ( cSlopeZero )
 				{
-					std::cout << "Slope of SCurve 0 -- ending the scan at VCth " << +cVcth << std::endl;
+				  std::cout << "Slope of SCurve 0 -- ending the scan at VCth " << +cVcth << std::endl;
 					break;
 				}
 
@@ -311,7 +311,7 @@ void HybridTester::processSCurves( uint32_t pEventsperVcth )
 
 		// find the corresponding fit
 		auto cFit = fFitMap.find( cScurve.first );
-		if ( cFit == std::end( fFitMap ) ) std::cout << "Error: could not find Fit for Cbc " << +cScurve.first->getCbcId() << std::endl;
+		if ( cFit == std::end( fFitMap ) ) std::cout << "Error: could not find Fit for Cbc " << int(cScurve.first->getCbcId()) << std::endl;
 		else
 		{
 			// Fit
@@ -331,7 +331,7 @@ void HybridTester::processSCurves( uint32_t pEventsperVcth )
 
 			uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
 
-			std::cout << "Identified a noise Occupancy of 50% at VCth " << static_cast<int>( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (=" << fabs( noise ) << ") to " << +cThreshold << " for Cbc " << +cScurve.first->getCbcId() << std::endl;
+			std::cout << "Identified a noise Occupancy of 50% at VCth " << static_cast<int>( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (=" << fabs( noise ) << ") to " << +cThreshold << " for Cbc " << int(cScurve.first->getCbcId()) << std::endl;
 
 			TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
 			cLine->SetLineWidth( 3 );
@@ -358,7 +358,7 @@ uint32_t HybridTester::fillSCurves( BeBoard* pBoard,  const Event* pEvent, uint8
 		for ( auto cCbc : cFe->fCbcVector )
 		{
 			auto cScurve = fSCurveMap.find( cCbc );
-			if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << +cCbc->getCbcId() << std::endl;
+			if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << int(cCbc->getCbcId()) << std::endl;
 			else
 			{
 				for ( uint32_t cId = 0; cId < NCHANNELS; cId++ )
@@ -386,7 +386,7 @@ void HybridTester::updateSCurveCanvas( BeBoard* pBoard )
 		{
 			uint32_t cCbcId = cCbc->getCbcId();
 			auto cScurve = fSCurveMap.find( cCbc );
-			if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << +cCbc->getCbcId() << std::endl;
+			if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << int(cCbc->getCbcId()) << std::endl;
 			else
 			{
 				fSCurveCanvas->cd( cCbcId + 1 );

@@ -15,10 +15,10 @@ namespace Ph2_HwInterface
 {
 
 	BeBoardInterface::BeBoardInterface( const BeBoardFWMap& pBoardMap ) :
-		fBoardMap( pBoardMap )
+	                fBoardMap( pBoardMap ),
+ 	                fBoardFW( nullptr ),
+	                prevBoardId( 255 )
 	{
-		fBoardFW = NULL;
-		prevBoardId = 255;
 	}
 
 	BeBoardInterface::~BeBoardInterface()

@@ -42,7 +42,7 @@ namespace Ph2_HwInterface
 	}
 
 	Event::Event( const Event& pEvent ) :
-		fBuf( NULL ),
+		fBuf( nullptr ),
 		fBunch( pEvent.fBunch ),
 		fOrbit( pEvent.fOrbit ),
 		fLumi( pEvent.fLumi ),
@@ -64,7 +64,7 @@ namespace Ph2_HwInterface
 
 #ifdef __CBCDAQ_DEV__
 
-		std::cout << "DEBUG EVENT SET SIZE: Event size(char) " << fEventSize << " nCBC =  " << cFactor* pNbCbc <<  "  this should be 168 with 4cbc " << "  and Offset TDC " << fOffsetTDC << std::endl;
+		std::cout << "DEBUG EVENT SET SIZE: Event size(char) " << fEventSize << " nCBC = " << cFactor* pNbCbc <<  " this should be 168 with 4cbc" << " and Offset TDC " << fOffsetTDC << std::endl;
 #endif
 	}
 
@@ -105,19 +105,18 @@ namespace Ph2_HwInterface
 		fTDC = 0x000000FF & swap_bytes( &fBuf[fOffsetTDC * vsize] );
 
 
-		for ( EventMap::iterator cFeIt = fEventMap.begin(); cFeIt != fEventMap.end(); cFeIt++ )
+		for ( auto& it : fEventMap )
 		{
-			uint8_t cFeId = uint8_t( cFeIt->first );
-			uint8_t cNCbc = uint8_t( cFeIt->second.size() );
+			uint8_t cFeId = static_cast<uint8_t>( it.first );
+			uint8_t cNCbc = static_cast<uint8_t>( it.second.size() );
 
-			for ( FeEventMap::iterator cCbcIt = cFeIt->second.begin(); cCbcIt != cFeIt->second.end(); cCbcIt++ )
+			for ( auto& jt : it.second )
 			{
-				uint8_t cCbcId = uint8_t( cCbcIt->first );
-				// cCbcIt->second = &fBuf[OFFSET_FE_EVENT + FeId * fFeNChar + CbcId * CBC_NCHAR];
-				cCbcIt->second = &fBuf[EVENT_HEADER_SIZE_CHAR + cFeId * CBC_EVENT_SIZE_CHAR * cNCbc + cCbcId * CBC_EVENT_SIZE_CHAR];
+				uint8_t cCbcId = static_cast<uint8_t>( jt.first );
+				jt.second = &fBuf[EVENT_HEADER_SIZE_CHAR + cFeId * CBC_EVENT_SIZE_CHAR * cNCbc + cCbcId * CBC_EVENT_SIZE_CHAR];
 
 #ifdef __CBCDAQ_DEV__
-				std::cout << "DEBUG FE " << cFeId << "  with " << cNCbc << " cbcs on CBC " << cCbcId << " and the offset in Chars is "  << EVENT_HEADER_SIZE_CHAR + cFeId* CBC_EVENT_SIZE_CHAR* cNCbc + cCbcId* CBC_EVENT_SIZE_CHAR << std::endl;
+				std::cout << "DEBUG FE " << +cFeId << "  with " << cNCbc << " cbcs on CBC " << +cCbcId << " and the offset in Chars is "  << EVENT_HEADER_SIZE_CHAR + cFeId* CBC_EVENT_SIZE_CHAR* cNCbc + cCbcId* CBC_EVENT_SIZE_CHAR << std::endl;
 #endif
 
 			}
@@ -134,15 +133,15 @@ namespace Ph2_HwInterface
 		if ( cIt == fEventMap.end() )
 		{
 		        std::cout << "Event: FE " << +pFeId << " is not found." << std::endl;
-			return NULL;
+			return nullptr;
 		}
 
 		FeEventMap::const_iterator cJt = cIt->second.find( pCbcId );
 
 		if ( cJt == cIt->second.end() )
 		{
-		         std::cout << "Event: CBC " << +pCbcId << " is not found." << std::endl;
-			return NULL;
+		        std::cout << "Event: CBC " << +pCbcId << " is not found." << std::endl;
+			return nullptr;
 		}
 
 		return cJt->second;
@@ -187,7 +186,7 @@ namespace Ph2_HwInterface
 
 		for ( uint32_t i = 0; i < cWidth; i++ )
 		{
-			val = val << 1;
+		        val <<= 1;
 			val |= Error( pFeId, pCbcId, i );
 		}
 
@@ -203,7 +202,7 @@ namespace Ph2_HwInterface
 
 		for ( uint32_t i = 0; i < cWidth; i++ )
 		{
-			val = val << 1;
+		        val <<= 1;
 			val |= Bit( pFeId, pCbcId, cOffset + i );
 		}
 
@@ -277,7 +276,7 @@ namespace Ph2_HwInterface
 
 		for ( uint32_t i = 0; i < cMaskWidth; i++ )
 		{
-			cMask = cMask << 1;
+		        cMask <<= 1;
 			cMask |= 1;
 		}
 
@@ -299,7 +298,7 @@ namespace Ph2_HwInterface
 
 		for ( uint32_t i = 0; i < cMaskWidth; i++ )
 		{
-			cMask = cMask << 1;
+		        cMask <<= 1;
 			cMask |= 1;
 		}
 
@@ -334,12 +333,12 @@ namespace Ph2_HwInterface
 		const int FIRST_LINE_WIDTH = 22;
 		const int LINE_WIDTH = 32;
 		const int LAST_LINE_WIDTH = 8;
-		for ( EventMap::const_iterator it = evmap.begin(); it != evmap.end(); ++it )
+		for ( auto const& it : evmap )
 		{
-			uint32_t feId = it->first;
-			for ( FeEventMap::const_iterator jt = it->second.begin(); jt != it->second.end(); ++jt )
+			uint32_t feId = it.first;
+			for ( auto const& jt : it.second )
 			{
-				uint32_t cbcId = jt->first;
+				uint32_t cbcId = jt.first;
 				std::string data( ev.DataBitString( feId, cbcId ) );
 				os << "FEId = " << feId << " CBCId = " << cbcId << " len(data) = " << data.size() << std::endl;
 				os << std::setw( 32 ) << data.substr( 0, FIRST_LINE_WIDTH ) << std::endl;

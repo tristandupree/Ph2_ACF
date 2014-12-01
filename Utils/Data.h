@@ -54,7 +54,7 @@ namespace Ph2_HwInterface
 		 * \brief Constructor of the Data class
 		 * \param pNbCbc
 		 */
-		Data( ) : fBuf( NULL ), fCurrentEvent( 0 ), fEvent( NULL ), fEventSize( 0 ) {
+		Data( ) : fBuf( nullptr ), fCurrentEvent( 0 ), fEvent( nullptr ), fEventSize( 0 ) {
 		}
 		/*!
 		 * \brief Copy Constructor of the Data class
@@ -64,7 +64,7 @@ namespace Ph2_HwInterface
 		 * \brief Destructor of the Data class
 		 */
 		~Data() {
-			if ( fBuf ) free( fBuf );
+			if ( fBuf ) delete fBuf;
 		}
 		/*!
 		 * \brief Set the data in the data map

@@ -118,10 +118,10 @@ namespace Ph2_System
 						for ( pugi::xml_node ngr = nc.child( "Register" ); ngr; ngr = ngr.next_sibling() )
 							cCbc->setReg( std::string( ngr.attribute( "name" ).value() ), atoi( ngr.first_child().value() ) );
 
-						for ( pugi::xml_node ng = nm.child( "Global_CBC_Register" ); ng != nm.child( "CBC" ) && ng != nm.child( "CBC_Files" ) && ng != NULL; ng = ng.next_sibling() )
+						for ( pugi::xml_node ng = nm.child( "Global_CBC_Register" ); ng != nm.child( "CBC" ) && ng != nm.child( "CBC_Files" ) && ng != nullptr; ng = ng.next_sibling() )
 						{
 
-							if ( ng != NULL )
+							if ( ng != nullptr )
 							{
 								std::string regname = std::string( ng.attribute( "name" ).value() );
 								uint32_t regvalue = convertAnyInt( ng.first_child().value() ) ;
@@ -206,12 +206,12 @@ namespace Ph2_System
 
 				if ( fCheck )
 					fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, ( ( fHoleMode ) ? 0 : 1 ) );
-				std::cout << GREEN << "Successfully configured Board " << +pBoard.getBeId() << RESET << std::endl;
+				std::cout << GREEN << "Successfully configured Board " << int(pBoard.getBeId()) << RESET << std::endl;
 			}
 
 			void visit( Cbc& pCbc ) {
 				fCbcInterface->ConfigureCbc( &pCbc );
-				std::cout << GREEN <<  "Successfully configured Cbc " << +pCbc.getCbcId() << RESET << std::endl;
+				std::cout << GREEN <<  "Successfully configured Cbc " << int(pCbc.getCbcId()) << RESET << std::endl;
 
 			}
 		};
@@ -266,5 +266,3 @@ namespace Ph2_System
 		fBeBoardInterface->Stop( pBeBoard, pNthAcq );
 	}
 }
-
-

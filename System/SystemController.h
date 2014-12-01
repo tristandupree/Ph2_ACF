@@ -126,8 +126,8 @@ namespace Ph2_System
 		 * \return converted integer
 		 */
 		uint32_t convertAnyInt( const char* pRegValue ) {
-			if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return uint32_t( strtoul( pRegValue , 0, 16 ) );
-			else return uint32_t( strtoul( pRegValue , 0, 10 ) );
+			if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return static_cast<uint32_t>( strtoul( pRegValue , 0, 16 ) );
+			else return static_cast<uint32_t>( strtoul( pRegValue , 0, 10 ) );
 
 		}
 	};

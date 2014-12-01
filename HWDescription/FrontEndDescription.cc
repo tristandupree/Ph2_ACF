@@ -43,13 +43,13 @@ namespace Ph2_HwDescription
 	{
 	}
 
-	FrontEndDescription::FrontEndDescription( const FrontEndDescription& pFeDesc )
+        FrontEndDescription::FrontEndDescription( const FrontEndDescription& pFeDesc ) :
+	        fShelveId( pFeDesc.fShelveId ),
+		fBeId( pFeDesc.fBeId ),
+		fFMCId( pFeDesc.fFMCId ),
+		fFeId( pFeDesc.fFeId ),
+		fStatus( pFeDesc.fStatus )
 	{
-		fShelveId = pFeDesc.fShelveId;
-		fBeId = pFeDesc.fBeId;
-		fFMCId = pFeDesc.fFMCId;
-		fFeId = pFeDesc.fFeId;
-		fStatus = pFeDesc.fStatus;
 	}
 
 	FrontEndDescription::~FrontEndDescription()

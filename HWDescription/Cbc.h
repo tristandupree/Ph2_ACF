@@ -99,31 +99,34 @@ namespace Ph2_HwDescription
 		* \brief Get the Map of the registers
 		* \return The map of register
 		*/
-		CbcRegMap getRegMap() const {
+		CbcRegMap& getRegMap() {
 			return fRegMap;
-		};
+		}
+		const CbcRegMap& getRegMap() const {
+			return fRegMap;
+		}
 		/*!
 		* \brief Get the Cbc Id
 		* \return The Cbc ID
 		*/
 		uint8_t getCbcId() const {
 			return fCbcId;
-		};
+		}
 		/*!
 		 * \brief Set the Cbc Id
 		 * \param pCbcId
 		 */
 		void setCbcId( uint8_t pCbcId ) {
 			fCbcId = pCbcId;
-		};
+		}
 
 
 	  protected:
 
+		uint8_t fCbcId;
+
 		// Map of Register Name vs. RegisterItem that contains: Page, Address, Default Value, Value
 		CbcRegMap fRegMap;
-
-		uint8_t fCbcId;
 
 	};
 

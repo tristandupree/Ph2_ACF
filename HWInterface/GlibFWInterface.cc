@@ -71,10 +71,10 @@ namespace Ph2_HwInterface
 		 */
 
 		BeBoardRegMap cGlibRegMap = pBoard->getBeBoardRegMap();
-		for ( BeBoardRegMap::iterator cIt = cGlibRegMap.begin(); cIt != cGlibRegMap.end(); ++cIt )
+		for ( auto const& it : cGlibRegMap )
 		{
-			cPairReg.first = cIt->first;
-			cPairReg.second = cIt->second;
+			cPairReg.first = it.first;
+			cPairReg.second = it.second;
 			cVecReg.push_back( cPairReg );
 		}
 
@@ -314,7 +314,7 @@ namespace Ph2_HwInterface
 
 #ifdef __CBCDAQ_DEV__
 		mtime = getTimeTook( start, 1 );
-		std::cout << "GlibController::ReadData()  Time took for the CMD_START_VALID flag to be set: " <<                        std::dec << mtime << " ms." << std::endl;
+		std::cout << "GlibController::ReadData()  Time took for the CMD_START_VALID flag to be set: " << std::dec << mtime << " ms." << std::endl;
 #endif
 
 		//FIFO goes to write_data state
