@@ -1,5 +1,6 @@
-#include "lib/CustomTQtWidget.h"
 #include "datatesttab.h"
+
+#include "lib/CustomTQtWidget.h"
 #include "ui_datatesttab.h"
 #include "lib/TQtWidget.h"
 #include <QDebug>
@@ -13,6 +14,8 @@
 #include "TH1.h"
 
 #include "utils.h"
+
+using namespace Ph2_HwDescription;
 
 namespace GUI {
 
@@ -126,6 +129,36 @@ namespace GUI {
         m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
         m_vecHistThreshold.at(0)->Draw(option.c_str());
         m_vecTWidget_Threshold.at(0)->Refresh();
+    }
+
+    void DataTestTab::receiveRefreshHists()
+    {
+        int i=0;
+        for (auto widget: m_vecTWidget_Occupancy)
+        {
+            widget->Clear();
+            widget->GetCanvas()->cd();
+            m_vecHistOccupancy.at(i)->Draw();
+            widget->Refresh();
+            i++;
+        }
+    }
+
+    void DataTestTab::receiveHists(const std::map<Cbc *, TH1F *> graph, std::string option)
+    {
+        qDebug() << "recieved graphs";
+
+        //m_mapThreshold = graph; //copy of shared pointer
+
+        /*for (auto kv : graph)
+        {
+            m_vecTWidget_Threshold.at(0)->Clear();
+             m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
+            graph.at(kv)->Draw(option.c_str());
+            //m_vecHistThreshold.at(0)->GetCanvas()->cd();
+            //m_vecHistThreshold.at(0)->Draw(option.c_str());
+            m_vecTWidget_Threshold.at(0)->Refresh();
+        }*/
     }
 
     void DataTestTab::getVcthDialValue()

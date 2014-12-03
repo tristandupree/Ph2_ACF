@@ -6,6 +6,7 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "../tools/Calibration.h"
+//#include "TROOT.h"
 #include <TApplication.h>
 #include "../Utils/argvparser.h"
 
@@ -53,8 +54,9 @@ int main( int argc, char* argv[] )
 	bool cVplus = ( cmd.foundOption( "skip" ) ) ? true : false;
 	// bool cFast = ( cmd.foundOption( "fast" ) ) ? true : false;
 
-	//TApplication cApp( "Root Application", &argc, argv );
-	//TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
+  //      gROOT->SetBatch(true);
+	TApplication cApp( "Root Application", &argc, argv );
+	TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
 	// if ( cFast )
 	// {
@@ -62,7 +64,7 @@ int main( int argc, char* argv[] )
 	// }
 	// else
 	// {
-	/*Calibration cCalibration;
+	Calibration cCalibration;
 	cCalibration.InitializeHw( cHWFile );
 	cCalibration.InitializeSettings( cHWFile );
 	cCalibration.CreateResultDirectory( cDirectory );
@@ -71,9 +73,9 @@ int main( int argc, char* argv[] )
 	cCalibration.ConfigureHw();
 	if ( !cVplus ) cCalibration.VplusScan();
 	cCalibration.OffsetScan();
-	cCalibration.SaveResults();*/
+	cCalibration.SaveResults();
 	// }
-	//cApp.Run();
+	cApp.Run();
 
 	return 0;
 }

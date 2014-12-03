@@ -94,7 +94,8 @@ namespace GUI
             {
 
                 cBeId = be_kv.toUInt();
-                BeBoard cBeBoard(cShelveId,cBeId);
+
+                BeBoard* cBeBoard = new BeBoard( cShelveId, cBeId );
 
                 QVariantMap map_BeBoardIdValues = map_BeBoardId.value(be_kv).toMap();
 
@@ -102,7 +103,7 @@ namespace GUI
 
                 for(auto& reg_kv : map_RegisterValues.keys()  )
                 {
-                    cBeBoard.setReg(reg_kv.toStdString(),map_RegisterValues.value(reg_kv).toUInt());
+                    cBeBoard->setReg(reg_kv.toStdString(),map_RegisterValues.value(reg_kv).toUInt());
                 }
                 fShelveVector.at(cNShelve)->addBoard(cBeBoard);
                 BeBoardFWInterface* cBeBoardFWInterface;
@@ -123,7 +124,8 @@ namespace GUI
                     cModuleId = map_module_values.value("FeId").toUInt();
                     cFmcId = map_BeBoardId.value("FMCId").toInt();
                     cFeId = map_BeBoardId.value("FeId").toInt();
-                    Module cModule(cShelveId,cBeId, cFmcId, cFeId,cModuleId);
+                    //Module cModule(cShelveId,cBeId, cFmcId, cFeId,cModuleId);
+                    Module* cModule = new Module( cShelveId, cBeId, cFmcId, cFeId, cModuleId );
                     fShelveVector[cNShelve]->getBoard(cBeId)->addModule(cModule);
 
                     int index(0);
@@ -131,12 +133,13 @@ namespace GUI
 
                     for(auto& config_lv: map_module_values.value("CbcConfigFile").toList()) //could change this loop for indv. + global
                     {
-                        Cbc cCbc(cShelveId,cBeId,cFmcId,cFeId,index,config_lv.toString().toStdString());
+                        //Cbc cCbc(cShelveId,cBeId,cFmcId,cFeId,index,config_lv.toString().toStdString());
+                        Cbc* cCbc = new Cbc(cShelveId,cBeId,cFmcId,cFeId,index,config_lv.toString().toStdString() );
                         index++;
 
                         for(auto& cbcReg_kv : map_module_values.value("CbcRegisters").toMap().keys())
                         {
-                            cCbc.setReg(cbcReg_kv.toStdString(), map_module_values.value("CbcRegisters").toMap().value(cbcReg_kv).toInt());
+                            cCbc->setReg(cbcReg_kv.toStdString(), map_module_values.value("CbcRegisters").toMap().value(cbcReg_kv).toInt());
                         }
                         fShelveVector.at(cNShelve)->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);
 
@@ -164,25 +167,47 @@ namespace GUI
             return;
         }
 
-        class Configurator: public HwDescriptionVisitor
+        bool cCheck = false; //TODO
+        bool cHoleMode = false; //TODO
+
+        /*bool cHoleMode, cCheck;
+        if ( !fSettingsMap.empty() )
         {
-        private:
+            SettingsMap::iterator cSetting = fSettingsMap.find( "HoleMode" );
+            if ( cSetting != fSettingsMap.end() )
+            {
+                cHoleMode = cSetting->second;
+                std::cout << GREEN << "Overriding GLIB register values for signal polarity with value from settings node!" << RESET << std::endl;
+            }
+            cCheck = true;
+        }
+        else cCheck = false;*/
+
+        class Configurator : public HwDescriptionVisitor
+        {
+          private:
+            bool fHoleMode, fCheck;
             Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
             Ph2_HwInterface::CbcInterface* fCbcInterface;
-        public:
-            Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ) {}
+          public:
+            Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode, bool pCheck ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ), fCheck( pCheck ) {}
+
             void visit( BeBoard& pBoard ) {
                 fBeBoardInterface->ConfigureBoard( &pBoard );
+
+                if ( fCheck )
+                    fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, ( ( fHoleMode ) ? 0 : 1 ) );
                 qDebug() << "Configured Board " << int( pBoard.getBeId() );
             }
+
             void visit( Cbc& pCbc ) {
                 fCbcInterface->ConfigureCbc( &pCbc );
-
                 qDebug() << "Successfully configured Cbc " << int( pCbc.getCbcId() );
+
             }
         };
 
-        Configurator cConfigurator( fBeBoardInterface, fCbcInterface );
+        Configurator cConfigurator( fBeBoardInterface, fCbcInterface, cHoleMode, cCheck );
         accept( cConfigurator );
 
 

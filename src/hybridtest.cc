@@ -8,6 +8,7 @@
 #include "../tools/HybridTester.h"
 #include <TApplication.h>
 #include "../Utils/argvparser.h"
+#include "TROOT.h"
 
 
 using namespace Ph2_HwDescription;
@@ -42,6 +43,9 @@ int main( int argc, char* argv[] )
 	cmd.defineOption( "output", "Output Directory . Default value: Results/", ArgvParser::OptionRequiresValue /*| ArgvParser::OptionRequired*/ );
 	cmd.defineOptionAlternative( "output", "o" );
 
+	cmd.defineOption( "batch", "Run the application in batch mode", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "batch", "b" );
+
 	int result = cmd.parse( argc, argv );
 	if ( result != ArgvParser::NoParserError )
 	{
@@ -55,10 +59,12 @@ int main( int argc, char* argv[] )
 	bool cScan = ( cmd.foundOption( "scan" ) ) ? true : false;
 	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results/";
 	cDirectory += "HybridTest";
+	bool batchMode = ( cmd.foundOption( "batch" ) ) ? true : false;
 
 
 	TApplication cApp( "Root Application", &argc, argv );
-	TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
+	if ( batchMode ) gROOT->SetBatch( true );
+	else TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
 	HybridTester cHybridTester;
 	cHybridTester.InitializeHw( cHWFile );
@@ -76,7 +82,7 @@ int main( int argc, char* argv[] )
 	//cHybridTester.SaveResults();
 
 
-	cApp.Run();
+	if ( !batchMode ) cApp.Run();
 
 	return 0;
 

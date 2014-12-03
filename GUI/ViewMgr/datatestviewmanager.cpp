@@ -63,5 +63,10 @@ namespace GUI
                 &m_dataTestTab, SLOT(drawThreshold(std::vector<std::shared_ptr<TH1F> >,std::string)));
         connect(&m_dataTest, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)),
                 &m_dataTestTab, SLOT(drawFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)));
+
+        connect(&m_dataTest, SIGNAL(sendHists(std::map<Cbc*,TH1F*>,std::string)),
+                &m_dataTestTab, SLOT(receiveHists(std::map<Cbc*,TH1F*>,std::string)));
+        connect(&m_dataTest, SIGNAL(sendRefreshHists()),
+                &m_dataTestTab, SLOT(receiveRefreshHists()));
     }
 }

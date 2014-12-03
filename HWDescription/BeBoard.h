@@ -62,7 +62,9 @@ namespace Ph2_HwDescription
 		/*!
 		* \brief Destructor
 		*/
-		~BeBoard() {}
+		~BeBoard() {
+		         fModuleVector.clear();
+                }
 
 		// Public Methods
 
@@ -73,7 +75,7 @@ namespace Ph2_HwDescription
 		void accept( HwDescriptionVisitor& pVisitor ) {
 			pVisitor.visit( *this );
 			for ( auto& cFe : fModuleVector )
-				cFe.accept( pVisitor );
+				cFe->accept( pVisitor );
 		}
 		// void accept( HwDescriptionVisitor& pVisitor ) const {
 		//  pVisitor.visit( *this );
@@ -94,7 +96,7 @@ namespace Ph2_HwDescription
 		* \param pReg
 		* \return The value of the register
 		*/
-		uint16_t getReg( const std::string& pReg );
+		uint16_t getReg( const std::string& pReg ) const;
 		/*!
 		* \brief Set any register of the Map, if the register is not on the map, it adds it.
 		* \param pReg
@@ -106,7 +108,13 @@ namespace Ph2_HwDescription
 		 * \brief Adding a module to the vector
 		 * \param pModule
 		 */
-		void addModule( Module& pModule );
+		void addModule( Module& pModule ) {
+		       fModuleVector.push_back( &pModule );
+		}
+		void addModule( Module* pModule ) {
+		       fModuleVector.push_back( pModule );
+		}
+
 		/*!
 		 * \brief Remove a Module from the vector
 		 * \param pModuleId
@@ -118,8 +126,7 @@ namespace Ph2_HwDescription
 		 * \param pModuleId
 		 * \return a pointer of module, so we can manipulate directly the module contained in the vector
 		 */
-		Module* getModule( uint8_t pModuleId );
-
+		Module* getModule( uint8_t pModuleId ) const;
 		/*!
 		* \brief Get the Map of the registers
 		* \return The map of register
@@ -158,7 +165,7 @@ namespace Ph2_HwDescription
 		};
 
 		// Vector of FEModules, each module is supposed to know which FMC slot it is connected to...
-		std::vector< Module > fModuleVector;
+		std::vector< Module* > fModuleVector;
 
 	  protected:
 		//Connection Members

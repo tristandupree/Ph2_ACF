@@ -9,10 +9,13 @@
 #include <QHBoxLayout>
 #include <memory>
 #include <QTabWidget>
+#include "../HWDescription/Cbc.h"
 
 namespace Ui {
     class DataTestTab;
 }
+
+using namespace Ph2_HwDescription;
 
 namespace GUI{
 
@@ -44,7 +47,8 @@ namespace GUI{
         void drawOccupancy(const std::vector<std::shared_ptr<TH1F>> hists);
         void drawThreshold(const std::vector<std::shared_ptr<TH1F>> hists, std::string option);
         void drawFitThreshold(const std::vector<std::shared_ptr<TF1>> graph, std::string option);
-
+        void receiveHists(const std::map<Cbc*, TH1F*> graph, std::string option);
+        void receiveRefreshHists();
 
     private slots:
         void on_btnStart_clicked();
@@ -70,6 +74,8 @@ namespace GUI{
         std::vector<TQtWidget*> m_vecTWidget_Threshold;
         std::vector<QGroupBox*> m_vectorGroupBox;
         std::vector<QHBoxLayout*> m_vectorLayout;
+
+        std::map<Cbc *, TH1F *> m_mapThreshold;
 
 
         int m_Vcth;

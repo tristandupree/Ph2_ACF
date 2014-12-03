@@ -51,9 +51,8 @@ namespace GUI
 
         void accept( HwDescriptionVisitor& pVisitor ) const {
             pVisitor.visit( *this );
-            for ( auto& cShelve : fShelveVector )
+            for ( Shelve* cShelve : fShelveVector )
                 cShelve->accept( pVisitor );
-            qDebug() << "Accept method called";
         }
 
         ~SystemControllerWorker();

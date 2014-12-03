@@ -24,6 +24,7 @@ namespace Ph2_System
 
 	SystemController::~SystemController()
 	{
+		fShelveVector.clear();
 	}
 
 	void SystemController::InitializeHw( const std::string& pFilename )
@@ -69,12 +70,12 @@ namespace Ph2_System
 				std::cout << BOLDCYAN << "|" << "----" << nb.name() << "  " << nb.first_attribute().name() << " :" << nb.attribute( "Id" ).value() << RESET << std:: endl;
 
 				cBeId = nb.attribute( "Id" ).as_int();
-				BeBoard cBeBoard( cShelveId, cBeId );
+				BeBoard* cBeBoard = new BeBoard( cShelveId, cBeId );
 
 				for ( pugi::xml_node nr = nb.child( "Register" ); nr != nb.child( "Module" ); nr = nr.next_sibling() )
 				{
 					// std::cout<<BOLDCYAN<<"|"<<"  "<<"|"<<"_____"<<nr.name()<<"  "<<nr.first_attribute().name()<<" :"<<nr.attribute("name").value() <<RESET<<std:: endl;
-					cBeBoard.setReg( std::string( nr.attribute( "name" ).value() ), atoi( nr.first_child().value() ) );
+					cBeBoard->setReg( std::string( nr.attribute( "name" ).value() ), atoi( nr.first_child().value() ) );
 				}
 
 				fShelveVector[cNShelve]->addBoard( cBeBoard );
@@ -95,7 +96,7 @@ namespace Ph2_System
 
 					cModuleId = nm.attribute( "ModuleId" ).as_int();
 
-					Module cModule( cShelveId, cBeId, nm.attribute( "FMCId" ).as_int(), nm.attribute( "FeId" ).as_int(), cModuleId );
+					Module* cModule = new Module( cShelveId, cBeId, nm.attribute( "FMCId" ).as_int(), nm.attribute( "FeId" ).as_int(), cModuleId );
 					fShelveVector[cNShelve]->getBoard( cBeId )->addModule( cModule );
 
 					pugi::xml_node nprefix = nm.child( "CBC_Files" );
@@ -112,10 +113,10 @@ namespace Ph2_System
 							cFileName = cFilePrefix + nc.attribute( "configfile" ).value();
 						else cFileName = nc.attribute( "configfile" ).value();
 
-						Cbc cCbc( cShelveId, cBeId, nm.attribute( "FMCId" ).as_int(), nm.attribute( "FeId" ).as_int(), nc.attribute( "Id" ).as_int(), cFileName );
+						Cbc* cCbc = new Cbc( cShelveId, cBeId, nm.attribute( "FMCId" ).as_int(), nm.attribute( "FeId" ).as_int(), nc.attribute( "Id" ).as_int(), cFileName );
 
 						for ( pugi::xml_node ngr = nc.child( "Register" ); ngr; ngr = ngr.next_sibling() )
-							cCbc.setReg( std::string( ngr.attribute( "name" ).value() ), atoi( ngr.first_child().value() ) );
+							cCbc->setReg( std::string( ngr.attribute( "name" ).value() ), atoi( ngr.first_child().value() ) );
 
 						for ( pugi::xml_node ng = nm.child( "Global_CBC_Register" ); ng != nm.child( "CBC" ) && ng != nm.child( "CBC_Files" ) && ng != NULL; ng = ng.next_sibling() )
 						{
@@ -124,7 +125,7 @@ namespace Ph2_System
 							{
 								std::string regname = std::string( ng.attribute( "name" ).value() );
 								uint32_t regvalue = convertAnyInt( ng.first_child().value() ) ;
-								cCbc.setReg( regname, uint8_t( regvalue ) ) ;
+								cCbc->setReg( regname, uint8_t( regvalue ) ) ;
 
 								std::cout << GREEN << "|" << "	" << "|" << "	" << "|" << "----" << ng.name() << "  " << ng.first_attribute().name() << " :" << regname << " =  0x" << std::hex << std::setw( 2 ) << std::setfill( '0' ) << regvalue << std::dec << RESET << std:: endl;
 							}
@@ -203,19 +204,14 @@ namespace Ph2_System
 			void visit( BeBoard& pBoard ) {
 				fBeBoardInterface->ConfigureBoard( &pBoard );
 
-				if ( fCheck ) {
-					uint32_t cHoleRegisterValue;
-
-					cHoleRegisterValue = ( fHoleMode ) ? 0 : 1;
-
-					fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, cHoleRegisterValue );
-				}
-				std::cout << GREEN << "Successfully configured Board " << int( pBoard.getBeId() ) << RESET << std::endl;
+				if ( fCheck )
+					fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, ( ( fHoleMode ) ? 0 : 1 ) );
+				std::cout << GREEN << "Successfully configured Board " << +pBoard.getBeId() << RESET << std::endl;
 			}
 
 			void visit( Cbc& pCbc ) {
 				fCbcInterface->ConfigureCbc( &pCbc );
-				std::cout << GREEN <<  "Successfully configured Cbc " << int( pCbc.getCbcId() ) << RESET << std::endl;
+				std::cout << GREEN <<  "Successfully configured Cbc " << +pCbc.getCbcId() << RESET << std::endl;
 
 			}
 		};
@@ -224,16 +220,26 @@ namespace Ph2_System
 		accept( cConfigurator );
 	}
 
-	void SystemController::CreateResultDirectory( const std::string& pDirname )
+	void SystemController::CreateResultDirectory( const std::string& pDirname, bool pDate )
 	{
-
-		bool cHoleMode = fSettingsMap.find( "HoleMode" )->second;
-
+		bool cCheck;
+		bool cHoleMode;
+		auto cSetting = fSettingsMap.find( "HoleMode" );
+		if ( cSetting != std::end( fSettingsMap ) )
+		{
+			cCheck = true;
+			cHoleMode = ( cSetting->second == 1 ) ? true : false;
+		}
 		std::string cMode;
-		if ( cHoleMode ) cMode = "_Hole";
-		else cMode = "_Electron";
+		if ( cCheck )
+		{
+			if ( cHoleMode ) cMode = "_Hole";
+			else cMode = "_Electron";
+		}
 
-		std::string nDirname = pDirname + cMode +  currentDateTime();
+		std::string nDirname = pDirname;
+		if ( cCheck ) nDirname +=  cMode;
+		if ( pDate ) nDirname +=  currentDateTime();
 		std::cout << std::endl << "Creating directory: " << nDirname << std::endl << std::endl;
 		std::string cCommand = "mkdir -p " + nDirname;
 
@@ -259,23 +265,6 @@ namespace Ph2_System
 		fBeBoardInterface->ReadData( pBeBoard, pNthAcq, true );
 		fBeBoardInterface->Stop( pBeBoard, pNthAcq );
 	}
-
-	// void SystemController::CheckPolarity( BeBoard* pBeBoard )
-	// {
-	//  std::cout << "Checking HoleMode status from the settings. This will override BeBoard regiser settings specified in the .XML!" << std::endl;
-
-	//  SettingsMap::iterator cSetting = fSettingsMap.find( "HoleMode" );
-	//  if ( cSetting != fSettingsMap.end() )
-	//  {
-	//      bool cHoleMode = cSetting->second;
-	//      uint32_t cHoleRegisterValue;
-
-	//      cHoleRegisterValue = ( cHoleMode ) ? 0 : 1;
-
-	//      fBeBoardInterface->WriteBoardReg( pBeBoard, NEG_LOGIC_CBC, cHoleRegisterValue );
-	//  }
-	//  else std::cout << "No CBC polarity specified in the the settings file, nothing to do!" << std::endl;
-	// }
 }
 
 

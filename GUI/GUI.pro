@@ -46,12 +46,12 @@ SOURCES += main.cpp\
     View/datatesttab.cpp \
     Model/datatest.cpp \
     ViewMgr/datatestviewmanager.cpp \
-    Model/datatestworker.cpp \
     View/aboutbox.cpp \
     Model/systemcontrollerworker.cpp \
     Model/cbcregisters.cpp \
     lib/CustomTQtWidget.cpp \
-    ViewMgr/mainviewmanager.cpp
+    ViewMgr/mainviewmanager.cpp \
+    Model/HybridTester.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -67,12 +67,12 @@ HEADERS  += View/mainview.h \
     View/datatesttab.h \
     Model/datatest.h \
     ViewMgr/datatestviewmanager.h \
-    Model/datatestworker.h \
     View/aboutbox.h \
     Model/systemcontrollerworker.h \
     Model/cbcregisters.h \
     lib/CustomTQtWidget.h \
-    ViewMgr/mainviewmanager.h
+    ViewMgr/mainviewmanager.h \
+    Model/HybridTester.h
     #lib/TQtWidget.h
 
 

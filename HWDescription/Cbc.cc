@@ -23,7 +23,7 @@ namespace Ph2_HwDescription
 {
 	// C'tors with object FE Description
 
-	Cbc::Cbc( FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename ): FrontEndDescription( pFeDesc )
+	Cbc::Cbc( const FrontEndDescription& pFeDesc, uint8_t pCbcId, const std::string& filename ): FrontEndDescription( pFeDesc )
 	{
 
 		fCbcId = pCbcId;
@@ -88,12 +88,12 @@ namespace Ph2_HwDescription
 	}
 
 
-	uint8_t Cbc::getReg( const std::string& pReg )
+	uint8_t Cbc::getReg( const std::string& pReg ) const
 	{
-		CbcRegMap::iterator i = fRegMap.find( pReg );
+		CbcRegMap::const_iterator i = fRegMap.find( pReg );
 		if ( i == fRegMap.end() )
 		{
-			std::cout << "The Cbc object: " << uint32_t( fCbcId ) << " doesn't have " << pReg << std::endl;
+			std::cout << "The Cbc object: " << +fCbcId << " doesn't have " << pReg << std::endl;
 			return 0;
 		}
 		else
@@ -105,7 +105,7 @@ namespace Ph2_HwDescription
 	{
 		CbcRegMap::iterator i = fRegMap.find( pReg );
 		if ( i == fRegMap.end() )
-			std::cout << "The Cbc object: " << uint32_t( fCbcId ) << " doesn't have " << pReg << std::endl;
+			std::cout << "The Cbc object: " << +fCbcId << " doesn't have " << pReg << std::endl;
 		else
 			i->second.fValue = psetValue;
 
@@ -145,7 +145,7 @@ namespace Ph2_HwDescription
 				file.seekp( -i->first.size(), std::ios_base::cur );
 
 
-				file << "0x" << std::setfill( '0' ) << std::setw( 2 ) << std::hex << std::uppercase << uint32_t( i->second.fPage ) << "\t0x" << std::setfill( '0' ) << std::setw( 2 ) << std::hex << std::uppercase << uint32_t( i->second.fAddress ) << "\t0x" << std::setfill( '0' ) << std::setw( 2 ) << std::hex << std::uppercase << uint32_t( i->second.fDefValue ) << "\t0x" << std::setfill( '0' ) << std::setw( 2 ) << std::hex << std::uppercase << uint32_t( i->second.fValue ) << std::endl;
+				file << "0x" << std::setfill( '0' ) << std::setw( 2 ) << std::hex << std::uppercase << +i->second.fPage << "\t0x" << std::setfill( '0' ) << std::setw( 2 ) << std::hex << std::uppercase << +i->second.fAddress << "\t0x" << std::setfill( '0' ) << std::setw( 2 ) << std::hex << std::uppercase << +i->second.fDefValue << "\t0x" << std::setfill( '0' ) << std::setw( 2 ) << std::hex << std::uppercase << +i->second.fValue << std::endl;
 
 			}
 			file.close();
@@ -157,7 +157,7 @@ namespace Ph2_HwDescription
 
 
 
-	bool CbcComparer::operator()( Cbc& cbc1, Cbc& cbc2 )
+	bool CbcComparer::operator()( const Cbc& cbc1, const Cbc& cbc2 ) const
 	{
 		if ( cbc1.getShelveId() != cbc2.getShelveId() ) return cbc1.getShelveId() < cbc2.getShelveId();
 		else if ( cbc1.getBeId() != cbc2.getBeId() ) return cbc1.getBeId() < cbc2.getBeId();
@@ -167,7 +167,7 @@ namespace Ph2_HwDescription
 	}
 
 
-	bool RegItemComparer::operator()( CbcRegPair pRegItem1, CbcRegPair pRegItem2 )
+	bool RegItemComparer::operator()( const CbcRegPair& pRegItem1, const CbcRegPair& pRegItem2 ) const
 	{
 		if ( pRegItem1.second.fPage != pRegItem2.second.fPage )
 			return pRegItem1.second.fPage < pRegItem2.second.fPage;

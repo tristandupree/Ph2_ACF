@@ -17,6 +17,8 @@
 #include <sys/time.h>
 #include <ctime>
 #include "../Utils/Visitor.h"
+#include "../Utils/CommonVisitors.h"
+
 #include "../Utils/Timer.h"
 #include "../Utils/argvparser.h"
 
@@ -102,6 +104,8 @@ int main( int argc, char* argv[] )
 
 		t.stop();
 		t.show( "Time to write a single Register on all CBC s" );
+		CbcRegReader cReader( cSystemController.fCbcInterface, "VCth" );
+		cSystemController.accept( cReader );
 	}
 
 

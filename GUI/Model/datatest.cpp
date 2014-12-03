@@ -6,7 +6,7 @@
 #include "TF1.h"
 #include "TCanvas.h"
 
-#include "Model/datatestworker.h"
+#include "Model/HybridTester.h"
 #include "Model/systemcontroller.h"
 
 
@@ -18,7 +18,7 @@ namespace GUI
         QObject(parent),
         m_systemController(sysController),
         m_thread(new QThread()),
-        m_worker(new DataTestWorker(nullptr,
+        m_worker(new HybridTester(nullptr,
                                     sysController)),
         m_Vcth(0),
         m_Events(0)
@@ -26,6 +26,7 @@ namespace GUI
         qRegisterMetaType<std::vector<std::shared_ptr<TH1F>> >("std::vector<std::shared_ptr<TH1F>>");
         qRegisterMetaType<std::vector<std::shared_ptr<TF1>> >("std::vector<std::shared_ptr<TF1>>");
         qRegisterMetaType<std::string> ("std::string");
+        qRegisterMetaType<std::map<Cbc*, TH1F*> >("std::map<Cbc*, TH1F*>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
         WireGraphData();
@@ -49,6 +50,7 @@ namespace GUI
 
         connect(m_worker, SIGNAL(finished()),
                 this, SIGNAL(finishedDataTest()));
+
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
     }
@@ -61,6 +63,11 @@ namespace GUI
                 this, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >,std::string)), Qt::QueuedConnection);
         connect(m_worker, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)),
                 this, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)), Qt::QueuedConnection);
+
+        connect(m_worker, SIGNAL(sendHists(std::map<Cbc*,TH1F*>,std::string)),
+                 this, SIGNAL(sendHists(std::map<Cbc*,TH1F*>,std::string)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendRefreshHists()),
+                this, SIGNAL(sendRefreshHists()), Qt::QueuedConnection);
     }
 
 
@@ -76,7 +83,15 @@ namespace GUI
 
         m_worker->abort();
         m_thread->wait();
+
         m_worker->requestWork(m_Vcth, m_Events, m_TestReg, m_ScanThreshold, m_HoleMode);
+    }
+
+    void DataTest::TestFinish()
+    {
+        m_worker->abort();
+        m_thread->deleteLater();
+        //m_thread->deleteLater();
     }
 
     void DataTest::setVcthValue(int cVcth)

@@ -38,7 +38,7 @@ namespace Ph2_HwDescription
 	  public:
 
 		// C'tors take FrontEndDescription or hierachy of connection
-		Module( FrontEndDescription& pFeDesc, uint8_t pModuleId );
+		Module( const FrontEndDescription& pFeDesc, uint8_t pModuleId );
 		Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId );
 
 		// Default C'tor
@@ -46,6 +46,7 @@ namespace Ph2_HwDescription
 
 		// D'tor
 		~Module() {
+		         fCbcVector.clear();
 		};
 
 		/*!
@@ -54,8 +55,8 @@ namespace Ph2_HwDescription
 		 */
 		void accept( HwDescriptionVisitor& pVisitor ) {
 			pVisitor.visit( *this );
-			for ( auto& cCbc : fCbcVector )
-				cCbc.accept( pVisitor );
+			for ( Cbc* cCbc : fCbcVector )
+				cCbc->accept( pVisitor );
 		}
 		// void accept( HwDescriptionVisitor& pVisitor ) const {
 		//  pVisitor.visit( *this );
@@ -73,7 +74,12 @@ namespace Ph2_HwDescription
 		 * \brief Adding a Cbc to the vector
 		 * \param pCbc
 		 */
-		void addCbc( Cbc& pCbc );
+	         void addCbc( Cbc& pCbc ) {
+		       fCbcVector.push_back( &pCbc );
+		 }
+	         void addCbc( Cbc* pCbc ) {
+		       fCbcVector.push_back( pCbc );
+		 }
 		/*!
 		 * \brief Remove a Cbc from the vector
 		 * \param pCbcId
@@ -85,7 +91,7 @@ namespace Ph2_HwDescription
 		 * \param pCbcId
 		 * \return a pointer of Cbc, so we can manipulate directly the Cbc contained in the vector
 		 */
-		Cbc*   getCbc( uint8_t pCbcId );
+		Cbc* getCbc( uint8_t pCbcId ) const;
 
 		/*!
 		* \brief Get the Module Id
@@ -103,7 +109,7 @@ namespace Ph2_HwDescription
 		};
 
 
-		std::vector < Cbc > fCbcVector;
+		std::vector < Cbc* > fCbcVector;
 
 
 	  protected:

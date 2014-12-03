@@ -11,7 +11,6 @@ namespace GUI
         QObject(parent),
         m_systemController(sysCtrl)
     {
-        //qRegisterMetaType<std::map<std::string,CbcRegItem>>("std::map<std::string,CbcRegItem>");
     }
 
     void CbcRegisters::getObjects()
@@ -30,13 +29,13 @@ namespace GUI
         {
             for ( auto cBoard : ( cShelve )->fBoardVector )
             {
-                for ( auto cFe : cBoard.fModuleVector )
+                for ( auto cFe : cBoard->fModuleVector )
                 {
-                    fCbcInterface->ReadAllCbc(&cFe);
+                    //fCbcInterface->ReadAllCbc(&cFe);
 
-                    for ( auto cCbc : cFe.fCbcVector )
+                    for ( auto cCbc : cFe->fCbcVector )
                     {
-                        emit sendCbcRegisterValue(cCbc.getCbcId(), cCbc.getRegMap());
+                        emit sendCbcRegisterValue(cCbc->getCbcId(), cCbc->getRegMap());
                     }
                 }
             }

@@ -3,13 +3,12 @@
 #include <QVector>
 #include "TH1F.h"
 
-#include "datatestworker.h"
+#include "HybridTester.h"
 
 namespace GUI{
 
     class SystemController;
-    class DataTestWorker;
-
+    class HybridTester;
 
     class DataTest : public QObject
     {
@@ -35,6 +34,9 @@ namespace GUI{
         void sendGraphData(const std::vector<std::shared_ptr<TH1F>> graph);
         void sendHistsThreshold(const std::vector<std::shared_ptr<TH1F>> graph, std::string option);
         void sendFitThreshold(const std::vector<std::shared_ptr<TF1>> graph, std::string option);
+        void sendHistTest(const std::map<Cbc*, TH1F*> graph, std::string option);
+        void sendHists(const std::map<Cbc*, TH1F*> graph, std::string option);
+        void sendRefreshHists();
 
     public slots:
         void initialiseSettings();
@@ -43,6 +45,8 @@ namespace GUI{
         void setTestReg(const bool testReg);
         void setScanThreshold(const bool scanThreshhold);
         void setHoleMode(const bool holeMode);
+
+        void TestFinish();
 
     private:
 
@@ -54,7 +58,7 @@ namespace GUI{
 
         SystemController &m_systemController;
         QThread *m_thread;
-        DataTestWorker *m_worker;
+        HybridTester *m_worker;
 
         void WireThreadConnections();
         void WireGraphData();

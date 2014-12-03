@@ -28,24 +28,24 @@
 #include <QVector>
 #include <QMutex>
 #include <QVariantMap>
-#endif
-
-
-
 #include "Model/systemcontroller.h"
+
+#else
+#include "../System/SystemController.h"
+using namespace Ph2_System;
+#endif
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
 
 #ifdef _GUI
 namespace GUI{
-#endif
 
-    class DataTestWorker : public QObject
+    class HybridTester : public QObject
     {
         Q_OBJECT
     public:
-        explicit DataTestWorker(QObject *parent,
+        explicit HybridTester(QObject *parent,
                                 SystemController &sysController);
 
         void requestWork(int cVcth,
@@ -55,10 +55,20 @@ namespace GUI{
                          bool holeMode);
         void abort();
 
+#else
+class HybridTester : public SystemController
+{
+     void InitialiseSettings();
+#endif
+
+        void ReadDataTest();
+        void ScanThreshold();
+        void Measure();
         void TestRegisters();
 
-        ~DataTestWorker();
+        ~HybridTester();
 
+#ifdef _GUI
     signals:
         void workRequested();
         void finished();
@@ -67,9 +77,12 @@ namespace GUI{
         void sendOccupyHists(const std::vector<std::shared_ptr<TH1F>> graph);
         void sendHistsThreshold(const std::vector<std::shared_ptr<TH1F>> graph, std::string option);
         void sendFitThreshold(const std::vector<std::shared_ptr<TF1>> graph, std::string option);
+        void sendHists(const std::map<Cbc*, TH1F*> graph, std::string option);
+        void sendRefreshHists();
 
     public slots:
         void doWork();
+#endif
 
     private:
 
@@ -80,53 +93,48 @@ namespace GUI{
 
         void Initialise();
         void InitialiseHists();
+        void processSCurves( uint32_t pEventsperVcth );
 
-        void ReadDataTest();
-        void ScanThreshold();
-        void Measure();
         uint32_t fNCbc;   /*!< Number of CBCs in the Setup */
-#ifdef _GUI
+        std::map<Cbc*, TH1F*> fSCurveMap;  /*!< Histograms for SCurve */
+        std::map<Cbc*, TF1*> fFitMap;   /*!< fits for SCurve*/
+
         int m_Vcth;
-        int m_Events;
+        int m_TotalEvents;
         bool m_scan;
         bool m_test;
         bool m_HoleMode;
-        std::vector<TCanvas *> m_canvas;
+        int m_Sigmas;
+
+        int debug = 0;
+
+#ifdef _GUI
 
         SystemController& m_systemController;
-        std::vector<std::shared_ptr<TH1F>> m_vecHist;
-        std::vector<TH1F*> m_hist;
+        std::vector<std::shared_ptr<TH1F>> m_vecHistTopBottom;
 
-        std::vector<std::shared_ptr<TH1F>> m_vecSCurve;
-        std::vector<std::shared_ptr<TF1>> m_vecFit;
-        std::vector<std::shared_ptr<TLine>> m_vecTLine;
+        std::shared_ptr<TH1F>  fHistTop;
+        std::shared_ptr<TH1F>  fHistBottom;
+        void accept( HwDescriptionVisitor& pVisitor );
 
-        /*void draw(std::string type)
+        void UpdateHists()
         {
-            if (type="Occupancy")
-            {
-              emit sendOccupyHists(m_vecHist);
-            }
+            emit sendRefreshHists();
+        }
 
-            if (type="Threshold")
-            {
-              emit sendHistsThreshold(m_vecSCurve, "P");
-            }
-
-            if (type="FitThreshold")
-            {
-              emit sendFitThreshold(m_vecFit, "same");
-            }
-        }*/
-
-
-        explicit DataTestWorker(const DataTestWorker& rhs) = delete;
-        DataTestWorker& operator= (const DataTestWorker& rhs) = delete;
+        explicit HybridTester(const HybridTester& rhs) = delete;
+        HybridTester& operator= (const HybridTester& rhs) = delete;
+#else
+        void UpdateHists()
+        {
+            fDataCanvas->cd( 1 );
+            fHistTop->Draw();
+            fDataCanvas->cd( 2 );
+            fHistBottom->Draw();
+            fDataCanvas->Update();
+        }
 #endif
     };
 #ifdef _GUI
 }
 #endif
-
-
-
