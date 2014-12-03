@@ -58,7 +58,7 @@ namespace Ph2_System
 
 		for ( pugi::xml_node ns = doc.child( "HwDescription" ).child( "Shelve" ); ns; ns = ns.next_sibling() )
 		{
-			cShelveId = ns.attribute( "Id0" ).as_int();
+			cShelveId = ns.attribute( "Id" ).as_int();
 			fShelveVector.push_back( new Shelve( cShelveId ) );
 
 			std::cout << BOLDCYAN << ns.name() << "  " << ns.first_attribute().name() << " :" << ns.attribute( "Id" ).value() << RESET << std:: endl;
@@ -206,12 +206,12 @@ namespace Ph2_System
 
 				if ( fCheck )
 					fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, ( ( fHoleMode ) ? 0 : 1 ) );
-				std::cout << GREEN << "Successfully configured Board " << int(pBoard.getBeId()) << RESET << std::endl;
+				std::cout << GREEN << "Successfully configured Board " << int( pBoard.getBeId() ) << RESET << std::endl;
 			}
 
 			void visit( Cbc& pCbc ) {
 				fCbcInterface->ConfigureCbc( &pCbc );
-				std::cout << GREEN <<  "Successfully configured Cbc " << int(pCbc.getCbcId()) << RESET << std::endl;
+				std::cout << GREEN <<  "Successfully configured Cbc " << int( pCbc.getCbcId() ) << RESET << std::endl;
 
 			}
 		};
