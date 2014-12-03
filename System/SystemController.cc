@@ -85,7 +85,7 @@ namespace Ph2_System
 				if ( std::string( nb.attribute( "boardType" ).value() ).compare( std::string( "Glib" ) ) )
 				{
 					cBeBoardFWInterface = new GlibFWInterface( doc.child( "HwDescription" ).child( "Connections" ).attribute( "name" ).value(), cBeId );
-					fBeBoardFWMap[cBeId] = cBeBoardFWInterface;
+					fBeBoardFWMap[cBeBoard->getBeBoardIdentifier()] = cBeBoardFWInterface;
 				}
 				/*else
 				        cBeBoardFWInterface = new OtherFWInterface();*/

@@ -79,6 +79,14 @@ namespace Ph2_HwDescription
 		}
 
 		/*!
+		* \brief Get the BeBoardIdentifier
+		* \return The BeBoardIdentifier
+		*/
+		uint16_t getBeBoardIdentifier() const {
+			return fBeId << 8 | fShelveId;
+		}
+
+		/*!
 		* \brief Get the Status
 		* \return The Status
 		*/
