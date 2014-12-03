@@ -20,7 +20,7 @@ Channel::~Channel()
 double Channel::getPedestal() const
 {
 
-	if ( fFit != nullptr )
+	if ( fFit != NULL )
 		return fabs( fFit->GetParameter( 0 ) );
 	else return -1;
 }
@@ -28,7 +28,7 @@ double Channel::getPedestal() const
 double Channel::getNoise() const
 {
 
-	if ( fFit != nullptr )
+	if ( fFit != NULL )
 		// return fabs( fFit->GetParError( 0 ) );
 		return fabs( fFit->GetParameter( 1 ) );
 
@@ -74,7 +74,7 @@ void Channel::fillHist( uint8_t pVcth )
 void Channel::fitHist( uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TString pParameter, TFile* pResultfile )
 {
 
-	if ( fScurve != nullptr && fFit != nullptr )
+	if ( fScurve != NULL && fFit != NULL )
 	{
 
 		// Normalize first
@@ -134,17 +134,17 @@ void Channel::fitHist( uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStr
 		// create a Directory in the file for the current Offset and save the channel Data
 		TString cDirName;
 		cDirName = pParameter + Form( "%d", pValue );
-		TObject* cObj = gROOT->FindObject( cDirName );
-		if ( !cObj ) pResultfile->mkdir( cDirName );
+		TDirectory* cDir = dynamic_cast< TDirectory* >( gROOT->FindObject( cDirName ) );
+		if ( !cDir ) cDir = pResultfile->mkdir( cDirName );
 		pResultfile->cd( cDirName );
 
-		fScurve->Write( fScurve->GetName(), TObject::kOverwrite );
-		// fFit->Write(fFit->GetName(), TObject::kOverwrite);
+		fScurve->SetDirectory( cDir );
+		fFit->Write(fFit->GetName(), TObject::kOverwrite);
 		// pResultfile->Flush();
 
 		pResultfile->cd();
 	}
-	else std::cout << "Historgram Empty for Fe " << +fFeId << " Cbc " << +fCbcId << " Channel " << +fChannelId << std::endl;
+	else std::cout << "Historgram Empty for Fe " << fFeId << " Cbc " << fCbcId << " Channel " << fChannelId << std::endl;
 
 
 }
@@ -152,8 +152,8 @@ void Channel::fitHist( uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStr
 void Channel::resetHist()
 {
 
-	// fScurve = nullptr;
-	// fFit = nullptr;
+	// fScurve = NULL;
+	// fFit = NULL;
 
 }
 
@@ -170,7 +170,7 @@ TestGroup::TestGroup( uint8_t pShelveId, uint8_t pBeId, uint8_t pFeId, uint8_t p
 
 TestGroupGraph::TestGroupGraph()
 {
-	fVplusVcthGraph = nullptr;
+	fVplusVcthGraph = NULL;
 }
 
 
@@ -186,7 +186,7 @@ TestGroupGraph::TestGroupGraph( uint8_t pBeId, uint8_t pFeId, uint8_t pCbcId, ui
 void TestGroupGraph::FillVplusVcthGraph( uint8_t& pVplus, double pPedestal, double pNoise )
 {
 
-	if ( fVplusVcthGraph != nullptr )
+	if ( fVplusVcthGraph != NULL )
 	{
 		fVplusVcthGraph->SetPoint( fVplusVcthGraph->GetN(), pPedestal, pVplus );
 		fVplusVcthGraph->SetPointError( fVplusVcthGraph->GetN() - 1, pNoise, 0 );
