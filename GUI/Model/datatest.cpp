@@ -24,9 +24,9 @@ namespace GUI
         m_Events(0)
     {
         qRegisterMetaType<std::vector<std::shared_ptr<TH1F>> >("std::vector<std::shared_ptr<TH1F>>");
-        qRegisterMetaType<std::vector<std::shared_ptr<TF1>> >("std::vector<std::shared_ptr<TF1>>");
         qRegisterMetaType<std::string> ("std::string");
-        qRegisterMetaType<std::map<Cbc*, TH1F*> >("std::map<Cbc*, TH1F*>");
+        qRegisterMetaType<std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F>>>("std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F>>");
+        qRegisterMetaType<std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1>>>("std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1>>");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
         WireGraphData();
@@ -58,14 +58,11 @@ namespace GUI
     void DataTest::WireGraphData()
     {
         connect(m_worker, SIGNAL(sendOccupyHists(std::vector<std::shared_ptr<TH1F> >)),
-                this, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
-        connect(m_worker, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >,std::string)),
-                this, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >,std::string)), Qt::QueuedConnection);
-        connect(m_worker, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)),
-                this, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)), Qt::QueuedConnection);
-
-        connect(m_worker, SIGNAL(sendHists(std::map<Cbc*,TH1F*>,std::string)),
-                 this, SIGNAL(sendHists(std::map<Cbc*,TH1F*>,std::string)), Qt::QueuedConnection);
+                this, SIGNAL(sendOccupancyHists(std::vector<std::shared_ptr<TH1F> >)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendSCurve(std::map<std::shared_ptr<Cbc>,std::shared_ptr<TF1> >,std::string)),
+                this, SIGNAL(sendSCurve(std::map<std::shared_ptr<Cbc>,std::shared_ptr<TF1> >,std::string)), Qt::QueuedConnection);
+        connect(m_worker, SIGNAL(sendSCurve(std::map<std::shared_ptr<Cbc>,std::shared_ptr<TH1F> >,std::string)),
+                this, SIGNAL(sendSCurve(std::map<std::shared_ptr<Cbc>,std::shared_ptr<TH1F> >,std::string)), Qt::QueuedConnection);
         connect(m_worker, SIGNAL(sendRefreshHists()),
                 this, SIGNAL(sendRefreshHists()), Qt::QueuedConnection);
     }
@@ -85,13 +82,6 @@ namespace GUI
         m_thread->wait();
 
         m_worker->requestWork(m_Vcth, m_Events, m_TestReg, m_ScanThreshold, m_HoleMode);
-    }
-
-    void DataTest::TestFinish()
-    {
-        m_worker->abort();
-        m_thread->deleteLater();
-        //m_thread->deleteLater();
     }
 
     void DataTest::setVcthValue(int cVcth)

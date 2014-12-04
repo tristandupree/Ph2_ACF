@@ -44,10 +44,10 @@ namespace GUI{
         void onDataTestStart();
         void onDataTestFinish();
         void setupCanvas(const bool cbc2);
-        void drawOccupancy(const std::vector<std::shared_ptr<TH1F>> hists);
-        void drawThreshold(const std::vector<std::shared_ptr<TH1F>> hists, std::string option);
-        void drawFitThreshold(const std::vector<std::shared_ptr<TF1>> graph, std::string option);
-        void receiveHists(const std::map<Cbc*, TH1F*> graph, std::string option);
+
+        void receiveOccupancyHists(const std::vector<std::shared_ptr<TH1F>> hists);
+        void receiveSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F>> graph, std::string option);
+        void receiveSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1>> graph, std::string option);
         void receiveRefreshHists();
 
     private slots:
@@ -65,17 +65,14 @@ namespace GUI{
 
         Ui::DataTestTab *ui;
         std::vector<std::shared_ptr<TH1F>> m_vecHistOccupancy;
-        std::vector<std::shared_ptr<TH1F>> m_vecHistThreshold;
-        std::vector<std::shared_ptr<TF1>> m_vecFitThreshold;
-
-        TCanvas* m_canvasOccupy;
 
         std::vector<TQtWidget*> m_vecTWidget_Occupancy;
         std::vector<TQtWidget*> m_vecTWidget_Threshold;
         std::vector<QGroupBox*> m_vectorGroupBox;
         std::vector<QHBoxLayout*> m_vectorLayout;
 
-        std::map<Cbc *, TH1F *> m_mapThreshold;
+        std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F>> m_mapSCurve;
+        std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1>> m_mapFit;
 
 
         int m_Vcth;

@@ -57,16 +57,12 @@ namespace GUI
     {
         connect(this, SIGNAL(on2CbcToggle(bool)),
                 &m_dataTestTab, SLOT(setupCanvas(bool)));
-        connect(&m_dataTest, SIGNAL(sendGraphData(std::vector<std::shared_ptr<TH1F> >)),
-                &m_dataTestTab, SLOT(drawOccupancy(std::vector<std::shared_ptr<TH1F> >)));
-        connect(&m_dataTest, SIGNAL(sendHistsThreshold(std::vector<std::shared_ptr<TH1F> >,std::string)),
-                &m_dataTestTab, SLOT(drawThreshold(std::vector<std::shared_ptr<TH1F> >,std::string)));
-        connect(&m_dataTest, SIGNAL(sendFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)),
-                &m_dataTestTab, SLOT(drawFitThreshold(std::vector<std::shared_ptr<TF1> >,std::string)));
 
-        connect(&m_dataTest, SIGNAL(sendHists(std::map<Cbc*,TH1F*>,std::string)),
-                &m_dataTestTab, SLOT(receiveHists(std::map<Cbc*,TH1F*>,std::string)));
-        connect(&m_dataTest, SIGNAL(sendRefreshHists()),
-                &m_dataTestTab, SLOT(receiveRefreshHists()));
+        connect(&m_dataTest, SIGNAL(sendOccupancyHists(std::vector<std::shared_ptr<TH1F> >)),
+                &m_dataTestTab, SLOT(receiveOccupancyHists(std::vector<std::shared_ptr<TH1F> >)));
+        connect(&m_dataTest, SIGNAL(sendSCurve(std::map<std::shared_ptr<Cbc>,std::shared_ptr<TH1F> >,std::string)),
+                &m_dataTestTab, SLOT(receiveSCurve(std::map<std::shared_ptr<Cbc>,std::shared_ptr<TH1F> >,std::string)));
+        connect(&m_dataTest, SIGNAL(sendSCurve(std::map<std::shared_ptr<Cbc>,std::shared_ptr<TF1> >,std::string)),
+                &m_dataTestTab, SLOT(receiveSCurve(std::map<std::shared_ptr<Cbc>,std::shared_ptr<TF1> >,std::string)));
     }
 }

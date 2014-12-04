@@ -31,11 +31,10 @@ namespace GUI{
         void startedDataTest();
         void finishedDataTest();
         void sendRefresh();
-        void sendGraphData(const std::vector<std::shared_ptr<TH1F>> graph);
-        void sendHistsThreshold(const std::vector<std::shared_ptr<TH1F>> graph, std::string option);
-        void sendFitThreshold(const std::vector<std::shared_ptr<TF1>> graph, std::string option);
-        void sendHistTest(const std::map<Cbc*, TH1F*> graph, std::string option);
-        void sendHists(const std::map<Cbc*, TH1F*> graph, std::string option);
+
+        void sendOccupancyHists(const std::vector<std::shared_ptr<TH1F>> graph);
+        void sendSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F>> graph, std::string option);
+        void sendSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1>> graph, std::string option);
         void sendRefreshHists();
 
     public slots:
@@ -45,8 +44,6 @@ namespace GUI{
         void setTestReg(const bool testReg);
         void setScanThreshold(const bool scanThreshhold);
         void setHoleMode(const bool holeMode);
-
-        void TestFinish();
 
     private:
 

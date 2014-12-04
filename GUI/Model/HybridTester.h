@@ -75,9 +75,8 @@ class HybridTester : public SystemController
         void sendAccept(HwDescriptionVisitor pVisitor); //not working
 
         void sendOccupyHists(const std::vector<std::shared_ptr<TH1F>> graph);
-        void sendHistsThreshold(const std::vector<std::shared_ptr<TH1F>> graph, std::string option);
-        void sendFitThreshold(const std::vector<std::shared_ptr<TF1>> graph, std::string option);
-        void sendHists(const std::map<Cbc*, TH1F*> graph, std::string option);
+        void sendSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F>> graph, std::string option);
+        void sendSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1>> graph, std::string option);
         void sendRefreshHists();
 
     public slots:
@@ -106,8 +105,6 @@ class HybridTester : public SystemController
         bool m_HoleMode;
         int m_Sigmas;
 
-        int debug = 0;
-
 #ifdef _GUI
 
         SystemController& m_systemController;
@@ -119,7 +116,28 @@ class HybridTester : public SystemController
 
         void UpdateHists()
         {
-            emit sendRefreshHists();
+            emit sendOccupyHists(m_vecHistTopBottom);
+            //emit sendRefreshHists();
+        }
+
+        std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F>> deepCopySCurve()
+        {
+            std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F>>returnValue;
+            for( const auto& cbcHistoPair : fSCurveMap )
+            {
+                returnValue.emplace( std::make_pair( std::make_shared<Cbc>(*cbcHistoPair.first), std::make_shared<TH1F>(*cbcHistoPair.second) ) );
+            }
+            return returnValue;
+        }
+
+        std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1>> deepCopyFit()
+        {
+            std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1>>returnValue;
+            for( const auto& cbcHistoPair : fFitMap )
+            {
+                returnValue.emplace( std::make_pair( std::make_shared<Cbc>(*cbcHistoPair.first), std::make_shared<TF1>(*cbcHistoPair.second) ) );
+            }
+            return returnValue;
         }
 
         explicit HybridTester(const HybridTester& rhs) = delete;

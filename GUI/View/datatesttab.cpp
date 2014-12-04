@@ -100,7 +100,7 @@ namespace GUI {
         return tab;
     }
 
-    void DataTestTab::drawOccupancy(const std::vector<std::shared_ptr<TH1F> > hists)
+    void DataTestTab::receiveOccupancyHists(const std::vector<std::shared_ptr<TH1F> > hists)
     {
         for (int i=0; i<2; i++)
         {
@@ -112,7 +112,7 @@ namespace GUI {
         }
     }
 
-    void DataTestTab::drawThreshold(const std::vector<std::shared_ptr<TH1F> > hists, std::string option)
+    /*    void DataTestTab::drawThreshold(const std::vector<std::shared_ptr<TH1F> > hists, std::string option)
     {
         m_vecTWidget_Threshold.at(0)->Clear();
         m_vecHistThreshold = hists;
@@ -130,36 +130,59 @@ namespace GUI {
         m_vecHistThreshold.at(0)->Draw(option.c_str());
         m_vecTWidget_Threshold.at(0)->Refresh();
     }
+    */
+
+    void DataTestTab::receiveSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F> > graph, std::string option)
+    {
+        m_mapSCurve = graph;
+        for(const auto& cbcHistoPair : m_mapSCurve)
+        {
+             qDebug() << "SCurve";
+             m_vecTWidget_Threshold.at(0)->Clear();
+             m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
+             cbcHistoPair.second->Draw();
+             m_vecTWidget_Threshold.at(0)->Refresh();
+        }
+
+    }
+
+    void DataTestTab::receiveSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1> > graph, std::string option)
+    {
+        qDebug() << "Fit";
+    }
 
     void DataTestTab::receiveRefreshHists()
     {
-        int i=0;
-        for (auto widget: m_vecTWidget_Occupancy)
+        for (int i=0; i<2; i++)
         {
-            widget->Clear();
-            widget->GetCanvas()->cd();
+            m_vecTWidget_Occupancy.at(i)->Clear();
+            //m_vecHistOccupancy = hists;
+            m_vecTWidget_Occupancy.at(i)->GetCanvas()->cd();
             m_vecHistOccupancy.at(i)->Draw();
-            widget->Refresh();
-            i++;
+            m_vecTWidget_Occupancy.at(i)->Refresh();
         }
     }
 
-    void DataTestTab::receiveHists(const std::map<Cbc *, TH1F *> graph, std::string option)
+    /* void DataTestTab::receiveRefreshSCurveCanvas( BeBoard* pBoard)
     {
-        qDebug() << "recieved graphs";
-
-        //m_mapThreshold = graph; //copy of shared pointer
-
-        /*for (auto kv : graph)
+         // Here iterate over the fScurveMap and update
+        for ( auto cFe : pBoard->fModuleVector )
         {
-            m_vecTWidget_Threshold.at(0)->Clear();
-             m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
-            graph.at(kv)->Draw(option.c_str());
-            //m_vecHistThreshold.at(0)->GetCanvas()->cd();
-            //m_vecHistThreshold.at(0)->Draw(option.c_str());
-            m_vecTWidget_Threshold.at(0)->Refresh();
-        }*/
-    }
+            for ( auto cCbc : cFe->fCbcVector )
+            {
+                uint32_t cCbcId = cCbc->getCbcId();
+                auto cScurve = fSCurveMap.find( cCbc );
+                if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << +cCbc->getCbcId() << std::endl;
+                else
+                {
+                    fSCurveCanvas->cd( cCbcId + 1 );
+                    cScurve->second->Draw( "P" );
+                }
+            }
+        }
+        fSCurveCanvas->Update();
+    }*/
+
 
     void DataTestTab::getVcthDialValue()
     {
@@ -244,5 +267,4 @@ namespace GUI {
             m_Vcth = value;
         }
     }
-
 }

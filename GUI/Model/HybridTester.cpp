@@ -180,6 +180,10 @@ namespace GUI
                 }
             }
         }
+#ifdef _GUI
+        emit sendSCurve(deepCopySCurve(), "P"); //creates a copy of shared_ptr
+        //emit sendHists(deepCopyFit());
+#endif;
 
     }
 
@@ -338,7 +342,7 @@ namespace GUI
             fSCurveCanvas->cd( cScurve.first->getCbcId() + 1 );
             cScurve.second->Draw( "P" );
 #else
-            emit sendHists(fSCurveMap, "P");
+            //emit sendHists(fSCurveMap, "P");
 #endif
             // Write to file
             cScurve.second->Write( cScurve.second->GetName(), TObject::kOverwrite );
