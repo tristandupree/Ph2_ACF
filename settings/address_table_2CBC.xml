@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="param_table.xsl"?>
 
 <node id="Glib">
-	
+
 	<!-- SYSTEM VERSION INFO -->
 	<node id="board_id" address="0x00000000" permission="rw" mode="single" tags="hexa" />
 	<node id="sys_id" address="0x00000001" permission="r" mode="single" />
@@ -86,6 +86,7 @@
 		<node id="sram2_bist_run" mask="0x00020000" />
 		<node id="flash_select" mask="0x00100000" />
 	</node>
+
 	    <!--SRAM MEMORY SPACE -->
 	<node id="sram1" address="0x02000000" permission="rw" mode="block" size="0x02000000" />
 	<node id="sram1_256" address="0x020000ff" permission="rw" mode="single" description="SRAM1 256th word" />
@@ -131,11 +132,13 @@
 			<node id="ttc_fmc_s40" mask="0x00400000" />
 			<node id="ttc_fmc_s41" mask="0x00800000" />
 		</node>
+
 		<!--node id ="ttc_mfc_reg_status"    address="0x6"    permission="rw" mode="single">
 		         <node id ="ttc_fmc_cdr_lol"        mask="0x20000000"/>
 		         <node id ="ttc_fmc_cdr_los"        mask="0x40000000"/>
 		         <node id ="ttc_fmc_cdr_locked"     mask="0x80000000"/>
 		</node-->
+
 		<node id="i2c_settings" address="0xD" permission="rw" mode="single" />
 		<node id="i2c_command" address="0xE" permission="rw" mode="single" />
 		<node id="i2c_reply" address="0xF" permission="rw" mode="single" />
@@ -178,6 +181,7 @@
 			<node id="force_BG0_start" mask="0x00000008" />
 			<node id="polarity_tlu" mask="0x00000080" tags="checkbox" description="0=Positive polarity" />
 		</node>
+		
 		<!-- <node id ="SRAM1"    address="0x14"    permission="r" mode="single">
 			<node id ="COUNTER"    mask="0x00ffffff"/>
 		</node>
