@@ -91,10 +91,11 @@ void FastCalibration::ScanOffset()
 		}
 		std::cout << "Disabling Test Group...." << cTGrpM.first << std::endl;
 	}
-        // reset VCth to the fTargetVCth
-        if ( fdoBitWisetuning ) {
-	        CbcRegWriter cWriter( fCbcInterface, "VCth", fTargetVCth );
-	        accept( cWriter );
+	// reset VCth to the fTargetVcth
+	if ( fdoBitWisetuning )
+	{
+		CbcRegWriter cWriter( fCbcInterface, "VCth", fTargetVcth );
+		accept( cWriter );
 	}
 	std::cout << BOLDBLUE << "Finished scanning Offsets ..." << RESET << std::endl;
 
@@ -206,7 +207,7 @@ void FastCalibration::Validate()
 			cHist.second->DrawCopy();
 			cCanvas->second->Update();
 		}
-		cProfile->second->SetDirectory(fResultFile);
+		cProfile->second->SetDirectory( fResultFile );
 
 	}
 }
@@ -280,13 +281,13 @@ void FastCalibration::Initialise()
 	// now read the settings from the map
 	fHoleMode = fSettingsMap.find( "HoleMode" )->second;
 	fEventsPerPoint = fSettingsMap.find( "Nevents" )->second;
-	fTargetVCth = fSettingsMap.find( "TargetVCth" )->second;
+	fTargetVcth = fSettingsMap.find( "TargetVcth" )->second;
 	fNCbc = cCbcCount;
 
 	std::cout << "Created Object Maps and parsed settings:" << std::endl;
 	std::cout << "	Hole Mode = " << fHoleMode << std::endl;
 	std::cout << "	Nevents = " << fEventsPerPoint << std::endl;
-	std::cout << "	TargetVCth = " << int( fTargetVCth ) << std::endl;
+	std::cout << "	TargetVcth = " << int( fTargetVcth ) << std::endl;
 }
 /*Currently this function sets offset for all 1-254 channels. But now to add testgroups, it has to set for 32
 channels in the group only. So it has to take the group id as well.
@@ -645,9 +646,9 @@ void FastCalibration::processSCurvesOffset( TString pParameter, uint8_t pTargetB
 			// check if the pedestal is larger than the targetVcth
 			// if so, flip bit back down
 			uint8_t cCurrentOffset = cCbc.first->getReg( Form( "Channel%03d", cChan.fChannelId + 1 ) );
-			if      ( (  fHoleMode && int( cChan.getPedestal()+0.5 ) < fTargetVCth ) || 
-                                  ( !fHoleMode && int( cChan.getPedestal()+0.5 ) > fTargetVCth ) ) cCurrentOffset ^= ( 1 << pTargetBit );
-			std::cout <<  "Pedestal is " << int(cChan.getPedestal()+0.5) << " and target Vcth is " << int( fTargetVCth ) << " Offset Value " << +cCurrentOffset <<std::endl;
+			if ( ( fHoleMode && int( cChan.getPedestal() + 0.5 ) < fTargetVcth ) ||
+					( !fHoleMode && int( cChan.getPedestal() + 0.5 ) > fTargetVcth ) ) cCurrentOffset ^= ( 1 << pTargetBit );
+			std::cout <<  "Pedestal is " << int( cChan.getPedestal() + 0.5 ) << " and target Vcth is " << int( fTargetVcth ) << " Offset Value " << +cCurrentOffset << std::endl;
 			cChan.setOffset( cCurrentOffset );
 			cRegVec.push_back( std::make_pair( Form( "Channel%03d", cChan.fChannelId + 1 ), cCurrentOffset ) );
 
@@ -703,11 +704,11 @@ void FastCalibration::findVplus( bool pDraw )
 		}
 
 		// now evaluate the fit at fTargetVcth and write to Cbcs
-		uint8_t cVplusResult = ( uint8_t )( cFit->GetParameter( 1 ) * fTargetVCth + cFit->GetParameter( 0 ) );
-		std::cout << BOLDBLUE << "TargetVCth = " << int( fTargetVCth ) << " -> Vplus = " << int( cVplusResult ) << RESET << std::endl;
+		uint8_t cVplusResult = ( uint8_t )( cFit->GetParameter( 1 ) * fTargetVcth + cFit->GetParameter( 0 ) );
+		std::cout << BOLDBLUE << "TargetVCth = " << int( fTargetVcth ) << " -> Vplus = " << int( cVplusResult ) << RESET << std::endl;
 
 		RegisterVector cRegVec;
-		cRegVec.push_back( std::make_pair( "VCth", fTargetVCth ) );
+		cRegVec.push_back( std::make_pair( "VCth", fTargetVcth ) );
 		cRegVec.push_back( std::make_pair( "Vplus", cVplusResult ) );
 		fCbcInterface->WriteCbcMultReg( cGraph.first, cRegVec );
 	}

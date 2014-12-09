@@ -105,7 +105,7 @@ class FastCalibration : public SystemController
 	bool fHoleMode;
 	uint32_t fEventsPerPoint;
 	uint32_t fNCbc;
-	uint8_t fTargetVCth;
+	uint8_t fTargetVcth;
 
 	std::vector<uint8_t> fVplusVec;
 
