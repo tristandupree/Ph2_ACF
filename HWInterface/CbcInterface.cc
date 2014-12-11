@@ -47,6 +47,8 @@ namespace Ph2_HwInterface
 
 	void CbcInterface::ConfigureCbc( const Cbc* pCbc, bool pVerifLoop, uint32_t pBlockSize )
 	{
+	//	this->CbcHardReset(pCbc);
+		
 		setBoard( pCbc->getBeBoardIdentifier() );
 
 #ifdef __CBCDAQ_DEV__
