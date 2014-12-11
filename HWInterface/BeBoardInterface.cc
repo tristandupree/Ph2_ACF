@@ -49,12 +49,36 @@ namespace Ph2_HwInterface
 		pBoard->setReg( pRegNode, pVal );
 	}
 
+	void BeBoardInterface::WriteBoardMultReg( BeBoard* pBoard, const std::vector < std::pair< std::string , uint32_t > >& pRegVec )
+	{
+		setBoard( pBoard->getBeBoardIdentifier() );
+
+		fBoardFW->WriteStackReg( pRegVec );
+
+		for ( const auto& cReg : pRegVec )
+		{
+			// fBoardFW->WriteReg( cReg.first, cReg.second );
+			pBoard->setReg( cReg.first, cReg.second );
+		}
+	}
+
 
 	void BeBoardInterface::ReadBoardReg( BeBoard* pBoard, const std::string& pRegNode )
 	{
 		setBoard( pBoard->getBeBoardIdentifier() );
 
 		pBoard->setReg( pRegNode, static_cast<uint32_t>( fBoardFW->ReadReg( pRegNode ) ) );
+	}
+
+	void BeBoardInterface::ReadBoardMultReg( BeBoard* pBoard, std::vector < std::pair< std::string , uint32_t > >& pRegVec )
+	{
+		setBoard( pBoard->getBeBoardIdentifier() );
+
+		for ( auto& cReg : pRegVec )
+		{
+			cReg.second = static_cast<uint32_t>( fBoardFW->ReadReg( cReg.first ) );
+			pBoard->setReg( cReg.first, cReg.second );
+		}
 	}
 
 

@@ -228,7 +228,7 @@
 //Clock
 
 // Clock select
-#define CLK_SELECT "user_wb_ttc_fmc_regs.clk_mux_sel"
+#define CLK_SELECT  "user_wb_ttc_fmc_regs.dio5.clk_mux_sel"
 
 // Clock threshold
 #define CLK_THRESHOLD "user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_clk_in"
@@ -276,7 +276,7 @@
 #define NEG_LOGIC_STTS  "user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS"
 
 //Polarity
-#define POLARITY        "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"
+#define POLARITY_TLU       "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"
 
 //Time out for stack writing
 #define TIME_OUT         5
