@@ -279,9 +279,15 @@ void FastCalibration::Initialise()
 		}
 	}
 	// now read the settings from the map
-	fHoleMode = fSettingsMap.find( "HoleMode" )->second;
-	fEventsPerPoint = fSettingsMap.find( "Nevents" )->second;
-	fTargetVcth = fSettingsMap.find( "TargetVcth" )->second;
+	// fHoleMode = fSettingsMap.find( "HoleMode" )->second;
+	// fEventsPerPoint = fSettingsMap.find( "Nevents" )->second;
+	// fTargetVcth = fSettingsMap.find( "TargetVcth" )->second;
+	auto cSetting = fSettingsMap.find( "HoleMode" );
+	fHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 1;
+	cSetting = fSettingsMap.find( "TargetVcth" );
+	fTargetVcth = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 120;
+	cSetting = fSettingsMap.find( "Nevents" );
+	fTargetVcth = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 10;
 	fNCbc = cCbcCount;
 
 	std::cout << "Created Object Maps and parsed settings:" << std::endl;
@@ -447,10 +453,10 @@ void FastCalibration::measureSCurves( bool pOffset, int  pTGrpId )
 						else break;
 					}
 					cNthAcq++;
-					//std::cout << "DEBUG Vcth " << int( cValue ) << " Hits " << cHitCounter << std::endl;
 				} // done with this acquisition
 
 				if ( pOffset ) std::cout << "Offset " << int( cValue ) << " Hits: " << cHitCounter << std::endl;
+				std::cout << "DEBUG Vcth " << int( cValue ) << " Hits " << cHitCounter << std::endl;
 
 				// check if the hitcounter is all ones
 				if ( cNonZero == false && cHitCounter != 0 )
