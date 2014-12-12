@@ -12,6 +12,7 @@
 #include "TH2F.h"
 #include "TStyle.h"
 #include "TH1.h"
+#include "TLine.h"
 
 #include "utils.h"
 
@@ -61,8 +62,7 @@ namespace GUI {
             m_vecTWidget_Occupancy.clear();
             m_vecTWidget_Threshold.clear();
         }
-        //m_canvasOccupy = m_vecTWidget_Occupancy.at(0)->GetCanvas();
-        //m_canvasOccupy->Divide(2);
+
         QString titleOcc = QString("Occupancy");
         m_tabMainCbc->addTab(createOccupancyTab(), titleOcc);
 
@@ -72,32 +72,32 @@ namespace GUI {
 
     QTabWidget *DataTestTab::createOccupancyTab()
     {
-        QTabWidget *tab = new QTabWidget;
-        QHBoxLayout *loH = new QHBoxLayout;
+        QTabWidget *tabOcc = new QTabWidget;
+        QHBoxLayout *loHOcc = new QHBoxLayout;
 
         for (int i=0; i<2 ;i++) //TODO support 8CBC
         {
             m_vecTWidget_Occupancy.push_back(new TQtWidget(this));
-            loH->addWidget(m_vecTWidget_Occupancy.at(i));
-            m_vectorLayout.push_back(loH); //incase I want to access later
-            tab->setLayout(loH);
+            loHOcc->addWidget(m_vecTWidget_Occupancy.at(i));
+            m_vectorLayout.push_back(loHOcc); //incase I want to access later
+            tabOcc->setLayout(loHOcc);
         }
-        return tab;
+        return tabOcc;
     }
 
     QTabWidget *DataTestTab::createThresholdTab()
     {
-        QTabWidget *tab = new QTabWidget;
-        QHBoxLayout *loH = new QHBoxLayout;
+        QTabWidget *tabThresh = new QTabWidget;
+        QHBoxLayout *loHThresh = new QHBoxLayout;
 
-        //for (int i=0; i<2 ;i++) //TODO support 8CBC
-        //{
-        m_vecTWidget_Threshold.push_back(new TQtWidget(this));
-        loH->addWidget(m_vecTWidget_Threshold.at(0));
-        m_vectorLayout.push_back(loH); //incase I want to access later
-        tab->setLayout(loH);
-        //}
-        return tab;
+        for (int i=0; i<2 ;i++) //TODO support 8CBC
+        {
+            m_vecTWidget_Threshold.push_back(new TQtWidget(this));
+            loHThresh->addWidget(m_vecTWidget_Threshold.at(i));
+            m_vectorLayout.push_back(loHThresh); //incase I want to access later
+            tabThresh->setLayout(loHThresh);
+        }
+        return tabThresh;
     }
 
     void DataTestTab::receiveOccupancyHists(const std::vector<std::shared_ptr<TH1F> > hists)
@@ -112,46 +112,49 @@ namespace GUI {
         }
     }
 
-    /*    void DataTestTab::drawThreshold(const std::vector<std::shared_ptr<TH1F> > hists, std::string option)
-    {
-        m_vecTWidget_Threshold.at(0)->Clear();
-        m_vecHistThreshold = hists;
-        m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
-        m_vecHistThreshold.at(0)->Draw(option.c_str());
-        m_vecTWidget_Threshold.at(0)->Refresh();
-    }
-
-    void DataTestTab::drawFitThreshold(const std::vector<std::shared_ptr<TF1> > graph, std::string option)
-    {
-        //m_vecTWidget_Threshold.at(0)->Clear();
-        TQtWidget *flush = new TQtWidget(this); // no idea why this flushes
-        m_vecFitThreshold = graph;
-        m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
-        m_vecHistThreshold.at(0)->Draw(option.c_str());
-        m_vecTWidget_Threshold.at(0)->Refresh();
-    }
-    */
-
     void DataTestTab::receiveSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TH1F> > graph, std::string option)
     {
         m_mapSCurve = graph;
+        auto cSigmas = 4; //TODO get GUI to send Sigmas here e.g getSigmas()
+        int i = 0;
         for(const auto& cbcHistoPair : m_mapSCurve)
         {
-             qDebug() << "SCurve";
-             m_vecTWidget_Threshold.at(0)->Clear();
-             m_vecTWidget_Threshold.at(0)->GetCanvas()->cd();
-             cbcHistoPair.second->Draw();
-             m_vecTWidget_Threshold.at(0)->Refresh();
+            auto flush = new TQtWidget(this);
+            TString title =  cbcHistoPair.second->GetTitle();
+            m_vecTWidget_Threshold.at(i)->Clear();
+            m_vecTWidget_Threshold.at(i)->GetCanvas()->cd();
+            cbcHistoPair.second->Draw(option.c_str());
+            m_vecTWidget_Threshold.at(i)->Refresh();
+            i++;
+            qDebug() << "Fit S Curve" << i;
         }
+        qDebug() << "End fitting";
 
     }
 
     void DataTestTab::receiveSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1> > graph, std::string option)
     {
-        qDebug() << "Fit";
+        m_mapFit = graph;
+        auto cSigmas = 4;
+        int i = 0;
+        for(const auto& cbcHistoPair : m_mapFit)
+        {
+            qDebug() << "FIT " << i;
+            m_vecTWidget_Threshold.at(i)->GetCanvas()->cd();
+            double_t pedestal = cbcHistoPair.second->GetParameter( 0 );
+            double_t noise = cbcHistoPair.second->GetParameter( 1 );
+            uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
+            TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
+            cLine->SetLineWidth( 3 );
+            cLine->SetLineColor( 2 );
+            cLine->Draw( "same" );
+            cbcHistoPair.second->Draw(option.c_str());
+            m_vecTWidget_Threshold.at(i)->Refresh();
+            i++;
+        }
     }
 
-    void DataTestTab::receiveRefreshHists()
+    void DataTestTab::receiveRefreshHists() //Not working properly
     {
         for (int i=0; i<2; i++)
         {
@@ -162,27 +165,6 @@ namespace GUI {
             m_vecTWidget_Occupancy.at(i)->Refresh();
         }
     }
-
-    /* void DataTestTab::receiveRefreshSCurveCanvas( BeBoard* pBoard)
-    {
-         // Here iterate over the fScurveMap and update
-        for ( auto cFe : pBoard->fModuleVector )
-        {
-            for ( auto cCbc : cFe->fCbcVector )
-            {
-                uint32_t cCbcId = cCbc->getCbcId();
-                auto cScurve = fSCurveMap.find( cCbc );
-                if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << +cCbc->getCbcId() << std::endl;
-                else
-                {
-                    fSCurveCanvas->cd( cCbcId + 1 );
-                    cScurve->second->Draw( "P" );
-                }
-            }
-        }
-        fSCurveCanvas->Update();
-    }*/
-
 
     void DataTestTab::getVcthDialValue()
     {

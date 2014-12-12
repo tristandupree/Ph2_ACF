@@ -10,6 +10,7 @@
 #include <memory>
 #include <QTabWidget>
 #include "../HWDescription/Cbc.h"
+#include "TF1.h"
 
 namespace Ui {
     class DataTestTab;

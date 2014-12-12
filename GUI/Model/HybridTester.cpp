@@ -66,6 +66,8 @@ namespace GUI
         {
 
             ScanThreshold();
+            CbcRegWriter cWriter( fCbcInterface, "VCth", m_Vcth );
+            m_systemController.m_worker->accept( cWriter );
         }
 
         Measure();
@@ -123,7 +125,6 @@ namespace GUI
 #ifndef _GUI
         InitialiseSettings();
 #endif
-
         InitialiseHists();
 
     }
@@ -182,7 +183,6 @@ namespace GUI
         }
 #ifdef _GUI
         emit sendSCurve(deepCopySCurve(), "P"); //creates a copy of shared_ptr
-        //emit sendHists(deepCopyFit());
 #endif;
 
     }
@@ -265,7 +265,7 @@ namespace GUI
                                 break;
 
                             // loop over Modules & Cbcs and count hits separately
-                            ///cHitCounter += fillSCurves( pBoard,  cEvent, cVcth );
+                            cHitCounter += fillSCurves( pBoard,  cEvent, cVcth );
                             cN++;
 
                             if ( cN < cEventsperVcth )
@@ -276,8 +276,11 @@ namespace GUI
                     }
 
                     // Draw the thing after each point
-                    ///updateSCurveCanvas( pBoard );
-
+#ifdef _GUI
+                    emit sendSCurve(deepCopySCurve(), "P");
+#else
+                    updateSCurveCanvas( pBoard );
+#endif
                     // check if the hitcounter is all ones
 
                     if ( cNonZero == false && cHitCounter != 0 )
@@ -316,14 +319,15 @@ namespace GUI
         }
 
         // Fit and save the SCurve & Fit - extract the right threshold
-        // TODO
         processSCurves( cEventsperVcth );
 
         // Wait for user to acknowledge and turn on external Source!
 
         std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
         //TODO - add external signal source checker
-        //mypause();
+#ifndef _GUI
+        mypause();
+#endif
     }
 
     void HybridTester::processSCurves( uint32_t pEventsperVcth )
@@ -338,11 +342,12 @@ namespace GUI
 #endif
 
             cScurve.second->Scale( 1 / double_t( pEventsperVcth * NCHANNELS ) );
-#ifndef _GUI
+
+#ifdef _GUI
+            emit sendSCurve(deepCopySCurve(), "P");
+#else
             fSCurveCanvas->cd( cScurve.first->getCbcId() + 1 );
             cScurve.second->Draw( "P" );
-#else
-            //emit sendHists(fSCurveMap, "P");
 #endif
             // Write to file
             cScurve.second->Write( cScurve.second->GetName(), TObject::kOverwrite );
@@ -401,11 +406,14 @@ namespace GUI
 
                 cScurve.second->Fit( cFit->second, "RNQ+" );
 
-                //cFit->second->Draw( "same" );
+#ifdef _GUI
+                emit sendSCurve(deepCopyFit(), "same");
+#else
+                cFit->second->Draw( "same" );
+#endif
 
                 // Write to File
                 cFit->second->Write( cFit->second->GetName(), TObject::kOverwrite );
-
                 // TODO
                 // Set new VCth - for the moment each Cbc gets his own Vcth - I shold add a mechanism to take one that works for all!
                 double_t pedestal = cFit->second->GetParameter( 0 );
@@ -414,22 +422,50 @@ namespace GUI
                 uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
 
                 std::cout << "Identified a noise Occupancy of 50% at VCth " << static_cast<int>( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (=" << fabs( noise ) << ") to " << +cThreshold << " for Cbc " << +cScurve.first->getCbcId() << std::endl;
-
-                //TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
-                //cLine->SetLineWidth( 3 );
-                //cLine->SetLineColor( 2 );
-                //cLine->Draw( "same" );
+#ifndef _GUI
+                TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
+                cLine->SetLineWidth( 3 );
+                cLine->SetLineColor( 2 );
+                cLine->Draw( "same" );
+#endif
 
                 fCbcInterface->WriteCbcReg( cScurve.first, "VCth", cThreshold );
             }
 
         }
-        //fSCurveCanvas->Update();
+#ifndef _GUI //will support saving in the future - will probably do on GUI side
+        fSCurveCanvas->Update();
 
         // Write and Save the Canvas as PDF
-        //fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
-        //std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
-        //fSCurveCanvas->SaveAs( cPdfName.c_str() );
+        fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
+        std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
+        fSCurveCanvas->SaveAs( cPdfName.c_str() );
+#endif
+    }
+
+    uint32_t HybridTester::fillSCurves( BeBoard* pBoard,  const Event* pEvent, uint8_t pValue )
+    {
+        uint32_t cHitCounter = 0;
+        for ( auto cFe : pBoard->fModuleVector )
+        {
+            for ( auto cCbc : cFe->fCbcVector )
+            {
+                auto cScurve = fSCurveMap.find( cCbc );
+                if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << +cCbc->getCbcId() << std::endl;
+                else
+                {
+                    for ( uint32_t cId = 0; cId < NCHANNELS; cId++ )
+                    {
+                        if ( pEvent->DataBit( cCbc->getFeId(), cCbc->getCbcId(), cId ) )
+                        {
+                            cScurve->second->Fill( pValue );
+                            cHitCounter++;
+                        }
+                    }
+                }
+            }
+        }
+        return cHitCounter;
     }
 
 
@@ -470,7 +506,7 @@ namespace GUI
 
         std::cout << "Testing Cbc Registers one-by-one with complimentary bit-patterns (0xAA, 0x55) ..." << std::endl;
         RegTester cRegTester( fCbcInterface );
-        //m_systemController.m_worker->accept( cRegTester );
+        m_systemController.m_worker->accept( cRegTester );
         cRegTester.dumpResult();
         std::cout << "Done testing registers, re-configuring to calibrated state!" << std::endl;
         m_systemController.m_worker->ConfigureHw();
@@ -481,7 +517,6 @@ namespace GUI
         std::cout << "Mesuring Efficiency per Strip ... " << std::endl;
 
         uint32_t cTotalEvents = m_TotalEvents;
-        qDebug() << m_TotalEvents;
 
         std::cout << "Taking data with " << cTotalEvents << " Events!" << std::endl;
 
@@ -535,6 +570,29 @@ namespace GUI
         fHistBottom->GetYaxis()->SetRangeUser( 0, 100 );
 
         UpdateHists();
+    }
+
+    void HybridTester::SaveResults()
+    {
+        fHistTop->Write( fHistTop->GetName(), TObject::kOverwrite );
+        fHistBottom->Write( fHistBottom->GetName(), TObject::kOverwrite );
+#ifndef _GUI
+        fDataCanvas->Write( fDataCanvas->GetName(), TObject::kOverwrite );
+
+        fResultFile->Write();
+        fResultFile->Close();
+
+
+        std::cout << "Resultfile written correctly!" << std::endl;
+
+        std::string cPdfName = fDirectoryName + "/HybridTestResults.pdf";
+        fDataCanvas->SaveAs( cPdfName.c_str() );
+        if ( fThresholdScan )
+        {
+            cPdfName = fDirectoryName + "/ThresholdScanResults.pdf";
+            fSCurveCanvas->SaveAs( cPdfName.c_str() );
+        }
+#endif
     }
 
 
