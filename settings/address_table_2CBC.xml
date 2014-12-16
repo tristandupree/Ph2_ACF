@@ -28,7 +28,7 @@
 		<node id="fw_ver_year" address="0x2" mask="0xFE000000" />
 		<node id="fw_ver_month" address="0x2" mask="0x01E00000" />
 		<node id="fw_ver_day" address="0x2" mask="0x001F0000" />
-		<node id="archi_ver_nb" address="0x2" mask="0x0000FF00" description="Archi versionnumber incremental)&#x9;" />
+		<node id="archi_ver_nb" address="0x2" mask="0x0000FF00" description="Archi versionnumber incremental)" />
 		<node id="fw_ver_nb" address="0x2" mask="0x000000FF" description="Firmware versionnumber incremental)" />
 	</node>
 

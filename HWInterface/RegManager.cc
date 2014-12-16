@@ -41,7 +41,7 @@ namespace Ph2_HwInterface
 	RegManager::~RegManager()
 	{
 		fDeactiveThread = true;
-		if (fBoard) delete fBoard;
+		if ( fBoard ) delete fBoard;
 	}
 
 
@@ -79,8 +79,8 @@ namespace Ph2_HwInterface
 	{
 
 		fBoardMutex.lock();
-                for (auto const& v : pVecReg)
-		        fBoard->getNode(v.first).write(v.second); 
+		for ( auto const& v : pVecReg )
+			fBoard->getNode( v.first ).write( v.second );
 		fBoard->dispatch();
 		fBoardMutex.unlock();
 
@@ -89,7 +89,7 @@ namespace Ph2_HwInterface
 			int cNbErrors = 0;
 			uint32_t comp;
 
-                        for (auto const& v : pVecReg)
+			for ( auto const& v : pVecReg )
 			{
 				fBoardMutex.lock();
 				uhal::ValWord<uint32_t> reply = fBoard->getNode( v.first ).read();
@@ -137,7 +137,7 @@ namespace Ph2_HwInterface
 			//Use size_t and not an iterator as op[] only works with size_t type
 			for ( std::size_t i = 0; i != cBlockRead.size(); i++ )
 			{
-			        if ( cBlockRead[i] != pValues.at(i) )
+				if ( cBlockRead[i] != pValues.at( i ) )
 				{
 					cWriteCorr = false;
 					cErrCount++;
@@ -182,7 +182,7 @@ namespace Ph2_HwInterface
 			//Use size_t and not an iterator as op[] only works with size_t type
 			for ( std::size_t i = 0; i != cBlockRead.size(); i++ )
 			{
-			        uint32_t read = static_cast<uint32_t>( cBlockRead[i] );
+				uint32_t read = static_cast<uint32_t>( cBlockRead[i] );
 				std::cout << " " << read << " " << std::endl;
 			}
 		}
