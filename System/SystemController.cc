@@ -74,7 +74,7 @@ namespace Ph2_System
 				BeBoard* cBeBoard = new BeBoard( cShelveId, cBeId );
 
 				// Iterate the BeBoardRegister Nodes
-				for ( pugi::xml_node cBeBoardRegNode = cBeBoardNode.child( "Register" ); cBeBoardRegNode != cBeBoardNode.child( "Module" ); cBeBoardRegNode = cBeBoardRegNode.next_sibling() )
+				for ( pugi::xml_node cBeBoardRegNode = cBeBoardNode.child( "Register" ); cBeBoardRegNode/* != cBeBoardNode.child( "Module" )*/; cBeBoardRegNode = cBeBoardRegNode.next_sibling() )
 				{
 					// std::cout << BOLDCYAN << "|" << "  " << "|" << "_____" << cBeBoardRegNode.name() << "  " << cBeBoardRegNode.first_attribute().name() << " :" << cBeBoardRegNode.attribute( "name" ).value() << RESET << std:: endl;
 					cBeBoard->setReg( std::string( cBeBoardRegNode.attribute( "name" ).value() ), atoi( cBeBoardRegNode.first_child().value() ) );
