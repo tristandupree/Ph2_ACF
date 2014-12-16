@@ -287,7 +287,7 @@ void FastCalibration::Initialise()
 	cSetting = fSettingsMap.find( "TargetVcth" );
 	fTargetVcth = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 120;
 	cSetting = fSettingsMap.find( "Nevents" );
-	fTargetVcth = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 10;
+	fEventsPerPoint = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 10;
 	fNCbc = cCbcCount;
 
 	std::cout << "Created Object Maps and parsed settings:" << std::endl;
