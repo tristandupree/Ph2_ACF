@@ -221,7 +221,7 @@ namespace Ph2_System
 						// Iterate the CBC node
 						for ( pugi::xml_node cCbcNode = cModuleNode.child( "CBC" ); cCbcNode; cCbcNode = cCbcNode.next_sibling() )
 						{
-							std::cout << BOLDCYAN << "|" << "	" << "|" << "	" << "|" << "----" << cCbcNode.name() << "  " << cCbcNode.first_attribute().name() << " :" << cCbcNode.attribute( "Id" ).value() << RESET << std:: endl;
+							std::cout << BOLDCYAN << "|" << "	" << "|" << "	" << "|" << "----" << cCbcNode.name() << "  " << cCbcNode.first_attribute().name() << " :" << cCbcNode.attribute( "Id" ).value() << ", File: " << cCbcNode.attribute( "configfile" ).value() << RESET << std:: endl;
 
 
 							std::string cFileName;

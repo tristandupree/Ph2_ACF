@@ -80,7 +80,10 @@ namespace Ph2_HwInterface
 
 		fBoardMutex.lock();
 		for ( auto const& v : pVecReg )
+		{
 			fBoard->getNode( v.first ).write( v.second );
+			// std::cout << v.first << "  :  " << v.second << std::endl;
+		}
 		fBoard->dispatch();
 		fBoardMutex.unlock();
 

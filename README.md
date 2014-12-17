@@ -1,7 +1,7 @@
 CMS Ph2 ACF (Acquisition & Control Framework) 
 ======================================
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
+__Contains:__
 
 - A middleware API layer, implemented in C++, which wraps the firmware calls and handshakes into abstracted functions
 
@@ -17,9 +17,10 @@ Hybrids, Boards) and their properties(values, status)
 Different versions
 ---------------------------------------
 
-On this GitHub, you can find different version of the software :
+On this Repo, you can find different version of the software :
 - a hopefully working and stable version on the master branch
 - An in-progress version in the Dev branch
+- A development version wiht a GUI
 <br>
 
 Changelog:

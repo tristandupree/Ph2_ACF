@@ -182,6 +182,7 @@
                         <node id="polarity_tlu" mask="0x00000080" tags="checkbox" description="0=Positive polarity" />
                         <node id="FE0_masked" mask="0x00000100" tags="checkbox" description="Front End 0 masked" />
                         <node id="FE1_masked" mask="0x00000200" tags="checkbox" description="Front End 1 masked" />
+                        <node id="cbc_mask" mask="0x00FF0000"  description="1 bit for each CBC: 16 is CBC1, 23 is CBC8"/>
                 </node>
         
                 <node id="dio5" address="0x14" permission="rw" mode="single">
@@ -196,10 +197,7 @@
                         <node id="clk_mux_sel" mask="0x00400000" />
                         <node id="fmcdio5_backpressure_out_polar" mask="0x00800000" />
                         <node id="fmcdio5_lemo2_sig_sel" mask="0x01000000" />
-                </node>
-
-                <node id="cbc_mask" address="0x13" mask="0x00FF0000"  permission="rw" mode="single"/ description="1 bit for each CBC: 16 is CBC1, 23 is CBC8">
-              
+                </node>              
         
                 <node id="cbc_reg_i2c_settings" address="0x18" permission="rw" mode="single" description="I2C value zone (CBC I2C bus requests)" />
                 <node id="cbc_reg_i2c_command" address="0x19" permission="rw" mode="single" description="I2C command (CBC I2C bus requests)" />
@@ -262,6 +260,6 @@
         
             </node>
 
-            <node id="neuf" address="0x90000000" mode="block" size="1000" description="9000" />
+            <!-- <node id="neuf" address="0x90000000" mode="block" size="1000" description="9000" /> -->
             
 </node>
