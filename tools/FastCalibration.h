@@ -53,7 +53,7 @@ class FastCalibration : public SystemController
 	FastCalibration( bool pbitwisetune , bool pAllChan ) {
 		fVplusVec.push_back( 0x14 );
 		fVplusVec.push_back( 0x64 );
-		fVplusVec.push_back( 0xB4 );
+		fVplusVec.push_back( 0xA4 );
 		fdoTGrpCalib = !pAllChan;
 		fdoBitWisetuning = pbitwisetune;
 		for ( int gid = -1; gid < 8; gid++ ) {
