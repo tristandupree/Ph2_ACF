@@ -21,7 +21,6 @@ On this GitHub, you can find different version of the software :
 - a hopefully working and stable version on the master branch
 - An in-progress version in the Dev branch
 <br>
-<br>
 
 Changelog:
 ------------
@@ -44,7 +43,6 @@ Changelog:
     - new FW files for DIO5 FW for 2 & 8 CBC setups
     - a macro directory with a macro to visualize calibration results
 
-<br>
 <br>
 
 Setup
@@ -89,15 +87,15 @@ Note: You may also need to set the environment variables:
     export PATH=/opt/cactus/bin:$PATH
 
 
-The Ph2DAQ (ACF) Software itself : 
--------------------------------------------------
+The Ph2_ACF Software : 
+----------------------------------
 
 Follow these instructions to install and compile the libraries:
 (provided you installed the latest version of gcc, µHal, boost as mentioned above)
 
-1. Clonethe GitHub repo.
+1. Clone the GitHub repo.
 
-2. Do a make in the root the repo (make sure you have all µHal, root, boost... libraries on your computer).
+2. Do a make in the root of the repo (make sure you have all µHal, root, boost... libraries on your computer).
 
 3. Launch 
         
@@ -129,15 +127,11 @@ Follow these instructions to install and compile the libraries:
 7. an example of how to use visitors can be found in src/interfacetest.cc or in the HybridTester class
 
 
-<br>
-<br>
 __What can you do with the software ?__
 
-You can choose to load your Hardware description XML file and it will create the
- software counterpart of your existing hardware.
+At the moment the package provides the following features:
 
-After this creation round, you can do anything you want :
-- Configure the Glib or the Cbcs
+- Configure the Glib & Cbcs
 - Manipulate the registers in the Glib
 - Manipulate the registers in the Cbcs
 - Read Data
@@ -147,20 +141,26 @@ After this creation round, you can do anything you want :
 - user external trigger and clock signals for your tests
 - any other routine you want to implement yourself ... 
 
-When you write a register in the Glib or the Cbc, the writing is updated to the
-map contained in Glib/Cbc objects so that you're always fully aware of what is
-in the Glib/Cbc register.
 
-For writing value in register, we invite you to put in the following format : 0x__.
-You must thus type '0xFF' for exemple and not just 'FF' in the command line.
+__Nota Bene:__
+When you write a register in the Glib or the Cbc, the corresponding map of the HWDescription object in memory is also updated, 
+so that you always have an exact replica of the HW Status in the memory.
 
-For debugging purpose, you can activate DEV_FLAG in files or in Makefile and also activate the uHal log in RegManager.cc.
+Register values are:
+- 8-bit unsigend integers for the CBCs that should be edited in hex notation, i.e. '0xFF'
+- 32-bit unsigned integers for the GLIB: decimal values
 
-More features will be implemented later, so make sure to have the last release
-locally to benefit from them.
+For debugging purpose, you can activate DEV_FLAG in the sources or in the Makefile and also activate the uHal log in RegManager.cc.
 
 
-__Example HWDescription.xml File with DIO5 support:__
+__External Clock and Trigger:__
+
+In order to use external Clock and Trigger functionality, a DIO5 mezzanine is required. It is available from the [CERN OHR](http://www.ohwr.org/projects/fmc-dio-5chttla) and sold by several commercial vendors.
+For instructions on how to use it, see this [file](https://github.com/gauzinge/Ph2_ACF/blob/Dev/doc/TK_DAQ_MONO_GLIB3_FMCDIO5_v3.0_09-12-2014.pdf). The [firmware](https://github.com/gauzinge/Ph2_ACF/tree/Dev/firmware) is included in this repository.
+
+
+
+Example HWDescription.xml File with DIO5 support:
 -----------------------------------------------------
 ```xml
 
@@ -253,11 +253,11 @@ __Example HWDescription.xml File with DIO5 support:__
 ```
 
 
-__Known Issues:__
--------------------------
-Several bugs / problematic behavior has been reported by various users that is not direclty linked to the Ph2_ACF libraries, however, some workarounds are provided in the following:
+Known Issues:
+---------------------
+Several bugs / problematic behavior has been reported by various users that is not direclty linked to the Ph2_ACF libraries, however, some workarounds are provided:
 
-- When configuring a CBC object (writing all registers at once), the MSB of the Register "FrontEncControl" is read back incorrectly. This only manifests in hole mode (0xC3 instead of 0x43). The cause of this problem is identified as related to the FW and the error itself can be safely ignored until the problem is solved. The chips will still properly configure and data quality should not be affected.
+- When configuring a CBC object (writing all registers at once), the MSB of the Register "FrontEncControl" is read back incorrectly. This only manifests in electron mode (0xC3 instead of 0x43). The cause of this problem is identified as a FW artefact and the error itself can be safely ignored until the problem is solved. The chips will still properly configure and data quality should not be affected.
 
 - uHAL exceptions and UDP timeouts when reading larger packet sizes from the GLIB board: 
     this can happen for some users (cause not yet identified) but can be circumvented by changing the line
@@ -274,14 +274,15 @@ Several bugs / problematic behavior has been reported by various users that is n
 
     This uses TCP protocol instead of UDP which accounts for packet loss but decreases the performance.
 
-- SegmentationViolations on lines that are gStyle->... :
-    this has been observed by several users on the VM and can be fixed by re-compiling ROOT using GCC 4.8
+- SegmentationViolations on lines that contain
+        
+        gStyle->Set ... ;
 
-
+    statements. This has been observed by several users on the VM and can be fixed by re-compiling ROOT using GCC 4.8
 
 
 
 Support, Suggestions ?
 ----------------------
 
-For any support/suggestions, mail Lorenzo Bidegain, Nicolas Pierre or Georg Auzinger.
+For any support/suggestions, mail georg.auzingerSPAMNOT@cern.ch
