@@ -197,6 +197,9 @@
                         <node id="fmcdio5_backpressure_out_polar" mask="0x00800000" />
                         <node id="fmcdio5_lemo2_sig_sel" mask="0x01000000" />
                 </node>
+
+                <node id="cbc_mask" address="0x13" mask="0x00FF0000"  permission="rw" mode="single"/ description="1 bit for each CBC: 16 is CBC1, 23 is CBC8">
+              
         
                 <node id="cbc_reg_i2c_settings" address="0x18" permission="rw" mode="single" description="I2C value zone (CBC I2C bus requests)" />
                 <node id="cbc_reg_i2c_command" address="0x19" permission="rw" mode="single" description="I2C command (CBC I2C bus requests)" />

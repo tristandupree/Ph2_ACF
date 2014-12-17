@@ -130,6 +130,16 @@ namespace Ph2_System
 			else return static_cast<uint32_t>( strtoul( pRegValue , 0, 10 ) );
 
 		}
+
+	  protected:
+		/*!
+		 * \convert a voltage level to it's 8bit DAC value
+		 * \param pVoltage: the Voltage level
+		 * \return corresponding 8-bit DAC value
+		 */
+		uint32_t Vto8Bit( float pVoltage ) {
+			return static_cast<uint32_t>( pVoltage / 3.3 * 256 + 0.5 );
+		}
 	};
 }
 

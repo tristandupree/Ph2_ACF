@@ -73,6 +73,116 @@ namespace Ph2_System
 				cBeId = cBeBoardNode.attribute( "Id" ).as_int();
 				BeBoard* cBeBoard = new BeBoard( cShelveId, cBeId );
 
+				// // These nodes violate the design paradigm but are convenient!
+				// // Get Trigger Node
+				// pugi::xml_node cTriggerNode = cBoardNode.child( "Trigger" );
+				// if ( cTriggerNode != nullptr )
+				// {
+				//  std::string cTriggerSource = static_cast<std::string>( cTriggerNode.attribute( "source" ).value() );
+
+				//  uint32_t cTriggerValue;
+
+				//  if ( cTriggerSource == "int" )
+				//  {
+				//      cTriggerValue = 0;
+				//      uint32_t cTriggerFrequency = cTriggerNode.attribute( "frequency" ).as_uint();
+				//      cBeBoard->setReg( INT_TRIGGER_FREQ, cTriggerFrequency );
+
+				//      std::cout << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Trigger source: " << cTriggerSource << ", Frequency: " << cTriggerFrequency << RESET << std::endl;
+				//  }
+				//  else if ( cTriggerSource == "ext" )
+				//  {
+				//      cTriggerValue = 1;
+				//      float cTriggerThreshold = cTriggerNode.attribute( "thresholdV" ).as_float();
+				//      std::string cTriggerEdge = static_cast<std::string>( cTriggerNode.attribute( "edge" ).value() );
+				//      std::string cTriggerOutput = static_cast<std::string>( cTriggerNode.attribute( "output" ).value() );
+
+				//      uint32_t cThreshold = Vto8Bit( cTriggerThreshold );
+				//      if ( cThreshold < 256 ) cBeBoard->setReg( TRIGGER_THRESHOLD, cThreshold );
+
+				//      else std::cout << "Error: could not translate this Threhold Level in a reasonable 8-bit value!" << std::endl;
+
+				//      uint32_t cEdgeValue = ( cTriggerEdge == "rising" ) ? 0 : 1;
+				//      cBeBoard->setReg( TRIGGER_EDGE, cEdgeValue );
+
+				//      uint32_t cOutputValue = ( cTriggerOutput == "L1A" ) ? 1 : 0;
+				//      cBeBoard->setReg( LEMO2_SIGNAL, cOutputValue );
+
+				//      std::cout << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Trigger source: " << cTriggerSource << ", Threshold Voltage: " << cTriggerThreshold << "V ( " << cThreshold << " ), Edge: " << cTriggerEdge << ", Output: " << cTriggerOutput << RESET << std::endl;
+				//  }
+				//  else
+				//  {
+				//      cTriggerValue = 0;
+				//      std::cout << BOLDRED << "Warning: undefined trigger source: " << cTriggerSource << " -- using internal!" << RESET << std::endl;
+				//  }
+
+				//  cBeBoard->setReg( TRIGGER_SELECT, cTriggerValue );
+				// }
+
+				// // Get Clock Node
+				// pugi::xml_node cClockNode = cBoardNode.child( "Clock" );
+				// if ( cClockNode != nullptr )
+				// {
+				//  std::string cClockSource = static_cast<std::string>( cClockNode.attribute( "source" ).value() );
+				//  uint32_t cClockValue;
+				//  uint32_t cClockShift = static_cast<uint32_t>( cClockNode.attribute( "shift" ).as_int() );
+
+				//  if ( cClockSource == "int" )
+				//  {
+				//      cClockValue = 0;
+				//      std::cout << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Clock source: " << cClockSource << ", Shift: " << cClockShift <<  RESET << std::endl;
+
+				//  }
+				//  else if ( cClockSource == "ext" )
+				//  {
+				//      cClockValue = 1;
+				//      float cClockThreshold = cClockNode.attribute( "thresholdV" ).as_float();
+				//      uint32_t cThreshold =  Vto8Bit( cClockThreshold );
+				//      if ( cThreshold < 256 ) cBeBoard->setReg( CLK_THRESHOLD, cThreshold );
+
+				//      std::cout << BOLDCYAN << "|" <<  "      " << "|" << "----" <<  " Clock source: " << cClockSource << ", Threshold Voltage: " << cClockThreshold << "V ( " << cThreshold << " )" <<  ", Shift: " << cClockShift <<  RESET << std::endl;
+				//  }
+				//  else
+				//  {
+				//      cClockValue = 0;
+				//      std::cout << BOLDRED << "Warning: undefined clock source: " << cClockSource << " -- using internal!" << RESET << std::endl;
+				//  }
+
+				//  cBeBoard->setReg( CLK_SELECT, cClockValue );
+				//  cBeBoard->setReg( CLOCK_SHIFT, cClockShift );
+				// }
+
+				// // Get Signal Node
+				// pugi::xml_node cSignalNode = cBoardNode.child( "Signal" );
+				// if ( cSignalNode != nullptr )
+				// {
+				//  //  need to fill the Hole mode member for convenience
+				//  std::string cPolarity = static_cast<std::string>( cSignalNode.attribute( "polarity" ).value() );
+				//  uint32_t cPolarityValue;
+
+				//  if ( cPolarity == "hole" )
+				//  {
+				//      cPolarityValue = 0;
+				//      fHoleMode = true;
+				//      fSettingsMap["HoleMode"] = 1;
+				//      cBeBoard->setReg( NEG_LOGIC_CBC, cPolarityValue );
+				//  }
+				//  else if ( cPolarity == "electron" )
+				//  {
+				//      cPolarityValue = 1;
+				//      fHoleMode = false;
+				//      fSettingsMap["HoleMode"] = 0;
+				//      cBeBoard->setReg( NEG_LOGIC_CBC, cPolarityValue );
+				//  }
+				//  else
+				//      std::cout << BOLDRED << "Warning: undefined polarity value: " << cPolarity << " -- using register value!" << RESET << std::endl;
+
+
+
+				//  std::cout << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Signal Polarity: " << cPolarity  <<  RESET << std::endl;
+
+				// }
+
 				// Iterate the BeBoardRegister Nodes
 				for ( pugi::xml_node cBeBoardRegNode = cBeBoardNode.child( "Register" ); cBeBoardRegNode/* != cBeBoardNode.child( "Module" )*/; cBeBoardRegNode = cBeBoardRegNode.next_sibling() )
 				{

@@ -1,4 +1,4 @@
-CMS Ph2 ACF (Acquisition & Control Framework)      {#mainpage}
+CMS Ph2 ACF (Acquisition & Control Framework) 
 ======================================
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Supposed to contain__
@@ -10,7 +10,7 @@ Hybrids, Boards) and their properties(values, status)
 
 - several utilities (like visitors to execute certain tasks for each item in the hierarchical Item description)
 
-- a tools/ directory with several utilities (currently: calibration, hybrid testing)
+- a tools/ directory with several utilities (currently: calibration, hybrid testing, common-mode analysis)
 
 - some applications: datatest, interfacetest, hybridtest, system, calibrate
 
@@ -26,7 +26,6 @@ On this GitHub, you can find different version of the software :
 Changelog:
 ------------
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__Last Updates__
 
 - 09/07/14 : Added threading for stack writing registers
 - 12/08/14 : Working agnostic version of the new structure on Master
@@ -34,14 +33,24 @@ Changelog:
 - 19/08/14 : Project wrapped, called ACF for Acquisition & Control Framework
 - 09/10/14 : added Visitor class and the corresponding accept methods to the HWDescription objects
 - 15/10/14 : re-wrote the GlibFWInterface::ReadData() method, completeley re-wrote the parsing of the raw buffer and the offsets, modified the Data and Event classes to be more lightweight and less complex
-- 17/10/14 : renamed the project to Ph2_ACF & re-structured the folder architecture and added command line parsing to the executables
+- 17/10/14 : renamed the project to Ph2_ACF & re-structured the folder architecture and added command line parsing to the executables (v1-00)
+- 17/12/14 : major update (v1-01) including:
+    - performance improvements (use of C++11 features)
+    - general bugfixes
+    - a new, faster calibration routine
+    - a common-mode-noise tester tool
+    - compatability with DIO5 FW for external triggering / clocking
+    - updated address table for 2 & 8 CBC setups
+    - new FW files for DIO5 FW for 2 & 8 CBC setups
+    - a macro directory with a macro to visualize calibration results
+
 <br>
 <br>
 
-Preliminary Setup
+Setup
 -----------------
 
-Firmware for the GLIB can be found in /firmware. To check you are using the correct firmware with the correct FMC, please read /latex/FirmwareHardware.pdf.
+Firmware for the GLIB can be found in /firmware. Since the "old" FMC flavour is deprecated, only new FMCs (both connectors on the same side) are supported.
 
 NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] (http://sbgcmstrackerupgrade.in2p3.fr/) then follow the preliminary setup, otherwise you can skip this.
 
@@ -65,11 +74,14 @@ NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] 
         sudo yum groupremove uhal
         wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
 
-(You may need the --no-check-certificate)
+    (You may need the --no-check-certificate)
 	
-	sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
+        sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
         sudo yum clean all
         sudo yum groupinstall uhal
+
+4. Re-compile ROOT using the new gcc 4.8: [Instructions](http://root.cern.ch/drupal/content/installing-root-source) - make sure to use "fixed location installation"
+
 
 Note: You may also need to set the environment variables:
 
@@ -87,23 +99,32 @@ Follow these instructions to install and compile the libraries:
 
 2. Do a make in the root the repo (make sure you have all µHal, root, boost... libraries on your computer).
 
-3. Launch system command if you want to test the reading of your hardware describing XML file.
+3. Launch 
+        
+        systemtest --help
+     
+     command if you want to test the parsing of the HWDescription.xml file
 
 4. Launch
 
         datatest --help
         
-command if you want to test if you can correctly read data.
+    command if you want to test if you can correctly read data.
 
-6. launch
+6. Launch
 
         calibrate --help
 
-to calibrate a hybrid,
+    to calibrate a hybrid,
 
         hybridtest --help
 
-to test a hybird's I2C registers and input channel connectivity
+    to test a hybird's I2C registers and input channel connectivity
+
+        cmtest --help
+
+    to run the CM noise study
+
 
 7. an example of how to use visitors can be found in src/interfacetest.cc or in the HybridTester class
 
@@ -122,6 +143,8 @@ After this creation round, you can do anything you want :
 - Read Data
 - Calibrate Hybrids
 - Validate Hybrids
+- Perform CM noise tests
+- user external trigger and clock signals for your tests
 - any other routine you want to implement yourself ... 
 
 When you write a register in the Glib or the Cbc, the writing is updated to the
@@ -137,20 +160,123 @@ More features will be implemented later, so make sure to have the last release
 locally to benefit from them.
 
 
+__Example HWDescription.xml File with DIO5 support:__
+-----------------------------------------------------
+```xml
+
+<?xml version='1.0' encoding = 'UTF-8' ?>
+<HwDescription>
+
+    <!-- The file containing the connection data & IP addresses -->
+    <Connections name="file://settings/connections_2CBC.xml"/>
+
+    <Shelve Id="0" >
+        <BeBoard Id="0" connectionId="board0" boardType="GLIB">
+
+            <Module FeId="0" FMCId="0" ModuleId="0" Status="1">
+
+                <!-- Global CBC registers are applied to all CBCs and override register values from the config files -->
+                <Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register> -->
+
+                <!-- a base path to the CBC files -->
+                <CBC_Files path="./settings/"/>
+
+                <CBC Id="0" configfile="Cbc_default_hole.txt"/>
+                <CBC Id="1" configfile="Cbc_default_hole.txt"/>
+            </Module>
+
+            <!-- Commissioning Mode -->
+            <!-- set to 1 to enable commissioning mode -->
+            <Register name="COMMISSIONNING_MODE_RQ"> 0 </Register>
+            <!-- set to 1 to enable test pulse in commissioning mode -->
+            <Register name="COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID"> 0 </Register>
+            <!-- Delays after testpulse / L1A -->
+            <Register name="COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET"> 50 </Register>
+            <Register name="COMMISSIONNING_MODE_DELAY_AFTER_L1A"> 400 </Register>
+            <Register name="COMMISSIONNING_MODE_DELAY_AFTER_TEST_PULSE"> 201 </Register>
+
+            <!-- Trigger -->
+            <!-- set to 1 to use external triggers -->
+            <Register name="user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"> 0 </Register>
+            <!-- internal trigger frequency: see address_table*.xml for details -->
+            <Register name="user_wb_ttc_fmc_regs.pc_commands.INT_TRIGGER_FREQ"> 10 </Register>
+
+            <!-- ************************************ -->
+            <!-- This part is only required with the DIO5 mezzanine -->
+
+            <!-- DIO5 threshold: [v]/3.3*256 -->
+            <Register name="user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_trig_in"> 40 </Register>
+            <!-- set to 0 for rising edge, 1 for falling -->
+            <Register name="user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_in_edge"> 0 </Register>
+            <!-- Leave as default -->
+            <Register name="user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_in_50ohms" > 1 </Register>
+            <Register name="user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_out_50ohms"> 0 </Register>
+            <!-- set to 1 to output L1A signal, 0 for input pulse -->
+            <Register name="user_wb_ttc_fmc_regs.dio5.fmcdio5_lemo2_sig_sel"> 1 </Register>
+
+            <!-- Clock -->
+            <!-- set to 1 for external clocking -->
+            <Register name="user_wb_ttc_fmc_regs.dio5.clk_mux_sel"> 0 </Register>
+            <!-- DIO5 threshold: [v]/3.3*256 -->
+            <Register name="user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_clk_in"> 40 </Register>
+            <!-- Leave as default -->
+            <Register name="user_wb_ttc_fmc_regs.dio5.fmcdio5_clk_in_50ohms"> 1 </Register>
+            <Register name="user_wb_ttc_fmc_regs.dio5.fmcdio5_clk_out_50ohms"> 0 </Register>
+
+           <!-- End of DIO5 registers -->
+            <!-- ************************************ -->
+
+            <!-- Acquisition -->
+            <Register name="user_wb_ttc_fmc_regs.pc_commands.ACQ_MODE"> 1 </Register>
+            <Register name="cbc_stubdata_latency_adjust_fe1"> 1 </Register>
+            <Register name="cbc_stubdata_latency_adjust_fe2"> 1 </Register>
+            <Register name="user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE"> 1 </Register>
+            <Register name="user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER"> 10 </Register>
+            <Register name="user_wb_ttc_fmc_regs.pc_commands2.clock_shift"> 0 </Register>
+
+            <!-- Polarity -->
+            <Register name="user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC"> 0 </Register>
+            <Register name="user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS"> 0 </Register>
+            <Register name="user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"> 0 </Register>
+        </BeBoard>
+    </Shelve>
+</HwDescription>
+
+<!-- Settings node to pass any std::string - int combination to applications -->
+<Settings>
+    <Setting name="RunNumber"> 1 </Setting>
+    <!-- Hole mode from settings overrides  "negative_logic_CBC" register-->
+    <Setting name="HoleMode"> 1 </Setting>
+</Settings>
+
+
+```
+
+
 __Known Issues:__
 -------------------------
 Several bugs / problematic behavior has been reported by various users that is not direclty linked to the Ph2_ACF libraries, however, some workarounds are provided in the following:
 
 - When configuring a CBC object (writing all registers at once), the MSB of the Register "FrontEncControl" is read back incorrectly. This only manifests in hole mode (0xC3 instead of 0x43). The cause of this problem is identified as related to the FW and the error itself can be safely ignored until the problem is solved. The chips will still properly configure and data quality should not be affected.
 
-- uHAL exceptions and UDP timeouts when reading larger packet sizes from the GLIB board: this can happen for some users (cause not yet identified) but can be circumvented by changing the line
+- uHAL exceptions and UDP timeouts when reading larger packet sizes from the GLIB board: 
+    this can happen for some users (cause not yet identified) but can be circumvented by changing the line
+
         "ipbusudp-2.0://192.168.000.175:50001"
-in the connections.xml file to
+
+    in the connections.xml file to
+
         "chtcp-2.0://localhost:10203?target=192.168.000.175:50001"
-& then launching the CACTUS control hub by the command:
+
+    & then launching the CACTUS control hub by the command:
+
         /opt/cactus/bin/controlhub_start
 
-This uses TCP protocol instead of UDP which accounts for packet loss but decreases the performance.
+    This uses TCP protocol instead of UDP which accounts for packet loss but decreases the performance.
+
+- SegmentationViolations on lines that are gStyle->... :
+    this has been observed by several users on the VM and can be fixed by re-compiling ROOT using GCC 4.8
+
 
 
 
