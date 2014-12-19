@@ -8,7 +8,8 @@ IncludeDirs     =  /opt/cactus/include ../
 
 IncludePaths            = $(IncludeDirs:%=-I%)
 
-LibraryDirs = /opt/cactus/lib /opt/xdaq/lib ../lib
+LibraryDirs = /opt/cactus/lib ../lib
+# /opt/xdaq/lib
 LibraryPaths = $(LibraryDirs:%=-L%)
 
 ExternalObjects = $(LibraryPaths) -lpthread  -lcactus_extern_pugixml -lcactus_uhal_log -lcactus_uhal_grammars -lcactus_uhal_uhal -lboost_system `root-config --glibs` -lPh2_Interface -lPh2_Description -lPh2_System -lPh2_Tools -lPh2_Utils
@@ -18,7 +19,7 @@ ExternalObjects = $(LibraryPaths) -lpthread  -lcactus_extern_pugixml -lcactus_uh
 %.o: %.cc %.h
 	$(CXX) -std=c++11 $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
-binaries=systemtest calibrate interfacetest datatest hybridtest
+binaries=systemtest calibrate interfacetest datatest hybridtest cmtest
 all: clean $(binaries)
 
 systemtest: systemtest.cc
@@ -38,6 +39,10 @@ datatest: datatest.cc
 	cp $@ ../bin
 
 hybridtest: hybridtest.cc
+	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
+	cp $@ ../bin
+
+cmtest: cmtest.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	cp $@ ../bin
 

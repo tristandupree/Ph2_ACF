@@ -39,12 +39,12 @@ namespace Ph2_HwDescription
 
 	// Public Members:
 
-	uint16_t BeBoard::getReg( const std::string& pReg )
+	uint16_t BeBoard::getReg( const std::string& pReg ) const
 	{
-		BeBoardRegMap::iterator i = fRegMap.find( pReg );
+		BeBoardRegMap::const_iterator i = fRegMap.find( pReg );
 		if ( i == fRegMap.end() )
 		{
-			std::cout << "The Board object: " << uint32_t( fBeId ) << " doesn't have " << pReg << std::endl;
+		        std::cout << "The Board object: " << +fBeId << " doesn't have " << pReg << std::endl;
 			return 0;
 		}
 		else return i->second;
@@ -58,43 +58,39 @@ namespace Ph2_HwDescription
 		else i->second = psetValue;
 	}
 
-	void BeBoard::addModule( Module& pModule )
-	{
-		fModuleVector.push_back( pModule );
-	}
-
 	bool BeBoard::removeModule( uint8_t pModuleId )
 	{
-		std::vector < Module > :: iterator i;
-		bool j = false;
+		
+		bool found = false;
+                std::vector<Module*>::iterator i; 
 		for ( i = fModuleVector.begin(); i != fModuleVector.end(); ++i )
 		{
-			if ( i->getModuleId() == pModuleId )
+		        if ( (*i)->getModuleId() == pModuleId )
 			{
-				fModuleVector.erase( i );
-				j = true;
-				i--;       //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator
+				found = true;
+                                break; 
 			}
 		}
-		if ( j == true )
-			return true;
+		if ( found ) {
+      	                fModuleVector.erase( i );
+                        return true;
+                }
 		else
 		{
-			std::cout << "Error:The BeBoard: " << uint32_t ( fBeId ) << " doesn't have the module " << uint32_t( pModuleId ) << std::endl;
+		        std::cout << "Error:The BeBoard: " << +fBeId 
+			          << " doesn't have the module " << +pModuleId << std::endl;
 			return false;
 		}
 	}
 
-	Module* BeBoard::getModule( uint8_t pModuleId )
+	Module* BeBoard::getModule( uint8_t pModuleId ) const
 	{
-		std::vector < Module > :: iterator i;
-		for ( i = fModuleVector.begin(); i != fModuleVector.end(); ++i )
-		{
-			if ( i->getModuleId() == pModuleId )
-				return &*i;
+	        for (Module* m : fModuleVector) {
+		         if ( m->getModuleId() == pModuleId )
+				return m;
 		}
-		return NULL;
-	}
+		return nullptr;
+        }
 
 	// Private Members:
 

@@ -17,34 +17,36 @@ namespace Ph2_HwInterface
 	//Data Class
 
 	// copy constructor
-	Data::Data( Data& pD )
-	{
-		fBuf = 0;
+        Data::Data( const Data& pD ) :
+	        fBuf( nullptr ),
 		// Initialise( pD.fNevents );
-		fBufSize = pD.fBufSize;
-		fNevents = pD.fNevents;
-		fCurrentEvent = pD.fCurrentEvent;
-		fNCbc = pD.fNCbc;
-		fEvent = pD.fEvent;
-		fEventSize = pD.fEventSize;
+		fBufSize( pD.fBufSize ),
+		fNevents( pD.fNevents ),
+		fCurrentEvent(pD.fCurrentEvent ),
+		fNCbc( pD.fNCbc ),
+		fEvent(  pD.fEvent ),
+		fEventSize( pD.fEventSize )
+	{
 	}
 
 
-	void Data::Set( std::vector<uint32_t>* pData, uint32_t pNevents )
+	void Data::Set( const std::vector<uint32_t>* pData, uint32_t pNevents )
 	{
 
 		// initialize the buffer data array and the buffer size (one 32 bit word is 4 char!)
 		fBufSize = pData->size() * 4;
-		fNevents = uint32_t( pNevents );
-		fEventSize = uint32_t( fBufSize / fNevents );
+		fNevents = static_cast<uint32_t>( pNevents );
+		fEventSize = static_cast<uint32_t>( fBufSize / fNevents );
 		fNCbc = ( fEventSize - ( EVENT_HEADER_TDC_SIZE_CHAR ) ) / ( CBC_EVENT_SIZE_CHAR );
 
 #ifdef __CBCDAQ_DEV__
 		std::cout << "Initializing buffer with " << pData->size() << " 32 bit words and " << fBufSize << " chars containing data from " << fNevents << "  Events with an eventbuffer size of " << fEventSize << " and " << fNCbc << " CBCs each! " << EVENT_HEADER_TDC_SIZE_CHAR << " " << CBC_EVENT_SIZE_CHAR << std::endl;
 #endif
 
-		if ( fBuf ) free( fBuf );
-		fBuf = ( char* )malloc( pData->size() * 4 );
+		//if ( fBuf ) free( fBuf );
+		//fBuf = ( char* )malloc( pData->size() * 4 );
+		if ( fBuf ) delete fBuf;
+		fBuf = new char[ pData->size() * 4 ];
 
 		Reset();
 
@@ -74,7 +76,7 @@ namespace Ph2_HwInterface
 	}
 
 
-	void Data::CopyBuffer( Data& pData )
+	void Data::CopyBuffer( const Data& pData )
 	{
 		memcpy( fBuf, pData.fBuf, pData.fBufSize );
 	}
@@ -95,9 +97,9 @@ namespace Ph2_HwInterface
 	}
 
 
-	const Event* Data::GetNextEvent( BeBoard* pBoard )
+	const Event* Data::GetNextEvent( const BeBoard* pBoard )
 	{
-		if ( fCurrentEvent >= fNevents ) return NULL;
+		if ( fCurrentEvent >= fNevents ) return nullptr;
 		else
 		{
 #ifdef __CBCDAQ_DEV__

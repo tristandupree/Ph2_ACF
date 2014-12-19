@@ -55,16 +55,16 @@ struct Channel
 	* \brief get the SCurve midpoint affter fitting
 	* \return the midpoint of the SCurve; the so-called pedestal
 	*/
-	double getPedestal();
+	double getPedestal() const;
 	/*!
 	* \brief get the SCurve width affter fitting
 	* \return the width of the SCurve; the so-called noise
-	*/double getNoise();
+	*/double getNoise() const;
 	/*!
 	* \brief get the current channel offset
 	* \return the current channel offset
 	*/
-	uint8_t getOffset() {
+	uint8_t getOffset() const {
 		return fOffset;
 	};
 	/*!

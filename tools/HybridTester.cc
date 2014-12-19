@@ -15,7 +15,8 @@ struct HistogramFiller  : public HwDescriptionVisitor
 		for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
 			if ( cDataBitVector.at( cId ) ) {
 				uint32_t globalChannel = ( pCbc.getCbcId() * 254 ) + cId;
-				//              std::cout << "Channel " << globalChannel << " VCth " << ( int )pCbc.getReg( "VCth" ) << std::endl;
+				//              std::cout << "Channel " << globalChannel << " VCth " << int(pCbc.getReg( "VCth" )) << std::endl;
+				// find out why histograms are not filling!
 				if ( globalChannel % 2 == 0 )
 					fBotHist->Fill( globalChannel / 2 );
 				else
@@ -26,20 +27,6 @@ struct HistogramFiller  : public HwDescriptionVisitor
 	}
 };
 
-
-struct CbcHitCounter  : public HwDescriptionVisitor
-{
-	const Event* fEvent;
-	uint32_t fHitcounter = 0;
-
-	CbcHitCounter( const Event* pEvent ): fEvent( pEvent ) {}
-
-	void visit( Cbc& pCbc ) {
-		for ( uint32_t cId = 0; cId < NCHANNELS; cId++ ) {
-			if ( fEvent->DataBit( pCbc.getFeId(), pCbc.getCbcId(), cId ) ) fHitcounter++;
-		}
-	}
-};
 
 void HybridTester::InitializeHists()
 {
@@ -58,10 +45,46 @@ void HybridTester::InitializeHists()
 	fHistBottom = new TH1F( cBackName, "Back Pad Channels; Pad Number; Occupancy [%]", ( fNCbc / 2 * 254 ) + 1 , -0.5, ( fNCbc / 2 * 254 ) + .5 );
 	fHistBottom->SetFillColor( 4 );
 	fHistBottom->SetFillStyle( 3001 );
+
+	// Now the Histograms for SCurves
+	for ( auto cShelve : fShelveVector )
+	{
+		uint32_t cShelveId = cShelve->getShelveId();
+
+		for ( auto cBoard : cShelve->fBoardVector )
+		{
+			uint32_t cBoardId = cBoard->getBeId();
+
+			for ( auto cFe : cBoard->fModuleVector )
+			{
+				uint32_t cFeId = cFe->getFeId();
+
+				for ( auto cCbc : cFe->fCbcVector )
+				{
+
+					uint32_t cCbcId = cCbc->getCbcId();
+
+					TString cName = Form( "SCurve_Fe%d_Cbc%d", cFeId, cCbcId );
+					TObject* cObject = static_cast<TObject*>( gROOT->FindObject( cName ) );
+					if ( cObject ) delete cObject;
+					TH1F* cTmpScurve = new TH1F( cName, Form( "Noise Occupancy Cbc%d; VCth; Counts", cCbcId ), 255, 0, 255 );
+					cTmpScurve->SetMarkerStyle( 8 );
+					fSCurveMap[cCbc] = cTmpScurve;
+
+					cName = Form( "SCurveFit_Fe%d_Cbc%d", cFeId, cCbcId );
+					cObject = static_cast<TObject*>( gROOT->FindObject( cName ) );
+					if ( cObject ) delete cObject;
+					TF1* cTmpFit = new TF1( cName, MyErf, 0, 255, 2 );
+					fFitMap[cCbc] = cTmpFit;
+				}
+			}
+		}
+	}
 }
 
 void HybridTester::Initialize( bool pThresholdScan )
 {
+	fThresholdScan = pThresholdScan;
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
 	//  special Visito class to count objects
@@ -72,8 +95,11 @@ void HybridTester::Initialize( bool pThresholdScan )
 	fDataCanvas = new TCanvas( "fDataCanvas", "SingleStripEfficiency", 1200, 800 );
 	fDataCanvas->Divide( 2 );
 
-	if ( pThresholdScan ) fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
-
+	if ( fThresholdScan )
+	{
+		fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
+		fSCurveCanvas->Divide( fNCbc );
+	}
 	InitializeHists();
 
 
@@ -81,9 +107,9 @@ void HybridTester::Initialize( bool pThresholdScan )
 
 }
 
-void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector )
+void HybridTester::InitializeGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector )
 {
-
+	fThresholdScan = pThresholdScan;
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
 	//  special Visito class to count objects
@@ -96,11 +122,12 @@ void HybridTester::InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCa
 	fDataCanvas->SetTitle( "SingleStripEfficiency" );
 	fDataCanvas->Divide( 2 );
 
-	if ( pThresholdScan )
+	if ( fThresholdScan )
 	{
 		fSCurveCanvas = pCanvasVector.at( 2 ); // only if the user decides to do a thresholdscan
 		fSCurveCanvas->SetName( "fSCurveCanvas" );
 		fSCurveCanvas->SetTitle( "NoiseOccupancy" );
+		fSCurveCanvas->Divide( fNCbc );
 	}
 
 	InitializeHists();
@@ -119,16 +146,15 @@ void HybridTester::ScanThreshold()
 	uint32_t cEventsperVcth = 10;
 	bool cNonZero = false;
 	bool cAllOne = false;
+	bool cSlopeZero = false;
 	uint32_t cAllOneCounter = 0;
-	uint8_t cVcth, cDoubleVcth;
-	( cHoleMode ) ? cVcth = 0xFF : cVcth = 0x00;
+	uint32_t cSlopeZeroCounter = 0;
+	uint32_t cOldHitCounter = 0;
+	uint8_t  cDoubleVcth;
+	uint8_t cVcth = ( cHoleMode ) ?  0xFF :  0x00;
 	int cStep = ( cHoleMode ) ? -10 : 10;
 
-	// Root objects
-	fSCurve = new TH1F( "fSCurve", "Noise Occupancy; VCth; Counts", 255, 0, 255 );
-	fSCurve->SetMarkerStyle( 8 );
-	fSCurveCanvas->cd();
-	fFit = new TF1( "fFit", MyErf, 0, 255, 2 );
+
 
 	// Adaptive VCth loop
 	while ( 0x00 <= cVcth && cVcth <= 0xFF )
@@ -139,7 +165,6 @@ void HybridTester::ScanThreshold()
 			cVcth +=  cStep;
 			continue;
 		}
-
 		// Set current Vcth value on all Cbc's
 		CbcRegWriter cWriter( fCbcInterface, "VCth", cVcth );
 		accept( cWriter );
@@ -152,13 +177,13 @@ void HybridTester::ScanThreshold()
 		for ( auto& cShelve : fShelveVector )
 		{
 			if ( cAllOne ) break;
-			for ( BeBoard& pBoard : cShelve->fBoardVector )
+			for ( BeBoard* pBoard : cShelve->fBoardVector )
 			{
 				while ( cN <  cEventsperVcth )
 				{
-					Run( &pBoard, cNthAcq );
+					Run( pBoard, cNthAcq );
 
-					const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+					const Event* cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 
 					// Loop over Events from this Acquisition
 					while ( cEvent )
@@ -166,21 +191,20 @@ void HybridTester::ScanThreshold()
 						if ( cN == cEventsperVcth )
 							break;
 
-						CbcHitCounter cHitcounter( cEvent );
-						pBoard.accept( cHitcounter );
-						cHitCounter += cHitcounter.fHitcounter;
+						// loop over Modules & Cbcs and count hits separately
+						cHitCounter += fillSCurves( pBoard,  cEvent, cVcth );
 						cN++;
 
 						if ( cN < cEventsperVcth )
-							cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+							cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 						else break;
 					}
 					cNthAcq++;
-				} // done with this acquisition
+				}
 
-				fSCurve->SetBinContent( cVcth, cHitCounter );
-				fSCurve->Draw( "P" );
-				fSCurveCanvas->Update();
+				// Draw the thing after each point
+				updateSCurveCanvas( pBoard );
+
 				// check if the hitcounter is all ones
 
 				if ( cNonZero == false && cHitCounter != 0 )
@@ -191,99 +215,188 @@ void HybridTester::ScanThreshold()
 					cStep /= 10;
 					continue;
 				}
-				if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NCHANNELS ) cAllOneCounter++;
+				if ( cNonZero && cHitCounter != 0 )
+				{
+					// check if all Cbcs have reached full occupancy
+					if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NCHANNELS ) cAllOneCounter++;
+					// add a second check if the global SCurve slope is 0 for 10 consecutive Vcth values
+					// if ( fabs( cHitCounter - cOldHitCounter ) < 10 && cHitCounter != 0 ) cSlopeZeroCounter++;
+				}
 				if ( cAllOneCounter >= 10 ) cAllOne = true;
-				if ( cAllOne ) break;
+				// if ( cSlopeZeroCounter >= 10 ) cSlopeZero = true;
+
+				if ( cAllOne )
+				{
+					std::cout << "All strips firing -- ending the scan at VCth " << +cVcth << std::endl;
+					break;
+				}
+				// else if ( cSlopeZero )
+				// {
+				//   std::cout << "Slope of SCurve 0 -- ending the scan at VCth " << +cVcth << std::endl;
+				//  break;
+				// }
+
+				cOldHitCounter = cHitCounter;
 				cVcth += cStep;
 			}
 		}
-	} // end of VCth loop
-
-	// Fit & Plot
-	fSCurve->Scale( 1 / double_t( cEventsperVcth * fNCbc * NCHANNELS ) );
-	// fSCurveCanvas->cd();
-	fSCurve->Draw( "P" );
-
-	double cFirstNon0( 0 );
-	double cFirst1( 0 );
-
-	// Not Hole Mode
-	if ( !cHoleMode )
-	{
-		for ( Int_t cBin = 1; cBin <= fSCurve->GetNbinsX(); cBin++ )
-		{
-			double cContent = fSCurve->GetBinContent( cBin );
-			if ( !cFirstNon0 )
-			{
-				if ( cContent ) cFirstNon0 = fSCurve->GetBinCenter( cBin );
-			}
-			else if ( cContent == 1 )
-			{
-				cFirst1 = fSCurve->GetBinCenter( cBin );
-				break;
-			}
-		}
-	}
-	// Hole mode
-	else
-	{
-		for ( Int_t cBin = fSCurve->GetNbinsX(); cBin >= 1; cBin-- )
-		{
-			double cContent = fSCurve->GetBinContent( cBin );
-			if ( !cFirstNon0 )
-			{
-				if ( cContent ) cFirstNon0 = fSCurve->GetBinCenter( cBin );
-			}
-			else if ( cContent == 1 )
-			{
-				cFirst1 = fSCurve->GetBinCenter( cBin );
-				break;
-			}
-		}
 	}
 
-	// Get rough midpoint & width
-	double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
-	double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
-
-
-	fFit->SetParameter( 0, cMid );
-	fFit->SetParameter( 1, cWidth );
-
-	fSCurve->Fit( fFit, "RNQ+" );
-	fFit->Draw( "same" );
-
-	// Save
-	fSCurve->Write( fSCurve->GetName(), TObject::kOverwrite );
-	fFit->Write( fFit->GetName(), TObject::kOverwrite );
-	fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
-	std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
-	fSCurveCanvas->SaveAs( cPdfName.c_str() );
-
-	// Set new VCth
-	double_t pedestal = fFit->GetParameter( 0 );
-	double_t noise = fFit->GetParameter( 1 );
-
-	cSetting = fSettingsMap.find( "Threshold_NSigmas" );
-	int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
-
-	uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
-
-	std::cout << "Identified a noise Occupancy of 50% at VCth " << int( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (" << fabs( noise ) << ") to " << int( cThreshold ) << " for Hybrid test!" << std::endl;
-
-	TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
-	cLine->SetLineWidth( 3 );
-	cLine->SetLineColor( 2 );
-	cLine->Draw( "same" );
-	fSCurveCanvas->Update();
-
-	CbcRegWriter cWriter( fCbcInterface, "VCth", cThreshold );
-	accept( cWriter );
+	// Fit and save the SCurve & Fit - extract the right threshold
+	// TODO
+	processSCurves( cEventsperVcth );
 
 	// Wait for user to acknowledge and turn on external Source!
 	std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
 	mypause();
 }
+
+void HybridTester::processSCurves( uint32_t pEventsperVcth )
+{
+	auto cSetting = fSettingsMap.find( "Threshold_NSigmas" );
+	int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
+	bool cHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
+
+	for ( auto cScurve : fSCurveMap )
+	{
+		fSCurveCanvas->cd( cScurve.first->getCbcId() + 1 );
+
+		cScurve.second->Scale( 1 / double_t( pEventsperVcth * NCHANNELS ) );
+		cScurve.second->Draw( "P" );
+		// Write to file
+		cScurve.second->Write( cScurve.second->GetName(), TObject::kOverwrite );
+
+		// Estimate parameters for the Fit
+		double cFirstNon0( 0 );
+		double cFirst1( 0 );
+
+		// Not Hole Mode
+		if ( !cHoleMode )
+		{
+			for ( Int_t cBin = 1; cBin <= cScurve.second->GetNbinsX(); cBin++ )
+			{
+				double cContent = cScurve.second->GetBinContent( cBin );
+				if ( !cFirstNon0 )
+				{
+					if ( cContent ) cFirstNon0 = cScurve.second->GetBinCenter( cBin );
+				}
+				else if ( cContent == 1 )
+				{
+					cFirst1 = cScurve.second->GetBinCenter( cBin );
+					break;
+				}
+			}
+		}
+		// Hole mode
+		else
+		{
+			for ( Int_t cBin = cScurve.second->GetNbinsX(); cBin >= 1; cBin-- )
+			{
+				double cContent = cScurve.second->GetBinContent( cBin );
+				if ( !cFirstNon0 )
+				{
+					if ( cContent ) cFirstNon0 = cScurve.second->GetBinCenter( cBin );
+				}
+				else if ( cContent == 1 )
+				{
+					cFirst1 = cScurve.second->GetBinCenter( cBin );
+					break;
+				}
+			}
+		}
+
+		// Get rough midpoint & width
+		double cMid = ( cFirst1 + cFirstNon0 ) * 0.5;
+		double cWidth = ( cFirst1 - cFirstNon0 ) * 0.5;
+
+		// find the corresponding fit
+		auto cFit = fFitMap.find( cScurve.first );
+		if ( cFit == std::end( fFitMap ) ) std::cout << "Error: could not find Fit for Cbc " << int( cScurve.first->getCbcId() ) << std::endl;
+		else
+		{
+			// Fit
+			cFit->second->SetParameter( 0, cMid );
+			cFit->second->SetParameter( 1, cWidth );
+
+			cScurve.second->Fit( cFit->second, "RNQ+" );
+			cFit->second->Draw( "same" );
+
+			// Write to File
+			cFit->second->Write( cFit->second->GetName(), TObject::kOverwrite );
+
+			// TODO
+			// Set new VCth - for the moment each Cbc gets his own Vcth - I shold add a mechanism to take one that works for all!
+			double_t pedestal = cFit->second->GetParameter( 0 );
+			double_t noise = cFit->second->GetParameter( 1 );
+
+			uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
+
+			std::cout << "Identified a noise Occupancy of 50% at VCth " << static_cast<int>( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (=" << fabs( noise ) << ") to " << +cThreshold << " for Cbc " << int( cScurve.first->getCbcId() ) << std::endl;
+
+			TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
+			cLine->SetLineWidth( 3 );
+			cLine->SetLineColor( 2 );
+			cLine->Draw( "same" );
+
+			fCbcInterface->WriteCbcReg( cScurve.first, "VCth", cThreshold );
+		}
+
+	}
+	fSCurveCanvas->Update();
+
+	// Write and Save the Canvas as PDF
+	fSCurveCanvas->Write( fSCurveCanvas->GetName(), TObject::kOverwrite );
+	std::string cPdfName = fDirectoryName + "/NoiseOccupancy.pdf";
+	fSCurveCanvas->SaveAs( cPdfName.c_str() );
+}
+
+uint32_t HybridTester::fillSCurves( BeBoard* pBoard,  const Event* pEvent, uint8_t pValue )
+{
+	uint32_t cHitCounter = 0;
+	for ( auto cFe : pBoard->fModuleVector )
+	{
+		for ( auto cCbc : cFe->fCbcVector )
+		{
+			auto cScurve = fSCurveMap.find( cCbc );
+			if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << int( cCbc->getCbcId() ) << std::endl;
+			else
+			{
+				for ( uint32_t cId = 0; cId < NCHANNELS; cId++ )
+				{
+					if ( pEvent->DataBit( cCbc->getFeId(), cCbc->getCbcId(), cId ) )
+					{
+						cScurve->second->Fill( pValue );
+						cHitCounter++;
+					}
+				}
+			}
+		}
+	}
+	return cHitCounter;
+}
+
+void HybridTester::updateSCurveCanvas( BeBoard* pBoard )
+{
+
+	// Here iterate over the fScurveMap and update
+	// fSCurveCanvas->cd();
+	for ( auto cFe : pBoard->fModuleVector )
+	{
+		for ( auto cCbc : cFe->fCbcVector )
+		{
+			uint32_t cCbcId = cCbc->getCbcId();
+			auto cScurve = fSCurveMap.find( cCbc );
+			if ( cScurve == fSCurveMap.end() ) std::cout << "Error: could not find an Scurve object for Cbc " << int( cCbc->getCbcId() ) << std::endl;
+			else
+			{
+				fSCurveCanvas->cd( cCbcId + 1 );
+				cScurve->second->Draw( "P" );
+			}
+		}
+	}
+	fSCurveCanvas->Update();
+}
+
 
 
 void HybridTester::TestRegisters()
@@ -340,16 +453,16 @@ void HybridTester::Measure()
 
 	for ( auto& cShelve : fShelveVector )
 	{
-		for ( BeBoard& pBoard : cShelve->fBoardVector )
+		for ( BeBoard* pBoard : cShelve->fBoardVector )
 		{
 			uint32_t cN = 0;
 			uint32_t cNthAcq = 0;
 
 			while ( cN <  cTotalEvents )
 			{
-				Run( &pBoard, cNthAcq );
+				Run( pBoard, cNthAcq );
 
-				const Event* cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+				const Event* cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 				// Loop over Events from this Acquisition
 				while ( cEvent )
 				{
@@ -358,7 +471,7 @@ void HybridTester::Measure()
 						break;
 
 					HistogramFiller cFiller( fHistBottom, fHistTop, cEvent );
-					pBoard.accept( cFiller );
+					pBoard->accept( cFiller );
 
 					if ( cN % 100 == 0 )
 						UpdateHists();
@@ -366,11 +479,11 @@ void HybridTester::Measure()
 					cN++;
 
 					if ( cN < cTotalEvents )
-						cEvent = fBeBoardInterface->GetNextEvent( &pBoard );
+						cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 					else break;
 				}
 				cNthAcq++;
-			} // End of Analyze Events of last Acquistion loop
+			}
 		}
 	}
 	fHistTop->Scale( 100 / double_t( cTotalEvents ) );
@@ -394,7 +507,9 @@ void HybridTester::SaveResults()
 
 	std::string cPdfName = fDirectoryName + "/HybridTestResults.pdf";
 	fDataCanvas->SaveAs( cPdfName.c_str() );
-
+	if ( fThresholdScan )
+	{
+		cPdfName = fDirectoryName + "/ThresholdScanResults.pdf";
+		fSCurveCanvas->SaveAs( cPdfName.c_str() );
+	}
 }
-
-

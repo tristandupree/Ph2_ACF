@@ -14,55 +14,47 @@
 namespace Ph2_HwDescription
 {
 
-	Shelve::Shelve( uint8_t pShelveId )
+        Shelve::Shelve( uint8_t pShelveId ) : fShelveId( pShelveId )
 	{
-		fShelveId = pShelveId;
 	}
 
-	Shelve::Shelve()
+        Shelve::Shelve(): fShelveId( 0 )
 	{
-		fShelveId = 0;
 	}
-
-	void Shelve::addBoard( BeBoard& pBoard )
-	{
-		fBoardVector.push_back( pBoard );
-	}
-
 
 	bool Shelve::removeBoard( uint8_t pBeId )
 	{
-		std::vector < BeBoard > :: iterator i;
-		bool j = false;
+		std::vector < BeBoard* > :: iterator i;
+		bool found = false;
 		for ( i = fBoardVector.begin(); i != fBoardVector.end(); ++i )
 		{
-			if ( i->getBeId() == pBeId )
+		        if ( (*i)->getBeId() == pBeId )
 			{
-				fBoardVector.erase( i );
-				j = true;
-				i--;       //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator
+				found = true;
+                                break;  
 			}
 		}
-		if ( j == true )
+		if ( found ) {
+		        fBoardVector.erase( i );
 			return true;
+                }
 		else
 		{
-			std::cout << "Error:The Shelve :" << uint32_t( fShelveId ) << "doesn't have the Board " << uint32_t( pBeId ) << std::endl;
+		  std::cout << "Error:The Shelve :" << +fShelveId 
+			    << " doesn't have the Board " << +pBeId << std::endl;
 			return false;
 		}
 	}
 
 
-	BeBoard*   Shelve::getBoard( uint8_t pBeId )
+	BeBoard*   Shelve::getBoard( uint8_t pBeId ) const
 	{
-		std::vector < BeBoard > :: iterator i;
-		for ( i = fBoardVector.begin(); i != fBoardVector.end(); ++i )
+	        for ( BeBoard* b : fBoardVector )
 		{
-			if ( i->getBeId() == pBeId )
-				return &*i;
+	 	        if ( b->getBeId() == pBeId )
+				return b;
 		}
-		return NULL;
+		return nullptr;
 
 	}
-
 }

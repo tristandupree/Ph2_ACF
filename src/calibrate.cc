@@ -6,8 +6,11 @@
 #include "../HWInterface/BeBoardInterface.h"
 #include "../HWDescription/Definition.h"
 #include "../tools/Calibration.h"
+#include "../tools/FastCalibration.h"
 #include <TApplication.h>
 #include "../Utils/argvparser.h"
+#include "TROOT.h"
+
 
 
 using namespace Ph2_HwDescription;
@@ -22,7 +25,7 @@ int main( int argc, char* argv[] )
 	ArgvParser cmd;
 
 	// init
-	cmd.setIntroductoryDescription( "CMS Ph2_ACF  calibration routine using K. Uchida's algorithm "/*or a fast algoriithm*/ );
+	cmd.setIntroductoryDescription( "CMS Ph2_ACF  calibration routine using K. Uchida's algorithm or a fast algoriithm" );
 	// error codes
 	cmd.addErrorCode( 0, "Success" );
 	cmd.addErrorCode( 1, "Error" );
@@ -37,7 +40,17 @@ int main( int argc, char* argv[] )
 
 	cmd.defineOption( "skip", "skip scaning VCth vs Vplus", ArgvParser::NoOptionAttribute );
 
-	// cmd.defineOption( "fast", "Use fast calibration algorithm", ArgvParser::NoOptionAttribute );
+	cmd.defineOption( "old", "Use old calibration algorithm", ArgvParser::NoOptionAttribute );
+
+	cmd.defineOption( "bitmode", "Turn on bitwise offset tuning. Default: false", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "bitmode" , "bm" );
+
+	cmd.defineOption( "allChan", "Do calibration using all channels? Default: false", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "allChan", "a" );
+
+	cmd.defineOption( "batch", "Run the application in batch mode", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "batch", "b" );
+
 
 	int result = cmd.parse( argc, argv );
 	if ( result != ArgvParser::NoParserError )
@@ -51,29 +64,46 @@ int main( int argc, char* argv[] )
 	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results/";
 	cDirectory += "Calibration";
 	bool cVplus = ( cmd.foundOption( "skip" ) ) ? true : false;
-	// bool cFast = ( cmd.foundOption( "fast" ) ) ? true : false;
+	bool cOld = ( cmd.foundOption( "old" ) ) ? true : false;
+
+	bool cOffsetTuneMode = ( cmd.foundOption( "bitmode" ) ) ? true : false;
+	bool cCalibrateTGrp = ( cmd.foundOption( "allChan" ) ) ? true : false;
+	bool batchMode = ( cmd.foundOption( "batch" ) ) ? true : false;
 
 	TApplication cApp( "Root Application", &argc, argv );
-	TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
+	if ( batchMode ) gROOT->SetBatch( true );
+	else TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
-	// if ( cFast )
-	// {
-	//  FastCalibration cCalibration;
-	// }
-	// else
-	// {
-	Calibration cCalibration;
-	cCalibration.InitializeHw( cHWFile );
-	cCalibration.InitializeSettings( cHWFile );
-	cCalibration.CreateResultDirectory( cDirectory );
-	cCalibration.InitResultFile( "CalibrationResults" );
-	cCalibration.InitialiseTestGroup();
-	cCalibration.ConfigureHw();
-	if ( !cVplus ) cCalibration.VplusScan();
-	cCalibration.OffsetScan();
-	cCalibration.SaveResults();
-	// }
-	cApp.Run();
+	if ( !cOld )
+	{
+		FastCalibration cCalibration( cOffsetTuneMode, cCalibrateTGrp );
+		cCalibration.InitializeHw( cHWFile );
+		cCalibration.InitializeSettings( cHWFile );
+		cCalibration.CreateResultDirectory( cDirectory );
+		cCalibration.InitResultFile( "CalibrationResults" );
+		cCalibration.ConfigureHw();
+		cCalibration.Initialise(); // canvases etc. for fast calibration
+		if ( !cVplus ) cCalibration.ScanVplus();
+		cCalibration.ScanOffset();
+		cCalibration.Validate();
+		cCalibration.SaveResults();
+
+	}
+	else
+	{
+		Calibration cCalibration;
+		cCalibration.InitializeHw( cHWFile );
+		cCalibration.InitializeSettings( cHWFile );
+		cCalibration.CreateResultDirectory( cDirectory );
+		cCalibration.InitResultFile( "CalibrationResults" );
+		cCalibration.InitialiseTestGroup();
+		cCalibration.ConfigureHw();
+		if ( !cVplus ) cCalibration.VplusScan();
+		cCalibration.OffsetScan();
+		cCalibration.SaveResults();
+	}
+
+	if ( !batchMode ) cApp.Run();
 
 	return 0;
 }

@@ -15,58 +15,51 @@ namespace Ph2_HwDescription
 {
 
 	// Default C'tor
-	Module::Module() : FrontEndDescription()
+        Module::Module() : FrontEndDescription(), fModuleId( 0 )
 	{
-		fModuleId = 0;
 	}
 
-	Module::Module( FrontEndDescription& pFeDesc, uint8_t pModuleId ) : FrontEndDescription( pFeDesc )
+        Module::Module( const FrontEndDescription& pFeDesc, uint8_t pModuleId ) : FrontEndDescription( pFeDesc ), fModuleId( pModuleId )
 	{
-		fModuleId = pModuleId;
 	}
 
-	Module::Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId ) : FrontEndDescription( pShelveId, pBeId, pFMCId, pFeId )
+        Module::Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId ) : FrontEndDescription( pShelveId, pBeId, pFMCId, pFeId ), fModuleId( pModuleId )
 	{
-		fModuleId = pModuleId;
 	}
 
-	void Module::addCbc( Cbc& pCbc )
-	{
-		fCbcVector.push_back( pCbc );
-	}
 
 	bool Module::removeCbc( uint8_t pCbcId )
 	{
-		std::vector < Cbc > :: iterator i;
-		bool j = false;
+		std::vector < Cbc* > :: iterator i;
+		bool found = false;
 		for ( i = fCbcVector.begin(); i != fCbcVector.end(); ++i )
 		{
-			if ( i->getCbcId() == pCbcId )
+		        if ( (*i)->getCbcId() == pCbcId )
 			{
-				fCbcVector.erase( i );
-				j = true;
-				i--;       //erase reduces the container size by the number of elements removed, which are destroyed. To avoid that the iterator point an unallocated part of the memory, we need to decrease the iterator
+				found = true;
+                                break; 
 			}
 		}
-		if ( j == true )
+		if ( found ) {
+			fCbcVector.erase( i );
 			return true;
+                }
 		else
 		{
-			std::cout << "Error:The Module " << uint32_t( fModuleId ) << " doesn't have the cbc " << uint32_t( pCbcId ) << std::endl;
+		  std::cout << "Error:The Module " << +fModuleId << " doesn't have the cbc " << +pCbcId << std::endl;
 			return false;
 		}
 	}
 
-	Cbc*   Module::getCbc( uint8_t pCbcId )
+	Cbc* Module::getCbc( uint8_t pCbcId ) const
 	{
-		std::vector < Cbc > :: iterator i;
-		for ( i = fCbcVector.begin(); i != fCbcVector.end(); ++i )
+		
+	        for ( Cbc* c : fCbcVector )
 		{
-			if ( i->getCbcId() == pCbcId )
-				return &*i;
+		        if ( c->getCbcId() == pCbcId )
+				return c;
 		}
-		return NULL;
+		return nullptr;
 
 	}
-
 }

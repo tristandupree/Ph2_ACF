@@ -50,7 +50,7 @@ namespace Ph2_HwDescription
 		* \brief Get the Shelve ID
 		* \return The Shelve ID
 		*/
-		virtual uint8_t getShelveId() const {
+		uint8_t getShelveId() const {
 			return fShelveId;
 		}
 
@@ -58,7 +58,7 @@ namespace Ph2_HwDescription
 		* \brief Get the Be ID
 		* \return The Be ID
 		*/
-		virtual uint8_t getBeId() const {
+		uint8_t getBeId() const {
 			return fBeId ;
 		}
 
@@ -66,7 +66,7 @@ namespace Ph2_HwDescription
 		* \brief Get the FMC ID
 		* \return The FMC ID
 		*/
-		virtual uint8_t getFMCId() const {
+		uint8_t getFMCId() const {
 			return fFMCId;
 		}
 
@@ -74,16 +74,24 @@ namespace Ph2_HwDescription
 		* \brief Get the FE ID
 		* \return The FE ID
 		*/
-		virtual uint8_t getFeId() const {
-			return fFeId ;
+		uint8_t getFeId() const {
+			return fFeId;
+		}
+
+		/*!
+		* \brief Get the BeBoardIdentifier
+		* \return The BeBoardIdentifier
+		*/
+		uint16_t getBeBoardIdentifier() const {
+			return fBeId << 8 | fShelveId;
 		}
 
 		/*!
 		* \brief Get the Status
 		* \return The Status
 		*/
-		virtual bool getStatus() const {
-			return fStatus ;
+		bool getStatus() const {
+			return fStatus;
 		}
 
 		// Setter methods
@@ -92,35 +100,35 @@ namespace Ph2_HwDescription
 		* \brief Set the Shelve ID
 		* \param pShelveId
 		*/
-		virtual void setShelveId( uint8_t pShelveId ) {
+		void setShelveId( uint8_t pShelveId ) {
 			fShelveId = pShelveId;
 		}
 		/*!
 		* \brief Set the Be ID
 		* \param pBeId
 		*/
-		virtual void setBeId( uint8_t pBeId ) {
+		void setBeId( uint8_t pBeId ) {
 			fBeId = pBeId;
 		}
 		/*!
 		* \brief Set the FMC ID
 		* \param pFMCId
 		*/
-		virtual void setFMCId( uint8_t pFMCId ) {
+		void setFMCId( uint8_t pFMCId ) {
 			fFMCId = pFMCId;
 		}
 		/*!
 		* \brief Set the FE ID
 		* \param pFeId
 		*/
-		virtual void setFeId( uint8_t pFeId ) {
+		void setFeId( uint8_t pFeId ) {
 			fFeId = pFeId;
 		}
 		/*!
 		* \brief Set the status
 		* \param pStatus
 		*/
-		virtual void setStatus( bool pStatus ) {
+		void setStatus( bool pStatus ) {
 			fStatus = pStatus;
 		}
 

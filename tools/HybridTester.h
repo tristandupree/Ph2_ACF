@@ -58,7 +58,7 @@ class HybridTester : public SystemController
 	* \param pThresholdScan :  bool flag to initialize the additional canvas for the Threshold scan
 	* \param pCanvasVector: vector of TCanvas* to be passed by the GUI to draw on
 	*/
-	void InitializeGUI( bool pThresholdScan, std::vector<TCanvas*> pCanvasVector );
+	void InitializeGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector );
 	/*!
 	* \brief Test CBC registers by writing complimentary bit patterns (0x55, 0xAA)
 	*/
@@ -81,10 +81,11 @@ class HybridTester : public SystemController
 	TCanvas* fDataCanvas;   /*!<Canvas to output single-strip efficiency */
 	TH1F* fHistTop;   /*!< Histogram for top pads */
 	TH1F* fHistBottom;   /*!< Histogram for bottom pads */
-
+	bool fThresholdScan; /*!< Flag for SCurve Canvas */
 	TCanvas* fSCurveCanvas;   /*!< Canvas for threshold scan */
-	TH1F* fSCurve;   /*!< Histogram for SCurve */
-	TF1* fFit;   /*!< fit for SCurve*/
+
+	std::map<Cbc*, TH1F*> fSCurveMap;  /*!< Histograms for SCurve */
+	std::map<Cbc*, TF1*> fFitMap;   /*!< fits for SCurve*/
 
 	/*!
 	* \brief private method that calls the constructors for the histograms
@@ -100,6 +101,11 @@ class HybridTester : public SystemController
 		fHistBottom->Draw();
 		fDataCanvas->Update();
 	}
+
+	// To measure the occupancy per Cbc
+	uint32_t fillSCurves( BeBoard* pBoard,  const Event* pEvent, uint8_t pValue );
+	void updateSCurveCanvas( BeBoard* pBoard );
+	void processSCurves( uint32_t pEventsperVcth );
 
 };
 

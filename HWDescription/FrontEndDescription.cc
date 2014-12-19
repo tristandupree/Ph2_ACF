@@ -23,7 +23,7 @@ namespace Ph2_HwDescription
 		fFeId( pFeId ),
 		fStatus( pStatus )
 	{
-	};
+	}
 
 	FrontEndDescription::FrontEndDescription( uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId ) :
 		fShelveId( 0 ),
@@ -32,7 +32,7 @@ namespace Ph2_HwDescription
 		fFeId( pFeId ),
 		fStatus( true )
 	{
-	};
+	}
 
 	FrontEndDescription::FrontEndDescription( ) :
 		fShelveId( 0 ),
@@ -41,18 +41,18 @@ namespace Ph2_HwDescription
 		fFeId( 0 ),
 		fStatus( true )
 	{
-	};
+	}
 
-	FrontEndDescription::FrontEndDescription( const FrontEndDescription& pFeDesc )
+	FrontEndDescription::FrontEndDescription( const FrontEndDescription& pFeDesc ) :
+		fShelveId( pFeDesc.fShelveId ),
+		fBeId( pFeDesc.fBeId ),
+		fFMCId( pFeDesc.fFMCId ),
+		fFeId( pFeDesc.fFeId ),
+		fStatus( pFeDesc.fStatus )
 	{
-		fShelveId = pFeDesc.fShelveId;
-		fBeId = pFeDesc.fBeId;
-		fFMCId = pFeDesc.fFMCId;
-		fFeId = pFeDesc.fFeId;
-		fStatus = pFeDesc.fStatus;
 	}
 
 	FrontEndDescription::~FrontEndDescription()
 	{
-	};
+	}
 }
