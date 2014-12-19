@@ -43,6 +43,7 @@ Changelog:
     - updated address table for 2 & 8 CBC setups
     - new FW files for DIO5 FW for 2 & 8 CBC setups
     - a macro directory with a macro to visualize calibration results
+    - commissioning mode is now off by default 
 
 <br>
 
