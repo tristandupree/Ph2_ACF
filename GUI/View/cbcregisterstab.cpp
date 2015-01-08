@@ -14,6 +14,7 @@
 #include <QList>
 #include <QScrollArea>
 #include <QGroupBox>
+#include <QVBoxLayout>
 
 namespace GUI {
 
@@ -59,10 +60,10 @@ namespace GUI {
         test.fValue=6;
 
         std::map<std::string, CbcRegItem> testing = {{"Hey", test},{"Hey2222", test},{"Hey33", test},{"Hey4", test},{"Hey5", test},{"Hey666666666666666", test},{"Hey7", test},{"Hey88", test}};
+        qDebug() << "creating test";
 
-
-        //createCbcRegisterValue(0,testing);
-        //createCbcRegisterValue(1,testing);
+        createCbcRegisterValue(0,testing);
+        createCbcRegisterValue(1,testing);
 
     }
 
@@ -75,7 +76,9 @@ namespace GUI {
 
         for (auto& kv : mapReg)
         {
+
             QGridLayout *loCbcPage = m_loGridVec.at(cbc).at(kv.second.fPage); //access cbc->page
+
             QHBoxLayout *loHorz = new QHBoxLayout; //will contain label + text edit
 
             auto cAddress = kv.second.fAddress;
@@ -99,9 +102,6 @@ namespace GUI {
             loHorz->setAlignment(lblRegTitle, Qt::AlignLeft);
             loHorz->addWidget(lineRegValue);
             loHorz->setAlignment(lineRegValue, Qt::AlignLeft);
-
-            //QScrollArea *scrollArea = new QScrollArea;
-            //scrollArea->setLayout(loHorz);
 
             loCbcPage->addLayout(loHorz, row, column);
             loCbcPage->setAlignment(Qt::AlignLeft);
@@ -137,19 +137,27 @@ namespace GUI {
 
     QTabWidget *CbcRegistersTab::createCbcTab()
     {
-        QTabWidget *tabCbc = new QTabWidget;
+        QTabWidget *tabCbc = new QTabWidget(this);
 
         std::vector<QGridLayout*> loVec; //to add to master layout
 
         for(int i=0; i<2; i++) //number of pages
         {
-            QTabWidget *tabPage = new QTabWidget;
-
+            QWidget *client = new QWidget;
+            QScrollArea *scrollArea = new QScrollArea;
+            scrollArea->setWidgetResizable(true);
+            scrollArea->setWidget(client);
             QGridLayout *loGrid = new QGridLayout;
-            tabPage->setLayout(loGrid);
+            client->setLayout(loGrid);
+
+            QTabWidget *tabPage = new QTabWidget;
+            QWidget *pageWidget = new QWidget;
+            pageWidget->setLayout(new QVBoxLayout);
+            pageWidget->layout()->addWidget(scrollArea);
+
 
             QString title = QString("Page %1").arg(i);
-            tabCbc->addTab(tabPage, title);
+            tabCbc->addTab(pageWidget, title);
 
             loVec.push_back(loGrid);
         }

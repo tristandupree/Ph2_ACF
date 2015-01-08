@@ -121,6 +121,7 @@ namespace GUI {
         {
             auto flush = new TQtWidget(this);
             TString title =  cbcHistoPair.second->GetTitle();
+
             m_vecTWidget_Threshold.at(i)->Clear();
             m_vecTWidget_Threshold.at(i)->GetCanvas()->cd();
             cbcHistoPair.second->Draw(option.c_str());
