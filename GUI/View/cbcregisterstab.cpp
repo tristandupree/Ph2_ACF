@@ -59,12 +59,6 @@ namespace GUI {
         test.fPage=0;
         test.fValue=6;
 
-        std::map<std::string, CbcRegItem> testing = {{"Hey", test},{"Hey2222", test},{"Hey33", test},{"Hey4", test},{"Hey5", test},{"Hey666666666666666", test},{"Hey7", test},{"Hey88", test}};
-        qDebug() << "creating test";
-
-        createCbcRegisterValue(0,testing);
-        createCbcRegisterValue(1,testing);
-
     }
 
 
@@ -150,7 +144,6 @@ namespace GUI {
             QGridLayout *loGrid = new QGridLayout;
             client->setLayout(loGrid);
 
-            QTabWidget *tabPage = new QTabWidget;
             QWidget *pageWidget = new QWidget;
             pageWidget->setLayout(new QVBoxLayout);
             pageWidget->layout()->addWidget(scrollArea);
