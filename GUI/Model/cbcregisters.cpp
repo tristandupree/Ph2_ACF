@@ -31,7 +31,7 @@ namespace GUI
             {
                 for ( auto cFe : cBoard->fModuleVector )
                 {
-                    //fCbcInterface->ReadAllCbc(&cFe);
+                    fCbcInterface->ReadAllCbc(cFe);
 
                     for ( auto cCbc : cFe->fCbcVector )
                     {
