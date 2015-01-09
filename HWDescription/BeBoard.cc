@@ -44,7 +44,7 @@ namespace Ph2_HwDescription
 		BeBoardRegMap::const_iterator i = fRegMap.find( pReg );
 		if ( i == fRegMap.end() )
 		{
-			std::cout << "The Board object: " << +fBeId << " doesn't have " << pReg << std::endl;
+		        std::cout << "The Board object: " << +fBeId << " doesn't have " << pReg << std::endl;
 			return 0;
 		}
 		else return i->second;
@@ -65,7 +65,7 @@ namespace Ph2_HwDescription
                 std::vector<Module*>::iterator i; 
 		for ( i = fModuleVector.begin(); i != fModuleVector.end(); ++i )
 		{
-		  if ( (*i)->getModuleId() == pModuleId )
+		        if ( (*i)->getModuleId() == pModuleId )
 			{
 				found = true;
                                 break; 
@@ -77,20 +77,19 @@ namespace Ph2_HwDescription
                 }
 		else
 		{
-			std::cout << "Error:The BeBoard: " << +fBeId 
-                                  << " doesn't have the module " << +pModuleId << std::endl;
+		        std::cout << "Error:The BeBoard: " << +fBeId 
+			          << " doesn't have the module " << +pModuleId << std::endl;
 			return false;
 		}
 	}
 
 	Module* BeBoard::getModule( uint8_t pModuleId ) const
 	{
-		for ( std::vector < Module* >::const_iterator i = fModuleVector.begin(); i != fModuleVector.end(); ++i )
-		{
-		         if ( (*i)->getModuleId() == pModuleId )
-				return *i;
+	        for (Module* m : fModuleVector) {
+		         if ( m->getModuleId() == pModuleId )
+				return m;
 		}
-		return NULL;
+		return nullptr;
         }
 
 	// Private Members:

@@ -134,12 +134,12 @@ void Channel::fitHist( uint32_t pEventsperVcth, bool pHole, uint8_t pValue, TStr
 		// create a Directory in the file for the current Offset and save the channel Data
 		TString cDirName;
 		cDirName = pParameter + Form( "%d", pValue );
-		TObject* cObj = gROOT->FindObject( cDirName );
-		if ( !cObj ) pResultfile->mkdir( cDirName );
+		TDirectory* cDir = dynamic_cast< TDirectory* >( gROOT->FindObject( cDirName ) );
+		if ( !cDir ) cDir = pResultfile->mkdir( cDirName );
 		pResultfile->cd( cDirName );
 
-		fScurve->Write( fScurve->GetName(), TObject::kOverwrite );
-		// fFit->Write(fFit->GetName(), TObject::kOverwrite);
+		fScurve->SetDirectory( cDir );
+		fFit->Write(fFit->GetName(), TObject::kOverwrite);
 		// pResultfile->Flush();
 
 		pResultfile->cd();

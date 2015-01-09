@@ -63,8 +63,8 @@ namespace Ph2_HwDescription
 		* \brief Destructor
 		*/
 		~BeBoard() {
-		         fModuleVector.clear();
-                }
+			fModuleVector.clear();
+		}
 
 		// Public Methods
 
@@ -109,10 +109,10 @@ namespace Ph2_HwDescription
 		 * \param pModule
 		 */
 		void addModule( Module& pModule ) {
-		       fModuleVector.push_back( &pModule );
+			fModuleVector.push_back( &pModule );
 		}
 		void addModule( Module* pModule ) {
-		       fModuleVector.push_back( pModule );
+			fModuleVector.push_back( pModule );
 		}
 
 		/*!
@@ -148,6 +148,13 @@ namespace Ph2_HwDescription
 		*/
 		uint8_t getShelveId() const {
 			return fShelveId;
+		}
+		/*!
+		* \brief Get the BeBoardIdentifier
+		* \return The BeBoardIdentifier
+		*/
+		uint16_t getBeBoardIdentifier() const {
+			return fBeId << 8 | fShelveId;
 		}
 		/*!
 		* \brief Set the Be Id of the BeBoard

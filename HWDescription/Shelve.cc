@@ -14,14 +14,12 @@
 namespace Ph2_HwDescription
 {
 
-	Shelve::Shelve( uint8_t pShelveId )
+        Shelve::Shelve( uint8_t pShelveId ) : fShelveId( pShelveId )
 	{
-		fShelveId = pShelveId;
 	}
 
-	Shelve::Shelve()
+        Shelve::Shelve(): fShelveId( 0 )
 	{
-		fShelveId = 0;
 	}
 
 	bool Shelve::removeBoard( uint8_t pBeId )
@@ -42,8 +40,8 @@ namespace Ph2_HwDescription
                 }
 		else
 		{
-			std::cout << "Error:The Shelve :" << +fShelveId 
-                                  << " doesn't have the Board " << +pBeId << std::endl;
+		  std::cout << "Error:The Shelve :" << +fShelveId 
+			    << " doesn't have the Board " << +pBeId << std::endl;
 			return false;
 		}
 	}
@@ -51,12 +49,12 @@ namespace Ph2_HwDescription
 
 	BeBoard*   Shelve::getBoard( uint8_t pBeId ) const
 	{
-		for ( std::vector < BeBoard* > :: const_iterator i = fBoardVector.begin(); i != fBoardVector.end(); ++i )
+	        for ( BeBoard* b : fBoardVector )
 		{
-	 	        if ( (*i)->getBeId() == pBeId )
-				return *i;
+	 	        if ( b->getBeId() == pBeId )
+				return b;
 		}
-		return NULL;
+		return nullptr;
 
 	}
 }

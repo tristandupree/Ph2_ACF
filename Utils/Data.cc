@@ -17,16 +17,16 @@ namespace Ph2_HwInterface
 	//Data Class
 
 	// copy constructor
-	Data::Data( const Data& pD )
-	{
-		fBuf = 0;
+        Data::Data( const Data& pD ) :
+	        fBuf( nullptr ),
 		// Initialise( pD.fNevents );
-		fBufSize = pD.fBufSize;
-		fNevents = pD.fNevents;
-		fCurrentEvent = pD.fCurrentEvent;
-		fNCbc = pD.fNCbc;
-		fEvent = pD.fEvent;
-		fEventSize = pD.fEventSize;
+		fBufSize( pD.fBufSize ),
+		fNevents( pD.fNevents ),
+		fCurrentEvent(pD.fCurrentEvent ),
+		fNCbc( pD.fNCbc ),
+		fEvent(  pD.fEvent ),
+		fEventSize( pD.fEventSize )
+	{
 	}
 
 
@@ -43,8 +43,10 @@ namespace Ph2_HwInterface
 		std::cout << "Initializing buffer with " << pData->size() << " 32 bit words and " << fBufSize << " chars containing data from " << fNevents << "  Events with an eventbuffer size of " << fEventSize << " and " << fNCbc << " CBCs each! " << EVENT_HEADER_TDC_SIZE_CHAR << " " << CBC_EVENT_SIZE_CHAR << std::endl;
 #endif
 
-		if ( fBuf ) free( fBuf );
-		fBuf = ( char* )malloc( pData->size() * 4 );
+		//if ( fBuf ) free( fBuf );
+		//fBuf = ( char* )malloc( pData->size() * 4 );
+		if ( fBuf ) delete fBuf;
+		fBuf = new char[ pData->size() * 4 ];
 
 		Reset();
 
@@ -97,7 +99,7 @@ namespace Ph2_HwInterface
 
 	const Event* Data::GetNextEvent( const BeBoard* pBoard )
 	{
-		if ( fCurrentEvent >= fNevents ) return NULL;
+		if ( fCurrentEvent >= fNevents ) return nullptr;
 		else
 		{
 #ifdef __CBCDAQ_DEV__

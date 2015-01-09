@@ -23,7 +23,7 @@ using namespace Ph2_HwDescription;
 namespace Ph2_HwInterface
 {
 
-	typedef std::map<int8_t, BeBoardFWInterface*> BeBoardFWMap;    /*!< Map of Board connected */
+	typedef std::map<uint16_t, BeBoardFWInterface*> BeBoardFWMap;    /*!< Map of Board connected */
 
 	/*!
 	 * \class BeBoardInterface
@@ -35,14 +35,14 @@ namespace Ph2_HwInterface
 	  private:
 		BeBoardFWMap fBoardMap;                     /*!< Map of Board connected */
 		BeBoardFWInterface* fBoardFW;                     /*!< Board loaded */
-		uint8_t prevBoardId;                     /*!< Id of the previous board */
+		uint16_t prevBoardIdentifier;                     /*!< Id of the previous board */
 
 	  private:
 		/*!
 		 * \brief Set the board to talk with
 		 * \param pBoardId
 		 */
-		void setBoard( uint8_t pBoardId );
+		void setBoard( uint16_t pBoardIdentifier );
 
 	  public:
 		/*!
@@ -63,12 +63,23 @@ namespace Ph2_HwInterface
 		 */
 		void WriteBoardReg( BeBoard* pBoard, const std::string& pRegNode, const uint32_t& pVal );
 		/*!
-		 * \brief Update Config File with the value in the Board register
+		 * \brief Write: Update both Board register and Config File
 		 * \param pBoard
-		 * \param pRegNode : Node of the register to update
+		 * \param pRegVec : Vector of Register/Value pairs
 		 */
+		void WriteBoardMultReg( BeBoard* pBoard, const std::vector < std::pair< std::string , uint32_t > >& pRegVec );
+		/*!
+		* \brief Update Config File with the value in the Board register
+		* \param pBoard
+		* \param pRegNode : Node of the register to update
+		*/
 		void ReadBoardReg( BeBoard* pBoard, const std::string& pRegNode );
-
+		/*!
+		 * \brief Read a vector of Registers
+		 * \param pBoard
+		 * \param pRegVec : Vector of Register/Value pairs
+		 */
+		void ReadBoardMultReg( BeBoard* pBoard, std::vector < std::pair< std::string , uint32_t > >& pRegVec );
 		/*!
 		 * \brief Get the board infos
 		 * \param pBoard

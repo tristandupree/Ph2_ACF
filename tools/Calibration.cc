@@ -370,7 +370,7 @@ void Calibration::FitVplusVcth( BeBoard* pBoard, uint8_t pTargetVcth,  bool pDoD
 			{
 				TString canvasname = Form( "BE%d_FE%d_CBC%d", pBoard->getBeId(), cFe->getFeId(), cCbc->getCbcId() );
 				currentCanvas = dynamic_cast<TCanvas*>( gROOT->FindObject( canvasname ));
-				if ( currentCanvas == NULL )
+				if ( currentCanvas == nullptr )
 				{
 					pDoDraw = false;
 					std::cout << "No Canvas Found to display Result!" << std::endl;
@@ -392,7 +392,7 @@ void Calibration::FitVplusVcth( BeBoard* pBoard, uint8_t pTargetVcth,  bool pDoD
 					cGroup->second.fVplusVcthGraph->SetMarkerColor( cGroupId + 1 );
 					cVplusVcthMultiGraph->Add( cGroup->second.fVplusVcthGraph );
 				}
-				else std::cout << BOLDRED << "This test group (BE" << +pBoard->getBeId() << " FE" << +cFe->getFeId() << " CBC" << +cCbc->getCbcId() << " Group" << +cGroupId << ") was not found!" << RESET << std::endl;
+				else std::cout << BOLDRED << "This test group (BE" << int(pBoard->getBeId()) << " FE" << int(cFe->getFeId()) << " CBC" << int(cCbc->getCbcId()) << " Group" << +cGroupId << ") was not found!" << RESET << std::endl;
 			}
 
 			// All Points in the Multigraph; Fit it per Cbc, draw it Per Cbc
@@ -419,7 +419,7 @@ void Calibration::FitVplusVcth( BeBoard* pBoard, uint8_t pTargetVcth,  bool pDoD
 			// manually set the register on the CBC because some people complained that it would not work correctly
 			cCbc->setReg( "Vplus", cVplusResult );
 
-			std::cout << "Vplus Setting for Be " << +pBoard->getBeId() << " Fe " << +cFe->getFeId() << " Cbc " << +cCbc->getCbcId() << " : " << +cVplusResult << std::endl;
+			std::cout << "Vplus Setting for Be " << int(pBoard->getBeId()) << " Fe " << int(cFe->getFeId()) << " Cbc " << int(cCbc->getCbcId()) << " : " << +cVplusResult << std::endl;
 			CbcRegReader myReader( fCbcInterface, "Vplus" );
 			accept( myReader );
 			cVplusVcthMultiGraph->Write( cVplusVcthMultiGraph->GetName(), TObject::kOverwrite );
@@ -436,7 +436,7 @@ void Calibration::setGlobalReg( BeBoard* pBoard, const std::string& pRegName, ui
 		for ( Cbc* cCbc : cFe->fCbcVector )
 			fCbcInterface->WriteCbcReg( cCbc, pRegName, pRegValue );
 	}
-	if ( pRegName != "VCth" ) std::cout << "Setting " << RED << pRegName << RESET << " to Value " << GREEN << +pRegValue << RESET << " on all CBCs connected to Be " << YELLOW << +pBoard->getBeId() << RESET << std::endl;
+	if ( pRegName != "VCth" ) std::cout << "Setting " << RED << pRegName << RESET << " to Value " << GREEN << +pRegValue << RESET << " on all CBCs connected to Be " << YELLOW << int(pBoard->getBeId()) << RESET << std::endl;
 }
 
 void Calibration::initializeSCurves( BeBoard* pBoard, uint8_t pGroupId, uint8_t pValue, TString pParameter )
@@ -450,7 +450,7 @@ void Calibration::initializeSCurves( BeBoard* pBoard, uint8_t pGroupId, uint8_t 
 			for ( Channel& cChannel : cGroupIt.second ) cChannel.initializeHist( pValue, pParameter );
 		}
 	}
-	// std::cout << "Initialized SCurves for " << pParameter << " = " << pValue << " and Test group " << GREEN <<  +pGroupId << RESET << " on all Cbc's connected to Be " << RED <<  +pBoard->getBeId() << RESET << std::endl;
+	// std::cout << "Initialized SCurves for " << pParameter << " = " << +pValue << " and Test group " << GREEN <<  +pGroupId << RESET << " on all Cbc's connected to Be " << RED <<  int(pBoard->getBeId()) << RESET << std::endl;
 }
 
 void Calibration::measureSCurves( BeBoard* pBoard, uint8_t pGroupId, uint32_t pEventsperVcth, uint32_t pTotalChannels, bool pHoleMode )
@@ -599,7 +599,7 @@ void Calibration::processSCurves( BeBoard* pBoard, uint8_t pGroupId, uint32_t pE
 				{
 
 					cGraphIt->second.FillVplusVcthGraph( pValue, cChannel.getPedestal(), cChannel.getNoise() );
-					if ( cChannel.getPedestal() == 0 ) std::cout << RED << "ERROR " << RESET << "The fit for Channel " << +cChannel.fChannelId << " CBC " << +cChannel.fCbcId << " FE " << +cChannel.fFeId << " did not work correctly!" << std::endl;
+					if ( cChannel.getPedestal() == 0 ) std::cout << RED << "ERROR " << RESET << "The fit for Channel " << int(cChannel.fChannelId) << " CBC " << int(cChannel.fCbcId) << " FE " << int(cChannel.fFeId) << " did not work correctly!" << std::endl;
 				}
 				else std::cout << "The Graph for this test Group could not be found! There is a problem!" << std::endl;
 			}
@@ -608,7 +608,7 @@ void Calibration::processSCurves( BeBoard* pBoard, uint8_t pGroupId, uint32_t pE
 			currentCanvas->Update();
 		}
 	}
-	// std::cout << "Processed SCurves for Test group " << GREEN <<  +pGroupId << RESET << " on all Cbc's connected to Be " << RED <<  +pBoard->getBeId() << RESET << std::endl;
+	// std::cout << "Processed SCurves for Test group " << GREEN <<  +pGroupId << RESET << " on all Cbc's connected to Be " << RED << int(pBoard->getBeId()) << RESET << std::endl;
 }
 
 uint32_t Calibration::fillScurveHists( BeBoard* pBoard, uint8_t pGroupId, uint8_t pVcth, const Event* pEvent )
@@ -672,8 +672,8 @@ uint32_t Calibration::ToggleTestGroup( BeBoard* pBoard, uint8_t pGroupId, bool p
 			fCbcInterface->WriteCbcMultReg( pBoard->getModule( cGroupIt.first.fFeId )->getCbc( cGroupIt.first.fCbcId ), cRegVec, READBACK );
 		}
 	}
-	if ( pEnable ) std::cout << GREEN << "Enabled Test group " << YELLOW << +pGroupId << GREEN << " on all Cbc's connected to Be " << YELLOW <<  +pBoard->getBeId() << RESET << std::endl;
-	else std::cout << RED << "Disabled Test group " << YELLOW << +pGroupId << RED << " on all Cbc's connected to Be " << YELLOW << +pBoard->getBeId() << RESET << std::endl;
+	if ( pEnable ) std::cout << GREEN << "Enabled Test group " << YELLOW << +pGroupId << GREEN << " on all Cbc's connected to Be " << YELLOW <<  int(pBoard->getBeId()) << RESET << std::endl;
+	else std::cout << RED << "Disabled Test group " << YELLOW << +pGroupId << RED << " on all Cbc's connected to Be " << YELLOW << int(pBoard->getBeId()) << RESET << std::endl;
 	return cTotalNChannels;
 }
 

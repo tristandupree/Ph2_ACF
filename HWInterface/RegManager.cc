@@ -41,7 +41,7 @@ namespace Ph2_HwInterface
 	RegManager::~RegManager()
 	{
 		fDeactiveThread = true;
-		delete fBoard;
+		if ( fBoard ) delete fBoard;
 	}
 
 
@@ -79,8 +79,11 @@ namespace Ph2_HwInterface
 	{
 
 		fBoardMutex.lock();
-		for ( std::vector< std::pair<std::string, uint32_t> >::const_iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++ )
-			fBoard->getNode( cIt->first ).write( cIt->second );
+		for ( auto const& v : pVecReg )
+		{
+			fBoard->getNode( v.first ).write( v.second );
+			// std::cout << v.first << "  :  " << v.second << std::endl;
+		}
 		fBoard->dispatch();
 		fBoardMutex.unlock();
 
@@ -89,17 +92,17 @@ namespace Ph2_HwInterface
 			int cNbErrors = 0;
 			uint32_t comp;
 
-			for ( std::vector< std::pair<std::string, uint32_t> >::const_iterator cIt = pVecReg.begin(); cIt != pVecReg.end(); cIt++ )
+			for ( auto const& v : pVecReg )
 			{
 				fBoardMutex.lock();
-				uhal::ValWord<uint32_t> reply = fBoard->getNode( cIt->first ).read();
+				uhal::ValWord<uint32_t> reply = fBoard->getNode( v.first ).read();
 				fBoard->dispatch();
 				fBoardMutex.unlock();
 
-				comp = ( uint32_t ) reply;
+				comp = static_cast<uint32_t>( reply );
 
-				if ( comp == ( cIt->second ) )
-					std::cout << "Values written correctly !" << comp << "=" << cIt->second << std::endl;
+				if ( comp ==  v.second )
+					std::cout << "Values written correctly !" << comp << "=" << v.second << std::endl;
 			}
 
 			if ( cNbErrors == 0 )
@@ -137,7 +140,7 @@ namespace Ph2_HwInterface
 			//Use size_t and not an iterator as op[] only works with size_t type
 			for ( std::size_t i = 0; i != cBlockRead.size(); i++ )
 			{
-				if ( cBlockRead[i] != pValues[i] )
+				if ( cBlockRead[i] != pValues.at( i ) )
 				{
 					cWriteCorr = false;
 					cErrCount++;
@@ -182,7 +185,7 @@ namespace Ph2_HwInterface
 			//Use size_t and not an iterator as op[] only works with size_t type
 			for ( std::size_t i = 0; i != cBlockRead.size(); i++ )
 			{
-				uint32_t read = ( uint32_t ) cBlockRead[i];
+				uint32_t read = static_cast<uint32_t>( cBlockRead[i] );
 				std::cout << " " << read << " " << std::endl;
 			}
 		}

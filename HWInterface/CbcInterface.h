@@ -24,7 +24,7 @@ using namespace Ph2_HwDescription;
 namespace Ph2_HwInterface
 {
 
-	typedef std::map<int8_t, BeBoardFWInterface*> BeBoardFWMap;    /*!< Map of Board connected */
+	typedef std::map<uint16_t, BeBoardFWInterface*> BeBoardFWMap;    /*!< Map of Board connected */
 
 	/*!
 	 * \class CbcInterface
@@ -36,14 +36,14 @@ namespace Ph2_HwInterface
 	  private:
 		BeBoardFWMap fBoardMap;                     /*!< Map of Board connected */
 		BeBoardFWInterface* fBoardFW;                     /*!< Board loaded */
-		uint8_t prevBoardId;                     /*!< Id of the previous board */
+		uint16_t prevBoardIdentifier;                     /*!< Id of the previous board */
 
 	  private:
 		/*!
 		 * \brief Set the board to talk with
 		 * \param pBoardId
 		 */
-		void setBoard( uint8_t pBoardId );
+		void setBoard( uint16_t pBoardIdentifier );
 
 	  public:
 		/*!
@@ -105,7 +105,7 @@ namespace Ph2_HwInterface
 		 * \brief Read all register in all Cbcs and then UpdateCbc
 		 * \param pModule : Module containing vector of Cbcs
 		 */
-		void ReadAllCbc( Module* pModule );
+		void ReadAllCbc( const Module* pModule );
 		/*!
 		 * \brief Hard reset of the Cbc
 		 * \param pCbc

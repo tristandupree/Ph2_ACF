@@ -57,6 +57,9 @@
 #define FMC1_PRESENT        "status.fmc1_present"
 #define FMC2_PRESENT        "status.fmc2_present"
 
+// User FW infos
+
+
 //FMC infos
 #define FMC_USER_BOARD_ID "user_wb_ttc_fmc_regs.user_board_id"
 #define FMC_USER_SYS_ID   "user_wb_ttc_fmc_regs.user_sys_id"
@@ -206,6 +209,41 @@
 //Trigger Select
 #define TRIGGER_SELECT   "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL"
 
+// Threshold for DIO5
+#define TRIGGER_THRESHOLD "user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_trig_in"
+
+// Trigger Edge
+#define TRIGGER_EDGE "user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_in_edge"
+
+//input termination
+#define TRIGGER_IN_TERMINATE "user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_in_50ohms"
+
+// Output termination
+#define TRIGGER_OUT_TERMINATE "user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_out_50ohms"
+
+// Lemo 2 signal
+#define LEMO2_SIGNAL "user_wb_ttc_fmc_regs.dio5.fmcdio5_lemo2_sig_sel"
+
+//------------------------------------------------------------------------------
+//Clock
+
+// Clock select
+#define CLK_SELECT  "user_wb_ttc_fmc_regs.dio5.clk_mux_sel"
+
+// Clock threshold
+#define CLK_THRESHOLD "user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_clk_in"
+
+// Input termination
+#define CLK_IN_TERMINATE "user_wb_ttc_fmc_regs.dio5.fmcdio5_clk_in_50ohms"
+
+// Output termination
+#define CLK_OUT_TERMINATE "user_wb_ttc_fmc_regs.dio5.fmcdio5_clk_out_50ohms"
+
+//------------------------------------------------------------------------------
+//Backpressure
+
+#define BACKPRESSURE_POLARITY "user_wb_ttc_fmc_regs.dio5.fmcdio5_backpressure_out_polar"
+
 //------------------------------------------------------------------------------
 //Others
 
@@ -238,7 +276,7 @@
 #define NEG_LOGIC_STTS  "user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS"
 
 //Polarity
-#define POLARITY        "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"
+#define POLARITY_TLU       "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu"
 
 //Time out for stack writing
 #define TIME_OUT         5

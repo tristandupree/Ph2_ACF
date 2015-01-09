@@ -15,19 +15,16 @@ namespace Ph2_HwDescription
 {
 
 	// Default C'tor
-	Module::Module() : FrontEndDescription()
+        Module::Module() : FrontEndDescription(), fModuleId( 0 )
 	{
-		fModuleId = 0;
 	}
 
-	Module::Module( const FrontEndDescription& pFeDesc, uint8_t pModuleId ) : FrontEndDescription( pFeDesc )
+        Module::Module( const FrontEndDescription& pFeDesc, uint8_t pModuleId ) : FrontEndDescription( pFeDesc ), fModuleId( pModuleId )
 	{
-		fModuleId = pModuleId;
 	}
 
-	Module::Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId ) : FrontEndDescription( pShelveId, pBeId, pFMCId, pFeId )
+        Module::Module( uint8_t pShelveId, uint8_t pBeId, uint8_t pFMCId, uint8_t pFeId, uint8_t pModuleId ) : FrontEndDescription( pShelveId, pBeId, pFMCId, pFeId ), fModuleId( pModuleId )
 	{
-		fModuleId = pModuleId;
 	}
 
 
@@ -49,7 +46,7 @@ namespace Ph2_HwDescription
                 }
 		else
 		{
-			std::cout << "Error:The Module " << +fModuleId << " doesn't have the cbc " << +pCbcId << std::endl;
+		  std::cout << "Error:The Module " << +fModuleId << " doesn't have the cbc " << +pCbcId << std::endl;
 			return false;
 		}
 	}
@@ -57,12 +54,12 @@ namespace Ph2_HwDescription
 	Cbc* Module::getCbc( uint8_t pCbcId ) const
 	{
 		
-		for ( std::vector < Cbc* >::const_iterator i = fCbcVector.begin(); i != fCbcVector.end(); ++i )
+	        for ( Cbc* c : fCbcVector )
 		{
-		        if ( (*i)->getCbcId() == pCbcId )
-				return *i;
+		        if ( c->getCbcId() == pCbcId )
+				return c;
 		}
-		return NULL;
+		return nullptr;
 
 	}
 }
