@@ -123,7 +123,7 @@ namespace GUI {
                 {
                     //cbc.value(regNames).value(widget)->setMaximumWidth(cLineSize + 50);
                     widget->setMinimumWidth(cLineSize + 50);
-                    qDebug() << widget;
+                    //qDebug() << widget;
                 }
             }
         }

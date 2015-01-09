@@ -1,5 +1,7 @@
 #include "datatesttab.h"
 
+#include <sstream>
+
 #include "lib/CustomTQtWidget.h"
 #include "ui_datatesttab.h"
 #include "lib/TQtWidget.h"
@@ -8,6 +10,7 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QTabWidget>
+
 #include "TCanvas.h"
 #include "TH2F.h"
 #include "TStyle.h"
@@ -116,31 +119,39 @@ namespace GUI {
     {
         m_mapSCurve = graph;
         auto cSigmas = 4; //TODO get GUI to send Sigmas here e.g getSigmas()
-        int i = 0;
         for(const auto& cbcHistoPair : m_mapSCurve)
         {
-            auto flush = new TQtWidget(this);
-            TString title =  cbcHistoPair.second->GetTitle();
 
-            m_vecTWidget_Threshold.at(i)->Clear();
-            m_vecTWidget_Threshold.at(i)->GetCanvas()->cd();
-            cbcHistoPair.second->Draw(option.c_str());
-            m_vecTWidget_Threshold.at(i)->Refresh();
-            i++;
-            qDebug() << "Fit S Curve" << i;
+            for(int j = 0; j < graph.size(); j++)
+            {
+                std::string sCbc = "Cbc";
+                std::string title = cbcHistoPair.second->GetTitle();
+                std::stringstream search;
+
+                search << sCbc << j;
+
+                if(title.find(search.str()) != std::string::npos) //parses title to match vector
+                {
+                    auto flush = new TQtWidget(this); //no idea why but gets around draw bug
+                    m_vecTWidget_Threshold.at(j)->Clear();
+                    m_vecTWidget_Threshold.at(j)->GetCanvas()->cd();
+                    cbcHistoPair.second->Draw(option.c_str());
+                    m_vecTWidget_Threshold.at(j)->Refresh();
+                    break;
+
+                }
+                search.flush();
+            }
         }
-        qDebug() << "End fitting";
-
     }
 
     void DataTestTab::receiveSCurve(const std::map<std::shared_ptr<Cbc>, std::shared_ptr<TF1> > graph, std::string option)
     {
-        m_mapFit = graph;
+        m_mapFit = graph; //copies locally for when thread is deleted
         auto cSigmas = 4;
         int i = 0;
         for(const auto& cbcHistoPair : m_mapFit)
         {
-            qDebug() << "FIT " << i;
             m_vecTWidget_Threshold.at(i)->GetCanvas()->cd();
             double_t pedestal = cbcHistoPair.second->GetParameter( 0 );
             double_t noise = cbcHistoPair.second->GetParameter( 1 );
