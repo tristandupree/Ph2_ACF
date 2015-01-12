@@ -40,12 +40,7 @@ namespace GUI {
         if(cbc2) cNCbc = 2;
         else cNCbc = 8;
 
-        if(m_tabCbc->count() > 0)
-        {
-            m_tabCbc->clear();
-            m_loGridVec.clear();
-            m_widgetMap.clear();
-        }
+        clearTabs();
 
         for (int i=0; i<cNCbc; i++)
         {
@@ -59,6 +54,12 @@ namespace GUI {
         test.fPage=0;
         test.fValue=6;
 
+        std::map<std::string, CbcRegItem> testing = {{"Hey", test},{"Hey2222", test},{"Hey33", test},{"Hey4", test},{"Hey5", test},{"Hey666666666666666", test},{"Hey7", test},{"Hey88", test}};
+        qDebug() << "creating test";
+
+        //createCbcRegisterValue(0,testing);
+        //createCbcRegisterValue(1,testing);
+
     }
 
 
@@ -68,6 +69,8 @@ namespace GUI {
         int column = 0;
         int cLineSize = 0;
 
+        m_widgetMap.clear();
+
         for (auto& kv : mapReg)
         {
 
@@ -76,16 +79,17 @@ namespace GUI {
             QHBoxLayout *loHorz = new QHBoxLayout; //will contain label + text edit
 
             auto cAddress = kv.second.fAddress;
+
             QString cHexAddress;
-
-            QString cRegTitle_Address = QString("%1 [0x%2]").arg(QString::fromStdString(kv.first), cHexAddress.setNum(cAddress, 16));
-
             QLabel *lblRegTitle = new QLabel(this);
-            lblRegTitle->setText(cRegTitle_Address);
+            QLabel *lblRegAddress = new QLabel(this);
+
+            lblRegTitle->setText(QString::fromStdString(kv.first));
+            lblRegAddress->setText(QString("[0x%1]").arg(cHexAddress.setNum(cAddress,16)));
 
             if (cLineSize < lblRegTitle->width())
             {
-                cLineSize = lblRegTitle->width();
+                cLineSize = lblRegTitle->width(); //find min width needed
             }
 
             QLineEdit *lineRegValue = new QLineEdit(this);
@@ -93,6 +97,7 @@ namespace GUI {
             lineRegValue->setMaximumWidth(30);
 
             loHorz->addWidget(lblRegTitle);
+            loHorz->addWidget(lblRegAddress);
             loHorz->setAlignment(lblRegTitle, Qt::AlignLeft);
             loHorz->addWidget(lineRegValue);
             loHorz->setAlignment(lineRegValue, Qt::AlignLeft);
@@ -115,15 +120,14 @@ namespace GUI {
             }
         }
 
-        for(auto& cbc : m_widgetMap) //vector of CBCs
+        for(auto& cCbc : m_widgetMap) //vector of CBCs
         {
-            for(auto& regNames : cbc.keys())//registerName keys
+            for(auto& regNames : cCbc.keys()) //registerName keys
             {
-                for(auto& widget : cbc.value(regNames).keys())
+                for(auto& widget : cCbc.value(regNames).keys())
                 {
-                    //cbc.value(regNames).value(widget)->setMaximumWidth(cLineSize + 50);
                     widget->setMinimumWidth(cLineSize + 50);
-                    //qDebug() << widget;
+                    cCbc.value(regNames).value(widget)->setMinimumWidth(20);
                 }
             }
         }
@@ -137,7 +141,7 @@ namespace GUI {
 
         for(int i=0; i<2; i++) //number of pages
         {
-            QWidget *client = new QWidget;
+            QWidget *client = new QWidget; //client widget for scroll area
             QScrollArea *scrollArea = new QScrollArea;
             scrollArea->setWidgetResizable(true);
             scrollArea->setWidget(client);
@@ -159,9 +163,49 @@ namespace GUI {
         return tabCbc;
     }
 
-    void CbcRegistersTab::on_pushButton_clicked()
+    void CbcRegistersTab::createCbcRegItems()
+    {
+        int nCbc = 0;
+
+        for(auto& cCbc : m_widgetMap) //vector of CBCs
+        {
+            std::vector<std::pair<std::string, std::uint8_t>> vecRegValues;
+            for(auto& regNames : cCbc.keys())//registerName keys
+            {
+                for(auto& widget : cCbc.value(regNames).keys())
+                {
+                    std::string regTitle = (widget->text()).toStdString();
+                    std::string regValueTemp= (cCbc.value(regNames).value(widget)->text()).toStdString();
+
+                    std::vector<uint8_t> stupidConversion(regValueTemp.begin(), regValueTemp.end());
+                    std::uint8_t regValue = *&stupidConversion[0];
+
+                    vecRegValues.push_back(std::make_pair(regTitle, regValue));
+                }
+            }
+            emit sendCbcRegisters(nCbc, vecRegValues);
+            ++nCbc;
+        }
+    }
+
+    void CbcRegistersTab::clearTabs()
+    {
+        m_tabCbc->clear();
+        m_loGridVec.clear();
+        m_widgetMap.clear();
+    }
+
+    void CbcRegistersTab::on_btnRefresh_clicked()
     {
         emit refreshCbcRegisters();
     }
+    void CbcRegistersTab::on_btnUpdate_clicked()
+    {
+        qDebug() << "Pressed..";
+        createCbcRegItems();
+        emit refreshCbcRegisters();
+        qDebug() << "Pressed";
+    }
 
 }
+

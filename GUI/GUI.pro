@@ -51,7 +51,8 @@ SOURCES += main.cpp\
     Model/cbcregisters.cpp \
     lib/CustomTQtWidget.cpp \
     ViewMgr/mainviewmanager.cpp \
-    Model/HybridTester.cpp
+    Model/HybridTester.cpp \
+    Model/cbcregisterworker.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -72,7 +73,8 @@ HEADERS  += View/mainview.h \
     Model/cbcregisters.h \
     lib/CustomTQtWidget.h \
     ViewMgr/mainviewmanager.h \
-    Model/HybridTester.h
+    Model/HybridTester.h \
+    Model/cbcregisterworker.h
     #lib/TQtWidget.h
 
 

@@ -28,6 +28,8 @@ namespace GUI
                 &m_cbcRegisters, SLOT(getCbcRegistersMap()));
         connect(&m_cbcRegisters, SIGNAL(sendCbcRegisterValue(int,std::map<std::string,CbcRegItem>)),
                 &m_cbcRegistersTab, SLOT(createCbcRegisterValue(int,std::map<std::string,CbcRegItem>)));
+        connect(&m_cbcRegistersTab, SIGNAL(sendCbcRegisters(int,std::vector<std::pair<std::string,std::uint8_t> >)),
+                &m_cbcRegisters, SLOT(sendCbcRegisters(int,std::vector<std::pair<std::string,std::uint8_t> >)));
     }
 
     void CbcRegViewManager::WireExternalConnections()

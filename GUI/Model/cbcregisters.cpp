@@ -21,6 +21,11 @@ namespace GUI
         fBeBoardFWMap = m_systemController.getBeBoardFWMap();
     }
 
+    void CbcRegisters::WireThreadConnections()
+    {
+
+    }
+
     void CbcRegisters::getCbcRegistersMap()
     {
         getObjects();
@@ -36,6 +41,27 @@ namespace GUI
                     for ( auto cCbc : cFe->fCbcVector )
                     {
                         emit sendCbcRegisterValue(cCbc->getCbcId(), cCbc->getRegMap());
+                    }
+                }
+            }
+        }
+    }
+
+    void CbcRegisters::sendCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg)
+    {
+        for ( auto cShelve : fShelveVector )
+        {
+            for ( auto cBoard : ( cShelve )->fBoardVector )
+            {
+                for ( auto cFe : cBoard->fModuleVector )
+                {
+                    for ( auto cCbc : cFe->fCbcVector )
+                    {
+                        if (cCbc->getCbcId()==cbc)
+                        {
+                            fCbcInterface->WriteCbcMultReg(cCbc, mapReg );
+                            qDebug() << "values written";
+                        }
                     }
                 }
             }
