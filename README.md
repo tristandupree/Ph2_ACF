@@ -87,6 +87,26 @@ Note: You may also need to set the environment variables:
     export LD_LIBRARY_PATH=/opt/cactus/lib:$LD_LIBRARY_PATH
     export PATH=/opt/cactus/bin:$PATH
 
+The GUI :
+--------
+
+These instructions are provided to install the optional GUI.
+
+1. Install qtRoot:
+
+	svn co https://svn.code.sf.net/p/qtroot/code/trunk qtRoot
+
+2. Install QJson:
+
+	wget  http://downloads.sourceforge.net/qjson/qjson-0.8.1.tar.bz2
+
+3. Source set_environment.sh
+
+4. Make and run the GUI:
+	cd GUI
+	make
+	cd ..
+	./GUI/Ph2_ACF
 
 The Ph2_ACF Software : 
 ----------------------------------
