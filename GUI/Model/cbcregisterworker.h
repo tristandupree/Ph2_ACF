@@ -1,16 +1,41 @@
 #pragma once
 #include <QObject>
 
+#include "Model/systemcontroller.h"
+
 namespace GUI{
-    class cbcregisterworker : public QObject
+    class CbcRegisterWorker : public QObject
     {
         Q_OBJECT
     public:
-        explicit cbcregisterworker(QObject *parent=0);
+        explicit CbcRegisterWorker(QObject *parent,
+                                   SystemController &sysCtrl);
+        void requestWork();
+        void abort();
+
+        ~CbcRegisterWorker();
+
+    signals:
+        void sendCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg);
+        void workRequested();
+        void finished();
+
+    public slots:
+        void sendCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg);
+        void doWork();
+        void getCbcRegistersMap();
 
     private:
-        explicit cbcregisterworker(const cbcregisterworker& rhs) = delete;
-        cbcregisterworker& operator= (const cbcregisterworker& rhs) = delete;
+
+        SystemController& m_systemController;
+
+        BeBoardInterface*       fBeBoardInterface;
+        CbcInterface*           fCbcInterface;
+        ShelveVec fShelveVector;
+        BeBoardFWMap fBeBoardFWMap;
+
+        explicit CbcRegisterWorker(const CbcRegisterWorker& rhs) = delete;
+        CbcRegisterWorker& operator= (const CbcRegisterWorker& rhs) = delete;
     };
 }
 

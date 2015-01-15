@@ -1,70 +1,57 @@
 #include "cbcregisters.h"
 #include "Model/systemcontroller.h"
+#include "Model/cbcregisterworker.h"
 #include "../HWDescription/Cbc.h"
 #include "../HWDescription/CbcRegItem.h"
 #include <QDebug>
+#include <QThread>
+
+#include "Model/cbcregisterworker.h"
 
 namespace GUI
 {
     CbcRegisters::CbcRegisters(QObject *parent,
                                SystemController &sysCtrl) :
         QObject(parent),
-        m_systemController(sysCtrl)
+        m_systemController(sysCtrl),
+        m_thread(new QThread()),
+        m_worker(new CbcRegisterWorker(nullptr,
+                                       sysCtrl))
     {
+        qRegisterMetaType<std::map<std::string,CbcRegItem>>("std::map<std::string,CbcRegItem>");
+        m_worker->moveToThread(m_thread);
+        WireThreadConnections();
+        Initialise();
     }
 
-    void CbcRegisters::getObjects()
+    void CbcRegisters::Initialise()
     {
-        fBeBoardInterface = m_systemController.getBeBoardInterface();
-        fCbcInterface = m_systemController.getCbcInterface();
-        fShelveVector = m_systemController.getfShelveVector();
-        fBeBoardFWMap = m_systemController.getBeBoardFWMap();
+        m_worker->abort();
+        m_thread->wait();
+        m_worker->requestWork();
+    }
+
+    CbcRegisters::~CbcRegisters()
+    {
+        m_worker->abort();
+        m_thread->wait();
+        delete m_thread;
+        qDebug() << "Deleting CbcRegister worker thread " <<this->QObject::thread()->currentThreadId();
+        qDebug() << "Destructing " << this;
     }
 
     void CbcRegisters::WireThreadConnections()
     {
+        connect(m_worker, SIGNAL(workRequested()),
+                m_thread, SLOT(start()));
+        connect(m_thread, SIGNAL(started()),
+                m_worker, SLOT(doWork()));
+        connect(m_worker, SIGNAL(finished()),
+                m_thread, SLOT(quit()), Qt::DirectConnection);
 
-    }
-
-    void CbcRegisters::getCbcRegistersMap()
-    {
-        getObjects();
-
-        for ( auto cShelve : fShelveVector )
-        {
-            for ( auto cBoard : ( cShelve )->fBoardVector )
-            {
-                for ( auto cFe : cBoard->fModuleVector )
-                {
-                    fCbcInterface->ReadAllCbc(cFe);
-
-                    for ( auto cCbc : cFe->fCbcVector )
-                    {
-                        emit sendCbcRegisterValue(cCbc->getCbcId(), cCbc->getRegMap());
-                    }
-                }
-            }
-        }
-    }
-
-    void CbcRegisters::sendCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg)
-    {
-        for ( auto cShelve : fShelveVector )
-        {
-            for ( auto cBoard : ( cShelve )->fBoardVector )
-            {
-                for ( auto cFe : cBoard->fModuleVector )
-                {
-                    for ( auto cCbc : cFe->fCbcVector )
-                    {
-                        if (cCbc->getCbcId()==cbc)
-                        {
-                            fCbcInterface->WriteCbcMultReg(cCbc, mapReg );
-                            qDebug() << "values written";
-                        }
-                    }
-                }
-            }
-        }
+        connect(this, SIGNAL(getCbcRegistersMap()),
+                m_worker, SLOT(getCbcRegistersMap()));
+        connect(m_worker, SIGNAL(sendCbcRegisterValue(int,std::map<std::string,CbcRegItem>)),
+                this, SIGNAL(sendCbcRegisterValue(int,std::map<std::string,CbcRegItem>)));
     }
 }

@@ -17,16 +17,14 @@ namespace GUI{
     public:
         explicit CbcRegisters(QObject *parent,
                               SystemController &sysCtrl);
-
         void requestWork();
+
         void abort();
 
         ~CbcRegisters();
 
     signals:
         void sendCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg);
-
-    public slots:
         void getCbcRegistersMap();
         void sendCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg);
 
@@ -39,14 +37,15 @@ namespace GUI{
         BeBoardFWMap fBeBoardFWMap;
 
         QThread *m_thread;
-        cbcregisterworker *m_worker;
+        CbcRegisterWorker *m_worker;
 
-        void getObjects();
+        void Initialise();
 
         void WireThreadConnections();
 
         explicit CbcRegisters(const CbcRegisters& rhs) = delete;
         CbcRegisters& operator= (const CbcRegisters& rhs) = delete;
+
     };
 }
 

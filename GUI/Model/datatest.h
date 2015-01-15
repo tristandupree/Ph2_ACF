@@ -17,7 +17,6 @@ namespace GUI{
         explicit DataTest(QObject *parent,
                           SystemController &sysController);
 
-        void requestWork();
         void abort();
 
         ~DataTest();
