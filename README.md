@@ -94,8 +94,9 @@ These instructions are provided to install the optional GUI.
 
 1. Install qtRoot:
 
-	svn co https://svn.code.sf.net/p/qtroot/code/trunk qtRoot
-
+	```
+svn co https://svn.code.sf.net/p/qtroot/code/trunk qtRoot
+	```
 2. Install QJson:
 
 	wget  http://downloads.sourceforge.net/qjson/qjson-0.8.1.tar.bz2
@@ -103,6 +104,7 @@ These instructions are provided to install the optional GUI.
 3. Source set_environment.sh
 
 4. Make and run the GUI:
+
 	cd GUI
 	make
 	cd ..
