@@ -45,14 +45,18 @@ namespace GUI
         mutex.unlock();*/
     }
 
-    void CbcRegisterWorker::getCbcRegistersMap()
+    void CbcRegisterWorker::getObjects()
     {
-
         fBeBoardInterface = m_systemController.getBeBoardInterface();
         fCbcInterface = m_systemController.getCbcInterface();
         fShelveVector = m_systemController.getfShelveVector();
         fBeBoardFWMap = m_systemController.getBeBoardFWMap();
-        qDebug() << "I'M IN!!!";
+    }
+
+    void CbcRegisterWorker::getCbcRegistersMap()
+    {
+        getObjects();
+
         for ( auto cShelve : fShelveVector )
         {
             for ( auto cBoard : ( cShelve )->fBoardVector )
@@ -69,10 +73,12 @@ namespace GUI
                 }
             }
         }
-        emit finished();
     }
+
     void CbcRegisterWorker::sendCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg)
     {
+        getObjects();
+
         for ( auto cShelve : fShelveVector )
         {
             for ( auto cBoard : ( cShelve )->fBoardVector )

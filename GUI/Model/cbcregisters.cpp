@@ -34,6 +34,7 @@ namespace GUI
     CbcRegisters::~CbcRegisters()
     {
         m_worker->abort();
+        m_thread->quit();
         m_thread->wait();
         delete m_thread;
         qDebug() << "Deleting CbcRegister worker thread " <<this->QObject::thread()->currentThreadId();

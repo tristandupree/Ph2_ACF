@@ -34,6 +34,8 @@ namespace GUI{
         ShelveVec fShelveVector;
         BeBoardFWMap fBeBoardFWMap;
 
+        void getObjects();
+
         explicit CbcRegisterWorker(const CbcRegisterWorker& rhs) = delete;
         CbcRegisterWorker& operator= (const CbcRegisterWorker& rhs) = delete;
     };
