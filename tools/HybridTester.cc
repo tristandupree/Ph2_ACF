@@ -18,9 +18,9 @@ struct HistogramFiller  : public HwDescriptionVisitor
 				//              std::cout << "Channel " << globalChannel << " VCth " << int(pCbc.getReg( "VCth" )) << std::endl;
 				// find out why histograms are not filling!
 				if ( globalChannel % 2 == 0 )
-					fTopHist->Fill( globalChannel / 2 );
+					fBotHist->Fill( globalChannel / 2 );
 				else
-					fBotHist->Fill( ( globalChannel - 1 ) / 2 );
+					fTopHist->Fill( ( globalChannel - 1 ) / 2 );
 
 			}
 		}
@@ -201,7 +201,7 @@ void HybridTester::ScanThreshold()
 					}
 					cNthAcq++;
 				}
-
+				std::cout << "DEBUG: Vcth: " << +cVcth << " Hits: " << cHitCounter << std::endl;
 				// Draw the thing after each point
 				updateSCurveCanvas( pBoard );
 
