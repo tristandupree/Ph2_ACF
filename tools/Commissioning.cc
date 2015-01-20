@@ -29,7 +29,7 @@ void Commissioning::Initialize()
 	std::cout << "Histograms and Settings initialised." << std::endl;
 }
 
-void ScanLatency( uint8_t pStartLatency, uint8_t pLatencyRange )
+std::map<Module*, uint8_t> ScanLatency( uint8_t pStartLatency, uint8_t pLatencyRange )
 {
 	// This is not super clean but should work
 	// Take the default VCth which should correspond to the pedestal and add 8 depending on the mode to exclude noise
@@ -91,14 +91,17 @@ void ScanLatency( uint8_t pStartLatency, uint8_t pLatencyRange )
 	}
 
 	// analyze the Histograms
+	std::map<Module*, uint8_t> cLatencyMap;
 	for ( auto cFe : fModuleHistMap )
 	{
 		TH1F* cTmpHist = ( TH1F* )getHist( cFe.first, "module_latency" );
 
-		uint8_t cLatency = static_cast<uint8_t>( cTmpHist->GetMaxBin() );
+		cLatencyMap[cFe.first] = static_cast<uint8_t>( cTmpHist->GetMaxBin() );
 
 		std::cout << "Identified the Latency with the maximum number of Hits at " << +cLatency << " clock cycles!" << std::endl;
 	}
+
+	return cLatencyMap;
 }
 
 void Commissioning::ScanThreshold()

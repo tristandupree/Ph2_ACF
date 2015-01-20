@@ -43,7 +43,7 @@ class Commissioning : public SystemController
   public:
 	void Initialize();
 	TH1F* ScanThreshold();
-	void ScanLatency( uint8_t pStartLatency = 0, uint8_t pLatencyRange = 20 );
+	std::map<Module*, uint8_t> ScanLatency( uint8_t pStartLatency = 0, uint8_t pLatencyRange = 20 );
 	void ScanLatencyThreshold();
 	void ScanStubLatency();
 	void SaveResults();
