@@ -1,5 +1,4 @@
-#ifndef MAINVIEW_H
-#define MAINVIEW_H
+#pragma once
 
 #include <QMainWindow>
 
@@ -11,9 +10,8 @@ namespace GUI{
 
     class SetupTab;
     class CbcRegistersTab;
-    class DataTestTab;
-
-    class MacroTestTab; //cheap tab
+    class HybridTestTab;
+    class TBrowserTab;
 
     class MainView : public QMainWindow
     {
@@ -23,7 +21,8 @@ namespace GUI{
         explicit MainView(QWidget *parent,
                           GUI::SetupTab &setup,
                           GUI::CbcRegistersTab &reg,
-                          GUI::DataTestTab &data);
+                          GUI::HybridTestTab &hybrid,
+                          GUI::TBrowserTab &brow);
         ~MainView();
 
     public slots:
@@ -40,5 +39,3 @@ namespace GUI{
 
     };
 }
-
-#endif // MAINVIEW_H

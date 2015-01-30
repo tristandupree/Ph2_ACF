@@ -2,8 +2,9 @@
 #include "ui_mainview.h"
 #include "View/setuptab.h"
 #include "View/cbcregisterstab.h"
-#include "View/datatesttab.h"
+#include "View/hybridtesttab.h"
 #include "View/aboutbox.h"
+#include "View/tbrowsertab.h"
 
 #include <QDebug>
 
@@ -12,7 +13,8 @@ namespace GUI{
     MainView::MainView(QWidget *parent,
                        SetupTab& setup,
                        CbcRegistersTab& regTab,
-                       DataTestTab& data) :
+                       HybridTestTab& hybrid,
+                       TBrowserTab& brow) :
         QMainWindow(parent),
         ui(new Ui::MainView)
     {
@@ -20,7 +22,8 @@ namespace GUI{
         setWindowTitle("Ph2_ACF");
         ui->loSetup->addWidget(&setup);
         ui->loRegisters->addWidget(&regTab);
-        ui->loDataTest->addWidget(&data);
+        ui->loHybridTest->addWidget(&hybrid);
+        ui->loTBrowser->addWidget(&brow);
 
         enableAllTabsSlot(false);
     }
@@ -34,7 +37,7 @@ namespace GUI{
     void MainView::enableAllTabsSlot(const bool enable)
     {
         ui->tabRegisters->setEnabled(enable);
-        ui->tabDataTest->setEnabled(enable);
+        ui->tabHybridTest->setEnabled(enable);
     }
 
     void MainView::on_actionAbout_triggered()

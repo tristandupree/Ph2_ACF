@@ -58,10 +58,18 @@ class HybridTester : public SystemController
 	* \param pThresholdScan :  bool flag to initialize the additional canvas for the Threshold scan
 	* \param pCanvasVector: vector of TCanvas* to be passed by the GUI to draw on
 	*/
-	void InitializeGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector );
+
+	void Initialise(int vcth,int events, bool testreg, bool scanthreshold, bool holemode);
 	/*!
-	* \brief Test CBC registers by writing complimentary bit patterns (0x55, 0xAA)
+		* \brief Initialise the Histograms and Canvasses for GUI applications
 	*/
+
+	void InitialiseSettings();
+
+	/*!
+	 * \brief Initialise the various constants
+	 */
+
 	void TestRegisters();
 	/*!
 	* \brief Scan the thresholds to identify the threshold with no noise occupancy
@@ -83,6 +91,12 @@ class HybridTester : public SystemController
 	TH1F* fHistBottom;   /*!< Histogram for bottom pads */
 	bool fThresholdScan; /*!< Flag for SCurve Canvas */
 	TCanvas* fSCurveCanvas;   /*!< Canvas for threshold scan */
+
+	int m_vcth;
+	int m_events;
+	int m_sigmas;
+	bool m_testreg;
+	bool m_holemode;
 
 	std::map<Cbc*, TH1F*> fSCurveMap;  /*!< Histograms for SCurve */
 	std::map<Cbc*, TF1*> fFitMap;   /*!< fits for SCurve*/

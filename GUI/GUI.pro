@@ -15,7 +15,7 @@ CONFIG += c++11 debug
 
 QMAKE_CXXFLAGS += -g -O1 -w -pedantic -fPIC -std=c++11 `root-config --cflags --evelibs` -Wcpp
 
-include("$(ROOTSYS)/include/rootcint.pri")
+#include("$(ROOTSYS)/include/rootcint.pri")
 
 LIBS += -L/usr/include/boost -lboost_system -lboost_thread -lpthread -lboost_regex
 LIBS += -L../lib -lPh2_Interface -lPh2_Description -lPh2_System -lPh2_Tools -lPh2_Utils
@@ -26,7 +26,7 @@ LIBS += $(LibraryPaths:%=-L%) -uhal `root-config --glibs`
 
 LIBS += -L/usr/lib/ -lqjson
 INCLUDEPATH += /usr/include/qjson/
-LIBS += $$system(root-config --glibs) -lGQt
+#LIBS += $$system(root-config --glibs) -lGQt
 INCLUDEPATH += $(ROOTSYS)/include
 
 INCLUDEPATH += /opt/cactus/include /../../Ph2DAQ_dev/
@@ -43,16 +43,18 @@ SOURCES += main.cpp\
     View/cbcregisterstab.cpp \
     ViewMgr/cbcregviewmanager.cpp \
     provider.cpp \
-    View/datatesttab.cpp \
-    Model/datatest.cpp \
-    ViewMgr/datatestviewmanager.cpp \
     View/aboutbox.cpp \
     Model/systemcontrollerworker.cpp \
     Model/cbcregisters.cpp \
-    lib/CustomTQtWidget.cpp \
+    #lib/CustomTQtWidget.cpp \
     ViewMgr/mainviewmanager.cpp \
-    Model/HybridTester.cpp \
-    Model/cbcregisterworker.cpp
+    Model/cbcregisterworker.cpp \
+    View/tbrowsertab.cpp \
+    View/calibrate.cpp \
+    Model/hybridtest.cpp \
+    Model/hybridtestworker.cpp \
+    ViewMgr/hybridtestviewmanager.cpp \
+    View/hybridtesttab.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -65,24 +67,28 @@ HEADERS  += View/mainview.h \
     View/cbcregisterstab.h \
     ViewMgr/cbcregviewmanager.h \
     provider.h \
-    View/datatesttab.h \
-    Model/datatest.h \
-    ViewMgr/datatestviewmanager.h \
     View/aboutbox.h \
     Model/systemcontrollerworker.h \
     Model/cbcregisters.h \
-    lib/CustomTQtWidget.h \
+    #lib/CustomTQtWidget.h \
     ViewMgr/mainviewmanager.h \
-    Model/HybridTester.h \
-    Model/cbcregisterworker.h
+    Model/cbcregisterworker.h \
+    View/tbrowsertab.h \
+    View/calibrate.h \
+    Model/hybridtest.h \
+    Model/hybridtestworker.h \
+    ViewMgr/hybridtestviewmanager.h \
+    View/hybridtesttab.h
     #lib/TQtWidget.h
 
 
 FORMS    += View/mainview.ui \
     View/setuptab.ui \
     View/cbcregisterstab.ui \
-    View/datatesttab.ui \
-    View/aboutbox.ui
+    View/aboutbox.ui \
+    View/tbrowsertab.ui \
+    View/calibrate.ui \
+    View/hybridtesttab.ui
 
 OTHER_FILES +=
 

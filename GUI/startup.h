@@ -6,7 +6,8 @@ namespace GUI{
 
     class SetupTab;
     class CbcRegistersTab;
-    class DataTestTab;
+    class HybridTestTab;
+    class TBrowserTab;
 
     class MainView;
 
@@ -14,10 +15,10 @@ namespace GUI{
 
     class SystemController;
     class CbcRegisters;
-    class DataTest;
+    class HybridTest;
     class SetupTabViewManager;
     class CbcRegViewManager;
-    class DataTestViewManager;
+    class HybridTestViewManager;
 
     class MainViewManager;
 
@@ -32,7 +33,8 @@ namespace GUI{
     private:
         SetupTab& m_setupTab;
         CbcRegistersTab& m_regTab;
-        DataTestTab& m_dataTab;
+        HybridTestTab& m_hybridTab;
+        TBrowserTab& m_tbrowseTab;
 
         MainView& m_mainView;
         Settings* m_settings;
@@ -40,11 +42,11 @@ namespace GUI{
         SystemController* m_systemController;
 
         CbcRegisters* m_cbcReg;
-        DataTest* m_dataTest;
+        HybridTest* m_hybridTest;
 
         SetupTabViewManager& m_setupTabVm;
         CbcRegViewManager& m_cbcRegTabVm;
-        DataTestViewManager& m_dataTabVm;
+        HybridTestViewManager& m_hybridTabVm;
 
         MainViewManager* m_mainViewVm;
 

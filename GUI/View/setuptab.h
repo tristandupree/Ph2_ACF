@@ -54,6 +54,7 @@ namespace GUI {
 
         void on_btnLoadCustom_clicked();
 
+        void on_btnTBrows_clicked();
     private:
         Ui::SetupTab *ui;
     };

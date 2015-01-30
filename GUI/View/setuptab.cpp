@@ -8,6 +8,7 @@
 
 #include <QStandardItemModel>
 #include <QFileDialog>
+#include <QProcess>
 
 namespace GUI{
 
@@ -110,5 +111,11 @@ namespace GUI{
     void SetupTab::on_btnLoadCustom_clicked()
     {
         emit onBtnCustomLoadSettingsClicked(ui->lineSettings->text());
+    }
+
+    void SetupTab::on_btnTBrows_clicked()
+    {
+        QProcess *process = new QProcess(this);
+        process->start("./GUI/Macros/TBrowser");
     }
 }

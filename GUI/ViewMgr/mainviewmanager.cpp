@@ -1,7 +1,7 @@
 #include "mainviewmanager.h"
 #include "View/mainview.h"
 #include "ViewMgr/cbcregviewmanager.h"
-#include "ViewMgr/datatestviewmanager.h"
+#include "ViewMgr/hybridtestviewmanager.h"
 #include "ViewMgr/setuptabviewmanager.h"
 
 #include <QDebug>
@@ -11,15 +11,15 @@ namespace GUI
     MainViewManager::MainViewManager(QObject *parent, MainView &mainView,
                                      SetupTabViewManager &setupVm,
                                      CbcRegViewManager &cbcVm,
-                                     DataTestViewManager &dataVm) :
+                                     HybridTestViewManager &hybridVm) :
         QObject(parent),
         m_mainView(mainView),
         m_setupVm(setupVm),
         m_cbcRegVm(cbcVm),
-        m_dataTestVm(dataVm)
+        m_hybridTestVm(hybridVm)
     {
         WireSetupVmMessages();
-        WireDataTestVmMessages();
+        WireHybridTestVmMessages();
     }
 
     MainViewManager::~MainViewManager()
@@ -33,7 +33,7 @@ namespace GUI
                 &m_mainView, SLOT(enableAllTabsSlot(bool)));
 
         connect(&m_setupVm, SIGNAL(on2CbcToggle(bool)),
-                &m_dataTestVm, SIGNAL(on2CbcToggle(bool)));
+                &m_hybridTestVm, SIGNAL(on2CbcToggle(bool)));
 
         connect(&m_setupVm, SIGNAL(on2CbcToggle(bool)),
                 &m_cbcRegVm, SIGNAL(on2CbcToggle(bool)));
@@ -41,9 +41,9 @@ namespace GUI
                 &m_cbcRegVm, SIGNAL(sendInitialiseRegistersView()));
     }
 
-    void MainViewManager::WireDataTestVmMessages()
+    void MainViewManager::WireHybridTestVmMessages()
     {
-        connect(&m_dataTestVm, SIGNAL(sendAccept(HwDescriptionVisitor)),
+        connect(&m_hybridTestVm, SIGNAL(sendAccept(HwDescriptionVisitor)),
                 &m_setupVm, SIGNAL(sendAccept(HwDescriptionVisitor)));
 
     }

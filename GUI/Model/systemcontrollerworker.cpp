@@ -124,7 +124,6 @@ namespace GUI
                     cModuleId = map_module_values.value("FeId").toUInt();
                     cFmcId = map_BeBoardId.value("FMCId").toInt();
                     cFeId = map_BeBoardId.value("FeId").toInt();
-                    //Module cModule(cShelveId,cBeId, cFmcId, cFeId,cModuleId);
                     Module* cModule = new Module( cShelveId, cBeId, cFmcId, cFeId, cModuleId );
                     fShelveVector[cNShelve]->getBoard(cBeId)->addModule(cModule);
 
@@ -133,7 +132,6 @@ namespace GUI
 
                     for(auto& config_lv: map_module_values.value("CbcConfigFile").toList()) //could change this loop for indv. + global
                     {
-                        //Cbc cCbc(cShelveId,cBeId,cFmcId,cFeId,index,config_lv.toString().toStdString());
                         Cbc* cCbc = new Cbc(cShelveId,cBeId,cFmcId,cFeId,index,config_lv.toString().toStdString() );
                         index++;
 
@@ -217,6 +215,37 @@ namespace GUI
         emit finishedConfigureHw();
         qDebug() << "Finished configure";
     }
+
+    /*void SystemControllerWorker::getCbcs()
+    {
+        mutex.lock();
+        bool abort = _abort;
+        mutex.unlock();
+
+        class Configurator : public HwDescriptionVisitor
+        {
+          private:
+            bool fHoleMode, fCheck;
+            Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
+            Ph2_HwInterface::CbcInterface* fCbcInterface;
+          public:
+            Configurator(Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode, bool pCheck ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ), fCheck( pCheck ) {}
+
+            void visit( Cbc& pCbc ) {
+                fCbcInterface->;
+                qDebug() << "Successfully configured Cbc " << int( pCbc.getCbcId() );
+
+            }
+        };
+
+        Configurator cConfigurator(fCbcInterface, cHoleMode, cCheck);
+        accept(cConfigurator);
+
+        mutex.lock();
+        _working = false;
+        mutex.unlock();
+
+    }*/
 
 
     void SystemControllerWorker::Run( BeBoard* pBeBoard, uint32_t pNthAcq )

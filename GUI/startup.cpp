@@ -2,7 +2,8 @@
 #include "startup.h"
 #include "View/setuptab.h"
 #include "View/cbcregisterstab.h"
-#include "View/datatesttab.h"
+#include "View/hybridtesttab.h"
+#include "View/tbrowsertab.h"
 
 #include "View/mainview.h"
 
@@ -10,11 +11,11 @@
 #include "Model/systemcontroller.h"
 #include "Model/systemcontrollerworker.h"
 #include "Model/cbcregisters.h"
-#include "Model/datatest.h"
+#include "Model/hybridtest.h"
 #include "ViewMgr/setuptabviewmanager.h"
 #include "provider.h"
 #include "ViewMgr/cbcregviewmanager.h"
-#include "ViewMgr/datatestviewmanager.h"
+#include "ViewMgr/hybridtestviewmanager.h"
 #include "ViewMgr/mainviewmanager.h"
 
 #include "utils.h"
@@ -29,21 +30,22 @@ namespace GUI
     Startup::Startup() :
         QObject(nullptr),
 
-        m_setupTab(*new SetupTab(nullptr)), //nullptr - transferring ownership in mianview
+        m_setupTab(*new SetupTab(nullptr)), //nullptr - transferring ownership in mainview
         m_regTab(*new CbcRegistersTab(nullptr)),
-        m_dataTab(*new DataTestTab(nullptr)),
+        m_hybridTab(*new HybridTestTab(nullptr)),
+        m_tbrowseTab(*new TBrowserTab(nullptr)),
 
         m_mainView(*new MainView(nullptr,
                                  m_setupTab,
                                  m_regTab,
-                                 m_dataTab)),
+                                 m_hybridTab,
+                                 m_tbrowseTab)),
 
         m_systemController(new SystemController(this,
                                                 Provider::getSettingsAsSingleton())),
         m_cbcReg(new CbcRegisters(this,
                                   *m_systemController)),
-        m_dataTest(new DataTest(this,
-                                *m_systemController)),
+        m_hybridTest(new HybridTest(this)),
 
         m_setupTabVm(*new SetupTabViewManager(this,
                                              m_setupTab,
@@ -52,15 +54,15 @@ namespace GUI
         m_cbcRegTabVm(*new CbcRegViewManager(this,
                                              m_regTab,
                                              *m_cbcReg)),
-        m_dataTabVm(*new DataTestViewManager(this,
-                                            m_dataTab,
-                                            *m_dataTest)),
+        m_hybridTabVm(*new HybridTestViewManager(this,
+                                            m_hybridTab,
+                                            *m_hybridTest)),
 
         m_mainViewVm(new MainViewManager(this,
                                          m_mainView,
                                          m_setupTabVm,
                                          m_cbcRegTabVm,
-                                         m_dataTabVm))
+                                         m_hybridTabVm))
     {
     }
 

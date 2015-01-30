@@ -16,7 +16,6 @@
 #include <map>
 #include <stdlib.h>
 #include <string.h>
-#include <QMutex>
 
 #include "TFile.h"
 

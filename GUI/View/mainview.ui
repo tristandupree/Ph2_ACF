@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1109</width>
-    <height>763</height>
+    <width>845</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabMainView">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabSetup">
        <attribute name="title">
@@ -40,13 +40,23 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tabDataTest">
+      <widget class="QWidget" name="tabHybridTest">
        <attribute name="title">
         <string>Hybrid Test</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <layout class="QVBoxLayout" name="loDataTest"/>
+         <layout class="QVBoxLayout" name="loHybridTest"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tabTBrowser">
+       <attribute name="title">
+        <string>Page</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QVBoxLayout" name="loTBrowser"/>
         </item>
        </layout>
       </widget>
@@ -59,7 +69,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1109</width>
+     <width>845</width>
      <height>22</height>
     </rect>
    </property>
