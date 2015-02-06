@@ -104,10 +104,122 @@ std::map<Module*, uint8_t> ScanLatency( uint8_t pStartLatency, uint8_t pLatencyR
 	return cLatencyMap;
 }
 
+
 void Commissioning::ScanThreshold()
 {
+	//method to scan thresholds with actual particles - this will not stop but continue through the whole Vcth range
+	std::cout << "Scanning the Threshold ... " << std::endl;
 
+	// Necessary variables
+	uint32_t cEventsperVcth = 100;
+	bool cNonZero = false;
+	// bool cAllOne = false;
+	bool cSlopeZero = false;
+	// uint32_t cAllOneCounter = 0;
+	uint32_t cSlopeZeroCounter = 0;
+	uint32_t cOldHitCounter = 0;
+	uint8_t  cDoubleVcth;
+	int cVcth = ( fHoleMode ) ?  0xFF :  0x00;
+	int cStep = ( fHoleMode ) ? -10 : 10;
+
+
+
+	// Adaptive VCth loop
+	while ( 0x00 <= cVcth && cVcth <= 0xFF )
+	{
+		// if ( cSlopeZero && (cVcth == 0x00 || cVcth = 0xFF) ) break;
+		if ( cVcth == cDoubleVcth )
+		{
+			cVcth +=  cStep;
+			continue;
+		}
+		// Set current Vcth value on all Cbc's
+		CbcRegWriter cWriter( fCbcInterface, "VCth", static_cast<uint8_t>( cVcth ) );
+		accept( cWriter );
+
+		uint32_t cN = 0;
+		uint32_t cNthAcq = 0;
+		uint32_t cHitCounter = 0;
+
+		// maybe restrict to pBoard? instead of looping?
+		for ( auto& cShelve : fShelveVector )
+		{
+			// if ( cSlopeZero && (cVcth == 0x00 || cVcth = 0xFF) ) break;
+			for ( BeBoard* pBoard : cShelve->fBoardVector )
+			{
+				while ( cN <  cEventsperVcth )
+				{
+					Run( pBoard, cNthAcq );
+
+					const Event* cEvent = fBeBoardInterface->GetNextEvent( pBoard );
+
+					// Loop over Events from this Acquisition
+					while ( cEvent )
+					{
+						if ( cN == cEventsperVcth )
+							break;
+
+						for ( auto cFe : pBoard->fModuleVector )
+							cHitCounter += countHits( cFe, cEvent, "module_threshold", static_cast<uint8_t>( cVcth ) );
+
+						cN++;
+
+						if ( cN < cEventsperVcth )
+							cEvent = fBeBoardInterface->GetNextEvent( pBoard );
+						else break;
+					}
+					cNthAcq++;
+				}
+
+				// now update the Histograms
+				updateHists( "module_threshold", false );
+
+				// check if the hitcounter is all ones
+
+				if ( cNonZero == false && cHitCounter != 0 )
+				{
+					cDoubleVcth = cVcth;
+					cNonZero = true;
+					cVcth -= 2 * cStep;
+					cStep /= 10;
+					continue;
+				}
+				if ( cNonZero && cHitCounter != 0 )
+				{
+					// check if all Cbcs have reached full occupancy
+					// if ( cHitCounter > 0.95 * cEventsperVcth * fNCbc * NCHANNELS ) cAllOneCounter++;
+					// if the number of hits does not change any more,  increase stepsize by a factor of 10
+					if ( fabs( cHitCounter - cOldHitCounter ) < 10 && cHitCounter != 0 ) cSlopeZeroCounter++;
+				}
+				// if ( cSlopeZeroCounter >= 10 ) cAllOne = true;
+				if ( cSlopeZeroCounter >= 10 ) cSlopeZero = true;
+
+				// if ( cAllOne )
+				// {
+				//  std::cout << "All strips firing -- ending the scan at VCth " << +cVcth << std::endl;
+				//  break;
+				// }
+				if ( cSlopeZero )
+					cStep *= 10;
+
+				cOldHitCounter = cHitCounter;
+				cVcth += cStep;
+			}
+		}
+	}
+	// finished scanning the comparator threshold range
+	// need to see what range to fit and what threshold to extract automatically!!
+
+	for ( auto cFe : fModuleHistMap )
+	{
+		TH1F* cTmpHist = ( TH1F* )getHist( cFe.first, "module_threshold" );
+
+		// cLatencyMap[cFe.first] = static_cast<uint8_t>( cTmpHist->GetMaxBin() );
+
+		std::cout << "Done scanning threshold!" << std::endl;
+	}
 }
+
 
 void Commissioning::SaveResults()
 {
@@ -284,10 +396,6 @@ void Commissioning::parseSettings()
 	cSetting = fSettingsMap.find( "HoleMode" );
 	if ( cSetting != std::end( fSettingsMap ) )  fHoleMode = cSetting->second;
 	else fHoleMode = 1;
-	// cSetting = fSettingsMap.find( "initialThreshold" );
-	// if ( cSetting != std::end( fSettingsMap ) ) fInitialThreshold = cSetting->second;
-	// else if ( fHoleMode == 1 ) ? fInitialThreshold = 0x80 : fInitialThreshold = 0x70;
-	// else fInitialThreshold = 0x80;
 
 
 	std::cout << "Parsed the following settings:" << std::endl;
@@ -312,19 +420,6 @@ void Commissioning::initializeHists()
 			for ( auto& cFe : cBoard->fModuleVector )
 			{
 				uint32_t cFeId = cFe->getFeId();
-
-				// for ( auto& cCbc : cFe->fCbcVector )
-				// {
-
-				//  // here create the CBC-wise histos
-
-				//  uint32_t cCbcId = cCbc->getCbcId();
-
-				//  std::map<std::string, TObject*> cMap;
-
-				//  // now add the map of string vs TObject to fCbcHistoMap
-				//  fCbcHistMap[cCbc] = cMap;
-				// }
 
 				// Here create the Module-wise histos
 
