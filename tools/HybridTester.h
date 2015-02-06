@@ -13,7 +13,6 @@
 #define HybridTester_h__
 
 #include "Tool.h"
-// #include "../Utils/ConsoleColor.h"
 #include "../Utils/Visitor.h"
 #include "../Utils/Utilities.h"
 #include "../Utils/CommonVisitors.h"

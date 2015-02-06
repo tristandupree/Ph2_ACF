@@ -439,12 +439,12 @@ namespace Ph2_HwInterface
 		pVecReq.pop_back();
 
 		if ( I2cCmdAckWait( ( uint32_t )1, pVecReq.size() ) == 0 )
-			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 1 ) );
+			throw Exception( "CbcInterface: I2cCmdAckWait 1 failed." );
 
 		WriteReg( CBC_I2C_CMD_RQ, 0 );
 
 		if ( I2cCmdAckWait( ( uint32_t )0, pVecReq.size() ) == 0 )
-			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 0 ) );
+			throw Exception( "CbcInterface: I2cCmdAckWait 0 failed." );
 
 	}
 

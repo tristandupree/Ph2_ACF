@@ -15,7 +15,6 @@
 #include <string>
 #include <sstream>
 #include <cstring>
-#include <TROOT.h>
 #include <iomanip>
 #include "../HWDescription/Definition.h"
 #include "../HWDescription/BeBoard.h"

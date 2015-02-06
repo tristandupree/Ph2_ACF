@@ -14,6 +14,7 @@
 #define __TOOL_H__
 
 #include "../System/SystemController.h"
+#include "TROOT.h"
 #include "TFile.h"
 
 using namespace Ph2_System;
