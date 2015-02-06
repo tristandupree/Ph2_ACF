@@ -88,16 +88,16 @@ namespace Ph2_System
 		 * \brief Initialize the Hardware via an XML file
 		 * \param pFilename : XML HW Description file
 		 */
-		void InitializeHw( const std::string& pFilename );
+		void InitializeHw( const std::string& pFilename, std::ostream& os = std::cout );
 		/*!
 		 * \brief Initialize the settings
 		 * \param pFilename : XML HW Description file
 		 */
-		void InitializeSettings( const std::string& pFilename );
+		void InitializeSettings( const std::string& pFilename, std::ostream& os = std::cout );
 		/*!
 		 * \brief Configure the Hardware with XML file indicated values
 		 */
-		void ConfigureHw();
+		void ConfigureHw( std::ostream& os = std::cout );
 		/*!
 		 * \brief Run a DAQ
 		 * \param pBeBoard

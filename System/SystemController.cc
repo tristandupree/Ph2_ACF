@@ -27,7 +27,7 @@ namespace Ph2_System
 		fShelveVector.clear();
 	}
 
-	void SystemController::InitializeHw( const std::string& pFilename )
+	void SystemController::InitializeHw( const std::string& pFilename, std::ostream& os )
 	{
 
 		pugi::xml_document doc;
@@ -39,22 +39,22 @@ namespace Ph2_System
 
 		if ( !result )
 		{
-			std::cout << "ERROR :\n Unable to open the file : " << pFilename << std::endl;
-			std::cout << "Error description : " << result.description() << std::endl;
+			os << "ERROR :\n Unable to open the file : " << pFilename << std::endl;
+			os << "Error description : " << result.description() << std::endl;
 			return;
 		}
 
-		std::cout << "\n\n\n";
+		os << "\n\n\n";
 		for ( i = 0; i < 80; i++ )
-			std::cout << "*";
-		std::cout << "\n";
+			os << "*";
+		os << "\n";
 		for ( j = 0; j < 40; j++ )
-			std::cout << " ";
-		std::cout << BOLDRED << "HW SUMMARY: " << RESET << std::endl;
+			os << " ";
+		os << BOLDRED << "HW SUMMARY: " << RESET << std::endl;
 		for ( i = 0; i < 80; i++ )
-			std::cout << "*";
-		std::cout << "\n";
-		std::cout << "\n";
+			os << "*";
+		os << "\n";
+		os << "\n";
 
 		// Iterate the Shelve Nodes
 		for ( pugi::xml_node cShelveNode = doc.child( "HwDescription" ).child( "Shelve" ); cShelveNode; cShelveNode = cShelveNode.next_sibling() )
@@ -62,13 +62,13 @@ namespace Ph2_System
 			cShelveId = cShelveNode.attribute( "Id" ).as_int();
 			fShelveVector.push_back( new Shelve( cShelveId ) );
 
-			std::cout << BOLDCYAN << cShelveNode.name() << "  " << cShelveNode.first_attribute().name() << " :" << cShelveNode.attribute( "Id" ).value() << RESET << std:: endl;
+			os << BOLDCYAN << cShelveNode.name() << "  " << cShelveNode.first_attribute().name() << " :" << cShelveNode.attribute( "Id" ).value() << RESET << std:: endl;
 
 			// Iterate the BeBoard Node
 			for ( pugi::xml_node cBeBoardNode = cShelveNode.child( "BeBoard" ); cBeBoardNode; cBeBoardNode = cBeBoardNode.next_sibling() )
 			{
 
-				std::cout << BOLDCYAN << "|" << "----" << cBeBoardNode.name() << "  " << cBeBoardNode.first_attribute().name() << " :" << cBeBoardNode.attribute( "Id" ).value() << RESET << std:: endl;
+				os << BOLDCYAN << "|" << "----" << cBeBoardNode.name() << "  " << cBeBoardNode.first_attribute().name() << " :" << cBeBoardNode.attribute( "Id" ).value() << RESET << std:: endl;
 
 				cBeId = cBeBoardNode.attribute( "Id" ).as_int();
 				BeBoard* cBeBoard = new BeBoard( cShelveId, cBeId );
@@ -88,7 +88,7 @@ namespace Ph2_System
 				//      uint32_t cTriggerFrequency = cTriggerNode.attribute( "frequency" ).as_uint();
 				//      cBeBoard->setReg( INT_TRIGGER_FREQ, cTriggerFrequency );
 
-				//      std::cout << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Trigger source: " << cTriggerSource << ", Frequency: " << cTriggerFrequency << RESET << std::endl;
+				//      os << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Trigger source: " << cTriggerSource << ", Frequency: " << cTriggerFrequency << RESET << std::endl;
 				//  }
 				//  else if ( cTriggerSource == "ext" )
 				//  {
@@ -100,7 +100,7 @@ namespace Ph2_System
 				//      uint32_t cThreshold = Vto8Bit( cTriggerThreshold );
 				//      if ( cThreshold < 256 ) cBeBoard->setReg( TRIGGER_THRESHOLD, cThreshold );
 
-				//      else std::cout << "Error: could not translate this Threhold Level in a reasonable 8-bit value!" << std::endl;
+				//      else os << "Error: could not translate this Threhold Level in a reasonable 8-bit value!" << std::endl;
 
 				//      uint32_t cEdgeValue = ( cTriggerEdge == "rising" ) ? 0 : 1;
 				//      cBeBoard->setReg( TRIGGER_EDGE, cEdgeValue );
@@ -108,12 +108,12 @@ namespace Ph2_System
 				//      uint32_t cOutputValue = ( cTriggerOutput == "L1A" ) ? 1 : 0;
 				//      cBeBoard->setReg( LEMO2_SIGNAL, cOutputValue );
 
-				//      std::cout << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Trigger source: " << cTriggerSource << ", Threshold Voltage: " << cTriggerThreshold << "V ( " << cThreshold << " ), Edge: " << cTriggerEdge << ", Output: " << cTriggerOutput << RESET << std::endl;
+				//      os << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Trigger source: " << cTriggerSource << ", Threshold Voltage: " << cTriggerThreshold << "V ( " << cThreshold << " ), Edge: " << cTriggerEdge << ", Output: " << cTriggerOutput << RESET << std::endl;
 				//  }
 				//  else
 				//  {
 				//      cTriggerValue = 0;
-				//      std::cout << BOLDRED << "Warning: undefined trigger source: " << cTriggerSource << " -- using internal!" << RESET << std::endl;
+				//      os << BOLDRED << "Warning: undefined trigger source: " << cTriggerSource << " -- using internal!" << RESET << std::endl;
 				//  }
 
 				//  cBeBoard->setReg( TRIGGER_SELECT, cTriggerValue );
@@ -130,7 +130,7 @@ namespace Ph2_System
 				//  if ( cClockSource == "int" )
 				//  {
 				//      cClockValue = 0;
-				//      std::cout << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Clock source: " << cClockSource << ", Shift: " << cClockShift <<  RESET << std::endl;
+				//      os << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Clock source: " << cClockSource << ", Shift: " << cClockShift <<  RESET << std::endl;
 
 				//  }
 				//  else if ( cClockSource == "ext" )
@@ -140,12 +140,12 @@ namespace Ph2_System
 				//      uint32_t cThreshold =  Vto8Bit( cClockThreshold );
 				//      if ( cThreshold < 256 ) cBeBoard->setReg( CLK_THRESHOLD, cThreshold );
 
-				//      std::cout << BOLDCYAN << "|" <<  "      " << "|" << "----" <<  " Clock source: " << cClockSource << ", Threshold Voltage: " << cClockThreshold << "V ( " << cThreshold << " )" <<  ", Shift: " << cClockShift <<  RESET << std::endl;
+				//      os << BOLDCYAN << "|" <<  "      " << "|" << "----" <<  " Clock source: " << cClockSource << ", Threshold Voltage: " << cClockThreshold << "V ( " << cThreshold << " )" <<  ", Shift: " << cClockShift <<  RESET << std::endl;
 				//  }
 				//  else
 				//  {
 				//      cClockValue = 0;
-				//      std::cout << BOLDRED << "Warning: undefined clock source: " << cClockSource << " -- using internal!" << RESET << std::endl;
+				//      os << BOLDRED << "Warning: undefined clock source: " << cClockSource << " -- using internal!" << RESET << std::endl;
 				//  }
 
 				//  cBeBoard->setReg( CLK_SELECT, cClockValue );
@@ -175,18 +175,18 @@ namespace Ph2_System
 				//      cBeBoard->setReg( NEG_LOGIC_CBC, cPolarityValue );
 				//  }
 				//  else
-				//      std::cout << BOLDRED << "Warning: undefined polarity value: " << cPolarity << " -- using register value!" << RESET << std::endl;
+				//      os << BOLDRED << "Warning: undefined polarity value: " << cPolarity << " -- using register value!" << RESET << std::endl;
 
 
 
-				//  std::cout << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Signal Polarity: " << cPolarity  <<  RESET << std::endl;
+				//  os << BOLDCYAN << "|" << "       " << "|" << "----" <<  " Signal Polarity: " << cPolarity  <<  RESET << std::endl;
 
 				// }
 
 				// Iterate the BeBoardRegister Nodes
 				for ( pugi::xml_node cBeBoardRegNode = cBeBoardNode.child( "Register" ); cBeBoardRegNode/* != cBeBoardNode.child( "Module" )*/; cBeBoardRegNode = cBeBoardRegNode.next_sibling() )
 				{
-					// std::cout << BOLDCYAN << "|" << "  " << "|" << "_____" << cBeBoardRegNode.name() << "  " << cBeBoardRegNode.first_attribute().name() << " :" << cBeBoardRegNode.attribute( "name" ).value() << RESET << std:: endl;
+					// os << BOLDCYAN << "|" << "  " << "|" << "_____" << cBeBoardRegNode.name() << "  " << cBeBoardRegNode.first_attribute().name() << " :" << cBeBoardRegNode.attribute( "name" ).value() << RESET << std:: endl;
 					cBeBoard->setReg( std::string( cBeBoardRegNode.attribute( "name" ).value() ), atoi( cBeBoardRegNode.first_child().value() ) );
 				}
 
@@ -207,7 +207,7 @@ namespace Ph2_System
 				{
 					if ( static_cast<std::string>( cModuleNode.name() ) == "Module" )
 					{
-						std::cout << BOLDCYAN << "|" << "	" << "|" << "----" << cModuleNode.name() << "  " << cModuleNode.first_attribute().name() << " :" << cModuleNode.attribute( "ModuleId" ).value() << RESET << std:: endl;
+						os << BOLDCYAN << "|" << "	" << "|" << "----" << cModuleNode.name() << "  " << cModuleNode.first_attribute().name() << " :" << cModuleNode.attribute( "ModuleId" ).value() << RESET << std:: endl;
 
 						cModuleId = cModuleNode.attribute( "ModuleId" ).as_int();
 
@@ -216,12 +216,12 @@ namespace Ph2_System
 
 						pugi::xml_node cCbcPathPrefixNode = cModuleNode.child( "CBC_Files" );
 						std::string cFilePrefix = std::string( cCbcPathPrefixNode.attribute( "path" ).value() );
-						if ( !cFilePrefix.empty() ) std::cout << GREEN << "|" << "	" << "|" << "	" << "|" << "----" << "CBC Files Path : " << cFilePrefix << RESET << std::endl;
+						if ( !cFilePrefix.empty() ) os << GREEN << "|" << "	" << "|" << "	" << "|" << "----" << "CBC Files Path : " << cFilePrefix << RESET << std::endl;
 
 						// Iterate the CBC node
 						for ( pugi::xml_node cCbcNode = cModuleNode.child( "CBC" ); cCbcNode; cCbcNode = cCbcNode.next_sibling() )
 						{
-							std::cout << BOLDCYAN << "|" << "	" << "|" << "	" << "|" << "----" << cCbcNode.name() << "  " << cCbcNode.first_attribute().name() << " :" << cCbcNode.attribute( "Id" ).value() << ", File: " << cCbcNode.attribute( "configfile" ).value() << RESET << std:: endl;
+							os << BOLDCYAN << "|" << "	" << "|" << "	" << "|" << "----" << cCbcNode.name() << "  " << cCbcNode.first_attribute().name() << " :" << cCbcNode.attribute( "Id" ).value() << ", File: " << cCbcNode.attribute( "configfile" ).value() << RESET << std:: endl;
 
 
 							std::string cFileName;
@@ -243,7 +243,7 @@ namespace Ph2_System
 									uint32_t regvalue = convertAnyInt( cCbcGlobalNode.first_child().value() ) ;
 									cCbc->setReg( regname, uint8_t( regvalue ) ) ;
 
-									std::cout << GREEN << "|" << "	" << "|" << "	" << "|" << "----" << cCbcGlobalNode.name() << "  " << cCbcGlobalNode.first_attribute().name() << " :" << regname << " =  0x" << std::hex << std::setw( 2 ) << std::setfill( '0' ) << regvalue << std::dec << RESET << std:: endl;
+									os << GREEN << "|" << "	" << "|" << "	" << "|" << "----" << cCbcGlobalNode.name() << "  " << cCbcGlobalNode.first_attribute().name() << " :" << regname << " =  0x" << std::hex << std::setw( 2 ) << std::setfill( '0' ) << regvalue << std::dec << RESET << std:: endl;
 								}
 							}
 							fShelveVector[cNShelve]->getBoard( cBeId )->getModule( cModuleId )->addCbc( cCbc );
@@ -258,29 +258,29 @@ namespace Ph2_System
 
 		fBeBoardInterface = new BeBoardInterface( fBeBoardFWMap );
 		fCbcInterface = new CbcInterface( fBeBoardFWMap );
-		std::cout << "\n";
-		std::cout << "\n";
+		os << "\n";
+		os << "\n";
 		for ( i = 0; i < 80; i++ )
-			std::cout << "*";
-		std::cout << "\n";
+			os << "*";
+		os << "\n";
 		for ( j = 0; j < 40; j++ )
-			std::cout << " ";
-		std::cout << BOLDRED << "END OF HW SUMMARY: " << RESET << std::endl;
+			os << " ";
+		os << BOLDRED << "END OF HW SUMMARY: " << RESET << std::endl;
 		for ( i = 0; i < 80; i++ )
-			std::cout << "*";
-		std::cout << "\n";
-		std::cout << "\n";
+			os << "*";
+		os << "\n";
+		os << "\n";
 	}
 
-	void SystemController::InitializeSettings( const std::string& pFilename )
+	void SystemController::InitializeSettings( const std::string& pFilename, std::ostream& os )
 	{
 		pugi::xml_document doc;
 		pugi::xml_parse_result result = doc.load_file( pFilename.c_str() );
 
 		if ( !result )
 		{
-			std::cout << "ERROR :\n Unable to open the file : " << pFilename << std::endl;
-			std::cout << "Error description : " << result.description() << std::endl;
+			os << "ERROR :\n Unable to open the file : " << pFilename << std::endl;
+			os << "Error description : " << result.description() << std::endl;
 			return;
 		}
 		for ( pugi::xml_node nSettings = doc.child( "Settings" ); nSettings; nSettings = nSettings.next_sibling() )
@@ -288,12 +288,12 @@ namespace Ph2_System
 			for ( pugi::xml_node nSetting = nSettings.child( "Setting" ); nSetting; nSetting = nSetting.next_sibling() )
 			{
 				fSettingsMap[nSetting.attribute( "name" ).value()] = convertAnyInt( nSetting.first_child().value() );
-				std:: cout << RED << "Setting" << RESET << " --" << BOLDCYAN << nSetting.attribute( "name" ).value() << RESET << ":" << BOLDYELLOW << convertAnyInt( nSetting.first_child().value() ) << RESET << std:: endl;
+				os << RED << "Setting" << RESET << " --" << BOLDCYAN << nSetting.attribute( "name" ).value() << RESET << ":" << BOLDYELLOW << convertAnyInt( nSetting.first_child().value() ) << RESET << std:: endl;
 			}
 		}
 	}
 
-	void SystemController::ConfigureHw()
+	void SystemController::ConfigureHw( std::ostream& os )
 	{
 
 		bool cHoleMode, cCheck;
@@ -303,7 +303,7 @@ namespace Ph2_System
 			if ( cSetting != fSettingsMap.end() )
 			{
 				cHoleMode = cSetting->second;
-				std::cout << GREEN << "Overriding GLIB register values for signal polarity with value from settings node!" << RESET << std::endl;
+				os << GREEN << "Overriding GLIB register values for signal polarity with value from settings node!" << RESET << std::endl;
 			}
 			cCheck = true;
 		}
@@ -315,25 +315,26 @@ namespace Ph2_System
 			bool fHoleMode, fCheck;
 			Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
 			Ph2_HwInterface::CbcInterface* fCbcInterface;
+			std::ostream& los_;
 		  public:
-			Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode, bool pCheck ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ), fCheck( pCheck ) {}
+			Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode, bool pCheck, std::ostream& los ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ), fCheck( pCheck ), los_( los ) {}
 
 			void visit( BeBoard& pBoard ) {
 				fBeBoardInterface->ConfigureBoard( &pBoard );
 
 				if ( fCheck )
 					fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, ( ( fHoleMode ) ? 0 : 1 ) );
-				std::cout << GREEN << "Successfully configured Board " << int( pBoard.getBeId() ) << RESET << std::endl;
+				los_ << GREEN << "Successfully configured Board " << int( pBoard.getBeId() ) << RESET << std::endl;
 			}
 
 			void visit( Cbc& pCbc ) {
 				fCbcInterface->ConfigureCbc( &pCbc );
-				std::cout << GREEN <<  "Successfully configured Cbc " << int( pCbc.getCbcId() ) << RESET << std::endl;
+				los_ << GREEN <<  "Successfully configured Cbc " << int( pCbc.getCbcId() ) << RESET << std::endl;
 
 			}
 		};
 
-		Configurator cConfigurator( fBeBoardInterface, fCbcInterface, cHoleMode, cCheck );
+		Configurator cConfigurator( fBeBoardInterface, fCbcInterface, cHoleMode, cCheck, os );
 		accept( cConfigurator );
 	}
 
