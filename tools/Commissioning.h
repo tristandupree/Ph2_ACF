@@ -12,10 +12,9 @@
 #ifndef COMMISSIONING_H__
 #define COMMISSIONING_H__
 
-#include "../System/SystemController.h"
+#include "Tool.h"
 #include "../Utils/CommonVisitors.h"
 #include "../Utils/Utilities.h"
-#include "../Utils/CommonVisitors.h"
 
 
 #include "TString.h"
@@ -37,7 +36,7 @@ typedef std::map<Module*, TCanvas*> CanvasMap;
  * \brief Class to perform latency and threshold scans
  */
 
-class Commissioning : public SystemController
+class Commissioning : public Tool
 {
 
   public:

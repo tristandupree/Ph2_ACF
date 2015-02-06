@@ -337,45 +337,6 @@ namespace Ph2_System
 		accept( cConfigurator );
 	}
 
-	void SystemController::CreateResultDirectory( const std::string& pDirname, bool pDate )
-	{
-		bool cCheck;
-		bool cHoleMode;
-		auto cSetting = fSettingsMap.find( "HoleMode" );
-		if ( cSetting != std::end( fSettingsMap ) )
-		{
-			cCheck = true;
-			cHoleMode = ( cSetting->second == 1 ) ? true : false;
-		}
-		std::string cMode;
-		if ( cCheck )
-		{
-			if ( cHoleMode ) cMode = "_Hole";
-			else cMode = "_Electron";
-		}
-
-		std::string nDirname = pDirname;
-		if ( cCheck ) nDirname +=  cMode;
-		if ( pDate ) nDirname +=  currentDateTime();
-		std::cout << std::endl << "Creating directory: " << nDirname << std::endl << std::endl;
-		std::string cCommand = "mkdir -p " + nDirname;
-
-		system( cCommand.c_str() );
-
-		fDirectoryName = nDirname;
-	}
-
-	void SystemController::InitResultFile( const std::string& pFilename )
-	{
-
-		if ( !fDirectoryName.empty() )
-		{
-			std::string cFilename = fDirectoryName + "/" + pFilename + ".root";
-			fResultFile = TFile::Open( cFilename.c_str(), "RECREATE" );
-		}
-		else std::cout << RED << "ERROR: " << RESET << "No Result Directory initialized - not saving results!" << std::endl;
-	}
-
 	void SystemController::Run( BeBoard* pBeBoard, uint32_t pNthAcq )
 	{
 		fBeBoardInterface->Start( pBeBoard );

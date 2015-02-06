@@ -12,20 +12,14 @@
 #ifndef HybridTester_h__
 #define HybridTester_h__
 
-#include "../HWDescription/Module.h"
-#include "../HWDescription/Cbc.h"
-#include "../HWDescription/BeBoard.h"
-#include "../HWInterface/CbcInterface.h"
-#include "../HWInterface/BeBoardInterface.h"
-#include "../System/SystemController.h"
-#include "../Utils/ConsoleColor.h"
+#include "Tool.h"
+// #include "../Utils/ConsoleColor.h"
 #include "../Utils/Visitor.h"
 #include "../Utils/Utilities.h"
 #include "../Utils/CommonVisitors.h"
 
 
 
-#include "../System/SystemController.h"
 #include "TCanvas.h"
 #include "TFile.h"
 #include "TH1F.h"
@@ -41,7 +35,7 @@ using namespace Ph2_System;
  * \class HybridTester
  * \brief Class to test x*CBC2 Hybrids
  */
-class HybridTester : public SystemController
+class HybridTester : public Tool
 {
   public:
 	// Default C'tor
