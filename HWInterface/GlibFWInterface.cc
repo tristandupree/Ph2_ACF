@@ -311,18 +311,7 @@ namespace Ph2_HwInterface
 		WriteReg( fStrSramUserLogic, 0 );
 
 		//Read SRAM
-		uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, cBlockSize );
-
-		// To avoid the IPBUS bug
-		// need to convert uHal::ValVector to vector<uint32_t> so we can replace the 256th word
-		std::vector<uint32_t> cDataAlt = cData.value();
-		if ( cBlockSize > 255 )
-		{
-			std::string fSram_256 = fStrSram + "_256";
-			uhal::ValWord<uint32_t> cWord = ReadReg( fSram_256 );
-			cDataAlt[255] = cWord.value();
-		}
-
+		std::vector<uint32_t> cData =  ReadBlockRegValue( fStrSram, cBlockSize );
 
 		WriteReg( fStrSramUserLogic, 1 );
 		WriteReg( fStrReadout, 1 );
@@ -347,7 +336,22 @@ namespace Ph2_HwInterface
 		fData = new Data();
 
 		// set the vector<uint32_t> as event buffer and let him know how many packets it contains
-		fData->Set( &cDataAlt , cNPackets );
+		fData->Set( &cData , cNPackets );
+	}
+
+	std::vector<uint32_t> GlibFWInterface::ReadBlockRegValue( const std::string& pRegNode, const uint32_t& pBlocksize )
+	{
+		uhal::ValVector<uint32_t> valBlock = ReadBlockReg( pRegNode, pBlocksize );
+		std::vector<uint32_t> vBlock = valBlock.value();
+		// To avoid the IPBUS bug
+		// need to convert uHal::ValVector to vector<uint32_t> so we can replace the 256th word
+		if ( pBlocksize > 255 )
+		{
+			std::string fSram_256 = pRegNode + "_256";
+			uhal::ValWord<uint32_t> cWord = ReadReg( fSram_256 );
+			vBlock[255] = cWord.value();
+		}
+		return vBlock;
 	}
 
 	void GlibFWInterface::SelectDaqSRAM( uint32_t pNthAcq )

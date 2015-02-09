@@ -234,4 +234,9 @@ namespace Ph2_HwInterface
 		}
 	}
 
+	const uhal::Node& RegManager::getUhalNode( const std::string& pStrPath )
+	{
+		return fBoard->getNode( pStrPath );
+	}
+
 }

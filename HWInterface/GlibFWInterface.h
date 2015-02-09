@@ -106,6 +106,9 @@ namespace Ph2_HwInterface
 		*/
 		const char* GetBuffer( uint32_t& pBufSize ) const;
 
+
+		std::vector<uint32_t> ReadBlockRegValue( const std::string& pRegNode, const uint32_t& pBlocksize );
+
 		//Methods for the Cbc's:
 
 	  private:

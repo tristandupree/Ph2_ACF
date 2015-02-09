@@ -44,12 +44,12 @@ namespace Ph2_HwInterface
 
 		Data* fData; /*!< Data read storage*/
 
-                static const uint32_t cMask1 = 0xff;
-                static const uint32_t cMask2 = 0xff00;
-                static const uint32_t cMask3 = 0xff0000;
-                static const uint32_t cMask4 = 0xff000000;
-                static const uint32_t cMask5 = 0x1e0000;
-                static const uint32_t cMask6 = 0x10000;
+		static const uint32_t cMask1 = 0xff;
+		static const uint32_t cMask2 = 0xff00;
+		static const uint32_t cMask3 = 0xff0000;
+		static const uint32_t cMask4 = 0xff000000;
+		static const uint32_t cMask5 = 0x1e0000;
+		static const uint32_t cMask6 = 0x10000;
 	  public:
 
 		/*!
@@ -145,6 +145,9 @@ namespace Ph2_HwInterface
 		 * \return Data buffer
 		 */
 		virtual const char* GetBuffer( uint32_t& pBufSize ) const = 0;
+
+		virtual std::vector<uint32_t> ReadBlockRegValue( const std::string& pRegNode, const uint32_t& pBlocksize ) = 0;
+
 	};
 }
 
