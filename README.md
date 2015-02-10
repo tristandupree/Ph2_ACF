@@ -1,7 +1,6 @@
-CMS Ph2 ACF (Acquisition & Control Framework) 
-======================================
+# CMS Ph2 ACF (Acquisition & Control Framework) 
 
-__Contains:__
+##### Contains:
 
 - A middleware API layer, implemented in C++, which wraps the firmware calls and handshakes into abstracted functions
 
@@ -14,8 +13,7 @@ Hybrids, Boards) and their properties(values, status)
 
 - some applications: datatest, interfacetest, hybridtest, system, calibrate
 
-Different versions
----------------------------------------
+##### Different versions
 
 On this Repo, you can find different version of the software :
 - a hopefully working and stable version on the master branch
@@ -23,8 +21,7 @@ On this Repo, you can find different version of the software :
 - A development version wiht a GUI
 <br>
 
-Changelog:
-------------
+### Changelog:
 
 
 - 09/07/14 : Added threading for stack writing registers
@@ -43,53 +40,106 @@ Changelog:
     - updated address table for 2 & 8 CBC setups
     - new FW files for DIO5 FW for 2 & 8 CBC setups
     - a macro directory with a macro to visualize calibration results
+- 11/02/15 : new update (v1-02) with the following changes:
+    - removed all dependences on ROOT from the HWDescription/ HWInterface / System / Utils Library
+    - added a new Tool base-class that inherits from SystemController and handles the creation of Root files for the Tools (the Tools library is the onely one that requires ROOT)
+    - all Tools (cmd-line applications) now inherit from Tool instead of SystemController
+    - added a loop to the Destructors of HWDescription Objects that explicityl delete the child-objects in the HWDescription ownership strucuter to avoid memory leaks
+    - added a parameter to some methods of the SystemController class that allow to pass an ostream - this allows to redirect the output from std::cout as desired
+    - new Methods:
+        - RegManager::GetHWInterface and RegManager::getUhalNode methods
+        - BeBoardInterface::ReadBlockBoardReg and a BeBoardInterface::WriteBlockBoardReg
+        - BeBoard::getReg & BeBoard::setReg use uint32_t instead of uint16_t
+        - BeBoardFWInterface::ReadBlockRegValue pure virtual method and GlibFWInterface::ReadBlockRegValue that implements the uHAL bug workaround
 
 <br>
 
-Setup
------------------
+### Setup
+
 
 Firmware for the GLIB can be found in /firmware. Since the "old" FMC flavour is deprecated, only new FMCs (both connectors on the same side) are supported.
+You'll need Xilinx Impact and a [Xilinx Platform Cable USB II] (http://uk.farnell.com/xilinx/hw-usb-ii-g/platform-cable-configuration-prog/dp/1649384)
 
-NOTE: If you are doing the install for the first time on the latest [VM v1.1.0] (http://sbgcmstrackerupgrade.in2p3.fr/) then follow the preliminary setup, otherwise you can skip this.
+#### Setup on the Strasbourg [VM v1.1.0] (http://sbgcmstrackerupgrade.in2p3.fr/) 
 
 1. Remove the current gcc and old boost libraries:
 
-        sudo yum remove devtoolset-1.1-gcc-debuginfo
-        sudo yum remove boost
+        $> sudo yum remove devtoolset-1.1-gcc-debuginfo
+        $> sudo yum remove boost
 
 2. Install the latest gcc compiler:
 
-        sudo yum install devtoolset-2
-        sudo ln -s /opt/rh/devtoolset-2/root/usr/bin/* /usr/local/bin/
-        hash -r
+        $> sudo yum install devtoolset-2
+        $> sudo ln -s /opt/rh/devtoolset-2/root/usr/bin/* /usr/local/bin/
+        $> hash -r
 
    This should give you gcc 4.8.1:
 
-        gcc --version
+        $> gcc --version
 
 3. Finally, update uHAL to version 2.3:
 
-        sudo yum groupremove uhal
-        wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
+        $> sudo yum groupremove uhal
+        $> wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
 
     (You may need the --no-check-certificate)
 	
-        sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
-        sudo yum clean all
-        sudo yum groupinstall uhal
+        $> sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
+        $> sudo yum clean all
+        $> sudo yum groupinstall uhal
 
 4. Re-compile ROOT using the new gcc 4.8: [Instructions](http://root.cern.ch/drupal/content/installing-root-source) - make sure to use "fixed location installation"
 
+Note: You may also need to set the environment variables:
+
+    $> export LD_LIBRARY_PATH=/opt/cactus/lib:$LD_LIBRARY_PATH
+    $> export PATH=/opt/cactus/bin:$PATH
+
+#### Setup on SLC5/6
+
+1. Install the latest gcc compiler:
+
+        $> sudo yum install devtoolset-2
+        $> sudo ln -s /opt/rh/devtoolset-2/root/usr/bin/* /usr/local/bin/
+        $> hash -r
+
+   This should give you gcc 4.8.1:
+
+        $> gcc --version
+
+2. Install uHAL  version 2.3:
+
+    For SLC5:
+
+        $> wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
+   
+    or for SLC6:
+
+        $> wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc6.x86_64.repo 
+
+    (You may need the --no-check-certificate)
+
+    for SLC5:
+
+        $> sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
+
+    for SLC6:
+
+        $> sudo cp cactus.slc6.x86_64.repo /etc/yum.repos.d/cactus.repo
+
+    then
+
+        $> sudo yum clean all
+        $> sudo yum groupinstall uhal
+
+3. Install CERN ROOT: [Instructions](http://root.cern.ch/drupal/content/installing-root-source) - make sure to use "fixed location installation"
 
 Note: You may also need to set the environment variables:
 
-    export LD_LIBRARY_PATH=/opt/cactus/lib:$LD_LIBRARY_PATH
-    export PATH=/opt/cactus/bin:$PATH
+    $> export LD_LIBRARY_PATH=/opt/cactus/lib:$LD_LIBRARY_PATH
+    $> export PATH=/opt/cactus/bin:$PATH
 
-
-The Ph2_ACF Software : 
-----------------------------------
+### The Ph2_ACF Software : 
 
 Follow these instructions to install and compile the libraries:
 (provided you installed the latest version of gcc, µHal, boost as mentioned above)
@@ -100,27 +150,27 @@ Follow these instructions to install and compile the libraries:
 
 3. Launch 
         
-        systemtest --help
+        $> systemtest --help
      
      command if you want to test the parsing of the HWDescription.xml file
 
 4. Launch
 
-        datatest --help
+        $> datatest --help
         
     command if you want to test if you can correctly read data.
 
 6. Launch
 
-        calibrate --help
+        $> calibrate --help
 
     to calibrate a hybrid,
 
-        hybridtest --help
+        $> hybridtest --help
 
     to test a hybird's I2C registers and input channel connectivity
 
-        cmtest --help
+        $> cmtest --help
 
     to run the CM noise study
 
@@ -128,7 +178,7 @@ Follow these instructions to install and compile the libraries:
 7. an example of how to use visitors can be found in src/interfacetest.cc or in the HybridTester class
 
 
-__What can you do with the software ?__
+##### What can you do with the software ?
 
 At the moment the package provides the following features:
 
@@ -143,7 +193,7 @@ At the moment the package provides the following features:
 - any other routine you want to implement yourself ... 
 
 
-__Nota Bene:__
+##### Nota Bene:
 When you write a register in the Glib or the Cbc, the corresponding map of the HWDescription object in memory is also updated, 
 so that you always have an exact replica of the HW Status in the memory.
 
@@ -154,15 +204,15 @@ Register values are:
 For debugging purpose, you can activate DEV_FLAG in the sources or in the Makefile and also activate the uHal log in RegManager.cc.
 
 
-__External Clock and Trigger:__
+#### External Clock and Trigger:
 
 In order to use external Clock and Trigger functionality, a DIO5 mezzanine is required. It is available from the [CERN OHR](http://www.ohwr.org/projects/fmc-dio-5chttla) and sold by several commercial vendors.
 For instructions on how to use it, see this [file](https://github.com/gauzinge/Ph2_ACF/blob/Dev/doc/TK_DAQ_MONO_GLIB3_FMCDIO5_v3.0_09-12-2014.pdf). The [firmware](https://github.com/gauzinge/Ph2_ACF/tree/Dev/firmware) is included in this repository.
 
 
 
-Example HWDescription.xml File with DIO5 support:
------------------------------------------------------
+#### Example HWDescription.xml File with DIO5 support:
+
 ```xml
 
 <?xml version='1.0' encoding = 'UTF-8' ?>
@@ -254,8 +304,8 @@ Example HWDescription.xml File with DIO5 support:
 ```
 
 
-Known Issues:
----------------------
+### Known Issues:
+
 Several bugs / problematic behavior has been reported by various users that is not direclty linked to the Ph2_ACF libraries, however, some workarounds are provided:
 
 - When configuring a CBC object (writing all registers at once), the MSB of the Register "FrontEncControl" is read back incorrectly. This only manifests in electron mode (0xC3 instead of 0x43). The cause of this problem is identified as a FW artefact and the error itself can be safely ignored until the problem is solved. The chips will still properly configure and data quality should not be affected.
@@ -283,7 +333,6 @@ Several bugs / problematic behavior has been reported by various users that is n
 
 
 
-Support, Suggestions ?
-----------------------
+### Support, Suggestions ?
 
 For any support/suggestions, mail georg.auzingerSPAMNOT@cern.ch
