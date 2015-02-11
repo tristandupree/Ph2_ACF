@@ -12,7 +12,6 @@
 #include "RegManager.h"
 #include "../Utils/Utilities.h"
 #include "../HWDescription/Definition.h"
-#include "TString.h"
 
 #define DEV_FLAG    0
 
@@ -30,8 +29,10 @@ namespace Ph2_HwInterface
 		fUHalConfigFileName = puHalConfigFileName;
 
 		uhal::ConnectionManager cm( fUHalConfigFileName ); // Get connection
-
-		fBoard = new uhal::HwInterface( cm.getDevice( ( Form( "board%1d", pBoardId ) ) ) );
+		char cBuff[7];
+		sprintf(cBuff,"board%d",pBoardId);
+		
+		fBoard = new uhal::HwInterface( cm.getDevice( ( cBuff ) ) );
 
 		fThread.detach();
 
