@@ -52,7 +52,10 @@ SOURCES += main.cpp\
     Model/hybridtestworker.cpp \
     ViewMgr/hybridtestviewmanager.cpp \
     View/hybridtesttab.cpp \
-    View/calibratetab.cpp
+    View/calibratetab.cpp \
+    ViewMgr/calibrateviewmanager.cpp \
+    Model/calibrate.cpp \
+    Model/calibrateworker.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -76,7 +79,10 @@ HEADERS  += View/mainview.h \
     Model/hybridtestworker.h \
     ViewMgr/hybridtestviewmanager.h \
     View/hybridtesttab.h \
-    View/calibratetab.h
+    View/calibratetab.h \
+    ViewMgr/calibrateviewmanager.h \
+    Model/calibrate.h \
+    Model/calibrateworker.h
     #lib/TQtWidget.h
 
 

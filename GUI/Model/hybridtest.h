@@ -1,6 +1,5 @@
 #pragma once
 #include <QObject>
-#include <QVector>
 
 namespace GUI{
 
@@ -22,7 +21,9 @@ namespace GUI{
         void getIsRegTestChecked();
         void getIsScanChecked();
         void getIsHoleModeChecked();
+
         void startedHybridTest();
+        void finishedHybridTest();
 
     public slots:
         void initialiseSettings();
@@ -31,8 +32,6 @@ namespace GUI{
         void setTestReg(const bool testReg);
         void setScanThreshold(const bool scanThreshhold);
         void setHoleMode(const bool holeMode);
-
-        void finishedHybridTest();
 
     private:
 

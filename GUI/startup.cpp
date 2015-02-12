@@ -13,10 +13,13 @@
 #include "Model/systemcontrollerworker.h"
 #include "Model/cbcregisters.h"
 #include "Model/hybridtest.h"
+#include "Model/calibrate.h"
+
 #include "ViewMgr/setuptabviewmanager.h"
 #include "provider.h"
 #include "ViewMgr/cbcregviewmanager.h"
 #include "ViewMgr/hybridtestviewmanager.h"
+#include "ViewMgr/calibrateviewmanager.h"
 #include "ViewMgr/mainviewmanager.h"
 
 #include "utils.h"
@@ -49,6 +52,7 @@ namespace GUI
         m_cbcReg(new CbcRegisters(this,
                                   *m_systemController)),
         m_hybridTest(new HybridTest(this)),
+        m_calibrate(new Calibrate(this)),
 
         m_setupTabVm(*new SetupTabViewManager(this,
                                              m_setupTab,
@@ -60,13 +64,17 @@ namespace GUI
         m_hybridTabVm(*new HybridTestViewManager(this,
                                             m_hybridTab,
                                             *m_hybridTest)),
+        m_calibrateTabVm(*new CalibrateViewManager(this,
+                                                m_calibrateTab,
+                                                *m_calibrate)),
 
 
         m_mainViewVm(new MainViewManager(this,
                                          m_mainView,
                                          m_setupTabVm,
                                          m_cbcRegTabVm,
-                                         m_hybridTabVm))
+                                         m_hybridTabVm,
+                                         m_calibrateTabVm))
     {
     }
 

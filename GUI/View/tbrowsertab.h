@@ -29,8 +29,6 @@ namespace GUI{
 
         void on_InterfaceTest_clicked();
 
-        void on_pushButton_6_clicked();
-
         void on_TBrowser_clicked();
 
     private:

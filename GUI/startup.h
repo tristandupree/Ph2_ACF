@@ -17,9 +17,12 @@ namespace GUI{
     class SystemController;
     class CbcRegisters;
     class HybridTest;
+    class Calibrate;
+
     class SetupTabViewManager;
     class CbcRegViewManager;
     class HybridTestViewManager;
+    class CalibrateViewManager;
 
     class MainViewManager;
 
@@ -45,10 +48,12 @@ namespace GUI{
 
         CbcRegisters* m_cbcReg;
         HybridTest* m_hybridTest;
+        Calibrate* m_calibrate;
 
         SetupTabViewManager& m_setupTabVm;
         CbcRegViewManager& m_cbcRegTabVm;
         HybridTestViewManager& m_hybridTabVm;
+        CalibrateViewManager& m_calibrateTabVm;
 
         MainViewManager* m_mainViewVm;
 

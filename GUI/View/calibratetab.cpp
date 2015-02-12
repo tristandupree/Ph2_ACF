@@ -16,4 +16,41 @@ namespace GUI{
     {
         delete ui;
     }
+
+    void CalibrateTab::getIsFastCalib()
+    {
+        emit sendIsFastCalib(ui->radioFast->isChecked());
+    }
+
+    void CalibrateTab::getIsScan()
+    {
+        emit sendIsScan(ui->chbxScanV->isChecked());
+    }
+
+    void CalibrateTab::getIsBitwise()
+    {
+        emit sendIsBitwise(ui->chbxBit->isChecked());
+    }
+
+    void CalibrateTab::getIsAllCh()
+    {
+        emit sendIsAllCh(ui->chbxAllChan->isChecked());
+    }
+
+    void CalibrateTab::onCalibrationStart()
+    {
+        ui->btnCalibrate->setEnabled(false);
+    }
+
+    void CalibrateTab::onCalibrationFinish()
+    {
+        ui->btnCalibrate->setEnabled(true);
+    }
+
+    void CalibrateTab::on_btnCalibrate_clicked()
+    {
+        emit startCalibration();
+    }
+
+
 }

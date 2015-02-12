@@ -85,9 +85,4 @@ namespace GUI
         m_HoleMode = holeMode;
     }
 
-    void HybridTest::finishedHybridTest()
-    {
-        qDebug() << "All finished >_<";
-    }
-
 }

@@ -25,7 +25,6 @@ namespace GUI{
         void enableAlltabs(const bool enable);
         void on2CbcToggle(const bool);
         void notifyConfigFinished();
-        void sendAccept(HwDescriptionVisitor pVisitor);
         void sendInitialiseRegistersView();
 
     private:

@@ -34,6 +34,9 @@ namespace GUI{
         void getIsRegTestChecked();
         void getIsScanChecked();
         void getIsHoleModeChecked();
+        void onHybridTestFinish();
+        void onHybridTestStart();
+
     private slots:
         void on_btnStart_clicked();
 

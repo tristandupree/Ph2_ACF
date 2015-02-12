@@ -78,12 +78,6 @@ namespace GUI{
         process->start("./bin/interfacetest");
     }
 
-    void TBrowserTab::on_pushButton_6_clicked()
-    {
-        QProcess *process = new QProcess(this);
-        process->start("./bin/systemtest");
-    }
-
     void TBrowserTab::on_TBrowser_clicked()
     {
         qDebug() << "I'm in";

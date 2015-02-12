@@ -56,15 +56,15 @@ namespace GUI {
         emit sendIsHoleModeChecked(ui->checkHoleMode->isChecked());
     }
 
-    /*void HybridTestTab::onDataTestStart()
+    void HybridTestTab::onHybridTestStart()
     {
         ui->btnStart->setEnabled(false);
     }
 
-    void HybridTestTab::onDataTestFinish()
+    void HybridTestTab::onHybridTestFinish()
     {
         ui->btnStart->setEnabled(true);
-    }*/
+    }
 
     void HybridTestTab::on_btnStart_clicked()
     {

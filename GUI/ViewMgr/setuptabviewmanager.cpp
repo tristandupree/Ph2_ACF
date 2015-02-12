@@ -71,7 +71,5 @@ namespace GUI
 
     void SetupTabViewManager::WireCallFromOtherTabs()
     {
-        connect(this, SIGNAL(sendAccept(HwDescriptionVisitor)),
-                &m_systemController, SLOT(onAccept(HwDescriptionVisitor)));
     }
 }

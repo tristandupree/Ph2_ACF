@@ -7,6 +7,7 @@ namespace GUI{
     class SetupTabViewManager;
     class CbcRegViewManager;
     class HybridTestViewManager;
+    class CalibrateViewManager;
 
     class MainViewManager : public QObject
     {
@@ -16,7 +17,8 @@ namespace GUI{
                                  MainView& mainView,
                                  SetupTabViewManager& setupVm,
                                  CbcRegViewManager& cbcVm,
-                                 HybridTestViewManager& hybridVm);
+                                 HybridTestViewManager& hybridVm,
+                                 CalibrateViewManager& calibVm);
 
         ~MainViewManager();
     private:
@@ -24,9 +26,10 @@ namespace GUI{
         SetupTabViewManager& m_setupVm;
         CbcRegViewManager& m_cbcRegVm;
         HybridTestViewManager& m_hybridTestVm;
+        CalibrateViewManager& m_calibrateVm;
 
         void WireSetupVmMessages();
-        void WireHybridTestVmMessages();
+
 
         explicit MainViewManager(const MainViewManager& rhs) = delete;
         MainViewManager& operator= (const MainViewManager& rhs) = delete;
