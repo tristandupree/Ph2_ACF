@@ -7,6 +7,7 @@ namespace GUI{
     class SetupTab;
     class CbcRegistersTab;
     class HybridTestTab;
+    class CalibrateTab;
     class TBrowserTab;
 
     class MainView;
@@ -34,6 +35,7 @@ namespace GUI{
         SetupTab& m_setupTab;
         CbcRegistersTab& m_regTab;
         HybridTestTab& m_hybridTab;
+        CalibrateTab& m_calibrateTab;
         TBrowserTab& m_tbrowseTab;
 
         MainView& m_mainView;

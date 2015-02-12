@@ -19,14 +19,21 @@
 
 #include "TFile.h"
 
+#include <boost/interprocess/shared_memory_object.hpp>
+#include <boost/interprocess/managed_shared_memory.hpp>
+#include <boost/interprocess/containers/vector.hpp>
+#include <boost/interprocess/allocators/allocator.hpp>
+
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
+using namespace boost::interprocess;
 
 namespace GUI
 {
 
     typedef std::vector<Shelve*> ShelveVec;     /*!< Vector of Shelve pointers */
+    //typedef vector<Shelve*> sShelveVec;
     typedef std::map<std::string, uint32_t> SettingsMap;    /*!< Maps the settings */
 
     class SystemControllerWorker : public QObject
@@ -39,6 +46,8 @@ namespace GUI
         BeBoardFWMap fBeBoardFWMap;                                /*!< Map of connections to the BeBoard */
         SettingsMap fSettingsMap;                                         /*!< Maps the settings */
         std::string fDirectoryName;             /*< the Directoryname for the Root file with results */
+
+        //sShelveVec sShelveVector;
 
     public:
         explicit SystemControllerWorker(QObject *parent,
@@ -67,6 +76,8 @@ namespace GUI
         void ConfigureHw();
 
     private:
+
+        void createSharedMemory();
 
         bool _abort;
         bool _working;

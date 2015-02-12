@@ -13,11 +13,8 @@ TEMPLATE = app
 
 CONFIG += c++11 debug
 
-QMAKE_CXXFLAGS += -g -O1 -w -pedantic -fPIC -std=c++11 `root-config --cflags --evelibs` -Wcpp
+QMAKE_CXXFLAGS += -g -O1 -w -pedantic -fPIC -std=c++11 -lrt `root-config --cflags --evelibs` -Wcpp
 
-#include("$(ROOTSYS)/include/rootcint.pri")
-
-LIBS += -L/usr/include/boost -lboost_system -lboost_thread -lpthread -lboost_regex
 LIBS += -L../lib -lPh2_Interface -lPh2_Description -lPh2_System -lPh2_Tools -lPh2_Utils
 LIBS += -L/opt/cactus/lib -lcactus_extern_pugixml -lcactus_uhal_log -lcactus_uhal_grammars -lcactus_uhal_uhal
 LibraryDirs = /opt/cactus/lib /opt/xdaq/lib ../
@@ -26,11 +23,13 @@ LIBS += $(LibraryPaths:%=-L%) -uhal `root-config --glibs`
 
 LIBS += -L/usr/lib/ -lqjson
 INCLUDEPATH += /usr/include/qjson/
-#LIBS += $$system(root-config --glibs) -lGQt
 INCLUDEPATH += $(ROOTSYS)/include
 
 INCLUDEPATH += /opt/cactus/include /../../Ph2DAQ_dev/
 
+INCLUDEPATH += /../../Ph2DAQ_dev/
+INCLUDEPATH += /usr/local/boost
+LIBS += -L/usr/local/boost/libs -lrt -lboost_system
 
 
 SOURCES += main.cpp\
@@ -46,15 +45,14 @@ SOURCES += main.cpp\
     View/aboutbox.cpp \
     Model/systemcontrollerworker.cpp \
     Model/cbcregisters.cpp \
-    #lib/CustomTQtWidget.cpp \
     ViewMgr/mainviewmanager.cpp \
     Model/cbcregisterworker.cpp \
     View/tbrowsertab.cpp \
-    View/calibrate.cpp \
     Model/hybridtest.cpp \
     Model/hybridtestworker.cpp \
     ViewMgr/hybridtestviewmanager.cpp \
-    View/hybridtesttab.cpp
+    View/hybridtesttab.cpp \
+    View/calibratetab.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -74,11 +72,11 @@ HEADERS  += View/mainview.h \
     ViewMgr/mainviewmanager.h \
     Model/cbcregisterworker.h \
     View/tbrowsertab.h \
-    View/calibrate.h \
     Model/hybridtest.h \
     Model/hybridtestworker.h \
     ViewMgr/hybridtestviewmanager.h \
-    View/hybridtesttab.h
+    View/hybridtesttab.h \
+    View/calibratetab.h
     #lib/TQtWidget.h
 
 
@@ -87,8 +85,8 @@ FORMS    += View/mainview.ui \
     View/cbcregisterstab.ui \
     View/aboutbox.ui \
     View/tbrowsertab.ui \
-    View/calibrate.ui \
-    View/hybridtesttab.ui
+    View/hybridtesttab.ui \
+    View/calibratetab.ui
 
 OTHER_FILES +=
 

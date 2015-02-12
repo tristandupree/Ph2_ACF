@@ -3,10 +3,13 @@
 #include <QThread>
 #include "Model/systemcontrollerworker.h"
 
+
+
 //TODO Add proper destruct and safety methods to thread
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
+using namespace boost::interprocess;
 
 namespace GUI
 {
@@ -72,7 +75,7 @@ namespace GUI
         uint32_t cCbcId;
         uint32_t cFeId;
         uint32_t cFmcId;
-        uint32_t cNShelve = 0;
+        uint32_t cNShelve = 0; //TODO
 
         map_HwDescription = new QVariantMap();
 
@@ -144,6 +147,7 @@ namespace GUI
                     }
                 }
             }
+            cNShelve++;
         }
         fBeBoardInterface = new BeBoardInterface(fBeBoardFWMap);
         fCbcInterface = new CbcInterface(fBeBoardFWMap);
@@ -168,26 +172,13 @@ namespace GUI
         bool cCheck = false; //TODO
         bool cHoleMode = false; //TODO
 
-        /*bool cHoleMode, cCheck;
-        if ( !fSettingsMap.empty() )
-        {
-            SettingsMap::iterator cSetting = fSettingsMap.find( "HoleMode" );
-            if ( cSetting != fSettingsMap.end() )
-            {
-                cHoleMode = cSetting->second;
-                std::cout << GREEN << "Overriding GLIB register values for signal polarity with value from settings node!" << RESET << std::endl;
-            }
-            cCheck = true;
-        }
-        else cCheck = false;*/
-
         class Configurator : public HwDescriptionVisitor
         {
-          private:
+        private:
             bool fHoleMode, fCheck;
             Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
             Ph2_HwInterface::CbcInterface* fCbcInterface;
-          public:
+        public:
             Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode, bool pCheck ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ), fCheck( pCheck ) {}
 
             void visit( BeBoard& pBoard ) {
@@ -214,38 +205,66 @@ namespace GUI
         mutex.unlock();
         emit finishedConfigureHw();
         qDebug() << "Finished configure";
+
+        createSharedMemory();
     }
 
-    /*void SystemControllerWorker::getCbcs()
+    void SystemControllerWorker::createSharedMemory()
     {
-        mutex.lock();
-        bool abort = _abort;
-        mutex.unlock();
+        shared_memory_object::remove("HwDescriptionObjects");
 
-        class Configurator : public HwDescriptionVisitor
+        qDebug() << "size of vector " << fShelveVector.size();
+
+        managed_shared_memory segment{create_only, "HwDescriptionObjects", 1056};
+
+        BeBoardInterface *sBeBoardInterface = segment.construct<BeBoardInterface>("BeBoardInterface")(fBeBoardFWMap);
+        CbcInterface *sCbcInterface = segment.construct<CbcInterface>("CbcInterface")(fBeBoardFWMap);
+
+        Shelve * tempShelve;
+
+        for (Shelve* cShelve : fShelveVector)
         {
-          private:
-            bool fHoleMode, fCheck;
-            Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
-            Ph2_HwInterface::CbcInterface* fCbcInterface;
-          public:
-            Configurator(Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode, bool pCheck ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ), fCheck( pCheck ) {}
+            qDebug() << cShelve->getShelveId();
+            tempShelve = cShelve;
+            Shelve *shelve = segment.construct<Shelve>("Shelve")(0);
+        }
+        //Shelve *shelve = segment.construct<Shelve>("Shelve")(tempShelve);
 
-            void visit( Cbc& pCbc ) {
-                fCbcInterface->;
-                qDebug() << "Successfully configured Cbc " << int( pCbc.getCbcId() );
+        /*typedef allocator<int, managed_shared_memory::segment_manager>
+                ShmemAllocator;
 
-            }
-        };
+        //Alias a vector that uses the previous STL-like allocator
+        typedef vector<int, ShmemAllocator> MyVector;
 
-        Configurator cConfigurator(fCbcInterface, cHoleMode, cCheck);
-        accept(cConfigurator);
+        int initVal[]        = {0, 1, 2, 3, 4, 5, 6 };
+        const int *begVal    = initVal;
+        const int *endVal    = initVal + sizeof(initVal)/sizeof(initVal[0]);
 
-        mutex.lock();
-        _working = false;
-        mutex.unlock();
+        //Initialize the STL-like allocator
+        const ShmemAllocator alloc_inst (segment.get_segment_manager());
 
-    }*/
+        MyVector *myvector =
+                segment.construct<MyVector>
+                ("MyVector")/*object name*/
+        //(begVal     /*first ctor parameter*/,
+        //        endVal     /*second ctor parameter*/,
+        //        alloc_inst /*third ctor parameter*/);*/
+
+        //ShelveVec *sShelveVector = segment.construct<ShelveVec>("ShelveVector")(fShelveVector);
+
+        //qDebug() << "Size " << sShelveVector->size();
+
+        //qDebug() << myvector->size();
+
+
+        qDebug() << sBeBoardInterface;
+        qDebug() << sCbcInterface;
+
+        /*BeBoardInterface*       fBeBoardInterface;
+        CbcInterface*           fCbcInterface;
+        ShelveVec fShelveVector;
+        BeBoardFWMap fBeBoardFWMap;*/
+    }
 
 
     void SystemControllerWorker::Run( BeBoard* pBeBoard, uint32_t pNthAcq )

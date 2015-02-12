@@ -2,6 +2,7 @@
 #include "ui_mainview.h"
 #include "View/setuptab.h"
 #include "View/cbcregisterstab.h"
+#include "View/calibratetab.h"
 #include "View/hybridtesttab.h"
 #include "View/aboutbox.h"
 #include "View/tbrowsertab.h"
@@ -14,6 +15,7 @@ namespace GUI{
                        SetupTab& setup,
                        CbcRegistersTab& regTab,
                        HybridTestTab& hybrid,
+                       CalibrateTab& calibrate,
                        TBrowserTab& brow) :
         QMainWindow(parent),
         ui(new Ui::MainView)
@@ -23,9 +25,10 @@ namespace GUI{
         ui->loSetup->addWidget(&setup);
         ui->loRegisters->addWidget(&regTab);
         ui->loHybridTest->addWidget(&hybrid);
+        ui->loCalibrate->addWidget(&calibrate);
         ui->loTBrowser->addWidget(&brow);
 
-        enableAllTabsSlot(false);
+        //enableAllTabsSlot(false);
     }
 
     MainView::~MainView()

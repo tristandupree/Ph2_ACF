@@ -9,6 +9,8 @@
 #include <QHBoxLayout>
 #include <QTabWidget>
 
+#include "TSocket.h"
+
 #include "utils.h"
 
 namespace GUI {
@@ -66,7 +68,9 @@ namespace GUI {
 
     void HybridTestTab::on_btnStart_clicked()
     {
+
         emit startHybridTest();
+
     }
 
     void HybridTestTab::on_dialVcth_sliderMoved(int position)

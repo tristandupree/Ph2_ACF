@@ -3,6 +3,7 @@
 #include "View/setuptab.h"
 #include "View/cbcregisterstab.h"
 #include "View/hybridtesttab.h"
+#include "View/calibratetab.h"
 #include "View/tbrowsertab.h"
 
 #include "View/mainview.h"
@@ -33,12 +34,14 @@ namespace GUI
         m_setupTab(*new SetupTab(nullptr)), //nullptr - transferring ownership in mainview
         m_regTab(*new CbcRegistersTab(nullptr)),
         m_hybridTab(*new HybridTestTab(nullptr)),
+        m_calibrateTab(*new CalibrateTab(nullptr)),
         m_tbrowseTab(*new TBrowserTab(nullptr)),
 
         m_mainView(*new MainView(nullptr,
                                  m_setupTab,
                                  m_regTab,
                                  m_hybridTab,
+                                 m_calibrateTab,
                                  m_tbrowseTab)),
 
         m_systemController(new SystemController(this,
@@ -57,6 +60,7 @@ namespace GUI
         m_hybridTabVm(*new HybridTestViewManager(this,
                                             m_hybridTab,
                                             *m_hybridTest)),
+
 
         m_mainViewVm(new MainViewManager(this,
                                          m_mainView,

@@ -3,6 +3,22 @@
 #include <QThread>
 #include <QDebug>
 #include <QProcess>
+#include <boost/interprocess/shared_memory_object.hpp>
+#include <boost/interprocess/managed_shared_memory.hpp>
+#include <boost/interprocess/mapped_region.hpp>
+#include <boost/interprocess/containers/vector.hpp>
+#include <boost/interprocess/allocators/allocator.hpp>
+
+#include "../HWInterface/BeBoardFWInterface.h"
+#include "../HWDescription/Shelve.h"
+#include "../HWInterface/CbcInterface.h"
+#include "../HWInterface/BeBoardInterface.h"
+#include "../HWDescription/Definition.h"
+#include "../Utils/Visitor.h"
+
+using namespace boost::interprocess;
+using namespace Ph2_HwDescription;
+using namespace Ph2_HwInterface;
 
 namespace GUI {
 
@@ -19,6 +35,21 @@ namespace GUI {
 
     void HybridTestWorker::doWork()
     {
+
+        /*shared_memory_object::remove("Boost");
+    	managed_shared_memory managed_shm{open_or_create, "Boost", 1024};
+
+    	int *i = managed_shm.construct<int>("Integer")[10](91);
+    	  std::cout << *i << '\n';
+    	  std::pair<int*, std::size_t> p = managed_shm.find<int>("Integer");
+    	  if (p.first)
+    	  {
+    	    std::cout << *p.first << '\n';
+    	    std::cout << p.second << '\n';
+          }*/
+
+        managed_shared_memory shm(open_only, "HwDescriptionObjects");
+
         QProcess *process = new QProcess(this);
         QString cmd = QString("./bin/hybridtest --gui");
 

@@ -81,7 +81,6 @@ int main( int argc, char* argv[] )
 	HybridTester cHybridTester;
 	if (!isGui)
 	{
-		std::cout << "Not GUI =(" << std::endl;
 		cHybridTester.InitializeHw( cHWFile );
 		cHybridTester.Initialize( cScan );
 
@@ -92,23 +91,18 @@ int main( int argc, char* argv[] )
 	}
 	else
 	{
-		///!!!REMOVE BELOW EVENTUALLY
+		std::cout << "GUI mode triggered!" << std::endl;
 		cHybridTester.InitializeHw( cHWFile );
-		cHybridTester.Initialize( cScan );
+
+		int cVcth = ( cmd.foundOption( "vcth" ) ) ? std::stoi(cmd.optionValue( "vcth" )) : 70;
+		int nEvents = ( cmd.foundOption( "nEvents" ) ) ? std::stoi(cmd.optionValue( "nEvents" )) : 100;
+		bool cHoleMode = ( cmd.foundOption( "holemode" ) ) ? true : false;
+
+		cHybridTester.Initialise(cVcth, nEvents, cRegisters, cScan, cHoleMode);
 
 		cHybridTester.InitializeSettings( cHWFile );
 		cHybridTester.CreateResultDirectory( cDirectory );
 		cHybridTester.InitResultFile( "HybridTest" );
-		cHybridTester.ConfigureHw();
-
-		//!!!!!!!!!!!!!!!
-
-
-		std::cout << "GUI mode triggered!" << std::endl;
-		int cVcth = ( cmd.foundOption( "vcth" ) ) ? std::stoi(cmd.optionValue( "vcth" )) : 70;
-		int nEvents = ( cmd.foundOption( "nEvents" ) ) ? std::stoi(cmd.optionValue( "nEvents" )) : 100;
-		bool cHoleMode = ( cmd.foundOption( "holemode" ) ) ? true : false;
-		cHybridTester.Initialise(cVcth, nEvents, cRegisters, cScan, cHoleMode);
 	}
 
 
