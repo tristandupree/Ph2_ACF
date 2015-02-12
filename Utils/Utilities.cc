@@ -73,3 +73,10 @@ double MyErf( double* x, double* par )
 	else fitval = 0.5 + 0.5 * erf( ( x[0] - x0 ) / width );
 	return fitval;
 }
+
+uint32_t convertAnyInt( const char* pRegValue )
+{
+	if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return static_cast<uint32_t>( strtoul( pRegValue , 0, 16 ) );
+	else return static_cast<uint32_t>( strtoul( pRegValue , 0, 10 ) );
+
+}

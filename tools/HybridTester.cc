@@ -101,38 +101,7 @@ void HybridTester::Initialize( bool pThresholdScan )
 		fSCurveCanvas->Divide( fNCbc );
 	}
 	InitializeHists();
-
-
-
-
 }
-
-void HybridTester::InitializeGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector )
-{
-	fThresholdScan = pThresholdScan;
-	gStyle->SetOptStat( 000000 );
-	gStyle->SetTitleOffset( 1.3, "Y" );
-	//  special Visito class to count objects
-	Counter cCbcCounter;
-	accept( cCbcCounter );
-	fNCbc = cCbcCounter.getNCbc();
-
-	fDataCanvas = pCanvasVector.at( 1 ); //since I ounly need one here
-	fDataCanvas->SetName( "fDataCanvas" );
-	fDataCanvas->SetTitle( "SingleStripEfficiency" );
-	fDataCanvas->Divide( 2 );
-
-	if ( fThresholdScan )
-	{
-		fSCurveCanvas = pCanvasVector.at( 2 ); // only if the user decides to do a thresholdscan
-		fSCurveCanvas->SetName( "fSCurveCanvas" );
-		fSCurveCanvas->SetTitle( "NoiseOccupancy" );
-		fSCurveCanvas->Divide( fNCbc );
-	}
-
-	InitializeHists();
-}
-
 
 
 void HybridTester::ScanThreshold()

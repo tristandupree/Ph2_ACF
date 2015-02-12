@@ -1,4 +1,5 @@
 #include <cstring>
+#include "../Utils/Utilities.h"
 #include "../HWDescription/Cbc.h"
 #include "../HWDescription/Module.h"
 #include "../HWDescription/BeBoard.h"
@@ -61,8 +62,8 @@ int main( int argc, char* argv[] )
 
 	// now query the parsing results
 	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/HWDescription_2CBC.xml";
-	cVcth = ( cmd.foundOption( "vcth" ) ) ? cSystemController.convertAnyInt( cmd.optionValue( "vcth" ).c_str() ) : 0;
-	pEventsperVcth = ( cmd.foundOption( "events" ) ) ? cSystemController.convertAnyInt( cmd.optionValue( "events" ).c_str() ) : 10;
+	cVcth = ( cmd.foundOption( "vcth" ) ) ? convertAnyInt( cmd.optionValue( "vcth" ).c_str() ) : 0;
+	pEventsperVcth = ( cmd.foundOption( "events" ) ) ? convertAnyInt( cmd.optionValue( "events" ).c_str() ) : 10;
 
 	Timer t;
 	t.start();

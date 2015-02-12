@@ -48,5 +48,11 @@ const std::string currentDateTime();
  * \return function value
  */
 double MyErf( double* x, double* par );
+/*!
+ * \brief converts any char array to int by automatically detecting if it is hex or dec
+ * \param pRegValue: parsed xml parmaeter char*
+ * \return converted integer
+ */
+uint32_t convertAnyInt( const char* pRegValue );
 
 #endif

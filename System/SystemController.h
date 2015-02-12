@@ -105,16 +105,7 @@ namespace Ph2_System
 		 */
 		void Run( BeBoard* pBeBoard, uint32_t pNthAcq );
 
-		/*!
-		 * \brief converts any char array to int by automatically detecting if it is hex or dec
-		 * \param pRegValue: parsed xml parmaeter char*
-		 * \return converted integer
-		 */
-		uint32_t convertAnyInt( const char* pRegValue ) {
-			if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return static_cast<uint32_t>( strtoul( pRegValue , 0, 16 ) );
-			else return static_cast<uint32_t>( strtoul( pRegValue , 0, 10 ) );
 
-		}
 
 	  protected:
 		/*!

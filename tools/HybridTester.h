@@ -47,12 +47,6 @@ class HybridTester : public Tool
 	*/
 	void Initialize( bool pThresholdScan );
 	/*!
-	* \brief Initialize the Histograms and Canvasses for GUI applications
-	* \param pThresholdScan :  bool flag to initialize the additional canvas for the Threshold scan
-	* \param pCanvasVector: vector of TCanvas* to be passed by the GUI to draw on
-	*/
-	void InitializeGUI( bool pThresholdScan, const std::vector<TCanvas*>& pCanvasVector );
-	/*!
 	* \brief Test CBC registers by writing complimentary bit patterns (0x55, 0xAA)
 	*/
 	void TestRegisters();
