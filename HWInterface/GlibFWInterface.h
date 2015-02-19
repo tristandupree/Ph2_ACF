@@ -109,6 +109,8 @@ namespace Ph2_HwInterface
 
 		std::vector<uint32_t> ReadBlockRegValue( const std::string& pRegNode, const uint32_t& pBlocksize );
 
+		bool WriteBlockReg( const std::string& pRegNode, const std::vector< uint32_t >& pValues );
+
 		//Methods for the Cbc's:
 
 	  private:
