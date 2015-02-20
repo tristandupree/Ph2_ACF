@@ -254,7 +254,7 @@ namespace Ph2_HwInterface
 		}
 	}
 
-	void CbcInterface::ReadCbcReg( Cbc* pCbc, const std::string& pRegNode )
+	uint8_t CbcInterface::ReadCbcReg( Cbc* pCbc, const std::string& pRegNode )
 	{
 
 		uint8_t cCbcId;
@@ -270,7 +270,7 @@ namespace Ph2_HwInterface
 		DecodeReg( cRegItem, cCbcId, cVecReq[0] );
 
 		pCbc->setReg( pRegNode, cRegItem.fValue );
-
+		return cRegItem.fValue;
 	}
 
 

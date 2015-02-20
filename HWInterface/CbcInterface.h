@@ -98,7 +98,7 @@ namespace Ph2_HwInterface
 		 * \param pCbc
 		 * \param pRegNode : Node of the register to read
 		 */
-		void ReadCbcReg( Cbc* pCbc, const std::string& pRegNode );
+		uint8_t ReadCbcReg( Cbc* pCbc, const std::string& pRegNode );
 		/*!
 		 * \brief Read several register in the Cbc
 		 * \param pCbc
