@@ -50,7 +50,6 @@ class CMTester : public Tool
 
   public:
 	void Initialize();
-	void InitializeGUI( std::vector<TCanvas*> pCanvasVector );
 	void ScanNoiseChannels();
 	void TakeData();
 	void FinishRun();

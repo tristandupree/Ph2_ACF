@@ -100,7 +100,7 @@ int main( int argc, char* argv[] )
 		int nEvents = ( cmd.foundOption( "nEvents" ) ) ? std::stoi( cmd.optionValue( "nEvents" ) ) : 100;
 		bool cHoleMode = ( cmd.foundOption( "holemode" ) ) ? true : false;
 
-		cHybridTester.Initialise( cVcth, nEvents, cRegisters, cScan, cHoleMode );
+		cHybridTester.InitialiseGUI( cVcth, nEvents, cRegisters, cScan, cHoleMode );
 
 		cHybridTester.InitializeSettings( cHWFile );
 		cHybridTester.CreateResultDirectory( cDirectory );

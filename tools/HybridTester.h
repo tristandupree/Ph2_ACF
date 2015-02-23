@@ -47,6 +47,10 @@ class HybridTester : public Tool
 	*/
 	void Initialize( bool pThresholdScan );
 	/*!
+	    * \brief Initialise the Histograms and Canvasses for GUI applications
+	*/
+	void InitialiseGUI( int pVcth, int pNevents, bool pTestreg, bool pScanthreshold, bool pHolemode );
+	/*!
 	* \brief Test CBC registers by writing complimentary bit patterns (0x55, 0xAA)
 	*/
 	void TestRegisters();
@@ -79,6 +83,10 @@ class HybridTester : public Tool
 	*/
 	void InitializeHists();
 	/*!
+	* \brief private method that calls reads the settings from the settings map in private member variables
+	*/
+	void InitialiseSettings();
+	/*!
 	* \brief private method to periodically update the output graphs
 	*/
 	void UpdateHists() {
@@ -93,6 +101,12 @@ class HybridTester : public Tool
 	uint32_t fillSCurves( BeBoard* pBoard,  const Event* pEvent, uint8_t pValue );
 	void updateSCurveCanvas( BeBoard* pBoard );
 	void processSCurves( uint32_t pEventsperVcth );
+
+	uint32_t fTotalEvents;
+	bool fHoleMode;
+	int fSigmas;
+	uint8_t fVcth;
+
 
 };
 
