@@ -43,6 +43,9 @@ int main( int argc, char* argv[] )
 	cmd.defineOption( "batch", "Run the application in batch mode", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "batch", "b" );
 
+	cmd.defineOption( "gui", "option only suitable when launching from gui", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "gui", "g" );
+
 	int result = cmd.parse( argc, argv );
 	if ( result != ArgvParser::NoParserError )
 	{
@@ -56,6 +59,7 @@ int main( int argc, char* argv[] )
 	cDirectory += "CMTest";
 	bool cScan = ( cmd.foundOption( "scan" ) ) ? true : false;
 	bool batchMode = ( cmd.foundOption( "batch" ) ) ? true : false;
+	bool gui = ( cmd.foundOption( "gui" ) ) ? true : false;
 
 
 	TApplication cApp( "Root Application", &argc, argv );
@@ -69,7 +73,7 @@ int main( int argc, char* argv[] )
 	cTester.InitializeSettings( cHWFile );
 	cTester.CreateResultDirectory( cDirectory );
 	cTester.InitResultFile( "CMTest" );
-	cTester.ConfigureHw();
+	if ( !gui ) cTester.ConfigureHw();
 
 	// Here comes our Part:
 	if ( cScan ) cTester.ScanNoiseChannels();
