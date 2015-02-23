@@ -43,12 +43,17 @@ int main( int argc, char* argv[] )
 	cmd.defineOption( "batch", "Run the application in batch mode", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "batch", "b" );
 
+	cmd.defineOption("gui","option only suitable when launching from gui", ArgvParser::NoOptionAttribute);
+	cmd.defineOptionAlternative("gui", "g");
+
 	int result = cmd.parse( argc, argv );
+
 	if ( result != ArgvParser::NoParserError )
 	{
 		std::cout << cmd.parseErrorDescription( result );
 		exit( 1 );
 	}
+	bool isGui = (cmd.foundOption("gui")) ? true : false;
 
 	// now query the parsing results
 	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/CMTest2CBC.xml";
@@ -56,6 +61,7 @@ int main( int argc, char* argv[] )
 	cDirectory += "CMTest";
 	bool cScan = ( cmd.foundOption( "scan" ) ) ? true : false;
 	bool batchMode = ( cmd.foundOption( "batch" ) ) ? true : false;
+	bool guiMode = (cmd.foundOption("gui")) ? true : false;
 
 
 	TApplication cApp( "Root Application", &argc, argv );
@@ -65,11 +71,10 @@ int main( int argc, char* argv[] )
 	CMTester cTester;
 	cTester.InitializeHw( cHWFile );
 	cTester.Initialize( );
-	// cTester.InitializeGUI(FionnsExternalGUIvector);
 	cTester.InitializeSettings( cHWFile );
 	cTester.CreateResultDirectory( cDirectory );
 	cTester.InitResultFile( "CMTest" );
-	cTester.ConfigureHw();
+	if(!isGui) cTester.ConfigureHw();
 
 	// Here comes our Part:
 	if ( cScan ) cTester.ScanNoiseChannels();

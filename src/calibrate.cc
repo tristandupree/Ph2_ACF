@@ -73,7 +73,7 @@ int main( int argc, char* argv[] )
 	bool cCalibrateTGrp = ( cmd.foundOption( "allChan" ) ) ? true : false;
 	bool batchMode = ( cmd.foundOption( "batch" ) ) ? true : false;
 
-	bool gui = ( cmd.foundOption( "gui" ) ) ? true : false;
+	bool isGui = ( cmd.foundOption( "gui" ) ) ? true : false;
 
 	TApplication cApp( "Root Application", &argc, argv );
 	if ( batchMode ) gROOT->SetBatch( true );
@@ -86,7 +86,7 @@ int main( int argc, char* argv[] )
 		cCalibration.InitializeSettings( cHWFile );
 		cCalibration.CreateResultDirectory( cDirectory );
 		cCalibration.InitResultFile( "CalibrationResults" );
-		if( !gui ) cCalibration.ConfigureHw();
+		if( !isGui ) cCalibration.ConfigureHw();
 		cCalibration.Initialise(); // canvases etc. for fast calibration
 		if ( !cVplus ) cCalibration.ScanVplus();
 		cCalibration.ScanOffset();
@@ -102,7 +102,7 @@ int main( int argc, char* argv[] )
 		cCalibration.CreateResultDirectory( cDirectory );
 		cCalibration.InitResultFile( "CalibrationResults" );
 		cCalibration.InitialiseTestGroup();
-		if( !gui ) cCalibration.ConfigureHw();
+		if( !isGui ) cCalibration.ConfigureHw();
 		if ( !cVplus ) cCalibration.VplusScan();
 		cCalibration.OffsetScan();
 		cCalibration.SaveResults();
