@@ -24,6 +24,28 @@ namespace GUI{
 
     void CmTest::WireThreadConnections()
     {
+        connect(m_worker, SIGNAL(workRequested()),
+                m_thread, SLOT(start()));
+        connect(m_thread, SIGNAL(started()),
+                m_worker, SLOT(doWork()));
+        connect(m_worker, SIGNAL(finished()),
+                this, SIGNAL(finishedCmTest()));
+        connect(m_worker, SIGNAL(finished()),
+                m_thread, SLOT(quit()), Qt::DirectConnection);
+    }
+    void CmTest::initialiseSettings()
+    {
+        emit getIsScan();
 
+        emit startedCmTest();
+
+        m_thread->wait();
+        m_worker->requestWork(m_scanNoise);
+
+    }
+
+    void CmTest::setIsScan(bool scanNoise)
+    {
+        m_scanNoise = scanNoise;
     }
 }

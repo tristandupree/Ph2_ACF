@@ -15,6 +15,15 @@ namespace GUI {
     public:
         explicit CmTestTab(QWidget *parent);
         ~CmTestTab();
+    signals:
+        void startCmTest();
+        void sendIsScan(const bool);
+
+    public slots:
+        void getIsNoiseScan();
+
+    private slots:
+        void on_btnLaunch_clicked();
 
     private:
         Ui::CmTestTab *ui;

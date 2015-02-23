@@ -12,7 +12,8 @@ namespace GUI {
         m_cmTab(cmTab),
         m_cm(cm)
     {
-
+        WireButtons();
+        WireExternalCalls();
     }
 
     CmTestViewManager::~CmTestViewManager()
@@ -20,8 +21,24 @@ namespace GUI {
 
     }
 
-    void CmTestViewManager::WireConnections()
+
+    void CmTestViewManager::WireButtons()
     {
+        connect(&m_cmTab, SIGNAL(startCmTest()),
+                &m_cm, SLOT(initialiseSettings()));
+        connect(&m_cm, SIGNAL(getIsScan()),
+                &m_cmTab, SLOT(getIsNoiseScan()));
+        connect(&m_cmTab, SIGNAL(sendIsScan(bool)),
+                &m_cm, SLOT(setIsScan(bool)));
+
+    }
+
+    void CmTestViewManager::WireExternalCalls()
+    {
+        connect(&m_cm, SIGNAL(startedCmTest()),
+                this, SIGNAL(onCmTestStart()));
+        connect(&m_cm, SIGNAL(finishedCmTest()),
+                this, SIGNAL(onCmTestFinished()));
 
     }
 

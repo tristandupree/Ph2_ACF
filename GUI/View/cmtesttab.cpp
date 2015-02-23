@@ -16,4 +16,14 @@ namespace GUI {
     {
         delete ui;
     }
+
+    void CmTestTab::getIsNoiseScan()
+    {
+        emit sendIsScan(ui->chbxScanNoise->isChecked());
+    }
+
+    void CmTestTab::on_btnLaunch_clicked()
+    {
+        emit startCmTest();
+    }
 }

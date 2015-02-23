@@ -15,11 +15,18 @@ namespace GUI{
         ~CmTest();
 
     signals:
+        void getIsScan();
+        void startedCmTest();
+        void finishedCmTest();
 
     public slots:
+        void initialiseSettings();
+        void setIsScan(bool scanNoise);
 
 
     private:
+
+        bool m_scanNoise;
 
         QThread *m_thread;
         CmTestWorker *m_worker;
