@@ -21,7 +21,7 @@ namespace GUI{
         QProcess *process = new QProcess(this);
         QString cmd = QString("./bin/cmtest --gui");
 
-        cmd = !m_noiseScan ? cmd + " --scan" : cmd;
+        cmd = m_noiseScan ? cmd + " --scan" : cmd;
 
         qDebug() << cmd;
 
