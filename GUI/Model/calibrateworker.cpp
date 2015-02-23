@@ -8,7 +8,8 @@
 
 namespace GUI{
 
-    CalibrateWorker::CalibrateWorker(QObject *parent) : QObject(parent)
+    CalibrateWorker::CalibrateWorker(QObject *parent) :
+        QObject(parent)
     {
 
     }

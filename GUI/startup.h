@@ -8,6 +8,7 @@ namespace GUI{
     class CbcRegistersTab;
     class HybridTestTab;
     class CalibrateTab;
+    class CmTestTab;
     class TBrowserTab;
 
     class MainView;
@@ -18,11 +19,13 @@ namespace GUI{
     class CbcRegisters;
     class HybridTest;
     class Calibrate;
+    class CmTest;
 
     class SetupTabViewManager;
     class CbcRegViewManager;
     class HybridTestViewManager;
     class CalibrateViewManager;
+    class CmTestViewManager;
 
     class MainViewManager;
 
@@ -39,6 +42,7 @@ namespace GUI{
         CbcRegistersTab& m_regTab;
         HybridTestTab& m_hybridTab;
         CalibrateTab& m_calibrateTab;
+        CmTestTab& m_cmTestTab;
         TBrowserTab& m_tbrowseTab;
 
         MainView& m_mainView;
@@ -49,11 +53,13 @@ namespace GUI{
         CbcRegisters* m_cbcReg;
         HybridTest* m_hybridTest;
         Calibrate* m_calibrate;
+        CmTest* m_cm;
 
         SetupTabViewManager& m_setupTabVm;
         CbcRegViewManager& m_cbcRegTabVm;
         HybridTestViewManager& m_hybridTabVm;
         CalibrateViewManager& m_calibrateTabVm;
+        CmTestViewManager& m_cmTabVm;
 
         MainViewManager* m_mainViewVm;
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <QObject>
 
 namespace GUI{
@@ -8,6 +9,7 @@ namespace GUI{
     class CbcRegViewManager;
     class HybridTestViewManager;
     class CalibrateViewManager;
+    class CmTestViewManager;
 
     class MainViewManager : public QObject
     {
@@ -18,7 +20,8 @@ namespace GUI{
                                  SetupTabViewManager& setupVm,
                                  CbcRegViewManager& cbcVm,
                                  HybridTestViewManager& hybridVm,
-                                 CalibrateViewManager& calibVm);
+                                 CalibrateViewManager& calibVm,
+                                 CmTestViewManager &cmVm);
 
         ~MainViewManager();
     private:
@@ -27,6 +30,7 @@ namespace GUI{
         CbcRegViewManager& m_cbcRegVm;
         HybridTestViewManager& m_hybridTestVm;
         CalibrateViewManager& m_calibrateVm;
+        CmTestViewManager& m_cmVm;
 
         void WireSetupVmMessages();
 

@@ -55,7 +55,11 @@ SOURCES += main.cpp\
     View/calibratetab.cpp \
     ViewMgr/calibrateviewmanager.cpp \
     Model/calibrate.cpp \
-    Model/calibrateworker.cpp
+    Model/calibrateworker.cpp \
+    View/cmtesttab.cpp \
+    ViewMgr/cmtestviewmanager.cpp \
+    Model/cmtest.cpp \
+    Model/cmtestworker.cpp
 
 
 HEADERS  += View/mainview.h \
@@ -82,7 +86,11 @@ HEADERS  += View/mainview.h \
     View/calibratetab.h \
     ViewMgr/calibrateviewmanager.h \
     Model/calibrate.h \
-    Model/calibrateworker.h
+    Model/calibrateworker.h \
+    View/cmtesttab.h \
+    ViewMgr/cmtestviewmanager.h \
+    Model/cmtest.h \
+    Model/cmtestworker.h
     #lib/TQtWidget.h
 
 
@@ -92,7 +100,8 @@ FORMS    += View/mainview.ui \
     View/aboutbox.ui \
     View/tbrowsertab.ui \
     View/hybridtesttab.ui \
-    View/calibratetab.ui
+    View/calibratetab.ui \
+    View/cmtesttab.ui
 
 OTHER_FILES +=
 

@@ -1,3 +1,4 @@
+#pragma once
 #include "calibrate.h"
 #include <QDebug>
 #include <QThread>
@@ -20,7 +21,7 @@ namespace GUI {
     {
         m_thread->wait();
         delete m_thread;
-        qDebug() << "Deleting HybridTest worker thread " <<this->QObject::thread()->currentThreadId();
+        qDebug() << "Deleting Calibration worker thread " <<this->QObject::thread()->currentThreadId();
         qDebug() << "Destructing " << this;
     }
 

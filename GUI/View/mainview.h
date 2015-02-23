@@ -12,6 +12,7 @@ namespace GUI{
     class CbcRegistersTab;
     class HybridTestTab;
     class CalibrateTab;
+    class CmTestTab;
     class TBrowserTab;
 
     class MainView : public QMainWindow
@@ -24,6 +25,7 @@ namespace GUI{
                           GUI::CbcRegistersTab &reg,
                           GUI::HybridTestTab &hybrid,
                           GUI::CalibrateTab &calibrate,
+                          GUI::CmTestTab &cm,
                           GUI::TBrowserTab &brow);
         ~MainView();
 

@@ -5,6 +5,7 @@
 #include "View/hybridtesttab.h"
 #include "View/calibratetab.h"
 #include "View/tbrowsertab.h"
+#include "View/cmtesttab.h"
 
 #include "View/mainview.h"
 
@@ -14,6 +15,7 @@
 #include "Model/cbcregisters.h"
 #include "Model/hybridtest.h"
 #include "Model/calibrate.h"
+#include "Model/cmtest.h"
 
 #include "ViewMgr/setuptabviewmanager.h"
 #include "provider.h"
@@ -21,6 +23,7 @@
 #include "ViewMgr/hybridtestviewmanager.h"
 #include "ViewMgr/calibrateviewmanager.h"
 #include "ViewMgr/mainviewmanager.h"
+#include "ViewMgr/cmtestviewmanager.h"
 
 #include "utils.h"
 
@@ -38,6 +41,7 @@ namespace GUI
         m_regTab(*new CbcRegistersTab(nullptr)),
         m_hybridTab(*new HybridTestTab(nullptr)),
         m_calibrateTab(*new CalibrateTab(nullptr)),
+        m_cmTestTab(*new CmTestTab(nullptr)),
         m_tbrowseTab(*new TBrowserTab(nullptr)),
 
         m_mainView(*new MainView(nullptr,
@@ -45,6 +49,7 @@ namespace GUI
                                  m_regTab,
                                  m_hybridTab,
                                  m_calibrateTab,
+                                 m_cmTestTab,
                                  m_tbrowseTab)),
 
         m_systemController(new SystemController(this,
@@ -53,6 +58,7 @@ namespace GUI
                                   *m_systemController)),
         m_hybridTest(new HybridTest(this)),
         m_calibrate(new Calibrate(this)),
+        m_cm(new CmTest(this)),
 
         m_setupTabVm(*new SetupTabViewManager(this,
                                              m_setupTab,
@@ -67,6 +73,9 @@ namespace GUI
         m_calibrateTabVm(*new CalibrateViewManager(this,
                                                 m_calibrateTab,
                                                 *m_calibrate)),
+        m_cmTabVm(*new CmTestViewManager(this,
+                                         m_cmTestTab,
+                                         *m_cm)),
 
 
         m_mainViewVm(new MainViewManager(this,
@@ -74,7 +83,8 @@ namespace GUI
                                          m_setupTabVm,
                                          m_cbcRegTabVm,
                                          m_hybridTabVm,
-                                         m_calibrateTabVm))
+                                         m_calibrateTabVm,
+                                         m_cmTabVm))
     {
     }
 

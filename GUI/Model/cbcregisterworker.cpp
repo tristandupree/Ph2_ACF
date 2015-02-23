@@ -67,7 +67,7 @@ namespace GUI
 
                     for ( auto cCbc : cFe->fCbcVector )
                     {
-                        qDebug() << "emitting for " << cCbc->getCbcId();
+                        //qDebug() << "emitting for " << cCbc->getCbcId();
                         emit sendCbcRegisterValue(cCbc->getCbcId(), cCbc->getRegMap());
                     }
                 }

@@ -4,6 +4,7 @@
 #include "ViewMgr/hybridtestviewmanager.h"
 #include "ViewMgr/setuptabviewmanager.h"
 #include "ViewMgr/calibrateviewmanager.h"
+#include "ViewMgr/cmtestviewmanager.h"
 
 #include <QDebug>
 
@@ -14,13 +15,15 @@ namespace GUI
                                      SetupTabViewManager &setupVm,
                                      CbcRegViewManager &cbcVm,
                                      HybridTestViewManager &hybridVm,
-                                     CalibrateViewManager &calibVm) :
+                                     CalibrateViewManager &calibVm,
+                                     CmTestViewManager &cmVm) :
         QObject(parent),
         m_mainView(mainView),
         m_setupVm(setupVm),
         m_cbcRegVm(cbcVm),
         m_hybridTestVm(hybridVm),
-        m_calibrateVm(calibVm)
+        m_calibrateVm(calibVm),
+        m_cmVm(cmVm)
     {
         WireSetupVmMessages();
     }

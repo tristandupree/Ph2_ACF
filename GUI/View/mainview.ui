@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabMainView">
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tabSetup">
        <attribute name="title">
@@ -42,21 +42,11 @@
       </widget>
       <widget class="QWidget" name="tabHybridTest">
        <attribute name="title">
-        <string>Hybrid Test</string>
+        <string>System Tests</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <layout class="QVBoxLayout" name="loHybridTest"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tabCalibrate">
-       <attribute name="title">
-        <string>Calibrate</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <item>
-         <layout class="QVBoxLayout" name="loCalibrate"/>
         </item>
        </layout>
       </widget>

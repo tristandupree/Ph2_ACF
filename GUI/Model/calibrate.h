@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include "cmtestworker.h"
 
 namespace GUI{
 

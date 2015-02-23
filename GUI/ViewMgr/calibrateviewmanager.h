@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+
 namespace GUI{
     class CalibrateTab;
     class Calibrate;
