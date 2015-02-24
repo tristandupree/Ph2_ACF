@@ -20,6 +20,7 @@
 #include "../HWDescription/Definition.h"
 #include "../Utils/Visitor.h"
 #include "../Utils/Utilities.h"
+#include "../Utils/picojson.h"
 
 #include "../Utils/pugixml.hpp"
 #include "../Utils/ConsoleColor.h"
@@ -85,14 +86,16 @@ namespace Ph2_System
 		// }
 
 		/*!
-		 * \brief Initialize the Hardware via an XML file
-		 * \param pFilename : XML HW Description file
+		 * \brief Initialize the Hardware via a config file
+		 * \param pFilename : HW Description file
+		 *\param os : ostream to dump output
 		 */
 		void InitializeHw( const std::string& pFilename, std::ostream& os = std::cout );
 		/*!
 		 * \brief Initialize the settings
-		 * \param pFilename : XML HW Description file
-		 */
+		 * \param pFilename :   settings file
+		 *\param os : ostream to dump output
+		*/
 		void InitializeSettings( const std::string& pFilename, std::ostream& os = std::cout );
 		/*!
 		 * \brief Configure the Hardware with XML file indicated values
@@ -105,7 +108,16 @@ namespace Ph2_System
 		 */
 		void Run( BeBoard* pBeBoard, uint32_t pNthAcq );
 
+		/*!
+		 * \brief converts any char array to int by automatically detecting if it is hex or dec
+		 * \param pRegValue: parsed xml parmaeter char*
+		 * \return converted integer
+		 */
+		uint32_t convertAnyInt( const char* pRegValue ) {
+			if ( std::string( pRegValue ).find( "0x" ) != std::string::npos ) return static_cast<uint32_t>( strtoul( pRegValue , 0, 16 ) );
+			else return static_cast<uint32_t>( strtoul( pRegValue , 0, 10 ) );
 
+		}
 
 	  protected:
 		/*!
@@ -116,6 +128,32 @@ namespace Ph2_System
 		uint32_t Vto8Bit( float pVoltage ) {
 			return static_cast<uint32_t>( pVoltage / 3.3 * 256 + 0.5 );
 		}
+
+	  private:
+		/*!
+		 * \brief Initialize the hardware via  XML config file
+		 * \param pFilename : HW Description file
+		 *\param os : ostream to dump output
+		 */
+		void parseHWxml( const std::string& pFilename, std::ostream& os );
+		/*!
+		 * \brief Initialize the hardware via JSON config file
+		 * \param pFilename : HW Description file
+		 *\param os : ostream to dump output
+		 */
+		void parseSettingsxml( const std::string& pFilename, std::ostream& os );
+		/*!
+		 * \brief Initialize the settins via  XML file
+		 * \param pFilename : settings Description file
+		 *\param os : ostream to dump output
+		 */
+		void parseHWjson( const std::string& pFilename, std::ostream& os );
+		/*!
+		 * \brief Initialize the settins via  JSON file
+		 * \param pFilename : settings Description file
+		 *\param os : ostream to dump output
+		 */
+		void parseSettingsjson( const std::string& pFilename, std::ostream& os );
 	};
 }
 
