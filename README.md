@@ -51,8 +51,13 @@ On this Repo, you can find different version of the software :
         - BeBoardInterface::ReadBlockBoardReg and a BeBoardInterface::WriteBlockBoardReg
         - BeBoard::getReg & BeBoard::setReg use uint32_t instead of uint16_t
         - BeBoardFWInterface::ReadBlockRegValue pure virtual method and GlibFWInterface::ReadBlockRegValue that implements the uHAL bug workaround
+- 24/02/15 : new update (v1-03) with the following changes:
+    - CbcInterface::WriteReg() now return the written Register value
+    - writing to the Glib now also takes care of avoiding the 256th word uHAL bug
+    - some modifications to HybridTester tool to make it compatible with the GUI
+    - added a CMD line option: g for GUI, should only be used by the latter
+    - SystemController class can now parse .json files in addition to .xml
 
-<br>
 
 ### Setup
 
@@ -303,6 +308,101 @@ For instructions on how to use it, see this [file](https://github.com/gauzinge/P
 
 ```
 
+#### Example HWDescription.json File with DIO5 support:
+
+```json
+{
+    "HwDescription":{
+        "Connections":"file://settings/connections_2CBC.xml",
+        "Shelves":[
+            {
+                "Id":0,
+                "BeBoards":[
+                    {
+                        "Id":0,
+                        "boardType":"Glib",
+                        "connectionId":"board0",
+                        "Modules":[
+                            {
+                                "FeId":0,
+                                "FMCId":0,
+                                "ModuleId":0,
+                                "Status":1,
+                                "Global_CBC_Registers":{
+                                    "VCth":"0x78",
+                                    "TriggerLatency":"0x0C"
+                                },
+                                "CbcFilePath":"./settings/",
+                                "CBCs":[
+                                    {
+                                        "Id":0,
+                                        "configfile":"Cbc_default_hole.txt",
+                                        "Register":{
+                                            "VCth":"0x78"
+                                        }
+                                    },
+                                    {
+                                        "Id":1,
+                                        "configfile":"Cbc_default_hole.txt"
+                                    }
+                                ]
+                            }
+                        ],
+                        "RegisterName":{
+                            "COMMISSIONNING_MODE_RQ":"//COMMISSIONING MODE REGISTERS",
+                            "COMMISSIONNING_MODE_RQ":"//set to 1 to enable commissioning mode",
+                            "COMMISSIONNING_MODE_RQ":1,
+                            "COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID":"//set to 1 to enable test pulses in comissioningn mode",
+                            "COMMISSIONNING_MODE_CBC_TEST_PULSE_VALID":1,
+                            "COMMISSIONNING_MODE_DELAY_AFTER_FAST_RESET":50,
+                            "COMMISSIONNING_MODE_DELAY_AFTER_L1A":400,
+                            "COMMISSIONNING_MODE_DELAY_AFTER_TEST_PULSE":201,
+
+                            "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL":"//TRIGGER",
+                            "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL":"//set to 1 to enable external triggers",
+                            "user_wb_ttc_fmc_regs.pc_commands.TRIGGER_SEL":0,
+                            "user_wb_ttc_fmc_regs.pc_commands.INT_TRIGGER_FREQ":10,
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_trig_in":"//DIO5 threshold: [v]/3.3*256",
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_trig_in":40,
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_in_edge":"//set to 0 for rising edge, 1 for falling",
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_in_edge":0,
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_in_50ohms":1,
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_trig_out_50ohms":0,
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_lemo2_sig_sel":"//set to 1 to output L1A signal, 0 for input pulse ",
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_lemo2_sig_sel":1,
+
+                            "user_wb_ttc_fmc_regs.dio5.clk_mux_sel":"//CLOCK",
+                            "user_wb_ttc_fmc_regs.dio5.clk_mux_sel":"//set to 1 to enable external clocking",
+                            "user_wb_ttc_fmc_regs.dio5.clk_mux_sel":0,
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_clk_in":"//DIO5 threshold: [v]/3.3*256",
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_threshold_clk_in":40,
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_clk_in_50ohms":1,
+                            "user_wb_ttc_fmc_regs.dio5.fmcdio5_clk_out_50ohms":0,
+
+                            "user_wb_ttc_fmc_regs.pc_commands.ACQ_MODE":"//ACQUISITION",
+                            "user_wb_ttc_fmc_regs.pc_commands.ACQ_MODE":1,
+                            "cbc_stubdata_latency_adjust_fe1":1,
+                            "cbc_stubdata_latency_adjust_fe2":1,
+                            "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_GENE":1,
+                            "user_wb_ttc_fmc_regs.pc_commands.CBC_DATA_PACKET_NUMBER":10,
+                            "user_wb_ttc_fmc_regs.pc_commands2.clock_shift":0,
+                            
+                            "user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC":"//POLARITY",
+                            "user_wb_ttc_fmc_regs.pc_commands2.negative_logic_CBC":1,
+                            "user_wb_ttc_fmc_regs.pc_commands2.negative_logic_sTTS":0,
+                            "user_wb_ttc_fmc_regs.pc_commands2.polarity_tlu":0
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "Settings":{
+        "RunNumber":1,
+        "HoleMode":1
+    }
+}
+```
 
 ### Known Issues:
 
