@@ -19,7 +19,7 @@ ExternalObjects = $(LibraryPaths) -lpthread  -lcactus_extern_pugixml -lcactus_uh
 %.o: %.cc %.h
 	$(CXX) -std=c++11 $(DevFlags) $(CCFlags) $(UserCCFlags) $(CCDefines) $(IncludePaths) -c -o $@ $<
 
-binaries=systemtest calibrate interfacetest datatest hybridtest cmtest
+binaries=systemtest calibrate interfacetest datatest hybridtest cmtest commission
 all: clean $(binaries)
 
 systemtest: systemtest.cc
@@ -46,9 +46,9 @@ cmtest: cmtest.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	cp $@ ../bin
 
-# commission: commission.cc
-# 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
-# 	cp $@ ../bin
+commission: commission.cc
+	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
+	cp $@ ../bin
 
 .PHONY: clean
 
