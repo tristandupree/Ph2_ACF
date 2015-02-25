@@ -19,18 +19,18 @@
                                     "VCth":"0x78",
                                     "TriggerLatency":"0x0C"
                                 },
-                                "CbcFilePath":"./CalibrationResults/mod03_h/",
+                                "CbcFilePath":"./settings/",
                                 "CBCs":[
                                     {
                                         "Id":0,
-                                        "configfile":"FE0CBC0.txt",
+                                        "configfile":"Cbc_default_hole.txt",
                                         "Register":{
                                             "VCth":"0x78"
                                         }
                                     },
                                     {
                                         "Id":1,
-                                        "configfile":"FE0CBC0.txt"
+                                        "configfile":"Cbc_default_hole.txt"
                                     }
                                 ]
                             }

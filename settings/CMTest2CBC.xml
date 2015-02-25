@@ -9,10 +9,10 @@
                 <Global_CBC_Register name="VCth"> 0x78 </Global_CBC_Register>
                 <!--Global_CBC_Register name="TriggerLatency"> 0x0C </Global_CBC_Register-->
 
-                <CBC_Files path="./CalibrationResults/u08_h_003/"/>
+                <CBC_Files path="./settings/"/>
 
-                <CBC Id="0" configfile="FE0CBC0.txt"/>
-                <CBC Id="1" configfile="FE0CBC1.txt"/>
+                <CBC Id="0" configfile="Cbc_default_hole.txt"/>
+                <CBC Id="1" configfile="Cbc_default_hole.txt"/>
             </Module>
 
             <!-- Commissioning Mode -->
