@@ -84,9 +84,8 @@ int main( int argc, char* argv[] )
 	if ( !isGui )
 	{
 		cHybridTester.InitializeHw( cHWFile );
-		cHybridTester.Initialize( cScan );
-		// cHybridTester.InitializeGUI(cScan, FionnsExternalGUIvector);
 		cHybridTester.InitializeSettings( cHWFile );
+		cHybridTester.Initialize( cScan );
 		cHybridTester.CreateResultDirectory( cDirectory );
 		cHybridTester.InitResultFile( "HybridTest" );
 		cHybridTester.ConfigureHw();
@@ -100,9 +99,8 @@ int main( int argc, char* argv[] )
 		int nEvents = ( cmd.foundOption( "nEvents" ) ) ? std::stoi( cmd.optionValue( "nEvents" ) ) : 100;
 		bool cHoleMode = ( cmd.foundOption( "holemode" ) ) ? true : false;
 
-		cHybridTester.InitialiseGUI( cVcth, nEvents, cRegisters, cScan, cHoleMode );
-
 		cHybridTester.InitializeSettings( cHWFile );
+		cHybridTester.InitialiseGUI( cVcth, nEvents, cRegisters, cScan, cHoleMode );
 		cHybridTester.CreateResultDirectory( cDirectory );
 		cHybridTester.InitResultFile( "HybridTest" );
 	}

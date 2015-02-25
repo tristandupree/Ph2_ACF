@@ -85,9 +85,15 @@ void HybridTester::InitializeHists()
 void HybridTester::InitialiseSettings()
 {
 	auto cSetting = fSettingsMap.find( "Threshold_NSigmas" );
-	int fSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
-	bool fHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
-	uint32_t fTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 200;
+	fSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
+	cSetting = fSettingsMap.find( "Nevents" );
+	fTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 999;
+	cSetting = fSettingsMap.find( "HoleMode" );
+	fHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
+
+
+	// std::cout << "Read the following Settings: " << std::endl;
+	// std::cout << "Hole Mode: " << fHoleMode << std::endl << "NEvents: " << fTotalEvents << std::endl << "NSigmas: " << fSigmas << std::endl;
 }
 void HybridTester::InitialiseGUI( int pVcth, int pNevents, bool pTestreg, bool pScanthreshold, bool pHolemode )
 {
@@ -120,7 +126,6 @@ void HybridTester::InitialiseGUI( int pVcth, int pNevents, bool pTestreg, bool p
 
 void HybridTester::Initialize( bool pThresholdScan )
 {
-	InitialiseSettings();
 	fThresholdScan = pThresholdScan;
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
@@ -138,6 +143,7 @@ void HybridTester::Initialize( bool pThresholdScan )
 		fSCurveCanvas->Divide( fNCbc );
 	}
 	InitializeHists();
+	InitialiseSettings();
 }
 
 
@@ -157,8 +163,6 @@ void HybridTester::ScanThreshold()
 	uint8_t cVcth = ( fHoleMode ) ?  0xFF :  0x00;
 	int cStep = ( fHoleMode ) ? -10 : 10;
 
-
-
 	// Adaptive VCth loop
 	while ( 0x00 <= cVcth && cVcth <= 0xFF )
 	{
@@ -171,7 +175,6 @@ void HybridTester::ScanThreshold()
 		// Set current Vcth value on all Cbc's
 		CbcRegWriter cWriter( fCbcInterface, "VCth", cVcth );
 		accept( cWriter );
-
 		uint32_t cN = 0;
 		uint32_t cNthAcq = 0;
 		uint32_t cHitCounter = 0;
@@ -205,6 +208,7 @@ void HybridTester::ScanThreshold()
 					cNthAcq++;
 				}
 
+				// std::cout << +cVcth << " " << cHitCounter << std::endl;
 				// Draw the thing after each point
 				updateSCurveCanvas( pBoard );
 
