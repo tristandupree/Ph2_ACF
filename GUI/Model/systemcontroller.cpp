@@ -48,9 +48,9 @@ namespace GUI
         connect(m_worker, SIGNAL(workRequested()),
                 m_thread, SLOT(start()));
         connect(m_thread, SIGNAL(started()),
-                m_worker, SLOT(InitializeHw()));
+                m_worker, SLOT(onInitialiseHw()));
         connect(m_worker, SIGNAL(workConfigureHwRequested()),
-                m_worker, SLOT(ConfigureHw()));
+                m_worker, SLOT(onConfigureHw()));
         connect(m_worker, SIGNAL(finishedInitialiseHw()),
                 this, SLOT(finishInitialiseHw()));
         connect(m_worker, SIGNAL(finishedConfigureHw()),
@@ -82,11 +82,6 @@ namespace GUI
         SendStatusMessage(tr("Initialising register values"));
         emit notifyConfigFinished();
         SendStatusMessage(tr("Register values initialised"));
-    }
-
-    void SystemController::onAccept(HwDescriptionVisitor pVisitor)
-    {
-        qDebug() << "I'm in!!!!";
     }
 
     void SystemController::SendStatusMessage(QString msg)

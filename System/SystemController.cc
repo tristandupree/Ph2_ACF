@@ -11,13 +11,8 @@
 
 #include "SystemController.h"
 
-#include <boost/interprocess/shared_memory_object.hpp>
-#include <boost/interprocess/managed_shared_memory.hpp>
-#include <boost/interprocess/mapped_region.hpp>
-
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
-using namespace boost::interprocess;
 
 namespace Ph2_System
 {
@@ -432,22 +427,5 @@ namespace Ph2_System
 			fSettingsMap[cSetting.first] = static_cast<int>( cSetting.second.get<double>() );
 			os << RED << "Setting" << RESET << " --" << BOLDCYAN << cSetting.first << RESET << ":" << BOLDYELLOW << static_cast<int>( cSetting.second.get<double>() ) << RESET << std:: endl;
 		}
-	}
-
-	void SystemController::InitialiseFromSharedObjects()
-	{
-
-		std::cout << "I'm in" << std::endl;
-		managed_shared_memory shm(open_only, "HwDescriptionObjects");
-        fBeBoardInterface = shm.find<BeBoardInterface>("BeBoardInterface").first;
-        fCbcInterface = shm.find<CbcInterface>("CbcInterface").first;
-
-        
-
-
-
-
-
-        std::cout << fCbcInterface << std::endl;
 	}
 }

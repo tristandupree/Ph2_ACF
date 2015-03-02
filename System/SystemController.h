@@ -119,12 +119,6 @@ namespace Ph2_System
 
 		}
 
-		void InitialiseFromSharedObjects();
-
-		/*!
-		 * \Initialises hw objects from shared memory
-		 */
-
 	  protected:
 		/*!
 		 * \convert a voltage level to it's 8bit DAC value

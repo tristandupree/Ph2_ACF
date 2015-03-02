@@ -2,22 +2,20 @@
 #include <QDebug>
 #include <QThread>
 #include "Model/systemcontrollerworker.h"
-
-
+#include "../System/SystemController.h"
 
 //TODO Add proper destruct and safety methods to thread
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
-using namespace boost::interprocess;
 
 namespace GUI
 {
 
     SystemControllerWorker::SystemControllerWorker(QObject *parent,
                                                    Settings &config) :
-        QObject(parent),
-        m_Settings(config)
+        QObject(parent)
+        //m_Settings(config)
     {
         _working = false;
         _abort = false;
@@ -59,7 +57,7 @@ namespace GUI
         mutex.unlock();
     }
 
-    void SystemControllerWorker::InitializeHw()
+    void SystemControllerWorker::onInitialiseHw()
     {
         mutex.lock();
         bool abort = _abort;
@@ -69,88 +67,9 @@ namespace GUI
             return;
         }
 
-        uint32_t cShelveId;
-        uint32_t cBeId;
-        uint32_t cModuleId;
-        uint32_t cCbcId;
-        uint32_t cFeId;
-        uint32_t cFmcId;
-        uint32_t cNShelve = 0; //TODO
+        std::string settingsName = "settings/Calibration2CBC.xml";
 
-        map_HwDescription = new QVariantMap();
-
-        *map_HwDescription = m_Settings.getHwDescriptionMap();
-
-        QVariantMap map_ShelveId = map_HwDescription->value("ShelveId").toMap();
-
-        for (auto& sh_kv: map_ShelveId.keys())
-        {
-            if (abort) {
-                break;
-            }
-            cShelveId=sh_kv.toUInt();
-            fShelveVector.push_back((new Shelve(cShelveId)));
-
-            QVariantMap map_BeBoardId = map_ShelveId.value(sh_kv).toMap().value("BeBoardId").toMap();
-
-            for(auto& be_kv: map_BeBoardId.keys())
-            {
-
-                cBeId = be_kv.toUInt();
-
-                BeBoard* cBeBoard = new BeBoard( cShelveId, cBeId );
-
-                QVariantMap map_BeBoardIdValues = map_BeBoardId.value(be_kv).toMap();
-
-                QVariantMap map_RegisterValues = map_BeBoardIdValues.value("RegisterName").toMap();
-
-                for(auto& reg_kv : map_RegisterValues.keys()  )
-                {
-                    cBeBoard->setReg(reg_kv.toStdString(),map_RegisterValues.value(reg_kv).toUInt());
-                }
-                fShelveVector.at(cNShelve)->addBoard(cBeBoard);
-                BeBoardFWInterface* cBeBoardFWInterface;
-
-                if(map_BeBoardIdValues.value("boardType").toString() == "GLIB")
-                {
-                    cBeBoardFWInterface = new GlibFWInterface("file://settings/connections_2CBC.xml",cBeId); //TODO - get rid of XML - get from JSON
-
-                    fBeBoardFWMap[cBeId] = cBeBoardFWInterface;
-
-                }
-
-                if( map_BeBoardIdValues.contains("Module"))
-                {
-
-                    QVariantMap map_module_values = map_BeBoardIdValues.value("Module").toMap();
-
-                    cModuleId = map_module_values.value("FeId").toUInt();
-                    cFmcId = map_BeBoardId.value("FMCId").toInt();
-                    cFeId = map_BeBoardId.value("FeId").toInt();
-                    Module* cModule = new Module( cShelveId, cBeId, cFmcId, cFeId, cModuleId );
-                    fShelveVector[cNShelve]->getBoard(cBeId)->addModule(cModule);
-
-                    int index(0);
-
-
-                    for(auto& config_lv: map_module_values.value("CbcConfigFile").toList()) //could change this loop for indv. + global
-                    {
-                        Cbc* cCbc = new Cbc(cShelveId,cBeId,cFmcId,cFeId,index,config_lv.toString().toStdString() );
-                        index++;
-
-                        for(auto& cbcReg_kv : map_module_values.value("CbcRegisters").toMap().keys())
-                        {
-                            cCbc->setReg(cbcReg_kv.toStdString(), map_module_values.value("CbcRegisters").toMap().value(cbcReg_kv).toInt());
-                        }
-                        fShelveVector.at(cNShelve)->getBoard(cBeId)->getModule(cModuleId)->addCbc(cCbc);
-
-                    }
-                }
-            }
-            cNShelve++;
-        }
-        fBeBoardInterface = new BeBoardInterface(fBeBoardFWMap);
-        fCbcInterface = new CbcInterface(fBeBoardFWMap);
+        InitializeHw( settingsName);
 
         mutex.lock();
         _working = false;
@@ -158,46 +77,11 @@ namespace GUI
         emit finishedInitialiseHw();
     }
 
-    void SystemControllerWorker::ConfigureHw()
+    void SystemControllerWorker::onConfigureHw()
     {
         qDebug() << "Configuring hardware on: " << this;
-        mutex.lock();
-        bool abort = _abort;
-        mutex.unlock();
 
-        if (abort) {
-            return;
-        }
-
-        bool cCheck = false; //TODO
-        bool cHoleMode = false; //TODO
-
-        class Configurator : public HwDescriptionVisitor
-        {
-        private:
-            bool fHoleMode, fCheck;
-            Ph2_HwInterface::BeBoardInterface* fBeBoardInterface;
-            Ph2_HwInterface::CbcInterface* fCbcInterface;
-        public:
-            Configurator( Ph2_HwInterface::BeBoardInterface* pBeBoardInterface, Ph2_HwInterface::CbcInterface* pCbcInterface, bool pHoleMode, bool pCheck ): fBeBoardInterface( pBeBoardInterface ), fCbcInterface( pCbcInterface ), fHoleMode( pHoleMode ), fCheck( pCheck ) {}
-
-            void visit( BeBoard& pBoard ) {
-                fBeBoardInterface->ConfigureBoard( &pBoard );
-
-                if ( fCheck )
-                    fBeBoardInterface->WriteBoardReg( &pBoard, NEG_LOGIC_CBC, ( ( fHoleMode ) ? 0 : 1 ) );
-                qDebug() << "Configured Board " << int( pBoard.getBeId() );
-            }
-
-            void visit( Cbc& pCbc ) {
-                fCbcInterface->ConfigureCbc( &pCbc );
-                qDebug() << "Successfully configured Cbc " << int( pCbc.getCbcId() );
-
-            }
-        };
-
-        Configurator cConfigurator( fBeBoardInterface, fCbcInterface, cHoleMode, cCheck );
-        accept( cConfigurator );
+        ConfigureHw();
 
 
         mutex.lock();
@@ -205,73 +89,14 @@ namespace GUI
         mutex.unlock();
         emit finishedConfigureHw();
         qDebug() << "Finished configure";
-
-        createSharedMemory();
-    }
-
-    void SystemControllerWorker::createSharedMemory()
-    {
-        shared_memory_object::remove("HwDescriptionObjects");
-
-        qDebug() << "size of vector " << fShelveVector.size();
-
-        managed_shared_memory segment{create_only, "HwDescriptionObjects", 1056};
-
-        BeBoardInterface *sBeBoardInterface = segment.construct<BeBoardInterface>("BeBoardInterface")(fBeBoardFWMap);
-        CbcInterface *sCbcInterface = segment.construct<CbcInterface>("CbcInterface")(fBeBoardFWMap);
-
-        Shelve * tempShelve;
-
-        for (Shelve* cShelve : fShelveVector)
-        {
-            qDebug() << cShelve->getShelveId();
-            tempShelve = cShelve;
-            Shelve *shelve = segment.construct<Shelve>("Shelve")(0);
-        }
-        //Shelve *shelve = segment.construct<Shelve>("Shelve")(tempShelve);
-
-        /*typedef allocator<int, managed_shared_memory::segment_manager>
-                ShmemAllocator;
-
-        //Alias a vector that uses the previous STL-like allocator
-        typedef vector<int, ShmemAllocator> MyVector;
-
-        int initVal[]        = {0, 1, 2, 3, 4, 5, 6 };
-        const int *begVal    = initVal;
-        const int *endVal    = initVal + sizeof(initVal)/sizeof(initVal[0]);
-
-        //Initialize the STL-like allocator
-        const ShmemAllocator alloc_inst (segment.get_segment_manager());
-
-        MyVector *myvector =
-                segment.construct<MyVector>
-                ("MyVector")/*object name*/
-        //(begVal     /*first ctor parameter*/,
-        //        endVal     /*second ctor parameter*/,
-        //        alloc_inst /*third ctor parameter*/);*/
-
-        //ShelveVec *sShelveVector = segment.construct<ShelveVec>("ShelveVector")(fShelveVector);
-
-        //qDebug() << "Size " << sShelveVector->size();
-
-        //qDebug() << myvector->size();
-
-
-        qDebug() << sBeBoardInterface;
-        qDebug() << sCbcInterface;
-
-        /*BeBoardInterface*       fBeBoardInterface;
-        CbcInterface*           fCbcInterface;
-        ShelveVec fShelveVector;
-        BeBoardFWMap fBeBoardFWMap;*/
     }
 
 
-    void SystemControllerWorker::Run( BeBoard* pBeBoard, uint32_t pNthAcq )
+    /*void SystemControllerWorker::Run( BeBoard* pBeBoard, uint32_t pNthAcq )
     {
         fBeBoardInterface->Start( pBeBoard );
         fBeBoardInterface->ReadData( pBeBoard, pNthAcq, true );
         fBeBoardInterface->Stop( pBeBoard, pNthAcq );
-    }
+    }*/
 
 }

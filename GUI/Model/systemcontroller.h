@@ -6,6 +6,7 @@
 
 #include "settings.h"
 #include "Model/systemcontrollerworker.h"
+#include "../tools/Tool.h"
 
 using namespace Ph2_HwDescription;
 using namespace Ph2_HwInterface;
@@ -48,8 +49,6 @@ namespace GUI{
         void startConfigureHw();
         void finishInitialiseHw();
         void finishConfigureHw();
-
-        void onAccept(HwDescriptionVisitor pVisitor);
 
 
     private:
