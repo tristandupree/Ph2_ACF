@@ -38,42 +38,7 @@ void CMTester::Initialize()
 	std::cout << "Histograms and Settings initialised." << std::endl;
 }
 
-void CMTester::InitializeGUI( std::vector<TCanvas*> pCanvasVector )
-{
 
-	// gStyle->SetOptStat( 000000 );
-	// gStyle->SetTitleOffset( 1.3, "Y" );
-
-	for ( auto& cShelve : fShelveVector )
-	{
-		uint32_t cShelveId = cShelve->getShelveId();
-
-		for ( auto& cBoard : cShelve->fBoardVector )
-		{
-			uint32_t cBoardId = cBoard->getBeId();
-
-			for ( auto& cFe : cBoard->fModuleVector )
-			{
-				uint32_t cFeId = cFe->getFeId();
-
-				for ( auto& cCbc : cFe->fCbcVector )
-				{
-					uint32_t cCbcId = cCbc->getCbcId();
-
-					TCanvas* ctmpCanvas = pCanvasVector.at( cCbcId );
-					ctmpCanvas->Divide( 2, 2 );
-					ctmpCanvas->SetName( Form( "c_online_canvas_fe%d_cbc%d", cFeId, cCbcId ) );
-					ctmpCanvas->SetTitle( Form( "FE%d CBC%d Online Canvas", cFeId, cCbcId ) );
-					fCanvasMap[cCbc] = ctmpCanvas;
-				}
-			}
-		}
-	}
-
-	initializeHists();
-
-	std::cout << "Histograms and Settings initialised." << std::endl;
-}
 
 void CMTester::ScanNoiseChannels()
 {
@@ -156,7 +121,7 @@ void CMTester::ScanNoiseChannels()
 				if ( fabs( cStripOccupancy - cMean ) > cMean / 2 )
 				{
 					cNoiseSet->second.insert( cNoiseStrips->GetBinCenter( cBin ) );
-					std::cout << "Found noisy Strip on CBC " << int(cCbc.first->getCbcId()) << " : " << cNoiseStrips->GetBinCenter( cBin ) << std::endl;
+					std::cout << "Found noisy Strip on CBC " << int( cCbc.first->getCbcId() ) << " : " << cNoiseStrips->GetBinCenter( cBin ) << std::endl;
 				}
 			}
 		}

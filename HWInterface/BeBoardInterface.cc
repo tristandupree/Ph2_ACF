@@ -49,6 +49,13 @@ namespace Ph2_HwInterface
 		pBoard->setReg( pRegNode, pVal );
 	}
 
+	void BeBoardInterface::WriteBlockBoardReg( BeBoard* pBoard, const std::string& pRegNode, const std::vector<uint32_t>& pValVec )
+	{
+		setBoard( pBoard->getBeBoardIdentifier() );
+		fBoardFW->WriteBlockReg( pRegNode, pValVec );
+	}
+
+
 	void BeBoardInterface::WriteBoardMultReg( BeBoard* pBoard, const std::vector < std::pair< std::string , uint32_t > >& pRegVec )
 	{
 		setBoard( pBoard->getBeBoardIdentifier() );
@@ -63,11 +70,12 @@ namespace Ph2_HwInterface
 	}
 
 
-	void BeBoardInterface::ReadBoardReg( BeBoard* pBoard, const std::string& pRegNode )
+	uint32_t BeBoardInterface::ReadBoardReg( BeBoard* pBoard, const std::string& pRegNode )
 	{
 		setBoard( pBoard->getBeBoardIdentifier() );
-
-		pBoard->setReg( pRegNode, static_cast<uint32_t>( fBoardFW->ReadReg( pRegNode ) ) );
+		uint32_t cRegValue = static_cast<uint32_t>( fBoardFW->ReadReg( pRegNode ) );
+		pBoard->setReg( pRegNode,  cRegValue );
+		return cRegValue;
 	}
 
 	void BeBoardInterface::ReadBoardMultReg( BeBoard* pBoard, std::vector < std::pair< std::string , uint32_t > >& pRegVec )
@@ -81,6 +89,11 @@ namespace Ph2_HwInterface
 		}
 	}
 
+	std::vector<uint32_t> BeBoardInterface::ReadBlockBoardReg( BeBoard* pBoard, const std::string& pRegNode, uint32_t pSize )
+	{
+		setBoard( pBoard->getBeBoardIdentifier() );
+		return fBoardFW->ReadBlockRegValue( pRegNode, pSize );
+	}
 
 	void BeBoardInterface::getBoardInfo( const BeBoard* pBoard )
 	{
@@ -140,5 +153,18 @@ namespace Ph2_HwInterface
 		setBoard( pBoard->getBeBoardIdentifier() );
 		fBoardFW->GetBuffer( pBufSize );
 	}
+
+	const uhal::Node& BeBoardInterface::getUhalNode( const BeBoard* pBoard, const std::string& pStrPath )
+	{
+		setBoard( pBoard->getBeBoardIdentifier() );
+		return fBoardFW->getUhalNode( pStrPath );
+	}
+
+	uhal::HwInterface* BeBoardInterface::getHardwareInterface( const BeBoard* pBoard )
+	{
+		setBoard( pBoard->getBeBoardIdentifier() );
+		return fBoardFW->getHardwareInterface();
+	}
+
 
 }

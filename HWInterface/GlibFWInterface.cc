@@ -311,18 +311,7 @@ namespace Ph2_HwInterface
 		WriteReg( fStrSramUserLogic, 0 );
 
 		//Read SRAM
-		uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, cBlockSize );
-
-		// To avoid the IPBUS bug
-		// need to convert uHal::ValVector to vector<uint32_t> so we can replace the 256th word
-		std::vector<uint32_t> cDataAlt = cData.value();
-		if ( cBlockSize > 255 )
-		{
-			std::string fSram_256 = fStrSram + "_256";
-			uhal::ValWord<uint32_t> cWord = ReadReg( fSram_256 );
-			cDataAlt[255] = cWord.value();
-		}
-
+		std::vector<uint32_t> cData =  ReadBlockRegValue( fStrSram, cBlockSize );
 
 		WriteReg( fStrSramUserLogic, 1 );
 		WriteReg( fStrReadout, 1 );
@@ -347,7 +336,32 @@ namespace Ph2_HwInterface
 		fData = new Data();
 
 		// set the vector<uint32_t> as event buffer and let him know how many packets it contains
-		fData->Set( &cDataAlt , cNPackets );
+		fData->Set( &cData , cNPackets );
+	}
+
+	std::vector<uint32_t> GlibFWInterface::ReadBlockRegValue( const std::string& pRegNode, const uint32_t& pBlocksize )
+	{
+		uhal::ValVector<uint32_t> valBlock = ReadBlockReg( pRegNode, pBlocksize );
+		std::vector<uint32_t> vBlock = valBlock.value();
+		// To avoid the IPBUS bug
+		// need to convert uHal::ValVector to vector<uint32_t> so we can replace the 256th word
+		if ( pBlocksize > 255 )
+		{
+			std::string fSram_256 = pRegNode + "_256";
+			uhal::ValWord<uint32_t> cWord = ReadReg( fSram_256 );
+			vBlock[255] = cWord.value();
+		}
+		return vBlock;
+	}
+
+	bool GlibFWInterface::WriteBlockReg( const std::string& pRegNode, const std::vector< uint32_t >& pValues )
+	{
+		bool cWriteCorr = RegManager::WriteBlockReg( pRegNode, pValues);	
+		
+		if (pValues.size()>255){
+			WriteReg(pRegNode+"_256", pValues[255]);
+		}
+		return cWriteCorr;
 	}
 
 	void GlibFWInterface::SelectDaqSRAM( uint32_t pNthAcq )
@@ -439,12 +453,12 @@ namespace Ph2_HwInterface
 		pVecReq.pop_back();
 
 		if ( I2cCmdAckWait( ( uint32_t )1, pVecReq.size() ) == 0 )
-			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 1 ) );
+			throw Exception( "CbcInterface: I2cCmdAckWait 1 failed." );
 
 		WriteReg( CBC_I2C_CMD_RQ, 0 );
 
 		if ( I2cCmdAckWait( ( uint32_t )0, pVecReq.size() ) == 0 )
-			throw Exception( Form( "%s: I2cCmdAckWait %d failed.", "CbcInterface", 0 ) );
+			throw Exception( "CbcInterface: I2cCmdAckWait 0 failed." );
 
 	}
 
@@ -453,7 +467,8 @@ namespace Ph2_HwInterface
 
 		WriteReg( fStrSramUserLogic, 0 );
 
-		uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, pVecReq.size() );
+		pVecReq = ReadBlockRegValue(fStrSram, pVecReq.size() );
+		/*uhal::ValVector<uint32_t> cData = ReadBlockReg( fStrSram, pVecReq.size() );
 		uhal::ValWord<uint32_t> cWord;
 		// To avoid the IPBUS bug
 		//  replace the 256th word
@@ -462,11 +477,11 @@ namespace Ph2_HwInterface
 			std::string fSram_256 = fStrSram + "_256";
 			cWord = ReadReg( fSram_256 );
 			std::cout << "WARNING: Reading more than 255 32-bit words from SRAM, thus need to avoid the uHAL-GLIB bug!" << std::endl;
-		}
+		}*/
 		WriteReg( fStrSramUserLogic, 1 );
 		WriteReg( CBC_I2C_CMD_RQ, 0 );
 
-		std::vector<uint32_t>::iterator it = pVecReq.begin();
+	/*	std::vector<uint32_t>::iterator it = pVecReq.begin();
 		uhal::ValVector< uint32_t >::const_iterator itValue = cData.begin();
 
 		while ( it != pVecReq.end() )
@@ -481,7 +496,7 @@ namespace Ph2_HwInterface
 		{
 			pVecReq.at( 255 ) = cWord.value();
 			// std::cout << "256th ReadbackValue " <<  std::bitset<32>( pVecReq.at( 255 ) ) << " - 2nd read value " <<  std::bitset<32> ( cWord.value() )  << std::endl;
-		}
+		}*/
 
 	}
 

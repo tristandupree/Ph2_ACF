@@ -12,20 +12,13 @@
 #ifndef HybridTester_h__
 #define HybridTester_h__
 
-#include "../HWDescription/Module.h"
-#include "../HWDescription/Cbc.h"
-#include "../HWDescription/BeBoard.h"
-#include "../HWInterface/CbcInterface.h"
-#include "../HWInterface/BeBoardInterface.h"
-#include "../System/SystemController.h"
-#include "../Utils/ConsoleColor.h"
+#include "Tool.h"
 #include "../Utils/Visitor.h"
 #include "../Utils/Utilities.h"
 #include "../Utils/CommonVisitors.h"
 
 
 
-#include "../System/SystemController.h"
 #include "TCanvas.h"
 #include "TFile.h"
 #include "TH1F.h"
@@ -41,7 +34,7 @@ using namespace Ph2_System;
  * \class HybridTester
  * \brief Class to test x*CBC2 Hybrids
  */
-class HybridTester : public SystemController
+class HybridTester : public Tool
 {
   public:
 	// Default C'tor
@@ -54,22 +47,12 @@ class HybridTester : public SystemController
 	*/
 	void Initialize( bool pThresholdScan );
 	/*!
-	* \brief Initialize the Histograms and Canvasses for GUI applications
-	* \param pThresholdScan :  bool flag to initialize the additional canvas for the Threshold scan
-	* \param pCanvasVector: vector of TCanvas* to be passed by the GUI to draw on
+	    * \brief Initialise the Histograms and Canvasses for GUI applications
 	*/
-
-	void Initialise(int vcth,int events, bool testreg, bool scanthreshold, bool holemode);
+	void InitialiseGUI( int pVcth, int pNevents, bool pTestreg, bool pScanthreshold, bool pHolemode );
 	/*!
-		* \brief Initialise the Histograms and Canvasses for GUI applications
+	* \brief Test CBC registers by writing complimentary bit patterns (0x55, 0xAA)
 	*/
-
-	void InitialiseSettings();
-
-	/*!
-	 * \brief Initialise the various constants
-	 */
-
 	void TestRegisters();
 	/*!
 	* \brief Scan the thresholds to identify the threshold with no noise occupancy
@@ -92,12 +75,6 @@ class HybridTester : public SystemController
 	bool fThresholdScan; /*!< Flag for SCurve Canvas */
 	TCanvas* fSCurveCanvas;   /*!< Canvas for threshold scan */
 
-	int m_vcth;
-	int m_events;
-	int m_sigmas;
-	bool m_testreg;
-	bool m_holemode;
-
 	std::map<Cbc*, TH1F*> fSCurveMap;  /*!< Histograms for SCurve */
 	std::map<Cbc*, TF1*> fFitMap;   /*!< fits for SCurve*/
 
@@ -105,6 +82,10 @@ class HybridTester : public SystemController
 	* \brief private method that calls the constructors for the histograms
 	*/
 	void InitializeHists();
+	/*!
+	* \brief private method that calls reads the settings from the settings map in private member variables
+	*/
+	void InitialiseSettings();
 	/*!
 	* \brief private method to periodically update the output graphs
 	*/
@@ -121,9 +102,14 @@ class HybridTester : public SystemController
 	void updateSCurveCanvas( BeBoard* pBoard );
 	void processSCurves( uint32_t pEventsperVcth );
 
+	uint32_t fTotalEvents;
+	bool fHoleMode;
+	int fSigmas;
+	uint8_t fVcth;
+
+
 };
 
 
 #endif
-
 

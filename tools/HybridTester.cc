@@ -82,9 +82,50 @@ void HybridTester::InitializeHists()
 	}
 }
 
+void HybridTester::InitialiseSettings()
+{
+	auto cSetting = fSettingsMap.find( "Threshold_NSigmas" );
+	fSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
+	cSetting = fSettingsMap.find( "Nevents" );
+	fTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 999;
+	cSetting = fSettingsMap.find( "HoleMode" );
+	fHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
+
+
+	// std::cout << "Read the following Settings: " << std::endl;
+	// std::cout << "Hole Mode: " << fHoleMode << std::endl << "NEvents: " << fTotalEvents << std::endl << "NSigmas: " << fSigmas << std::endl;
+}
+void HybridTester::InitialiseGUI( int pVcth, int pNevents, bool pTestreg, bool pScanthreshold, bool pHolemode )
+{
+	fThresholdScan = pScanthreshold;
+	fTotalEvents = pNevents;
+	fHoleMode = pHolemode;
+	fVcth = pVcth;
+
+	CbcRegWriter cWriter( fCbcInterface, "VCth", fVcth );
+	accept( cWriter ); //TODO pass safe
+
+	gStyle->SetOptStat( 000000 );
+	gStyle->SetTitleOffset( 1.3, "Y" );
+	//  special Visito class to count objects
+	Counter cCbcCounter;
+	accept( cCbcCounter );
+	fNCbc = cCbcCounter.getNCbc();
+
+	fDataCanvas = new TCanvas( "fDataCanvas", "SingleStripEfficiency", 1200, 800 );
+	fDataCanvas->Divide( 2 );
+
+	if ( fThresholdScan )
+	{
+		fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
+		fSCurveCanvas->Divide( fNCbc );
+	}
+	InitializeHists();
+}
+
+
 void HybridTester::Initialize( bool pThresholdScan )
 {
-	InitialiseSettings();
 	fThresholdScan = pThresholdScan;
 	gStyle->SetOptStat( 000000 );
 	gStyle->SetTitleOffset( 1.3, "Y" );
@@ -102,57 +143,13 @@ void HybridTester::Initialize( bool pThresholdScan )
 		fSCurveCanvas->Divide( fNCbc );
 	}
 	InitializeHists();
-
+	InitialiseSettings();
 }
 
-void HybridTester::Initialise(int vcth,int events, bool testreg, bool scanthreshold, bool holemode)
-{
-	fThresholdScan = scanthreshold;
-	m_events = events;
-	m_holemode = holemode;
-	m_vcth = vcth;
-
-	CbcRegWriter cWriter (fCbcInterface, "VCth", m_vcth);
-	accept(cWriter); //TODO pass safe
-
-	int m_sigmas = 4; //ToDo
-
-	gStyle->SetOptStat( 000000 );
-	gStyle->SetTitleOffset( 1.3, "Y" );
-	//  special Visito class to count objects
-	Counter cCbcCounter;
-	accept( cCbcCounter );
-	fNCbc = cCbcCounter.getNCbc();
-
-	fDataCanvas = new TCanvas( "fDataCanvas", "SingleStripEfficiency", 1200, 800 );
-	fDataCanvas->Divide( 2 );
-
-	if ( fThresholdScan )
-	{
-		fSCurveCanvas = new TCanvas( "fSCurveCanvas", "Noise Occupancy as function of VCth" );
-		fSCurveCanvas->Divide( fNCbc );
-	}
-	InitializeHists();
-}
-
-void HybridTester::InitialiseSettings()
-{
-	auto cSettingHole = fSettingsMap.find( "HoleMode" );
-	m_holemode = ( cSettingHole != std::end( fSettingsMap ) ) ? cSettingHole->second : true;
-	auto cSettingSigmas = fSettingsMap.find( "Threshold_NSigmas" );
-	m_sigmas = ( cSettingSigmas != std::end( fSettingsMap ) ) ? cSettingSigmas->second : 4;
-	auto cSettingEvents = fSettingsMap.find( "Nevents" );
-	uint32_t cTotalEvents = ( cSettingEvents != std::end( fSettingsMap ) ) ? cSettingEvents->second : 200;
-}
 
 void HybridTester::ScanThreshold()
 {
 	std::cout << "Scanning noise Occupancy to find threshold for test with external source ... " << std::endl;
-
-	//auto cSetting = fSettingsMap.find( "HoleMode" );
-	//bool cHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
-
-	bool cHoleMode = m_holemode;
 
 	// Necessary variables
 	uint32_t cEventsperVcth = 10;
@@ -163,10 +160,8 @@ void HybridTester::ScanThreshold()
 	uint32_t cSlopeZeroCounter = 0;
 	uint32_t cOldHitCounter = 0;
 	uint8_t  cDoubleVcth;
-	uint8_t cVcth = ( cHoleMode ) ?  0xFF :  0x00;
-	int cStep = ( cHoleMode ) ? -10 : 10;
-
-
+	uint8_t cVcth = ( fHoleMode ) ?  0xFF :  0x00;
+	int cStep = ( fHoleMode ) ? -10 : 10;
 
 	// Adaptive VCth loop
 	while ( 0x00 <= cVcth && cVcth <= 0xFF )
@@ -180,7 +175,6 @@ void HybridTester::ScanThreshold()
 		// Set current Vcth value on all Cbc's
 		CbcRegWriter cWriter( fCbcInterface, "VCth", cVcth );
 		accept( cWriter );
-
 		uint32_t cN = 0;
 		uint32_t cNthAcq = 0;
 		uint32_t cHitCounter = 0;
@@ -214,6 +208,7 @@ void HybridTester::ScanThreshold()
 					cNthAcq++;
 				}
 
+				// std::cout << +cVcth << " " << cHitCounter << std::endl;
 				// Draw the thing after each point
 				updateSCurveCanvas( pBoard );
 
@@ -265,13 +260,6 @@ void HybridTester::ScanThreshold()
 
 void HybridTester::processSCurves( uint32_t pEventsperVcth )
 {
-	//auto cSetting = fSettingsMap.find( "Threshold_NSigmas" );
-	//int cSigmas = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 4;
-	//bool cHoleMode = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : true;
-
-	auto cSigmas = m_sigmas;
-	auto cHoleMode = m_holemode;
-
 	for ( auto cScurve : fSCurveMap )
 	{
 		fSCurveCanvas->cd( cScurve.first->getCbcId() + 1 );
@@ -286,7 +274,7 @@ void HybridTester::processSCurves( uint32_t pEventsperVcth )
 		double cFirst1( 0 );
 
 		// Not Hole Mode
-		if ( !cHoleMode )
+		if ( !fHoleMode )
 		{
 			for ( Int_t cBin = 1; cBin <= cScurve.second->GetNbinsX(); cBin++ )
 			{
@@ -344,9 +332,9 @@ void HybridTester::processSCurves( uint32_t pEventsperVcth )
 			double_t pedestal = cFit->second->GetParameter( 0 );
 			double_t noise = cFit->second->GetParameter( 1 );
 
-			uint8_t cThreshold = ceil( pedestal + cSigmas * fabs( noise ) );
+			uint8_t cThreshold = ceil( pedestal + fSigmas * fabs( noise ) );
 
-			std::cout << "Identified a noise Occupancy of 50% at VCth " << static_cast<int>( pedestal ) << " -- increasing by " << cSigmas <<  " sigmas (=" << fabs( noise ) << ") to " << +cThreshold << " for Cbc " << int( cScurve.first->getCbcId() ) << std::endl;
+			std::cout << "Identified a noise Occupancy of 50% at VCth " << static_cast<int>( pedestal ) << " -- increasing by " << fSigmas <<  " sigmas (=" << fabs( noise ) << ") to " << +cThreshold << " for Cbc " << int( cScurve.first->getCbcId() ) << std::endl;
 
 			TLine* cLine = new TLine( cThreshold, 0, cThreshold, 1 );
 			cLine->SetLineWidth( 3 );
@@ -459,12 +447,7 @@ void HybridTester::TestRegisters()
 void HybridTester::Measure()
 {
 	std::cout << "Mesuring Efficiency per Strip ... " << std::endl;
-	//auto cSetting = fSettingsMap.find( "Nevents" );
-	//uint32_t cTotalEvents = ( cSetting != std::end( fSettingsMap ) ) ? cSetting->second : 200;
-
-	uint32_t cTotalEvents = m_events;
-
-	std::cout << "Taking data with " << cTotalEvents << " Events!" << std::endl;
+	std::cout << "Taking data with " << fTotalEvents << " Events!" << std::endl;
 
 	CbcRegReader cReader( fCbcInterface, "VCth" );
 	accept( cReader );
@@ -476,7 +459,7 @@ void HybridTester::Measure()
 			uint32_t cN = 0;
 			uint32_t cNthAcq = 0;
 
-			while ( cN <  cTotalEvents )
+			while ( cN <  fTotalEvents )
 			{
 				Run( pBoard, cNthAcq );
 
@@ -485,7 +468,7 @@ void HybridTester::Measure()
 				while ( cEvent )
 				{
 
-					if ( cN == cTotalEvents )
+					if ( cN == fTotalEvents )
 						break;
 
 					HistogramFiller cFiller( fHistBottom, fHistTop, cEvent );
@@ -496,7 +479,7 @@ void HybridTester::Measure()
 
 					cN++;
 
-					if ( cN < cTotalEvents )
+					if ( cN < fTotalEvents )
 						cEvent = fBeBoardInterface->GetNextEvent( pBoard );
 					else break;
 				}
@@ -504,9 +487,9 @@ void HybridTester::Measure()
 			}
 		}
 	}
-	fHistTop->Scale( 100 / double_t( cTotalEvents ) );
+	fHistTop->Scale( 100 / double_t( fTotalEvents ) );
 	fHistTop->GetYaxis()->SetRangeUser( 0, 100 );
-	fHistBottom->Scale( 100 / double_t( cTotalEvents ) );
+	fHistBottom->Scale( 100 / double_t( fTotalEvents ) );
 	fHistBottom->GetYaxis()->SetRangeUser( 0, 100 );
 	UpdateHists();
 }

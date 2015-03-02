@@ -86,7 +86,9 @@ int main( int argc, char* argv[] )
 		cCalibration.InitializeSettings( cHWFile );
 		cCalibration.CreateResultDirectory( cDirectory );
 		cCalibration.InitResultFile( "CalibrationResults" );
+
 		if( !isGui ) cCalibration.ConfigureHw();
+
 		cCalibration.Initialise(); // canvases etc. for fast calibration
 		if ( !cVplus ) cCalibration.ScanVplus();
 		cCalibration.ScanOffset();
@@ -102,7 +104,9 @@ int main( int argc, char* argv[] )
 		cCalibration.CreateResultDirectory( cDirectory );
 		cCalibration.InitResultFile( "CalibrationResults" );
 		cCalibration.InitialiseTestGroup();
+
 		if( !isGui ) cCalibration.ConfigureHw();
+		
 		if ( !cVplus ) cCalibration.VplusScan();
 		cCalibration.OffsetScan();
 		cCalibration.SaveResults();

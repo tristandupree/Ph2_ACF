@@ -1,5 +1,7 @@
 all: Utils HWDescription HWInterface System tools src
 
+libs: Utils HWDescription HWInterface System
+	
 HWDescription::
 	$(MAKE) -C $@
 Utils::

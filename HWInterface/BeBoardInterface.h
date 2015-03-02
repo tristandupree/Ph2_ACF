@@ -7,7 +7,40 @@
         \date                        31/07/14
         Support :                    mail to : lorenzo.bidegain@gmail.com, nicolas.pierre@cern.ch
 
- */
+
+\mainpage Acquisition& Control Framework
+*
+* \section intro_sec Introduction
+*
+* The ACF middleware users should only use a BeBoardInterface( and a CbcInterface ) object and pass to its functions Hardware Description object pointers( from HWDescription namespace ) as arguments.
+* \image html uml.png
+* \section structure_sec Project structure
+* The project compiles into the 5 following dynamic libraries
+*
+* \subsection lib1 HWDescription
+* Hardware description of the shelves containing the boards, containing the modules, containing the CBC chips.\n
+* The objects are:
+FrontEndDescription, BeBoard, Cbc, Module, Shelve
+
+* \subsection lib2 HWInterface
+* Hardware interface seen by the ACF middleware users. \n
+* Classes:
+RegManager, BeBoardFWInterface, GlibFWInterface, CbcInterface, BeBoardInterface
+*
+* \subsection lib3 System
+* Base class derivated by all command line tools from the src directory.\n
+    * Class: SystemController
+    *
+    * \subsection lib4 Utils
+    * Utility functions used by other libraries.\n
+    * Classes: Exception, Utilities, Event, Data, argvparser
+
+    * \subsection lib5 tools
+    * Library using ROOT functions to perform calibration and other data processing.\n
+    * Classes: Calibration, FastCalibration, Channel, HybridTester, CMTester
+    * /
+
+*/
 
 #ifndef __BEBOARDINTERFACE_H__
 #define __BEBOARDINTERFACE_H__
@@ -63,6 +96,12 @@ namespace Ph2_HwInterface
 		 */
 		void WriteBoardReg( BeBoard* pBoard, const std::string& pRegNode, const uint32_t& pVal );
 		/*!
+		     * \brief Write a block of a given size into the board
+		    * \param pBoard
+		    * \param pRegNode : Node of the register to write
+		     */
+		void WriteBlockBoardReg( BeBoard* pBoard, const std::string& pRegNode, const std::vector<uint32_t>& pValVec );
+		/*!
 		 * \brief Write: Update both Board register and Config File
 		 * \param pBoard
 		 * \param pRegVec : Vector of Register/Value pairs
@@ -73,7 +112,13 @@ namespace Ph2_HwInterface
 		* \param pBoard
 		* \param pRegNode : Node of the register to update
 		*/
-		void ReadBoardReg( BeBoard* pBoard, const std::string& pRegNode );
+		uint32_t ReadBoardReg( BeBoard* pBoard, const std::string& pRegNode );
+		/*!
+		     * \brief Read a block of a given size from the board
+		    * \param pBoard
+		    * \param pRegNode : Node of the register to read
+		     */
+		std::vector<uint32_t> ReadBlockBoardReg( BeBoard* pBoard, const std::string& pRegNode, uint32_t pSize );
 		/*!
 		 * \brief Read a vector of Registers
 		 * \param pBoard
@@ -131,6 +176,10 @@ namespace Ph2_HwInterface
 		 * \return Data buffer
 		 */
 		const char* GetBuffer( const BeBoard* pBeBoard, uint32_t& pBufSize );
+
+		const uhal::Node& getUhalNode( const BeBoard* pBoard, const std::string& pStrPath );
+
+		uhal::HwInterface* getHardwareInterface( const BeBoard* pBoard );
 
 	};
 }

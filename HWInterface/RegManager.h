@@ -98,6 +98,16 @@ namespace Ph2_HwInterface
 		 * \param pSend : Send the stack to write or nor (1/0)
 		 */
 		virtual void StackReg( const std::string& pRegNode, const uint32_t& pVal, bool pSend = false );
+		/*!
+		 * \brief get the uHAL HW Interface
+		 */
+		uhal::HwInterface* getHardwareInterface() const {
+			return fBoard;
+		}
+		/*!
+		 * \brief get the uHAL node
+		 */
+		const uhal::Node& getUhalNode( const std::string& pStrPath );
 
 	};
 }

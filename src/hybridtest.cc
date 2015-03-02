@@ -45,17 +45,19 @@ int main( int argc, char* argv[] )
 	cmd.defineOption( "batch", "Run the application in batch mode", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "batch", "b" );
 
-	cmd.defineOption("gui","option only suitable when launching from gui", ArgvParser::NoOptionAttribute);
-	cmd.defineOptionAlternative("gui", "g");
 
-	cmd.defineOption("vcth", "option on suitable when launching from gui", ArgvParser::OptionRequiresValue);
-	cmd.defineOptionAlternative("vcth", "v");
+	// only relevant when in GUI mode
+	cmd.defineOption( "gui", "option only suitable when launching from gui", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "gui", "g" );
 
-	cmd.defineOption("nEvents", "option on suitable when launching from gui", ArgvParser::OptionRequiresValue);
-	cmd.defineOptionAlternative("nEvents", "n");
+	cmd.defineOption( "vcth", "option on suitable when launching from gui", ArgvParser::OptionRequiresValue );
+	cmd.defineOptionAlternative( "vcth", "v" );
 
-	cmd.defineOption("holemode", "option on suitable when launching from gui", ArgvParser::NoOptionAttribute);
-	cmd.defineOptionAlternative("holemode", "hm");
+	cmd.defineOption( "nEvents", "option on suitable when launching from gui", ArgvParser::OptionRequiresValue );
+	cmd.defineOptionAlternative( "nEvents", "n" );
+
+	cmd.defineOption( "holemode", "option on suitable when launching from gui", ArgvParser::NoOptionAttribute );
+	cmd.defineOptionAlternative( "holemode", "hm" );
 
 	int result = cmd.parse( argc, argv );
 	if ( result != ArgvParser::NoParserError )
@@ -73,18 +75,17 @@ int main( int argc, char* argv[] )
 	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results/";
 	cDirectory += "HybridTest";
 
-
 	TApplication cApp( "Root Application", &argc, argv );
 	if ( batchMode ) gROOT->SetBatch( true );
 	else TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
 	HybridTester cHybridTester;
-	if (!isGui)
+
+	if ( !isGui )
 	{
 		cHybridTester.InitializeHw( cHWFile );
-		cHybridTester.Initialize( cScan );
-
 		cHybridTester.InitializeSettings( cHWFile );
+		cHybridTester.Initialize( cScan );
 		cHybridTester.CreateResultDirectory( cDirectory );
 		cHybridTester.InitResultFile( "HybridTest" );
 		cHybridTester.ConfigureHw();
@@ -93,18 +94,17 @@ int main( int argc, char* argv[] )
 	{
 		std::cout << "GUI mode triggered!" << std::endl;
 		cHybridTester.InitializeHw( cHWFile );
-
-		int cVcth = ( cmd.foundOption( "vcth" ) ) ? std::stoi(cmd.optionValue( "vcth" )) : 70;
-		int nEvents = ( cmd.foundOption( "nEvents" ) ) ? std::stoi(cmd.optionValue( "nEvents" )) : 100;
+		int cVcth = ( cmd.foundOption( "vcth" ) ) ? std::stoi( cmd.optionValue( "vcth" ) ) : 70;
+		int nEvents = ( cmd.foundOption( "nEvents" ) ) ? std::stoi( cmd.optionValue( "nEvents" ) ) : 100;
 		bool cHoleMode = ( cmd.foundOption( "holemode" ) ) ? true : false;
 
-		cHybridTester.Initialise(cVcth, nEvents, cRegisters, cScan, cHoleMode);
-
 		cHybridTester.InitializeSettings( cHWFile );
+		cHybridTester.InitialiseGUI( cVcth, nEvents, cRegisters, cScan, cHoleMode );
 		cHybridTester.CreateResultDirectory( cDirectory );
 		cHybridTester.InitResultFile( "HybridTest" );
 	}
 
+	// Here comes our Part:
 
 	if ( cRegisters ) cHybridTester.TestRegisters();
 	if ( cScan ) cHybridTester.ScanThreshold();
