@@ -61,7 +61,13 @@ namespace GUI
     {
         m_worker->abort();
         m_thread->wait();
-        m_worker->requestWork();
+
+        QString fileName = m_Settings.getHwFileName();
+
+        std::string cHwFile = (m_Settings.getHwFileName()).toStdString();
+        qDebug() << fileName;
+        std::cout << cHwFile;
+        m_worker->requestWork(cHwFile);
     }
 
     void SystemController::startConfigureHw()

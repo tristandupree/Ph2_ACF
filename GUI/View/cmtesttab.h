@@ -21,6 +21,8 @@ namespace GUI {
 
     public slots:
         void getIsNoiseScan();
+        void disableLaunch();
+        void enableLaunch();
 
     private slots:
         void on_btnLaunch_clicked();

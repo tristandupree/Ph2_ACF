@@ -247,6 +247,7 @@ namespace GUI
         }
 
         QString settings = res_file.readAll();
+        qDebug() << settings;
         return settings;
     }
 

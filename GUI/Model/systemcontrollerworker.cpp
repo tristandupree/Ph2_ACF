@@ -26,7 +26,7 @@ namespace GUI
         qDebug() << "Destructing SystemController Worker" << this;
     }
 
-    void SystemControllerWorker::requestWork()
+    void SystemControllerWorker::requestWork(std::string cHwFile)
     {
         mutex.lock();
         _working = true;
@@ -67,9 +67,7 @@ namespace GUI
             return;
         }
 
-        std::string settingsName = "settings/Calibration2CBC.xml";
-
-        InitializeHw( settingsName);
+        InitializeHw(m_HwFile);
 
         mutex.lock();
         _working = false;
@@ -83,20 +81,11 @@ namespace GUI
 
         ConfigureHw();
 
-
         mutex.lock();
         _working = false;
         mutex.unlock();
         emit finishedConfigureHw();
         qDebug() << "Finished configure";
     }
-
-
-    /*void SystemControllerWorker::Run( BeBoard* pBeBoard, uint32_t pNthAcq )
-    {
-        fBeBoardInterface->Start( pBeBoard );
-        fBeBoardInterface->ReadData( pBeBoard, pNthAcq, true );
-        fBeBoardInterface->Stop( pBeBoard, pNthAcq );
-    }*/
 
 }

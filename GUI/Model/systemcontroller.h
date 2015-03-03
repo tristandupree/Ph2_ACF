@@ -41,6 +41,7 @@ namespace GUI{
         void notifyStatusMessage(QString msg);
         void notifyConfigFinished();
         void notifyInitFinished();
+
         void sendInitialiseRegistersView();
 
     public slots:
@@ -50,11 +51,11 @@ namespace GUI{
         void finishInitialiseHw();
         void finishConfigureHw();
 
-
     private:
 
         Settings  &m_Settings;
         QThread *m_thread;
+
        // SystemControllerWorker *m_worker;
 
         void SendStatusMessage(QString msg);

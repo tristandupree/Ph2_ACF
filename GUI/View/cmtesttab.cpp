@@ -22,8 +22,20 @@ namespace GUI {
         emit sendIsScan(ui->chbxScanNoise->isChecked());
     }
 
+    void CmTestTab::disableLaunch()
+    {
+        ui->btnLaunch->setEnabled(false);
+    }
+
+    void CmTestTab::enableLaunch()
+    {
+        ui->btnLaunch->setEnabled(true);
+    }
+
     void CmTestTab::on_btnLaunch_clicked()
     {
         emit startCmTest();
     }
+
+
 }

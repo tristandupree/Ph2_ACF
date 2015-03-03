@@ -33,6 +33,7 @@ namespace GUI{
         CmTestViewManager& m_cmVm;
 
         void WireSetupVmMessages();
+        void WireLaunchButtons();
 
 
         explicit MainViewManager(const MainViewManager& rhs) = delete;

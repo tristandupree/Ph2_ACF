@@ -56,21 +56,19 @@ namespace GUI {
         emit sendIsHoleModeChecked(ui->checkHoleMode->isChecked());
     }
 
-    void HybridTestTab::onHybridTestStart()
+    void HybridTestTab::disableLaunch()
     {
         ui->btnStart->setEnabled(false);
     }
 
-    void HybridTestTab::onHybridTestFinish()
+    void HybridTestTab::enableLaunch()
     {
         ui->btnStart->setEnabled(true);
     }
 
     void HybridTestTab::on_btnStart_clicked()
     {
-
         emit startHybridTest();
-
     }
 
     void HybridTestTab::on_dialVcth_sliderMoved(int position)

@@ -14,6 +14,7 @@ namespace GUI
         m_calibrate(calib)
     {
         WireConnections();
+        WireExternalConnections();
     }
 
     CalibrateViewManager::~CalibrateViewManager()
@@ -43,13 +44,18 @@ namespace GUI
                 &m_calibrate, SLOT(setAllChValue(bool)));
 
         connect(&m_calibrate, SIGNAL(startedCalibration()),
-                &m_calibrateTab, SLOT(onCalibrationStart()));
+                &m_calibrateTab, SLOT(disableLaunch()));
         connect(&m_calibrate, SIGNAL(finishedCalibration()),
-                &m_calibrateTab, SLOT(onCalibrationFinish()));
+                &m_calibrateTab, SLOT(enableLaunch()));
     }
 
     void CalibrateViewManager::WireExternalConnections()
     {
+        connect(this, SIGNAL(enableLaunch()),
+                &m_calibrateTab, SLOT(enableLaunch()));
+        connect(this, SIGNAL(disableLaunch()),
+                &m_calibrateTab, SLOT(disableLaunch()));
+
         connect(&m_calibrate, SIGNAL(startedCalibration()),
                 this, SIGNAL(startedCalibration()));
         connect(&m_calibrate, SIGNAL(finishedCalibration()),

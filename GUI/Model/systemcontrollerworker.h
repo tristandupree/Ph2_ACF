@@ -34,7 +34,7 @@ namespace GUI
                                         Settings &config);
         ~SystemControllerWorker();
 
-        void requestWork();
+        void requestWork(std::string cHwFile);
         void requestConfigureHw();
         void abort();
 
@@ -49,6 +49,8 @@ namespace GUI
         void onConfigureHw();
 
     private:
+
+        std::string m_HwFile;
 
         bool _abort;
         bool _working;

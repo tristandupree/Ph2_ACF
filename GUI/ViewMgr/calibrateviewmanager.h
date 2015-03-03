@@ -18,6 +18,8 @@ namespace GUI{
     signals:
         void startedCalibration();
         void finishedCalibration();
+        void disableLaunch();
+        void enableLaunch();
 
     private:
 

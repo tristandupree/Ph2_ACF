@@ -18,6 +18,8 @@ namespace GUI {
     signals:
         void onCmTestStart();
         void onCmTestFinished();
+        void enableLaunch();
+        void disableLaunch();
 
     public slots:
 

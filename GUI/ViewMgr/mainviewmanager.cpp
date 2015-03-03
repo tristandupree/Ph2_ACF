@@ -26,6 +26,7 @@ namespace GUI
         m_cmVm(cmVm)
     {
         WireSetupVmMessages();
+        WireLaunchButtons();
     }
 
     MainViewManager::~MainViewManager()
@@ -46,9 +47,36 @@ namespace GUI
         connect(&m_setupVm, SIGNAL(sendInitialiseRegistersView()),
                 &m_cbcRegVm, SIGNAL(sendInitialiseRegistersView()));
 
+    }
+
+    void MainViewManager::WireLaunchButtons()
+    {
+        connect(&m_hybridTestVm, SIGNAL(startedHybridTest()),
+                &m_calibrateVm, SIGNAL(disableLaunch()));
+        connect(&m_hybridTestVm, SIGNAL(finishedHybridTest()),
+                &m_calibrateVm, SIGNAL(enableLaunch()));
+        connect(&m_hybridTestVm, SIGNAL(startedHybridTest()),
+                &m_cmVm, SIGNAL(disableLaunch()));
+        connect(&m_hybridTestVm, SIGNAL(finishedHybridTest()),
+                &m_cmVm, SIGNAL(enableLaunch()));
+
         connect(&m_calibrateVm, SIGNAL(startedCalibration()),
                 &m_hybridTestVm, SIGNAL(disableLaunch()));
         connect(&m_calibrateVm, SIGNAL(finishedCalibration()),
                 &m_hybridTestVm, SIGNAL(enableLaunch()));
+        connect(&m_calibrateVm, SIGNAL(startedCalibration()),
+                &m_cmVm, SIGNAL(disableLaunch()));
+        connect(&m_calibrateVm, SIGNAL(finishedCalibration()),
+                &m_cmVm, SIGNAL(enableLaunch()));
+
+        connect(&m_cmVm, SIGNAL(onCmTestStart()),
+                &m_hybridTestVm, SIGNAL(disableLaunch()));
+        connect(&m_cmVm, SIGNAL(onCmTestFinished()),
+                &m_hybridTestVm, SIGNAL(enableLaunch()));
+        connect(&m_cmVm, SIGNAL(onCmTestStart()),
+                &m_calibrateVm, SIGNAL(disableLaunch()));
+        connect(&m_cmVm, SIGNAL(onCmTestFinished()),
+                &m_calibrateVm, SIGNAL(enableLaunch()));
+
     }
 }

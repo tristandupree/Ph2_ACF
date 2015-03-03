@@ -19,6 +19,7 @@ namespace GUI{
         void ParseJsondata();
         void ParseCustomJsonData();
 
+        QString getHwFileName() {return m_filename;}
         QVariantMap getshelveIdMap() const {return *map_ShelveId;} //QVariantMaps are implicitly shared
         QVariantMap getHwDescriptionMap() const {return *map_HwDescription;}
         ~Settings();

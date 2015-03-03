@@ -27,10 +27,10 @@ namespace GUI{
         void getIsScan();
         void getIsBitwise();
         void getIsAllCh();
+        void enableLaunch();
+        void disableLaunch();
 
     private slots:
-        void onCalibrationStart();
-        void onCalibrationFinish();
         void on_btnCalibrate_clicked();
 
     private:

@@ -18,6 +18,8 @@ namespace GUI{
     ~HybridTestViewManager();
 
     signals:
+        void startedHybridTest();
+        void finishedHybridTest();
         void disableLaunch();
         void enableLaunch();
 

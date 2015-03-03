@@ -1,4 +1,5 @@
 #pragma once
+#include <QDebug>
 #include "cmtestviewmanager.h"
 #include "View/cmtesttab.h"
 #include "Model/cmtest.h"
@@ -18,7 +19,7 @@ namespace GUI {
 
     CmTestViewManager::~CmTestViewManager()
     {
-
+        qDebug() << "Destructing " << this;
     }
 
 
@@ -31,6 +32,10 @@ namespace GUI {
         connect(&m_cmTab, SIGNAL(sendIsScan(bool)),
                 &m_cm, SLOT(setIsScan(bool)));
 
+        connect(&m_cm, SIGNAL(startedCmTest()),
+                &m_cmTab, SLOT(disableLaunch()));
+        connect(&m_cm, SIGNAL(finishedCmTest()),
+                &m_cmTab, SLOT(disableLaunch()));
     }
 
     void CmTestViewManager::WireExternalCalls()
@@ -39,6 +44,11 @@ namespace GUI {
                 this, SIGNAL(onCmTestStart()));
         connect(&m_cm, SIGNAL(finishedCmTest()),
                 this, SIGNAL(onCmTestFinished()));
+
+        connect(this, SIGNAL(enableLaunch()),
+                &m_cmTab,SLOT(enableLaunch()));
+        connect(this, SIGNAL(disableLaunch()),
+                &m_cmTab, SLOT(disableLaunch()));
 
     }
 

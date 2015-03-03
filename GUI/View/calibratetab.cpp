@@ -37,14 +37,14 @@ namespace GUI{
         emit sendIsAllCh(ui->chbxAllChan->isChecked());
     }
 
-    void CalibrateTab::onCalibrationStart()
-    {
-        ui->btnCalibrate->setEnabled(false);
-    }
-
-    void CalibrateTab::onCalibrationFinish()
+    void CalibrateTab::enableLaunch()
     {
         ui->btnCalibrate->setEnabled(true);
+    }
+
+    void CalibrateTab::disableLaunch()
+    {
+        ui->btnCalibrate->setEnabled(false);
     }
 
     void CalibrateTab::on_btnCalibrate_clicked()

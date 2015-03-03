@@ -29,7 +29,7 @@ namespace GUI
 
     void SetupTabViewManager::WireMessages(Settings& config)
     {
-        connect(&config, SIGNAL(notifyStatusMessage(QString)), //for QT4
+        connect(&config, SIGNAL(notifyStatusMessage(QString)),
                 &m_setupTab, SLOT(onStatusUpdate(QString)) );
 
         connect(&m_systemController, SIGNAL(notifyStatusMessage(QString)),

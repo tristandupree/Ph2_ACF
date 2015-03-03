@@ -14,6 +14,7 @@ namespace GUI
         m_hybridTest(hybridTest)
     {
         WireButtons();
+        WireExternalCalls();
     }
 
     HybridTestViewManager::~HybridTestViewManager()
@@ -25,6 +26,7 @@ namespace GUI
     {
         connect(&m_hybridTestTab, SIGNAL(startHybridTest()),
                 &m_hybridTest, SLOT(initialiseSettings()));
+
         connect(&m_hybridTest, SIGNAL(getVcthValue()),
                 &m_hybridTestTab, SLOT(getVcthDialValue()));
         connect(&m_hybridTestTab, SIGNAL(sendVcthValue(int)),
@@ -45,13 +47,22 @@ namespace GUI
                 &m_hybridTestTab, SLOT(getIsHoleModeChecked()));
         connect(&m_hybridTestTab, SIGNAL(sendIsHoleModeChecked(bool)),
                 &m_hybridTest, SLOT(setHoleMode(bool)));
+
+        connect(&m_hybridTest, SIGNAL(startedHybridTest()),
+                &m_hybridTestTab, SLOT(disableLaunch()));
+        connect(&m_hybridTest, SIGNAL(finishedHybridTest()),
+                &m_hybridTestTab, SLOT(enableLaunch()));
     }
 
     void HybridTestViewManager::WireExternalCalls()
     {
+        connect(&m_hybridTest, SIGNAL(startedHybridTest()),
+                this, SIGNAL(startedHybridTest()));
+        connect(&m_hybridTest, SIGNAL(finishedHybridTest()),
+                this, SIGNAL(finishedHybridTest()));
         connect(this, SIGNAL(disableLaunch()),
-                &m_hybridTestTab, SLOT(onHybridTestStart()));
+                &m_hybridTestTab, SLOT(disableLaunch()));
         connect(this, SIGNAL(enableLaunch()),
-                &m_hybridTestTab, SLOT(onHybridTestFinish()));
+                &m_hybridTestTab, SLOT(enableLaunch()));
     }
 }
