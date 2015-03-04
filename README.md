@@ -57,6 +57,7 @@ On this Repo, you can find different version of the software :
     - some modifications to HybridTester tool to make it compatible with the GUI
     - added a CMD line option: g for GUI, should only be used by the latter
     - SystemController class can now parse .json files in addition to .xml
+- 04/03/15: added GUI (v1-10)
 
 
 ### Setup

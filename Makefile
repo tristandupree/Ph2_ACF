@@ -3,6 +3,8 @@ all: Utils HWDescription HWInterface System tools src GUI
 libs: Utils HWDescription HWInterface System
 
 gui: Utils HWDescription HWInterface System tools src GUI
+
+simple: Utils HWDescription HWInterface System tools src
 	
 HWDescription::
 	$(MAKE) -C $@
@@ -19,6 +21,7 @@ src::
 GUI::
 	$(MAKE) -C GUI/Macros
 	$(MAKE) -C $@
+	cp $@/Ph2_ACF ../bin
 doc::
 	$(MAKE) -C $@
 
