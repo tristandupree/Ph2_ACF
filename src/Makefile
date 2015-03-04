@@ -46,10 +46,6 @@ cmtest: cmtest.cc
 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
 	cp $@ ../bin
 
-# commission: commission.cc
-# 	$(CXX) -std=c++11 $(CCFlags) -o $@ $< $(IncludePaths) $(ExternalObjects)
-# 	cp $@ ../bin
-
 .PHONY: clean
 
 clean:

@@ -11,8 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Ph2_ACF
 TEMPLATE = app
 
-CONFIG += c++11 debug
-
+CONFIG += c++11 
 QMAKE_CXXFLAGS += -g -O1 -w -pedantic -fPIC -std=c++11 -lrt `root-config --cflags --evelibs` -Wcpp
 
 LIBS += -L../lib -lPh2_Interface -lPh2_Description -lPh2_System -lPh2_Tools -lPh2_Utils
@@ -21,14 +20,11 @@ LibraryDirs = /opt/cactus/lib /opt/xdaq/lib ../
 LibraryPaths = $(LibraryDirs:%=-L%)
 LIBS += $(LibraryPaths:%=-L%) -uhal `root-config --glibs`
 
-LIBS += -L/usr/lib/ -lqjson
-INCLUDEPATH += /usr/include/qjson/
 INCLUDEPATH += $(ROOTSYS)/include
 
-INCLUDEPATH += /opt/cactus/include /../../Ph2DAQ_dev/
+INCLUDEPATH += /opt/cactus/include /../../Ph2_ACF/
 
-INCLUDEPATH += /../../Ph2DAQ_dev/
-INCLUDEPATH += /usr/local/boost
+INCLUDEPATH += /../../Ph2_ACF/
 LIBS += -L/usr/local/boost/libs -lrt -lboost_system
 
 
