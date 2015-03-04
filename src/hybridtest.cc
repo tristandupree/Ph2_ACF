@@ -20,7 +20,6 @@ using namespace CommandLineProcessing;
 
 int main( int argc, char* argv[] )
 {
-
 	ArgvParser cmd;
 
 	// init
@@ -46,6 +45,7 @@ int main( int argc, char* argv[] )
 	cmd.defineOption( "batch", "Run the application in batch mode", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "batch", "b" );
 
+
 	// only relevant when in GUI mode
 	cmd.defineOption( "gui", "option only suitable when launching from gui", ArgvParser::NoOptionAttribute );
 	cmd.defineOptionAlternative( "gui", "g" );
@@ -66,21 +66,21 @@ int main( int argc, char* argv[] )
 		exit( 1 );
 	}
 
+	bool isGui = (cmd.foundOption("gui")) ? true : false;
 	// now query the parsing results
 	std::string cHWFile = ( cmd.foundOption( "file" ) ) ? cmd.optionValue( "file" ) : "settings/HybridTest2CBC.xml";
+	bool batchMode = ( cmd.foundOption( "batch" ) ) ? true : false;
 	bool cRegisters = ( cmd.foundOption( "registers" ) ) ? true : false;
 	bool cScan = ( cmd.foundOption( "scan" ) ) ? true : false;
 	std::string cDirectory = ( cmd.foundOption( "output" ) ) ? cmd.optionValue( "output" ) : "Results/";
 	cDirectory += "HybridTest";
-	bool batchMode = ( cmd.foundOption( "batch" ) ) ? true : false;
-
-	bool isGui = ( cmd.foundOption( "gui" ) ) ? true : false;
 
 	TApplication cApp( "Root Application", &argc, argv );
 	if ( batchMode ) gROOT->SetBatch( true );
 	else TQObject::Connect( "TCanvas", "Closed()", "TApplication", &cApp, "Terminate()" );
 
 	HybridTester cHybridTester;
+
 	if ( !isGui )
 	{
 		cHybridTester.InitializeHw( cHWFile );
@@ -106,7 +106,6 @@ int main( int argc, char* argv[] )
 	{
 		std::cout << "GUI mode triggered!" << std::endl;
 		cHybridTester.InitializeHw( cHWFile );
-
 		int cVcth = ( cmd.foundOption( "vcth" ) ) ? std::stoi( cmd.optionValue( "vcth" ) ) : 70;
 		int nEvents = ( cmd.foundOption( "nEvents" ) ) ? std::stoi( cmd.optionValue( "nEvents" ) ) : 100;
 		bool cHoleMode = ( cmd.foundOption( "holemode" ) ) ? true : false;
