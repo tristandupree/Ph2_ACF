@@ -40,9 +40,6 @@ namespace GUI
                 &m_mainView, SLOT(enableAllTabsSlot(bool)));
 
         connect(&m_setupVm, SIGNAL(on2CbcToggle(bool)),
-                &m_hybridTestVm, SIGNAL(on2CbcToggle(bool)));
-
-        connect(&m_setupVm, SIGNAL(on2CbcToggle(bool)),
                 &m_cbcRegVm, SIGNAL(on2CbcToggle(bool)));
         connect(&m_setupVm, SIGNAL(sendInitialiseRegistersView()),
                 &m_cbcRegVm, SIGNAL(sendInitialiseRegistersView()));

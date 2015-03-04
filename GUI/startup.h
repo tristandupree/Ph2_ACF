@@ -9,7 +9,6 @@ namespace GUI{
     class HybridTestTab;
     class CalibrateTab;
     class CmTestTab;
-    class TBrowserTab;
 
     class MainView;
 
@@ -43,7 +42,6 @@ namespace GUI{
         HybridTestTab& m_hybridTab;
         CalibrateTab& m_calibrateTab;
         CmTestTab& m_cmTestTab;
-        TBrowserTab& m_tbrowseTab;
 
         MainView& m_mainView;
         Settings* m_settings;

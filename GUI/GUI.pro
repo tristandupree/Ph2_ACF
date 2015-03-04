@@ -47,7 +47,6 @@ SOURCES += main.cpp\
     Model/cbcregisters.cpp \
     ViewMgr/mainviewmanager.cpp \
     Model/cbcregisterworker.cpp \
-    View/tbrowsertab.cpp \
     Model/hybridtest.cpp \
     Model/hybridtestworker.cpp \
     ViewMgr/hybridtestviewmanager.cpp \
@@ -78,7 +77,6 @@ HEADERS  += View/mainview.h \
     #lib/CustomTQtWidget.h \
     ViewMgr/mainviewmanager.h \
     Model/cbcregisterworker.h \
-    View/tbrowsertab.h \
     Model/hybridtest.h \
     Model/hybridtestworker.h \
     ViewMgr/hybridtestviewmanager.h \
@@ -98,7 +96,6 @@ FORMS    += View/mainview.ui \
     View/setuptab.ui \
     View/cbcregisterstab.ui \
     View/aboutbox.ui \
-    View/tbrowsertab.ui \
     View/hybridtesttab.ui \
     View/calibratetab.ui \
     View/cmtesttab.ui

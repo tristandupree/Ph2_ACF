@@ -50,16 +50,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tabTBrowser">
-       <attribute name="title">
-        <string>Page</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <layout class="QVBoxLayout" name="loTBrowser"/>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>

@@ -64,7 +64,10 @@ namespace GUI
 
         QString fileName = m_Settings.getHwFileName();
 
+
+
         std::string cHwFile = (m_Settings.getHwFileName()).toStdString();
+        qDebug() << "Hw File Name" << QString::fromStdString(cHwFile);
         qDebug() << fileName;
         std::cout << cHwFile;
         m_worker->requestWork(cHwFile);

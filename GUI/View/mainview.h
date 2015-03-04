@@ -13,7 +13,6 @@ namespace GUI{
     class HybridTestTab;
     class CalibrateTab;
     class CmTestTab;
-    class TBrowserTab;
 
     class MainView : public QMainWindow
     {
@@ -25,8 +24,7 @@ namespace GUI{
                           GUI::CbcRegistersTab &reg,
                           GUI::HybridTestTab &hybrid,
                           GUI::CalibrateTab &calibrate,
-                          GUI::CmTestTab &cm,
-                          GUI::TBrowserTab &brow);
+                          GUI::CmTestTab &cm);
         ~MainView();
 
     public slots:
@@ -38,7 +36,6 @@ namespace GUI{
         void on_actionUser_Settings_triggered();
 
     private:
-        //void enableAllTabs(bool enable);
         Ui::MainView *ui;
 
     };

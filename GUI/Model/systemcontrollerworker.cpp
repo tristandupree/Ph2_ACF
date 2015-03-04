@@ -66,8 +66,8 @@ namespace GUI
         if (abort) {
             return;
         }
-
-        InitializeHw(m_HwFile);
+        InitializeHw("../settings/HWDescription_2CBC2.json");
+        //InitializeHw(m_HwFile);
 
         mutex.lock();
         _working = false;

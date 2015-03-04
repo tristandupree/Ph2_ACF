@@ -4,7 +4,6 @@
 #include "View/cbcregisterstab.h"
 #include "View/hybridtesttab.h"
 #include "View/calibratetab.h"
-#include "View/tbrowsertab.h"
 #include "View/cmtesttab.h"
 
 #include "View/mainview.h"
@@ -42,15 +41,13 @@ namespace GUI
         m_hybridTab(*new HybridTestTab(nullptr)),
         m_calibrateTab(*new CalibrateTab(nullptr)),
         m_cmTestTab(*new CmTestTab(nullptr)),
-        m_tbrowseTab(*new TBrowserTab(nullptr)),
 
         m_mainView(*new MainView(nullptr,
                                  m_setupTab,
                                  m_regTab,
                                  m_hybridTab,
                                  m_calibrateTab,
-                                 m_cmTestTab,
-                                 m_tbrowseTab)),
+                                 m_cmTestTab)),
 
         m_systemController(new SystemController(this,
                                                 Provider::getSettingsAsSingleton())),
