@@ -49,14 +49,14 @@ namespace GUI
     {
         if (cbc2)
         {
-            m_filename = QString("./settings/HWDescription_2CBC.json").toLatin1();
+            m_filename = QString("settings/HWDescription_2CBC.json").toLatin1();
             ParseJsondata();
             emit setHwTree(getHwStandardItems()); //TODO - add debug
             SendStatusMessage(tr("Settings for 2CBC2 loaded"));
         }
         else
         {
-            m_filename= QString("HWDescription_8CBC.json").toLatin1();
+            m_filename= QString("settings/HWDescription_8CBC.json").toLatin1();
             ParseJsondata();
             emit setHwTree(getHwStandardItems());
             SendStatusMessage(tr("Settings for 8CBC2 loaded"));

@@ -28,6 +28,8 @@ namespace GUI
 
     void SystemControllerWorker::requestWork(std::string cHwFile)
     {
+        m_HwFile = cHwFile;
+
         mutex.lock();
         _working = true;
         _abort = false;
@@ -66,8 +68,8 @@ namespace GUI
         if (abort) {
             return;
         }
-        InitializeHw("../settings/HWDescription_2CBC2.json");
-        //InitializeHw(m_HwFile);
+
+        InitializeHw(m_HwFile);
 
         mutex.lock();
         _working = false;
