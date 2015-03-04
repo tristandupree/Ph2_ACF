@@ -105,5 +105,4 @@ FORMS    += View/mainview.ui \
 
 OTHER_FILES +=
 
-RESOURCES += \
-    Resources.qrc
+RESOURCES +=

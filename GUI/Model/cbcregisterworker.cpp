@@ -2,6 +2,7 @@
 #include "cbcregisterworker.h"
 #include "Model/systemcontroller.h"
 #include <QThread>
+#include <QDebug>
 
 
 using namespace Ph2_HwDescription;

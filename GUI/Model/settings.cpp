@@ -1,7 +1,6 @@
 #include "settings.h"
 #include <QString>
-#include <qjson/parser.h>
-//#include <qjson/serializer.h>
+#include "../../Utils/picojson.h"
 #include <QStringListModel>
 #include <QDebug>
 #include <QDir>
@@ -9,17 +8,12 @@
 #include <QMessageBox>
 #include <map>
 #include <QList>
-
-//#include <QJsonParser>
-
+#include <fstream>
 
 namespace GUI
 {
-    static auto RESOURCE_PREFIX = QString(":/json/settings").toLatin1();//from resources
     Settings::Settings(QObject *parent) :
-        QObject(parent),
-        map_ShelveId(new QVariantMap),
-        map_BeBoardId(new QVariantMap)
+        QObject(parent)
     {
     }
 
@@ -37,42 +31,32 @@ namespace GUI
             return;
         }
 
-        map_Settings = new QVariantMap;
-        *map_Settings = GetJsonObject(raw_json);
-
-        map_HwDescription = new QVariantMap;
-        *map_HwDescription = (map_Settings->value("HwDescription").toMap());
+        m_jsonValue = GetJsonObject(raw_json);
     }
 
     void Settings::ParseCustomJsonData()
     {
-        QString raw_json = ReadCustomJsonFile();
+        QString raw_json = ReadJsonFile();
 
         if (raw_json.size()==0)
         {
             SendStatusMessage(tr("Custom Json file not formatted correctly"));
             return;
         }
-
-        map_Settings = new QVariantMap;
-        *map_Settings = GetJsonObject(raw_json);
-
-        map_HwDescription = new QVariantMap;
-        *map_HwDescription = (map_Settings->value("HwDescription").toMap());
     }
 
     void Settings::onLoadButtonClicked(bool cbc2)
     {
         if (cbc2)
         {
-            m_filename = QString("HwDescription.json").toLatin1();
+            m_filename = QString("./settings/HWDescription_2CBC.json").toLatin1();
             ParseJsondata();
             emit setHwTree(getHwStandardItems()); //TODO - add debug
             SendStatusMessage(tr("Settings for 2CBC2 loaded"));
         }
         else
         {
-            m_filename= QString("HwDescription_8CBC.json").toLatin1();
+            m_filename= QString("HWDescription_8CBC.json").toLatin1();
             ParseJsondata();
             emit setHwTree(getHwStandardItems());
             SendStatusMessage(tr("Settings for 8CBC2 loaded"));
@@ -82,8 +66,7 @@ namespace GUI
     void Settings::onCustomLoadButtonClicked(QString cfileName)
     {
         m_filename = cfileName.toLatin1();
-        ParseCustomJsonData();
-
+        ParseJsondata();
         emit setHwTree(getHwStandardItems()); //TODO - add debug
         SendStatusMessage(tr("Custom settings loaded from :"));
         SendStatusMessage(m_filename);
@@ -95,111 +78,120 @@ namespace GUI
         return default_settings;
     }
 
-    QString Settings::ReadCustomJsonFile()
+    picojson::value Settings::GetJsonObject(const QString& rawJson)
     {
-        auto default_settings = ReadJsonFromCustomResource();
-        return default_settings;
-    }
+        picojson::value  cJsonValue;
 
-    QVariantMap Settings::GetJsonObject(const QString& rawJson)
-    {
-        QJson::Parser parser;
+        std::string cRawValue = rawJson.toUtf8().constData();
 
-        bool ok;
-        QVariantMap result = parser.parse (rawJson.toLatin1(), &ok).toMap();
-        if (!ok)
-        {
-            SendStatusMessage(tr("Could not parse JSON file ") );
-        }
+        std::string cErr = picojson::parse( cJsonValue, cRawValue );
+        if ( !cErr.empty() ) SendStatusMessage(tr("Could not parse JSON file ") + (QString::fromStdString(cErr)) );
 
-        return result;
+        return cJsonValue;
     }
 
     //TODO tidy massively
-    QStandardItemModel* Settings::CreateItemModel() { //yes I am aware there are faster ways with refelections but I'm pressed for time
+    QStandardItemModel* Settings::CreateItemModel()
+    {
+        //could replace rows with maps of rows..
+
 
         QStandardItemModel* standardModel = new QStandardItemModel;
-        *map_ShelveId = map_HwDescription->value("ShelveId").toMap();
 
-        for(auto& sh_kv : map_ShelveId->keys())
+        standardModel->clear();
+
+        double cBeId, cModuleId, cCbcId;
+        double cNShelve = 0;
+        int i, j;
+
+        picojson::array cShelves = m_jsonValue.get( "HwDescription" ).get( "Shelves" ).get<picojson::array>();
+
+        for ( const auto& cShelve : cShelves )
         {
-            QList<QStandardItem *> preparedRow = prepareRow("Shelve Id " + sh_kv);
+            double cShelveId = cShelve.get( "Id" ).get<double>() ;
+
+            QList<QStandardItem *> preparedRow = prepareRow("Shelve Id " + QString::number(cShelveId));
             QStandardItem *item = standardModel->invisibleRootItem();
             item->appendRow(preparedRow);
 
-            *map_BeBoardId = map_ShelveId->value(sh_kv).toMap().value("BeBoardId").toMap();
+            picojson::array cBeBoards = cShelve.get( "BeBoards" ).get<picojson::array>();
 
-            for (auto& be_kv: map_BeBoardId->keys())
+            for ( const auto& cBoard : cBeBoards )
             {
-                QList<QStandardItem *> secondRow = prepareRow("Be Board Id " + be_kv);
-
+                cBeId =  cBoard.get( "Id" ).get<double>() ;
+                QList<QStandardItem *> secondRow = prepareRow("Be Board Id " + QString::number(cBeId));
                 preparedRow.first()->appendRow(secondRow);
 
-                for(auto& be_v : map_BeBoardId->value(be_kv).toMap().keys())
+                QList<QStandardItem *> thirdRow_2 = prepareRow("Board Type: " + QString::fromStdString(cBoard.get( "boardType" ).get<std::string>()));
+                secondRow.first()->appendRow(thirdRow_2);
+
+                QList<QStandardItem *> thirdRow = prepareRow("Registers");
+                secondRow.first()->appendRow(thirdRow);
+
+                for ( const auto& cRegister :  cBoard.get( "RegisterName" ).get<picojson::object>( ) )
                 {
-                    auto be_values = map_BeBoardId->value(be_kv).toMap().value(be_v);
+                    QList<QStandardItem *> fourthRow = prepareRow(QString::fromStdString(cRegister.first) + " : " + QString::number(cRegister.second.get<double>()));
+                    thirdRow.first()->appendRow(fourthRow);
+                }
 
-                    if(be_v == "RegisterName")
+                picojson::array cModules = cBoard.get( "Modules" ).get<picojson::array>();
+
+                for ( const auto& cModuleNode : cModules )
+                {
+                    cModuleId = ( cModuleNode.get( "ModuleId" ).get<double>() );
+                    uint32_t cFMCId = ( cModuleNode.get( "FMCId" ).get<double>() );
+                    uint32_t cFeId = ( cModuleNode.get( "FeId" ).get<double>() );
+
+                    QList<QStandardItem *> thirdRow = prepareRow("Front End Id: " + QString::number(cModuleId));
+                    QList<QStandardItem *> thirdRow_2 = prepareRow("FMC Id: " + QString::number(cFMCId));
+                    QList<QStandardItem *> thirdRow_3 = prepareRow("Fe Id: " + QString::number(cFeId));
+                    secondRow.first()->appendRow(thirdRow);
+                    secondRow.first()->appendRow(thirdRow_2);
+                    secondRow.first()->appendRow(thirdRow_3);
+
+                    bool cStatus = cModuleNode.get( "Status" ).evaluate_as_boolean();
+
+                    if ( cStatus )
                     {
-                        QList<QStandardItem *> thirdRow = prepareRow(be_v + " : " + be_values.toString());
-                        secondRow.first()->appendRow(thirdRow);
-                        auto regvalues = map_BeBoardId->value(be_kv).toMap().value(be_v);
 
-                        for (auto& reg_kv: regvalues.toMap().keys())
-                        {
-                            QList<QStandardItem *> fourthRow = prepareRow(reg_kv + " : " + regvalues.toMap().value(reg_kv).toString());
-                            thirdRow.first()->appendRow(fourthRow);
-                        }
-                    }
+                        std::string cFilePrefix;
+                        if ( !cModuleNode.get( "CbcFilePath" ).is<picojson::null>() ) cFilePrefix = cModuleNode.get( "CbcFilePath" ).get<std::string>();
+                        picojson::array cCbcs = cModuleNode.get( "CBCs" ).get<picojson::array>();
 
-                    else if(be_v == "Module")
-                    {
-                        QList<QStandardItem *> thirdRow = prepareRow(be_v + " : " + be_values.toString());
-                        secondRow.first()->appendRow(thirdRow);
-                        auto regvalues = map_BeBoardId->value(be_kv).toMap().value(be_v);
-                        for (auto& reg_kv: regvalues.toMap().keys())
+                        for ( const auto& cCbcNode : cCbcs )
                         {
-                            if(reg_kv == "CbcRegisters")
+                            cCbcId = ( cCbcNode.get( "Id" ).get<double>() );
+                            std::string cFileName;
+                            if ( !cFilePrefix.empty() )
+                                cFileName = cFilePrefix + cCbcNode.get( "configfile" ).get<std::string>();
+                            else cFileName = cCbcNode.get( "configfile" ).get<std::string>();
+
+                            QList<QStandardItem *> cbcRow = prepareRow("Cbc " + QString::number(cCbcId) + " : Files Path: " + QString::fromStdString(cFileName));
+                            secondRow.first()->appendRow(cbcRow);
+
+                            if ( !cCbcNode.get( "Register" ).is<picojson::null>() )
                             {
-                                QList<QStandardItem *> fourthRow = prepareRow(reg_kv);
-                                thirdRow.first()->appendRow(fourthRow);
-
-                                auto cbc_values =  regvalues.toMap().value(reg_kv).toMap();
-                                for(auto& cbc_reg : cbc_values.keys())
+                                for ( const auto& cRegister :  cCbcNode.get( "Register" ).get<picojson::object>( ) )
                                 {
-                                    QList<QStandardItem *> fifthRow = prepareRow(cbc_reg + " : " + cbc_values.value(cbc_reg).toString());
-                                    fourthRow.first()->appendRow(fifthRow);
+                                    QList<QStandardItem *> cbcRegRow = prepareRow(QString::fromStdString(cRegister.first) + " : " + QString::fromStdString(cRegister.second.get<std::string>().c_str()));
+                                    cbcRow.first()->appendRow(cbcRegRow);
                                 }
                             }
 
-                            else if(reg_kv == "CbcConfigFile")
+                            if ( !cModuleNode.get( "Global_CBC_Registers" ).is<picojson::null>() )
                             {
-                                QList<QStandardItem *> fourthRow = prepareRow(reg_kv);
-                                thirdRow.first()->appendRow(fourthRow);
-                                auto cbc_values =  regvalues.toMap().value(reg_kv).toList();
-
-                                for (auto& config_kv : cbc_values)
+                                // iterate the registers
+                                for ( const auto& cRegister :  cModuleNode.get( "Global_CBC_Registers" ).get<picojson::object>( ) )
                                 {
-                                    QList<QStandardItem *> fifthRow = prepareRow(config_kv.toString());
-                                    fourthRow.first()->appendRow(fifthRow);
+                                    QList<QStandardItem *> cbcGlobalRegRow = prepareRow(QString::fromStdString(cRegister.first) + " : " + QString::fromStdString(cRegister.second.get<std::string>().c_str()));
+                                    cbcRow.first()->appendRow(cbcGlobalRegRow);
                                 }
                             }
-
-                            else
-                            {
-                                QList<QStandardItem *> fourthRow = prepareRow(reg_kv + " : " + regvalues.toMap().value(reg_kv).toString());
-                                thirdRow.first()->appendRow(fourthRow);
-                            }
                         }
-                    }
-
-                    else
-                    {
-                        QList<QStandardItem *> thirdRow = prepareRow(be_v + " : " + be_values.toString());
-                        secondRow.first()->appendRow(thirdRow);
                     }
                 }
             }
+            cNShelve++;
         }
         return standardModel;
     }
@@ -213,7 +205,7 @@ namespace GUI
 
     QString Settings::ReadJsonFromInternalResource()
     {
-        QDir res_dir (RESOURCE_PREFIX);
+        QDir res_dir;
 
         if (!res_dir.exists())
         {
@@ -230,24 +222,6 @@ namespace GUI
         }
 
         QString settings = res_file.readAll();
-        return settings;
-    }
-
-    QString Settings::ReadJsonFromCustomResource()
-    {
-        QDir res_dir;
-
-        auto path = res_dir.filePath(m_filename);
-
-        QFile res_file(path);
-        if(!res_file.open(QFile::ReadOnly|QFile::Text))
-        {
-            SendStatusMessage(tr("Could not open internal resource ") );//+ path);
-            return ""; //flush
-        }
-
-        QString settings = res_file.readAll();
-        qDebug() << settings;
         return settings;
     }
 

@@ -1,8 +1,7 @@
 #pragma once
 #include <QObject>
 #include <QVariantMap>
-
-#include <QDebug>
+#include "../../Utils/picojson.h"
 #include <QStandardItem>
 
 class QString;
@@ -20,8 +19,6 @@ namespace GUI{
         void ParseCustomJsonData();
 
         QString getHwFileName() {return m_filename;}
-        QVariantMap getshelveIdMap() const {return *map_ShelveId;} //QVariantMaps are implicitly shared
-        QVariantMap getHwDescriptionMap() const {return *map_HwDescription;}
         ~Settings();
 
     signals:
@@ -35,13 +32,10 @@ namespace GUI{
     private:
         QString m_filename;
 
+
         QStandardItemModel *CreateItemModel();
         QStandardItemModel *getHwStandardItems() {return CreateItemModel();}
-
-        QVariantMap* map_Settings;
-        QVariantMap* map_HwDescription;
-        QVariantMap* map_ShelveId;
-        QVariantMap* map_BeBoardId;
+        picojson::value m_jsonValue;
 
         QList <QString> list_ShelveId;
         QList <QString> list_BeId;
@@ -50,12 +44,11 @@ namespace GUI{
         QList<QStandardItem *> prepareRow(const QString &first);
 
         QString ReadJsonFromInternalResource();
-        QString ReadJsonFromCustomResource();
         QString ReadJsonFile();
-        QString ReadCustomJsonFile();
+
         void SendStatusMessage(QString msg);
 
-        QVariantMap GetJsonObject(const QString &rawJson);
+        picojson::value GetJsonObject(const QString &rawJson);
 
         explicit Settings(const Settings& rhs) = delete;
         Settings& operator= (const Settings& rhs) = delete;
