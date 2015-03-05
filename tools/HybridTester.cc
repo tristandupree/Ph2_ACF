@@ -252,10 +252,6 @@ void HybridTester::ScanThreshold()
 	// Fit and save the SCurve & Fit - extract the right threshold
 	// TODO
 	processSCurves( cEventsperVcth );
-
-	// Wait for user to acknowledge and turn on external Source!
-	std::cout << "Identified the threshold for 0 noise occupancy - Start external Signal source!" << std::endl;
-	mypause();
 }
 
 void HybridTester::processSCurves( uint32_t pEventsperVcth )
