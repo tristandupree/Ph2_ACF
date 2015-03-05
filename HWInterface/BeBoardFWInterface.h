@@ -32,6 +32,7 @@ using namespace Ph2_HwDescription;
  */
 namespace Ph2_HwInterface
 {
+	class FpgaConfig;
 	/*!
 	 * \class BeBoardFWInterface
 	 * \brief Class separating board system FW interface from uHal wrapper
@@ -71,7 +72,8 @@ namespace Ph2_HwInterface
 		virtual void getBoardInfo();
 
 		//These two methods will be implemented soon
-		virtual void FlashProm() {}
+		virtual void FlashProm(uint16_t numConfig, const char* pstrFile) {}
+		virtual const FpgaConfig* getConfiguringFpga(){ return NULL; }
 		virtual void ProgramCdce() {}
 
 		//Encode/Decode Cbc values

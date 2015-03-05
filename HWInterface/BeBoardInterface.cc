@@ -167,4 +167,15 @@ namespace Ph2_HwInterface
 	}
 
 
+	void BeBoardInterface::FlashProm( BeBoard* pBoard, uint16_t numConfig, const char* pstrFile)
+	{
+		setBoard( pBoard->getBeBoardIdentifier() );
+		fBoardFW->FlashProm( numConfig, pstrFile );
+	}
+
+	const FpgaConfig* BeBoardInterface::getConfiguringFpga(BeBoard* pBoard)
+	{
+		setBoard( pBoard->getBeBoardIdentifier() );
+		return fBoardFW->getConfiguringFpga();
+	}
 }
