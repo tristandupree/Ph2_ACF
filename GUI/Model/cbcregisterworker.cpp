@@ -56,7 +56,6 @@ namespace GUI
 
     void CbcRegisterWorker::getInitialCbcRegistersMap()
     {
-        qDebug() << "get initial map";
         getObjects();
 
         for ( auto cShelve : fShelveVector )
@@ -78,7 +77,6 @@ namespace GUI
 
     void CbcRegisterWorker::getCbcRegistersMap()
     {
-        qDebug() << "get Map";
         getObjects();
 
         for ( auto cShelve : fShelveVector )
@@ -100,7 +98,6 @@ namespace GUI
 
     void CbcRegisterWorker::writeCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg)
     {
-        qDebug() << "write to cbc";
         getObjects();
 
         for ( auto cShelve : fShelveVector )

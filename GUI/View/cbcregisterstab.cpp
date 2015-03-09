@@ -129,16 +129,16 @@ namespace GUI {
 
     void CbcRegistersTab::updateCbcRegisterValues(const int cbc, const std::map<std::string, CbcRegItem> mapReg)
     {
-        /*for(auto &kv : mapReg)
+        for(auto &kv : mapReg)
         {
             auto cValue = kv.second.fValue;
-            //qDebug() << QString::fromStdString(kv.first) << "  " << cValue;
+            qDebug() << QString::fromStdString(kv.first) << "  " << cValue;
 
             //std::cout << m_widgetMap.at(cbc).value(kv.first);
 
             //qDebug() << m_widgetMap.at(cbc).value(kv.first);
-            //m_widgetMap.at(cbc).value(kv)->setText(QString::number(cValue));
-        }*/
+            m_widgetMap.at(cbc).value(QString::fromStdString(kv.first))->setText(QString::number(cValue));
+        }
     }
 
     QTabWidget *CbcRegistersTab::createCbcTab()
@@ -186,11 +186,8 @@ namespace GUI {
                 std::uint8_t regValue = *&stupidConversion[0];
 
                 vecRegValues.push_back(std::make_pair(regTitle, regValue));
-                std::cout << regTitle << "  " << regValue<< std::endl;
             }
-            qDebug() << "init";
             emit writeCbcRegisters(nCbc, vecRegValues);
-            qDebug() << "done";
             ++nCbc;
         }
     }
