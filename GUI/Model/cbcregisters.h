@@ -24,9 +24,11 @@ namespace GUI{
         ~CbcRegisters();
 
     signals:
+        void createInitialCbcRegistersMap();
+        void sendInitialCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg);
         void sendCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg);
+        void writeCbcRegisterValue(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg);
         void getCbcRegistersMap();
-        void sendCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg);
 
     private:
         SystemController& m_systemController;

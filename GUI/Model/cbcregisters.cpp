@@ -19,16 +19,10 @@ namespace GUI
                                        sysCtrl))
     {
         qRegisterMetaType<std::map<std::string,CbcRegItem>>("std::map<std::string,CbcRegItem>");
+        qRegisterMetaType<std::vector<std::pair<std::string,std::uint8_t> >>("std::vector<std::pair<std::string,std::uint8_t> >");
         m_worker->moveToThread(m_thread);
         WireThreadConnections();
         Initialise();
-    }
-
-    void CbcRegisters::Initialise()
-    {
-        m_worker->abort();
-        m_thread->wait();
-        m_worker->requestWork();
     }
 
     CbcRegisters::~CbcRegisters()
@@ -50,9 +44,23 @@ namespace GUI
         connect(m_worker, SIGNAL(finished()),
                 m_thread, SLOT(quit()), Qt::DirectConnection);
 
+
+        connect(this, SIGNAL(createInitialCbcRegistersMap()),
+                m_worker, SLOT(getInitialCbcRegistersMap()));
+        connect(m_worker, SIGNAL(sendInitialCbcRegisterValue(int,std::map<std::string,CbcRegItem>)),
+                this, SIGNAL(sendInitialCbcRegisterValue(int,std::map<std::string,CbcRegItem>)));
         connect(this, SIGNAL(getCbcRegistersMap()),
                 m_worker, SLOT(getCbcRegistersMap()));
-        connect(m_worker, SIGNAL(sendCbcRegisterValue(int,std::map<std::string,CbcRegItem>)),
-                this, SIGNAL(sendCbcRegisterValue(int,std::map<std::string,CbcRegItem>)));
+        connect(this, SIGNAL(writeCbcRegisterValue(int,std::vector<std::pair<std::string,std::uint8_t> >)),
+                m_worker, SLOT(writeCbcRegisters(int,std::vector<std::pair<std::string,std::uint8_t> >)));
+
+
+    }
+
+    void CbcRegisters::Initialise()
+    {
+        m_worker->abort();
+        m_thread->wait();
+        m_worker->requestWork();
     }
 }

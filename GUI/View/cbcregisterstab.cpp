@@ -1,6 +1,7 @@
 #include "cbcregisterstab.h"
 #include "ui_cbcregisterstab.h"
 
+#include <QFont>
 #include <QVector>
 #include <QMap>
 #include <QWidget>
@@ -54,11 +55,17 @@ namespace GUI {
         test.fPage=0;
         test.fValue=6;
 
-        std::map<std::string, CbcRegItem> testing = {{"Hey", test},{"Hey2222", test},{"Hey33", test},{"Hey4", test},{"Hey5", test},{"Hey666666666666666", test},{"Hey7", test},{"Hey88", test}};
-        qDebug() << "creating test";
+        /*std::map<std::string, CbcRegItem> testing;
+        for(int i=0; i<50; i++)
+        {
+            std::string tit = "Test";
+            tit.append(std::to_string(i));
 
-        //createCbcRegisterValue(0,testing);
-        //createCbcRegisterValue(1,testing);
+            testing.insert( std::pair<std::string, CbcRegItem>(tit,test ) );
+        }
+
+        createCbcRegisterValue(0,testing);
+        createCbcRegisterValue(1,testing);*/
 
     }
 
@@ -67,49 +74,47 @@ namespace GUI {
     {
         int row = 0;
         int column = 0;
-        int cLineSize = 0;
-
-        m_widgetMap.clear();
+        int cSizeTitle = 0;
+        int cSizeAddr = 0; //TODO size by page number
+        QMap<QString, QLineEdit*> cWidgetMap;
 
         for (auto& kv : mapReg)
         {
+            QFont font("Sans Serif", 8);
+            QHBoxLayout *loHorz = new QHBoxLayout; //Lo to add to grid
+            QSpacerItem *spacer = new QSpacerItem(50,50); //TODO play with this
 
-            QGridLayout *loCbcPage = m_loGridVec.at(cbc).at(kv.second.fPage); //access cbc->page
-
-            QHBoxLayout *loHorz = new QHBoxLayout; //will contain label + text edit
-
-            auto cAddress = kv.second.fAddress;
-
-            QString cHexAddress;
             QLabel *lblRegTitle = new QLabel(this);
             QLabel *lblRegAddress = new QLabel(this);
 
             lblRegTitle->setText(QString::fromStdString(kv.first));
-            lblRegAddress->setText(QString("[0x%1]").arg(cHexAddress.setNum(cAddress,16)));
+            lblRegTitle->setFont(font);
 
-            if (cLineSize < lblRegTitle->width())
-            {
-                cLineSize = lblRegTitle->width(); //find min width needed
-            }
+            auto cAddress = kv.second.fAddress;
+            if (cAddress < 16) lblRegAddress->setText(QString("[0x0%1]").arg(QString::number(cAddress,16))); //appends padding 0
+            else lblRegAddress->setText(QString("[0x%1]").arg(QString::number(cAddress,16)));
+            lblRegAddress->setFont(font);
 
             QLineEdit *lineRegValue = new QLineEdit(this);
+            lineRegValue->setFixedWidth(30);
             lineRegValue->setText(QString::number(kv.second.fValue));
-            lineRegValue->setMaximumWidth(30);
+            lineRegValue->setFont(font);
 
             loHorz->addWidget(lblRegTitle);
-            loHorz->addWidget(lblRegAddress);
             loHorz->setAlignment(lblRegTitle, Qt::AlignLeft);
+            loHorz->addWidget(lblRegAddress);
+            loHorz->setAlignment(lblRegAddress, Qt::AlignLeft);
             loHorz->addWidget(lineRegValue);
             loHorz->setAlignment(lineRegValue, Qt::AlignLeft);
+            loHorz->addSpacerItem(spacer);
+            loHorz->addStretch(5);
 
-            loCbcPage->addLayout(loHorz, row, column);
-            loCbcPage->setAlignment(Qt::AlignLeft);
+            m_loGridVec.at(cbc).at(kv.second.fPage)->addLayout(loHorz, row, column);
 
-            QMap<QString, QMap<QLabel*, QLineEdit*>> mapWidgets;
-            QMap<QLabel*, QLineEdit*> map;
-            map.insert(lblRegTitle, lineRegValue);
-            mapWidgets.insert(QString::fromStdString(kv.first), map );
-            m_widgetMap.push_back(mapWidgets); //TODO use this to send later specific registers
+            cWidgetMap.insert(QString::fromStdString(kv.first),lineRegValue);
+
+            if (cSizeTitle < lblRegTitle->width()) cSizeTitle = lblRegTitle->width(); //find min width needed
+            if (cSizeAddr < lblRegAddress->width()) cSizeAddr = lblRegAddress->width();
 
             ++row;
 
@@ -119,39 +124,41 @@ namespace GUI {
                 row = 0;
             }
         }
+        m_widgetMap.push_back(cWidgetMap);
+    }
 
-        for(auto& cCbc : m_widgetMap) //vector of CBCs
+    void CbcRegistersTab::updateCbcRegisterValues(const int cbc, const std::map<std::string, CbcRegItem> mapReg)
+    {
+        /*for(auto &kv : mapReg)
         {
-            for(auto& regNames : cCbc.keys()) //registerName keys
-            {
-                for(auto& widget : cCbc.value(regNames).keys())
-                {
-                    widget->setMinimumWidth(cLineSize + 50);
-                    cCbc.value(regNames).value(widget)->setMinimumWidth(20);
-                }
-            }
-        }
+            auto cValue = kv.second.fValue;
+            //qDebug() << QString::fromStdString(kv.first) << "  " << cValue;
+
+            //std::cout << m_widgetMap.at(cbc).value(kv.first);
+
+            //qDebug() << m_widgetMap.at(cbc).value(kv.first);
+            //m_widgetMap.at(cbc).value(kv)->setText(QString::number(cValue));
+        }*/
     }
 
     QTabWidget *CbcRegistersTab::createCbcTab()
     {
-        QTabWidget *tabCbc = new QTabWidget(this);
+        QTabWidget *tabCbc =  new QTabWidget(this);
 
-        std::vector<QGridLayout*> loVec; //to add to master layout
+        QVector<QGridLayout*> loVec; //to add to master layout
 
-        for(int i=0; i<2; i++) //number of pages
+        for(int i=0; i<2; i++) //number of REGISTER pages
         {
             QWidget *client = new QWidget; //client widget for scroll area
             QScrollArea *scrollArea = new QScrollArea;
             scrollArea->setWidgetResizable(true);
-            scrollArea->setWidget(client);
+            scrollArea->setWidget(client); //add scroll area to client
             QGridLayout *loGrid = new QGridLayout;
             client->setLayout(loGrid);
 
             QWidget *pageWidget = new QWidget;
             pageWidget->setLayout(new QVBoxLayout);
             pageWidget->layout()->addWidget(scrollArea);
-
 
             QString title = QString("Page %1").arg(i);
             tabCbc->addTab(pageWidget, title);
@@ -167,23 +174,23 @@ namespace GUI {
     {
         int nCbc = 0;
 
-        for(auto& cCbc : m_widgetMap) //vector of CBCs
+        for(auto& cCbc : m_widgetMap)
         {
             std::vector<std::pair<std::string, std::uint8_t>> vecRegValues;
-            for(auto& regNames : cCbc.keys())//registerName keys
+            for (auto& regName : cCbc.keys())
             {
-                for(auto& widget : cCbc.value(regNames).keys())
-                {
-                    std::string regTitle = (widget->text()).toStdString();
-                    std::string regValueTemp= (cCbc.value(regNames).value(widget)->text()).toStdString();
+                std::string regTitle = regName.toStdString();
 
-                    std::vector<uint8_t> stupidConversion(regValueTemp.begin(), regValueTemp.end());
-                    std::uint8_t regValue = *&stupidConversion[0];
+                std::string regValueTemp = (cCbc.value(regName)->text()).toStdString();
+                std::vector<uint8_t> stupidConversion(regValueTemp.begin(), regValueTemp.end());
+                std::uint8_t regValue = *&stupidConversion[0];
 
-                    vecRegValues.push_back(std::make_pair(regTitle, regValue));
-                }
+                vecRegValues.push_back(std::make_pair(regTitle, regValue));
+                std::cout << regTitle << "  " << regValue<< std::endl;
             }
-            emit sendCbcRegisters(nCbc, vecRegValues);
+            qDebug() << "init";
+            emit writeCbcRegisters(nCbc, vecRegValues);
+            qDebug() << "done";
             ++nCbc;
         }
     }
@@ -199,13 +206,12 @@ namespace GUI {
     {
         emit refreshCbcRegisters();
     }
-    void CbcRegistersTab::on_btnUpdate_clicked()
+
+    void CbcRegistersTab::on_btnWrite_clicked()
     {
-        qDebug() << "Pressed..";
         createCbcRegItems();
-        emit refreshCbcRegisters();
-        qDebug() << "Pressed";
+        //emit updateCbcRegisters();
     }
 
-}
 
+}

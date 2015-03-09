@@ -16,13 +16,15 @@ namespace GUI{
         ~CbcRegisterWorker();
 
     signals:
+        void sendInitialCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg);
         void sendCbcRegisterValue(const int cbc, const std::map<std::string, CbcRegItem> mapReg);
         void workRequested();
         void finished();
 
     public slots:
-        void sendCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg);
+        void writeCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg);
         void doWork();
+        void getInitialCbcRegistersMap();
         void getCbcRegistersMap();
 
     private:

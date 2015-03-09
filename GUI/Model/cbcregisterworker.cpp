@@ -54,8 +54,9 @@ namespace GUI
         fBeBoardFWMap = m_systemController.getBeBoardFWMap();
     }
 
-    void CbcRegisterWorker::getCbcRegistersMap()
+    void CbcRegisterWorker::getInitialCbcRegistersMap()
     {
+        qDebug() << "get initial map";
         getObjects();
 
         for ( auto cShelve : fShelveVector )
@@ -68,16 +69,38 @@ namespace GUI
 
                     for ( auto cCbc : cFe->fCbcVector )
                     {
-                        //qDebug() << "emitting for " << cCbc->getCbcId();
-                        emit sendCbcRegisterValue(cCbc->getCbcId(), cCbc->getRegMap());
+                        emit sendInitialCbcRegisterValue(cCbc->getCbcId(), cCbc->getRegMap());
                     }
                 }
             }
         }
     }
 
-    void CbcRegisterWorker::sendCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg)
+    void CbcRegisterWorker::getCbcRegistersMap()
     {
+        qDebug() << "get Map";
+        getObjects();
+
+        for ( auto cShelve : fShelveVector )
+        {
+            for ( auto cBoard : ( cShelve )->fBoardVector )
+            {
+                for ( auto cFe : cBoard->fModuleVector )
+                {
+                    fCbcInterface->ReadAllCbc(cFe);
+
+                    for ( auto cCbc : cFe->fCbcVector )
+                    {
+                        emit sendCbcRegisterValue(cCbc->getCbcId(), cCbc->getRegMap()); //TODO - change to ptr and not Id
+                    }
+                }
+            }
+        }
+    }
+
+    void CbcRegisterWorker::writeCbcRegisters(const int cbc, std::vector<std::pair<std::string, std::uint8_t>> mapReg)
+    {
+        qDebug() << "write to cbc";
         getObjects();
 
         for ( auto cShelve : fShelveVector )
@@ -91,7 +114,6 @@ namespace GUI
                         if (cCbc->getCbcId()==cbc)
                         {
                             fCbcInterface->WriteCbcMultReg(cCbc, mapReg );
-                            qDebug() << "values written";
                         }
                     }
                 }

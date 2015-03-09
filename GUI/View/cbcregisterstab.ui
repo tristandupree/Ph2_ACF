@@ -26,9 +26,9 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="btnUpdate">
+         <widget class="QPushButton" name="btnWrite">
           <property name="text">
-           <string>Update</string>
+           <string>Write</string>
           </property>
          </widget>
         </item>

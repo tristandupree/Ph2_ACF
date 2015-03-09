@@ -7,6 +7,7 @@
 #include "View/cmtesttab.h"
 #include "View/aboutbox.h"
 
+#include <QSpacerItem>
 #include <QDebug>
 
 namespace GUI{
@@ -27,6 +28,10 @@ namespace GUI{
         ui->loHybridTest->addWidget(&hybrid);
         ui->loHybridTest->addWidget(&calibrate);
         ui->loHybridTest->addWidget(&cm);
+
+        QSpacerItem *spacer = new QSpacerItem(50,50);
+        ui->loHybridTest->addSpacerItem(spacer);
+        ui->loHybridTest->addStretch(5);
 
         enableAllTabsSlot(false);
     }
