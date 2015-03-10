@@ -85,16 +85,11 @@ You'll need Xilinx Impact and a [Xilinx Platform Cable USB II] (http://uk.farnel
 
 3. Finally, update uHAL to version 2.3:
 
-<<<<<<< HEAD
-        sudo yum groupremove uhal
-        wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
-        (You may need the --no-check-certificate)
-=======
         $> sudo yum groupremove uhal
-        $> wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
->>>>>>> Dev
+        $>wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
 
-	
+    (You may need the --no-check-certificate)
+
         $> sudo cp cactus.slc5.x86_64.repo /etc/yum.repos.d/cactus.repo
         $> sudo yum clean all
         $> sudo yum groupinstall uhal
@@ -122,33 +117,6 @@ Note: You may also need to set the environment variables:
 
     For SLC5:
 
-<<<<<<< HEAD
-The GUI :
---------
-
-These instructions are provided to install the optional GUI.
-
-1. Install qtRoot:
-
-	```
-svn co https://svn.code.sf.net/p/qtroot/code/trunk qtRoot
-	```
-2. Install QJson:
-	```
-	wget  http://downloads.sourceforge.net/qjson/qjson-0.8.1.tar.bz2
-	```
-3. Source the variables:
-	```
-	 set_environment.sh
-	```
-4. Make and run the GUI:
-	```
-	cd GUI
-	make
-	cd ..
-	./GUI/Ph2_ACF
-	```
-=======
         $> wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc5.x86_64.repo 
    
     or for SLC6:
@@ -156,7 +124,6 @@ svn co https://svn.code.sf.net/p/qtroot/code/trunk qtRoot
         $> wget http://svnweb.cern.ch/trac/cactus/export/28265/tags/ipbus_sw/uhal_2_3_0/scripts/release/cactus.slc6.x86_64.repo 
 
     (You may need the --no-check-certificate)
->>>>>>> Dev
 
     for SLC5:
 
@@ -177,6 +144,35 @@ Note: You may also need to set the environment variables:
 
     $> export LD_LIBRARY_PATH=/opt/cactus/lib:$LD_LIBRARY_PATH
     $> export PATH=/opt/cactus/bin:$PATH
+
+
+#### The GUI :
+
+ These instructions are provided to install the optional GUI.
+
+1. Install qtRoot:
+
+    $> svn co https://svn.code.sf.net/p/qtroot/code/trunk qtRoot
+
+2. Install QJson:
+    
+     $> wget  http://downloads.sourceforge.net/qjson/qjson-0.8.1.tar.bz2
+
+3. Source the variables:
+
+    $> source setup.sh
+        
+4. Make the GUI:
+
+        $> make
+    or
+
+        $> make GUI
+
+5. Run it:
+        
+        $> Ph2_ACF
+
 
 ### The Ph2_ACF Software : 
 
