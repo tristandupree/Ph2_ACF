@@ -12,6 +12,7 @@
 
 
 #include "BeBoardFWInterface.h"
+#include "FpgaConfig.h"
 
 #define DEV_FLAG         0
 

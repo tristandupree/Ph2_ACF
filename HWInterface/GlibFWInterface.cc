@@ -14,7 +14,7 @@
 #include "GlibFWInterface.h"
 #include <chrono>
 #include <thread>
-
+#include "FpgaConfig.h"
 
 namespace Ph2_HwInterface
 {
@@ -550,5 +550,16 @@ namespace Ph2_HwInterface
 		ReadI2cBlockValuesInSRAM( pVecReq );
 
 		EnableI2c( 0 );
+	}
+
+	void GlibFWInterface::FlashProm(uint16_t numConfig, const char* pstrFile)
+	{
+		if (fpgaConfig && fpgaConfig->getUploadingFpga()>0)
+			throw Exception("This board is already uploading an FPGA configuration");
+		
+		if (!fpgaConfig)
+			fpgaConfig=new FpgaConfig(this); 
+
+		fpgaConfig->runUpload(numConfig, pstrFile);
 	}
 }

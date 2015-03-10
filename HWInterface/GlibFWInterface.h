@@ -29,6 +29,7 @@ using namespace Ph2_HwDescription;
  */
 namespace Ph2_HwInterface
 {
+	class FpgaConfig;
 	/*!
 	 * \class GlibFWInterface
 	 * \brief init/config of the Glib and its Cbc's
@@ -40,7 +41,7 @@ namespace Ph2_HwInterface
 		struct timeval fStartVeto;
 		std::string fStrSram, fStrSramUserLogic, fStrFull, fStrReadout, fStrOtherSram, fStrOtherSramUserLogic;
 		std::string fCbcStubLat, fCbcI2CCmdAck, fCbcI2CCmdRq, fCbcHardReset, fCbcFastReset;
-
+		FpgaConfig* fpgaConfig;
 
 	  private:
 		/*!
@@ -157,6 +158,9 @@ namespace Ph2_HwInterface
 		 * \param pVecReq : Vector to stack the read words
 		 */
 		void ReadCbcBlockReg( uint8_t pFeId, std::vector<uint32_t>& pVecReq );
+
+		void FlashProm(uint16_t numConfig, const char* pstrFile);
+		const FpgaConfig* getConfiguringFpga(){ return fpgaConfig; }
 
 	};
 }
