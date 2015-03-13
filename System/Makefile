@@ -18,6 +18,7 @@ ExternalObjects = $(LibraryPaths) -lPh2_Interface -lPh2_Description
 
 all: $(Objs)
 	$(CC) -std=c++11 -shared -o libPh2_System.so $(Objs)
+	mkdir -p ../lib
 	mv libPh2_System.so ../lib
 
 clean:

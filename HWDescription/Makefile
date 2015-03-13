@@ -16,6 +16,7 @@ IncludePaths            = $(IncludeDirs:%=-I%)
 
 all: $(Objs)
 	$(CC) -shared -o libPh2_Description.so $(Objs)
+	mkdir -p ../lib
 	mv libPh2_Description.so ../lib
 
 clean:

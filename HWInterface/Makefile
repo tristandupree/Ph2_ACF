@@ -14,6 +14,7 @@ IncludePaths            = $(IncludeDirs:%=-I%)
 
 all: $(Objs) ../HWDescription/Definition.h
 	$(CC) -std=c++11 -shared -o libPh2_Interface.so $(Objs) -pthread
+	mkdir -p ../lib
 	mv libPh2_Interface.so ../lib
 
 clean:
